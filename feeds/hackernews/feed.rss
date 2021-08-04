@@ -5976,5 +5976,122 @@ With any luck, <a href="https://github.com/XVimProject/XVim2">XVim</a> will cont
       <pubDate>Wed, 04 Aug 2021 19:18:26 +0000</pubDate>
       <source>https://www.huffpost.com/entry/icu-doctor-health-care-workers-unvaccinated-patients_n_6102ad2ae4b000b997df1f17</source>
     </item>
+    <item>
+      <title>Parsing Excel XLSX Using Tcl Parser Tools (2011)</title>
+      <link>https://wiki.tcl-lang.org/page/Parsing+Excel+XLSX</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+<div>
+<p><a href="https://wiki.tcl-lang.org/page/JBR">jbr</a> - 2011/02/14 (Happy Valentines Day)</p><p>Here is some code I&#39;ve written to parse and evaluate formula in an Excel 2008 xml format spreadsheet. I generate some very complex reports in Excel format using perl (XLSX:Excel:Writer <a href="https://wiki.tcl-lang.org/page/Using+Perl+to+get+Excel">Using Perl to get Excel</a>), so my xlsx output files do not have the values precomputed for each cell the way excel writes its output by default. To allow testing and verification of values that I&#39;m pushing out to the client I need to be able to evaluate the formula that I&#39;ve written. This is a rather long story but it starts with an example of using the Tcl <a href="https://wiki.tcl-lang.org/page/Parser+Tools">Parser Tools</a> from tcllib 1.13:</p><p>xls-parser.peg:</p><div><pre id="mkup_code_0"> PEG xlsexpr (Formula)
+        Formula    &lt;- Expr EOF ;
+
+        MulOp   &lt;- &#39;&lt;&#39; / &#39;&gt;&#39; / &#39;=&#39; / &#39;*&#39; / &#39;/&#39;          ;
+        Expo    &lt;- Value (&#39;^&#39; Value)?                   ;
+        Prod    &lt;- Expo WS (MulOp WS Expo)*                     ;
+        AddOp   &lt;- &#39;^&#39; / &#39;+&#39; / &#39;-&#39;                      ;
+        Sum     &lt;- Prod WS (AddOp WS Prod)*                     ;
+        Expr    &lt;- Sum                                  ;
+
+ void:   WS      &lt;- &lt;space&gt;*                             ;
+
+        Value       &lt;- UnOp? ( &#39;(&#39; Expr &#39;)&#39; / String / Func / Range / Cell / Number )   ;
+
+        UnOp        &lt;- &#39;-&#39; / &#39;+&#39;                        ;
+
+
+        Func    &lt;- FunName &#39;(&#39; WS FunArgs WS &#39;)&#39;                ;
+        FunName &lt;- &lt;alpha&gt;&lt;alnum&gt;*                      ;
+        FunArgs &lt;- Expr WS (&#39;,&#39; WS Expr)*                       ;
+
+        Range      &lt;- Sheet? RowCol &#39;:&#39; RowCol          ;
+        Cell       &lt;- Sheet? Cell_                      ;
+        Sheet      &lt;- &#34;&#39;&#34;? Sheet_ &#34;&#39;&#34;? &#39;!&#39;              ;
+        Sheet_     &lt;- [-A-Za-z0-9&amp; ]+                   ;
+        Cell_      &lt;- &lt;alpha&gt;+&lt;ddigit&gt;+                 ;
+        RowCol     &lt;- Col_ Row_                         ;
+        Col_       &lt;- &lt;alpha&gt;+                          ;
+        Row_       &lt;- &lt;ddigit&gt;+                         ;
+
+        String     &lt;- &#39;&#34;&#39; [A-Za-z0-9]* &#39;&#34;&#39;                      ;
+
+ leaf:   Number  &lt;- Sign? ( &lt;ddigit&gt;+ Frac? ) / Frac?    ;
+        Sign    &lt;- &#39;-&#39; / &#39;+&#39;                            ;
+        Frac    &lt;- &#39;.&#39; &lt;ddigit&gt;*                        ;
+
+        EOF        &lt;- !.                                ;
+ END;</pre></div><p>Here is a Makefile to generate a parser for Excel expressions. I wanted parser tool to generate a parser for TclOO but the evaluator for oo:: failed so I ended up using snit. The sed command fixes up a little bug in the parser tool output:</p><p>Makefile</p><div><pre id="mkup_code_1"> PT=pt
+
+ parser : xls-parser.peg
+        $(PT) generate snit -class xls-parser  -name xls-parser xls-parser.tcl peg xls-parser.peg
+        sed -e s/PACKAGE/xls-parser/ &lt; xls-parser.tcl &gt; tmp
+        mv tmp xls-parser.tcl</pre></div><p>This is the top level driver program. The interesting command here is &#34;compare&#34;. It loads the same spreadsheet twice, clearing the excel provided values from any cell which contains a formula in one copy and then comparing the values with the tcl evaluated values of the cells. </p><p>xlsx</p><div><pre id="mkup_code_2"> #!/bin/env tclkit8.6
+ #
+
+ source  xml.tcl   ; # this is tax
+ source xlsx.tcl
+
+ package require vfs
+ package require vfs::zip
+
+ set argv [lassign $argv op]
+
+ switch $op {
+ form {
+    lassign $argv file sheet cell
+
+    workbook create wb $file
+    puts [[wb name2obj $sheet] form $cell]
+ }
+ cell {
+    lassign $argv file sheet cell
+
+    workbook create wb $file
+    puts [[wb name2obj $sheet] cell $cell]
+ }
+ cell+ {
+    lassign $argv file sheet cell
+
+    workbook create wb $file
+    wb clear
+    puts [[wb name2obj $sheet] cell? $cell]
+ }
+ cells {        workbook create wb [lindex $argv 0]
+                foreach name [wb sheets] {
+                    set sheet [wb name2obj $name]
+                    puts [list $sheet [$sheet cells]]
+                }
+ }
+
+ compare {
+    lassign $argv file1 file2
+
+    workbook create wb1 $file1
+    workbook create wb2 $file2
+
+    wb2 clear
+
+    foreach name1 [wb1 sheets] name2 [wb2 sheets] {
+        if { $name1 ne $name2 } {
+            puts &#34;Sheet names don&#39;t match $name1, $name2&#34;
+        }
+
+        set sh1 [wb1 name2obj $name1]
+        set sh2 [wb2 name2obj $name2]
+
+        foreach cell [$sh1 cells] {
+            #puts &#34;$name1 $cell&#34;
+            if { [set v1 [$sh1 cell $cell]] != [set v2 [$sh2 cell $cell]] } {
+                puts &#34;$name1 : $cell $v1 != $v2&#34;
+            }
+        }
+    }
+ }
+ }</pre></div><p>Down here in the guts of the thing are two Tcl gems.</p><ul><li><a href="https://wiki.tcl-lang.org/page/vfs%3A%3Azip">vfs::zip</a></li><li><a href="https://wiki.tcl-lang.org/page/TAX%3A+A+Tiny+API+for+XML">TAX: A Tiny API for XML</a></li></ul><p>These two features make taking apart an MS Excel xlsx file pretty simple.</p><p>Here is the meat of the code. Its almost 500 lines so I&#39;ll just reference it here: <a rel="nofollow" href="https://github.com/jbroll/xlsx-expr">https://github.com/jbroll/xlsx-expr <span aria-hidden="true"></span></a></p><p>Included are methods to open the xlsx file and parse the cell values, formula and formats from the xml into instance variable arrays in the xlsx object. The &#34;=&#34; method evaluates the value of the cell including following a formula right through all the references in the spreadsheet. Each formula value is cached and evaluated only once. Formula are evaluated by parsing them into AST format with parser tools and then executing the AST as a script. The result of the script is an expression suitable for <a href="https://wiki.tcl-lang.org/page/expr">expr</a>, which is then called to obtain the cell&#39;s value. Just enough stuff is implemented here to support the syntax and functions in my spreadsheets, but extending this should be straight forward. I have evaluated workbooks with multiple worksheets, complex formula across thousands of cells with perfect agreement to the values that excel computes itself.</p><p>These Excel functions are currently supported:</p><ul><li>MAX</li><li>MIN</li><li>COUNT</li><li>SUM</li><li>AND</li><li>DAYS360</li><li>VLOOKUP</li><li>IF - This is handled specially in the AST expansion to short circuit. </li><li>YEAR</li><li>ROUND</li></ul><p>The parser is fed using tcl::chan::string which needs a small patch. The Allowance method is broken so I just added a &#34;return&#34; at the start of virtchannel_core/events.tcl:Allowance to disable any checking. This checking seemed like overkill to me anyway.</p><p><a href="https://wiki.tcl-lang.org/page/AK">AK</a>: The checking is necessary. My 2009 Conference paper on <a rel="nofollow" href="http://www.tclcommunityassociation.org/wub/proceedings/Proceedings-2009/proceedings/TclChannels/rtc.pdf">Reflecting and Transforming Channels <span aria-hidden="true"></span></a> (at the <a rel="nofollow" href="http://www.tclcommunityassociation.org/wub/proceedings/Proceedings-2009.html">TCA Conference Page <span aria-hidden="true"></span></a>) explains these internals. The actual issue was a missing constructor chaining preventing the proper initialization of the event management core. Fixed in the source repository head.</p>
+<p>Enjoy</p><hr/>
+</div>
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 19:45:52 +0000</pubDate>
+      <source>https://wiki.tcl-lang.org/page/Parsing+Excel+XLSX</source>
+    </item>
   </channel>
 </rss>
