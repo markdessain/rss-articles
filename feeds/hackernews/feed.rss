@@ -4357,6 +4357,7 @@ NPER(IR, -SR, 0, (1 - SR) ÷ SWR) = 16.62 years
 		
 	</div>
 </div></div>]]></content:encoded>
+      <guid>https://nypost.com/2021/08/03/nyc-to-mandate-proof-of-vaccination-for-many-indoor-settings/</guid>
       <pubDate>Tue, 03 Aug 2021 14:56:32 +0000</pubDate>
       <source>https://nypost.com/2021/08/03/nyc-to-mandate-proof-of-vaccination-for-many-indoor-settings/</source>
     </item>
@@ -4618,8 +4619,223 @@ You might also be interested in the similar POSIX IPC module at: http://semanchu
 <p>You can view the notebook to see the workings around this analysis on <a href="https://github.com/piwheels/stats/blob/master/pypi.ipynb"><strong>GitHub</strong></a>, including how I obtained the data from PyPI using the XMLRPC and JSON APIs.</p>
         
     </div></div>]]></content:encoded>
+      <guid>https://blog.piwheels.org/the-rinds-of-the-cheese-shop-menu/</guid>
       <pubDate>Tue, 03 Aug 2021 08:08:24 +0000</pubDate>
       <source>https://blog.piwheels.org/the-rinds-of-the-cheese-shop-menu/</source>
+    </item>
+    <item>
+      <title>Launch HN: Keyri (YC S21) – Secure smartphone-based passwordless authentication</title>
+      <link>https://news.ycombinator.com/item?id=28063339</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><td colspan="2"></td><td>Hi HN, we&#39;re Zain and Grant at Keyri. We make a white label passwordless authentication SDK that companies can embed into their mobile apps for instant biometrics-based registration and login on any device. Keyri can be used for (1) authentication by itself, (2) an auth option in addition to passwords and OpenID, (3) step-up identity verification in high risk-score scenarios.<p>Passwords suck - they&#39;re terrible for security and terrible for ease of use. 2FA solutions are clunky and still insecure - for example, SMS-based 2FA doesn&#39;t work when you travel abroad, and it can be defeated with phishing and SIM swapping. They also allow users to share their subscription accounts with others, robbing companies of revenue. Password-based auth also enables the sort of bot activity that renders sites like Ticketmaster and StockX unusable for real customers.</p><p>2FA methods currently in the market represent a tradeoff between security and ease of use. Secure 2FA methods like USB keys are a pain to use, while easy 2FA methods like SMS passcodes are unsecure. Keyri essentially takes the USB key concept and puts it in users&#39; phones. This is hard to do in a secure way while maintaining a seamless UX due to the need for two-way communication to prevent phishing. Some enterprise-focused smartphone-based passwordless solutions require a Bluetooth or WiFi connection between users’ phones and their other devices to ensure security, which is obviously untenable for rollout to mass audiences. Our system works securely 100% over HTTPS and computer vision (beyond just reading QR codes). An additional difficulty is that companies don&#39;t want to force their users to download a third-party app. We solve this with our SDK that allows companies to bake our passwordless auth capability into their apps.</p><p>Keyri replaces passwords with public key cryptography plus biometrics. Instead of remembering and typing in your credentials, authentication happens by just scanning a QR code (on desktop web) or tapping a button (on mobile web and mobile native apps). Thanks to biometrics and cryptographic functions happening in the background, multi-factor authentication happens in one step that takes less than a second.</p><p>At registration, the Keyri SDK generates a key pair, stores the private key in the phone&#39;s secure enclave, and sends the public key to the relying party&#39;s (our customer’s) credential server. At login, the SDK first verifies the user&#39;s identity via biometrics (Face ID etc.), then generates a signed authentication request using the stored private key, then sends that request to the relying party&#39;s auth server, which authenticates the user by verifying the signature using the public key it received during registration. The user&#39;s private keys never leave their phone. There&#39;s a lot more cryptography, handshakes, secret sauce, etc. that happen during the auth flow, but those are incidental to the core concept outlined above.</p><p>What&#39;s different about us? 1. Keyri is available as a mobile SDK, allowing any company to offer passwordless onboarding and WhatsApp-like QR code login entirely within their own app without a long and tricky dev cycle. 2. Keyri doesn&#39;t require any typing or setup / opt in. Other passwordless solutions require typing out a username/email address and/or connecting by bluetooth, specialized onboarding, etc. 3. Key backup and recovery is handled automatically via the cloud (iCloud / Google Drive). Additional backup/restore options are available in our SDK. 4. Privacy: unlike OpenID and some other passwordless solutions, Keyri’s server does not store or see any private keys or any personal information. Our API simply facilitates the transmission of public keys and encrypted signed authentication requests.</p><p>We charge companies based on how many unique users use Keyri to log in to their web services in a given month. We can provide our API in a self-hostable format for companies in heavily regulated industries. Our auth endpoint code is open source, but our API and mobile SDK are not.</p><p>If you want to try the experience, check out our live demo here: <a href="https://keyri.co/demo" rel="nofollow">https://keyri.co/demo</a>. Note that this demo uses our standalone authenticator app, which is available for companies that don’t have their own mobile app, but our main product is the white label SDK that incorporates the authenticator app’s full functionality (and then some) into our customers’ apps.</p><p>As a long-time HN lurker, I know the community has expertise and strong opinions on authentication. It would be great to get your feedback, and I’d be happy to answer any questions. We’re very actively building out the system, so any ideas for bolstering our system are welcome.</p></td></div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 16:54:43 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28063339</source>
+    </item>
+    <item>
+      <title>Finary (YC W21) Is Hiring Full Stack Engineers and a Product Designer</title>
+      <link>https://about.finary.io/careers</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-duration-in="300" data-duration-out="100"><div><div data-w-tab="care"><p>At Finary, we&#39;re dedicated to ensuring the well-being of our team, providing value for and sparking joy in our users, and leaving the world better off than how we found it.</p><p></p></div><div data-w-tab="initiative"><p>We’ve gotten to where we are through unrelenting boldness and high ambition, and we plan to keep it that way. Finary is a place to feel empowered to pitch those crazy ideas, seek out undiscovered opportunities, and go far beyond job description, all with the support of the team.</p><p></p></div><div data-w-tab="corners"><p>We do every task to a full 100%. That means patching that last annoying bug, pushing that last pixel, and finishing all those TODOs. Sweeping the corners pushes our team to hit our goals, drive the company forward, and take a great sense of pride in our work.</p><p></p></div><div data-w-tab="open-book"><p>We’re much bigger fans of oversharing over undersharing. At Finary, we bring honesty to the table, own up to our mistakes and ask for help, and share what’s going on across the company.</p><p></p></div></div></div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 17:01:00 +0000</pubDate>
+      <source>https://about.finary.io/careers</source>
+    </item>
+    <item>
+      <title>Facebook bans researchers who were investigating Facebook ads</title>
+      <link>https://www.dailydot.com/debug/facebook-bans-researchers-providing-transparency-on-sites-ads/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+						
+
+
+
+						
+						<a href="https://www.dailydot.com/topics/debug/">
+							<p>Tech</p>
+						</a>
+						
+						
+						<p>
+						Published Aug 4, 2021   Updated Aug 4, 2021, 11:31 am CDT						</p>
+					</div><div>
+						
+
+<p><a href="https://www.dailydot.com/tags/facebook/" target="_blank" rel="noreferrer noopener">Facebook</a> has banned a group of academics from New York University who researched <a href="https://www.dailydot.com/debug/facebook-political-ads-global-witness-analysis/" target="_blank" rel="noreferrer noopener">political ads</a> and misinformation on the platform. </p>
+
+
+
+<p>The social media giant announced in a blog post on Wednesday that it had banned the accounts, apps, and pages related to the <a href="https://adobservatory.org/" target="_blank" rel="noreferrer noopener">NYU Ad Observatory</a>, a project by <a href="https://cybersecurityfordemocracy.org/" target="_blank" rel="noreferrer noopener">Cybersecurity of Democracy</a>. The ban is the latest in a long-running feud Facebook has had with the academics. </p>
+
+
+
+<p>To aid in their research, the group created a browser plug-in called Ad Observer, which collects data on the political ads users see and why they were targeted for the ad. </p>
+
+
+
+<p>Specifically, the tool <a href="https://adobserver.org/" target="_blank" rel="noreferrer noopener">collects</a> the advertiser’s name, the ad’s content, information Facebook provided about how the ad was targeted, and when the ad was shown to a user, among other things. It doesn’t collect personal information. The data collected by Ad Observer is then made public.</p>
+
+
+
+<p>In October of last year, Facebook said the NYU Ad Observatory’s project violated their terms of service, as the <em><a href="https://www.wsj.com/articles/facebook-seeks-shutdown-of-nyu-research-project-into-political-ad-targeting-11603488533?mod=article_inline" target="_blank" rel="noreferrer noopener">Wall Street Journal</a></em> reported at the time. On Wednesday, the social media giant reiterated that in its <a href="https://about.fb.com/news/2021/08/research-cannot-be-the-justification-for-compromising-peoples-privacy/" target="_blank" rel="noreferrer noopener">blog post</a> explaining their reasoning for the ban. </p>
+
+
+
+<p>“While the Ad Observatory project may be well-intentioned, the ongoing and continued violations of protections against scraping cannot be ignored and should be remediated,” Mike Clark, the company’s product management director, wrote in the post. Clark also said the browser extension collected information about Facebook users “who did not install it or consent to the collection.”</p>
+
+
+
+<p>However, as <a href="https://www.protocol.com/nyu-facebook-researchers-scraping" target="_blank" rel="noreferrer noopener">Protocol noted in March</a>, the information collected from accounts that did not “consent to the collection” that Clark appears to be referring to was actually advertisers’ accounts, not private users. </p>
+
+
+
+<p>Laura Edelson, a member of Cybersecurity for Democracy, told <a href="https://www.protocol.com/nyu-researchers-facebook-disables-accounts" target="_blank" rel="noreferrer noopener">Protocol</a> that Facebook was “silencing us because our work often calls attention to problems on its platform.” The Daily Dot reached out to Cybersecurity for Democracy for comment, but didn’t immediately hear back. </p>
+
+
+
+<p>However, in a <a href="https://twitter.com/LauraEdelson2/status/1422736708433481730" target="_blank" rel="noreferrer noopener">series of tweets</a>, Edelson elaborated more on the social media giant’s decision. </p>
+
+
+
+<p>“This evening, Facebook suspended my Facebook account and the accounts of several people associated with Cybersecurity for Democracy, our team at NYU. This has the effect of cutting off our access to Facebook’s Ad Library data, as well as Crowdtangle,” Edelson wrote. “Over the last several years, we’ve used this access to uncover systemic flaws in the Facebook Ad Library, identify misinformation in political ads including many sowing distrust in our election system, and to study Facebook’s apparent amplification of partisan misinformation.” </p>
+
+
+
+<figure><div>
+<blockquote data-width="550" data-dnt="true"><p lang="en" dir="ltr">By suspending our accounts, Facebook has effectively ended all this work. Facebook has also effectively cut off access to more than two dozen other researchers and journalists who get access to Facebook data through our project, 3/4</p>— Laura Edelson (@LauraEdelson2) <a href="https://twitter.com/LauraEdelson2/status/1422736708433481730?ref_src=twsrc%5Etfw">August 4, 2021</a></blockquote>
+</div></figure>
+
+
+
+<p>Edelson continued: “By suspending our accounts, Facebook has effectively ended all this work. Facebook has also effectively cut off access to more than two dozen other researchers and journalists who get access to Facebook data through our project, including our work measuring vaccine misinformation with the Virality Project and many other partners who rely on our data. The work our team does to make data about disinformation on Facebook transparent is vital to a healthy internet and a healthy democracy.” </p>
+
+
+
+<hr/>
+
+
+
+<h3 id="h-read-more-about-big-tech">Read more about Big Tech</h3>
+
+
+
+<figure></figure>
+					</div><div>
+						<div>
+							
+
+							<p>
+								*First Published: Aug 4, 2021, 10:21 am CDT							</p>
+
+						</div><!-- row end -->
+					</div><div>
+  <div>
+    <h4>
+      <a href="https://www.dailydot.com/author/andrewwyrich/">Andrew Wyrich</a>
+    </h4>
+    <!-- <button class="btn ghost-btn-primary follow-btn inline-flex">Follow</button> -->
+    <p>Andrew Wyrich is the deputy tech editor at the Daily Dot. Andrew has written for USA Today, NorthJersey.com, and other newspapers and websites. His work has been recognized by the Society of the Silurians, Investigative Reporters &amp; Editors (IRE), and the Society of Professional Journalists (SPJ).</p>
+
+    
+  </div><!-- art-auth-details end -->
+
+  <p><a href="https://www.dailydot.com/author/andrewwyrich/">
+          </a>
+  </p> <!-- art-auth-image -->
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 17:17:11 +0000</pubDate>
+      <source>https://www.dailydot.com/debug/facebook-bans-researchers-providing-transparency-on-sites-ads/</source>
+    </item>
+    <item>
+      <title>Windows 365 paused due to high demand</title>
+      <link>https://www.theverge.com/2021/8/4/22609090/microsoft-365-free-trials-cloud-pcs-demand-trials</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_theverge_com_2021_8_4_22609090_microsoft-365-free-trials-cloud-pcs-demand-trials/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+  <p id="ux8WbJ">Microsoft launched its new cloud PC Windows 365 service <a href="https://www.theverge.com/2021/8/2/22605800/microsoft-windows-365-cloud-pc-streaming-html5">earlier this week</a>, and the company has already had to pause free trials due to demand. <a href="https://www.theverge.com/2021/7/14/22575064/microsoft-windows-365-cloud-pc-launch-date-price-features">Windows 365 lets you rent a cloud PC</a> — with a variety of CPU, RAM, and storage options — and then stream Windows 10 or Windows 11 via a web browser. The service reached max capacity after only a day of signups.</p>
+<p id="o5UwrX">“Following significant demand, we have reached capacity for Windows 365 trials,” reads a statement from the Microsoft 365 Twitter account. “We have seen unbelievable response to Windows 365 and need to pause our free trial program while we provision additional capacity,” <a href="https://twitter.com/RDS4U/status/1422616706485080065">explains Scott Manchester</a>, director of Windows 365 program management.</p>
+  <figure>
+  <span>
+    
+    <span data-original="https://cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg">
+      
+        <picture data-cid="site/picture_element-1628097650_7109_61419" data-cdata="{&#34;asset_id&#34;:22716693,&#34;ratio&#34;:&#34;*&#34;}">
+  
+
+
+  <source srcset="https://cdn.vox-cdn.com/thumbor/HyfoYyT_3gcVniIAGTZvqyQU9G8=/0x0:960x600/320x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 320w, https://cdn.vox-cdn.com/thumbor/8_DqVBN_UZxrjdMAx_b05UjHNqE=/0x0:960x600/520x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 520w, https://cdn.vox-cdn.com/thumbor/JiVdmHN8on5w2hYua-vk0lZEvs0=/0x0:960x600/720x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 720w, https://cdn.vox-cdn.com/thumbor/5xCcfBWtmnUhgsvHRcH9W2Ycyg0=/0x0:960x600/920x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 920w, https://cdn.vox-cdn.com/thumbor/ZhB_JyxFaGsraK3x0iZPrjhfbyw=/0x0:960x600/1120x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 1120w, https://cdn.vox-cdn.com/thumbor/mKiOOwPmMIYm5peN48x50vtsiP0=/0x0:960x600/1320x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 1320w, https://cdn.vox-cdn.com/thumbor/JVK_SSZ6STu5RZ0sJ2TeIQb6dLU=/0x0:960x600/1520x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 1520w, https://cdn.vox-cdn.com/thumbor/ucN5MwJvdd0YnVh3A3QakeBOzLg=/0x0:960x600/1720x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 1720w, https://cdn.vox-cdn.com/thumbor/unHa-8bLNJhe1w65kWHPfstSLio=/0x0:960x600/1920x0/filters:focal(0x0:960x600):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22716693/windows365web.jpg 1920w" sizes="(min-width: 1221px) 846px, (min-width: 880px) calc(100vw - 334px), 100vw" type="image/webp"/>
+
+
+
+
+</picture>
+
+      
+    </span>
+    
+  </span>
+  
+    <span>
+      
+        <figcaption><em>Windows 365 running in a browser.</em></figcaption>
+      
+      
+        <cite>Image: Microsoft</cite>
+      
+    </span>
+  
+</figure>
+
+<p id="e0xp0a">Windows 365 is only available to businesses right now, and there’s clearly been more demand than Microsoft had anticipated if the company has hit capacity issues after just a day of free trials. Microsoft launched the service on Monday, with per-user pricing that starts at $20 per month for one vCPU, 2GB of RAM, 64GB of storage, and 12GB of bandwidth if you already have a Windows 10 license.</p>
+<p id="UxfiUk">There are a variety of configurations for Windows 365, including one at the top end that includes eight vCPUs, 32GB of RAM, and 512GB of storage for $158 per month. All of the different price options are available at <a href="http://windows365.com/">Windows365.com</a>, but you’ll now need to <a href="https://info.microsoft.com/ww-landing-signup-for-updates-windows-from-the-cloud.html?LCID=EN-US">register interest</a> in a free trial as Microsoft has hit capacity.</p>
+  
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 16:15:34 +0000</pubDate>
+      <source>https://www.theverge.com/2021/8/4/22609090/microsoft-365-free-trials-cloud-pcs-demand-trials</source>
+    </item>
+    <item>
+      <title>Netflix announces Space X documentary on civilian mission into orbit</title>
+      <link>https://news.sky.com/story/netflix-announces-space-x-documentary-on-civilian-mission-into-orbit-12372247</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-component-name="sdc-article-body">
+                        
+                            <p>Netflix will stream a documentary next month which will follow the story of the world&#39;s first private all-civilian space orbit.</p><p>The group will board a <strong><a href="https://news.sky.com/topic/spacex-6129" target="_blank">SpaceX</a></strong> capsule next month and spend three days orbiting the Earth, becoming Netflix&#39;s first documentary &#34;to cover an event in near real-time&#34;.</p>
+<p>The privately chartered flight will be commanded, funded and led by 38-year-old billionaire Jared Isaacman, and aim to support St Jude Children&#39;s Research Hospital to the tune of $200 million.</p>
+
+
+<p>He will be joined on board by Sian Proctor, a geoscientist and former NASA candidate, Christopher Sembroski, a US Airforce veteran, and Hayley Arceneaux, a doctor&#39;s assistant at St Jude and childhood cancer survivor.</p><p>The group will apparently reach a higher altitude than the International Space Station as they orbit the planet in the SpaceX Dragon capsule, dubbed Inspiration4.</p>        
+<p>The quick-turnaround documentary will be made in five parts, with the first two premiering on 6 September.</p>
+<p>Inspiration4&#39;s actual launch is scheduled for 15 September - an event which will feature in the final part at the end of the month.</p><p>Viewers have been promised behind the scenes access of the mission - from their selection, to footage from inside the spacecraft while it orbits Earth.</p>
+                        </div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 16:54:35 +0000</pubDate>
+      <source>https://news.sky.com/story/netflix-announces-space-x-documentary-on-civilian-mission-into-orbit-12372247</source>
+    </item>
+    <item>
+      <title>Forgotten heroes of the Enigma Story (2018)</title>
+      <link>https://www.nature.com/articles/d41586-018-06149-y</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_nature_com_articles_d41586-018-06149-y/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+                    <p><b>X, Y &amp; Z: The Real Story of How Enigma Was Broken</b> <i>Dermot Turing</i> The History Press (2018) </p><p>Alan Turing’s crucial unscrambling of German messages in the Second World War was a tour de force of codebreaking. From 1940 onwards, Turing and his team engineered hundreds of electronic machines, dubbed bombes, which decrypted the thousands of missives sent by enemy commanders each day to guide their soldiers. This deluge of knowledge shortened the war. Bletchley Park, UK — the secret centre where it all happened — rightly gained its place in history. But as with all breakthroughs, many more people laid the foundations.</p><p>In his book <i>X, Y &amp; Z</i>, Dermot Turing, the great mathematician’s nephew, tells the gripping story of a band of Polish mathematicians who figured out much about how German Enigma encoding machines operated, years before Alan Turing did. The Poles shared their secrets with French and British intelligence services before and during the Second World War — the letters X, Y and Z were shorthand for the French, British and Polish codebreaking teams, respectively.</p><p>The author’s research is painstaking. After the war, military documents were scattered across Europe, and key French records were declassified only in 2016. Many original Polish papers were destroyed, but the mathematicians’ families have shared personal letters. Turing unearths a remarkable tale of intellect, bravery and camaraderie that reads like a nail-biting spy novel.</p><p>Polish skills in cryptography and radio engineering came together during the 1920 Russo-Polish War. Signallers decoded a telegram from Red Army military commander Joseph Stalin, which indicated that an attack on Warsaw was imminent. Jamming the Russians’ radio communications bought enough time to secure and save the city. Maksymilian Ciężki and Antoni Palluth were among those signallers. After the 1920 conflict, Ciężki became leader of a radio-intelligence unit. Palluth set up a business making electronic equipment, including radios the size of a credit card for Polish secret agents.</p><figure>
+ <div>
+  <p></p><figcaption>
+   <p><span>Polish codebreakers Antoni Palluth (left) and his cousin Sylwester stand in front of a chart of North African military operations in 1942, when they were working with French intelligence officer Gustave Bertrand in southern France.</span><span>Credit: Anna Zygalska-Cannon</span></p>
+  </figcaption>
+ </div>
+</figure><p>In 1926, the German navy began to send messages that were scrambled in a more random way, making them almost impossible to decipher. They were encoded using the typewriter-like Enigma machine. The keyboard was wired so that typing one letter lit up a different one in a set of bulbs on top. Rotors altered the path of the electric circuit with every keystroke. The machines were commercially available but modified for German military use. Without knowing the precise setting of a machine, there was no way to unpick the code.</p><p>The book tells how Ciężki hired a group of mathematics students to crack the problem. They worked quietly in basements and in a bunker deep in the woods. Marian Rejewski, an alumnus of Poznań University in Poland, was one. At the helm was Gwido Langer, a Pole who had worked in radio intelligence for the Austrian army.</p><p>Meanwhile, in France, Gustave Bertrand headed the equivalent unit. The French had a more conventional approach to gathering information: good agents, clandestine meetings and generous pay-offs. Bertrand managed two formidable spies. Rudolf Stallmann — code name Rex — was a German card-sharp who had posed as a baron to fleece casino-goers; he picked up languages and people with ease. Rex recruited Hans-Thilo Schmidt, or Agent Asche, whose brother was a colonel in the German army. Schmidt supplied cases of military documents to the French, which Rex received and Bertrand and his colleagues photographed in hotel bathrooms.</p><p>Bertrand built up a network for sharing intelligence, including with Poland and the United Kingdom. In 1931, he agreed to supply Langer with German military documents if the Poles would pass back decrypted German messages. One of those documents, passed on by Schmidt, was a manual for Enigma.</p><figure>
+ <div>
+  <p></p><figcaption>
+   <p><span>Polish mathematician Marian Rejewski relaxes in the French chateau where the codebreakers were working to crack the Enigma machine codes in 1942. </span><span>Credit: Anna Zygalska-Cannon</span></p>
+  </figcaption>
+ </div>
+</figure><p>Langer, Ciężki and Rejewski leapt on it. They discovered that a panel added to the front of the machine altered the settings, although they still could not tell how the device was wired. They set about collecting coded messages and applied their wits to find clues. Sometimes the senders made telling mistakes. The German soldiers might use simple sets of three letters, such as QQQ, to broadcast the settings to the receiver. Occasionally, the messages could be guessed: for instance, they often said <i>maschine defekt</i>.</p><p>By 1936, in the run-up to war, the German military was tightening its communications. In October that year, the senders began to reset the Enigma machines daily. Dermot Turing credits another Polish mathematician, Jerzy Różycki, with realizing that this altered the frequency of letters, revealing extra information. The team developed tools to work through the hundreds of permutations, including punched cards and a mechanical device with rotors that mimicked Enigma, which, for uncertain reasons, the team called a <i>bomba</i>. Both concepts were later used and developed by Alan Turing.</p><p>Bertrand fed this information back to Britain’s codebreakers, who come across in the book as humorous but aloof. They called the French dispatches — stamped <i>TRÈS SECRET</i> in red — scarlet pimpernels. In late July 1939, just over a month before the German army marched into Poland, Bertrand arranged for the respected British cryptologist Dillwyn ‘Dilly’ Knox (who was already working on Enigma at Bletchley) to meet Langer’s team near Warsaw. The Poles wanted to pass on their knowledge. Initially angry that they had beaten him to it, Knox later sent the Poles a silk scarf printed with a horse-racing scene to concede that they had won.</p><figure>
+ <div>
+  <p></p><figcaption>
+   <p><span>Rudolf Stallmann — code name Rex — was a German card-sharp who spied for the French intelligence service. </span><span>Credit: Christie Books</span></p>
+  </figcaption>
+ </div>
+</figure><p>The British immediately ramped up codebreaking efforts at Bletchley Park; within a few months, Alan Turing had re-engineered the bombes to work more quickly. The Polish insights saved him a year of work.</p><p>When war broke out, the Polish radio-intelligence unit was wound up. The codebreakers buried their notes and machines and fled. Some ended up in Algeria, the rest in France working for Bertrand, who had set up a radio-intelligence group in a chateau in southern France. In breathtaking passages, the book reveals how most of the Polish codebreakers made it through the war, tapping into the French Resistance and dodging Germany’s military-intelligence services and secret police when France became occupied. As valuable assets, the codebreakers were not allowed to fight. Touching photographs in the book show them joking with each other and spending time with girlfriends amid the devastation. </p><p>Eventually, Ciężki and Langer were arrested and interned in the Sudetenland (now part of the Czech Republic). After the war, they settled in Scotland. Palluth was killed in Germany in 1945, when an aeroplane factory in which he was working at Sachsenhausen concentration camp was bombed. Bertrand artfully played all sides. Avoiding becoming a double agent, he ended up a general. In 1972, he wrote a popular French book about Enigma, and so the story of X, Y and Z and Bletchley began to seep out.</p><p>Dermot Turing’s vivid and moving account sets the record straight.</p>
+                </div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 09:39:03 +0000</pubDate>
+      <source>https://www.nature.com/articles/d41586-018-06149-y</source>
     </item>
   </channel>
 </rss>
