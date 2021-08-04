@@ -5261,5 +5261,648 @@ USB4 specification is great for transferring small files, which was one of the i
       <pubDate>Wed, 04 Aug 2021 18:26:36 +0000</pubDate>
       <source>https://sealawards.com/upthecup/</source>
     </item>
+    <item>
+      <title>Convincing Xcode to map Vim keys</title>
+      <link>https://bryce.co/xcode-vim-map/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___bryce_co_xcode-vim-map_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article><p>I&#39;ve tried to make it clear in the title, but hopefully you haven&#39;t gotten to this page thinking that
+Apple provides a built-in way to add custom key mappings in Xcode 13&#39;s new Vim Mode.
+Unfortunately, this functionality just isn&#39;t easily configurable.</p><p>Instead, this is one of those “but everything&#39;s a <em>little</em> configurable with enough swizzling &amp; pointer arithmetic” kind of posts.</p><hr/><h2 id="table-of-contents">Table of Contents</h2><hr/><h2 id="background">Background</h2><p>First things first: Xcode 13 is the first Xcode release to offer a built-in Vim Mode!</p><p></p><p></p><p>This is huge news - I&#39;ve only really gotten into vim in the last few years,
+but it&#39;s one of those things that I don&#39;t think I could ever leave behind at this point.</p><p>I&#39;m a big fan of the <a href="https://github.com/XVimProject/XVim2">XVim</a> plugin for this reason, so seeing vim functionality added directly to Xcode is great.
+This is especially true since XVim is the last Xcode plugin I still commonly use - proper vim functionality in Xcode might mean not having to worry about managing plugins at all in the future.</p><p>That being said, while this is a significant step forward either way,
+it&#39;s not exactly a full implementation, as indicated by Apple&#39;s own fairly toned-down
+<a href="https://web.archive.org/web/20210801014803/https://developer.apple.com/xcode/">description</a>:</p><blockquote><p>Many common key combinations and editing modes familiar to Vim users are supported directly within the code editor…</p></blockquote><p>Now I really want to emphasize here - I&#39;m still already loving this feature.</p><p>Of course there are some bits of functionality that I&#39;ve found myself missing when using it so far - apparently I like to jump to specific line numbers using commands like <code>:25</code> a lot -
+but this feature has launched with enough functionality to cover what I want to do the majority of the time.</p><p><em>Except</em> for one big thing, which I have so far been unable to get over - I do normally have my escape key mapped to something else.</p><p>Well, in insert mode, at least. That part of my <code>.vimrc</code> file looks like this:</p><p><code>imap jk &lt;Esc&gt;</code></p><p>… which is really wonderful - it maps a <em>sequence</em> of keys - the <code>j</code> key, followed by the <code>k</code> key in quick succession - to exit insert mode.
+It&#39;s a common mapping, and for good reason - it&#39;s just a quick double-tap on the home row to switch modes.</p><video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/vim-example-light.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video>
+<video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/vim-example-dark.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video><p>The keys used - along with the exact behavior, where you get a sort of “fake” <code>j</code>
+until it resolves based on another keypress or a timeout - makes this a difficult
+thing to implement using software outside of Xcode.</p><p>But not only is it a core part of my muscle memory now
+(I was surprised how much the characters <code>jk</code> kept appearing in Xcode without this mapping available),
+but also something that I just don&#39;t want to get rid of; I found this to be my preference ages ago, and I don&#39;t want
+to learn something else just to appease Xcode.</p><p>So instead, let&#39;s see if we can bring Xcode over to our side.</p><hr/><h2 id="finding-xcodes-vim-implementation">Finding Xcode&#39;s Vim Implementation</h2><p>As is often the case with this sort of thing, we only really have a couple of steps to cover:</p><ol><li>Figure out where this logic is being handled</li><li>Change said logic</li></ol><p>So let&#39;s start with the first. When using Vim Mode, Xcode includes a new bottom bar that lists some currently-available actions:</p><p></p><p></p><p>One good starting option is to search for those action names and try to find where they&#39;re used - it&#39;s not a super-precise method, but it&#39;s fast and often works.</p><div><pre><code data-lang="bash">% <span>cd</span> /Applications/Xcode-13.0b4.app
+% rg --binary <span>&#34;yank \(copy\)&#34;</span> <span># rg = `ripgrep`</span>
+Binary file Contents/SharedFrameworks/SourceEditor.framework/Versions/A/SourceEditor matches
+</code></pre></div><p>A single match in a framework called <code>SourceEditor</code> - if anything I&#39;d expect a match in a localized file,
+containing something like <code>&#34;YANK_DESCRIPTION&#34; = &#34;yank (copy)&#34;</code>, after which we would search for <code>YANK_DESCRIPTION</code>. But hey, works for me!</p><p>Next we can open <code>SourceEditor</code> in a disassembler like <a href="https://www.hopperapp.com/">Hopper</a>, and then search for our “yank (copy)” string again.
+This gives a result that appears to be referenced by a function named <code>SourceEditor.ViYankToEndOfParagraphDownCommand.init</code>:</p><div><pre><code data-lang="bash"><span>;</span> DATA <span>XREF</span><span>=</span>_<span>$s12SourceEditor33ViYankToEndOfParagraphDownCommandC13eventConsumerAcA0c5EventL0C_tcfcTf4gg_n</span>+414
+000000000043ffd0    db    <span>&#34;yank (copy) line&#34;</span>
+</code></pre></div><p>A class name starting with <code>Vi</code> is good news!
+We have more digging to do, but the <code>SourceEditor</code> framework seems like the right place to start.</p><hr/><h2 id="finding-input-handling-logic">Finding Input Handling Logic</h2><p>Tracing through the rest of this using a disassembler is probably more effort than it&#39;s worth.</p><p>Instead, let&#39;s open up Xcode 13, attach a debugger to it, and put a breakpoint on all of the <code>SourceEditor.ViYankToEndOfParagraphDownCommand</code> methods.
+That way, if we perform a yank-to-end-of-paragraph in Vim Mode, we should hit our breakpoint.</p><div><pre><code data-lang="bash">% lldb
+
+<span>(</span>lldb<span>)</span> process attach --name Xcode
+Process <span>20279</span> stopped
+
+<span>(</span>lldb<span>)</span> b -r <span>&#34;SourceEditor.ViYankToEndOfParagraphDownCommand&#34;</span>
+Breakpoint 1: <span>22</span> locations.
+
+<span>(</span>lldb<span>)</span> <span>continue</span>
+Process <span>20279</span> resuming
+</code></pre></div><p>It is at this point that I am realizing that I have no idea how to yank to the end of a paragraph. Google says <code>y}</code>?</p><p>That doesn&#39;t seem to hit the breakpoint though, and it&#39;s unclear if it&#39;s from me doing the wrong thing or if this breakpoint didn&#39;t land somewhere useful.</p><p>Looking back in Hopper for other <code>SourceEditor.Vi</code>-prefixed classes, <code>SourceEditor.ViReplaceCharacterCommandHandler</code> jumps out as a good second option.
+I definitely know how to replace a character (should be <code>r</code>, followed by the replacement) and this class has a <code>CommandHandler</code> suffix rather than just <code>Command</code> - sounds like something that definitely should
+have a method called on it when a replacement happens.</p><p>After setting up the breakpoint and trying to replace a character, we&#39;re in luck!</p><div><pre><code data-lang="bash">Target 0: <span>(</span>Xcode<span>)</span> stopped.
+<span>(</span>lldb<span>)</span> bt
+* thread <span>#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 2.6</span>
+  * frame <span>#0: 0x12adc4ec0 SourceEditor`protocol witness for SourceEditor.CommandHandler.selectionMode.getter : Swift.Optional&lt;SourceEditor.SourceEditorView.SourceEditorSelectionMode&gt; in conformance SourceEditor.ViReplaceCharacterCommandHandler : SourceEditor.CommandHandler in SourceEditor</span>
+    frame <span>#1: 0x12afb1882 SourceEditor`SourceEditor.CommandInterface.performCommandWithSelector(_: ObjectiveC.Selector, sender: Swift.Optional&lt;Any&gt;, arguments: Swift.Optional&lt;Any&gt;...) throws -&gt; () + 242</span>
+    frame <span>#2: 0x12ade19fe SourceEditor`SourceEditor.SourceEditorView.perform(_: Swift.Optional&lt;ObjectiveC.Selector&gt;, with: Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Swift.Unmanaged&lt;Swift.AnyObject&gt;&gt; + 286</span>
+    frame <span>#3: 0x12ade1b0e SourceEditor`@objc SourceEditor.SourceEditorView.perform(_: Swift.Optional&lt;ObjectiveC.Selector&gt;, with: Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Swift.Unmanaged&lt;Swift.AnyObject&gt;&gt; + 126</span>
+    frame <span>#4: 0x12afc7b20 SourceEditor`SourceEditor.ViCommand.perform(actions: Swift.Array&lt;ObjectiveC.Selector&gt;, context: SourceEditor.ViEventConsumer.Context) -&gt; SourceEditor.ViCommand.PerformResult + 288</span>
+    frame <span>#5: 0x12afc7c1b SourceEditor`SourceEditor.ViCommand.perform(context: SourceEditor.ViEventConsumer.Context) -&gt; SourceEditor.ViCommand.PerformResult + 43</span>
+    frame <span>#6: 0x12afeb894 SourceEditor`SourceEditor.ViEventConsumer.(perform in _383C3123AEDAAFA7B0BF64D9906E584E)(command: SourceEditor.ViCommand, context: SourceEditor.ViEventConsumer.Context) -&gt; SourceEditor.ViCommand.PerformResult + 52</span>
+    frame <span>#7: 0x12afebfbb SourceEditor`SourceEditor.ViEventConsumer.(handle in _383C3123AEDAAFA7B0BF64D9906E584E)(commands: Swift.Array&lt;SourceEditor.ViCommand&gt;, context: SourceEditor.ViEventConsumer.Context) -&gt; Swift.Optional&lt;SourceEditor.ViCommand.PerformResult&gt; + 1211</span>
+    frame <span>#8: 0x12afec603 SourceEditor`SourceEditor.ViEventConsumer.handleKeyEvent(_: __C.NSEvent, in: SourceEditor.SourceEditorView) -&gt; Swift.Bool + 1443</span>
+    frame <span>#9: 0x13b38fe1a IDESourceEditor`IDESourceEditor.IDEViEventConsumer.handleKeyEvent(_: __C.NSEvent, in: SourceEditor.SourceEditorView) -&gt; Swift.Bool + 938</span>
+    frame <span>#10: 0x12b0de385 SourceEditor`SourceEditor.SourceEditorView.keyDown(with: __C.NSEvent) -&gt; () + 405</span>
+    frame <span>#11: 0x12b0de47f SourceEditor`@objc SourceEditor.SourceEditorView.keyDown(with: __C.NSEvent) -&gt; () + 47</span>
+    frame <span>#12: 0x7fff22e2f908 AppKit`-[NSWindow(NSEventRouting) _reallySendEvent:isDelayedEvent:] + 6482</span>
+    frame <span>#13: 0x7fff22e2dd96 AppKit`-[NSWindow(NSEventRouting) sendEvent:] + 347</span>
+    frame <span>#14: 0x104f16674 IDEKit`-[IDEWorkspaceWindow sendEvent:] + 154</span>
+    frame <span>#15: 0x7fff22e2cc11 AppKit`-[NSApplication(NSEvent) sendEvent:] + 3021</span>
+    frame <span>#16: 0x104f5a189 IDEKit`-[IDEApplication sendEvent:] + 857</span>
+    frame <span>#17: 0x7fff23104f71 AppKit`-[NSApplication _handleEvent:] + 65</span>
+    frame <span>#18: 0x7fff22c9506e AppKit`-[NSApplication run] + 623</span>
+    frame <span>#19: 0x1039f4e84 DVTKit`-[DVTApplication run] + 54</span>
+    frame <span>#20: 0x7fff22c6924c AppKit`NSApplicationMain + 816</span>
+    frame <span>#21: 0x7fff203c1f3d libdyld.dylib`start + 1</span>
+    frame <span>#22: 0x7fff203c1f3d libdyld.dylib`start + 1</span>
+</code></pre></div><p>From this stacktrace, we can see the following flow:</p><ol><li>Starting at the bottom, some general app/window logic that&#39;s slowly bubbling up an <code>NSEvent</code> (frame <code>#17</code> up through <code>#12</code>)</li><li>Xcode-specific handling of that event in <code>SourceEditor.SourceEditorView.keyDown</code> (frames <code>#11</code> and <code>#10</code>)</li><li>Vim-specific handling of that event in <code>IDESourceEditor.IDEViEventConsumer.handleKeyEvent</code> (frame <code>#9</code>)</li></ol><p>There&#39;s more vim handling above that as well, but things become messier as we go.</p><hr/><h2 id="where-to-hook">Where to Hook</h2><p>Now that we have even the smallest insight into what the control flow for a vim command looks like,
+it&#39;s clear that we&#39;re probably not going to be able to understand the whole system without a lot of effort:
+there are events, event consumers, event consumer contexts, commands, command interfaces, command handlers…
+I&#39;d probably have trouble wrapping my head around it even with source code &amp; documentation.</p><p>Instead, let&#39;s find a smaller area to focus on. We mostly just want to tell Xcode that it&#39;s actually receiving different inputs.
+That&#39;s not all we need to do - at some point, we will have to figure out how to do things like check which vim mode we&#39;re currently in -
+but we can burn that bridge when we get to it.</p><p>Let&#39;s start with the <code>IDESourceEditor.IDEViEventConsumer.handleKeyEvent</code> method that we called out above.
+It&#39;s the lowest vim-specific frame in the stack; low enough that it&#39;s only really dealing with <code>NSEvent</code>, so
+whatever logic handles mapping a keypress to a command likely happens after this point.</p><p>We can disable our original breakpoint and add a new one on this <code>IDEViEventConsumer.handleKeyEvent</code> method:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> br disable <span>2</span>
+<span>1</span> breakpoints disabled.
+
+<span>(</span>lldb<span>)</span> b IDESourceEditor.IDEViEventConsumer.handleKeyEvent
+Breakpoint 3: <span>where</span> <span>=</span> IDESourceEditor<span>`</span>IDESourceEditor.IDEViEventConsumer.handleKeyEvent...
+</code></pre></div><p>Back in Xcode, we can now hit any key to reach our breakpoint, since we&#39;re no longer breaking on character-replacement-logic;
+I&#39;ll start by using the mouse to move to Line 1, and then hitting the <code>j</code> key, which should move us down to Line 2; and the breakpoint is indeed hit!</p><p>We can now print out some information about the event we&#39;re working with:</p><div><pre><code data-lang="bash">Target 0: <span>(</span>Xcode<span>)</span> stopped.
+
+<span>(</span>lldb<span>)</span> po <span>$arg1</span>
+NSEvent: <span>type</span><span>=</span>KeyDown
+          <span>loc</span><span>=</span><span>(</span>544.636,595.392<span>)</span>
+         <span>time</span><span>=</span>111097.2
+        <span>flags</span><span>=</span>0x100
+          <span>win</span><span>=</span>0x7fb9ace853b0
+       <span>winNum</span><span>=</span><span>7437</span>
+         <span>ctxt</span><span>=</span>0x0
+        <span>chars</span><span>=</span><span>&#34;j&#34;</span>
+   <span>unmodchars</span><span>=</span><span>&#34;j&#34;</span>
+       <span>repeat</span><span>=</span><span>0</span>
+      <span>keyCode</span><span>=</span><span>38</span>
+</code></pre></div><p>There&#39;s our <code>j</code> keypress - makes sense so far. If we type <code>continue</code> in <code>lldb</code>, and go back to Xcode, we&#39;ll see we&#39;ve moved down to Line 2.</p><p>Now let&#39;s see if we can actually impact the result of a keypress. Back in Xcode, we can hit <code>j</code> again, starting the move down to Line 3.</p><p>In lldb though, we&#39;ll skip out on this method&#39;s logic entirely and simply return early. Based on the stacktrace above, our <code>IDEViEventConsumer.handleKeyEvent</code>
+method is expected to return a <code>Bool</code> - likely indicating whether or not it actually handled the key event. Let&#39;s start by returning <code>true</code> early:</p><div><pre><code data-lang="bash">Target 0: <span>(</span>Xcode<span>)</span> stopped.
+
+<span>(</span>lldb<span>)</span> thread <span>return</span> <span>true</span>
+* thread <span>#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 3.1</span>
+
+<span>(</span>lldb<span>)</span> <span>continue</span>
+</code></pre></div><p>After checking back in Xcode, we&#39;re still on Line 2! This makes sense - we&#39;ve effectively said that <code>IDEViEventConsumer.handleKeyEvent</code> has successfully handled the key
+event, but didn&#39;t actually do anything with it.</p><p>Let&#39;s try the inverse. We&#39;re still on Line 2; hitting <code>j</code> again brings us back to our breakpoint:</p><div><pre><code data-lang="bash">Target 0: <span>(</span>Xcode<span>)</span> stopped.
+
+<span>(</span>lldb<span>)</span> thread <span>return</span> <span>false</span>
+* thread <span>#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 3.1</span>
+
+<span>(</span>lldb<span>)</span> <span>continue</span>
+</code></pre></div><p>And looking back in Xcode… hm.</p><p></p><p></p><p>Saying that <code>IDEViEventConsumer</code> did not handle the key event meant a <code>j</code> character was inserted
+into our line, despite us having been in normal mode (in fact, we still are).</p><p>This points to one of two possibilities:</p><ol><li><code>IDEViEventConsumer.handleKeyEvent</code> is expected to handle all keypresses when Vim Mode is enabled.
+Our <code>thread return false</code> meant that we fell back to some non-vim-mode handler, which naturally just inserted a <code>j</code> character; this wouldn&#39;t happen in normal use.</li><li><code>IDEViEventConsumer.handleKeyEvent</code> actually only handles <em>some</em> keypresses in vim mode, like for navigation or switching between modes.
+General typing in insert mode is handled by some other event consumer later in the chain.</li></ol><p>That distinction might affect our path forward here, so let&#39;s see if we can figure out which is true.
+The easiest way to do that is to check what values this method is returning in different scenarios.</p><p>Back in Xcode, another <code>j</code> press to hit our breakpoint - this time, let&#39;s step out of the frame, and then check the <code>rax</code> register to see what value was returned:</p><blockquote><p>Note: If you&#39;re trying to replicate the steps in this post on an M1-based Mac, the return value here should be in $x0 instead; note that I haven&#39;t tested any part of this post on an M1 though - sorry!</p></blockquote><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> finish
+* thread <span>#1, queue = &#39;com.apple.main-thread&#39;, stop reason = step out</span>
+
+<span>(</span>lldb<span>)</span> p <span>$rax</span>
+<span>(</span>unsigned long<span>)</span> <span>$7</span> <span>=</span> <span>1</span>
+</code></pre></div><p>That <code>1</code> indcates that our method returned <code>true</code>, and was responsible for handling our <code>j</code> press accordingly.
+Next, let&#39;s enter insert mode; we can follow the same process to see a return value of <code>1</code> again for the <code>i</code> keypress that entered the mode.</p><p>Finally, another <code>j</code> press - but now when we check the return value:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> finish
+* thread <span>#1, queue = &#39;com.apple.main-thread&#39;, stop reason = step out</span>
+
+<span>(</span>lldb<span>)</span> p <span>$rax</span>
+<span>(</span>unsigned long<span>)</span> <span>$9</span> <span>=</span> <span>0</span>
+</code></pre></div><p>That confirms it - <code>IDEViEventConsumer.handleKeyEvent</code> is not actually responsible for handling events in insert mode.
+In that case, we&#39;ll want to hook into things one level down on the stack, in <code>SourceEditor.SourceEditorView.keyDown</code>.</p><p>This might make some things harder (like figuring out vim-specific context like what mode we&#39;re in; presumably, that would have been easier to access from a class called <code>IDEViEventConsumer</code>!), but it&#39;s necessary in order for us to manipulate events within insert mode.</p><p>Then again, it might make some things a lot easier - from the stacktrace above, it looks like there is an <code>@objc</code> entrance to <code>SourceEditor.SourceEditorView.keyDown</code>,
+meaning we should be able to swizzle it. That&#39;ll save us a good amount of headache over trying to hook a swift-only method.</p><hr/><h2 id="making-an-xcode-plugin">Making an Xcode Plugin</h2><p>This could probably be split out into its own post at some point, since I always struggle to find a somewhat up-to-date set of steps for making an Xcode Plugin.
+I think there are a few templates around that could be useful, but I usually prefer to know what I&#39;m changing, especially when there are few enough steps, so:</p><ol><li><p>Start with File &gt; New Project, and pick the macOS Bundle template.
+Project Name (I&#39;m using <code>XcodeVimMap</code>) and Organization Identifier are up to you, but change the Bundle Extension to <code>xcplugin</code>.</p></li><li><p>Add a new Obj-C Header / Implementation file using File &gt; New &gt; File, Cocoa Class. I&#39;ll use my project name for this class name as well - <code>XcodeVimMap</code>.</p><p>Here&#39;s what my implementation file looks like to start with:</p><div><pre><code data-lang="objc"><span>#</span><span>import &#34;XcodeVimMap.h&#34;</span><span>
+</span><span></span>
+<span>@implementation</span> <span>XcodeVimMap</span>
+
+<span>+</span> <span>(</span><span>void</span><span>)</span><span>pluginDidLoad:</span><span>(</span><span>NSBundle</span> <span>*</span><span>)</span><span>plugin</span> <span>{</span>
+    <span>NSLog</span><span>(</span><span>@&#34;</span><span>[XcodeVimMap] Plugin Loaded</span><span>&#34;</span><span>)</span><span>;</span>
+<span>}</span>
+
+<span>@end</span>
+</code></pre></div></li><li><p>In the Info.plist of the bundle, add a new <code>DVTPlugInCompatibilityUUIDs</code> key of type <code>array</code>.
+Add the associated UUID of the Xcode app version you&#39;re developing for as a <code>string</code> item within the array; you can get the UUID using:</p><div><pre><code data-lang="bash">defaults <span>read</span> /Applications/<span>{</span>PATH_TO_XCODE<span>}</span>.app/Contents/Info DVTPlugInCompatibilityUUID
+</code></pre></div></li><li><p>Add a <code>boolean</code> key named <code>XC4Compatible</code> with a value of <code>1</code>.</p></li><li><p>Add a <code>boolean</code> key named <code>XCPluginHasUI</code> with a value of <code>0</code>.</p></li><li><p>Update the <code>Principal Class</code> key to the name of the class you created. This is not strictly needed if you only have one class, but can save you some pain later.</p></li><li><p>If this is the first Xcode plugin you&#39;re installing for this copy of Xcode,
+<a href="https://github.com/XVimProject/XVim2/blob/master/SIGNING_Xcode.md">re-sign Xcode</a> (this can cause issues with your Xcode installation,
+but I&#39;m not really qualified to know what they are or speak much about them; but probably do some research is this if your first foray into plugins).</p></li><li><p>Build the plugin and copy the resulting product into <code>~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/</code>.</p></li><li><p>Launch Xcode from the command line, searching the output for news from your plugin:</p><div><pre><code data-lang="bash">/Applications/<span>{</span>PATH_TO_XCODE<span>}</span>.app/Contents/MacOS/Xcode 2&gt;<span>&amp;</span><span>1</span> <span>|</span> grep XcodeVimMap
+</code></pre></div><p>If you set up everything correctly, you should get a prompt within Xcode asking you if you want to load the bundle (<code>Unexpected code bundle &#34;...&#34;</code>). Note that the button you want is the non-highlighted one.
+After loading the bundle, you should see the <code>XcodeVimMap Loaded</code> output in your terminal.</p><blockquote><p>Note: If you see any output about the plugin not being loaded, such as <code>Skipping plug-in at path &#39;.../XcodeVimMap.xcplugin&#39;</code>,
+it&#39;s likely related to the Info.plist values specified above; double-check them before anything else.</p></blockquote></li></ol><p>If everything worked, there are two additional steps you can do to make development quicker:</p><ol><li><p>In your target&#39;s Build Settings, change <code>Installation Build Products Location</code> to <code>$(HOME)</code>, and <code>Installation Directory</code> to <code>/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code>.
+This will prevent you from having to copy the product over after each build.</p></li><li><p>In your scheme&#39;s settings, on the Run tab, and the Info sub-tab, change your <code>Executable</code> to be the copy of Xcode that you&#39;re developing for.
+This will let you hit the Run button to launch another instance of Xcode after building, see its log output, and debug it. Note that as of writing,
+you&#39;ll also have to uncheck <code>Enable user interface debugging</code> in the Options sub-tab, or you&#39;ll get an error message about being unable to load a debugger plugin.</p><p>Xcode is fairly slow with a debugger attached,
+so if the debugger isn&#39;t a core part of your workflow,
+it&#39;s worth unchecking the <code>Debug executable</code> box in the Info sub-tab -
+though we will be using it for parts of this post.</p></li></ol><p>With all that out of the way, we now have a general Xcode plugin set up - we can now start adding some vim-specific code to it.</p><hr/><h2 id="swizzling-the-event-handler">Swizzling the Event Handler</h2><p>We determined earlier that <code>SourceEditor.SourceEditorView.keyDown</code> was likely the ideal method to target here, so let&#39;s start by swizzling it in our plugin.</p><p>First, let&#39;s add a breakpoint on our <code>NSLog</code> statement in <code>pluginDidLoad:</code>
+so we can see if the class we want to swizzle is actually loaded by this point:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> po NSClassFromString<span>(</span>@<span>&#34;SourceEditor.SourceEditorView&#34;</span><span>)</span>
+ nil
+</code></pre></div><p>Looks like the class isn&#39;t loaded yet. We know it&#39;s defined in the <code>SourceEditor</code> framework, which we saw the path for
+near the top of this post; we can load it early ourselves using <code>dlopen</code>:</p><div><pre><code data-lang="objc"><span>// #import &lt;dlfcn.h&gt; for dlopen
+</span><span></span>
+<span>NSString</span> <span>*</span><span>xcodePath</span> <span>=</span> <span>[</span><span>[</span><span>NSBundle</span> <span>mainBundle</span><span>]</span> <span>bundlePath</span><span>]</span><span>;</span>
+<span>NSString</span> <span>*</span><span>sourceEditorPath</span> <span>=</span> <span>[</span><span>xcodePath</span> <span>stringByAppendingPathComponent</span><span>:</span><span>@&#34;</span><span>Contents/SharedFrameworks/SourceEditor.framework/Versions/A/SourceEditor</span><span>&#34;</span><span>]</span><span>;</span>
+<span>dlopen</span><span>(</span><span>[</span><span>sourceEditorPath</span> <span>cStringUsingEncoding</span><span>:</span><span>NSUTF8StringEncoding</span><span>]</span><span>,</span> <span>RTLD_NOW</span><span>)</span><span>;</span>
+
+<span>NSLog</span><span>(</span><span>@&#34;</span><span>[XcodeVimMap] SourceEditor Loaded</span><span>&#34;</span><span>)</span><span>;</span>
+</code></pre></div><p>If we add a breakpoint on this new <code>NSLog</code> statement and re-run, we can confirm our class is now loaded:</p><div><pre><code data-lang="objc"><span>(</span><span>lldb</span><span>)</span> <span>po</span> <span>NSClassFromString</span><span>(</span><span>@&#34;</span><span>SourceEditor.SourceEditorView</span><span>&#34;</span><span>)</span>
+<span>SourceEditor</span><span>.</span><span>SourceEditorView</span>
+</code></pre></div><p>We should now be able to set up our swizzle accordingly. Note that I&#39;m using a bit of a
+weird format where we keep a reference to the original implementation in a function pointer
+rather than just using <code>method_exchangeImplementations</code>; I ran into some oddness with the usual setup,
+and would rather save the related debugging effort for elsewhere in this post - something tells me I&#39;ll need it.</p><div><pre><code data-lang="objc"><span>// #import &lt;AppKit/AppKit.h&gt; for NSEvent
+</span><span></span><span>// #import &lt;objc/runtime.h&gt; for runtime fun
+</span><span></span>
+<span>// Holds the original method implementation
+</span><span></span><span>static</span> <span>BOOL</span><span>(</span><span>*</span><span>originalKeyDown</span><span>)</span><span>(</span><span>id</span> <span>self</span><span>,</span> <span>SEL</span> <span>_cmd</span><span>,</span> <span>NSEvent</span> <span>*</span><span>event</span><span>)</span><span>;</span>
+
+<span>// Log keypress events, then forward to original implementation
+</span><span></span><span>-</span> <span>(</span><span>BOOL</span><span>)</span><span>swizzled_keyDown:</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>event</span> <span>{</span>
+    <span>NSLog</span><span>(</span><span>@&#34;</span><span>[XcodeVimMap] Got Characters: %@</span><span>&#34;</span><span>,</span> <span>event</span><span>.</span><span>characters</span><span>)</span><span>;</span>
+    <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+<span>}</span>
+
+<span>+</span> <span>(</span><span>void</span><span>)</span><span>pluginDidLoad:</span><span>(</span><span>NSBundle</span> <span>*</span><span>)</span><span>plugin</span> <span>{</span>
+    <span>// ...
+</span><span></span>
+    <span>Method</span> <span>originalMethod</span> <span>=</span> <span>class_getInstanceMethod</span><span>(</span>
+        <span>NSClassFromString</span><span>(</span><span>@&#34;</span><span>SourceEditor.SourceEditorView</span><span>&#34;</span><span>)</span><span>,</span>
+        <span>NSSelectorFromString</span><span>(</span><span>@&#34;</span><span>keyDown:</span><span>&#34;</span><span>)</span><span>)</span><span>;</span>
+
+    <span>Method</span> <span>replacementMethod</span> <span>=</span> <span>class_getInstanceMethod</span><span>(</span>
+        <span>[</span><span>self</span> <span>class</span><span>]</span><span>,</span>
+        <span>@selector</span><span>(</span><span>swizzled_keyDown</span><span>:</span><span>)</span><span>)</span><span>;</span>
+
+    <span>// Save the original implementation so we can
+</span><span></span>    <span>// call it from `swizzled_keyDown`
+</span><span></span>    <span>originalKeyDown</span> <span>=</span> <span>(</span><span>void</span> <span>*</span><span>)</span><span>method_getImplementation</span><span>(</span>
+            <span>originalMethod</span><span>)</span><span>;</span>
+
+    <span>// Replace the method
+</span><span></span>    <span>method_setImplementation</span><span>(</span>
+        <span>originalMethod</span><span>,</span>
+        <span>method_getImplementation</span><span>(</span><span>replacementMethod</span><span>)</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Now we can Build &amp; Run, open a source file, and start typing:</p><div><pre><code data-lang="txt">[XcodeVimMap] Plugin Loaded
+[XcodeVimMap] SourceEditor Loaded
+[XcodeVimMap] Got Characters: G (// move to end of file)
+[XcodeVimMap] Got Characters: i (// switch to insert mode)
+[XcodeVimMap] Got Characters: H
+[XcodeVimMap] Got Characters: e
+[XcodeVimMap] Got Characters: l
+[XcodeVimMap] Got Characters: l
+[XcodeVimMap] Got Characters: o
+[XcodeVimMap] Got Characters:  
+[XcodeVimMap] Got Characters: W
+[XcodeVimMap] Got Characters: o
+[XcodeVimMap] Got Characters: r
+[XcodeVimMap] Got Characters: l
+[XcodeVimMap] Got Characters: d
+[XcodeVimMap] Got Characters: !
+</code></pre></div><p>Hooray! We&#39;ve just built the world&#39;s worst Xcode keylogger!</p><hr/><h2 id="testing-our-new-capabilities">Testing Our New Capabilities</h2><p>Now that we have a hook into the root of Xcode&#39;s source editor input handling,
+there are a few things we should try out, since we&#39;ll need them for our final implementation;
+better to make sure they work now rather than later.</p><h4 id="sending-delayed-inputs">Sending Delayed Inputs</h4><p>As mentioned earlier in this post, the remap functionality we&#39;re looking for
+adds a ‘fake’ <code>j</code> when the key is pressed, before fully committing to it; this way,
+vim can determine if the next key is a <code>k</code> (indicating we should exit) or if the
+user really just meant to type <code>j</code>.</p><p>There are two rough proxies of that that I can think of:</p><ol><li>Don&#39;t insert a <code>j</code> at all when we receive a keypress, until either the next key is pressed
+or a time threshold has passed. If the next key is <code>k</code>, don&#39;t insert the <code>j</code> at all, just exit.</li><li>Do insert a <code>j</code> under the assumption that it is wanted. If the next key is <code>k</code>, delete the <code>j</code>, then exit.</li></ol><p>I like the first option a lot more - anything that deals with deleting content starts to get tricky,
+even in a situation where you have full control over things - which we don&#39;t. Doing something simple like sending
+a <code>backspace</code> event leads to problems if, for example, the user has clicked on another line or
+highlighted some text with their mouse in the meantime
+(I guess that might introduce issues in either case, but still; option 1 feels the least destructive).</p><p>In either case, we need the ability to send an event at a time when it didn&#39;t originally occur.
+This is probably perfectly fine, but might as well test while we&#39;re here.</p><p>An easy way to do so would be to
+send the same input multiple times, with one coming after a delay. This isn&#39;t guaranteed to work if these events used
+some sort of nonce-based system, but that seems unlikely, and we can debug if needed. So let&#39;s try it:</p><div><pre><code data-lang="objc"><span>-</span> <span>(</span><span>BOOL</span><span>)</span><span>swizzled_keyDown:</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>event</span> <span>{</span>
+    <span>NSLog</span><span>(</span><span>@&#34;</span><span>[XcodeVimMap] Got Characters: %@</span><span>&#34;</span><span>,</span> <span>event</span><span>.</span><span>characters</span><span>)</span><span>;</span>
+
+    <span>dispatch_after</span><span>(</span><span>dispatch_time</span><span>(</span><span>DISPATCH_TIME_NOW</span><span>,</span> <span>1</span> <span>*</span> <span>NSEC_PER_SEC</span><span>)</span><span>,</span> <span>dispatch_get_main_queue</span><span>(</span><span>)</span><span>,</span> <span>^</span><span>{</span>
+        <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+    <span>}</span><span>)</span><span>;</span>
+
+    <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>And the result, after a bit of typing:</p><pre><code>HelloH elwlo world!orld!
+</code></pre><h4 id="sending-multiple-inputs-per-frame">Sending Multiple Inputs per Frame</h4><p>This is another one where I&#39;d be surprised if we encountered issues, but better to confirm upfront.</p><p>If we want to send a queued <code>j</code> key as soon as we see a non-<code>k</code> key pressed, we likely want to send both
+at the same time. Let&#39;s use essentially the same setup, without the delay, to confirm that
+Xcode allows for this:</p><div><pre><code data-lang="objc"><span>-</span> <span>(</span><span>BOOL</span><span>)</span><span>swizzled_keyDown:</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>event</span> <span>{</span>
+    <span>NSLog</span><span>(</span><span>@&#34;</span><span>[XcodeVimMap] Got Characters: %@</span><span>&#34;</span><span>,</span> <span>event</span><span>.</span><span>characters</span><span>)</span><span>;</span>
+
+    <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+    <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>And the result:</p><pre><code>HHeelllloo  WWoorrlldd!!
+</code></pre><h4 id="modifying-inputs">Modifying Inputs</h4><p>If we want to be able to map some inputs on to others, we need to make sure we can actually modify and send
+different events than the ones we&#39;re originally given.</p><p><code>NSEvent</code> is not mutable, but we can make a helper method to clone a given event with some differences applied.
+This won&#39;t work well if <code>NSEvent</code> has any internal state that isn&#39;t surfaced here, but we can start with this
+and worry about that if it comes up.</p><div><pre><code data-lang="objc"><span>+</span> <span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>modifiedEvent:</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>event</span> <span>withCharacters:</span><span>(</span><span>NSString</span> <span>*</span><span>)</span><span>characters</span> <span>{</span>
+    <span>return</span> <span>[</span><span>NSEvent</span> <span>keyEventWithType</span><span>:</span><span>event</span><span>.</span><span>type</span>
+                            <span>location</span><span>:</span><span>event</span><span>.</span><span>locationInWindow</span>
+                       <span>modifierFlags</span><span>:</span><span>event</span><span>.</span><span>modifierFlags</span>
+                           <span>timestamp</span><span>:</span><span>event</span><span>.</span><span>timestamp</span>
+                        <span>windowNumber</span><span>:</span><span>event</span><span>.</span><span>windowNumber</span>
+                             <span>context</span><span>:</span><span>nil</span> <span>// event.context is deprecated and only returns `nil`
+</span><span></span>                          <span>characters</span><span>:</span><span>characters</span>
+         <span>charactersIgnoringModifiers</span><span>:</span><span>characters</span> <span>// unclear if we have to worry about this distiction
+</span><span></span>                           <span>isARepeat</span><span>:</span><span>NO</span>
+                             <span>keyCode</span><span>:</span><span>event</span><span>.</span><span>keyCode</span><span>]</span><span>;</span> <span>// wagering that no code actually reads this, so we don&#39;t have to change it accordingly
+</span><span></span><span>}</span>
+</code></pre></div><p>Now we can write something to try changing some events around. This should swap the <code>j</code> and <code>k</code> keys,
+both in normal mode (where navigating up and down across lines will be reversed) and in insert mode:</p><div><pre><code data-lang="objc"><span>-</span> <span>(</span><span>BOOL</span><span>)</span><span>swizzled_keyDown:</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>event</span> <span>{</span>
+    <span>if</span> <span>(</span><span>[</span><span>event</span><span>.</span><span>characters</span> <span>isEqualToString</span><span>:</span><span>@&#34;</span><span>j</span><span>&#34;</span><span>]</span><span>)</span> <span>{</span>
+        <span>// Swap &#34;j&#34; with &#34;k&#34;
+</span><span></span>        <span>NSEvent</span> <span>*</span><span>modifiedEvent</span> <span>=</span> <span>[</span><span>XcodeVimMap</span> <span>modifiedEvent</span><span>:</span><span>event</span>
+                                             <span>withCharacters</span><span>:</span><span>@&#34;</span><span>k</span><span>&#34;</span><span>]</span><span>;</span>
+        <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>modifiedEvent</span><span>)</span><span>;</span>
+    <span>}</span> <span>else</span> <span>if</span> <span>(</span><span>[</span><span>event</span><span>.</span><span>characters</span> <span>isEqualToString</span><span>:</span><span>@&#34;</span><span>k</span><span>&#34;</span><span>]</span><span>)</span> <span>{</span>
+        <span>// Swap &#34;k&#34; with &#34;j&#34;
+</span><span></span>        <span>NSEvent</span> <span>*</span><span>modifiedEvent</span> <span>=</span> <span>[</span><span>XcodeVimMap</span> <span>modifiedEvent</span><span>:</span><span>event</span>
+                                             <span>withCharacters</span><span>:</span><span>@&#34;</span><span>j</span><span>&#34;</span><span>]</span><span>;</span>
+        <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>modifiedEvent</span><span>)</span><span>;</span>
+    <span>}</span>
+
+    <span>// If neither &#34;j&#34; nor &#34;k&#34;, just call the original
+</span><span></span>    <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Navigating in normal mode is indeed inverted, and the result of a quick typing test in insert mode:</p><pre><code>kacj in the box
+</code></pre><h4 id="creating-an-escape-key-event">Creating an Escape Key Event</h4><p>One last thing we should check - Escape key events might be handled differently.</p><p>First, it may be useful to compare a normal key event to an Escape key event.
+Here&#39;s the debug description of each, respectively:</p><pre><code>// &#34;q&#34; keypress
+NSEvent: type=KeyDown
+          loc=(429.085,168.524)
+         time=123860.4
+        flags=0x100
+          win=0x7ff7364feef0
+       winNum=9305
+         ctxt=0x0
+        chars=&#34;q&#34;
+   unmodchars=&#34;q&#34;
+       repeat=0
+      keyCode=12
+
+// Escape keypress
+NSEvent: type=KeyDown
+          loc=(429.085,168.524)
+         time=123860.4
+        flags=0x100
+          win=0x7ff7364feef0
+       winNum=9305
+         ctxt=0x0
+        chars=&#34;&#34; // different
+   unmodchars=&#34;&#34; // different
+       repeat=0
+      keyCode=53 // different
+</code></pre><p>Ok, <code>chars</code> and <code>unmodchar</code> are both empty, and only the <code>keyCode</code> is different outside of that.
+I omitted that from the <code>modifiedEvent:</code> method earlier, so looks like we&#39;ll have to add it in.</p><p>Except… that doesn&#39;t work! Even after adding the keycode in, and getting a modified event whose
+debug description looks <em>exactly</em> like an original Escape key event, it doesn&#39;t actually work
+for exiting insert mode. There must be some underlying state that&#39;s not exposed here that&#39;s
+set for Escape key events. Capturing an Escape key event and replaying it in the future works,
+which supports this theory as well.</p><p>I was stuck on this for a while - I started looking at what private ivars <code>NSEvent</code> might have,
+trying to figure out what part of the vim implementation was responsible for checking the escape
+button press (with no luck), and so on.</p><p>At some point I ended up looking at a dumped <code>NSEvent.h</code> header to see what else might be relevant,
+and saw that there was an undocumented <code>-[NSEvent _isEscapeKeyEvent:]</code> method - looking at its implementation
+revealed the issue:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> po escapeEvent.characters
+
+
+<span>(</span>lldb<span>)</span> p escapeEvent.characters.length
+<span>(</span>NSUInteger<span>)</span> <span>$3</span> <span>=</span> <span>1</span>
+</code></pre></div><p>I was too easily misled by the event&#39;s debug description; these weren&#39;t empty strings at all. They&#39;re <code>@&#34;\x1b&#34;</code> - a string containing only the escape character,
+which uses key code <code>0x1b</code>.</p><p>Yea, that one&#39;s on me.</p><p>Good news is that <code>[XcodeVimMap modifiedEvent:event withCharacters:@&#34;\x1b”]</code> does indeed work! Remapping from any key to this modified event,
+using a similar setup to the <code>j</code> and <code>k</code> swap above, lets us use that key to leave insert mode. That should cover everything we need from the <code>NSEvent</code>
+modification &amp; replay side.</p><hr/><h2 id="determining-which-vim-mode-were-in">Determining Which Vim Mode We&#39;re In</h2><p>If the end goal is to make a <code>j</code> input followed by a <code>k</code> input leave insert mode, then we have to have a way
+to tell if we&#39;re actually <em>in</em> insert mode. If we didn&#39;t care, we probably could have done this whole thing with software outside
+of Xcode.</p><p>But having an app-wide (or system-wide) delay on my <code>j</code> key sounds terrible, even if just for navigating in vim&#39;s normal mode.
+To do this properly, we really need to be able to find which mode we&#39;re in.</p><p>Some part of Xcode&#39;s Vim system has this knowledge, since it&#39;s making decisions about what keys should do at any given point in time;
+this might require some digging to find, but it&#39;s easier to start with objects we&#39;ve seen before.</p><p>In the stacktrace we saw earlier for handling a Character Replace, there were a bunch of interesting classes referenced - one that
+really jumps out by name is <code>SourceEditor.ViEventConsumer.Context</code>.</p><p>From that same stacktrace, it looks like there&#39;s a <code>SourceEditor.ViCommand.perform(...)</code> function that gets this context as its first argument -
+let&#39;s switch back to the debugger and set a breakpoint there:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> b -r SourceEditor.ViCommand.perform
+Breakpoint 1: <span>9</span> locations.
+</code></pre></div><p>Now after hitting a movement key in Xcode:</p><div><pre><code data-lang="bash">Target 0: <span>(</span>Xcode<span>)</span> stopped.
+
+<span>(</span>lldb<span>)</span> po <span>$arg1</span>
+ViEventConsumer.Context&lt;mode: .normal,
+                   keyStroke: ViKeystroke<span>(</span>
+keyEquivalents: <span>[</span>ViKeyEquivalent<span>(</span>characters: <span>&#34;l&#34;</span>, modifierFlags: <span>[</span><span>]</span><span>)</span><span>]</span><span>)</span>,
+   currentKeyEquivalentIndex: 0,
+                    register: nil,
+                       count: nil,
+             partialCommands: <span>[</span><span>]</span>,
+             operatorCommand: nil,
+           lastMotionCommand: nil,
+    <span>lastMotionCommandRanges</span> <span>=</span> nil&gt;
+</code></pre></div><p>First of all, this debug description switching from <code>:</code> to <code>=</code> for the very last property breaks my heart (and, coincidentally, my syntax highlighting).
+And second of all - there&#39;s our Vim Mode, right at the top!</p><p>There are a few hoops that we&#39;re going to have to jump through here. We&#39;re starting with a <code>SourceEditor.SourceEditorView</code> instance from
+our swizzled method; we need to use that to get an <code>IDESourceEditor.IDEViEventConsumer</code> instance (the owner of the method we were
+first investigating hooking). We can presumably use that to get this <code>ViEventConsumer.Context</code> instance, and from there, we need a way
+to access this <code>mode</code> property&#39;s value.</p><p>Let&#39;s start with the middle hoop, going from <code>IDESourceEditor.IDEViEventConsumer</code> to <code>ViEventConsumer.Context</code>.</p><h4 id="searching-ivars">Searching Ivars</h4><p>We can start by pausing in the same method that we were working with previously:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> b IDESourceEditor.IDEViEventConsumer.handleKeyEvent
+Breakpoint 1: <span>where</span> <span>=</span> IDESourceEditor<span>`</span>IDESourceEditor.IDEViEventConsumer.handleKeyEvent...
+</code></pre></div><p>Now we can press any key to hit our breakpoint, and can then access our <code>IDESourceEditor.IDEViEventConsumer</code> instance using <code>$r13</code> (which
+<a href="https://github.com/apple/swift/blob/main/docs/ABI/CallConvSummary.rst">holds <code>self</code></a> for Swift functions on x86).</p><p>A good thing to check first is if we can find an ivar or method for accessing our context.
+I&#39;m more used to iOS, where there&#39;s a nice built-in way to do this via <code>-[NSObject _ivarDescription]</code> and <code>-[NSObject _methodDescription]</code>, added by an <code>NSObject</code> category in <code>UIKitCore</code>, but those won&#39;t help us on macOS.</p><p>There are also some lldb scripts that could help with this, but after some trying, they don&#39;t seem to work properly in this scenario in particular.</p><p>Let&#39;s just look at the ivars manually:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> e -- unsigned int <span>$ivarCount</span> <span>=</span> 0<span>;</span>
+
+<span>(</span>lldb<span>)</span> e -- Ivar *<span>$ivars</span> <span>=</span> <span>(</span>Ivar *<span>)</span>class_copyIvarList<span>(</span><span>(</span>Class<span>)</span><span>[</span><span>(</span>id<span>)</span><span>$r13</span> class<span>]</span>, <span>&amp;</span><span>$ivarCount</span><span>)</span><span>;</span>
+
+<span>(</span>lldb<span>)</span> p/d <span>$ivarCount</span>
+<span>(</span>unsigned int<span>)</span> <span>$ivarCount</span> <span>=</span> <span>6</span>
+</code></pre></div><p>Great, we&#39;ve found some options! Are any of them our context?</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$ivars</span><span>[</span>0<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$1</span> <span>=</span> <span>&#34;sourceEditorView&#34;</span>
+
+<span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$ivars</span><span>[</span>1<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$2</span> <span>=</span> <span>&#34;hasPartiallyMatchedCommands&#34;</span>
+
+<span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$ivars</span><span>[</span>2<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$3</span> <span>=</span> <span>&#34;</span><span>$__lazy_storage_</span><span>$_statusViewItem</span><span>&#34;</span>
+
+<span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$ivars</span><span>[</span>3<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$4</span> <span>=</span> <span>&#34;</span><span>$__lazy_storage_</span><span>$_suggestionsViewItem</span><span>&#34;</span>
+
+<span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$ivars</span><span>[</span>4<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$5</span> <span>=</span>  <span>&#34;</span><span>$__lazy_storage_</span><span>$_toggleRegistersViewerShownBottomBarItem</span><span>&#34;</span>
+
+<span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$ivars</span><span>[</span>5<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$6</span> <span>=</span> <span>&#34;registersViewerPopover&#34;</span>
+</code></pre></div><p>… seems like not.</p><p>We do have one thing to try before moving on though - <code>class_copyIvarList</code> does not return ivars belonging to superclasses. Does <code>IDESourceEditor.IDEViEventConsumer</code> have a superclass?</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> po <span>[</span><span>[</span><span>$r13</span> class<span>]</span> superclass<span>]</span>
+SourceEditor.ViEventConsumer
+</code></pre></div><p>It does, and it&#39;s still vim-related, so it has a good chance of being the thing that owns the context. Using the same setup as before, but this time looking at this superclass’ ivars:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> e -- Ivar *<span>$superivars</span> <span>=</span> <span>(</span>Ivar *<span>)</span>class_copyIvarList<span>(</span><span>(</span>Class<span>)</span><span>[</span><span>[</span><span>(</span>id<span>)</span><span>$r13</span> class<span>]</span> superclass<span>]</span>, <span>&amp;</span><span>$ivarCount</span><span>)</span><span>;</span>
+
+<span>(</span>lldb<span>)</span> p/d <span>$ivarCount</span>
+<span>(</span>unsigned int<span>)</span> <span>$ivarCount</span> <span>=</span> <span>7</span>
+
+<span>(</span>lldb<span>)</span> p <span>(</span>char *<span>)</span>ivar_getName<span>(</span><span>$superivars</span><span>[</span>0<span>]</span><span>)</span>
+<span>(</span>char *<span>)</span> <span>$7</span> <span>=</span> <span>&#34;context&#34;</span>
+</code></pre></div><p>Aha! There&#39;s our context!</p><p>We can write a basic method to help get this object by its name. It looks a lot like
+<a href="https://developer.apple.com/documentation/objectivec/1441499-object_getinstancevariable?language=objc"><code>object_getInstanceVariable</code></a>,
+but that function is not callable under ARC, hence writing our own instead:</p><div><pre><code data-lang="objc"><span>+</span> <span>(</span><span>id</span><span>)</span><span>getIvar:</span><span>(</span><span>NSString</span> <span>*</span><span>)</span><span>ivarName</span> <span>from:</span><span>(</span><span>NSObject</span> <span>*</span><span>)</span><span>object</span> <span>{</span>
+    <span>const</span> <span>char</span> <span>*</span><span>ivarNameCString</span> <span>=</span> <span>[</span><span>ivarName</span> <span>cStringUsingEncoding</span><span>:</span><span>NSUTF8StringEncoding</span><span>]</span><span>;</span>
+    <span>Ivar</span> <span>ivar</span> <span>=</span> <span>class_getInstanceVariable</span><span>(</span><span>[</span><span>object</span> <span>class</span><span>]</span><span>,</span> <span>ivarNameCString</span><span>)</span><span>;</span>
+    <span>return</span> <span>object_getIvar</span><span>(</span><span>object</span><span>,</span> <span>ivar</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>And then test it in the same place in lldb, after recompiling:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> e -- id <span>$context</span> <span>=</span> <span>[</span>XcodeVimMap getIvar:@<span>&#34;context&#34;</span> from:<span>(</span>id<span>)</span><span>$r13</span><span>]</span>
+
+<span>(</span>lldb<span>)</span> po <span>$context</span>
+ViEventConsumer.Context&lt;mode: .normal, ... &gt;
+</code></pre></div><p>Works great!</p><blockquote><p>Note: One thing that surprises me here is that <code>[(id)$r13 valueForKey:@“context”]</code> does <em>not</em> work
+for this same purpose. My understanding is that <code>valueForKey:</code> should fall back to searching for ivars of the same name (both with and without underscore prefixes).
+This class isn&#39;t overriding the default <code>valueForKey:</code> implementation, and doesn&#39;t have <code>accessInstanceVariablesDirectly</code> overridden to return <code>NO</code>. Direct ivar access works either way, but still - let me know if you know why <code>valueForKey:</code> doesn&#39;t work here!</p></blockquote><p>After a bit of searching through the ivars of <code>VIEventConsumer.Context</code>, it looks like we can then get the current vim mode
+using a similar strategy, this time by looking for an ivar named <code>&#34;mode&#34;</code>.</p><p>One note here is that <code>object_getIvar</code> has a return type
+of <code>NSObject *</code>, but this is somewhat broken for primitive types - they aren&#39;t wrapped in an <code>NSNumber</code> or the like,
+but rather, their values are simply returned as-is by the method. Not a pointer to anything, just the raw scalar value. We have to do a bit of casting nonsense accordingly.</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> e -- uint8_t <span>$mode</span> <span>=</span> <span>(</span>uint8_t<span>)</span><span>(</span>long<span>)</span><span>[</span>XcodeVimMap getIvar:@<span>&#34;mode&#34;</span> from:<span>$context</span><span>]</span>
+
+// In normal mode...
+<span>(</span>lldb<span>)</span> p/d <span>$mode</span>
+<span>(</span>uint8_t<span>)</span> <span>$mode</span> <span>=</span> <span>3</span>
+
+// Or in insert mode...
+<span>(</span>lldb<span>)</span> p/d <span>$mode</span>
+<span>(</span>uint8_t<span>)</span> <span>$mode</span> <span>=</span> <span>5</span>
+</code></pre></div><p>We&#39;ve now successfully jumped through two of our three remaining hoops.</p><h2 id="manually-bridging-a-swift-array">Manually Bridging a Swift Array</h2><p>We now need to get access to our <code>IDESourceEditor.IDEViEventConsumer</code> instance from the <code>SourceEditor.SourceEditorView</code> that we have
+available to us in our hook. The above strategy of looking at ivars also pays off here.</p><p>There is an ivar named <code>eventConsumers</code> of type… uh…</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> e -- Ivar <span>$ivar</span> <span>=</span> class_getInstanceVariable<span>(</span><span>[</span>self class<span>]</span>, <span>&#34;eventConsumers&#34;</span><span>)</span><span>;</span>
+
+<span>(</span>lldb<span>)</span> po object_getIvar<span>(</span>self, <span>$ivar</span><span>)</span>
+0x00007fd087110830
+
+<span>(</span>lldb<span>)</span> po <span>[</span>object_getIvar<span>(</span>self, <span>$ivar</span><span>)</span> class<span>]</span>
+error: Execution was interrupted, reason: Attempted to dereference an invalid ObjC Object or send it an unrecognized selector.
+The process has been returned to the state before expression evaluation.
+
+<span>(</span>lldb<span>)</span> po ivar_getTypeEncoding<span>(</span><span>$ivar</span><span>)</span>
+&lt;no value available&gt;
+</code></pre></div><p>So there&#39;s an ivar there, and it has a non-nil value, but it&#39;s unclear of what. Not being able to send it a <code>class</code> message
+makes sense - that seems plausible for certain Swift-defined types (including an array, which seems most likely based on its name) -
+but <code>&lt;no value available&gt;</code> from <code>ivar_getTypeEncoding</code>? Is that even allowed?</p><p>Let&#39;s look at what&#39;s actually visible in-memory from that location, using <code>lldb</code> to essentially treat each
+group of eight bytes as an <code>id</code>:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> memory <span>read</span> -c <span>10</span> -t id 0x00007fd087110830
+<span>(</span>id<span>)</span> <span>0x7fd087110830</span> <span>=</span> 0x00007fd0d18550d8
+<span>(</span>id<span>)</span> <span>0x7fd087110838</span> <span>=</span> 0x0000000000000003
+<span>(</span>id<span>)</span> <span>0x7fd087110840</span> <span>=</span> 0x000000000000000d
+<span>(</span>id<span>)</span> <span>0x7fd087110848</span> <span>=</span> 0x0000000000000020
+<span>(</span>_TtkC15IDESourceEditor18IDEViEventConsumer *<span>)</span> <span>0x7fd087110850</span> <span>=</span> 0x0000600003622a00
+<span>(</span>id<span>)</span> <span>0x7fd087110858</span> <span>=</span> 0x000000012eb68358
+<span>(</span>_TtC8DeltaKit9ChangeBar *<span>)</span> <span>0x7fd087110860</span> <span>=</span> 0x00007fd0e15e35d0
+<span>(</span>id<span>)</span> <span>0x7fd087110868</span> <span>=</span> 0x000000013eb71890
+<span>(</span>_TtC12SourceEditor18SourceEditorGutter *<span>)</span> <span>0x7fd087110870</span> <span>=</span> 0x00007fd0d1426870
+<span>(</span>id<span>)</span> <span>0x7fd087110878</span> <span>=</span> 0x000000012eb64ac8
+</code></pre></div><p>We can actually see our <code>IDEViEventConsumer</code> there, just <code>0x20</code> bytes in!</p><p>Directly after it appears to be a pointer to some information related to that class’ protocol witness table for the <code>SourceEditor.SourceEditorViewEventConsumer</code> protocol:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> image lookup -a 0x000000012eb68358
+      Address: SourceEditor<span>[</span>0x000000000049c358<span>]</span> <span>(</span>SourceEditor.__DATA_CONST.__const + 42072<span>)</span>
+      Summary: SourceEditor<span>`</span>protocol witness table <span>for</span> SourceEditor.ViEventConsumer : SourceEditor.SourceEditorViewEventConsumer in SourceEditor
+</code></pre></div><p>… a concept I don&#39;t understand
+well enough to do anything other than acknowledge that each item in this array appears to be stored in pairs of pointers (one to the instance itself,
+and the other related to the protocol witness table).</p><p>The first line of the output also clearly shows a pointer, though lldb doesn&#39;t print out any info about it here. Let&#39;s try to do so manually:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> po 0x00007fd0d18550d8
+_TtGCs23_ContiguousArrayStorageP12SourceEditor29SourceEditorViewEventConsumer__$
+// demangled: Swift._ContiguousArrayStorage&lt;SourceEditor.SourceEditorViewEventConsumer&gt;
+</code></pre></div><p>So this is indeed an array (or at least, “array storage”?) but how do we get it back into a reasonable format?</p><p>I tried a few quick options - like passing this pointer to a Swift-based function and converting it there, or calling <code>_bridgeToObjectiveC</code> manually - but no luck. Possibly
+because this is not technically an array, or possibly because I&#39;m doing something completely wrong.</p><p>I would spend more time digging, but it&#39;s hard to justify when the instance we want is <em>right there</em>. So let&#39;s just figure out how to read it ourselves.</p><p>First we need to know how many objects are in the array - we could make a guess based on some of the first few values printed by <code>lldb</code> above (<code>0x03</code>? <code>0x0d</code>? <code>0x20</code>?),
+but we also know that <code>SourceEditor.SourceEditorView.keyDown</code> must look at this memory to get the <code>IDEViEventConsumer</code> instance itself, so let&#39;s see if we can figure out what it does.</p><p>Looking through that method in a disassembler, just a bit before the offset in the method that we jump from based on our initial stacktrace, we can see the following instructions:</p><div><pre><code data-lang="asm"><span>mov</span>   <span>r15</span><span>,</span> <span>qword</span> <span>[</span><span>rax</span><span>+</span><span>0x10</span><span>]</span>
+<span>test</span>  <span>r15</span><span>,</span> <span>r15</span>
+<span>je</span>    <span>loc_3633ae</span>
+</code></pre></div><p>This looks like an initial check to see if our array is empty; it&#39;s reading the value at <code>0x10</code> bytes from the <code>rax</code> register (which presumably, by this point, holds a pointer to our array storage); then <code>test r15, r15</code> is essentially checking if the value is less than or equal to zero.
+This implies that the array length is kept at offset <code>0x10</code> - in our case, that corresponds to the <code>0x0d</code> value in the above <code>lldb</code>&#39;s output, i.e., 13 items in the array.</p><p>We now have enough information to read this data and convert it to an NSArray instance ourselves:</p><div><pre><code data-lang="objc"><span>+</span> <span>(</span><span>NSArray</span> <span>*</span><span>)</span><span>arrayFromSwiftArrayStorage:</span><span>(</span><span>void</span> <span>*</span><span>)</span><span>swiftArrayStorage</span> <span>{</span>
+    <span>// Create a mutable array to hold each encountered element
+</span><span></span>    <span>NSMutableArray</span> <span>*</span><span>results</span> <span>=</span> <span>[</span><span>NSMutableArray</span> <span>new</span><span>]</span><span>;</span>
+
+    <span>// Read array length at offset 0x10
+</span><span></span>    <span>long</span> <span>arrayLength</span> <span>=</span> <span>*</span><span>(</span><span>long</span> <span>*</span><span>)</span><span>(</span><span>(</span><span>char</span> <span>*</span><span>)</span><span>swiftArrayStorage</span> <span>+</span> <span>0x10</span><span>)</span><span>;</span>
+
+    <span>// Get each element of the array, every 0x10 bytes, starting at offset 0x20
+</span><span></span>    <span>for</span> <span>(</span><span>long</span> <span>i</span><span>=</span><span>0</span><span>;</span> <span>i</span><span>&lt;</span><span>arrayLength</span><span>;</span> <span>i</span><span>+</span><span>+</span><span>)</span> <span>{</span>
+        <span>void</span> <span>*</span><span>*</span><span>elementPtr</span> <span>=</span> <span>(</span><span>void</span> <span>*</span><span>*</span><span>)</span><span>(</span><span>(</span><span>char</span> <span>*</span><span>)</span><span>swiftArrayStorage</span> <span>+</span> <span>0x20</span> <span>+</span> <span>(</span><span>0x10</span> <span>*</span> <span>i</span><span>)</span><span>)</span><span>;</span>
+        <span>id</span> <span>element</span> <span>=</span> <span>(</span><span>__bridge</span> <span>NSObject</span> <span>*</span><span>)</span><span>(</span><span>*</span><span>elementPtr</span><span>)</span><span>;</span>
+        <span>[</span><span>results</span> <span>addObject</span><span>:</span><span>element</span><span>]</span><span>;</span>
+    <span>}</span>
+
+    <span>return</span> <span>results</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>There&#39;s more casting, dereferencing, and double pointers there than I&#39;m usually happy with, but before we judge it too harshly, let&#39;s see if it works:</p><div><pre><code data-lang="bash"><span>(</span>lldb<span>)</span> e -- id <span>$eventConsumerStorage</span> <span>=</span> <span>[</span>XcodeVimMap getIvar:@<span>&#34;eventConsumers&#34;</span> from:self<span>]</span>
+
+<span>(</span>lldb<span>)</span> po <span>[</span>XcodeVimMap arrayFromSwiftArrayStorage:<span>$eventConsumerStorage</span><span>]</span>
+&lt;__NSArrayM 0x60000af3f270&gt;<span>(</span>
+    &lt;IDESourceEditor.IDEViEventConsumer: 0x600000bd7100&gt;,
+    DeltaKit.ChangeBar,
+    &lt;SourceEditor.SourceEditorGutter: 0x7fe4dd5213c0&gt;,
+    &lt;DebuggerUI.DBGColumnBreakpointLayoutVisualization: 0x6000002059a0&gt;,
+    SourceEditor.StructuredEditingController,
+    SourceEditor.SourceEditorLineAnnotationManager,
+    SourceEditor.FoldingController,
+    &lt;SourceEditor.SourceEditorViewDraggingSource: 0x600000ebe800&gt;,
+    SourceEditor.SourceEditorEditAssistant,
+    SourceEditor.ContextualMenuEventConsumer,
+    &lt;DVTSourceEditor.DVTSourceEditorTextFindPanel: 0x7fe4dd524210&gt;,
+    &lt;IDESourceEditor.SourceCodeEditor: 0x7fe4fe18e200 representing: &lt;DVTExtension 0x6000007d2c40: Xcode.IDEKit.EditorDocument.PegasusSourceCode from com.apple.dt.IDE.IDEPegasusSourceEditor&gt;&gt;,
+    PathTokenVisualization: <span>[</span><span>]</span>
+<span>)</span>
+</code></pre></div><p>There we go! We now have access to all our event consumers - <code>IDEViEventConsumer</code> included.</p><hr/><h2 id="and-finally-the-remap">And Finally… The Remap</h2><p>Our solutions to problems are getting less sane as the post gets longer. Better wrap it up quick.</p><p>We finally have what we need to put everything together, and for me to finally have my normal escape functionality back.</p><p>First, let&#39;s define a new enum to represent the vim modes we care about (even if that is just one entry), along with
+a method to get the current vim mode:</p><div><pre><code data-lang="objc"><span>typedef</span> <span>NS_ENUM</span><span>(</span><span>uint8_t</span><span>,</span> <span>VimMode</span><span>)</span> <span>{</span>
+    <span>VimModeInsert</span> <span>=</span> <span>5</span>
+<span>}</span><span>;</span>
+
+<span>+</span> <span>(</span><span>VimMode</span><span>)</span><span>vimModeFromSourceEditorView:</span><span>(</span><span>id</span><span>)</span><span>sourceEditorView</span> <span>{</span>
+    <span>// Get our current event consumers
+</span><span></span>    <span>void</span> <span>*</span><span>eventConsumersStorage</span> <span>=</span> <span>(</span><span>__bridge</span> <span>void</span> <span>*</span><span>)</span><span>(</span><span>[</span><span>XcodeVimMap</span> <span>getIvar</span><span>:</span><span>@&#34;</span><span>eventConsumers</span><span>&#34;</span> <span>from</span><span>:</span><span>sourceEditorView</span><span>]</span><span>)</span><span>;</span>
+    <span>NSArray</span> <span>*</span><span>eventConsumers</span> <span>=</span> <span>[</span><span>XcodeVimMap</span> <span>arrayFromSwiftArrayStorage</span><span>:</span><span>eventConsumersStorage</span><span>]</span><span>;</span>
+
+    <span>// Find the vim consumer
+</span><span></span>    <span>id</span> <span>vimEventConsumer</span><span>;</span>
+    <span>for</span> <span>(</span><span>id</span> <span>eventConsumer</span> <span>in</span> <span>eventConsumers</span><span>)</span> <span>{</span>
+        <span>if</span> <span>(</span><span>[</span><span>NSStringFromClass</span><span>(</span><span>[</span><span>eventConsumer</span> <span>class</span><span>]</span><span>)</span> <span>isEqualToString</span><span>:</span><span>@&#34;</span><span>IDESourceEditor.IDEViEventConsumer</span><span>&#34;</span><span>]</span><span>)</span> <span>{</span>
+            <span>vimEventConsumer</span> <span>=</span> <span>eventConsumer</span><span>;</span>
+            <span>break</span><span>;</span>
+        <span>}</span>
+    <span>}</span>
+
+    <span>// Get the vim context
+</span><span></span>    <span>id</span> <span>vimContext</span> <span>=</span> <span>[</span><span>XcodeVimMap</span> <span>getIvar</span><span>:</span><span>@&#34;</span><span>context</span><span>&#34;</span> <span>from</span><span>:</span><span>vimEventConsumer</span><span>]</span><span>;</span>
+
+    <span>// Get the current vim mode
+</span><span></span>    <span>uint8_t</span> <span>vimMode</span> <span>=</span> <span>(</span><span>uint8_t</span><span>)</span><span>(</span><span>long</span><span>)</span><span>[</span><span>XcodeVimMap</span> <span>getIvar</span><span>:</span><span>@&#34;</span><span>mode</span><span>&#34;</span> <span>from</span><span>:</span><span>vimContext</span><span>]</span><span>;</span>
+    <span>return</span> <span>vimMode</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Now let&#39;s update our swizzle implementation to exit early if we&#39;re not currently in insert mode.
+I&#39;ve also added a block to handle sending events back to the original implementation; this is mostly just
+so we don&#39;t have to write <code>self</code> and <code>_cmd</code> every time, though could also be useful if we wanted
+to pass the block to any helper methods that might want to send events for us.</p><div><pre><code data-lang="objc"><span>-</span> <span>(</span><span>BOOL</span><span>)</span><span>swizzled_keyDown:</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span><span>event</span> <span>{</span>
+    <span>// Block to send an event to the original implementation
+</span><span></span>    <span>BOOL</span> <span>(</span><span>^</span><span>sendEvent</span><span>)</span><span>(</span><span>NSEvent</span> <span>*</span><span>)</span> <span>=</span> <span>^</span><span>BOOL</span><span>(</span><span>NSEvent</span> <span>*</span><span>event</span><span>)</span> <span>{</span>
+        <span>return</span> <span>originalKeyDown</span><span>(</span><span>self</span><span>,</span> <span>_cmd</span><span>,</span> <span>event</span><span>)</span><span>;</span>
+    <span>}</span><span>;</span>
+
+    <span>// Get the current vim mode
+</span><span></span>    <span>VimMode</span> <span>vimMode</span> <span>=</span> <span>[</span><span>XcodeVimMap</span> <span>vimModeFromSourceEditorView</span><span>:</span><span>self</span><span>]</span><span>;</span>
+
+    <span>// Exit early if we&#39;re not in insert mode
+</span><span></span>    <span>if</span> <span>(</span><span>vimMode</span> <span>!</span><span>=</span> <span>VimModeInsert</span><span>)</span> <span>{</span>
+        <span>return</span> <span>sendEvent</span><span>(</span><span>event</span><span>)</span><span>;</span>
+    <span>}</span>
+
+    <span>// TODO: _something_
+</span><span></span>
+    <span>// Fall back to default implementation
+</span><span></span>    <span>return</span> <span>sendEvent</span><span>(</span><span>event</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Next, we need to listen for <code>j</code> keypresses, and if we see one, store it; we don&#39;t want to send it quite yet.
+Let&#39;s declare a new file-scoped variable that holds this ‘j’ key event while we&#39;re waiting to send it.</p><div><pre><code data-lang="objc"><span>static</span> <span>NSEvent</span> <span>*</span><span>queuedEvent</span><span>;</span>
+</code></pre></div><blockquote><p>Note: In a more proper setup, we could add this as an associated object on <code>SourceEditorView</code>. But this is not a more proper setup,
+and this post is getting quite long as-is.</p></blockquote><p>Now back to the above <code>TODO</code> section; when we detect a <code>j</code> keypress in insert mode,
+we want to store it rather than sending immediately:</p><div><pre><code data-lang="objc"><span>// Check if we&#39;ve received a &#34;j&#34; keypress
+</span><span></span><span>if</span> <span>(</span><span>[</span><span>event</span><span>.</span><span>characters</span> <span>isEqualToString</span><span>:</span><span>@&#34;</span><span>j</span><span>&#34;</span><span>]</span><span>)</span> <span>{</span>
+    <span>// Save a reference to the event for later sending
+</span><span></span>    <span>queuedEvent</span> <span>=</span> <span>event</span><span>;</span>
+
+    <span>// Return early so that the default implementation
+</span><span></span>    <span>// (which would apply our `j` press immediately)
+</span><span></span>    <span>// is not called.
+</span><span></span>    <span>return</span> <span>true</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>With this change, it&#39;s not impossible to type a <code>j</code> in insert mode. Let&#39;s add a new check above it, which will apply our prior <code>j</code> keypress whenever a new keypress comes in:</p><div><pre><code data-lang="objc"><span>// Check if we have a previous `j` press queued up
+</span><span></span><span>if</span> <span>(</span><span>queuedEvent</span> <span>!</span><span>=</span> <span>nil</span><span>)</span> <span>{</span>
+    <span>// Apply the `j` press
+</span><span></span>    <span>sendEvent</span><span>(</span><span>queuedEvent</span><span>)</span><span>;</span>
+
+    <span>// Clear the queued event so it&#39;s not sent again
+</span><span></span>    <span>queuedEvent</span> <span>=</span> <span>nil</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Here&#39;s the current result, shown by typing the start of the english alphabet with a roughly-constant time between keys; you can see the <code>j</code> key is not sent until the <code>k</code> key
+is pressed after it.</p><video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/pre-timeout-light.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video>
+<video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/pre-timeout-dark.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video><p>Now let&#39;s add timeout functionality. Within the existing block to handle <code>j</code> keypresses, we can add the following
+setup to send the <code>j</code> event after a one second delay:</p><div><pre><code data-lang="objc"><span>// Added at file scope:
+</span><span></span><span>static</span> <span>dispatch_block_t</span> <span>sendQueuedEventAfterTimeout</span><span>;</span>
+
+<span>// ...
+</span><span></span>
+<span>// Create a block to send the event for use in the timeout functionality
+</span><span></span><span>sendQueuedEventAfterTimeout</span> <span>=</span> <span>dispatch_block_create</span><span>(</span><span>0</span><span>,</span> <span>^</span><span>{</span>
+    <span>// Send the queued event
+</span><span></span>    <span>sendEvent</span><span>(</span><span>queuedEvent</span><span>)</span><span>;</span>
+
+    <span>// Clear out the queued event so that it won&#39;t be sent again
+</span><span></span>    <span>queuedEvent</span> <span>=</span> <span>nil</span><span>;</span>
+<span>}</span><span>)</span><span>;</span>
+
+<span>// Invoke the above block after 1 second. This invocation
+</span><span></span><span>// should be cancelled if the event is manually sent sooner.
+</span><span></span><span>dispatch_after</span><span>(</span>
+    <span>dispatch_time</span><span>(</span><span>DISPATCH_TIME_NOW</span><span>,</span> <span>(</span><span>int64_t</span><span>)</span><span>(</span><span>1</span> <span>*</span> <span>NSEC_PER_SEC</span><span>)</span><span>)</span><span>,</span>
+    <span>dispatch_get_main_queue</span><span>(</span><span>)</span><span>,</span> <span>sendQueuedEventAfterTimeout</span><span>)</span><span>;</span>
+</code></pre></div><p>We&#39;ll then also edit our queued event handling logic to cancel this timeout if another key was pressed:</p><div><pre><code data-lang="objc"><span>// Check if we have a previous `j` press queued up
+</span><span></span><span>if</span> <span>(</span><span>queuedEvent</span> <span>!</span><span>=</span> <span>nil</span><span>)</span> <span>{</span>
+    <span>// Apply the `j` press
+</span><span></span>    <span>sendEvent</span><span>(</span><span>queuedEvent</span><span>)</span><span>;</span>
+
+    <span>// Clear the queued event so it&#39;s not sent again
+</span><span></span>    <span>queuedEvent</span> <span>=</span> <span>nil</span><span>;</span>
+
+    <span>// New: Cancel the timeout-based application of the event,
+</span><span></span>    <span>// since we&#39;ve invoked it manually.
+</span><span></span>    <span>dispatch_block_cancel</span><span>(</span><span>sendQueuedEventAfterTimeout</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Here&#39;s the same test as before, just typing up through <code>j</code> this time. Despite hitting <code>j</code> after the same delay as the other keys,
+you can see Xcode hold on to the press again, but this time automatically apply it after a second of inactivity:</p><video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/post-timeout-light.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video>
+<video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/post-timeout-dark.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video><p>Now there&#39;s only one component left to add. Before the existing check for any queued events, we check if the new event
+corresponds to a <code>k</code> keypress - and if we have a <code>j</code> key queued up, we know we want to exit insert mode instead of applying either.</p><div><pre><code data-lang="objc"><span>// Check if we&#39;ve received a `k` press while a `j` press is still queued
+</span><span></span><span>if</span> <span>(</span><span>[</span><span>event</span><span>.</span><span>characters</span> <span>isEqualToString</span><span>:</span><span>@&#34;</span><span>k</span><span>&#34;</span><span>]</span> <span>&amp;</span><span>&amp;</span> <span>queuedEvent</span> <span>!</span><span>=</span> <span>nil</span><span>)</span> <span>{</span>
+    <span>// Clear the queued j press
+</span><span></span>    <span>queuedEvent</span> <span>=</span> <span>nil</span><span>;</span>
+
+    <span>// And cancel its timeout-based-sending.
+</span><span></span>    <span>dispatch_block_cancel</span><span>(</span><span>sendQueuedEventAfterTimeout</span><span>)</span><span>;</span>
+
+    <span>// Create an &#34;escape&#34; key event and send it,
+</span><span></span>    <span>// returning early in the process.
+</span><span></span>    <span>NSEvent</span> <span>*</span><span>escapeEvent</span> <span>=</span> <span>[</span><span>XcodeVimMap</span> <span>modifiedEvent</span><span>:</span><span>event</span> <span>withCharacters</span><span>:</span><span>@&#34;</span><span>\x1b</span><span>&#34;</span><span>]</span><span>;</span>
+    <span>return</span> <span>sendEvent</span><span>(</span><span>escapeEvent</span><span>)</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>It&#39;s been a long journey, but with all of that finished, here&#39;s the end result, typing the start of the english alphabet again:</p><video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/working-escape-light.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video>
+<video playsinline="" autoplay="" loop="" muted="" preload="auto" data-setup="{}">
+<source src="/xcode-vim-map/working-escape-dark.mp4" type="video/mp4"/><source src="/" type="video/webm"/><source src="/" type="video/ogg"/></video><p>This time, the <code>j</code> key is held back as before, but once the <code>k</code> key is pressed afterward, we leave insert mode, and we have finally escaped.</p><hr/><h2 id="wrapping-up">Wrapping Up</h2><p>I&#39;ve made the code for this Xcode plugin
+<a href="https://github.com/bryce-co/XcodeVimMap">available on GitHub</a>,
+but it&#39;s certainly intended more for reference than as something I&#39;d actually recommend using.</p><p>There&#39;s all sorts of additional work that would need to go into making this widely adoptable, and I haven&#39;t even used it enough yet to know if it&#39;s stable.
+With any luck, <a href="https://github.com/XVimProject/XVim2">XVim</a> will continue to exist as a more configurable option separately from (or on top of?) Apple&#39;s own offering.</p><p>But in the meantime, as I play around with the Xcode 13 betas more, I at least no longer have to wince every few seconds from my vim muscle memory biting me - and isn&#39;t that worth something?</p><hr/>Say Hello!</article></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 13:56:48 +0000</pubDate>
+      <source>https://bryce.co/xcode-vim-map/</source>
+    </item>
+    <item>
+      <title>Ray Tracing Gems II Available as Free Download</title>
+      <link>https://developer.nvidia.com/blog/ray-tracing-gems-ii-available-today-as-free-digital-download/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___developer_nvidia_com_blog_ray-tracing-gems-ii-available-today-as-free-digital-download_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<p><i><span>Ray Tracing Games II</span></i><span> is now available to download </span><b>for free</b><span> via </span><a href="https://link.springer.com/book/10.1007/978-1-4842-7185-8" data-wpel-link="external" target="_blank" rel="nofollow external noopener noreferrer"><span>Apress</span></a><span>.</span></p>
+<p><span>This Open Access book is a must-have for anyone interested in real-time rendering. Ray tracing is the holy grail of gaming graphics, simulating the physical behavior of light to bring real-time, cinematic-quality rendering to even the most visually intense games. Ray tracing is also a fundamental algorithm used for architecture applications, visualization, sound simulation, deep learning, and more.</span></p>
+<p>To win a limited edition print copy of <i data-stringify-type="italic">Ray Tracing Gems II</i>, enter the giveaway contest here: <a href="https://developer.nvidia.com/ray-tracing-gems-ii" target="_blank" rel="noopener noreferrer nofollow external" data-stringify-link="https://developer.nvidia.com/ray-tracing-gems-ii" data-sk="tooltip_parent" data-wpel-link="external">https://developer.nvidia.com/ray-tracing-gems-ii</a></p>
+<p><span>A message from the editors:</span></p>
+<p><span>In 2018, real-time ray tracing arrived in consumer GPU hardware and swiftly established itself as a key component of how images would be generated moving forward. Now, three years later, the second iteration of this hardware is available, mainstream game consoles support ray tracing, and cross-platform API standards have been established to drive even wider adoption. Developers and researchers have been busy inventing (and reinventing) algorithms to take advantage of the new possibilities created by these advancements. The “gems” of knowledge discovered during this process are what you will find in </span><i><span>Ray Tracing Gems II</span></i><span>.</span></p>
+<p><span>Before diving into the treasure trove, we want to make sure you know the following:</span></p>
+<ul>
+<li><span>Supplementary code and other materials related to this book can be found at <a href="https://github.com/Apress/Ray-Tracing-Gems-II" target="_blank" rel="noopener noreferrer nofollow external" data-stringify-link="https://github.com/Apress/Ray-Tracing-Gems-II" data-sk="tooltip_parent" data-wpel-link="external">https://github.com/Apress/Ray-Tracing-Gems-II</a>.</span></li>
+<li><span>All content in this book is open access.</span></li>
+</ul>
+<p><span>Open access content allows you to freely copy and redistribute any chapter, or the whole book, as long as you give appropriate credit and you are not using it for commercial purposes. The specific license is the </span><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" data-wpel-link="external" target="_blank" rel="nofollow external noopener noreferrer"><span>Creative Commons Attribution 4.0 International License (CC-BY-NC-ND)</span></a><span>. We put this in place so that authors, and everyone else, can disseminate the information in this volume as quickly, widely, and equitably as possible.</span></p>
+<p><span>Writing an anthology style book, such as this, is an act of collective faith. Faith that the authors, editors, publisher, and schedules all converge to produce a worthwhile result for readers. Under normal circumstances this is a difficult task, but the past year and a half has been anything but “normal”. This book’s call for participation was posted in late November 2019, just as the COVID-19 virus began to emerge in Asia. In the 18 months since, a once-in-a-century pandemic has surged. Its impact has touched every person on Earth – and it is not yet over. The virus has taken lives, battered livelihoods, and broken the way of life as we knew it. We postponed this book with the quiet conviction that the coronavirus would be overcome. As time passed, the development of vaccines made breakneck progress, remote work in quarantine became a new staple of life, and authors began to write about computer graphics again. As a result, this book was written entirely during quarantine. We sincerely thank the authors for their passion and dedication – and faith – all of which made this book possible under extraordinary circumstances.</span></p>
+
+
+
+<p><span>    </span> <span> – Adam Marrs, Peter Shirley, and Ingo Wald</span></p>
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 18:42:23 +0000</pubDate>
+      <source>https://developer.nvidia.com/blog/ray-tracing-gems-ii-available-today-as-free-digital-download/</source>
+    </item>
   </channel>
 </rss>
