@@ -4989,5 +4989,268 @@ USB4 specification is great for transferring small files, which was one of the i
       <pubDate>Tue, 03 Aug 2021 13:24:44 +0000</pubDate>
       <source>https://chrisbergeron.com/2021/07/25/Ultra-fast-Thunderbolt-NAS-with-Apple-M1-and-Linux/</source>
     </item>
+    <item>
+      <title>Going mouseless</title>
+      <link>https://felipecortez.net/blog/mouseless.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><div><p>A few months ago the trackpad in my work computer stopped working properly. Instead of getting it fixed, I took it as challenge to stop using the mouse entirely. Here are the things I learned and rediscovered.</p><h2>Out of the box</h2><p>You can go pretty far without a mouse using a combination of <code>Tab</code>, <code>Shift+Tab</code> and arrow keys.</p><p>For web browsers, accessible websites such as Google and Wikipedia have focus states for interactive elements and some even contain <code>Jump to navigation</code>, <code>Jump to main content</code> tab-accessible links as the very first things you can tab-navigate to. <code>Page Up</code>, <code>Page Down</code>, <code>Home</code> and <code>End</code> can be used to scroll through web pages and PDF documents. To follow text links, press <code>Ctrl+F</code>, type part of the link text until it matches, press <code>Esc</code> and your link will be focused. Then just press <code>Enter</code>. This can also come in handy for image links and forms: search for a term close to the image or element you want to click or focus on then tab-navigate to it.</p><p>For GUI applications in general, on Windows and Linux pressing <code>Alt</code> on will open and/or focus on the applications menu bars. You can then navigate using the arrow keys and pressing the underlined letters in the menu bar items. Good for discovering keyboard shortcuts, too.</p><h2>Vimium</h2><p>With the <a href="https://github.com/philc/vimium">Vimium</a> extension installed, pressing <code>f</code> will make every visible link on the page get a one-to-three letter shortcut. Type that shortcut, navigate to that page.</p><p>Besides being faster than tab-based navigation, it can be useful during pair-programming sessions: press <code>f</code> and your coworker can simply say out loud the letter sequence of the link he wants you to navigate to.</p><p>Similar ideas in the programming tools space are <a href="https://github.com/easymotion/vim-easymotion">easymotion</a> and <a href="https://github.com/abo-abo/avy">avy</a>.</p><h2>Keyboard-driven cursor movement</h2><p>Not all applications support a good keyboard-only experience. No problem. While controlling a virtual keyboard with a mouse is hardly joyful, controlling the cursor with your keyboard makes you look pretty cool.</p><h3>numpad</h3><p>The <code>4862</code> keys are for moving left, up, right and down respectively. <code>7913</code> move diagonally. <code>5</code> clicks.</p><p>To set this up on a Linux with Xorg, run <code>setxkbmap -option keypad:pointerkeys</code> in a terminal then press <code>Shift + Num Lock</code> to make your numeric keypad control the cursor. For more details, check out the <a href="https://linuxreviews.org/HOWTO_use_the_numeric_keyboard_keys_as_mouse_in_XOrg">LinuxReviews wiki</a>.</p><p>On Windows, as things are always changing in the Control Panel World, refer to the <a href="https://support.microsoft.com/en-us/windows/use-mouse-keys-to-move-the-mouse-pointer-9e0c72c8-b882-7918-8e7b-391fd62adf33">Windows documentation</a>.</p><h3>keynav</h3><p>While the numpad approach works well, it can be a bit slow. keynav applies the <a href="https://en.wikipedia.org/wiki/Binary_space_partitioning">binary space partitioning</a> idea to mouse navigation. From the <a href="https://www.semicomplete.com/projects/keynav/">keynav website</a>:</p><blockquote><p> You select a piece of the screen. The screen is initially wholely selected. One move will cut that region by half. A move is a direction: up, down, left, and right. </p><p> Once you’re done moving, you simply indicate (with a key stroke) that you want to move. Boom, cursor moves. </p></blockquote><p>In practice, this is done by starting the keynav process, pressing <code>Ctrl-;</code> to pop up an overlay and then repeatedly pressing either <code>hjkl</code> for dividing up the screen, <code>w</code> for moving the cursor to the center of the selection area and <code>1</code>, <code>2</code> or <code>3</code> for left, middle or right clicking.</p><p>Sounds crazy, works pretty well.</p><p>Besides being potentially much faster than numpad navigation, Vimium on a Raspberry Pi can take a few seconds to set up all shortcuts depending on how busy a web page is. keynav feedback is always instantaneous.</p><p>While the project is Linux-only, I wrote a tiny version of keynav for Windows using <a href="https://www.autohotkey.com/">AutoHotKey</a> as suggested by the keynav docs. Get it <a href="https://github.com/FelipeCortez/keynav-ahk">here</a>.</p><h2>Try it out now</h2><p>This blog post contains toy implementations of Vimium and keynav.</p><p><code>;</code> opens the keynav overlay. Bisect with <code>hjkl</code>, click a link with <code>1</code>. Press <code>;</code> again to recenter. Press <code>q</code> to cancel.</p><p><code>f</code> opens the Vimium overlay. Press the key for the link to navigate or <code>q</code> to cancel.</p><h2>Why?</h2><ul><li>Put the keyboard on your lap and never move your arms</li><li>One less USB port, maybe</li><li>Set up a Raspberry Pi, GUI mode, without a mouse</li><li>Look cool to your coworkers</li><li>Make your life harder</li></ul><p>As of August 2021, I have been using Vimium for seven years and keynav for six months. I don&#39;t miss having a mouse or trackpad!</p></div></div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 03:14:39 +0000</pubDate>
+      <source>https://felipecortez.net/blog/mouseless.html</source>
+    </item>
+    <item>
+      <title>Nutrition Science Is Broken. This New Egg Study Shows Why. (2019)</title>
+      <link>https://undark.org/2019/07/18/science-of-eggs/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___undark_org_2019_07_18_science-of-eggs_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+			<div>
+				<div itemprop="articleBody">
+					
+					<p><span>It’s been</span> a tortuous path for the humble egg. For much of our history, it was a staple of the American breakfast — as in, bacon and eggs. Then, starting in the late 1970s and early 1980s, it began to be disparaged as a dangerous source of artery-clogging cholesterol, a probable culprit behind Americans’ exceptionally high rates of heart attack and stroke. Then, in the past few years, the chicken egg was redeemed and once again touted as an excellent source of protein, unique antioxidants like lutein and zeaxanthin, and many vitamins and minerals, including riboflavin and selenium, all in a fairly low-calorie package.
+</p>
+<p>
+  This March, a <a href="https://jamanetwork.com/journals/jama/fullarticle/2728487">study published in JAMA</a> put the egg back on the hot seat. It found that the amount of cholesterol in a bit less than two large eggs a day was associated with an increase in a person’s risk of cardiovascular disease and death by 17 percent and 18 percent, respectively. The risks grow with every additional half egg. It was a really large study, too — with nearly 30,000 participants — which suggests it should be fairly reliable.
+</p>
+<p>
+  So which is it? Is the egg good or bad? And, while we are on the subject, when so much of what we are told about diet, health, and weight loss is inconsistent and contradictory, can we believe any of it?
+</p>
+<p>
+  Quite frankly, probably not. Nutrition research tends to be unreliable because nearly all of it is based on observational studies, which are imprecise, have no controls, and don’t follow an experimental method. As nutrition-research critics Edward Archer and Carl Lavie have <a href="https://www.realclearscience.com/articles/2017/12/16/nutrition_researchers_have_a_consensus_to_use_bad_science.html">put it</a>, “’Nutrition’ is now a degenerating research paradigm in which scientifically illiterate methods, meaningless data, and consensus-driven censorship dominate the empirical landscape.”
+</p>
+<p>
+  Other nutrition research critics, such as <a href="https://jamanetwork.com/journals/jama/fullarticle/2698337">John Ioannidis</a> of Stanford University, have been similarly scathing in their commentary. They point out that observational nutrition studies are essentially just surveys: Researchers ask a group of study participants — a cohort — what they eat and how often, then they track the cohort over time to see what, if any, health conditions the study participants develop.
+</p>
+<p>
+  The trouble with the approach is that no one really remembers what they ate. You might remember today’s breakfast in some detail. But, breakfast three days ago, in precise amounts? Even the unadventurous creature of habit would probably get it wrong. That tends to make these surveys inaccurate, especially when researchers try to drill down to specific foods.
+</p>
+<p>
+  Then, that initial inaccuracy is compounded when scientists use those guesses about eating habits to calculate the precise amounts of specific proteins and nutrients that a person consumed. The errors add up, and they can lead to seriously dubious conclusions.
+</p>
+<p>
+  A good example is the <a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/cncr.21332">2005 study</a> that suggested that eating a cup of endive once a week might cut a woman’s risk of ovarian cancer by 76 percent. There was even a possible mechanism to explain the effect: Endive is high in kaempferol, a flavonoid that <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3102233/">has shown</a> anticarcinogenic properties in laboratory experiments. It was a big study, based on a cohort of more than 62,000 women. This study was published in the prestigious journal Cancer, and many in the media were convinced. Dr. Mehmet Oz even <a href="https://www.doctoroz.com/videos/anti-cancer-diet-1">touted it</a> on his television show.
+</p>
+<p>
+  But, as Maki Inoue-Choi, of the University of Minnesota, and her colleagues <a href="https://www.tandfonline.com/doi/abs/10.1080/01635581.2013.748921">pointed out</a>, the survey had asked about many other kaempferol-rich foods — including some that had higher levels of kaempferol than endive does — and not one of those other foods had the same apparent effect on ovarian cancer.
+</p>
+<p>
+  The new study linking eggs and cardiovascular disease deserves similar scrutiny. Statistically speaking, 30,000 participants makes for a very powerful study. And in fairness, the study’s defenders say that it did a good job accounting for factors that might have influenced the findings, such as overall fat consumption, smoking, and lifestyle.
+</p>
+<p>
+  But on the other hand, the study tracked participants’ health outcomes over periods ranging from 13 to more than 30 years, and participants were queried about their diet only once, at the beginning of the study. Can we assume that the participants gave a reliable depiction of their diet at the outset, and then that they maintained that same diet for the years — in many cases, decades — that followed? Probably not. Who eats the same way for 10 years?
+</p>
+<p>
+  In light of these flaws, Dr. Anthony Pearson, a cardiologist at St. Luke’s Hospital in suburban St. Louis, had this advice: “Rather than drastically cutting egg consumption,” <a href="https://www.medpagetoday.com/blogs/skeptical-cardiologist/79361">he wrote</a> in a blog for MedPage Today, “I propose that there be a drastic cut in the production of weak observational nutrition studies and a moratorium on inflammatory media coverage of meaningless nutritional studies.”
+</p>
+<p>
+  Instead of observational studies, most nutrition scientists would rather see experimental studies like those performed by the late Dr. Jules Hirsch. A pioneer in the study of obesity, Hirsch got his start in the 1950s, long before weight control became the problem that it is today. He took a relatively unglamorous, ignored area of medical health and made it extremely interesting. To this day, his controlled experiments on human nutrition are considered a gold-standard in nutrition science. He discovered that when a person diets, their heart rate slows, they feel cold, and their immune system is undermined.
+</p>
+<p>
+  But here’s the rub: Hirsch worked at Rockefeller University — a serene little campus tucked away on the Upper East Side of Manhattan — where researchers are free to follow their muse, free of teaching duties. Rockefeller University also has a hospital. Between that and the endowment support, Hirsch was able to do research that would have been impractical to do virtually anywhere else.
+</p>
+<p>
+  Hirsch started with basic science, looking at fat cells and how they functioned. Then he moved on to patients. He would admit them to the university hospital and keep them there, assigning them to a metabolic ward where he could control nearly everything they ate. That was critical, because it is really hard to be on a restricted diet, and there are temptations.
+</p>
+<p>
+  In perhaps his most famous study, Hirsch admitted 18 obese men and women to the hospital together with 23 people who had never been obese. He fed them all mostly a liquid diet to control their calories precisely. First, he had them maintain their initial weight and took measurements. Then he had them gain 10 percent of their initial weight and took measurements. Finally, he limited their portions, causing them to go at least 10 percent below their initial weight, and repeated the measurements a third time.
+</p>
+<p>
+  The experiment revealed the now-well-known fact that when an individual loses weight, their metabolism slows. That’s what makes it so hard to lose weight — and to keep the weight off afterward.
+</p>
+<p>
+  Unfortunately, it is impractical — and probably impossible — for most researchers to carry out those types of studies on a large scale. Crunching the data from a big observational study is a much easier way to get a publication and some media attention. So we get what we get.
+</p>
+<p>
+  In the meantime, what do the rest of us do with our diets?
+</p>
+<p>
+  Most experts recommend avoiding processed foods as much as possible and sticking with a Mediterranean-like diet because it makes intuitive sense. It is not too restrictive. It is heavy in fruits and vegetables. It has the right kinds of fats and some grains. It includes fish and generally lean proteins.
+</p>
+<p>
+  These experts contend that you should also be wary about foods that are said to have newly revealed healthy, or unhealthy, properties. In other words, don’t buy the notion of superfoods. The evidence is just not there.
+</p>
+<p>
+  In an email, Michael Blaha, a cardiologist at Johns Hopkins University who has written about methodological issues with nutritional science, told me he finds “particularly distasteful studies of one particular food (e.g., broccoli) or one particular macronutrient,” because “it is impossible to disentangle the effect of one particular food or one macronutrient from the accompanying foods and macronutrients that characterize a typical dietary pattern.”
+</p>
+<p>
+  To put it another way: Eat what you like but keep it balanced. And, perhaps, long live the omelet!
+</p>
+<hr/>
+<p><em>Timothy F. Kirn is a freelance writer based in Sacramento, California. He was formerly an assistant editor at the Journal of the American Medical Association, a reporter for the Rochester Times-Union in New York, and an MIT Knight Science Journalism fellow.</em></p>
+
+									</div>
+			</div>
+		</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 18:14:18 +0000</pubDate>
+      <source>https://undark.org/2019/07/18/science-of-eggs/</source>
+    </item>
+    <item>
+      <title>Good Design is Imperfect Design, Part 1: Honest Names</title>
+      <link>https://www.domainlanguage.com/articles/good-design-is-imperfect-design-part-1-honest-names/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+	<article id="post-1822">
+		<!-- .entry-header -->
+
+		<div>
+			
+<p>by Eric Evans</p>
+
+
+
+<p>Perfectionism is a pitfall. For those who, like me, love elegant design and see its utility, there is a slippery slope waiting when a satisfying design does not emerge in a reasonable time. It takes constant self-discipline to recognize this and accept, let go, ship and move on – or return in a later cycle, if it matters. It doesn’t always matter. For many parts of our systems, a good-enough design is good enough. And for those few strategically important parts, where an incisive model and a crisp design are actually likely to affect the outcome of the project, a great initial design doesn’t usually emerge immediately. We’ll need iteration and experimentation. None of our goals is furthered by grinding and dawdling, waiting for a design we can be proud of in version one.</p>
+
+
+
+<p>For my own part, I try to go a bit beyond acceptance. When I am struggling with some part of the design, I often make design choices that explicitly responds the design problems themselves. This helps me let go and move on, and it can improve the chance for change in a later iteration.</p>
+
+
+
+<p>In this short series I’ll describe a few techniques I use that help me take the step of shipping something I’m not happy with while also potentially leaving a good path for improvement in future iterations.</p>
+
+
+
+<h2>Part 1: Honest Names</h2>
+
+
+
+<p>An honest name isn’t always an intention-revealing name. That is only the case when we succeed in <em>fulfilling our intention </em>with a design element. But this does not always happen. In this article, we are considering those unfortunate times when the nice solution doesn’t come.</p>
+
+
+
+<p>I need a specific example to illustrate the approach. It would be easy to pick apart some poorly designed software, but it is much more interesting to examine the imperfections in something that is generally well-designed. JodaTime is a Java library for date/time, very widely used as an open source library and eventually adopted, in a modified form, as a standard library for Java. It is well-designed – but not perfect, of course. (After all, it shipped!)</p>
+
+
+
+<h3>Consider ‘Plus’</h3>
+
+
+
+<p>The JodaTime library allows us to declare times, such as a date, and periods of time:</p>
+
+
+
+<p>The ‘plus’ operation is versatile. It works seamlessly with different kinds of periods:</p>
+
+
+
+<p>The code seems very expressive and clear. And yet…</p>
+
+
+
+<p><code>2021-01-30.plus(1 month) ⇒ ?</code></p>
+
+
+
+<p>Remember, February is a short month! I can think of at least three plausible responses. To know what it actually does, I ran the code:</p>
+
+
+
+<p><code>2021-01-30.plus(1 month) ⇒ 2021-02-28</code></p>
+
+
+
+<p>This seems like a reasonable default behavior, but it is not obvious. The fact that I had to run the code (or look up a document somewhere) to know what would happen, even after some experience using the operation, highlights a flaw in the model. But what is wrong with it, and what could be done?</p>
+
+
+
+<p>In this article, I’ll focus on the name. The word ‘plus’ seems to fit what is happening in my first few examples, but it gives no hint about how we handle irregularities, such as months of different lengths.</p>
+
+
+
+<p>And this brings us to “Honest Names”. A simple name like ‘plus’ can actually be misleading if the behavior of the operation is complicated. What could it be called instead?</p>
+
+
+
+<p><code>t.plusRounded(p)</code></p>
+
+
+
+<p>Any of these would have at least given me a clue. They are also <em>awkward</em>!</p>
+
+
+
+<h3>Give Awkward Names to Awkward Concepts</h3>
+
+
+
+<p>Let’s look some more at the ‘plus’ operation in JodaTime, and why ‘plus’ is a confusing name. (Here I’ll just write ‘plus’ as ‘+’ for easier reading.)</p>
+
+
+
+<p><code>2021-03-30 + 1 month ⇒ 2021-04-30</code></p>
+
+
+
+<p>Should those two expressions actually have the same value?</p>
+
+
+
+<p>Take a guess at the value of these two expressions:</p>
+
+
+
+<p>Does it seem like the answer should be the same?</p>
+
+
+
+<p>Here are the actual answers:</p>
+
+
+
+<p>Periods can also be combined with ‘plus’, so</p>
+
+
+
+<p>And therefore,</p>
+
+
+
+<p>And here we come to an insight about what is wrong with calling this ‘plus’: <em>The name has connotations that do not apply in our context!</em> In math, the ‘plus’ operation has properties such as associativity:</p>
+
+
+
+<p>By the way, I like to keep adding to my list of possible alternative names for a thing. Here are a few more that occur to me at this point:</p>
+
+
+
+<p><code>t.plusRounded(p)</code></p>
+
+
+
+<p><code>t.plusNonAssociative(p)</code></p>
+
+
+
+<p>We must ship! The JodaTime designers may have noticed this issue at the time. (I don’t know anything about the inside of that project.) If they did notice, they still made the right call, in my opinion. They shipped a very useful and generally quite clean library — that was not perfect. They must have made similar decisions many times. Some issues they noticed and some they did not.</p>
+
+
+
+<p>However, in a case when you have decided to ship something with awkward bits that you recognize, consider giving it an honest, awkward name. This can communicate to future users, and can help future iterations of the design.</p>
+
+
+
+<p>A clean name shuts down our thinking.</p>
+
+
+
+<p>An awkward name provokes new ideas.</p>
+
+
+
+<h2>Coming in Part 2: Refinement in a Later Iteration</h2>
+
+
+
+<p>Accepting a flaw in our design doesn’t mean we forget about it! In part two, we’ll take a quick look at an alternative concept that might emerge in a later iteration to relieve the awkwardness.</p>
+					</div><!-- .entry-content -->
+
+		
+			<!-- .author-profile -->
+	
+	</article><!-- #post-## -->
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 17:15:44 +0000</pubDate>
+      <source>https://www.domainlanguage.com/articles/good-design-is-imperfect-design-part-1-honest-names/</source>
+    </item>
   </channel>
 </rss>
