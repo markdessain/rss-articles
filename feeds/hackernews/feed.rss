@@ -6189,5 +6189,206 @@ With any luck, <a href="https://github.com/XVimProject/XVim2">XVim</a> will cont
       <pubDate>Wed, 04 Aug 2021 21:00:58 +0000</pubDate>
       <source>https://careers.atob.com/</source>
     </item>
+    <item>
+      <title>China Says It&#39;s Closing in on Thorium Nuclear Reactor</title>
+      <link>https://spectrum.ieee.org/china-closing-in-on-thorium-nuclear-reactor</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><template>
+                    <p>
+	Looking to such specialized nervous systems as a model for artificial intelligence may prove just as valuable, if not more so, than studying the human brain. Consider the brains of those ants in your pantry. Each has some 250,000 neurons. Larger insects have closer to 1 million. In my research at Sandia National Laboratories in Albuquerque, I study the brains of one of these larger insects, the dragonfly. I and my colleagues at Sandia, a national-security laboratory, hope to take advantage of these insects&#39; specializations to design computing systems optimized for tasks like intercepting an incoming missile or following an odor plume. By harnessing the speed, simplicity, and efficiency of the dragonfly nervous system, we aim to design computers that perform these functions faster and at a fraction of the power that conventional systems consume.
+</p><p>
+<strong>Looking to a dragonfly</strong> as a harbinger of future computer systems may seem counterintuitive. The developments in artificial intelligence and machine learning that make news are typically algorithms that mimic human intelligence or even surpass people&#39;s abilities. Neural networks can already perform as well—if not better—than people at some specific tasks, such as detecting cancer in medical scans. And the potential of these neural networks stretches far beyond visual processing. The computer program<a href="https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/deepmind-achieves-holy-grail" rel="noopener noreferrer" target="_blank"> <u>AlphaZero</u></a>, trained by self-play, is the best Go player in the world. Its sibling AI,<a href="https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/deepminds-ai-shows-itself-to-be-a-worldbeating-world-builder" rel="noopener noreferrer" target="_blank"> <u>AlphaStar</u></a>, ranks among the best<em> Starcraft II </em>players.
+</p><p>
+	Such feats, however, come at a cost. Developing these sophisticated systems requires massive amounts of processing power, generally available only to select institutions with the fastest supercomputers and the resources to support them. And the energy cost is off-putting.
+	<a href="https://arxiv.org/abs/1906.02243" rel="noopener noreferrer" target="_blank"> <u>Recent estimates</u></a> suggest that the carbon emissions resulting from developing and training a natural-language processing algorithm are greater than those produced by four cars over their lifetimes.
+</p><p>
+
+<small placeholder="Add Photo Caption...">It takes the dragonfly only about 50 milliseconds to begin to respond to a prey&#39;s maneuver. If we assume 10 ms for cells in the eye to detect and transmit information about the prey, and another 5 ms for muscles to start producing force, this leaves only 35 ms for the neural circuitry to make its calculations. Given that it typically takes a single neuron at least 10 ms to integrate inputs, the underlying neural network can be at least three layers deep.</small>
+</p><p>
+	But does an artificial neural network really need to be large and complex to be useful? I believe it doesn&#39;t. To reap the benefits of neural-inspired computers in the near term, we must strike a balance between simplicity and sophistication.
+</p><p>
+	Which brings me back to the dragonfly, an animal with a brain that may provide precisely the right balance for certain applications.
+</p><p>
+	If you have ever encountered a dragonfly, you already know how fast these beautiful creatures can zoom, and you&#39;ve seen their incredible agility in the air. Maybe less obvious from casual observation is their excellent hunting ability: Dragonflies successfully capture up to 95 percent of the prey they pursue, eating hundreds of mosquitoes in a day.
+</p><p>
+	The physical prowess of the dragonfly has certainly not gone unnoticed. For decades, U.S. agencies have experimented with using dragonfly-inspired designs for surveillance drones. Now it is time to turn our attention to the brain that controls this tiny hunting machine.
+</p><p>
+<strong>While dragonflies</strong> may not be able to play strategic games like Go, a dragonfly does demonstrate a form of strategy in the way it aims ahead of its prey&#39;s current location to intercept its dinner. This takes calculations performed extremely fast—it typically takes a dragonfly just 50 milliseconds to start turning in response to a prey&#39;s maneuver. It does this while tracking the angle between its head and its body, so that it knows which wings to flap faster to turn ahead of the prey. And it also tracks its own movements, because as the dragonfly turns, the prey will also appear to move.
+</p><p>
+
+<small placeholder="Add Photo Caption...">The model dragonfly reorients in response to the prey&#39;s turning. The smaller black circle is the dragonfly&#39;s head, held at its initial position. The solid black line indicates the direction of the dragonfly&#39;s flight; the dotted blue lines are the plane of the model dragonfly&#39;s eye. The red star is the prey&#39;s position relative to the dragonfly, with the dotted red line indicating the dragonfly&#39;s line of sight.</small>
+</p><p>
+	So the dragonfly&#39;s brain is performing a remarkable feat, given that the time needed for a single neuron to add up all its inputs—called its membrane time constant—exceeds 10 milliseconds. If you factor in time for the eye to process visual information and for the muscles to produce the force needed to move, there&#39;s really only time for three, maybe four, layers of neurons, in sequence, to add up their inputs and pass on information
+</p><p>
+	Could I build a neural network that works like the dragonfly interception system? I also wondered about uses for such a neural-inspired interception system. Being at Sandia, I immediately considered defense applications, such as missile defense, imagining missiles of the future with onboard systems designed to rapidly calculate interception trajectories without affecting a missile&#39;s weight or power consumption. But there are civilian applications as well.
+</p><p>
+	For example, the algorithms that control self-driving cars might be made more efficient, no longer requiring a trunkful of computing equipment. If a dragonfly-inspired system can perform the calculations to plot an interception trajectory, perhaps autonomous drones could use it to 
+	<em>avoid</em> collisions. And if a computer could be made the same size as a dragonfly brain (about 6 cubic millimeters), perhaps insect repellent and mosquito netting will one day become a thing of the past, replaced by tiny insect-zapping drones!
+</p><p>
+<strong>To begin to answer</strong> these questions, I created a simple neural network to stand in for the dragonfly&#39;s nervous system and used it to calculate the turns that a dragonfly makes to capture prey. My three-layer neural network exists as a software simulation. Initially, I worked in Matlab simply because that was the coding environment I was already using. I have since ported the model to Python.
+</p><p>
+	Because dragonflies have to see their prey to capture it, I started by simulating a simplified version of the dragonfly&#39;s eyes, capturing the minimum detail required for tracking prey. Although dragonflies have two eyes, it&#39;s generally accepted that they do not use stereoscopic depth perception to estimate distance to their prey. In my model, I did not model both eyes. Nor did I try to match the resolution of
+	<a href="https://www.brisbaneinsects.com/brisbane_insects/DragonflyHead.htm" rel="noopener noreferrer" target="_blank"> <u>a</u></a><u> dragonfly eye</u>. Instead, the first layer of the neural network includes 441 neurons that represent input from the eyes, each describing a specific region of the visual field—these regions are tiled to form a 21-by-21-neuron array that covers the dragonfly&#39;s field of view. As the dragonfly turns, the location of the prey&#39;s image in the dragonfly&#39;s field of view changes. The dragonfly calculates turns required to align the prey&#39;s image with one (or a few, if the prey is large enough) of these &#34;eye&#34; neurons. A second set of 441 neurons, also in the first layer of the network, tells the dragonfly which eye neurons should be aligned with the prey&#39;s image, that is, where the prey should be within its field of view.
+</p><p>
+
+<small placeholder="Add Photo Caption...">The model dragonfly engages its prey.</small>
+</p><p>
+	Processing—the calculations that take input describing the movement of an object across the field of vision and turn it into instructions about which direction the dragonfly needs to turn—happens between the first and third layers of my artificial neural network. In this second layer, I used an array of 194,481 (21<sup>4</sup>) neurons, likely much larger than the number of neurons used by a dragonfly for this task. I precalculated the weights of the connections between all the neurons into the network. While these weights could be learned with enough time, there is an advantage to &#34;learning&#34; through evolution and preprogrammed neural network architectures. Once it comes out of its nymph stage as a winged adult (technically referred to as a teneral), the dragonfly does not have a parent to feed it or show it how to hunt. The dragonfly is in a vulnerable state and getting used to a new body—it would be disadvantageous to have to figure out a hunting strategy at the same time. I set the weights of the network to allow the model dragonfly to calculate the correct turns to intercept its prey from incoming visual information. What turns are those? Well, if a dragonfly wants to catch a mosquito that&#39;s crossing its path, it can&#39;t just aim at the mosquito. To borrow from what hockey player Wayne Gretsky once said about pucks, the dragonfly has to aim for where the mosquito is going to be. You might think that following Gretsky&#39;s advice would require a complex algorithm, but in fact the strategy is quite simple: All the dragonfly needs to do is to maintain a constant angle between its line of sight with its lunch and a fixed reference direction.
+</p><p>
+	Readers who have any experience piloting boats will understand why that is. They know to get worried when the angle between the line of sight to another boat and a reference direction (for example due north) remains constant, because they are on a collision course. Mariners have long avoided steering such a course, known as parallel navigation, to avoid collisions
+</p><p>
+	Translated to dragonflies, which 
+	<em>want</em> to collide with their prey, the prescription is simple: keep the line of sight to your prey constant relative to some external reference. However, this task is not necessarily trivial for a dragonfly as it swoops and turns, collecting its meals. The dragonfly does not have an internal gyroscope (that we know of) that will maintain a constant orientation and provide a reference regardless of how the dragonfly turns. Nor does it have a magnetic compass that will always point north. In my simplified simulation of dragonfly hunting, the dragonfly turns to align the prey&#39;s image with a specific location on its eye, but it needs to calculate what that location should be.
+</p><p>
+	The third and final layer of my simulated neural network is the motor-command layer. The outputs of the neurons in this layer are high-level instructions for the dragonfly&#39;s muscles, telling the dragonfly in which direction to turn. The dragonfly also uses the output of this layer to predict the effect of its own maneuvers on the location of the prey&#39;s image in its field of view and updates that projected location accordingly. This updating allows the dragonfly to hold the line of sight to its prey steady, relative to the external world, as it approaches.
+</p><p>
+	It is possible that biological dragonflies have evolved additional tools to help with the calculations needed for this prediction. For example, dragonflies have specialized sensors that measure body rotations during flight as well as head rotations relative to the body—if these sensors are fast enough, the dragonfly could calculate the effect of its movements on the prey&#39;s image directly from the sensor outputs or use one method to cross-check the other. I did not consider this possibility in my simulation.
+</p><p>
+	To test this three-layer neural network, I simulated a dragonfly and its prey, moving at the same speed through three-dimensional space. As they do so my modeled neural-network brain &#34;sees&#34; the prey, calculates where to point to keep the image of the prey at a constant angle, and sends the appropriate instructions to the muscles. I was able to show that this simple model of a dragonfly&#39;s brain can indeed successfully intercept other bugs, even prey traveling along curved or semi-random trajectories. The simulated dragonfly does not quite achieve the success rate of the biological dragonfly, but it also does not have all the advantages (for example, impressive flying speed) for which dragonflies are known.
+</p><p>
+<strong>More work is needed </strong>to determine whether this neural network is really incorporating all the secrets of the dragonfly&#39;s brain. Researchers at the Howard Hughes Medical Institute&#39;s Janelia Research Campus, in Virginia, have developed tiny backpacks for dragonflies that can measure electrical signals from a dragonfly&#39;s nervous system while it is in flight and transmit these data for analysis. The backpacks are small enough not to distract the dragonfly from the hunt. Similarly, neuroscientists can also record signals from individual neurons in the dragonfly&#39;s brain while the insect is held motionless but made to think it&#39;s moving by presenting it with the appropriate visual cues, creating a dragonfly-scale virtual reality.
+</p><p>
+	Data from these systems allows neuroscientists to validate dragonfly-brain models by comparing their activity with activity patterns of biological neurons in an active dragonfly. While we cannot yet directly measure individual connections between neurons in the dragonfly brain, I and my collaborators will be able to infer whether the dragonfly&#39;s nervous system is making calculations similar to those predicted by my artificial neural network. That will help determine whether connections in the dragonfly brain resemble my precalculated weights in the neural network. We will inevitably find ways in which our model differs from the actual dragonfly brain. Perhaps these differences will provide clues to the shortcuts that the dragonfly brain takes to speed up its calculations.
+</p><p>
+
+<small placeholder="Add Photo Caption...">This backpack that captures signals from electrodes inserted in a dragonfly&#39;s brain was created by Anthony Leonardo, a group leader at Janelia Research Campus.</small><small placeholder="Add Photo Credit...">Anthony Leonardo/Janelia Research Campus/HHMI</small>
+</p><p>
+<strong>Dragonflies could also teach us</strong> how to implement &#34;attention&#34; on a computer. You likely know what it feels like when your brain is at full attention, completely in the zone, focused on one task to the point that other distractions seem to fade away. A dragonfly can likewise focus its attention. Its nervous system turns up the volume on responses to particular, presumably selected, targets, even when other potential prey are visible in the same field of view. It makes sense that once a dragonfly has decided to pursue a particular prey, it should change targets only if it has failed to capture its first choice. (In other words, using parallel navigation to catch a meal is not useful if you are easily distracted.)
+</p><p>
+	Even if we end up discovering that the dragonfly mechanisms for directing attention are less sophisticated than those people use to focus in the middle of a crowded coffee shop, it&#39;s possible that a simpler but lower-power mechanism will prove advantageous for next-generation algorithms and computer systems by offering efficient ways to discard irrelevant inputs
+</p><p>
+	The advantages of studying the dragonfly brain do not end with new algorithms; they also can affect systems design. Dragonfly eyes are fast, operating at the equivalent of 200 frames per second: That&#39;s several times the speed of human vision. But their spatial resolution is relatively poor, perhaps just a hundredth of that of the human eye. Understanding how the dragonfly hunts so effectively, despite its limited sensing abilities, can suggest ways of designing more efficient systems. Using the missile-defense problem, the dragonfly example suggests that our antimissile systems with fast optical sensing could require less spatial resolution to hit a target.
+</p><p>
+<strong>The dragonfly isn&#39;t the only insect</strong> that could inform neural-inspired computer design today. Monarch butterflies migrate incredibly long distances, using some innate instinct to begin their journeys at the appropriate time of year and to head in the right direction. We know that monarchs rely on the position of the sun, but navigating by the sun requires keeping track of the time of day. If you are a butterfly heading south, you would want the sun on your left in the morning but on your right in the afternoon. So, to set its course, the butterfly brain must therefore read its own circadian rhythm and combine that information with what it is observing.
+</p><p>
+	Other insects, like the Sahara desert ant, must forage for relatively long distances. Once a source of sustenance is found, this ant does not simply retrace its steps back to the nest, likely a circuitous path. Instead it calculates a direct route back. Because the location of an ant&#39;s food source changes from day to day, it must be able to remember the path it took on its foraging journey, combining visual information with some internal measure of distance traveled, and then
+	<a href="https://www.amazon.com/Desert-Navigator-Journey-R%C3%BCdiger-Wehner/dp/0674045882" rel="noopener noreferrer" target="_blank"> <u>calculate its return route</u></a> from those memories.
+</p><p>
+	While nobody knows what neural circuits in the desert ant perform this task, researchers at the Janelia Research Campus have identified neural circuits that allow the fruit fly to
+	<a href="https://www.nature.com/articles/nature14446" rel="noopener noreferrer" target="_blank"> <u>self-orient using visual landmarks</u></a>. The desert ant and monarch butterfly likely use similar mechanisms. Such neural circuits might one day prove useful in, say, low-power drones.
+</p><p>
+	And what if the efficiency of insect-inspired computation is such that millions of instances of these specialized components can be run in parallel to support more powerful data processing or machine learning? Could the next AlphaZero incorporate millions of antlike foraging architectures to refine its game playing? Perhaps insects will inspire a new generation of computers that look very different from what we have today. A small army of dragonfly-interception-like algorithms could be used to control moving pieces of an amusement park ride, ensuring that individual cars do not collide (much like pilots steering their boats) even in the midst of a complicated but thrilling dance.
+</p><p>
+	No one knows what the next generation of computers will look like, whether they will be part-cyborg companions or centralized resources much like Isaac Asimov&#39;s Multivac. Likewise, no one can tell what the best path to developing these platforms will entail. While researchers developed early neural networks drawing inspiration from the human brain, today&#39;s artificial neural networks often rely on decidedly unbrainlike calculations. Studying the calculations of individual neurons in biological neural circuits—currently only directly possible in nonhuman systems—may have more to teach us. Insects, apparently simple but often astonishing in what they can do, have much to contribute to the development of next-generation computers, especially as neuroscience research continues to drive toward a deeper understanding of how biological neural circuits work.
+</p><p>
+	So next time you see an insect doing something clever, imagine the impact on your everyday life if you could have the brilliant efficiency of a small army of tiny dragonfly, butterfly, or ant brains at your disposal. Maybe computers of the future will give new meaning to the term &#34;hive mind,&#34; with swarms of highly specialized but extremely efficient minuscule processors, able to be reconfigured and deployed depending on the task at hand. With the advances being made in neuroscience today, this seeming fantasy may be closer to reality than you think.
+</p><p>
+<em>This article appears in the August 2021 print issue as &#34;Lessons From a Dragonfly&#39;s Brain.&#34;</em>
+</p>
+                    
+                    </template></div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 19:57:00 +0000</pubDate>
+      <source>https://spectrum.ieee.org/china-closing-in-on-thorium-nuclear-reactor</source>
+    </item>
+    <item>
+      <title>Introduction to Convolutional Neural Networks</title>
+      <link>https://serokell.io/blog/introduction-to-convolutional-neural-networks</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___serokell_io_blog_introduction-to-convolutional-neural-networks/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>Convolutional neural networks are very important in machine learning. If you want to do computer vision or image recognition tasks, you simply can’t go without them. But it can be hard to understand how they work.</p>
+<p>In this post, we will talk about the mechanisms behind convolutional neural networks, their benefits, and business use cases.</p>
+<h2 id="what-is-a-neural-network%3F"><p>What is a neural network?</p></h2>
+<p>First, let’s brush up our knowledge about how neural networks work in general.</p>
+<p>Any neural network, from simple perceptrons to enormous corporate AI-systems, consists of nodes that imitate the neurons in the human brain. These cells are tightly interconnected. So are the nodes.</p>
+<p></p>
+<p>Neurons are usually organized into independent layers. One example of neural networks are <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network">feed-forward networks</a>. The data moves from the input layer through a set of hidden layers only in one direction like water through filters.</p>
+<p></p>
+<p>Every node in the system is connected to some nodes in the previous layer and in the next layer. The node receives information from the layer beneath it, does something with it, and sends information to the next layer.</p>
+<p>Every incoming connection is assigned a weight. It’s a number that the node multiples the input by when it receives data from a different node.</p>
+<p></p>
+<p>There are usually several incoming values that the node is working with. Then, it sums up everything together.</p>
+<p></p>
+<p>There are several possible ways to decide whether the input should be passed to the next layer. For example, if you use the unit step function, the node passes no data to the next layer if its value is below a threshold value. If the number exceeds the threshold value, the node sends the number forward. However, in other cases, the neuron can simply project the input into some fixed value segment.</p>
+<p>When a neural net is being trained for the first time, all of its weights and thresholds are assigned at random. Once the training data is fed to the input layer, it goes through all the layers and finally arrives at the output. During training, the weights and thresholds are adjusted until training data with the same labels consistently provides similar outputs. This is called <a href="https://en.wikipedia.org/wiki/backpropagation">backpropagation</a>. You can see how it works in <a href="https://playground.tensorflow.org/#activation=relu&amp;batchSize=10&amp;dataset=circle&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4,2&amp;seed=0.69808&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false">TensorFlow Playground</a>.</p>
+<p>You can read more about neural networks in our <a href="https://serokell.io/blog/deep-learning-and-neural-network-guide">introductory deep learning article</a>.</p>
+<h3 id="what%E2%80%99s-the-problem-with-simple-nns%3F"><p>What’s the problem with simple NNs?</p></h3>
+<p>Regular artificial neural networks do not scale very well. For example, in CIFAR, a dataset that is commonly used for training computer vision models, the images are only of size 32x32 px and have 3 color channels. That means that a single fully-connected neuron in a first hidden layer of this neural network would have 32<em>32</em>3 = 3072 weights. It is still manageable. But now imagine a bigger image, for example, 300x300x3. It would have 270,000 weights (training of which demands so much computational power)!</p>
+<p>A huge neural network like that demands a lot of resources but even then remains prone to overfitting because the large number of parameters enable it to just memorize the dataset.</p>
+<p>CNNs use parameter sharing. All neurons in a particular feature map share weights which makes the whole system less computationally intense.</p>
+<h2 id="how-does-a-cnn-work%3F"><p>How does a CNN work?</p></h2>
+<p>A convolutional neural network, or ConvNet, is just a neural network that uses convolution. To understand the principle, we are going to work with a 2-dimensional convolution first.</p>
+<h3 id="what-is-convolution%3F"><p>What is convolution?</p></h3>
+<p>Convolution is a mathematical operation that allows the merging of two sets of information. In the case of CNN, convolution is applied to the input data to filter the information and produce a <a href="https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks/">feature map</a>.</p>
+<p></p>
+<p>This filter is also called a kernel, or feature detector, and its dimensions can be, for example, 3x3. To perform convolution, the kernel goes over the input image, doing matrix multiplication element after element. The result for each receptive field (the area where convolution takes place) is written down in the feature map.</p>
+<p></p>
+<p>We continue sliding the filter until the feature map is complete.</p>
+<h3 id="padding-and-striding"><p>Padding and striding</p></h3>
+<p>Before we go further, it’s also useful to talk about padding and striding. These techniques are often used in CNNs:</p>
+<ul>
+<li><strong>Padding.</strong> Padding expands the input matrix  by adding fake pixels to the borders of the matrix. This is done because convolution reduces the size of the matrix. For example, a 5x5 matrix turns into a 3x3 matrix when a filter goes over it.</li>
+<li><strong>Striding.</strong> It often happens that when working with a convolutional layer, you need to get an output that is smaller than the input. One way to achieve this is to use a pooling layer. Another way to achieve this is to use striding. The idea behind stride is to skip some areas when the kernel slides over: for example, skipping every 2 or 3 pixels.  It reduces spatial resolution and makes the network more computationally efficient.</li>
+</ul>
+<p>Padding and striding can help process images more accurately.</p>
+<p>For a more detailed explanation of how CNNs work, watch this part of the machine learning course by Brandon Rohrer.</p>
+<iframe width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" data-src="https://www.youtube.com/embed/JB8T_zN7ZC0"></iframe>
+<p>For real-life tasks, convolution is usually performed in 3D. The majority of images have 3 dimensions: height, width and depth, where depth corresponds to color channels (RGB). So the convolutional filter needs to be 3-dimensional as well. Here is how the same operation looks in 3D.</p>
+<p></p>
+<p>There are multiple filters in a convolutional layer and each of them generates a filter map. Therefore, the output of a layer will be a set of filter maps, stacked on top of each other.</p>
+<p>For example, padding and passing a 30x30x3 matrix through 10 filters will result in a set of 10 30x30x1 matrices. After we stack these maps on top of each other, we will get a 30x30x10 matrix.</p>
+<p>This is the output of our convolutional layer.</p>
+<p>The process can be repeated: CNNs usually have more than one convolutional layer.</p>
+<h3 id="3-layers-of-cnn"><p>3 layers of CNN</p></h3>
+<p>The goal of CNN is to reduce the images so that it would be easier to process without losing features that are valuable for accurate prediction.</p>
+<p>ConvNet architecture has three kinds of layers: convolutional layer, pooling layer, and fully-connected layer.</p>
+<ul>
+<li>A convolutional layer is responsible for recognizing features in pixels.</li>
+<li>A pooling layer is responsible for making these features more abstract.</li>
+<li>A fully-connected layer is responsible for using the acquired features for prediction.</li>
+</ul>
+<p></p>
+<h4 id="convolutional-layer"><p>Convolutional layer</p></h4>
+<p>We’ve already described how convolution layers work <a href="https://serokell.io/blog/introduction-to-convolutional-neural-networks#how-does-a-cnn-work%3F">above</a>. They are at the center of CNNs, enabling them to autonomously recognize features in the images.</p>
+<p>But going through the convolution process generates a large amount of data, which makes it hard to train the neural network. To compress the data, we need to go through pooling.</p>
+<h4 id="pooling-layer"><p>Pooling layer</p></h4>
+<p>A pooling layer receives the result from a convolutional layer and compresses it. The filter of a pooling layer is always smaller than a feature map. Usually, it takes a 2x2 square (patch) and compresses it into one value.</p>
+<p>A 2x2 filter would reduce the number of pixels in each feature map to one quarter the size. If you had a feature map sized 10×10, the output map would be 5×5.</p>
+<p>Multiple different functions can be used for pooling. These are the most frequent:</p>
+<ul>
+<li>Maximum Pooling. It calculates the maximum value for each patch of the feature map.</li>
+<li>Average pooling. It calculates the average value for each patch on the feature map.</li>
+</ul>
+<p>After using the pooling layer, you get pooled feature maps that are a summarized version of the features detected in the input. Pooling layer improves the stability of CNN: if before even slightest fluctuations in pixels would cause the model to misclassify, now small changes in the location of the feature in the input detected by the convolutional layer will result in a pooled feature map with the feature in the same location.</p>
+<p>Now we need to flatten the input (turn it into a column vector) and pass it down to a regular neural network for classification.</p>
+<h4 id="fully-connected-layer"><p>Fully-connected layer</p></h4>
+<p>The flattened output is fed to a feed-forward neural network and backpropagation is applied at every iteration of training. This layer provides the model with the ability to finally understand images: there is a flow of information between each input pixel and each output class.</p>
+<h2 id="advantages-of-convolutional-neural-networks"><p>Advantages of convolutional neural networks</p></h2>
+<p>Convolutional neural networks have several benefits that make them useful for many different applications. If you want to see them in practice, watch this thorough explanation by StatQuest.</p>
+<iframe width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" data-src="https://www.youtube.com/embed/HGwBXDKFk9I"></iframe>
+<h3 id="feature-learning"><p>Feature learning</p></h3>
+<p>CNNs don’t require manual feature engineering: they can grasp relevant features during training. Even if you’re working at a completely new task, you can use the pre-trained CNN and, by feeding it data, adjust the weights. CNN will tailor itself to a new task.</p>
+<h3 id="computational-efficiency"><p>Computational efficiency</p></h3>
+<p>CNN, due to the procedure of convolution, are much more computationally efficient than regular neural networks. CNN uses parameter sharing and dimensionality reduction, which makes models easy and quick to deploy. They can be optimised to run on any device, even on smartphones.</p>
+<h3 id="high-accuracy"><p>High accuracy</p></h3>
+<p>The current state-of-the-art NNs in image classification are not convolutional nets, for example, in image transformers. However, CNNs have now been dominating for a very long time in most cases and tasks regarding image and video recognition and similar tasks. They usually show <a href="https://www.researchgate.net/post/CNN-classification-v-s-Artificial-NN-classification-why-there-is-a-significant-difference-in-accuracy">higher accuracy</a> than non-convolutional NNs, especially when there is a lot of data involved.</p>
+<h2 id="drawbacks-of-convnet"><p>Drawbacks of ConvNet</p></h2>
+<p>However, ConvNet is not perfect. Even if it seems like a very intelligent tool, it’s still prone to adversarial attacks.</p>
+<h3 id="adversarial-attacks"><p>Adversarial attacks</p></h3>
+<p>Adversarial attacks are cases of feeding the network ‘bad’ examples (aka slightly modified in a particular way images) to cause misclassification. Even a slight shift in pixels can make a CNN go crazy. For example, criminals can fool a CNN-based face recognition system and pass unrecognized in front of the camera.</p>
+<p></p>
+<h3 id="data-intensive-training"><p>Data-intensive training</p></h3>
+<p>For CNNs to showcase their magical power, they demand tons of training data. This data is not easy to collect and pre-process which can be an obstacle to the wider adoption of the technology. That is why even today there are only a few good pre-trained models such as GoogleNet, VGG, Inception, AlexNet. The majority are owned by global corporations.</p>
+<h2 id="what-are-convolutional-neural-networks-used-for%3F"><p>What are convolutional neural networks used for?</p></h2>
+<p>Convolutional neural networks are used across many industries. Here are some common examples of their use for real-life applications.</p>
+<h3 id="image-classification"><p>Image classification</p></h3>
+<p>Convolutional neural networks are often used for image classification. By recognizing valuable features, CNN can identify different objects on images. This ability makes them useful in medicine, for example, for MRI diagnostics. CNN can be also used in agriculture. The networks receive images from satellites like LSAT and can use this information to classify lands based on their level of cultivation. Consequently, this data can be used for making predictions about the fertility level of the grounds or developing a strategy for the optimal use of farmland. Hand-written digits recognition is also one of the earliest uses of CNN for computer vision.</p>
+<p></p>
+<h3 id="object-detection"><p>Object detection</p></h3>
+<p>Self-driving cars, AI-powered surveillance systems, and smart homes often use CNN to be able to identify and mark objects. CNN can identify objects on the photos and in real-time, classify, and label them. This is how an automated vehicle finds its way around other cars and pedestrians and smart homes recognize the owner’s face among all others.</p>
+<p></p>
+<h3 id="audio-visual-matching"><p>Audio visual matching</p></h3>
+<p>YouTube, Netflix, and other video streaming services use audio visual matching to improve their platforms. Sometimes the user’s requests can be very specific, for example, ‘movies about zombies in space’, but the search engine should satisfy even such exotic requests.</p>
+<h3 id="object-reconstruction"><p>Object reconstruction</p></h3>
+<p>You can use CNN for 3D modelling of real objects in the digital space. Today there are CNN models that create <a href="https://arxiv.org/pdf/1911.08008">3D face models</a> based on just one image. Similar technologies can be used for creating <a href="https://en.wikipedia.org/wiki/Digital_twin#:~:text=A%20digital%20twin%20is%20a,a%20physical%20object%20or%20process.&amp;text=Digital%20twins%20are%20the%20result,product%20design%20and%20engineering%20activities.">digital twins</a>, which are  useful in architecture, biotech, and manufacturing.</p>
+<h3 id="speech-recognition"><p>Speech recognition</p></h3>
+<p>Even though CNNs are often used to work with images, it is not the only possible use for them. ConvNet can help with speech recognition and natural language processing. For example, Facebook’s speech recognition technology is based on convolutional neural networks.</p>
+<h2 id="summing-up"><p>Summing up</p></h2>
+<p>To sum up, convolutional neural networks are an awesome tool for computer vision and similar areas because of their ability to recognize features in raw data.</p>
+<p>They can recognize the connections between different pixels in training data and use this information to engineer features on their own, building up from low-level (edges, circles) to high-level (faces, hands, cars).</p>
+<p>The problem is the features can become rather incomprehensible to humans. Moreover, a wild pixel in the image can sometimes lead to new surprising results.</p>
+<p>If this article interested you and you would like to learn more about neural networks, deep learning, and artificial intelligence, you can continue reading about machine learning on our <a href="https://serokell.io/blog/artificial-intelligence">blog</a>.</p></div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 12:19:03 +0000</pubDate>
+      <source>https://serokell.io/blog/introduction-to-convolutional-neural-networks</source>
+    </item>
   </channel>
 </rss>
