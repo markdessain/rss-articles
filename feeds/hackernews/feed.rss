@@ -8905,5 +8905,765 @@ Modern Real-Time Data Processing &amp; Analytics DBMS with Cloud-Native Architec
       <pubDate>Thu, 05 Aug 2021 08:05:41 +0000</pubDate>
       <source>https://www.theregister.com/2021/08/05/google_chrome_iframe/</source>
     </item>
+    <item>
+      <title>Six hundred and forty pages in 15 months</title>
+      <link>https://journal.stuffwithstuff.com/2021/07/29/640-pages-in-15-months/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><article>
+<header>
+
+
+  <a href="https://journal.stuffwithstuff.com/2020/04/05/crafting-crafting-interpreters/" title="Older Post “Crafting " crafting="" interpreters"&rdquo;"="">↩</a>
+
+
+</header>
+<h4><a href="https://journal.stuffwithstuff.com/archive">July 29, 2021</a>
+    <span><a href="https://journal.stuffwithstuff.com/category/book">book</a> <a href="https://journal.stuffwithstuff.com/category/design">design</a> <a href="https://journal.stuffwithstuff.com/category/language">language</a> <a href="https://journal.stuffwithstuff.com/category/personal">personal</a></span>
+</h4>
+
+<p>My book <a href="http://craftinginterpreters.com/"><em>Crafting Interpreters</em></a> on programming languages is done. OK, OK.
+I know <a href="https://journal.stuffwithstuff.com/2020/04/05/crafting-crafting-interpreters/">I said it was done like fifteen months ago</a>. But now it’s <em>really</em>
+done. And by that I mean, the print, ebook and PDF versions are done. <strong>You can
+<a href="http://craftinginterpreters.com/">buy it</a>.</strong> You can hold it in your hands. And I do mean “hands” plural.
+Because this little “handbook” turned out way larger than I anticipated:</p>
+
+<figure>
+  <a href="http://craftinginterpreters.com/"></a>
+  <figcaption>This is a proof copy, so it looks a little different than the final design.</figcaption>
+</figure>
+
+<p>Look at that thing. 640 pages, eight inches wide, ten inches tall. If you get
+tired of reading it, it can serve as a doorstop or protect you from small-arms
+fire.</p>
+
+<p>Remember back on Mr. Roger’s Neighborhood when he would take you to a factory
+and show you how pencils or umbrellas are made? I love that stuff, so I thought
+maybe you might like to see what I spent the past year on. You can read this as
+a peek behind the curtain, or maybe a long apology for why it took so long.</p>
+
+<h2>Where I left off</h2>
+
+<p>What I said in my last post was that <em>Crafting Interpreters</em> was <em>finished</em>, and
+by that I meant that I’d written all the code, dotted the last sentence, and
+scanned the last illustration. The <em>content</em> of the book was complete. But it
+wasn’t a book yet. Just a pile of Markdown and PNG files that my embarrassingly
+bad Python code would begrudgingly turn into a website.</p>
+
+<p>My original goal was always to make a real book, with pages and everything.
+Completing the content was just one (granted, the most important) step in that
+journey. Once I finished the last chapter and put it online, I took about a
+month-long break. I had been writing <a href="https://github.com/munificent/craftinginterpreters/blob/master/note/log.txt">every single day for almost four
+years</a> and I was <em>fried</em>. Also, in case you don’t remember, early 2020 was
+not exactly a Totally Fine Time in World History.</p>
+
+<h2>A new build system</h2>
+
+<p>After a few weeks, my desire to have this project completely done returned and I
+eased my way back into working on it. I fixed a whole pile of typos and other
+mistakes that readers <a href="https://github.com/munificent/craftinginterpreters/issues">filed bugs for</a> (thanks!).</p>
+
+<p>Then, for no real good reason at all, I decided to rewrite the whole build
+system for the book in Dart. The build script I wrote for <a href="http://gameprogrammingpatterns.com/">my first book</a>
+was dead simple. <a href="https://github.com/munificent/game-programming-patterns/blob/master/script/format.py">Literally a single Python script</a> that took a Markdown
+file for each book chapter and rendered it to HTML while weaving in the code
+snippets. The world’s dumbest static site generator.</p>
+
+<p>I started with that for <em>Crafting Interpreters</em> but then it grew and grew. My
+second book includes every single line of code for two complete interpreters,
+which it builds up incrementally across thirty chapters. I needed to not just
+build the HTML for the book’s website, but also make sure the code really did
+work. I gave the build system the ability to not only generate the site for the
+book, but also to slice and dice the code. Given a chapter, or even a single
+point within a chapter, it can output a program containing all of the code for
+the interpreters up to that point. Then I can take that code, compile it, and
+run it through my automated test suite to make sure the code I’m showing you
+does what it’s supposed to.</p>
+
+<p>Useful, but really straining the limits of how much code I want to maintain in a
+dynamically typed language like Python, at least, with my (low) level of Python
+expertise. Also, it was, frankly, really slow. So over a period of a couple of
+weeks, I rewrote the whole thing in Dart.</p>
+
+<p>I work at Google on the <a href="https://dart.dev/">Dart language</a> team as my day job, so picking
+Dart was not an unbiased choice. But it’s my build system for my book, and I
+know Dart and many of its core libraries and packages like the back of my hand.
+Hell, I personally wrote the initial version of the canonical <a href="https://pub.dev/packages/markdown">markdown
+package</a>.</p>
+
+<p>I found a pretty nice <a href="https://pub.dev/packages/mustache_template">package for mustache templates</a>, so I converted
+the book’s old Liquid templates to that. I didn’t find a good syntax
+highlighter. But it’s not like I looked very hard either. It seemed like just
+the kind of fun thing to implement from scratch, so I whipped one up loosely
+based on Pygments.</p>
+
+<p>The end result is a new build system that generates <em>exactly</em> the HTML and
+syntax-highlighted code that I want. Also, it is literally ten <em>times</em> faster
+than the old Python one. As you’ll see, it turned out to be handy that I had
+better control over the Markdown processing, but at the time I was basically
+just doing this for fun and to procrastinate the real work.</p>
+
+<figure>
+  
+  <figcaption>I planned to implement some clever incremental rebuild logic in
+  the dev server, but it builds so fast that I just rebuild everything on every
+  refresh.</figcaption>
+</figure>
+
+<p>Once I had the new build system outputting nice clean HTML and I’d deleted the
+old Python stuff, it was time to get started.</p>
+
+<h2>Designing the book</h2>
+
+<p>Doing a large graphic design project like a book works a lot like web dev or
+game programming where it sort of has two levels. First you set up your
+“framework” or “engine”. On the web, this is your web framework and all of your
+CSS and HTML templates. In games, it’s your game engine. Then you pour content
+into that structure. With the right framework, adding content is easy.</p>
+
+<p>For graphic design using a program like Adobe InDesign, the way it works is you
+set up styles and masters. A master defines the margins and grid lines for a
+page. It’s the fences that corral all the text to keep those feral letters from
+running around eating all the whitespace. Styles are like CSS: they let you take
+a semantic kind of text or object and associate specific fonts, styles and
+colors for it.</p>
+
+<p>In theory, you get the masters and styles right and then typesetting is pretty
+easy and mechanical. Now, I did <em>not</em> make my life easy when it comes to book
+design. Book design is literally a two-dimensional spatial exercise and I made
+my job harder both horizontally and vertically. If you’ve read any of it on the
+web, you know my book has:</p>
+
+<ul>
+<li><p>Prose, of course. So many words.</p></li>
+<li><p>A lot of asides that need to be right next to certain pieces of text, code
+or illustrations that they refer to. Some of these can get pretty long.</p></li>
+<li><p>Plenty of code. Also, each code snippet has a little location blurb next to
+it telling you where the code goes in the resulting program.</p></li>
+</ul>
+
+<h2>How wide?</h2>
+
+<p>Horizontally, the main text column needs to be wide enough to fit the longest
+line of code. I can use shorter lines and wrap the snippets more, but that makes
+them harder to read. It also makes them vertically taller, which causes its own
+problem.</p>
+
+<p>Then I need room next to that for the asides, since they often remark directly
+on specific sentences. I can make <em>those</em> narrower too, of course. But then they
+wrap and get taller. Some asides are fairly long and if they get too tall, they
+start colliding with each other or overlapping location snippets.</p>
+
+<p>Oh, and since I ended up writing a 200k+ word book, it’s going to have a high
+page count. That means a thick book. Thick books need wider inner margins so the
+text doesn’t disappear into the spine.</p>
+
+<p>All of this points towards a pretty wide page. Most CS textbooks—at least
+the ones on my bookshelf—are 7.5 inches wide. I tried hard to come up with
+a design that fit the code, asides, and healthy margins in that width while
+still giving a text size that didn’t require a magnifying glass. Eventually, I
+conceded defeat.</p>
+
+<p>Once I tried designing a set of metrics for an 8 inch wide page, everything fell
+into place. I could have enough breathing room around the text to make it
+enjoyable to read, a decent length for the code snippets, and plenty of room for
+the asides. (Using a narrower font for the asides helped too).</p>
+
+<figure>
+  
+  <figcaption>Here are the final horizontal metrics.</figcaption>
+</figure>
+
+<h2>How tall?</h2>
+
+<p>That left the other dimension. If I were going with a real publisher doing a
+full offset print run, I could pick whatever page size I wanted. But since I’m
+self publishing, that would mean paying up front for thousands of copies to be
+printed and, I don’t know, storing all the boxes in my garage or something.</p>
+
+<p>Print on demand worked great for my last book, and I planned to do the same
+thing for this one. That meant sticking to the limited set of page sizes that
+KDP and IngramSpark support. The only reasonable one that is 8 inches wide is
+8&#34;×10&#34;, so that’s what I picked. The end result is a book that feels big, but
+hopefully not awkwardly huge. I’m sorry. I promise to write a smaller book if I
+ever write another.</p>
+
+<figure>
+  
+  <figcaption>The metrics for a complete chapter spread. Vertically, text is
+  aligned to a classic 12pt baseline grid.</figcaption>
+</figure>
+
+<p>The whole time I was picking these margins and metrics, I was also selecting
+fonts and building styles. You can’t do graphic design in a vacuum, so I picked
+a test chapter and just typeset it and tweaked the fonts over and over again.
+Eventually I got a set of fonts and styles I liked, some masters that seemed
+workable, and I was ready to go. The framework was done and now it was time to
+open the content hose.</p>
+
+<h2>XML, like its 1999</h2>
+
+<p>Of course, problem #1 is that there <em>is</em> no content hose. I have to build one.
+InDesign doesn’t know what the hell Markdown or my weird ass build system is.
+I sure as hell didn’t want to, like, copy every chapter from my browser, paste
+it into InDesign and then manually apply all the styles. I have a high pain
+tolerance, but I’m not a masochist.</p>
+
+<p>What InDesign <em>can</em> do is import XML. Even better, you can set it up to
+automatically apply certain paragraph or character styles to certain tag names.
+InDesign’s XML support, alas, has not matured much since the time I described it
+as <a href="https://journal.stuffwithstuff.com/2014/11/03/bringing-my-web-book-to-print-and-ebook/">being implemented by a narcoleptic intern</a>. For example, in HTML
+you can italicize a word in a header by taking an italics tag and nesting it
+inside a header tag. InDesign cannot comprehend such advanced data modeling. It
+needs a flat series of unnested tags and if you need italics in your header, you
+damn well better have a unique <code>&lt;italics-header&gt;</code> tag for it.</p>
+
+<p>But now I had an ace up my sleeve. Since I had microscopic control over my build
+system and its Markdown processing, I could write my own <a href="https://github.com/munificent/craftinginterpreters/blob/master/tool/bin/build_xml.dart">custom XML exporter</a>
+that generated <em>exactly</em> the tags that would make InDesign not cry and avoid as
+many InDesign XML import bugs as possible.</p>
+
+<h2>JavaScript, in <em>my</em> InDesign?</h2>
+
+<p>Even so, XML import only gets you so far. Specifically, it gets you a “story” in
+InDesign terms: a single continuous narrative of text that fills the main text
+box and spans multiple pages:</p>
+
+<figure>
+  
+  <figcaption>What the initial XML import looks like. The pink text is where
+  an illustration goes and the “@” tells me where to anchor the aside.</figcaption>
+</figure>
+
+<p>The main story is where the prose and code snippets go, but the asides and the
+location markers need to be pulled out float off to the side. With my last book,
+I yanked those out manually. I literally cut each aside from the main text
+column and pasted it into a new text box. It took forever, and that book was
+less than half as long as this one with <em>way</em> fewer code snippets.</p>
+
+<p>There are <em>1,133</em> code snippets in <em>Crafting Interpreters</em>. If I had to manually
+cut and paste the location markers for each of those, I would lose my mind.
+Worse, I would make a lot of mistakes, which would just create more work for
+myself.</p>
+
+<p>I’m an engineer so I am morally opposed to error-prone manual effort that can be
+automated. Did you know that InDesign can be scripted using JavaScript? Well,
+you do now, which apparently places you in a tiny minority because there are,
+like, <em>no</em> docs for it out there. You can find a couple of auto-generated
+references, a few sad cries for help from graphic designers clearly out of
+their element with no responses, and that’s it.</p>
+
+<p>JavaScripting InDesign is a special kind of pain. There is no debugger. There
+are no stack traces. There aren’t even <em>debug prints</em>. There is literally just
+<code>alert()</code>, and you can only call it <em>once</em>. And it halts your script.
+Fortunately, I actually learned JavaScript back when that’s all <em>browsers</em> gave
+you, so I can hack it.</p>
+
+<figure>
+  
+  <figcaption>Just like developing for IE6.</figcaption>
+</figure>
+
+<p>I managed to cobble together a horrific script that would find all of the asides
+and location markers, pull them out of the main text flow, and leave them off to
+the side:</p>
+
+<figure>
+  
+  <figcaption>Asides and location markers are pulled out of the main flow and
+  into their own text boxes.</figcaption>
+</figure>
+
+<p>What I wasn’t able to get the script to do was <em>position</em> the boxes correctly.
+But InDesign has a thing called “anchors” where you can lock the position of an
+element relative to another. A couple of carefully crafted Object Styles would
+even set the horizontal metrics correctly and align the text to the right
+baseline. All I had to do was anchor each text box and it worked perfectly!</p>
+
+<p>Wait, did I say “perfectly”? I meant  it worked right about half the time and
+the other half the time InDesign would inexplicably <em>turn off the fucking
+borders of nearby code snippets</em>.</p>
+
+<figure>
+  
+  <figcaption>What it looks like when InDesign hates you.</figcaption>
+</figure>
+
+<p>I lost hours of my life to this stupid bug. Eventually, I realized that some
+completely random subset of location tags would have to be manually positioned
+because anchoring invariably broke some borders.</p>
+
+<h2>Editing, again</h2>
+
+<p>All of the above took me a good month or so and then it was time to stop
+fiddling around and get to work on the actual content. The first thing I did was
+another editing pass of the entire book, front to back. I had already done three
+drafts of each chapter as I was writing them, but I wanted to do one more now
+that it was done so that I could get a better feel for continuity. It turns out
+I repeated the same dumb jokes a lot. I fixed (most of) those.</p>
+
+<p>This took five months. There’s nothing fun to say about this, it was just a
+chore.</p>
+
+<h2>Copy editing</h2>
+
+<p>Next I hired an actual professional copy editor, <a href="https://karisomerton.com/">Kari Somerton</a>, to go
+through and do the same thing. She was great. Most of the editing world uses
+Microsoft Word and “Track Changes” to handle the editing process. Like most
+software engineers, I live and breathe plaintext and Git. That way I can see
+diffs of the changes, and go back through history.</p>
+
+<p>I didn’t want to abandon my workflow so I asked Kari to ramp up on Git and my
+weird completely bespoke build system. She handled it with aplomb and churned
+through the book in no time. She found hundreds and hundreds of mistakes. This
+despite me doing four drafts and readers filing hundreds of issues already.
+Professional copy editors are worth every penny.</p>
+
+<h2>Typesetting the whole thing</h2>
+
+<p>Once the words were as good as they were gonna get, it was time to get them onto
+pages. The process went like this:</p>
+
+<ol>
+<li><p>Create a new InDesign file for the next chapter.</p></li>
+<li><p>Export it to XML.</p></li>
+<li><p>Import the XML into InDesign.</p></li>
+<li><p>Run my little JavaScript script to pull out the asides and location markers.</p></li>
+<li><p>Go through and anchor the side bar stuff.</p></li>
+<li><p>Fix up whitespace at the end of pages.</p></li>
+</ol>
+
+<p>The first five steps are a piece of cake. I’d wake up in the morning, brew a cup
+of coffee, shamble upstairs to the iMac, and get started. I could grind through
+those steps while half awake and get a chapter done in half an hour or so. It
+was peaceful. Almost meditative.</p>
+
+<p>And then step six. You see, that right there is the hard thing about typesetting
+a book. And it’s the really hard thing about typesetting <em>this</em> book. Because it
+turns out there are a bunch of constraints on how content can be fit vertically
+in a page. Obviously, we can’t slice an illustration in half and put the top
+half on one page and the bottom half on the next. The asides also really need to
+fit on one page too, or it gets confusing to keep track of what they refer to.</p>
+
+<p>Whenever possible, it’s nice for the code snippets to not get split across pages
+too. Some of those can be over a dozen lines long. (This is another reason why
+wider horizontal metrics helped. Because if I had made the code snippets
+narrower, they would end up taller, which would make them harder to fit on the
+page.) And you don’t want a header alone at the end of a page with no content
+after it. And it’s good to avoid <a href="https://en.wikipedia.org/wiki/Widows_and_orphans">widows and orphans</a>…</p>
+
+<p>Take all of those rules and restrictions, and mix in the completely fixed height
+of a page and you got yourself a real constraint solving problem. Or, in my
+case, 640 of them, all interwoven with each other. Because, you see, InDesign is
+happy to solve all of this for you by just pushing content to later pages. Code
+snippet too long? Move it to the next page. No room for prose under the header?
+Move it all to the next page. What that gives you is a ton of dead white space
+at the bottom of pages. It looks terrible and wastes space, like this:</p>
+
+<figure>
+  
+  <figcaption>I thoughtfully left room on the page for your own doodles.</figcaption>
+</figure>
+
+<h2>Speaking of illustrations…</h2>
+
+<p>At one level, the illustrations were easy. I specifically chose black and white
+pen and ink because it’s print friendly. When I first scanned the images as I
+wrote each chapter, I brought them in at glorious 1200 DPI. Here’s a crop:</p>
+
+<figure>
+  
+</figure>
+
+<p>A little level adjustment in Photoshop produces:</p>
+
+<figure>
+  
+</figure>
+
+<p>So detailed! Exporting these to high resolution bitmaps that print well was a
+snap, and they look great. (Well, as great as my handwriting looks, I guess.)</p>
+
+<p>Incorporating the illustrations into the page layout was another story. Halfway
+through typesetting, a lightbulb went off and I finally realized why most books
+say, “Refer to Figure 123 to see blah blah blah…” That gives the typesetter
+freedom to put Figure 123 wherever the hell it fits on any nearby page.</p>
+
+<p>In my dumb book, because I am an idiot, the prose just refers directly to the
+illustration. The illustration needs to be <em>right there</em> or the text doesn’t
+make sense. I didn’t think about that when each chapter was an infinitely
+scrolling web page, and by the time I realized, it was too late.</p>
+
+<p>With the hundreds of illustrations and thousand-plus code snippets, I had given
+myself thirty giant interrelated bin-packing exercises. The hard part of
+typesetting was figuring out how to adjust things to minimize that dead space.
+Sometimes I’d split a code snippet in two. Maybe add a little extra padding
+around one image to spread stuff across the page a little. Or crowd another one
+so that it <em>just</em> fits on the page. Sometimes I’d tweak an illustration to make
+it shorter to fit on a page or taller to eat up some whitespace.</p>
+
+<p>This was the real challenge of typesetting the book and why it took me two
+months to get through all the chapters.</p>
+
+<h2>Frontmatter and backmatter</h2>
+
+<p>Did you know that there are professional indexers? People whose job it is to
+write indexes for books? They even <a href="https://press.uchicago.edu/ucp/books/book/chicago/I/bo3625262.html">write books</a> about how to write
+indexes. (One would presume that these books have truly superb indexes.)</p>
+
+<p>I did not hire one of those eminently skilled professionals. Instead, I spent
+two weeks going through every damn chapter <em>again</em> doing my best to pretend that
+I know what I’m doing. InDesign’s support for indexes is actually pretty nice.
+You can basically just select some text and say, “Make an index entry for this.”
+Then it collects all of those and generates an index for the whole book. But
+actually <em>adding</em> all of those entries is a mind-numbing chore.</p>
+
+<p>The index is the main piece of “backmatter”—the stuff at the end of a book
+after its main content. There is also “frontmatter”. You’ll never guess where
+that goes. I put together a title page, copyright page, dedication, and
+acknowledgements. Then I let InDesign generate a table of contents for me.</p>
+
+<p>This was a magical moment. At this point, I had a complete book:</p>
+
+<figure>
+  
+  <figcaption>Here’s what the inside looks like.</figcaption>
+</figure>
+
+<p>Or, at least, I had the <em>inside</em> of one.</p>
+
+<h2>Cover design</h2>
+
+<p>A lot of authors obsess over their cover and envision it the whole time they are
+writing. Despite what the aphorism says, people <em>do</em> judge books by their cover
+and a good one makes a big difference. At least, that’s the case over in fiction
+land. In computer science, judging by the other books I have laying around, the
+artistic merit of the cover appears to be somewhat less critical. I guess when
+the prof says you have to buy the book to pass the class, a clip art cover is
+sufficiently compelling.</p>
+
+<p>Since I am <em>not</em> a professor who can garner sales by fiat, I spent a lot of time
+on the cover design. I take photos, so I thought it could look nice to put
+something detailed on the cover to liven it up. I went through my thousands of
+photos trying to find something that fit. And, while I have some pretty
+pictures, none of them felt like they worked as covers. They felt arbitrary.</p>
+
+<p>Eventually I realized that the visual language of the book is those pen and ink
+illustrations. So I drew a bigger more detailed version of <a href="http://craftinginterpreters.com/a-map-of-the-territory.html#the-parts-of-a-language">the mountain
+illustration I use as a metaphor for the compilation process</a>. I also
+hand-lettered a new title:</p>
+
+<figure>
+  
+</figure>
+
+<p>It’s a real typeface (Acumin Pro Extra Condensed) but I hand-traced a printout
+to give it some imperfect charm. I picked a color palette to try to give it a
+sort of a mimeographed 1950s scouting manual vibe.</p>
+
+<h2>Proofreading the proof</h2>
+
+<p>Now I really had a book. I uploaded the PDF exports to KDP and ordered a proof
+copy. A week later, a surprisingly heavy box arrived. This was the first moment
+I really understood just how <em>big</em> this book I wrote is. Up until this point, it
+was just data files. But seeing it fill up an Amazon box clarified the scale of
+the project in a way that the time I spent never quite did.</p>
+
+<p>So I had a book, but it <em>still</em> wasn’t done. Because the typesetting process
+involved a lot of manual labor. To err is human, so now I had to
+<em>proofread</em>—to literally go through the proof and read it looking for
+mistakes. I marked them all with sticky notes:</p>
+
+<figure>
+  
+  <figcaption>I put an “x” on each sticky note to mark when I had applied the
+  fix to the InDesign files.</figcaption>
+</figure>
+
+<p>Here’s where it got stressful. If you’re a programmer, then source control and
+diff is deeply ingrained in your workflow. Whenever I make a change, I take for
+granted that I can then see a diff in the commit to verify that I changed only
+what I intended and nothing else.</p>
+
+<p>I did put the InDesign files in a Git repo, but they are giant opaque binary
+files. Also, InDesign has a habit of changing them even when it doesn’t seem
+like I’ve actually made any real changes. There’s nothing quite like syncing all
+the styles across the chapters, seeing every single file marked changed and
+wondering, “Did I just accidentally move every bullet list item 3 points to the
+left?” It felt like flying blind at exactly the stage in the process where I
+really wanted to see <em>exactly</em> what was happening.</p>
+
+<p>Did I engineer my way out of this problem? You’re <a href="https://github.com/munificent/craftinginterpreters/blob/master/tool/bin/tile_pages.dart">damn right I did</a>. I
+wrote a Dart script that would take a PDF of the book, extract every page, and
+then generate a single huge PNG file with every page tiled across it. It looks
+like this:</p>
+
+<figure>
+  
+</figure>
+
+<p>If you zoom in, each page is about this big:</p>
+
+<figure>
+  
+  <figcaption>If you’re on a retina display, this is a 100% zoom.</figcaption>
+</figure>
+
+<p>Every time I changed the InDesign files and committed them, I exported a PDF
+for that commit and generated a tile image. Then I wrote a little Photoshop
+action that would take two of those and draw a big red border around any pixels
+that differed. Here is what all of the proofreading changes look like:</p>
+
+<figure>
+  
+</figure>
+
+<p>And zoomed in:</p>
+
+<figure>
+  
+</figure>
+
+<p>There isn’t enough detail in the tile image to tell exactly what changed, but
+the red tells me which pages need a visual inspection. I know I should be proud
+of, like, writing an entire textbook on programming languages. But, honestly, I
+think I’m most proud of this dumb little script. It was <em>such</em> a relief to be
+able to programmatically verify that, yes, this PDF looks exactly like the last
+one except for the one expected change.</p>
+
+<h2>Ebooks are also books</h2>
+
+<p>Once I incorporated all the proofreading fixes, the print edition was really
+for real totally done. But people also like reading ebooks and Kindle, so I
+needed to make those too.</p>
+
+<p>Again, writing my own build system helped. I tweaked it to be able to export the
+antiquated XHTML that EPUB requires as well as all the weird metadata and
+manifest stuff that goes into one. A few command-line invocations later and I
+had Kindle and EPUB ebooks. I tested in a bunch of readers and tweaked the CCS
+to try to find a compromise between all of their renderers.</p>
+
+<h2>Updating the site and launching</h2>
+
+<p>At this point—and now we’re talking this past weekend as I write this
+sentence—I had a folder with all of the final files for every edition of
+the book. All that remained was to update the front page of the book’s website
+to point to where people can get them. I took some photos and put on my web
+designer hat for a while. I tried to make it tolerably responsive.</p>
+
+<p>Then I wrote this blog post. It’s weird to put that in the past tense since I
+just wrote it. But I guess it’s in the past now.</p>
+
+<p>Tomorrow, I’m going to upload the files to the various sites and stores. I’ll
+update the site to have links to all of those as they go live. Once the stores
+have processed the uploads and everything is available, I’ll publish this post
+and update the site. I’ll write a note for the mailing list and feel nervous
+emailing that many people. If you’re reading this, I already did all that and
+the book is really, really done.</p>
+
+<h2>What next?</h2>
+
+<p>Ever since I finished the last chapter, people have been asking me what I’m
+going to do next. I have people I consider close friends now who have never
+known me when I <em>wasn’t</em> writing this book.</p>
+
+<p>Many ask what I’m going to write next, or suggest a topic. I interpret this as a
+compliment: They like my writing and want more. But it also feels like asking a
+mom in labor whether she plans to have more kids. I’ve had my legs in the
+stirrups for six years, so I’m gonna just relax a bit after all the pushing is
+over before I even <em>think</em> about another book baby.</p>
+
+<p>What I really plan to do is… not <em>plan</em> to do anything. This writing project
+has been an enormous exercise in self-applied delayed gratification. On top of
+that, the pandemic brought its own basket of deferred dreams. I’ve gotten so
+skilled at denying myself and postponing, so good at tuning out what I <em>feel</em>
+like doing, that it’s hard to even hear it any more. I don’t remember what my
+own joy sounds like.</p>
+
+<p>So I’m gonna check out for a while and go hunting for my pleasure centers. Maybe
+<a href="https://www.youtube.com/channel/UCSMJ0iRwAhIFYSpntOEtn2g">make some more music</a>. Maybe go fishing. Probably spend more time with
+friends and family (safely). I might get back to working on <a href="https://github.com/munificent/hauberk">my
+roguelike</a>. Or maybe I won’t do any of those. Maybe I’ll just go out in
+the backyard and bask mindlessly in the sun like a lizard. The important part is
+I won’t decide until I feel like it.</p>
+
+<p>I’m sure eventually I’ll get the itch to work on something more sizeable again.
+(But, God-willing, I will never spend six years on a single project again in my
+life.) Until then, I hope you enjoy the book. Despite all the work, I had a lot
+of fun making it, and it was <em>always</em> a joy to hear from readers who liked it.
+It’s the only thing that kept me going this long and enabled me to get it done.</p>
+
+  
+
+  
+  
+  
+</article></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 10:38:54 +0000</pubDate>
+      <source>https://journal.stuffwithstuff.com/2021/07/29/640-pages-in-15-months/</source>
+    </item>
+    <item>
+      <title>A riddle wrapped in a curve (2015)</title>
+      <link>https://blog.cryptographyengineering.com/2015/10/22/a-riddle-wrapped-in-curve/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___blog_cryptographyengineering_com_2015_10_22_a-riddle-wrapped-in-curve_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+		<p><a href="https://matthewdgreen.files.wordpress.com/2015/10/383ba-kryptos.jpg"></a>If you’re looking for a nice dose of crypto conspiracy theorizing <i>and </i>want to read a paper by some very knowledgeable cryptographers, I have just the paper for you. Titled “<a href="http://eprint.iacr.org/2015/1018.pdf">A Riddle Wrapped in an Enigma</a>” by Neal Koblitz and Alfred J. Menezes, it tackles one of the great mysteries of the year 2015. Namely: <i>why did the NSA just freak out and </i><a href="http://arstechnica.com/security/2015/08/nsa-preps-quantum-resistant-algorithms-to-head-off-crypto-apocolypse/"><i>throw its Suite B program down the toilet</i></a><i>?</i></p>
+<p>Koblitz and Menezes are noted cryptographers and mathematicians, together responsible for scores of papers, including a recent series of position papers such as “<a href="http://eprint.iacr.org/2004/152">Another Look at Provable Security</a>” (mentioned previously on this blog) and “<a href="http://www.ams.org/notices/201003/rtx100300357p.pdf">The Brave New World of Bodacious Assumptions in Cryptography</a>”. (Yes, that is a real paper title.)</p>
+<p>Their <a href="http://eprint.iacr.org/2015/1018.pdf">latest paper</a> is highly accessible and contains almost no mathematics, so it’s worth your time to go read it now. If you don’t, or can’t handle reading things typeset in LaTeX, I’m going to sum up the gist of their arguments as best I can, then talk about why this all matters.</p>
+<p>Let’s start with some background.</p>
+<h3><b>What is Suite B, and what do you mean by NSA ‘freaking out’?</b></h3>
+<p>For most of the past century, the NSA (and its predecessors) have jealously guarded a monopoly on advanced cryptography. This approach worked reasonably well through the 1980s, then rapidly became unsustainable. There were a couple of reasons for this. First, the PC revolution made it impossible for the NSA to keep encryption out of the hands of ordinary users and industry — <a href="https://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States">as much as the NSA tried to make this so</a>. Second, Congress got fed up with paying for expensive bespoke computer systems, and decided the DoD should buy its computing equipment off the shelf like everyone else.</p>
+<p>The result was the Cryptographic Modernization Program, and <a href="https://en.wikipedia.org/wiki/NSA_Suite_B_Cryptography">Suite B</a> — the first public cryptography standard to include <i>non-classified</i> algorithms certified for encrypting Secret and Top Secret data. Suite B was standardized for industry in the mid/late 1990s, and was notable for its exclusive reliance on (then new) field of <a href="https://en.wikipedia.org/wiki/Elliptic_curve_cryptography">elliptic curve cryptography</a> (ECC) for public key encryption and key agreement.</p>
+<p>At the time of Suite B’s adoption, ECC was relatively new to the non-classified world. Many industry and academic cryptographers didn’t feel it had been reasonably studied (Koblitz and Menezes’ anecdotes on this are priceless). ECC was noteworthy for using dramatically shorter keys than alternative public-key algorithms such as <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> and “classical” <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman</a>, largely because new sub-exponential attacks that worked in those settings did not seem to have any analogue in the ECC world.</p>
+<p>The NSA pushed hard for adoption. Since they had the best mathematicians, and moreover, clearly had the most to lose if things went south, the standards bodies were persuaded to go along. The algorithms of Suite B were standardized and — aside from a few intellectual property concerns — have been gradually adopted even by the non-classified community.</p>
+<p>Then, in August of this year, NSA <a href="https://www.nsa.gov/ia/programs/suiteb_cryptography/">freaked out</a>.</p>
+<p>It was a quiet freakout, as you would expect from the world’s largest spy agency. But it made big waves with cryptographers. Citing concerns about future developments in quantum computing, the Agency updated the <a href="https://www.nsa.gov/ia/programs/suiteb_cryptography/">Suite B website to announce a rapid transition <i>away</i> from Suite B</a>, and to a new set of quantum-resistant algorithms in the coming years.</p>
+<p>Why all the sudden and <i>immediate</i> concern about quantum computers? Well, the NSA obviously isn’t willing to talk about that. But as of 2013, <a href="https://www.washingtonpost.com/world/national-security/nsa-seeks-to-build-quantum-computer-that-could-crack-most-types-of-encryption/2014/01/02/8fff297e-7195-11e3-8def-a33011492df2_story.html">leaked slides from the Snowden cache</a> show <i>no real evidence</i> of any massive quantum breakthroughs on the horizon that would necessitate a rapid transition from ECC.</p>
+<p>Which quantum-resistant algorithms are we supposed to move to? Good question. Cryptographers haven’t agreed on any yet. Which makes the timing of this announcement so <i>particularly</i> mysterious.</p>
+<p>So let me spell this out: despite the fact that quantum computers seem to be a long ways off <i>and </i>reasonable quantum-resistant replacement algorithms are nowhere to be seen, NSA decided to make this announcement <i>publicly</i> and not quietly behind the scenes. Weirder still, if you haven’t yet upgraded to Suite B, you are now being urged <i>not to</i>. In practice, that means some firms will stay with algorithms like RSA rather than transitioning to ECC at all. And RSA is <i>also</i> vulnerable to quantum attacks.</p>
+<p>When reporters finally reached the NSA for comment, the only sound on the line was breaking glass and the sound of digging. (No, I’m kidding about that — but NSA did update their site <i>again</i> just to make it clear they weren’t playing some kind of deeply misguided April Fool’s prank.)</p>
+<p>So that’s the background of the Koblitz/Menezes paper. The riddle is: what does the NSA know that we don’t?</p>
+<h3><b>No quantum advance?</b></h3>
+<p>Koblitz and Menezes exhaustively detail the possible reasons for the NSA’s announcement, ranging from the straightforward — that NSA actually <i>has</i> made a huge advance in developing quantum computers — to the downright bizarre. They even moot the possibility that the NSA is <a href="https://www.google.com/search?q=matthew+green+on+the+nsa&amp;oq=matthew+green+on+the+nsa&amp;aqs=chrome..69i57j69i60l2j69i59j69i61j69i60.2961j0j7&amp;sourceid=chrome&amp;es_sm=91&amp;ie=UTF-8">so embarrassed about getting caught tampering with national standards</a> that they’ve just decided to flip the table and act like crazy people.</p>
+<p>I’m going to skip most of the details, not because it isn’t interesting, but rather because I’d like to focus on what <i>I </i>think is the most intriguing hypotheses in the paper. Namely, that the NSA isn’t worried about quantum computers at all, but rather, that they’ve made a major advance in <i>classical </i>cryptanalysis of the elliptic curve discrete logarithm problem — and panic is the result.</p>
+<p>Let me lay the groundwork. The security of most EC cryptosystems rests on the presumed intractability of a few basic mathematical problems. The most important of these is called the <a href="https://www.certicom.com/index.php/52-the-elliptic-curve-discrete-logarithm-problem">Elliptic Curve Discrete Logarithm Problem</a> (ECDLP). This problem must be supremely hard to solve, or virtually every cryptosystem built on ECC unravels very quickly.</p>
+<p>The definition of “hard” is important here. What we mean in the context of ECC is that the best known algorithm for solving the ECDLP requires a number of operations that is fully exponential in the security parameter. In practice, this means we can achieve 128-bit equivalent security using an elliptic curve set in a 256 bit field — which implies similarly-small keys and ciphertexts. To achieve equivalent security with RSA, where <a href="https://en.wikipedia.org/wiki/Integer_factorization#Factoring_algorithms">sub-exponential algorithms</a> apply, your keys need to be at least 3072 bits (!) long.</p>
+<p>But while the ability to use (relatively) tiny elliptic curve points is wonderful for implementers, it leaves no room for error. If NSA’s mathematicians began to make even modest, but <i>sustained</i> advances in the state of the art for solving the ECDLP, it would put the entire field at risk. Beginning with the smallest of the standard curves, P-256, which would now provide less than the required 128-bit security.</p>
+<p>Did I mention that as part of the recent announcement, NSA <i>also</i> <a href="https://www.nsa.gov/ia/programs/suiteb_cryptography/">deprecated P-256</a>?</p>
+<p>Of course, there’s no reason to believe that classical cryptanalysis is at fault here. It’s possible that NSA really has reason to believe that quantum computing is moving faster than it was in 2013. It’s also possible that they’re just sloppy, and didn’t realize that <i>having a very public freakout about cryptography you just promoted for years</i> might not be such a good idea. But that seems doubtful.</p>
+<p>You can read the <a href="http://eprint.iacr.org/2015/1018.pdf">Koblitz and Menezes paper</a> for their take on all of the alternative hypotheses. I want to take a last few paragraphs to cover a slightly tangential issue, one that’s been the subject of a great deal of panic on the part of our community.</p>
+<h3><b>Did the NSA really backdoor the NIST elliptic curves????1??1</b></h3>
+<p>One of the nicer points of the Koblitz and Menezes paper is that it tackles the argument that the NSA deliberately backdoored the NIST elliptic curves.</p>
+<p>This argument can be found in various places around the Internet. It originates with accomplished cryptographers who are quite rightly <a href="https://www.hyperelliptic.org/tanja/vortraege/20130531.pdf">applying skepticism</a> <a href="http://bada55.cr.yp.to/">to an oddball</a> and <i>ad hoc </i>process. It then heads off into <a href="http://it.slashdot.org/story/13/09/11/1224252/are-the-nist-standard-elliptic-curves-back-doored">crazytown</a>. Whether people admit it or not, this concern has been hugely influential in the recent adoption of non-NIST <a href="https://tools.ietf.org/html/draft-irtf-cfrg-curves-02">alternative curves</a> by the CFRG and IETF.</p>
+<p>The accusation being leveled at NSA can be described simply. It’s known that the NIST pseudorandom curves were generated by the NSA hashing “seeds” through SHA1 to generate the curve parameters. This process was supposed to reassure the public, by eliminating the NSA’s ability to tamper with the parameters at will. However, nobody thought to restrict the NSA’s choice of input seeds — leading to a potential attack where they tried many different random seeds until they found a curve that contained a weakness the NSA could later exploit.</p>
+<p>Koblitz and Menezes tackle this argument on grounds of basic common sense, history, and mathematics. The common sense argument, of course, is that <i>you don’t sh*t where you eat. </i>In other words, the NSA wouldn’t deliberately choose weak elliptic curves given that they planned to use them for encrypting Secret and Top Secret data for the next 20 years.</p>
+<p>But common sense convinces nobody. The mathematical argument is a bit more subtle, and may work where self interest didn’t. Roughly speaking, Koblitz and Menezes point out that the NSA, despite their vast computing power, can’t try every possible seed. This is especially true given that they were generating these curves using 1990s equipment, and the process of evaluating (counting points on) an elliptic curve is computationally intensive. Thus, they assume that the NSA could try only test 2^{48} or so different curves for their hypothetical weakness.</p>
+<p>By calculating the number of possible curve families, Koblitz and Menezes show that a vast proportion of curves (for P-256, around 2^{209} out of 2^{257}) would have to be weak in order for the NSA to succeed in this attack. The implications of such a large class of vulnerable curves is very bad for the field of ECC. It dwarfs <i>every previous known weak curve class </i>and would call into question the decision to use ECC <i>at all.</i></p>
+<p>In other words, Koblitz and Menezes are saying that <i>if</i> you accept the weak curve hypothesis into your heart, the solution is not to <a href="https://www.ietf.org/mail-archive/web/cfrg/current/msg06426.html">replace the NIST elliptic curves</a> with anything at all, but rather, to leave the building as rapidly as possible and perhaps not shut the door on the way out. No joke.</p>
+<p>On the gripping hand, this sounds very much like the plan NSA is currently implementing. Perhaps we <i>should</i> be worried.</p>
+	</div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 10:54:39 +0000</pubDate>
+      <source>https://blog.cryptographyengineering.com/2015/10/22/a-riddle-wrapped-in-curve/</source>
+    </item>
+    <item>
+      <title>Contemporary COBOL: Developers&#39; Perspectives on Defects and Defect Location</title>
+      <link>https://arxiv.org/abs/2105.01830</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___arxiv_org_abs_2105_01830/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="content-inner">
+  <div id="abs">
+    
+    
+    
+      
+    
+  
+    <p><a href="https://arxiv.org/pdf/2105.01830">Download PDF</a></p><blockquote>
+      <span>Abstract:</span>  Mainframe systems are facing a critical shortage of developer workforce as
+the current generation of COBOL developers retires. Furthermore, due to the
+limited availability of public COBOL resources, entry-level developers, who
+assume the mantle of legacy COBOL systems maintainers, face significant
+difficulties during routine maintenance tasks, such as code comprehension and
+defect location. While we made substantial advances in the field of software
+maintenance for modern programming languages yearly, mainframe maintenance has
+received limited attention. With this study, we aim to direct the attention of
+researchers and practitioners towards investigating and addressing challenges
+associated with mainframe development. Specifically, we explore the scope of
+defects affecting COBOL systems and defect location strategies commonly
+followed by COBOL developers and compare them with the modern programming
+language counterparts. To this end, we surveyed 30 COBOL and 74 modern
+Programming Language (PL) developers to understand the differences in defects
+and defect location strategies employed by the two groups. Our preliminary
+results show that: (1) major defect categories affecting the COBOL ecosystem
+are different than defects encountered in modern PL software projects; (2) the
+most challenging defect types in COBOL are also the ones that occur most
+frequently; and (3) COBOL and modern PL developers follow similar strategies to
+locate defective code.
+
+    </blockquote>
+
+    <!--CONTEXT-->
+    
+  </div>
+</div><div>
+      <h2>Submission history</h2><p> From: Agnieszka Ciborowska [<a href="https://arxiv.org/show-email/4d889164/2105.01830">view email</a>]
+      </p></div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 08:05:59 +0000</pubDate>
+      <source>https://arxiv.org/abs/2105.01830</source>
+    </item>
+    <item>
+      <title>On Time, Money and Health</title>
+      <link>https://todaypurpose.com/posts/time-money-health/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___todaypurpose_com_posts_time-money-health_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+<p><time datetime="2021-07-27T08:12:01Z">Jul 27, 2021</time></p><p>What would you do of your $1+ million dollar sitting in your bank account or index funds in your dying bed?</p>
+<p>There is something wrong with all those financial gurus out there. They only focus on accumulating wealth, instead of what truly matters: happiness. People drinking the kool-aids sometimes end up with situations so absurd, and start being so frugal they also forget in order to retire early. At the other end of the spectrum, we have some entrepreneurs or employees working 12+ hours/day simply for chasing the next million. And this at the sacrifice of simply <em><strong>living and enjoying life</strong></em>.</p>
+<p>An average person has a lifespan of 72 years. It might sound quite long, but in practise, how much of the 72 years can we truly use? I’ll touch in this post about the 3 principles that, I believe, are keys to put into perspective to make the most of our life: <strong>Money</strong>, <strong>Free Time</strong> and <strong>Health</strong>. All 3 increase or decline the more we age. Most of us focus (too much / or only) on the <strong>money</strong> aspect. This is why we spend all our days working. <strong>Health</strong> and <strong>Free time</strong> are too often the forgotten ones. We assume money we accumulate during our young age will contribute to some sort of fulfillment when we will have plenty of free time when we will retire. Our society is actually designed around that timeline. But is it how we should live our life? What if once you retire, you don’t have the necessary health to travel? What if you have an incident tomorrow?</p>
+<h2 id="time-your-scarcest-and-most-precious-resource">Time, your scarcest and most precious resource</h2>
+<p>A typical timeline of someone’s life looks like:</p>
+<ul>
+<li>Under 25, we’re getting into schools, have plenty of time playing around with friends. Our health is at its best. But we’re usually low on money and depends on our parent’s money</li>
+<li>At 25, we get our first jobs, and start accumulating money. Now our time is usually stuck in our jobs. We’re still really healthy and try to balance activities and work</li>
+<li>At 40, we might start having these lower back or knee issues. We continue accumulating money, and our job is still what take the most of our attention</li>
+<li>At 50, we continue accumulating money, and start thinking about retirement. However, we definitely know that our body aren’t as great as in our 20s</li>
+<li>At 65, we retired (ideally) with a lot of cash. We have plenty of time on our hands to do whatever we want. However, <em>our health has significantly declined</em> and we might not have as much motivation to do activities or see the world.</li>
+</ul>
+<p>In <a href="https://www.goodreads.com/book/show/52950915-die-with-zero">“Die With Zero”</a>, the hours and energy we are “awake” to do things is referred to as <em><strong>“Life Energy”</strong></em>. There is just a limited amount of it. The main question is how do you spend that life energy? Is this life energy constant no matter our age?
+<strong>From 18 to 40 is, in my humble opinion, the best years of our life.</strong>. Our health is at its peak. and we start making money, so can use it to do any kind of activities we wish. However with age, our health declines, and we start seeing its undesired effects starting in our 40s (some might argue 30s). We start saying no because of [ back - knees - bones - etc ] conditions. One diagram that stuck with me was the <a href="https://waitbutwhy.com/2014/05/life-weeks.html">“Life in weeks” from “Wait But Why”</a>, where we can see weeks represented in squares. I’ve adapted it to illustrate my point:</p>
+<p></p>
+<p>This diagram summarizes how much Free Time, Money, Health we have depending of our age:
+</p>
+<p>The <em>“best years of our life”</em>, when our health is at its peak, and we can start to use our money, are from 18 to 40, so <strong>22 years</strong>. For someone with a 9-5 job (or study), this is how time is split during those 22 years:</p>
+<p></p>
+<p>62,000 hours (33%) of our time is spent in bed. 50,000 hours (27%) is spent working and commuting. That leaves us with <strong>57,000 hours when we could experience the world at our “maximum” potential</strong>.</p>
+<p>Our <strong>Free Time is limited</strong>. Think twice before saying “no”, to delay an activity because of “saving” for the future when you probably can’t do it. Think even more when you work over-time. <strong>No-one ever said “I wish I worked more” in their death bed</strong>.</p>
+<h2 id="spending-money-as-soon-as-possible-in-the-right-things">Spending Money as soon as possible (in the right things)</h2>
+<p>The (sad) truth in today’s society is that money is needed to contribute to your happinessess. Even though some might argue that money isn’t doesn’t make you happy, it definitely contributes to happinessess, to fund a <strong>pleasant</strong>, <strong>engaging</strong> and <strong>meaningful</strong> life:
+</p>
+<h3 id="whats-wrong-with-saving-too-much">What’s wrong with saving too much?</h3>
+<p>Most people working think about making money to save for retirement. When time comes, that money will be used for enjoying life and they’ll have more free time. There also exists now many <a href="https://en.wikipedia.org/wiki/FIRE_movement">F.I.R.E</a> (early retirement) gurus that keeps talking about living frugally to a point where you sacrifice social life, family and friends. It is true that investing early will make a difference with the amount of money you’ll end up with in 30+ years, but who guarantees you that you’ll live until then? Even if you reach that stage, what will we do with this million dollars saved/invested when we will lay in our death bed? No one died saying “I wish I had more money”. Will your physical condition at 50+ years old allow you to do the same type of activities as your 30s?</p>
+<p><strong>Money exists to be spent</strong>. You’ll never regret <strong>spending money into experiences or things that can create memories</strong> (either good or bad). They add a lot into fulfilling your life and shape the way we are:
+</p>
+<p>It is also true that we don’t necessarily need money to make memories. Under 25, we’re incredibly good at finding ways to get things for free. But the more we move in our age, the more we can unlock some of the experience that can be accessed with money. You’ll get the most benefit of it the earlier you spend it. One of the benefits of spending it early is those activities is they <strong>keep yielding dividends continuously and indefinitely</strong>. We keep thinking and talking about them:</p>
+<p></p>
+<p>As said earlier, we spend 1/3 of our “career stage” at work, and we do this mainly for money. The longer we work, the more skills we get, so the more money we make. However, our best years also happen during that career phase, and this is when we can get the most of the experiences that will inevitably compound in time. Do you want to spend all your career phase and miss out on all the experiences you can get when you’re young and healthy? There exist some solutions to allocate better our time during that phase, such as starting our own company, <a href="https://www.investopedia.com/terms/f/financial-independence-retire-early-fire.asp">early retirement</a>, getting better paychecks (or <a href="https://training.kalzumeus.com/newsletters/archive/consulting_1">more as a contractor</a>), or working for companies with <a href="https://4dayweek.io?ref=todaypurpose.com">4 days work week</a>.</p>
+<h3 id="whats-wrong-with-saving-too-little">What’s wrong with saving too little?</h3>
+<p><strong>You don’t want to end up old and poor</strong>. There is also a balance to find between spending money and saving money. There is a limit on where you should spend your money, and everyone has a different limit depending on our income. Generally speaking, spending your money every year on the latest Iphone, defaulting to 5 stars hotel, or business class tickets isn’t the best use of your money. Unless occasionally, they won’t bring you much value in our life (except for external validation). This is where I usually start saying no, and invest that extra money for my future self:</p>
+<ul>
+<li>Make that extra money <em>work for you</em>. Invest into diversified index funds so you can use the <a href="https://www.investopedia.com/terms/c/compoundinterest.asp#growth-of-compound-interest">power of compound interest</a>, and use that “free money” in the later stage of your life. The <a href="https://ofdollarsanddata.com/go-big-then-stop/?ref=todaypurpose.com">earlier you invest, the better it is</a>.</li>
+<li>You will also want to have emergency funds (6 months of expenses in your bank account) that can be used as a buffer in case of losing a job, unexpected bills, injury, etc…</li>
+</ul>
+<p><em>Find your balance between investing your money for the future , and spending on what matters (memories) in the present.</em></p>
+<h2 id="preserve-your-whealth">Preserve your <del>W</del>Health</h2>
+<blockquote>
+<p>I’ve got my $5 million, but I’d give it back if I could be 24 again</p>
+</blockquote>
+<p>Health inevitably declines with age, and we can’t do anything about it (<a href="https://www.youtube.com/watch?v=9nXop2lLDa4">yet</a>). Energy also decreases with our age. It doesn’t mean we should fatally see it decrease without doing anything. We can’t buy more time with money, but we can slow down our declining health. Would you prefer having health issues, being overweight with low energy in your 50-60? Or would you rather feel great, have enough energy to travel the world and still experience new things?</p>
+<p>It is never too late to invest in your health. The time you’re spending (investing) into health will help your future self to get more of those delightful experiences that will make you more of those invaluable memories.</p>
+<h3 id="eat-healthy">Eat healthy</h3>
+<p>Generally speaking, you’ll be fine if you follow those rule:</p>
+<ul>
+<li>Avoid eating sugar and fruits. There is a misconception on fruit being healthy: They’re full of sugar and contribute heavily to diabetes. Our society <a href="https://www.sciencealert.com/fruits-vegetables-before-domestication-photos-genetically-modified-food-natural">worked really hard to make us believe they’re healthy</a></li>
+<li><a href="https://youtu.be/jhKZIq3SlYE?t=2939">Skip 1 meal a day</a> (also known as intermittent fasting).</li>
+<li>If you are overweight, simply eat less, and workout more, there is no magic in it.</li>
+</ul>
+<p>Those are the rules I (try) to follow. Don’t get me wrong, I consider myself a foodie, and will usually say “Yes” for a great meal, or a Michelin restaurant. I consider eating as great “memories” I truly enjoy to remember.</p>
+<h3 id="workout">Workout</h3>
+<p><a href="https://www.cdc.gov/nchs/fastats/leading-causes-of-death.htm">Heart attack is the #1 cause of death</a>. The indeniable truth is that <a href="https://youtu.be/jhKZIq3SlYE?t=3880">exercising makes you live longer</a>. It helps reduce heart attack risk, cancers, and diabetes.</p>
+<p>Being weak isn’t fun either. Can’t follow for this hike? How about cycling this mountain?s</p>
+<p>Find something you like to do <strong>regularly</strong> (at least 2 times a week). There are so many great sports you can do out there. You don’t have to stick to one, I personally like trying a sport every 3 years and it gives me new opportunities to experience new things in different places. Doing a sport regularly will also prepare you better for the future, you’ll likely follow in activities with friends or even your (grand) kids.</p>
+<p>You’ll feel great most of your days.</p>
+<h3 id="sleep-well">Sleep well</h3>
+<p>We spend 1/3 of our life in bed. There is undeniable evidence that sleeping well is beneficial for all aspects of our life. We think more sharply, we feel better, we’re in a better mood, it also makes <a href="https://youtu.be/jhKZIq3SlYE?t=4202">you live longer</a>. Aren’t you feeling wonderful after a great night of sleep? Invest in a <del>good</del> great mattress.</p>
+<h3 id="the-best-gift-to-your-kids">The best gift to your kids</h3>
+<p>A not so common knowledge is that <strong>staying healthy is probably the best gift you can give to your (grand) kids</strong>, and believe it or not, even more than giving them an inheritance. We (usually) love our parents, and (hopefully) you also think about their well being. If they’re not in a healthy state, you’ll probably have to make sacrifices, changes your plans in order to help them. You don’t want to be that parent.</p>
+<blockquote>
+</blockquote>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 07:10:32 +0000</pubDate>
+      <source>https://todaypurpose.com/posts/time-money-health/</source>
+    </item>
   </channel>
 </rss>
