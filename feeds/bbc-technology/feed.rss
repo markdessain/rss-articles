@@ -3,8 +3,8 @@
     <title>BBC News - Technology</title>
     <link>https://www.bbc.co.uk/news/</link>
     <description>BBC News - Technology</description>
-    <pubDate>Thu, 05 Aug 2021 10:16:30 +0000</pubDate>
-    <lastBuildDate>Thu, 05 Aug 2021 10:16:30 +0000</lastBuildDate>
+    <pubDate>Thu, 05 Aug 2021 11:11:28 +0000</pubDate>
+    <lastBuildDate>Thu, 05 Aug 2021 11:11:28 +0000</lastBuildDate>
     <image>
       <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
       <title>BBC News - Technology</title>
@@ -293,6 +293,16 @@
       <guid>https://www.bbc.co.uk/news/business-58095639</guid>
       <pubDate>Thu, 05 Aug 2021 03:20:15 +0000</pubDate>
       <source>https://www.bbc.co.uk/news/business-58095639</source>
+    </item>
+    <item>
+      <title>Number pinged by Covid app falls significantly</title>
+      <link>https://www.bbc.co.uk/news/technology-58076215</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/bbc-technology/https___www_bbc_co_uk_news_technology-58076215/image.jpg" /> 
+<div id="readability-page-1" class="page"><div width="compact"><article><header><div><dl><p><dt>Published</dt><dd><span><time data-testid="timestamp" datetime="2021-08-05T10:37:17.000Z"><span data-testid="time-and-date:clock"><svg viewBox="0 0 32 32" width="1em" height="1em" focusable="false" aria-hidden="true"><path d="M16 31c8.5 0 15-6.5 15-15S24.5 1 16 1 1 7.5 1 16s6.5 15 15 15zm0-2.7C9 28.3 3.7 23 3.7 16S9 3.7 16 3.7C23 3.7 28.3 9 28.3 16S23 28.3 16 28.3zm6.2-6.7l1-1.5-5.7-4.5-.6-8.6H15l-.7 10.5 7.9 4.1z"></path></svg></span>37 minutes ago</time></span></dd></p></dl></div></header><div data-component="image-block"><figure></figure></div><div data-component="text-block"><p><b>The number of COVID-19 app alerts fell significantly in England and Wales in the last week of July, latest statistics suggest.</b></p></div><div data-component="text-block"><p>Nearly 396,000 people were pinged, compared with the previous week&#39;s record of 690,129.</p></div><div data-component="text-block"><p>The number of people reporting symptoms into the app also fell - 24,391 reports compared to 36,156 the week before.</p></div><div data-component="text-block"><p>Changes to the app, which will mean it notifies fewer close contacts, will be rolled out next week.</p></div><section data-component="tag-list"><div><div><p><h2>Related Topics</h2></p></div><div><ul role="list" spacing="2"><li><a href="https://www.bbc.co.uk/news/topics/c3q1wer1kx9t">Contact tracing</a></li><li><a href="https://www.bbc.co.uk/news/topics/cyz0z8w0ydwt">Coronavirus pandemic</a></li></ul></div></div></section></article></div></div>]]></content:encoded>
+      <guid>https://www.bbc.co.uk/news/technology-58076215</guid>
+      <pubDate>Thu, 05 Aug 2021 10:37:17 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/technology-58076215</source>
     </item>
   </channel>
 </rss>

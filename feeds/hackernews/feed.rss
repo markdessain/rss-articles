@@ -9854,5 +9854,518 @@ locate defective code.
       <pubDate>Thu, 05 Aug 2021 09:20:23 +0000</pubDate>
       <source>https://news.ycombinator.com/item?id=28071491</source>
     </item>
+    <item>
+      <title>Falsehoods Programmers Believe About Phone Numbers (2016)</title>
+      <link>https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><p>... and tips on how to use libphonenumber.</p><p>Given how ubiquitous phone numbers are and how long they&#39;ve been around, it&#39;s
+surprising how many false assumptions programmers continue to make about them.</p><div>
+<li>
+<p><strong>An individual has a phone number</strong></p>
+<p>Some people do not own phones, or do not wish to provide you with their
+telephone number when asked. Do not require a user to provide a phone number
+unless it is essential, and whenever possible try to provide a fallback
+to accommodate these users.</p>
+</li>
+<li>
+<p><strong>You can make a call to any phone number</strong></p>
+<p>Some devices such as EFTPOS terminals, fax machines and mobile internet
+dongles may not support receiving calls. In addition, some people can not
+use their phones for phone calls. This may be permanent (such as a hearing
+disability), temporary (temporary hearing loss) or situational (when the
+user is in a noisy environment).</p>
+<p><strong>Tip:</strong> Make how you use phone numbers apparent to the user and give them
+the option to set their preference. Ensure that you look up this preference
+before attempting to communicate with the user.</p>
+</li>
+<li>
+<p><strong>An individual has only one phone number</strong></p>
+<p>Obviously, this isn&#39;t necessarily true.</p>
+</li>
+<li>
+<p><strong>A phone number uniquely identifies an individual</strong></p>
+<p>It wasn&#39;t even that long ago that mobile phones didn&#39;t exist, and it was
+common for an entire household to share one fixed-line telephone number. In
+some parts of the world, this is still true, and relatives (or even friends)
+share a single phone number. Many phone services (especially for businesses)
+allow multiple inbound calls to or outbound calls from the same phone
+number.</p>
+</li>
+<li>
+<p><strong>Phone numbers cannot be re-used</strong></p>
+<p>Old phone numbers are recycled and get reassigned to other people.</p>
+</li>
+<li>
+<p><strong>Phone numbers that are valid today will always be valid. Phone numbers of
+a certain type today (e.g., mobile) will never be reassigned to another
+type.</strong></p>
+<p>A phone number which connects today may be disconnected tomorrow. A number
+which is free to call today may cost money to call tomorrow. The phone
+company may decide to expand the range of available phone numbers by
+inserting a digit into an existing number.</p>
+<p><strong>Tip:</strong> Don’t store properties for a phone number such as validity or
+type. Check this information again from the library when you need it.</p>
+</li>
+<li>
+<p><strong>Each country calling code corresponds to exactly one country</strong></p>
+<p>The USA, Canada, and several Caribbean islands share the country calling
+code +1. Russia and Kazakhstan share +7. These are not the only examples!</p>
+</li>
+<li>
+<p><strong>Each country has only one country calling code</strong></p>
+<p>As of this present moment (in Mar. 2016), phones in the disputed territory
+and partially recognised state of Kosovo may be reached by dialing the
+country calling code for Serbia (+381), Slovenia (+386), or Monaco (+377),
+depending on where and when one obtained the number.</p>
+<p><strong>Tip:</strong> Use a phone widget to encourage users to enter their phone number
+in an international format such that it can be unambiguously understood.</p>
+</li>
+<li>
+<p><strong>A phone number is dialable from anywhere</strong></p>
+<p>Some numbers can only be dialed within the country. Some can only be dialled
+from within a subset of countries, such as the +800 <a href="https://en.wikipedia.org/wiki/Toll-free_telephone_number#Universal_International_Freephone_Service" rel="nofollow">Universal
+International Freephone Numbers</a>.
+Some may be dialable only if the caller is a subscriber to a particular
+telecom company.</p>
+</li>
+<li>
+<p><strong>You can send a text message to any phone number</strong></p>
+<p>A lot of people still only have a fixed-line telephone, which typically cannot
+send or receive text messages.</p>
+<p><strong>Tip:</strong> Whenever possible, try to accommodate these users by calling them
+with a voice message or voice prompts. Alternatively, if your service
+requires sending text messages, verify that the number can receive text
+messages after the user provides it.</p>
+</li>
+<li>
+<p><strong>Only mobile phones can receive text messages</strong></p>
+<p>Some service providers support sending and receiving text messages to fixed-line
+numbers. There are also online services like Skype that can send and receive
+text messages.</p>
+</li>
+<li>
+<p><strong>There are only two ways to dial a phone number: domestically and from
+overseas</strong></p>
+<p>Some numbers may need different prefixes depending on: the carrier you are
+using; what device you are dialling from/to; whether you are inside or
+outside a particular geographical region.</p>
+<p>Examples:</p>
+<ul>
+<li>In Brazil, to dial numbers internally but across a certain geographical
+boundary, a carrier code must be explicitly dialed to say which carrier
+you will use to pay for the call.</li>
+<li>In Nepal, the leading zero in national format is omitted depending on
+whether the originating phone is mobile or fixed-line.</li>
+<li>In New Zealand, you need to dial the area-code (e.g. 03) even if the
+number is within the same area-code region as you are, unless it is
+&#34;close&#34; (something approximating city/district boundaries), in which
+case it shouldn’t be dialled.</li>
+</ul>
+<p><strong>Tip:</strong> Use formatForMobileDialling to get the number a user should
+actually dial on their mobile phone.</p>
+</li>
+<li>
+<p><strong>To make a number dialable, you only need to change the prefix</strong></p>
+<p>In Argentina, to dial a mobile number domestically, the digits &#34;15&#34; need to
+be inserted <em>after</em> the area code but <em>before</em> the local number, and the &#34;9&#34;
+after the country code (54) needs to be removed. This transforms +54 9 2982
+123456 into 02982 15 123456.</p>
+</li>
+<li>
+<p><strong>No prefix of a valid phone number can be a valid phone number</strong></p>
+<p>In some countries, it&#39;s possible to connect to a different endpoint by
+dialing more digits after a number. So &#34;12345678&#34; may not reach the same
+person as dialing &#34;123456&#34;.</p>
+</li>
+<li>
+<p><strong>An invalid number will not reach an endpoint</strong></p>
+<p>In some countries, or on some phones, extra digits are thrown away. Hence,
+1-800-MICROSOFT is an invalid number - but it still connects to Microsoft,
+since any later digits are ignored. Numbers such as &#34;911&#34; can be reached by
+dialling &#34;911 123&#34; in some countries: but not in others.</p>
+<p>In other countries, invalid numbers may be &#34;fixed&#34; by a carrier, e.g.,
+adding a mobile token if they know it is a mobile number, such that it
+connects.</p>
+</li>
+<li>
+<p><strong>All valid phone numbers follow the ITU specifications</strong></p>
+<p>ITU-T specifies that a phone number cannot be longer than fifteen digits,
+with one to three digits reserved for the country calling code, but valid
+numbers in Germany have been assigned that are longer than this.</p>
+</li>
+<li>
+<p><strong>All valid phone numbers belong to a country</strong></p>
+<p>There are many &#34;country calling codes&#34; issued to non-geographical entities,
+such as satellite services, and the &#34;800&#34; code for <a href="https://en.wikipedia.org/wiki/Toll-free_telephone_number#Universal_International_Freephone_Service" rel="nofollow">Universal International
+Freephone Numbers</a>.</p>
+</li>
+<li>
+<p><strong>Phone numbers contain only digits</strong></p>
+<p>In Israel, certain advertising numbers start with a <code>*</code>. In New Zealand,
+non-urgent traffic incidents can be reported by calling <code>*555</code> from a mobile
+phone. Alpha characters may also be used in phone numbers, such as in
+<code>1-800-Flowers</code>.</p>
+</li>
+<li>
+<p><strong>Phone numbers are always written in ASCII</strong></p>
+<p>In Egypt, it is common for phone numbers to be written in native digits.</p>
+</li>
+<li>
+<p><strong>Phone numbers have only one prefix (area code or national destination
+code) at a given time</strong></p>
+<p>In the mid-90s in Iceland, phone numbers changed from 5 and 6 digits to 7
+digits. The old system had regional prefixes, but the new one doesn&#39;t.
+During the transition period, phone numbers could be reached by the old area
+code or the new 7 digit number (a different prefix).  For example, a
+Reykjavik phone number could be dialed with <code>nnnnn</code> and <code>55nnnnn</code> inside the
+region, and <code>91-nnnnn</code> and <code>55nnnnn</code> from outside.</p>
+<p><strong>Tip:</strong> During transition periods, make sure that both forms of a number
+are supported for look-up by phone number. If sending messages/dialling
+affected numbers, both the new and old prefix may need to be tried.
+Depending on the type of transition, you may need to contact affected
+customers and ask them to update their number.</p>
+</li>
+<li>
+<p><strong>A leading zero in numbers formatted for domestic usage can always be
+discarded when dialing from abroad</strong></p>
+<p>In some countries, people write the national prefix in brackets (typically
+<code>(0)</code>) after the country calling code to indicate that it should be
+discarded when dialing internationally. In Italy, since 1998, the prefix was
+&#34;fixed&#34; to the phone numbers, so that <code>(01) 2345</code> became <code>012345</code> and should
+be dialed (internationally) as <code>+39012345</code> (including the leading zero).</p>
+<p><strong>Tip:</strong> Use the library to parse and format numbers to handle this
+correctly for every country.</p>
+</li>
+<li>
+<p><strong>The country or area code of a phone number indicates the user&#39;s location,
+place of residence, time-zone, or preferred language</strong></p>
+<p>There are many reasons for someone to have a phone number issued in a state
+or region other than where they reside or hold citizenship.</p>
+<p>These include, but are not limited to:</p>
+<ul>
+<li><em>Moving within a country</em>: In countries with phone number portability,
+you may retain your number when moving, even in some cases if it is a
+fixed-line number and even if it has an area code (see
+<em><a href="https://xkcd.com/1129/" rel="nofollow">xkcd</a></em> for a US example.)</li>
+<li><em>Moving to another country</em>: Some people keep their mobile phones when
+they move to another country.</li>
+<li><em>Geopolitical turmoil</em>: Sometimes countries change their borders, cease
+to exist, or come into existence.</li>
+<li><em>Business, family, and friends</em>: A business may have many customers in a
+neighbouring country, or a person may have many family and friends
+there.</li>
+<li><em>Wanting cheaper rates</em>: VoIP is often cheaper than regular calls.
+People traveling around Europe may get a SIM card from one country and
+have a roaming plan.</li>
+</ul>
+<p>Note that geographical area codes are assigned in some countries to mobile phones.</p>
+<p><strong>Tip:</strong> Programmers should not disallow users from signing up with a phone
+number merely because it belongs to another country. Care should be taken
+when calling methods such as <code>isValidNumberForRegion</code> that this is what&#39;s
+actually intended. If you have a phone input widget, make sure you allow
+numbers to be entered in international format (i.e., allow the <code>+</code> sign) so
+people can sign up with an international contact number.</p>
+</li>
+<li>
+<p><strong>The plus sign in front of phone numbers in international format is
+optional, or can always be replaced by <code>00</code></strong></p>
+<p>The plus sign is part of the <a href="https://en.wikipedia.org/wiki/E.164" rel="nofollow">E.164
+format</a> for international telephone
+numbers. It can be replaced with the <a href="https://en.wikipedia.org/wiki/List_of_international_call_prefixes" rel="nofollow">international call
+prefix</a>
+when dialing internationally. Note that while <code>00</code> is a common international
+call prefix, this actually varies by country.</p>
+<p>In North America, which has a country calling code of <code>+1</code>, it is a common
+error to drop the <code>+</code> in front of the number and write it like
+<code>1-555-123-4567</code>. This is technically incorrect. To call this number from
+Japan, where the international call prefix is <code>010</code>, one may dial either <code>+1 555 123 4567</code> or <code>010 1 555 123 4567</code>.</p>
+</li>
+<li>
+<p><strong>Users will only store phone numbers in your product&#39;s phone number fields</strong></p>
+<p>Some users use their contact lists to store things like birthdays or other
+information. Unless a piece of user-supplied data has actually been verified
+to be a phone number, it should be stored as-is as entered by the user.</p>
+</li>
+<li>
+<p><strong>Phone numbers are numbers</strong></p>
+<p>Never try to store phone numbers as an int or any other kind of numeric
+data type. You can&#39;t do arithmetic on them, and while 007, 07 and 7 are the
+same number they are not necessarily the same phone number - in some
+countries a leading 0 is significant and forms part of the number itself
+(see <em>A leading zero in numbers formatted for domestic usage can always be
+discarded when dialing from abroad</em>). Moreover, a phone number may contain
+other diallable characters (see <em>Phone numbers contain only digits</em>) or an
+extension portion, dialled after waiting for a tone.</p>
+<p><strong>Tip:</strong> Use the library to parse and format numbers to handle this
+correctly for every country.</p>
+</li>
+<li>
+<p><strong>Phone numbering plans published by governments or telecoms represent
+reality</strong></p>
+<p>National numbering plans, such as those administered by the
+<a href="http://www.itu.int/oth/T0202.aspx?parent=T0202" rel="nofollow">ITU</a>, represent the
+intentions of the government or telecom. These may be published before,
+during, or after the actual implementation of numbering plan changes in the
+real world. The actual date on which a phone number range becomes active may
+not always adhere to official announcements.</p>
+</li>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 09:43:16 +0000</pubDate>
+      <source>https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md</source>
+    </item>
+    <item>
+      <title>Show HN: Made an internal communication app with just SWIFTUI</title>
+      <link>https://apps.apple.com/us/app/kwayet/id1545093715</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___apps_apple_com_us_app_kwayet_id1545093715/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+  
+<!---->
+    <!---->
+
+  <section>
+  
+</section>
+
+
+<!---->
+    <section>
+      
+    
+
+  </section>
+
+
+  <section>
+    <div>
+      
+      <div>
+          <p dir="false" data-test-bidi="">Kwayet is an internal communication app exclusively for your team or workplace. You can collaborate, call and message anyone without requiring a phone number. </p>
+
+
+      </div>
+    </div>
+  </section>
+
+<!---->
+  <section>
+    
+    <div>
+        <div>
+          <div>
+            <p><time data-test-we-datetime="" datetime="2021-08-04T00:00:00.000Z" aria-label="August 4, 2021">Aug 4, 2021</time></p><p>Version 2.0.0.1</p>
+          </div>
+        </div>
+      <div>
+          <p dir="false" data-test-bidi="">-Drag a colleague to an ongoing call or meeting.</p>
+
+
+      </div>
+    </div>
+  </section>
+
+<!---->
+<!---->
+<!---->
+<!---->
+  <section>
+  
+
+  <p>
+    The developer, <span>Seun Adeyemi</span>, indicated that the app’s privacy practices may include handling of data as described below. For more information, see the <a href="https://www.kwayet.app/terms.php">developer’s privacy policy</a>.
+  </p>
+
+  <div>
+      <div>
+        
+        <h3>Data Not Collected</h3>
+        <p>The developer does not collect any data from this app.</p>
+<!---->      </div>
+  </div>
+
+    <p>Privacy practices may vary, for example, based on the features you use or your age. <a href="https://apps.apple.com/story/id1538632801">Learn More</a></p>
+</section>
+
+
+<section>
+  <div>
+    <h2>Information</h2>
+    <dl>
+        <p>
+          <dt>Seller</dt>
+          <dd>
+            Seun Adeyemi
+          </dd>
+        </p>
+        <p>
+          <dt>Size</dt>
+          <dd aria-label="55.9 megabytes">55.9 MB</dd>
+        </p>
+        
+      <div>
+        <dt>Compatibility</dt>
+          <dd>
+              <dl>
+                <dt>
+                  iPhone
+                </dt>
+                <dd>Requires iOS 14.0 or later.
+                </dd>
+              </dl>
+              <dl>
+                <dt>
+                  iPad
+                </dt>
+                <dd>Requires iPadOS 14.0 or later.
+                </dd>
+              </dl>
+              <dl>
+                <dt>
+                  iPod touch
+                </dt>
+                <dd>Requires iOS 14.0 or later.
+                </dd>
+              </dl>
+              <dl>
+                <dt>
+                  Mac
+                </dt>
+                <dd>Requires macOS 11.0 or later and a Mac with Apple M1 chip.
+                </dd>
+              </dl>
+          </dd>
+      </div>
+<!---->      
+      <p>
+        <dt>Age Rating</dt>
+        <dd>4+
+<!---->        </dd>
+      </p>
+<!---->      <p>
+        <dt>Copyright</dt>
+        <dd>© 2021 Kwayet</dd>
+      </p>
+        <p>
+          <dt>Price</dt>
+          <dd>Free</dd>
+        </p>
+        <div>
+          <dt>In-App Purchases</dt>
+          <dd>
+            <ol role="table">
+              <div>
+    
+                <li>
+                  <span><span>5 Hours ≈ $1</span></span>
+                  <span>$0.99</span>
+                </li>
+              
+    
+                <li>
+                  <span><span>25 Hours ≈ $5</span></span>
+                  <span>$4.99</span>
+                </li>
+              
+    
+                <li>
+                  <span><span>50 Hours ≈ $10</span></span>
+                  <span>$9.99</span>
+                </li>
+              
+    </div>
+
+            </ol>
+          </dd>
+        </div>
+
+    </dl>
+  </div>
+  
+</section>
+
+<section>
+  <ul>
+      <li>
+        <a data-metrics-click="{&#34;actionDetails&#34;:{&#34;type&#34;:&#34;developer&#34;},&#34;actionType&#34;:&#34;navigate&#34;,&#34;actionUrl&#34;:&#34;@@url@@&#34;,&#34;targetType&#34;:&#34;link&#34;,&#34;targetId&#34;:&#34;@@id@@&#34;}" href="https://www.kwayet.app">
+          Developer Website
+        </a>
+      </li>
+      <li>
+        <a data-metrics-click="{&#34;actionType&#34;:&#34;navigate&#34;,&#34;targetType&#34;:&#34;link&#34;,&#34;targetId&#34;:&#34;LinkToAppSupport&#34;}" href="https://www.kwayet.app">
+          App Support
+        </a>
+      </li>
+<!---->      <li>
+        <a data-metrics-click="{&#34;actionType&#34;:&#34;navigate&#34;,&#34;targetType&#34;:&#34;link&#34;,&#34;targetId&#34;:&#34;LinkToPrivacyPolicy&#34;}" href="https://www.kwayet.app/terms.php">
+          Privacy Policy
+        </a>
+      </li>
+  </ul>
+</section>
+
+  <section>
+    <p>
+      <h2>Supports</h2>
+    </p>
+    <ul>
+        <li>
+          
+          <div>
+              <h3 dir="ltr" aria-label="">
+    Family Sharing
+</h3>
+
+
+              <h4 dir="" aria-label="">
+        
+
+        <p dir="false" data-test-bidi="">With Family Sharing set up, up to six family members can use this app.</p>
+    
+
+
+<!----></h4>
+
+
+          </div>
+        </li>
+    </ul>
+  </section>
+
+<!---->
+<!---->
+    <section>
+      <p>
+        <h2>
+          You May Also Like
+        </h2>
+        <!---->
+      </p>
+
+      
+    </section>
+
+
+<!---->
+
+<!----></div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 10:06:30 +0000</pubDate>
+      <source>https://apps.apple.com/us/app/kwayet/id1545093715</source>
+    </item>
+    <item>
+      <title>Redwood World – Pictures and Locations of Redwoods in the British Isles</title>
+      <link>http://www.redwoodworld.co.uk/locations.htm</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div width="100%">
+   <tbody><tr>
+    <td><SPAN face="Tahoma" size="+1" color="firebrick"><b>Search by County:</b></SPAN></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+ </tbody></div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 10:13:19 +0000</pubDate>
+      <source>http://www.redwoodworld.co.uk/locations.htm</source>
+    </item>
   </channel>
 </rss>
