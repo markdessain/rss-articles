@@ -6399,5 +6399,533 @@ With any luck, <a href="https://github.com/XVimProject/XVim2">XVim</a> will cont
       <pubDate>Tue, 03 Aug 2021 15:41:43 +0000</pubDate>
       <source>https://www.wired.co.uk/article/amazon-drone-delivery-prime-air</source>
     </item>
+    <item>
+      <title>Slitter: A slab allocator that trusts, but verifies</title>
+      <link>https://engineering.backtrace.io/2021-08-04-slitter-a-slab-allocator-that-trusts-but-verifies/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><article><div><p><a href="https://github.com/backtrace-labs/slitter">Slitter</a> is Backtrace’s
+deliberately middle-of-the-road
+<a href="https://www.usenix.org/legacy/publications/library/proceedings/usenix01/full_papers/bonwick/bonwick.pdf">thread-caching</a>
+<a href="https://people.eecs.berkeley.edu/~kubitron/courses/cs194-24-S13/hand-outs/bonwick_slab.pdf">slab allocator</a>,
+with <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/include/slitter.h#L7-L44">explicit allocation class tags</a>
+(rather than derived from the object’s size class).
+It’s mostly written in Rust, and we use it in our C backend server.</p><p><a href="https://crates.io/crates/slitter">Slitter</a>’s design is about as
+standard as it gets: we hope to dedicate the project’s complexity
+budget to always-on “observability” and safety features. We don’t
+wish to detect all or even most memory management errors, but we
+should statistically catch a small fraction (enough to help pinpoint
+production issues) of such bugs, and <em>always</em> constrain their scope to
+the mismanaged allocation class.<sup id="fnref:1"><a href="#fn:1" role="doc-noteref">1</a></sup></p><p>We decided to code up Slitter last April, when we noticed
+that we would immediately benefit from backing allocation with
+temporary file mappings:<sup id="fnref:2"><a href="#fn:2" role="doc-noteref">2</a></sup>
+the bulk of our data is mapped from
+persistent data files, but we also regenerate some cold metadata
+during startup, and accesses to that metadata have amazing locality,
+both temporal and spatial (assuming bump allocation). We don’t want the OS
+to swap out all the heap–that way lie <a href="https://blog.acolyer.org/2017/06/15/gray-failure-the-achilles-heel-of-cloud-scale-systems/">grey failures</a>–so
+we opt specific allocation classes into it.</p><p>By itself, this isn’t a reason to write a slab allocator: we could
+easily have configured <a href="http://jemalloc.net/jemalloc.3.html#arena.i.extent_hooks">specialised arenas in jemalloc</a>,
+for example. However, we also had eyes on longer term improvements to
+observability and debugging or mitigation of memory management errors in
+production, and those could only be unlocked by migrating to an
+interface with explicit tags for each allocation class (type).</p><p>Classic mallocs like <a href="https://github.com/jemalloc/jemalloc">jemalloc</a>
+and <a href="https://github.com/google/tcmalloc">tcmalloc</a> are fundamentally
+unable to match that level of integration: we can’t tell <code>malloc(3)</code>
+what we’re trying to allocate (e.g., a <code>struct request</code> in the HTTP
+module), only its size. It’s still possible to wrap malloc in a richer
+interface, and, e.g., track heap consumption by tag. Unfortunately,
+the result is slower than a native solution, and, without help from
+the underlying allocator, it’s easy to incorrectly match tags between
+<code>malloc</code> and <code>free</code> calls. In my experience, this frequently leads to
+useless allocation statistics, usually around the very faulty code
+paths one is attempting to debug.</p><p>Even once we have built detailed statistics on top of a regular
+malloc, it’s hard to convince the underlying allocator to only recycle
+allocations within an object class: not only do mallocs eagerly
+recycle allocations of similar sizes regardless of their type, but
+they will also release unused runs of address space, or repurpose them
+for totally different size classes. That’s what mallocs are supposed
+to do… it just happens to also make debugging a lot harder when
+things inevitably go wrong.<sup id="fnref:3"><a href="#fn:3" role="doc-noteref">3</a></sup></p><p>Slab allocators work with semantically richer allocation tags:
+an allocation tag describes its objects’ size, but can also
+specify how to initialise, recycle, or deinitialise them. However,
+slab allocators tend to focus exclusively on speed.
+<a href="https://github.com/omniti-labs/portableumem">Forks of libumem</a>
+may be the exception, thanks to the Solaris culture of pervasive
+hooking. However, <code>umem</code>&#39;s design reflects the sensibilities of the
+00s, when it was written: threads share a few caches, and the
+allocator tries to reuse address space. In contrast, Slitter assumes memory
+is plentiful enough for thread-local caches and type-stable
+allocations.<sup id="fnref:4"><a href="#fn:4" role="doc-noteref">4</a></sup></p><h2 id="our-experience-so-far">Our experience so far</h2><p>We have been running <a href="https://crates.io/crates/slitter">Slitter</a> in
+production for over two months, and rely on it to:</p><ul><li>detect when an allocation is freed with the wrong allocation class
+tag (i.e., detect type confusion on free).</li><li>avoid any in-band metadata: there are guard pages between
+allocations and allocator metadata, and no intrusive freelist for
+use-after-frees to stomp over.</li><li>guarantee <a href="https://www.usenix.org/legacy/publications/library/proceedings/osdi96/full_papers/greenwald/node2.html">type stable allocations</a>:
+once an address has been used to fulfill a request for a certain
+allocation class, it will only be used for that class. Slitter
+doesn’t overlay intrusive lists on top of freed allocations, so the
+data always reflects what the application last stored there. This
+means that double-frees and use-after-frees only affect the faulty
+allocation class. An application could even rely on
+read-after-free being benign to simplify non-blocking algorithms.<sup id="fnref:5"><a href="#fn:5" role="doc-noteref">5</a></sup></li><li>let each allocation class specify how its backing memory should
+be mapped in (e.g., plain 4 KB pages or file-backed swappable pages).</li></ul><p>Thanks to extensive contracts and a mix of hardcoded and random tests,
+we encountered only two issues during the initial rollout, both in the
+small amount of lock-free C code that is hard to test.<sup id="fnref:6"><a href="#fn:6" role="doc-noteref">6</a></sup></p><p>Type stability exerts a heavy influence all over Slitter’s design, and
+has obvious downsides. For example, a short-lived application that
+progresses through a pipeline of stages, where each stage allocates
+different types, would definitely waste memory if it were to replace a
+regular malloc with a type-stable allocator like Slitter. We believe
+the isolation benefits are more than worth the trouble, at least for
+long-lived servers that quickly enter a steady state.</p><p>In the future, we hope to also:</p><ul><li>detect when an interior pointer is freed.</li><li>detect simple<sup id="fnref:7"><a href="#fn:7" role="doc-noteref">7</a></sup> buffer overflows that cross allocation classes, by inserting guard pages.</li><li>always detect frees of addresses Slitter does not manage.</li><li>detect most back-to-back double-frees.</li><li>detect a random fraction of buffer overflows, with a sampling <a href="https://en.wikipedia.org/wiki/Electric_Fence">eFence</a>.</li></ul><p>In addition to these safety features, we plan to rely on the allocator
+to improve observability into the calling program, and wish to:</p><ul><li>track the number of objects allocated and recycled in each
+allocation class.</li><li>sample the call stack when the heap grows.</li><li>track allocation and release call stacks for a small fraction of objects.</li></ul><p>Here’s how it currently works, and why we wrote it in Rust, with dash
+of C.</p><h2 id="the-high-level-design-of-slitter">The high level design of Slitter</h2><p>At a <a href="https://github.com/backtrace-labs/slitter/blob/fa8629989cb63ca5a4acdc2d26741bccda79aac0/doc/design.md">high level</a>,
+Slitter</p><ol><li>reserves shared 1 GB <code>Chunk</code>s of memory via the <a href="https://github.com/backtrace-labs/slitter/blob/fa8629989cb63ca5a4acdc2d26741bccda79aac0/src/mapper.rs"><code>Mapper</code> trait</a></li><li>carves out smaller type-specific <code>Span</code>s from each chunk with <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/mill.rs"><code>Mill</code> objects</a></li><li>bump-allocates objects from <code>Span</code>s with <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/press.rs"><code>Press</code> objects</a>, into <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/magazine.rs">allocation <code>Magazines</code></a></li><li>pushes and pops objects into/from <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/c/cache.c">thread-local magazines</a></li><li>caches populated magazines in global <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/class.rs#L62-L67">type-specific lock-free stacks</a></li><li>manages empty magazines with a global <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/rack.rs">mostly lock-free <code>Rack</code></a></li></ol><p>Many general purpose memory allocators implement strategies similarly
+inspired by <a href="https://www.usenix.org/legacy/publications/library/proceedings/usenix01/full_papers/bonwick/bonwick.pdf">Bonwick’s slab allocator</a>,
+and time-tested mallocs may well provide better performance
+and lower fragmentation than Slitter.<sup id="fnref:8"><a href="#fn:8" role="doc-noteref">8</a></sup>
+The primary motivation for designing Slitter is that having explicit
+allocation classes in the API makes it easier for the allocator to
+improve the debuggability and resilience of the calling program.<sup id="fnref:9"><a href="#fn:9" role="doc-noteref">9</a></sup>
+For example, most allocators can tell you the size of your program’s
+heap, but that data is much more useful when broken down by struct
+type or program module.</p><p>Most allocators try to minimise accesses to the metadata associated with
+allocations. In fact, that’s often seen as a strength of the slab
+interface: the allocator can just rely on the caller to pass the
+correct allocation class tag, instead of hitting metadata to figure
+out there the freed address should go.</p><p>We went in the opposite direction with Slitter. We still rely on the
+allocation class tag for speed, but also actively look for mismatches
+before returning from deallocation calls. Nothing depends on
+values computed by the mismatch detection logic, and the resulting
+branch is trivially predictable (the tag always matches), so we can
+hope that wide out-of-order CPUs will hide most of the checking
+code, if it’s simple enough.</p><p>This concern (access to metadata in few instructions) combined with
+our goal of avoiding in-band metadata lead to a
+<a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/mill.rs#L6-L19">simple layout for each chunk’s data and metadata</a>.</p><pre><code>.-------.------.-------|---------------.-------.
+| guard | meta | guard | data ... data | guard |
+&#39;-------&#39;------&#39;-------|---------------&#39;-------&#39;
+  2 MB    2 MB   2 MB  |      1 GB        2 MB
+                       v
+               Aligned to 1 GB
+</code></pre><p>A chunk’s data is always a 1 GB address range, aligned to 1 GB: the
+underlying mapper doesn’t have to immediately back that with memory,
+but it certainly can, e.g., in order to use gigantic pages. The chunk
+is preceded and followed by 2 MB guard pages. The metadata for the
+chunk’s data lives in a 2 MB range, just before the preceding guard
+page (i.e., 4 MB to 2 MB before the beginning of the aligned 1 GB
+range). Finally, the 2 MB metadata range is itself preceded by a 2MB
+guard page.</p><p>Each chunk is statically divided in 65536 spans of 16 KB each. We can
+thus map a span to its slot in the metadata block with a shifts,
+masks, and some address arithmetic. <a href="https://github.com/backtrace-labs/slitter/blob/7afb9781fd25b8cee62afa555b9d38f391131044/src/mill.rs">Mill</a>s
+don’t have to hand out individual 16 KB spans at a time, they simply
+have to work in multiples of 16 KB, and never split a span in two.</p><h2 id="why-we-wrote-slitter-in-rust-and-c">Why we wrote Slitter in Rust and C</h2><p>We call Slitter from C, but wrote it in Rust, despite the
+more painful build<sup id="fnref:10"><a href="#fn:10" role="doc-noteref">10</a></sup> process: that pain isn’t going
+anywhere, since we expect our backend to be in a mix of C, C++, and
+Rust for a long time. We also sprinkled in some C when the
+alternative would have been to pull in a crate just to make a couple
+syscalls, or to enable unstable Rust features: we’re not
+“rewrite-it-in-Rust” absolutists, and merely wish to use Rust for its
+strengths (control over data layout, support for domain-specific
+invariants, large ecosystem for less performance-sensitive logic, ability to
+lie to the compiler where necessary, …), while avoiding its
+weaknesses (interacting with Linux interfaces defined by C headers, or
+fine-tuning code generation).</p><p>The majority of allocations only interact with the thread-local
+magazines. That’s why we <a href="https://github.com/backtrace-labs/slitter/blob/main/c/cache.c">wrote that code in C</a>:
+stable Rust doesn’t (yet) let us access <a href="https://doc.rust-lang.org/std/intrinsics/fn.likely.html">likely/unlikely annotations</a>,
+nor <a href="https://www.akkadia.org/drepper/tls.pdf#page=35">fast “initial-exec”</a> <a href="https://github.com/rust-lang/rust/issues/29594">thread-local storage</a>.
+Of course, allocation and deallocation are the main entry points into
+a memory allocation library, so this creates a bit of friction with
+Rust’s linking process.<sup id="fnref:11"><a href="#fn:11" role="doc-noteref">11</a></sup></p><p>We also had to implement our <a href="https://github.com/backtrace-labs/slitter/blob/main/c/stack.c">lock-free multi-popper Treiber stack</a>
+in C: x86-64 doesn’t have anything like LL/SC, so we instead pair
+the top-of-stack pointer with a generation counter… and
+<a href="https://github.com/rust-lang/rust/issues/32976#issuecomment-641360955">Rust hasn’t stabilised 128-bit atomics</a> yet.</p><p>We chose to use atomics in C instead of a simple lock in Rust because
+the lock-free stack (and the atomic bump pointer, which Rust handles
+fine) are important for our use case: when we rehydrate cold metadata
+at startup, we do so from multiple I/O-bound threads, and we have
+observed hiccups due to lock contention in malloc. At some point,
+lock acquisitions are rare enough that contention isn’t an issue;
+that’s why we’re comfortable with locks when refilling bump allocation
+regions.</p><h2 id="come-waste-performance-on-safety">Come waste performance on safety!</h2><p>A recurring theme in the design of <a href="https://github.com/backtrace-labs/slitter">Slitter</a>
+is that we find ways to make the core (de)allocation logic slightly
+faster, and immediately spend that efficiency on safety, debuggability
+or, eventually, observability. For a lot of code, performance is a
+constraint to satisfy, not a goal to maximise; once we’re close to
+good enough, it makes sense to trade performance
+away.<sup id="fnref:12"><a href="#fn:12" role="doc-noteref">12</a></sup> I also believe that there are
+<a href="https://research.google/pubs/pub50370/">lower hanging fruits in memory placement</a>
+than shaving a few nanoseconds from the allocation path.</p><p><a href="https://crates.io/crates/slitter">Slitter</a> also focuses on
+instrumentation and debugging features that are always active, even in
+production, instead of leaving that to development tools, or to logic
+that must be explicitly enabled. In a SaaS world, development and
+debugging is never done. Opt-in tools are definitely useful, but
+always-on features are much more likely to help developers catch
+the rarely occurring bugs on which they tend to spend an inordinate
+amount of investigation effort (and if a debugging feature can be
+safely enabled in production at a large scale, why not leave it
+enabled forever?).</p><p>If that sounds like an interesting philosophy for a slab allocator,
+<a href="https://github.com/backtrace-labs/slitter">come hack on Slitter</a>!
+Admittedly, the value of Slitter isn’t as clear for pure Rust hackers
+as it is for those of us who blend C and Rust, but per-class allocation
+statistics and placement decisions should be useful, even in safe
+Rust, especially for larger programs with long runtimes.</p><p>Our <a href="https://github.com/backtrace-labs/slitter">MIT-licensed code is on github</a>,
+there are <a href="https://github.com/backtrace-labs/slitter/issues">plenty of small improvements to work on</a>,
+and, while we still have to re-review the documentation, it has decent
+test coverage, and we try to write straightforward code.</p><p>We’re also <a href="https://backtrace.io/careers/">hiring</a> for <a href="https://saucelabs.com/company/careers/job?gh_jid=3363441">the platform team</a>,
+if you like our problem-solving approach.</p></div></article></div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 23:59:21 +0000</pubDate>
+      <source>https://engineering.backtrace.io/2021-08-04-slitter-a-slab-allocator-that-trusts-but-verifies/</source>
+    </item>
+    <item>
+      <title>The Bad Grade That Changed the U.S. Constitution</title>
+      <link>https://www.npr.org/2017/05/05/526900818/the-bad-grade-that-changed-the-u-s-constitution</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="storytext">
+      <div id="res526946165">
+            <div data-crop-type="">
+        <picture>
+            <source srcset="https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s400-c85.webp 400w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s600-c85.webp 600w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s800-c85.webp 800w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s900-c85.webp 900w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1200-c85.webp 1200w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1600-c85.webp 1600w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1800-c85.webp 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/webp"/>
+            <source srcset="https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s400-c85.jpg 400w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s600-c85.jpg 600w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s800-c85.jpg 800w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s900-c85.jpg 900w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1200-c85.jpg 1200w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1600-c85.jpg 1600w,
+https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1800-c85.jpg 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/jpeg"/>
+            
+        </picture>
+        
+</div>
+<div>
+    <div>
+        <p>
+                After he received a C on a paper when he was 19, Gregory Watson went on a mission to get a constitutional amendment ratified.
+                
+                <b aria-label="Image credit">
+                    
+                    Jorge Sanhueza-Lyon/KUT
+                    
+                </b>
+                <b><b>hide caption</b></b>
+            </p>
+
+
+            <p><b><b>toggle caption</b></b>
+    </p></div>
+
+    <p><span aria-label="Image credit">
+        
+        Jorge Sanhueza-Lyon/KUT
+        
+    </span>
+</p></div>
+<div>
+    <div>
+        <picture>
+            <source data-original="https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1200.webp" type="image/webp"/>
+            <source data-original="https://media.npr.org/assets/img/2017/05/04/greg_watson_03_wide-47126201c1380eb3e965fec5ba611465d4572b62-s1200.jpg" type="image/jpeg"/>
+            
+        </picture>
+    </div>
+</div>
+<div>
+    <div>
+        <p>After he received a C on a paper when he was 19, Gregory Watson went on a mission to get a constitutional amendment ratified.</p>
+        <p><span aria-label="Image credit">
+            
+            Jorge Sanhueza-Lyon/KUT
+            
+        </span>
+    </p></div>
+</div>
+   </div>
+   <p>Twenty-five years ago, the 27th Amendment to the U.S. Constitution was ratified — nearly two centuries after it was written. The improbable story of how that happened starts with the Founding Fathers themselves and winds up at the University of Texas. And it&#39;s a heartening reminder of the power of individuals to make real change.</p>   <p>Let&#39;s back up to 1982. A 19-year-old college sophomore named Gregory Watson was taking a government class at UT Austin. For the class, he had to write a paper about a governmental process. So he went to the library and started poring over books about the U.S. Constitution — one of his favorite topics.</p>   <p>&#34;I&#39;ll never forget this as long as I live,&#34; Watson says. &#34;I pull out a book that has within it a chapter of amendments that Congress has sent to the state legislatures, but which not enough state legislatures approved in order to become part of the Constitution. And this one just jumped right out at me.&#34;</p>   <p>The unratified amendment read as follows:</p>      <p>&#34;No law varying the compensation for the services of the Senators and Representatives shall take effect until an election of representatives shall have intervened.&#34;</p>   <p>In other words, any raise Congress votes to give itself can&#39;t take effect until after the next election, so constituents can decide whether they deserve it.</p>   <div id="res526940303">
+            <div>
+                  <a id="featuredStackSquareImage306837618" href="https://www.npr.org/2014/04/26/306837618/justice-stevens-six-little-ways-to-change-the-constitution" data-metrics="{&#34;category&#34;:&#34;Story to Story&#34;,&#34;action&#34;:&#34;Click Internal Link&#34;,&#34;label&#34;:&#34;https:\/\/www.npr.org\/2014\/04\/26\/306837618\/justice-stevens-six-little-ways-to-change-the-constitution&#34;}"><picture><source srcset="https://media.npr.org/assets/img/2014/04/26/ap110928030953_sq-352cfd96ceaeb3b943f66b32d83c27cdab6006c7-s100-c15.webp" data-original="https://media.npr.org/assets/img/2014/04/26/ap110928030953_sq-352cfd96ceaeb3b943f66b32d83c27cdab6006c7-s100.webp" type="image/webp"/><source srcset="https://media.npr.org/assets/img/2014/04/26/ap110928030953_sq-352cfd96ceaeb3b943f66b32d83c27cdab6006c7-s100-c15.jpg" data-original="https://media.npr.org/assets/img/2014/04/26/ap110928030953_sq-352cfd96ceaeb3b943f66b32d83c27cdab6006c7-s100.jpg" type="image/jpeg"/></picture></a>         
+         
+<!-- END CLASS="BUCKETBLOCK" -->
+      </div>
+      
+<!-- END CLASS="BUCKET IMG" -->
+   </div>
+   
+<!-- END ID="RES526940303" CLASS="BUCKETWRAP INTERNALLINK INSETTWOCOLUMN INSET2COL " -->
+   <p>The amendment had been proposed almost 200 years earlier, in 1789. It was written by James Madison and was intended to be one of the very first constitutional amendments, right along with the Bill of Rights.</p>   <p>But it didn&#39;t get passed by enough states at the time. To ratify an amendment, three-quarters of state legislatures need to approve it.</p>   <p>And it turned out that the 200-year-old proposed amendment didn&#39;t have a deadline.</p>   <p>Watson was intrigued. He decided to write his paper about the amendment and argue that it was still alive and could be ratified. He turned it in to the teaching assistant for his class — and got it back with a C.</p>   <p>Watson was baffled. He was sure the paper was better than a C.</p>   <p>He appealed the grade to the professor, Sharon Waite.</p>   <p>&#34;I kind of glanced at it, but I didn&#39;t see anything that was particularly outstanding about it and I thought the C was probably fine,&#34; she recalls.</p>      <p>Most people would have just taken the grade and left it at that. Gregory Watson is not most people.</p>   <p>&#34;So I thought right then and there, <em>&#39;I&#39;m going to get that thing ratified.&#39; </em>&#34;</p>   <p><strong>Lobbying lawmakers</strong></p>   <p>He needed 38 state legislatures to approve the amendment. Nine states had already approved it, mostly back in the 1790s, so that meant Watson needed 29 more states to ratify it. He wrote letters to members of Congress to see whether they knew of anyone in their home states who might be willing to push the amendment in the state legislature. When he did get a response, it was generally negative. Some said the amendment was too old; some said they just didn&#39;t know anyone who&#39;d be willing to help. Mostly, he got no response at all.</p>   <p>But then, a senator from Maine named William Cohen did get back to him. Cohen, who later served as secretary of defense under President Clinton, passed the amendment on to someone back home, who passed it on to someone else, who introduced it in the Maine Legislature. In 1983, state lawmakers passed it.</p>   <p>&#34;So I&#39;m thinking, &#39;my first success story; this can actually be done&#39;,&#34; Watson says.</p>   <p>Feeling emboldened, he started writing to every state lawmaker he thought might be willing to help. He wrote dozens of letters. After a while, it started to work. Colorado passed the amendment in 1984. And then it picked up momentum. Five states in 1985. Three each in 1986, 1987 and 1988. Seven states in 1989 alone.</p>   <p>By 1992, 35 states had passed the amendment. Only three more to go. After 10 years of letter-writing, sweet-talking and shaming, Watson was within reach of his goal.</p>   <p>On May 5, 1992, both Alabama and Missouri passed the amendment. And on May 7, as Watson listened on the phone, the Michigan House of Representatives put it over the top.</p>   <p>His quest was finally over: More than 200 years after it was written, the 27th Amendment was finally ratified.</p>   <p>&#34;I did treat myself to a nice dinner at an expensive restaurant,&#34; Watson recalls.</p>   <p>What&#39;s so striking about this story is the sheer degree of difficulty of what Gregory Watson did. Amending the Constitution is — by design — incredibly hard to do. In fact, the 27th Amendment is still the most recent amendment to the Constitution.</p>   <p>It turns out that one person really can make a difference.</p>   <p>&#34;I wanted to demonstrate that one extremely dedicated, extremely vocal energetic person could push this through,&#34; Watson says. &#34;I think I demonstrated that.&#34;</p>   <p>He has kept pursuing these kinds of quests since then. In 1995, he realized Mississippi had never ratified the 13th Amendment, which abolished slavery. So he pushed that state&#39;s Legislature to do it — and it worked. It was symbolic, but it meant something. (Due to a filing error, the ratification was not officially recorded until 2013 ... but that&#39;s another story.)</p>   <div id="res526939983">
+            <div>
+                  <a id="featuredStackSquareImage172432523" href="https://www.npr.org/sections/thetwo-way/2013/02/19/172432523/after-snafu-mississippi-ratifies-amendment-abolishing-slavery" data-metrics="{&#34;category&#34;:&#34;Story to Story&#34;,&#34;action&#34;:&#34;Click Internal Link&#34;,&#34;label&#34;:&#34;https:\/\/www.npr.org\/sections\/thetwo-way\/2013\/02\/19\/172432523\/after-snafu-mississippi-ratifies-amendment-abolishing-slavery&#34;}"><picture><source srcset="https://media.npr.org/assets/img/2013/02/19/093915_sq-89478a19a099864aecea2e14ce1e71ad52325e4d-s100-c15.webp" data-original="https://media.npr.org/assets/img/2013/02/19/093915_sq-89478a19a099864aecea2e14ce1e71ad52325e4d-s100.webp" type="image/webp"/><source srcset="https://media.npr.org/assets/img/2013/02/19/093915_sq-89478a19a099864aecea2e14ce1e71ad52325e4d-s100-c15.jpg" data-original="https://media.npr.org/assets/img/2013/02/19/093915_sq-89478a19a099864aecea2e14ce1e71ad52325e4d-s100.jpg" type="image/jpeg"/></picture></a>         
+         
+<!-- END CLASS="BUCKETBLOCK" -->
+      </div>
+      
+<!-- END CLASS="BUCKET IMG" -->
+   </div>
+   
+<!-- END ID="RES526939983" CLASS="BUCKETWRAP INTERNALLINK INSETTWOCOLUMN INSET2COL " -->
+   <p><strong>Making the grade</strong></p>   <p>Back in 1992, as Watson celebrated his achievement with the 27th Amendment, things weren&#39;t going as well for his former professor, Sharon Waite. She had moved from Austin back to South Texas in the 10 years since Watson was her student. She tried to get a teaching job down there, with no luck.</p>   <p>&#34;I was feeling sorry I&#39;d spent all those years studying and you know ... nothing!&#34; Waite says.</p>   <div id="res526946731">
+            <div data-crop-type="">
+        <picture>
+            <source srcset="https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s400-c85.webp 400w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s600-c85.webp 600w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s800-c85.webp 800w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s900-c85.webp 900w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s1200-c85.webp 1200w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s1600-c85.webp 1600w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s1800-c85.webp 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/webp"/>
+            <source srcset="https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s400-c85.jpg 400w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s600-c85.jpg 600w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s800-c85.jpg 800w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s900-c85.jpg 900w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s1200-c85.jpg 1200w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s1600-c85.jpg 1600w,
+https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340b9a3378a19a003f323-s1800-c85.jpg 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/jpeg"/>
+            
+        </picture>
+</div>
+<div>
+    <div>
+        <p>
+                The official proclamation declaring the 27th Amendment to be part of the U.S. Constitution was issued in 1992.
+                
+                <b aria-label="Image credit">
+                    
+                    Courtesy of the National Archives
+                    
+                </b>
+                <b><b>hide caption</b></b>
+            </p>
+
+
+            <p><b><b>toggle caption</b></b>
+    </p></div>
+
+    <p><span aria-label="Image credit">
+        
+        Courtesy of the National Archives
+        
+    </span>
+</p></div>
+   </div>
+   <p>She would look at all the papers and books and stuff she&#39;d collected over the years getting her master&#39;s degree and her doctorate and wondered, &#34;What was it all for?&#34;</p>   <p>Until one day, she got a phone call from someone writing a book about constitutional amendments.</p>   <p>&#34;They said, &#39;Well did you teach at UT Austin in the early &#39;80s?&#39; and I said, &#39;Yes I did,&#39; &#34; Waite says. &#34;And then they asked, &#39;Did you know that one of your students, Gregory Watson, pursued getting this constitutional amendment passed because you gave him a bad grade?&#39; &#34;</p>   <p>Waite was blown away. And in that moment, she felt redeemed.</p>   <p>&#34;Many people have said you never know what kind of effect you&#39;re going to have on other people and on the world. And now I&#39;m in my 70s, I&#39;ve come to believe that&#39;s very, very true. And this is when it really hit me because I thought to myself, &#39;You have, just by making this fellow a grade he didn&#39;t like, affected the U.S. Constitution more than any of your fellow professors ever thought about it, and how ironic is that?&#39;&#34;</p>   <p>And with the benefit of hindsight, Waite says, Watson clearly doesn&#39;t deserve that C she gave him.</p>   <p>&#34;Goodness, he certainly proved he knew how to work the Constitution and what it meant and how to be politically active,&#34; she says. &#34;So, yes, I think he deserves an A after that effort — A-plus!&#34;</p>   <p>And that&#39;s exactly what happened.</p>   <p>On March 1, Waite signed a form to officially change Watson&#39;s grade. Thirty-five years after Gregory Watson wrote his paper, he finally got his C changed to an A.</p>   <div id="res526941074">
+            <div>
+                  <a id="featuredStackSquareImage465593798" href="https://www.npr.org/2016/02/04/465593798/rewrite-the-constitution-several-states-are-trying-to" data-metrics="{&#34;category&#34;:&#34;Story to Story&#34;,&#34;action&#34;:&#34;Click Internal Link&#34;,&#34;label&#34;:&#34;https:\/\/www.npr.org\/2016\/02\/04\/465593798\/rewrite-the-constitution-several-states-are-trying-to&#34;}"><picture><source srcset="https://media.npr.org/assets/img/2016/02/04/ap_606860031015_sq-10d82cff6bf320188d4b8c8962be60341cad7bff-s100-c15.webp" data-original="https://media.npr.org/assets/img/2016/02/04/ap_606860031015_sq-10d82cff6bf320188d4b8c8962be60341cad7bff-s100.webp" type="image/webp"/><source srcset="https://media.npr.org/assets/img/2016/02/04/ap_606860031015_sq-10d82cff6bf320188d4b8c8962be60341cad7bff-s100-c15.jpg" data-original="https://media.npr.org/assets/img/2016/02/04/ap_606860031015_sq-10d82cff6bf320188d4b8c8962be60341cad7bff-s100.jpg" type="image/jpeg"/></picture></a>         
+         
+<!-- END CLASS="BUCKETBLOCK" -->
+      </div>
+      
+<!-- END CLASS="BUCKET IMG" -->
+   </div>
+   
+<!-- END ID="RES526941074" CLASS="BUCKETWRAP INTERNALLINK INSETTWOCOLUMN INSET2COL " -->
+   <p><em><a href="https://www.popupmagazine.com/" target="_blank">This story was originally produced for Pop-Up Magazine</a>.</em></p>
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 22:58:44 +0000</pubDate>
+      <source>https://www.npr.org/2017/05/05/526900818/the-bad-grade-that-changed-the-u-s-constitution</source>
+    </item>
+    <item>
+      <title>Elizabeth Holmes fails to keep customer complaints, test results out of trial</title>
+      <link>https://www.yahoo.com/finance/news/elizabeth-holmes-fails-to-keep-customer-complaints-out-of-criminal-fraud-trial-210015777.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><figure><div><div><p></p></div></div><p><figcaption>SAN JOSE, CALIFORNIA - MAY 4: Theranos founder Elizabeth Holmes leaves the Robert F. Peckham Federal Building with her defense team in downtown San Jose, Calif., on Tuesday, May 4, 2021. (Photo by Nhat V. Meyer/MediaNews Group/Mercury News via Getty Images)</figcaption></p></figure><p>A <a href="https://www.scribd.com/document/518844908/USA-v-Holmes-et-al-5-18-cr-00258-No-887-N-D-Cal-Aug-4-2021" rel="nofollow noopener" target="_blank" data-ylk="slk:federal judge on Wednesday">federal judge on Wednesday </a>denied a request from former Theranos CEO Elizabeth Holmes to keep customer complaints, test results, and a regulatory report out of her upcoming criminal fraud trial connected to her failed blood-testing startup.</p><p>In a request to suppress the evidence, Holmes&#39; lawyers <a href="https://finance.yahoo.com/news/elizabeth-holmes-asks-court-to-exclude-evidence-of-customer-complaints-130706577.html" data-ylk="slk:argued;outcm:mb_qualified_link;_E:mb_qualified_link;ct:story;">argued</a> that the government should be prevented from introducing Theranos test results at trial because a now-destroyed company database could have helped her rebut claims that the tests couldn&#39;t consistently produce accurate and reliable results. </p><p>Theranos had turned over a copy the database, which stored blood test results, to the government on an encrypted hard drive before destroying the original database. However, the government later realized it could not access the copy of the database.</p><p>&#34;[Holmes] contends that allowing the government to use that evidence as &#39;evidence of fraud&#39; after it failed to gather and preserve the...database would violate her rights to present a complete defense and to receive due process, because the entirety of the...database was necessary to rebut that evidence,&#34; Judge Edward Davila wrote in his order.</p><p>&#34;The threshold question for the Court is whether the...database is potentially exculpatory,&#34; he added, using a term referring to evidence that clears a person of guilt.</p><p>Davila said, ultimately, Holmes failed to show that the database was so critical to her defense that the government&#39;s actions to retain or not retain it were enough to keep its other evidence from the jury.</p><p>&#34;Holmes does not contend that the...database is materially exculpatory, but rather argues that it is potentially useful evidence,&#34; Davila said. &#34;The database information alone would not provide a conclusive determination of whether the Theranos blood tests were accurate, and it could just as likely contain incriminating evidence to the contrary.&#34;</p><figure><div><div><p></p></div></div></figure><p>Holmes&#39; defense team blames the government for failing to preserve the database after her defense lawyers turned it over. But prosecutors say Holmes purposefully frustrated the government&#39;s effort to access the database by providing a password, without a necessary private key.</p><p>At the time of the transfer of the database, an email from Holmes&#39; attorneys included the password, but failed to mention that a private key would also be necessary for access, according to the judge&#39;s ruling.</p><p>Without the database, Holmes&#39; attorneys argued, anecdotal evidence from customers and a report from the <a href="https://www.cms.gov/" rel="nofollow noopener" target="_blank" data-ylk="slk:Centers for Medicare and Medicaid Services">Centers for Medicare and Medicaid Services</a> (CMS), a federal agency that oversees laboratory operations, is too prejudicial to her defense. The CMS report, issued in January 2016, <a href="https://www.darkdaily.com/cms-notifies-theranos-of-clia-sanctions-that-include-revoking-clinical-laboratorys-clia-license-and-a-two-year-ban-on-holmes-balwani-and-dhawan-414/" rel="nofollow noopener" target="_blank" data-ylk="slk:alleged deficiencies">alleged deficiencies</a> identified during the agency’s inspection of Theranos laboratory in Newark, California.</p><p>Holmes is charged with wire fraud and conspiracy to commit wire fraud against Theranos&#39; investors and patients. The charges carry penalties of up to 20 years in prison.</p><p>In May, the court denied Holmes’ motion to exclude the anecdotal evidence, saying “[e]ach time a Theranos customer allegedly paid for an accurate and reliable blood test based on Holmes’s representations and did not receive such a test, that experience on its own is evidence of the fraud.”</p><p>Other pretrial motions are pending before the court, including <a href="https://finance.yahoo.com/news/elizabeth-holmes-lawyers-propose-jury-questions-140027518.html" data-ylk="slk:requests;outcm:mb_qualified_link;_E:mb_qualified_link;ct:story;">requests</a> filed by Holmes for the court to require extra precaution in selecting and questioning jurors. The filings — a proposed jury questionnaire and proposed jury instructions — point to the challenges Holmes’ lawyers face in empaneling a jury untainted by the flood of media coverage published on Holmes’ and Theranos’ downfall.</p><p>Jury selection for Holmes&#39; trial is scheduled to begin Aug. 31. A separate trial for her co-defendant, Ramesh “Sunny” Balwani, is scheduled to begin in January 2022.</p><p><em>Alexis Keenan is a legal reporter for Yahoo Finance and former litigation attorney. Follow Alexis Keenan on Twitter </em><a href="https://twitter.com/alexiskweed" rel="nofollow noopener" target="_blank" data-ylk="slk:@alexiskweed."><em>@alexiskweed.</em></a></p></div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 23:47:50 +0000</pubDate>
+      <source>https://www.yahoo.com/finance/news/elizabeth-holmes-fails-to-keep-customer-complaints-out-of-criminal-fraud-trial-210015777.html</source>
+    </item>
+    <item>
+      <title>George Hotz Announcing Comma Three</title>
+      <link>https://www.youtube.com/watch?v=hbLiehrC2DQ</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_youtube_com_watch?v=hbLiehrC2DQ/image.jpg" /> 
+]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 00:05:59 +0000</pubDate>
+      <source>https://www.youtube.com/watch?v=hbLiehrC2DQ</source>
+    </item>
+    <item>
+      <title>1.2M Tesla Cybertruck Pre-Orders</title>
+      <link>https://insideevs.com/news/524156/tesla-cybertruck-preorders-exceed-1250000/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___insideevs_com_news_524156_tesla-cybertruck-preorders-exceed-1250000_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="post_box">
+    
+    <div id="article_box">
+        <div>
+                            <div>
+                    <div>
+                                                        <p><span data-time="1627965560"></span><span>Aug 03, 2021</span><span> at</span> 4:39am ET</p>                                                                            
+                                            </div>
+
+
+                        
+                    
+
+                </div>
+
+            <div>
+                                                    <h2>
+                        Tesla received 17,000 reservations for the Cybertruck last week alone, according to an unofficial reservation tracker.                    </h2>
+                                                <div>
+                                <p>People are still submitting reservations for the <a href="https://insideevs.com/tesla/" data-inline-widget="internal-links" data-type-id="2" data-params="%7B%22alias%22%3A%22tesla%22%7D">Tesla</a> Cybertruck at a remarkable rate almost two years after the electric pickup’s public unveiling.</p>
+<p>Last week alone, Tesla has received more than 17,000 orders for the Cybertruck, bringing the total to more than 1.25 million with only months remaining until the start of production. That means that around 250,000 pre-orders have been placed since May 2021, when the reservation spreadsheet exceeded the 1 million-mark.</p>
+<p>According to data coming from an <a href="https://www.teslarati.com/tesla-cybertruck-pre-orders-reservations-1-2-million-units/" target="_blank" rel="noopener noreferrer">online reservation tracker</a> created by fans, the Tesla Cybertruck has unofficially racked up 1,256,487 pre-orders so far. Should they materialize into firm orders, Tesla would pocket a whopping $79 billion in revenue.</p>
+    
+
+
+<p>Unsurprisingly, such a high number of orders would also make the Cybertruck the leader of the electric pickup truck segment. However, some rivals have amassed impressive reservation figures as well. Ford’s F-150 Lightning, for example, has <a href="https://insideevs.com/news/523153/ford-f150-lightning-reservations-120000/" data-inline-widget="internal-links" data-type-id="0" data-params="%7B%22article_edition_id%22%3A%22523153%22%2C%22section%22%3A%221%22%2C%22alias%22%3A%22ford-f150-lightning-reservations-120000%22%7D">reached 120,000 pre-orders</a> only two and a half months after its unveiling.</p>
+<p>Back to the Cybertruck, the same unofficial source reveals that around 48% of the total reservations are for the Cybertruck’s Dual Motor configuration, while the least popular model is the Single Motor with only about 7% of the combined pre-orders.</p>
+<p>As it turns out, Elon Musk has no reason to <a href="https://insideevs.com/news/520667/musk-admits-cybertruck-could-flop/" data-inline-widget="internal-links" data-type-id="0" data-params="%7B%22article_edition_id%22%3A%22520667%22%2C%22section%22%3A%221%22%2C%22alias%22%3A%22musk-admits-cybertruck-could-flop%22%7D">fear the Cybertruck could flop</a>. However, such a high number of reservations likely means that holders will have to be very patient to take delivery of their Tesla electric pickups.</p>
+<p>Any production delays would obviously make matters worse. Tesla recently announced that Giga Texas, the plant that will build the Cybertruck, will start making the Model Y crossover first. There’s no firm production start date for the Cybertruck yet, although Elon Musk previously said that low-volume manufacturing would begin before the end of this year, followed by mass production in 2022.</p>
+
+<section contenteditable="false" draggable="true" data-widget="video_mstv">  </section>                </div>
+
+
+                    
+                        
+                    
+                    <!-- new gallery place, attached gallery -->
+                                        
+
+                
+
+                
+                
+
+                
+
+
+
+                                
+
+                                    
+                                            
+                                                        
+
+                
+                
+                
+                
+                
+
+                                
+
+                
+            </div>
+        </div>
+
+
+
+
+
+
+                    
+                
+    </div>
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 23:52:36 +0000</pubDate>
+      <source>https://insideevs.com/news/524156/tesla-cybertruck-preorders-exceed-1250000/</source>
+    </item>
+    <item>
+      <title>The Death of the All-Powerful Director: Michael Cimino’s ‘Heaven’s Gate’</title>
+      <link>https://www.theringer.com/movies/2021/7/19/22582814/heavens-gate-1970s-hollywood-auteur-directors</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_theringer_com_movies_2021_7_19_22582814_heavens-gate-1970s-hollywood-auteur-directors/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+  <p id="QrS2nH"><em>Over the next week at </em>The Ringer<em>, in honor of the release of </em><a href="https://www.youtube.com/watch?v=h62RmIsx6MA">Woodstock 99: Peace, Love, and Rage</a><em>, we will explore events that changed the world as we knew it—specifically ones that marked the ends of established eras and triggered the beginnings of then-unknown futures. Some will be overt and well established. Others will be less trodden and perhaps more speculative. But all will entertain an immovable idea that when things die, there is someone or something that pulled the trigger. Welcome to </em><a href="https://www.theringer.com/movies/2021/7/20/22585243/welcome-to-this-is-the-end-week"><em>This Is the End Week</em></a><em>.</em></p>
+<hr id="xyEWNL"/>
+<p id="YtPa6C">“Here are the spent shell casings,” writes Steven Bach in the introduction to his extraordinary 1985 book <a href="https://www.amazon.ca/Final-Cut-Making-Heavens-Artists/dp/1557043744"><em>Final Cut</em></a>, which chronicles the legendarily troubled production of <em>Heaven’s Gate</em>. Bach paints the making of the film as a war of attrition between its director, Michael Cimino, and the studio that signed off on its making. As in all the bloodiest and most intractable battles, neither side could really claim victory. All that Bach could do as the last man standing was try to tell the tale.</p>
+<p id="9Thuif">History is written by the winners, except when they conveniently forget to put pen to paper; the script for <em>Heaven’s Gate </em>was based on an obscure but shocking 19th-century episode in which a group of Wyoming cattle barons hired Texan militiamen to confront and eradicate a contingent of settlers on their land. It was a genocide carried out with the tacit approval of regional governmental authorities, and Cimino’s fictionalized retelling was meant to elicit anger and shame. But the military narrative evoked in Bach’s scrupulously detailed behind-the-scenes account—compiled during the author’s tenure as senior vice president at United Artists in the late 1970s—is closer to Custer’s Last Stand, with a stubborn, doomed general holding his ground and amassing casualties right up until the final shot.</p>
+<div id="prJ4fK"><p><iframe src="https://www.youtube.com/embed/YmTI3xYO6mQ?rel=0" allowfullscreen="" scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></p></div>
+<p id="RqE2xZ">The broad strokes are that after arriving in Montana with his cast and crew and a mandate to follow his muse, Cimino went mad with power. He tore down and rebuilt expensive sets on a whim and shot endless retakes, to the point that even Stanley Kubrick would have had no choice but to eat his heart out. Time is money, and Cimino spent both like there was no tomorrow. At one point, several months (and over a million feet of film) into the shoot, star John Hurt complained to the press that he was going to miss out on his previously arranged gig making <em>The Elephant Man </em>while <em>Heaven’s Gate </em>spun its wheels. By the time Hurt had flown to England to act for David Lynch and back, Cimino was finally ready to shoot his scenes. Denied access to dailies and later locked out of the editing room, the film’s producers contemplated firing their director (or maybe even worse) and rejected the five-hour assembly cut he showed them. By the time <em>Heaven’s Gate </em>opened in November 1980, a year after its targeted release date, its budget had swelled by several hundred percent (with some estimates placing it at $50 million) and the knives were out. In <em>The New Yorker</em>,<em> </em>a ready-and-waiting <a href="https://scrapsfromtheloft.com/2020/01/23/pauline-kael-trash-art-movies/">Pauline Kael called it “a movie you want to deface”</a>; other critics followed suit, splattering Cimino’s epic with unflattering adjectives and scaring off even the most curious audiences in the process.</p>
+<p id="r1tAvq">But occasionally, history also gets rewritten so that the losers become the winners, and 40 years after its arrival as a pop-cultural punch line—an unfortunate, notorious metonym for a big-budget flop—<em>Heaven’s Gate </em>looks more and more like a movie that lost the battle but won the war, or at least a few hearts and minds. Perhaps inevitably, given the combination of its outsized ambition and the severity of its failure, Cimino’s film has been passionately reclaimed by critics—a collective response to Kael’s calls for defacement. It’s also been <a href="https://www.criterion.com/current/posts/2568-heaven-s-gate-western-promises">canonized by the Criterion Collection</a>, a company whose imprimatur signifies a commitment to the idea of cinema-as-art: what Bach evocatively calls the “the war to create art from technology and ambition and will.” What makes <em>Final Cut </em>such a compelling book is the way its author leverages his very real frustration with the situation and its participants (especially Cimino) against bigger-picture thinking about what was at stake in the making of <em>Heaven’s Gate</em>. It was a crystallized moment when auteurist autonomy—good, bad, and ugly—bumped up against increasingly anodyne, corporatized studio ownership. </p>
+<p id="tSCmgF">Since its inception, United Artists had always symbolized a synthesis between art and commerce. In 1919, D.W. Griffith, Douglas Fairbanks, Mary Pickford, and Charlie Chaplin consolidated their resources, connections, and celebrity into a new studio that sought to counteract the overarching control and influence of the period’s vertically integrated monoliths (and their power-tripping bosses). Operating as a studio without an actual backlot, UA cultivated relationships with established and emerging directors, backing John Huston on <em>The African Queen </em>and Sidney Lumet on <em>12 Angry Men</em>;<em> </em>in the 1960s, its brain trust smartly pitched in overseas to help launch the James Bond franchise and Sergio Leone’s Spaghetti Westerns. When the company was purchased in 1967 by the insurance-oriented Transamerica Corporation, it looked like a solid marriage of faceless capital and long-held artistic principles. But Transamerica blanched at having its name on extreme releases like <em>Midnight Cowboy </em>and <em>Last Tango in Paris </em>(hence the great sight gag in Philip Kaufman’s UA-financed <em>Invasion of the Body Snatchers </em>framing San Francisco’s Transamerica pyramid as the epicenter of an alien conspiracy). After <em>Heaven’s Gate </em>flopped in an explosion of bad publicity and worse vibes, Transamerica sold its ownership to the highest bidder. </p>
+<p id="qMcTz3">The irony of a company forged out of the bonds of creative solidarity being undone by a director run amok is potent verging on mythic, and with its nearly four-hour running time, ensemble cast, and sprawling Montana landscapes, <em>Heaven’s Gate </em>is just about monumental enough to withstand the burdens placed on it by history. You can look at it as the death knell for United Artists, as the Last Picture Show of the New Hollywood, or possibly, one last spectacular Pyrrhic victory just before The Empire—call it the New New Hollywood, same as the Old Hollywood—Struck Back.</p>
+<hr id="qZaScf"/>
+<p id="67jjbY"><em>Heaven’s Gate </em>was green-lit by UA in 1978 as a direct result of Cimino’s success with <em>The Deer Hunter</em>,<em> </em>a movie that represented one species of grand, outsized cinematic achievement. <em>The Deer Hunter </em>was a post-Vietnam psychodrama with echoes of <em>The Best Years of Our Lives</em>; as cowritten and directed by Cimino, its allegory of broken men trying and failing to rebuild was powerful, pretentious, and also politically ambiguous enough to have its characters gather together and sing “God Bless America” at the close. Whether it was meant as a hymn or a protest was up to the viewer. Never mind that Cimino copped his climactic Greek chorus conceit from Robert Altman’s wryer (and superior) bicentennial satire <em>Nashville</em>—whose own, originally composed theme song <a href="https://www.youtube.com/watch?v=4BYyDusJYJo">“It Don’t Worry Me”</a> cut deeper post-Watergate than Irving Berlin’s repurposed wartime patriotism—or that an extended set piece at a wedding aped <em>The Godfather. </em>Brilliantly staged and phenomenally acted by a definitive late-’70s cast including Robert De Niro; John Cazale; Meryl Streep; and an unblinking, Oscar-winning Christopher Walken, <em>The Deer Hunter </em>had the same kind of art-blockbuster pedigree as Francis Ford Coppola’s film<em>, </em>yoked to a more sensationalistic sensibility. </p>
+<p id="DtPEwH">The problem was that the other species of grand, outsized cinematic achievement flourishing at that moment were special-effects-driven hits like <em>Star Wars</em>, <em>Close Encounters of the Third Kind</em>,<em> </em>and <em>Superman. </em>The latter was no. 1 at the box office as <em>Heaven’s Gate </em>went into preproduction, and looks in retrospect like its bizarro twin: a risky, expensive investment that went off schedule, ran over budget, and cultivated murderous resentments between its director and his producers. Of course, you could say some of the same things about <em>Star Wars </em>and <em>Jaws</em>,<em> </em>both of which left their casts and crews physically and emotionally exhausted. Except with those two movies (and <em>Superman</em>),<em> </em>the strife was incurred in the service of an authentically popular moviegoing vision.</p>
+<p id="ZEnwbA">What Steven Spielberg, George Lucas, and Richard Donner understood, whether instinctively or with some measure of cynicism, was that the same audience that had developed a taste for challenging and even unpalatable mainstream movie-making—of downers like <em>The Deer Hunter</em>—was also hungering, desperately, for popcorn fare. What <em>Star Wars </em>and <em>Jaws </em>had in common was a defined view of evil, which either wore black or had a dorsal fin. With <em>Heaven’s Gate</em>,<em> </em>Cimino was simultaneously cashing in his chips from <em>The Deer Hunter </em>and placing a big bet (with his financiers’ capital) that a drama costing about as much as <em>Star Wars </em>(set less far away and minus any explicitly crowd-pleasing elements or adorable robots) could extend both his personal winning streak and staunch the flow of escapism swamping the industry. </p>
+<p id="P9htx5">The first thing that <em>Heaven’s Gate </em>had going against it, commercially speaking, was its genre. By the late 1970s, the Western, which had shaped the visual and thematic vocabulary of American cinema and served as fertile territory for national mythmaking (and revisionism), had faded from box-office prominence; the wistful, elegiac tones of movies like Robert Altman’s <em>McCabe &amp; Mrs. Miller </em>and Sam Peckinpah’s <em>Pat Garrett and Billy the Kid </em>gave them the feeling of requiems. The hard-driving frontiersmen and searchers of Monument Valley period pieces had migrated into steel-and-concrete jungles, with Clint Eastwood serving as a bridging figure: As it turned out, Dirty Harry was a pretty good modern moniker for the Man With No Name. The crackling, urban energy of cop thrillers, palpable also in the steady stream of Blaxploitation movies made in its shadow, was irresistibly contemporary, and while Western archetypes abounded in other genres—after all, what is <em>Jaws </em>but the story of a stubborn local sheriff gathering up a posse to hunt down a vicious outlaw?—its surfaces had become dusty and outdated, or else used in gimmicky ways (as in the lumpy satire of Sydney Pollack’s <em>The Electric Horseman</em>, about a rodeo rider who’s sold out to a cereal manufacturer). </p>
+
+<p id="cKguwu">Originally titled <em>The Johnson County War</em>,<em> </em>Cimino’s screenplay—written in 1971, before the filmmaker had any credits or stroke—examined vintage Western themes of conflict and community, investigating America’s melting-pot heritage and drawing parallels between capitalist exploitation past and present. Its heroes were Harvard-educated boys who receive a brutal education in property and economics after heading West, where they fall in with a hardscrabble cohort of settlers rustling cattle as a means of survival. The script attracted interest from Steve McQueen and was pitched to John Wayne, but when it came time to cast <em>Heaven’s Gate</em>,<em> </em>Cimino didn’t go the movie star route. While you’d have been hard pressed to find better actors circa 1978 than Kris Kristofferson, John Hurt, Jeff Bridges, and Christopher Walken—a true murderers’ row—none of them were necessarily box-office draws; after impulsively offering the lead female role to Isabelle Huppert, Cimino was castigated by executives who would have preferred Jane Fonda or Diane Keaton. “No one has ever heard of her,” Bach quotes himself as telling the director during yet another in a series of tense meetings, “and as of this moment we have no marquee other than Kristofferson.” What Cimino left unsaid was that these choices, beyond their artistic merit, would ensure that once the cameras were rolling, <em>he </em>was the star of <em>Heaven’s Gate</em>—the real marquee attraction.</p>
+<p id="TVAcDO">Tales of Cimino’s unchecked ego and arrogance proliferated at every stage of his career; accepting the Best Director Oscar for <em>The Deer Hunter</em>,<em> </em>he noted—not as a joke—that it was <a href="https://www.youtube.com/watch?v=o3fdS8KkLyI">“difficult to leaven pride with humility.”</a> He also dismissed media criticisms of <em>The Deer Hunter</em>’s myriad historical inaccuracies and shockingly unsubtle racism with a snideness that swiftly turned journalists against him. Hence the rabid, borderline-morbid media fascination with <em>Heaven’s Gate</em>’s<em> </em>increasingly troubled production, which, while on one level was in a great tradition of rubbernecking industry gossip dating back to disasters like <em>Queen Christina </em>and <em>Cleopatra</em>,<em> </em>also channeled larger anxieties. In 1962, when <em>Cleopatra </em>had started careening out of control, the story was about Elizabeth Taylor’s mental health and mood swings, and the attempts of producers and directors to placate her larger-than-life whims. With <em>Heaven’s Gate</em>,<em> </em>the culprit—fingered unanimously by actors and crew members leaking information from the set—was Cimino, who, in his resistance to creative input and his increasingly despotic disposition, became the poster boy for the dangers of auteur megalomania.</p>
+<p id="KMZZWg">In truth, there were plenty of other contemporaneous candidates to serve as cautionary tales on this front. If the main innovation of the New Hollywood had been how its initiates inhabited and exploded classical forms in ways that excited viewers—as in <em>The Godfather</em>’s<em> </em>blend of 1940s setting and aesthetics with startlingly bloody violence—the increasing confidence of these practitioners led them, collectively, on Icarus-like trajectories. Around the same time that <em>Star Wars </em>and <em>The Deer Hunter </em>were on their victory laps, <em>Sorcerer</em>; <em>New York, New York</em>;<em> </em>and <em>1941 </em>tarnished the glows emanating respectively from William Friedkin, Martin Scorsese, and Steven Spielberg. In each case, the story was that the filmmakers had overstepped the boundaries of their talent and exceeded the possibility of return on investment. </p>
+<p id="uWO54C">Francis Ford Coppola’s experiences making <em>Apocalypse Now </em>in the Philippines (another United Artists production) were every bit as harrowing as Cimino’s misadventures in the West. But if <em>Apocalypse Now </em>is the cinematic equivalent of a phoenix—an incandescent monster rising from the flames of its own making—<em>Heaven’s Gate </em>only sporadically achieves liftoff in between the long, unhurried passages of moseying that Cimino intended to impart measures of depth and dread. There’s nothing in it with the operatic punch of <em>Apocalypse Now</em>’s<em> </em>Wagner-with-helicopters bombing run, or even the sleazy grandeur of the <a href="https://www.youtube.com/watch?v=Decko2h-S20">USO strip show set to Flash Cadillac’s cover of “Suzie Q.”</a> Instead, its centerpiece sequence features characters spinning aimlessly in circles—a fiddle-driven, full-cast hoedown at the eponymous Johnson County roller rink that cycles on and on for a miniature eternity, at once tedious and exhilaratingly carnivalesque, a last waltz that never ends.</p>
+<div id="aepeOK"><p><iframe src="https://www.youtube.com/embed/sGd_cytAIkQ?rel=0" allowfullscreen="" scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></p></div>
+<p id="FvFgrd">Narratively speaking, the 10-minute interlude at Heaven’s Gate does next to nothing for <em>Heaven’s Gate</em>,<em> </em>but as a utopian vision of American community—of immigrants, interlopers, and working-class stiffs living it up before the ruling class lowers the boom—it’s genuinely poetic. Which is why James Cameron stole it wholesale for the <a href="https://www.youtube.com/watch?v=erAQ9LkftwA">steerage-class dance party in <em>Titanic</em>,</a><em> </em>another potential doppelgänger for <em>Heaven’s Gate </em>except that its maker’s megalomania resulted in coronation rather than exile. The two movies’ fortunes are like inverses of one another, with Cimino guessing wrong that a throwback period piece could compete with state-of-the-art sci-fi, and Cameron—the most assiduous inheritor of Spielberg and Lucas’s kingdom—going earnest and old-school in a post-Tarantino moment of ironic overkill. To give <em>Titanic </em>its due, it’s a cleaner and clearer piece of storytelling than <em>Heaven’s Gate </em>with a more romantic view of history, and in picking Kate Winslet over a host of more established actresses, Cameron hit a bull’s-eye that Cimino missed with the then-untested Huppert. And yet its CGI looks flimsy compared to <em>Heaven’s Gate</em>’s<em> </em>analog grandeur, and its class critique is purely cartoony, absent the righteous sense of fury that informed Cimino’s attempt to memorialize (in fictionalized form) a country’s betrayal of its own assimilationist promises.</p>
+<p id="Vr1t24">“Movies matter,” writes Bach toward the close of <em>Final Cut</em>,<em> </em>noting that the flip side of this maxim is that their costs matter too. The industry takeaway from <em>Heaven’s Gate </em>was not so much that movies were getting too expensive as that the wrong <em>kinds </em>of movies were being made for too much money, a consensus that placed a premium on accessibility. Instead of trusting that a brilliant filmmaker could move the needle on what constituted mainstream fare—whether by daring or forcibly dragging an audience to meet them halfway—executives grew hesitant to subsidize anything too far outside of a particular comfort zone, and the movies got blander and more innocuous as a result. In the 1980s, there was a proliferation of so-called high-concept projects whose contents could be summed up in a single sentence and efficiently conveyed by marketing departments. Meanwhile, difficult, chipped-shoulder directors like Cimino, who was banished once and for all after the failure of his overwrought 1985 cop epic <em>Year of the Dragon</em>, grew marginalized; it’s not a coincidence that of all the significant filmmakers who emerged in the 1970s, it was the unruliest ones (Cimino, Robert Altman, and Francis Ford Coppola) who had the rockiest time, while Spielberg and Lucas were able to operate on cruise control. </p>
+<p id="uSOb9E">It’s genuinely futile to argue for <em>Heaven’s Gate </em>as a strictly good or bad movie, and yet it’s also evasive to take a middle position. Too much was risked, lost, or straight-up immolated in its making to consign it to the category of either-or. It may be less that history has vindicated its flaws—the laconic pacing, shameless speechifying, and blurry dramaturgy surfacing at regular intervals—and more that those flaws feel as nostalgic and far away as its virtues. In 1980, <em>Heaven’s Gate </em>was the biggest target around, and duly besieged for it. But if it’s hard to imagine anything like it being made today, the reasons are disappointing to contemplate. <em>Heaven’s Gate </em>is a cautionary tale with a deceptive epilogue, as the aforementioned high-concept contingencies of the ’80s did anything but provide an antidote to Hollywood bloat. Instead, they amplified it in ways we’re still paying for, one deadening franchise at a time. After reading <em>Final Cut</em>,<em> </em>it’s all but impossible to be sympathetic to Cimino. But after watching <em>Heaven’s Gate</em>, and knowing what was coming next, it’s all but impossible not to be. </p>
+<p id="DHPBTO"><a href="https://twitter.com/brofromanother"><em>Adam Nayman</em></a><em> is a film critic, teacher, and author based in Toronto; his book </em>The Coen Brothers: This Book Really Ties the Films Together<em> is available now from Abrams.</em></p>
+  
+</div></div>]]></content:encoded>
+      <pubDate>Mon, 02 Aug 2021 17:53:43 +0000</pubDate>
+      <source>https://www.theringer.com/movies/2021/7/19/22582814/heavens-gate-1970s-hollywood-auteur-directors</source>
+    </item>
+    <item>
+      <title>Beautiful Disasters: The 5,000 Fingers of Dr. T (2015)</title>
+      <link>https://mubi.com/notebook/posts/beautiful-disasters-the-5000-fingers-of-dr-t</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___mubi_com_notebook_posts_beautiful-disasters-the-5000-fingers-of-dr-t/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p></p><p>We spend years viewing the world through the eyes of a child before abandoning it. Not the world, that is—but we grow into players in the game of Life, rub our heavy eyelids, and take to ever-trippy existence from a heightened perspective in which our formative fears and fantasies are filtered through a scope less blurry, unadulterated. And then in doing so we leave a little something behind. For a grown-up to be considered “childish” comes with more negative connotations than posi, but to retain one’s inner child is a paramount strength. So what is the difference?</p><p>Theodore Geisel, also known under the pseudonym Dr. Seuss, authored the most celebrated children’s literature of his time. He presented generations upon generations whimsical visions which, in proper auteur style, require just a single glance to recognize as work of his. Geisel’s simply-worded fables were praised for encouraging youth to learn to read while simultaneously being wrought with moral and sociopolitical undertones. If you haven’t spent the 2000s dwelling under a rock or in a mountaintop cavern overlooking Whoville, you’re likely well-aware of and have had your go at the Hollywood adaptations of <i>How the Grinch Stole Christmas</i> and<i> The Cat in the Hat</i>. Yet only those who travel in certain circles know this underrated piece of trivia: That back in the 50s, the Dr-who-wasn’t-really-a-doctor Seuss penned an original live-action musical film. Why has this information largely eluded us? It’s because the picture was a bit of a bomb that exploded nowhere but inward on itself. </p><p>The film is entitled<i> The 5,000 Fingers of Dr. T</i>, and tells the tale of an all-American lad trapped in the clutches of the nefarious Dr. Terwilliker—whose music academy is luring in young boys to practise their playing on an oversized piano, assembly line-style, until the end of their days. Geisel originally submitted a 1200-page screenplay with “themes of world dominance and oppression following World War II,” but over the course of the production this epic-to-be was whittled down into a Freudian fever dream that didn’t particularly score well with either the youngsters or critics of America. Dr. T has since gained a late-night-TV sort of following, but upon its 1953 release experienced less than rapture in vain of his picture books’ reception. During the shoot on a particular day, one of the 150 kid extras the budget allowed for ate a spoiled hot dog and vomited all over the Seussian instrument—inciting a chain reaction among the 149 others, who followed suit in covering the piano keys in puke. Geisel claimed that much the same occurred among those who reviewed his one-and-only real involvement with the movies. Thus an overwhelming feeling of embarrassment ensured that not even 1 of Doctor Terwilliker’s 5000 fingers made an appearance in his official biography. So what was it? Was <i>The 5,000 Fingers of Dr. T</i> a childish misstep on the parts of a studio on the rise, the kid who would go on to star in Lassie, and one beloved author?</p><p>The fact of the matter may be that the musical fantasy came out the eensiest bit too adult. The Dr. Terwilliker character, played by Hans Conried, harnesses the two greatest fears of a juvenile male: That his mother be brainwashed and hidden away in a castle like Mario’s Princess Peach; and that an active adolescent mind be coerced into eternal discipline firmly planted on a piano’s bench. This mad villain plays the J.K. Simmons role from <i>Whiplash</i>, terrorizing students into mastery of their craft by working them to the bone. The doomed protégé subject to it is little Bart Collins, played by Tommy Rettig, whom applies his Boy Scout determination to foil Dr. T’s evil plot while also acting as matchmaker to his mother and the handsome plumber Mr. Zabladowski. Lacking a father figure, Bart cannot bear to see his mother under the tyranny of Dr. Terwilliker, mimicking Alexander’s gaze toward the devilish mom-marrying bishop in Bergman’s <i>Fanny and Alexander</i>. In a sturdy proud citizen’s voice, Zabladowski delivers the coda: “After all, motherhood is the noblest institution in our land.”</p><p></p><p>Such political undercurrents might be the skeletal basis for a story which seems to have been conceived as one elaborate metaphor. The scenario of an ally propagandized by an evil authoritarian is certainly a Cold War era paranoia—the term ‘brainwash’ only dates back to the 50s, having entered our lexicon after usage by the United States military during the Korean War. The concoction mixed by Bart and Zabladowski to eliminate Dr. Terwilliker’s map is, although appearing severely more innocent in the film, a variation on a weapon of mass destruction. Today’s audience must find it a bit laughable when Bart is asked if the solvent is atomic and he responds “Yes Sir, VERY atomic!”, as if these are the most lethal words that could ever be spoken. It’s ceased to resonate, because visions of mushroom clouds aren’t dancing through our heads during routine duck-and-cover exercises at school. But the 1950s climate was tense, and the overarching anxiety—and the means by which any problem could eventually meet with its solution—was the big, beautiful bang.</p><p>Other aspects of the film feel like previews to next week’s episode in the US of A. There are the children summoned to labour away for their leader, straight out of a fascio-capitalist fantasy. There’s dashing proletariat Mr. Zabladowski, bought out of his morality to fix sinks in Terwilliker’s lair, paid only in an assortment of curious Seuss currencies he admits he’s not sure he’ll ever see. Terwilliker, striking a chord, confides he’s hauling in stacks of Benjamins courtesy of “the pocketbooks of unsuspecting mothers.” The academy promises it’ll transform its attendees into concert pianists whilst being a trap, and one must immediately recollect today’s impossible North American school system and the student debt bound to an endless number of scholastic mean-wellers with little other options.</p><p>When Bart and Zabladowski’s plan to save the day is foiled, they are sent for a ride on a hell-bent elevator straight to the dungeon. The elevator doorman is sweaty and muscular, sporting leather tights and a mask that resembles bondage headgear. As they descend into the depths of the castle he sings a morose ditty of what awaits them should he open the door on each floor they pass: </p><p>“<i>Leg chains, ankle chains</i></p><p><i>Neck chains, wrist chains</i></p><p><i>Thumbscrews and noosests of the very finest rope</i>”</p><p></p><p>﻿﻿This is the darkest of Dr. T’s 5000 shades, but it isn’t the only sexually mature innuendo in the children’s flick. Each of the underground guards is leather bar hot, and the imprisoned musicians they watch over a scantily-clad band of merry men whom gyrate and prance around with a lightness of foot that almost puts the Nicholas Brothers to shame. In this air of not-so-repressed queerness however, Dr. T’s flamboyancy takes the cake. As a family production erected during the heyday of the Hays Code—the Hollywood Production Code that prohibited positive portrayals of queer characters or content—it’s no surprise that the creepy antagonist possess the mannerisms and attributes a public at large would generally constitute with homosexuality. His moment to shine arises in the musical number where he orders his minions to dress him in his finest array before takeover day, and in a way that’s camp as hell, requests his “undulating undies with the marabou frills,” and his “beautiful bolero with the porcupine quills.”</p><p>In fact, said game of dress-up provided inspiration for Mr. Burns’ silly “See My Vest” number in the sixth season of <i>The Simpsons</i>. As it were, the song and dance of <i>The 5,000 Fingers of Dr. T</i> is pretty hit-or-miss. The aforementioned all-male dungeon escapade might resemble a clash between Kenneth Anger and Busby Berkeley, but haphazardly climbs into peaks of bliss out of chaos. These reach-for-the-top legs are the ones the entire film kind of lopsidedly leaps on. Billed as “the wonder musical of the future!”, the children’s fantasy was maybe intended to follow in the footsteps of <i>The Wizard of Oz</i>, but in Technicolor surreality propelled into some other dimension, landing closer to an imperfect <i>The Red Shoes</i>. The torrent by which I was able to view the film, after all, beheld these download instructions:  1. eat lots of acid, 2. fire up in your favorite media player, 3. enjoy!</p><p></p><p>﻿﻿Perhaps unsurprisingly, this is one of the ways the movie is now being viewed. It’s probably inevitable. Theodore Geisel’s grand dream may have warped before his very eyes into a Hollywood nightmare that soured his foray into the cinéworld forever, but always, louder than bombs is the soundless switching of our lens to take a look at things in the crystal-clear way they aren’t—or maybe are—but ever in a new light that illuminates its meaning. Matt Groening admitted to receiving countless influences from <i>Dr. T</i> in creating<i> The Simpsons</i>—Bart is named after the film’s hero and even sports a spiky yellow hairdo in reference to the Happy Fingers cap Tommy Rettig carries atop him throughout his adventure. Hats like these are rare collectors’ items nowadays, and go for sums of money whenever they arise on eBay. One man’s trash, as always, is another’s treasure.</p><p>The movie’s masterpiece moment occurs at its exact midpoint, when Tommy Rettig as Bart takes to the stage by his lonesome to sing a lament of nonexistent children’s rights. “<i>Just because you’ve whiskers on your face to shave, You treat us like a slave… So what? It’s only hair. Just because you wear a wallet near your heart, You think you’re twice as smart. You know that isn’t fair.</i>” Not merely as a child, but as the little guy fighting against the vast governmental evil in the world, this scene exudes what the film portrays best: the pathos of the powerless. After the picture’s disastrous reception, I’m sure many who gave it its heart and soul sat alone and thought thoughts expressed in these lyrics, among them Dr. Seuss, channeling his inner child to coo: “<i>You have no right, you have no right, to boss and beat us little kids about.</i>”﻿</p><p></p><p>***</p></div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 09:16:02 +0000</pubDate>
+      <source>https://mubi.com/notebook/posts/beautiful-disasters-the-5000-fingers-of-dr-t</source>
+    </item>
+    <item>
+      <title>Mario Paint: A 1992 Masterpiece</title>
+      <link>https://www.charlieharrington.com/mario-paint-masterpiece</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_charlieharrington_com_mario-paint-masterpiece/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>Since having a child, I&#39;ve been on a nostalgia Mega Drive. If you know anything about me, then you&#39;ll probably agree I was already at alarming levels of the stuff, and I&#39;ve now likely reached the nostalgia mesosphere, even if just for a minute or so.</p>
+<p>In particular, videos games are dominating my reminiscences. I&#39;ve been thinking about their role in my development as a human. Spoiler alert: it&#39;s an extremely positive one.</p>
+<p>There&#39;s one game that stands out: Mario Paint. </p>
+<p>This 1992 &#34;edutainment&#34; title (a word seemingly devised to revile kids) is a forgotten masterpiece of creativity, fun, and weirdness.</p>
+<p>At the surface, its existence doesn&#39;t make a whole lot of sense. It&#39;s a digital art and music app on the Super Nintendo that uses (comes with!) a separate mouse controller. I can name exactly one video game like this, ever.</p>
+<p>From what I&#39;ve learned in my <a href="https://www.youtube.com/watch?v=54bXwb5DfRI&amp;vl=en">limited YouTube research</a>, although the Super Nintendo was always the more-parentally-acceptable console of the early 90s console wars (see Mortal Kombat SNES grey matter vs Sega Genesis blood), Nintendo was feeling the pressure to demonstrate that their &#34;family computers&#34; were actually forces for good in the battle for the attention span of the world&#39;s youth.</p>
+<p>And, thus, Mario Paint.</p>
+<p><span>
+      <a href="https://www.charlieharrington.com/static/8942f9ff6c23d7a5496da8148f653a58/d2602/mariopaint.jpg" target="_blank" rel="noopener">
+    <span></span>
+  <img alt="Mario Paint" title="Mario Paint" src="https://www.charlieharrington.com/static/8942f9ff6c23d7a5496da8148f653a58/6aca1/mariopaint.jpg" srcset="/static/8942f9ff6c23d7a5496da8148f653a58/d2f63/mariopaint.jpg 163w,
+/static/8942f9ff6c23d7a5496da8148f653a58/c989d/mariopaint.jpg 325w,
+/static/8942f9ff6c23d7a5496da8148f653a58/6aca1/mariopaint.jpg 650w,
+/static/8942f9ff6c23d7a5496da8148f653a58/7c09c/mariopaint.jpg 975w,
+/static/8942f9ff6c23d7a5496da8148f653a58/01ab0/mariopaint.jpg 1300w,
+/static/8942f9ff6c23d7a5496da8148f653a58/d2602/mariopaint.jpg 4032w" sizes="(max-width: 650px) 100vw, 650px" loading="lazy"/>
+  </a>
+    </span></p>
+<p>There&#39;s just no reason for this game to be this good. Sure, MS Paint on Windows was always a fun time-waster back in the day. But it certaintly wasn&#39;t weird. And Mario Paint is w-e-i-r-d. It&#39;s like Photoshop on Magic Mushrooms. Plus an animation studio. Plus a digital audio workstation (aka Garageband). And all this back when we were still recording our favorite songs from the radio on cassette tapes (if we were lucky enough to catch them, and even then usually missing the first few bars). </p>
+<p>Don&#39;t talk to me about delightful UIs or UXs if you haven&#39;t played Mario Paint. Nothing makes sense at a glance. Instead, it&#39;s pure discovery. Click-and-see. The undo button is a dog&#39;s face. Why? Why not. The fill-paint animation is a break-dancing paint-brush with a smiley-face (that sentence had a lot of hyphens). I spent hours and hours clicking every button in Mario Paint, and just making weird shit.</p>
+<p>Now, don&#39;t get me wrong, it&#39;s not like I exclusively played Mario Paint from 1992 forward (I probably didn&#39;t get it until 1993 or 1994 anyway). But I&#39;d find myself drawn back to Mario Paint way more often than my parents even expected.</p>
+<p>Thinking about it now, Mario Paint reminds me of that poster of kindergarten classroom yore:</p>
+<blockquote>
+<p>Everything I need to know in life I learned in Mario Paint.</p>
+</blockquote>
+<p>Why do I like making <a href="https://www.charlieharrington.com/relay">weird songs</a> on Garageband? Mario Paint</p>
+<p>Why do I like making <a href="https://www.charlieharrington.com/lendup-critters">logos for bands and apps</a> and companies? Mario Paint.</p>
+<p>Why am I a software engineer? Mario Paint.</p>
+<blockquote>
+<p>But, Charlie, there&#39;s no &#34;game engine&#34; or programming environment in Mario Paint. What-so-ever do you mean? </p>
+</blockquote>
+<p>Thought you&#39;d never ask. In 2015, I was living in London working in business development for an edtech startup, traveling a whole lot, with a bunch of downtime in airports. I decided to Carpe Diem the idle-airport-time to teach myself programming (something I&#39;d been trying to do, on and off, for the previous seven years), so I bought a Big Nerd Ranch iPhone book. When my company planned a two-day hackathon, I pledged to build a little iPhone app, following the book step-by-step. I&#39;ve <a href="https://www.charlieharrington.com/introducing-knerds">written about this experience before</a>, so I won&#39;t fully rehash it. But the key thing is that, in addition to the basic Tinder/flash-card UX, I decided to add some fun little characters for the app (designed by my co-worker and pal <a href="https://www.dfxm326.com/">Dan McGorry</a>). Then, these characters obviously needed a backstory. A week or so later, I traveled back to New Jersey for my aunt&#39;s wedding and I was showing the app to anyone who would listen (not many). Except for my 9 year old cousin. She bit hard. She came up with even more ideas for their powers (hair that grows to become a bridge, melting down into a popsicle liquid so you can glide, and so on). The kicker: the next day, my aunt delivered to me some enemies for the game that my cousin had drawn, like Chill Factor:</p>
+<p><span>
+      <a href="https://www.charlieharrington.com/static/1d625bcc3a8051394ccd7f5ab0d9ab1f/066f9/chillfactor4.jpg" target="_blank" rel="noopener">
+    <span></span>
+  <img alt="Chill Factor" title="Chill Factor" src="https://www.charlieharrington.com/static/1d625bcc3a8051394ccd7f5ab0d9ab1f/066f9/chillfactor4.jpg" srcset="/static/1d625bcc3a8051394ccd7f5ab0d9ab1f/d2f63/chillfactor4.jpg 163w,
+/static/1d625bcc3a8051394ccd7f5ab0d9ab1f/c989d/chillfactor4.jpg 325w,
+/static/1d625bcc3a8051394ccd7f5ab0d9ab1f/066f9/chillfactor4.jpg 400w" sizes="(max-width: 400px) 100vw, 400px" loading="lazy"/>
+  </a>
+    </span></p>
+<p>I knew then and there that I wanted to <a href="https://www.charlieharrington.com/create-wonderful-things-be-good-have-fun">create wonderful things, be good, and have fun</a> for my career. I quit my job and studied to become a computer programmer.</p>
+<p>Now, years in, am I creating wonderful things ever day? Not necessarily. But I try to keep the joy and weirdness alive in whatever I do.</p>
+<p>Last week, I asked my mom to dig through my boxes in the attic to find my Super Nintendo Mouse. She graciously delivered. Even the intro screen screen to Mario Paint is a lesson in weirdness. I love-love-love it:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kOlsR96Mf1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<p>After about a half hour or so, I produced this masterpiece:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mxtT-gWPSbM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<p>Yes, the main riff is more-or-less China Cat Sunflower by the Grateful Dead (I think).</p>
+<p>I&#39;m not the only one who loves Mario Paint, particularly <a href="https://www.theverge.com/2020/2/6/21122335/nintendo-mario-paint-music-composers-snes">the music-maker</a>. There&#39;s a whole Internet of magic <a href="https://github.com/DC37/Super-Mario-Paint">Mario Paint</a> music like this, the entire back-side of Abbey Road (including secret track <em>Your Majesty</em>!): </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m0Jz3BgNWTc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<p>I can&#39;t believe that this game exists (and still works!). I guess edutainment ain&#39;t so bad after all. For now, back to the drawing board!</p></div></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 19:45:17 +0000</pubDate>
+      <source>https://www.charlieharrington.com/mario-paint-masterpiece</source>
+    </item>
   </channel>
 </rss>
