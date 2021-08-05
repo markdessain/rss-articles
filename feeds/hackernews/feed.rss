@@ -17253,5 +17253,54 @@ Screenshot: The Intercept</p></div></div><p>At the time of writing, the petition
       <pubDate>Thu, 05 Aug 2021 15:52:56 +0000</pubDate>
       <source>https://gamasutra.com/view/news/386242/Going_forward_Unity_devs_will_need_Unity_Pro_to_publish_on_consoles.php</source>
     </item>
+    <item>
+      <title>Knuth on Dijkstra (2014)</title>
+      <link>https://gigamonkeys.com/knuth-dijkstra/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+          
+          
+        <p>An excerpt from my book <i>Coders at Work </i> that I frequently find myself wanting to cite mostly because I get a kick out of someone having standing to call BS on Dijkstra:</p>
+          <blockquote>
+          <p><b>Seibel:</b> It seems a lot of the people I’ve talked
+          to had direct access to a machine when they were starting
+          out. Yet Dijkstra has a paper I’m sure you’re familiar with,
+          where he basically says we shouldn’t let computer-science
+          students touch a machine for the first few years of their
+          training; they should spend all their time manipulating
+          symbols.
+
+          </p><p><b>Knuth:</b> But that’s not the way he learned
+          either. He said a lot of really great things and
+          inspirational things, but he’s not always right. Neither am
+          I, but my take on it is this: Take a scientist in any
+          field. The scientist gets older and says, “Oh, yes, some of
+          the things that I’ve been doing have a really great payoff
+          and other things, I’m not using anymore. I’m not going to
+          have my students waste time on the stuff that doesn’t make
+          giant steps. I’m not going to talk about low-level stuff at
+          all. These theoretical concepts are really so
+          powerful—that’s the whole story. Forget about how I got to
+          this point.”
+
+          </p><p>I think that’s a fundamental error made by scientists in
+          every field. They don’t realize that when you’re learning
+          something you’ve got to see something at all levels. You’ve
+          got to see the floor before you build the ceiling. That all
+          goes into the brain and gets shoved down to the point where
+          the older people forget that they needed it.
+          </p></blockquote>
+        </div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 21:05:06 +0000</pubDate>
+      <source>https://gigamonkeys.com/knuth-dijkstra/</source>
+    </item>
+    <item>
+      <title>Amazon postpones return to office until January 2022</title>
+      <link>https://www.cnbc.com/2021/08/05/amazon-postpones-return-to-office-until-january-2022-.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="RegularArticle-ArticleBody-5" data-module="ArticleBody" data-test="articleBody-2" data-analytics="RegularArticle-articleBody-5-2"><div id="ArticleBody-InlineImage-106437525" data-test="InlineImage"><div><div><p>The Amazon headquarters sits virtually empty on March 10, 2020 in downtown Seattle, Washington. In response to the coronavirus outbreak, Amazon recommended all employees in its Seattle office to work from home, leaving much of downtown nearly void of people.</p><p>John Moore | Getty Images</p></div></div></div><div><p><a href="https://www.cnbc.com/quotes/AMZN" target="_blank">Amazon</a> is postponing a return to the office for its corporate employees until early next year, becoming the latest tech company to do so amid a rise in Covid-19 cases due to the highly contagious delta variant.</p><p>Corporate employees in the U.S. and some other countries will begin returning to the office beginning Jan. 3, 2022, the company confirmed to CNBC. Previously, Amazon had said it expected most of its employees to begin returning regularly to the office the week of Sept. 7 of this year.</p><p><a href="https://www.geekwire.com/2021/amazon-delays-office-return-january-2022-rise-delta-variant-thwarts-corporate-plans/" target="_blank">GeekWire</a> previously reported Amazon&#39;s updated return-to-work guidance.</p><p>In recent weeks, other technology companies including <a href="https://www.cnbc.com/quotes/GOOGL" target="_blank">Google</a>, <a href="https://www.cnbc.com/quotes/FB" target="_blank">Facebook</a>, <a href="https://www.cnbc.com/quotes/AAPL" target="_blank">Apple</a> and <a href="https://www.cnbc.com/quotes/TWTR" target="_blank">Twitter</a> have adjusted their return-to-work plans amid a rise in Covid-19 cases.</p><p>Unlike <a href="https://www.cnbc.com/quotes/GOOGL" target="_blank">Google</a> and <a href="https://www.cnbc.com/quotes/FB" target="_blank">Facebook</a>, Amazon won&#39;t require workers returning to its office to be vaccinated. Amazon CFO Brian Olsavsky confirmed this in a call with reporters following the company&#39;s second-quarter earnings report last week.</p><p>The company will require employees to wear masks in the office, unless they show proof of full vaccination, Amazon said.</p><p>Amazon in June <a href="https://www.cnbc.com/2021/06/10/amazon-will-let-employees-work-remotely-two-days-a-week.html">walked back its guidance</a> around remote work. The company said it expects employees to work in the office three days a week, leaving them the option to work remotely up to two days a week. That was a significant U-turn from its <a href="https://www.cnbc.com/2021/03/31/amazon-expects-some-employees-to-return-to-the-office-this-summer.html">March guidance</a>, when it said its goal was to &#34;return to an office-centric culture as our baseline.&#34;</p></div></div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 18:00:45 +0000</pubDate>
+      <source>https://www.cnbc.com/2021/08/05/amazon-postpones-return-to-office-until-january-2022-.html</source>
+    </item>
   </channel>
 </rss>
