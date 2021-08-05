@@ -8068,5 +8068,488 @@ NOTE: All data are normalized to a scale of 0 to 100, where 100 = best health se
       <pubDate>Thu, 05 Aug 2021 02:32:26 +0000</pubDate>
       <source>https://mattbruenig.com/2021/08/04/does-the-tuskegee-experiment-really-explain-black-vaccination-rates/</source>
     </item>
+    <item>
+      <title>Golang Security Checker</title>
+      <link>https://github.com/securego/gosec</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text">
+<p>Inspects source code for security problems by scanning the Go AST.</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/19701f26341abb91039ce91da2e1222c2ce8c8c12954ca7f35a6365b79ebe2df/68747470733a2f2f736563757265676f2e696f2f696d672f676f7365632e706e67"></a></p>
+<h2><a id="user-content-license" aria-hidden="true" href="#license"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>License</h2>
+<p>Licensed under the Apache License, Version 2.0 (the &#34;License&#34;).
+You may not use this file except in compliance with the License.
+You may obtain a copy of the License <a href="http://www.apache.org/licenses/LICENSE-2.0" rel="nofollow">here</a>.</p>
+<h2><a id="user-content-project-status" aria-hidden="true" href="#project-status"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Project status</h2>
+<p><a href="https://bestpractices.coreinfrastructure.org/projects/3218" rel="nofollow"></a>
+<a href="https://github.com/securego/gosec/actions?query=workflows%3ACI"></a>
+<a href="https://codecov.io/gh/securego/gosec" rel="nofollow"></a>
+<a href="https://goreportcard.com/report/github.com/securego/gosec" rel="nofollow"></a>
+<a href="https://pkg.go.dev/github.com/securego/gosec/v2" rel="nofollow"></a>
+<a href="https://securego.io/" rel="nofollow"></a>
+<a href="https://github.com/securego/gosec/releases"></a>
+<a href="https://hub.docker.com/r/securego/gosec/tags" rel="nofollow"></a>
+<a href="http://securego.herokuapp.com" rel="nofollow"></a></p>
+<h2><a id="user-content-install" aria-hidden="true" href="#install"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Install</h2>
+<h3><a id="user-content-ci-installation" aria-hidden="true" href="#ci-installation"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CI Installation</h3>
+<div data-snippet-clipboard-copy-content="# binary will be $(go env GOPATH)/bin/gosec
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin vX.Y.Z
+
+# or install it into ./bin/
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
+
+# In alpine linux (as it does not come with curl by default)
+wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
+
+# If you want to use the checksums provided on the &#34;Releases&#34; page
+# then you will have to download a tar.gz file for your operating system instead of a binary file
+wget https://github.com/securego/gosec/releases/download/vX.Y.Z/gosec_vX.Y.Z_OS.tar.gz
+
+# The file will be in the current folder where you run the command
+# and you can check the checksum like this
+echo &#34;&lt;check sum from the check sum file&gt;  gosec_vX.Y.Z_OS.tar.gz&#34; | sha256sum -c -
+
+gosec --help
+"><pre><span><span>#</span> binary will be $(go env GOPATH)/bin/gosec</span>
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh <span>|</span> sh -s -- -b <span><span>$(</span>go env GOPATH<span>)</span></span>/bin vX.Y.Z
+
+<span><span>#</span> or install it into ./bin/</span>
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh <span>|</span> sh -s vX.Y.Z
+
+<span><span>#</span> In alpine linux (as it does not come with curl by default)</span>
+wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh <span>|</span> sh -s vX.Y.Z
+
+<span><span>#</span> If you want to use the checksums provided on the &#34;Releases&#34; page</span>
+<span><span>#</span> then you will have to download a tar.gz file for your operating system instead of a binary file</span>
+wget https://github.com/securego/gosec/releases/download/vX.Y.Z/gosec_vX.Y.Z_OS.tar.gz
+
+<span><span>#</span> The file will be in the current folder where you run the command</span>
+<span><span>#</span> and you can check the checksum like this</span>
+<span>echo</span> <span><span>&#34;</span>&lt;check sum from the check sum file&gt;  gosec_vX.Y.Z_OS.tar.gz<span>&#34;</span></span> <span>|</span> sha256sum -c -
+
+gosec --help</pre></div>
+<h3><a id="user-content-github-action" aria-hidden="true" href="#github-action"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>GitHub Action</h3>
+<p>You can run <code>gosec</code> as a GitHub action as follows:</p>
+<div data-snippet-clipboard-copy-content="name: Run Gosec
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: ./...
+"><pre><span>name</span>: <span>Run Gosec</span>
+<span>on</span>:
+  <span>push</span>:
+    <span>branches</span>:
+      - <span>master</span>
+  <span>pull_request</span>:
+    <span>branches</span>:
+      - <span>master</span>
+<span>jobs</span>:
+  <span>tests</span>:
+    <span>runs-on</span>: <span>ubuntu-latest</span>
+    <span>env</span>:
+      <span>GO111MODULE</span>: <span>on</span>
+    <span>steps</span>:
+      - <span>name</span>: <span>Checkout Source</span>
+        <span>uses</span>: <span>actions/checkout@v2</span>
+      - <span>name</span>: <span>Run Gosec Security Scanner</span>
+        <span>uses</span>: <span>securego/gosec@master</span>
+        <span>with</span>:
+          <span>args</span>: <span>./...</span></pre></div>
+<h3><a id="user-content-integrating-with-code-scanning" aria-hidden="true" href="#integrating-with-code-scanning"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Integrating with code scanning</h3>
+<p>You can <a href="https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/integrating-with-code-scanning">integrate third-party code analysis tools</a> with GitHub code scanning by uploading data as SARIF files.</p>
+<p>The workflow shows an example of running the <code>gosec</code> as a step in a GitHub action workflow which outputs the <code>results.sarif</code> file. The workflow then uploads the <code>results.sarif</code> file to GitHub using the <code>upload-sarif</code> action.</p>
+<div data-snippet-clipboard-copy-content="name: &#34;Security Scan&#34;
+
+# Run workflow each time code is pushed to your repository and on a schedule.
+# The scheduled workflow runs every at 00:00 on Sunday UTC time.
+on:
+  push:
+  schedule:
+  - cron: &#39;0 0 * * 0&#39;
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          # we let the report trigger content trigger a failure using the GitHub Security features.
+          args: &#39;-no-fail -fmt sarif -out results.sarif ./...&#39;
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: results.sarif
+"><pre><span>name</span>: <span><span>&#34;</span>Security Scan<span>&#34;</span></span>
+
+<span><span>#</span> Run workflow each time code is pushed to your repository and on a schedule.</span>
+<span><span>#</span> The scheduled workflow runs every at 00:00 on Sunday UTC time.</span>
+<span>on</span>:
+  <span>push</span>:
+  <span>schedule</span>:
+  - <span>cron</span>: <span><span>&#39;</span>0 0 * * 0<span>&#39;</span></span>
+
+<span>jobs</span>:
+  <span>tests</span>:
+    <span>runs-on</span>: <span>ubuntu-latest</span>
+    <span>env</span>:
+      <span>GO111MODULE</span>: <span>on</span>
+    <span>steps</span>:
+      - <span>name</span>: <span>Checkout Source</span>
+        <span>uses</span>: <span>actions/checkout@v2</span>
+      - <span>name</span>: <span>Run Gosec Security Scanner</span>
+        <span>uses</span>: <span>securego/gosec@master</span>
+        <span>with</span>:
+          <span><span>#</span> we let the report trigger content trigger a failure using the GitHub Security features.</span>
+          <span>args</span>: <span><span>&#39;</span>-no-fail -fmt sarif -out results.sarif ./...<span>&#39;</span></span>
+      - <span>name</span>: <span>Upload SARIF file</span>
+        <span>uses</span>: <span>github/codeql-action/upload-sarif@v1</span>
+        <span>with</span>:
+          <span><span>#</span> Path to SARIF file relative to the root of the repository</span>
+          <span>sarif_file</span>: <span>results.sarif</span></pre></div>
+<h3><a id="user-content-local-installation" aria-hidden="true" href="#local-installation"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Local Installation</h3>
+<div data-snippet-clipboard-copy-content="go get -u github.com/securego/gosec/v2/cmd/gosec
+"><pre>go get -u github.com/securego/gosec/v2/cmd/gosec</pre></div>
+<h2><a id="user-content-usage" aria-hidden="true" href="#usage"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Usage</h2>
+<p>Gosec can be configured to only run a subset of rules, to exclude certain file
+paths, and produce reports in different formats. By default all rules will be
+run against the supplied input files. To recursively scan from the current
+directory you can supply <code>./...</code> as the input argument.</p>
+<h3><a id="user-content-available-rules" aria-hidden="true" href="#available-rules"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Available rules</h3>
+<ul>
+<li>G101: Look for hard coded credentials</li>
+<li>G102: Bind to all interfaces</li>
+<li>G103: Audit the use of unsafe block</li>
+<li>G104: Audit errors not checked</li>
+<li>G106: Audit the use of ssh.InsecureIgnoreHostKey</li>
+<li>G107: Url provided to HTTP request as taint input</li>
+<li>G108: Profiling endpoint automatically exposed on /debug/pprof</li>
+<li>G109: Potential Integer overflow made by strconv.Atoi result conversion to int16/32</li>
+<li>G110: Potential DoS vulnerability via decompression bomb</li>
+<li>G201: SQL query construction using format string</li>
+<li>G202: SQL query construction using string concatenation</li>
+<li>G203: Use of unescaped data in HTML templates</li>
+<li>G204: Audit use of command execution</li>
+<li>G301: Poor file permissions used when creating a directory</li>
+<li>G302: Poor file permissions used with chmod</li>
+<li>G303: Creating tempfile using a predictable path</li>
+<li>G304: File path provided as taint input</li>
+<li>G305: File traversal when extracting zip/tar archive</li>
+<li>G306: Poor file permissions used when writing to a new file</li>
+<li>G307: Deferring a method which returns an error</li>
+<li>G401: Detect the usage of DES, RC4, MD5 or SHA1</li>
+<li>G402: Look for bad TLS connection settings</li>
+<li>G403: Ensure minimum RSA key length of 2048 bits</li>
+<li>G404: Insecure random number source (rand)</li>
+<li>G501: Import blocklist: crypto/md5</li>
+<li>G502: Import blocklist: crypto/des</li>
+<li>G503: Import blocklist: crypto/rc4</li>
+<li>G504: Import blocklist: net/http/cgi</li>
+<li>G505: Import blocklist: crypto/sha1</li>
+<li>G601: Implicit memory aliasing of items from a range statement</li>
+</ul>
+<h3><a id="user-content-retired-rules" aria-hidden="true" href="#retired-rules"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Retired rules</h3>
+<ul>
+<li>G105: Audit the use of math/big.Int.Exp - <a href="https://github.com/golang/go/issues/15184">CVE is fixed</a></li>
+</ul>
+<h3><a id="user-content-selecting-rules" aria-hidden="true" href="#selecting-rules"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Selecting rules</h3>
+<p>By default, gosec will run all rules against the supplied file paths. It is however possible to select a subset of rules to run via the <code>-include=</code> flag,
+or to specify a set of rules to explicitly exclude using the <code>-exclude=</code> flag.</p>
+<div data-snippet-clipboard-copy-content="# Run a specific set of rules
+$ gosec -include=G101,G203,G401 ./...
+
+# Run everything except for rule G303
+$ gosec -exclude=G303 ./...
+"><pre><span><span>#</span> Run a specific set of rules</span>
+$ gosec -include=G101,G203,G401 ./...
+
+<span><span>#</span> Run everything except for rule G303</span>
+$ gosec -exclude=G303 ./...</pre></div>
+<h3><a id="user-content-cwe-mapping" aria-hidden="true" href="#cwe-mapping"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CWE Mapping</h3>
+<p>Every issue detected by <code>gosec</code> is mapped to a <a href="http://cwe.mitre.org/data/index.html" rel="nofollow">CWE (Common Weakness Enumeration)</a> which describes in more generic terms the vulnerability. The exact mapping can be found  <a href="https://github.com/securego/gosec/blob/master/issue.go#L50">here</a>.</p>
+<h3><a id="user-content-configuration" aria-hidden="true" href="#configuration"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Configuration</h3>
+<p>A number of global settings can be provided in a configuration file as follows:</p>
+<div data-snippet-clipboard-copy-content="{
+    &#34;global&#34;: {
+        &#34;nosec&#34;: &#34;enabled&#34;,
+        &#34;audit&#34;: &#34;enabled&#34;
+    }
+}
+"><pre>{
+    <span><span>&#34;</span>global<span>&#34;</span></span>: {
+        <span><span>&#34;</span>nosec<span>&#34;</span></span>: <span><span>&#34;</span>enabled<span>&#34;</span></span>,
+        <span><span>&#34;</span>audit<span>&#34;</span></span>: <span><span>&#34;</span>enabled<span>&#34;</span></span>
+    }
+}</pre></div>
+<ul>
+<li><code>nosec</code>: this setting will overwrite all <code>#nosec</code> directives defined throughout the code base</li>
+<li><code>audit</code>: runs in audit mode which enables addition checks that for normal code analysis might be too nosy</li>
+</ul>
+<div data-snippet-clipboard-copy-content="# Run with a global configuration file
+$ gosec -conf config.json .
+"><pre><span><span>#</span> Run with a global configuration file</span>
+$ gosec -conf config.json <span>.</span></pre></div>
+<p>Also some rules accept configuration. For instance on rule <code>G104</code>, it is possible to define packages along with a list
+of functions which will be skipped when auditing the not checked errors:</p>
+<div data-snippet-clipboard-copy-content="{
+    &#34;G104&#34;: {
+        &#34;io/ioutil&#34;: [&#34;WriteFile&#34;]
+    }
+}
+"><pre>{
+    <span><span>&#34;</span>G104<span>&#34;</span></span>: {
+        <span><span>&#34;</span>io/ioutil<span>&#34;</span></span>: [<span><span>&#34;</span>WriteFile<span>&#34;</span></span>]
+    }
+}</pre></div>
+<p>You can also configure the hard-coded credentials rule <code>G101</code> with additional patters, or adjust the entropy threshold:</p>
+<div data-snippet-clipboard-copy-content="{
+    &#34;G101&#34;: {
+        &#34;pattern&#34;: &#34;(?i)passwd|pass|password|pwd|secret|private_key|token&#34;,
+         &#34;ignore_entropy&#34;: false,
+         &#34;entropy_threshold&#34;: &#34;80.0&#34;,
+         &#34;per_char_threshold&#34;: &#34;3.0&#34;,
+         &#34;truncate&#34;: &#34;32&#34;
+    }
+}
+"><pre>{
+    <span><span>&#34;</span>G101<span>&#34;</span></span>: {
+        <span><span>&#34;</span>pattern<span>&#34;</span></span>: <span><span>&#34;</span>(?i)passwd|pass|password|pwd|secret|private_key|token<span>&#34;</span></span>,
+         <span><span>&#34;</span>ignore_entropy<span>&#34;</span></span>: <span>false</span>,
+         <span><span>&#34;</span>entropy_threshold<span>&#34;</span></span>: <span><span>&#34;</span>80.0<span>&#34;</span></span>,
+         <span><span>&#34;</span>per_char_threshold<span>&#34;</span></span>: <span><span>&#34;</span>3.0<span>&#34;</span></span>,
+         <span><span>&#34;</span>truncate<span>&#34;</span></span>: <span><span>&#34;</span>32<span>&#34;</span></span>
+    }
+}</pre></div>
+<h3><a id="user-content-dependencies" aria-hidden="true" href="#dependencies"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Dependencies</h3>
+<p>gosec will fetch automatically the dependencies of the code which is being analyzed when go module is turned on (e.g.<code>GO111MODULE=on</code>). If this is not the case,
+the dependencies need to be explicitly downloaded by running the <code>go get -d</code> command before the scan.</p>
+<h3><a id="user-content-excluding-test-files-and-folders" aria-hidden="true" href="#excluding-test-files-and-folders"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Excluding test files and folders</h3>
+<p>gosec will ignore test files across all packages and any dependencies in your vendor directory.</p>
+<p>The scanning of test files can be enabled with the following flag:</p>
+
+<p>Also additional folders can be excluded as follows:</p>
+<div data-snippet-clipboard-copy-content=" gosec -exclude-dir=rules -exclude-dir=cmd ./...
+"><pre> gosec -exclude-dir=rules -exclude-dir=cmd ./...</pre></div>
+<h3><a id="user-content-excluding-generated-files" aria-hidden="true" href="#excluding-generated-files"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Excluding generated files</h3>
+<p>gosec can ignore generated go files with default generated code comment.</p>
+<div data-snippet-clipboard-copy-content="// Code generated by some generator DO NOT EDIT.
+"><pre><code>// Code generated by some generator DO NOT EDIT.
+</code></pre></div>
+<div data-snippet-clipboard-copy-content="gosec -exclude-generated ./...
+"><pre>gosec -exclude-generated ./...</pre></div>
+<h3><a id="user-content-annotating-code" aria-hidden="true" href="#annotating-code"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Annotating code</h3>
+<p>As with all automated detection tools, there will be cases of false positives. In cases where gosec reports a failure that has been manually verified as being safe,
+it is possible to annotate the code with a <code>#nosec</code> comment.</p>
+<p>The annotation causes gosec to stop processing any further nodes within the
+AST so can apply to a whole block or more granularly to a single expression.</p>
+<div data-snippet-clipboard-copy-content="
+import &#34;md5&#34; // #nosec
+
+
+func main(){
+
+    /* #nosec */
+    if x &gt; y {
+        h := md5.New() // this will also be ignored
+    }
+
+}
+
+"><pre><span>import</span> <span>&#34;md5&#34;</span> <span>// #nosec</span>
+
+
+<span>func</span> <span>main</span>(){
+
+    <span>/* #nosec */</span>
+    <span>if</span> <span>x</span> <span>&gt;</span> <span>y</span> {
+        <span>h</span> <span>:=</span> <span>md5</span>.<span>New</span>() <span>// this will also be ignored</span>
+    }
+
+}</pre></div>
+<p>When a specific false positive has been identified and verified as safe, you may wish to suppress only that single rule (or a specific set of rules)
+within a section of code, while continuing to scan for other problems. To do this, you can list the rule(s) to be suppressed within
+the <code>#nosec</code> annotation, e.g: <code>/* #nosec G401 */</code> or <code>// #nosec G201 G202 G203</code></p>
+<p>In some cases you may also want to revisit places where <code>#nosec</code> annotations
+have been used. To run the scanner and ignore any <code>#nosec</code> annotations you
+can do the following:</p>
+
+<h3><a id="user-content-build-tags" aria-hidden="true" href="#build-tags"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Build tags</h3>
+<p>gosec is able to pass your <a href="https://golang.org/pkg/go/build/" rel="nofollow">Go build tags</a> to the analyzer.
+They can be provided as a comma separated list as follows:</p>
+<div data-snippet-clipboard-copy-content="gosec -tag debug,ignore ./...
+"><pre>gosec -tag debug,ignore ./...</pre></div>
+<h3><a id="user-content-output-formats" aria-hidden="true" href="#output-formats"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Output formats</h3>
+<p>gosec currently supports <code>text</code>, <code>json</code>, <code>yaml</code>, <code>csv</code>, <code>sonarqube</code>, <code>JUnit XML</code>, <code>html</code> and <code>golint</code> output formats. By default
+results will be reported to stdout, but can also be written to an output
+file. The output format is controlled by the <code>-fmt</code> flag, and the output file is controlled by the <code>-out</code> flag as follows:</p>
+<div data-snippet-clipboard-copy-content="# Write output in json format to results.json
+$ gosec -fmt=json -out=results.json *.go
+"><pre><span><span>#</span> Write output in json format to results.json</span>
+$ gosec -fmt=json -out=results.json <span>*</span>.go</pre></div>
+<p>Results will be reported to stdout as well as to the provided output file by <code>-stdout</code> flag. The <code>-verbose</code> flag overrides the
+output format when stdout the results while saving them in the output file</p>
+<div data-snippet-clipboard-copy-content="# Write output in json format to results.json as well as stdout
+$ gosec -fmt=json -out=results.json -stdout *.go
+
+# Overrides the output format to &#39;text&#39; when stdout the results, while writing it to results.json
+$ gosec -fmt=json -out=results.json -stdout -verbose=text *.go
+"><pre><span><span>#</span> Write output in json format to results.json as well as stdout</span>
+$ gosec -fmt=json -out=results.json -stdout <span>*</span>.go
+
+<span><span>#</span> Overrides the output format to &#39;text&#39; when stdout the results, while writing it to results.json</span>
+$ gosec -fmt=json -out=results.json -stdout -verbose=text <span>*</span>.go</pre></div>
+<p><strong>Note:</strong> gosec generates the <a href="https://docs.sonarqube.org/latest/analysis/generic-issue/" rel="nofollow">generic issue import format</a> for SonarQube, and a report has to be imported into SonarQube using <code>sonar.externalIssuesReportPaths=path/to/gosec-report.json</code>.</p>
+<h2><a id="user-content-development" aria-hidden="true" href="#development"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Development</h2>
+<h3><a id="user-content-build" aria-hidden="true" href="#build"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Build</h3>
+<p>You can build the binary with:</p>
+
+<h3><a id="user-content-note-on-sarif-types-generation" aria-hidden="true" href="#note-on-sarif-types-generation"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Note on Sarif Types Generation</h3>
+<p>Install the tool with :</p>
+<div data-snippet-clipboard-copy-content="go get -u github.com/a-h/generate/cmd/schema-generate
+"><pre>go get -u github.com/a-h/generate/cmd/schema-generate</pre></div>
+<p>Then generate the types with :</p>
+<div data-snippet-clipboard-copy-content="schema-generate -i sarif-schema-2.1.0.json -o mypath/types.go
+"><pre>schema-generate -i sarif-schema-2.1.0.json -o mypath/types.go</pre></div>
+<p>Most of the MarshallJSON/UnmarshalJSON are removed except the one for PropertyBag which is handy to inline the additionnal properties. The rest can be removed.
+The URI,ID, UUID, GUID were renamed so it fits the Golang convention defined <a href="https://github.com/golang/lint/blob/master/lint.go#L700">here</a></p>
+<h3><a id="user-content-tests" aria-hidden="true" href="#tests"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Tests</h3>
+<p>You can run all unit tests using:</p>
+
+<h3><a id="user-content-release" aria-hidden="true" href="#release"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Release</h3>
+<p>You can create a release by tagging the version as follows:</p>
+<div data-snippet-clipboard-copy-content="git tag v1.0.0 -m &#34;Release version v1.0.0&#34;
+git push origin v1.0.0
+"><pre>git tag v1.0.0 -m <span><span>&#34;</span>Release version v1.0.0<span>&#34;</span></span>
+git push origin v1.0.0</pre></div>
+<p>The GitHub <a href="https://github.com/securego/gosec/blob/master/.github/workflows/release.yml">release workflow</a> triggers immediately after the tag is pushed upstream. This flow will
+release the binaries using the <a href="https://goreleaser.com/actions/" rel="nofollow">goreleaser</a> action and then it will build and publish the docker image into Docker Hub.</p>
+<h3><a id="user-content-docker-image" aria-hidden="true" href="#docker-image"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Docker image</h3>
+<p>You can also build locally the docker image by using the command:</p>
+
+<p>You can run the <code>gosec</code> tool in a container against your local Go project. You only have to mount the project
+into a volume as follows:</p>
+<div data-snippet-clipboard-copy-content="docker run --rm -it -w /&lt;PROJECT&gt;/ -v &lt;YOUR PROJECT PATH&gt;/&lt;PROJECT&gt;:/&lt;PROJECT&gt; securego/gosec /&lt;PROJECT&gt;/...
+"><pre>docker run --rm -it -w /<span>&lt;</span>PROJECT<span>&gt;</span>/ -v <span>&lt;</span>YOUR PROJECT PATH<span>&gt;</span>/<span>&lt;</span>PROJECT<span>&gt;</span>:/<span>&lt;</span>PROJECT<span>&gt;</span> securego/gosec /<span>&lt;</span>PROJECT<span>&gt;</span>/...</pre></div>
+<p><strong>Note:</strong> the current working directory needs to be set with <code>-w</code> option in order to get successfully resolved the dependencies from go module file</p>
+<h3><a id="user-content-generate-tls-rule" aria-hidden="true" href="#generate-tls-rule"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Generate TLS rule</h3>
+<p>The configuration of TLS rule can be generated from <a href="https://statics.tls.security.mozilla.org/server-side-tls-conf.json" rel="nofollow">Mozilla&#39;s TLS ciphers recommendation</a>.</p>
+<p>First you need to install the generator tool:</p>
+<div data-snippet-clipboard-copy-content="go get github.com/securego/gosec/v2/cmd/tlsconfig/...
+"><pre>go get github.com/securego/gosec/v2/cmd/tlsconfig/...</pre></div>
+<p>You can invoke now the <code>go generate</code> in the root of the project:</p>
+
+<p>This will generate the <code>rules/tls_config.go</code> file which will contain the current ciphers recommendation from Mozilla.</p>
+<h2><a id="user-content-who-is-using-gosec" aria-hidden="true" href="#who-is-using-gosec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Who is using gosec?</h2>
+<p>This is a <a href="https://github.com/securego/gosec/blob/master/USERS.md">list</a> with some of the gosec&#39;s users.</p>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 03:08:47 +0000</pubDate>
+      <source>https://github.com/securego/gosec</source>
+    </item>
+    <item>
+      <title>Culture and Conduct Risk: The Normalization of Deviance</title>
+      <link>https://www.regulationasia.com/culture-conduct-risk-the-normalization-of-deviance/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_regulationasia_com_culture-conduct-risk-the-normalization-of-deviance_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+			<div id="post-left-col">
+										<article id="post-area">
+															
+								<!--post-header-->
+							
+																																														<div id="content-area" itemprop="articleBody">
+							
+
+								<div>
+									<div>
+										<div id="content-main">
+											<p><strong>A prevailing assumption, among firms and regulators alike, is that misconduct problems can be discovered only after they occur: a ‘detect and correct’ mindset. But we’re beginning to see the emergence of a ‘predict and prevent’ approach to managing conduct risk in organizations. </strong></p>
+<p>In her landmark study into the causes of the 1986 space shuttle <em>Challenger</em> disaster, sociologist Diane Vaughan expected to find that NASA managers and engineers had violated established rules and processes. Instead, she found that the disastrous launch decision was arrived at through “conformity to cultural beliefs, organizational rules and norms, and NASA’s bureaucratic, political and technical culture.” She coined the phrase, “<a href="https://starlingtrust.com/thoughts/the-normalization-of-deviance.html">the normalization of deviance</a>,” to describe what had happened at NASA.</p>
+<p>By “normalization” Vaughan meant that decision making processes and action choices that deviated from formal established rules were reinterpreted by work groups in a manner that allowed for those choices and actions to sit comfortably within the bounds of established performance norms. That is, “they redefined evidence that deviated from an acceptable standard so that it became the standard,” she wrote.</p>
+<p><strong>Conduct &amp; Culture: Drivers of Financial Crime</strong></p>
+<p>Vaughan emphasized the “social construction of risk” and this theme was heard clearly on 23 July in a <a href="https://www.regulationasia.com/events/fraud-financial-crime-asia-2021/day-3/">panel discussion</a> on “Conduct &amp; Culture: Drivers of Financial Crime” hosted <em>Regulation Asia</em> as part of its Fraud &amp; Financial Crime Asia 2021 conference.</p>
+<p>Panelists included Kate Miller, Head of Conduct &amp; Behavioural Analysis at Standard Chartered Bank; Jason Lee, Managing Director for Legal and Regulatory matters at Singapore sovereign wealth fund, Temasek; and Wendy Ennis, Head of Financial Crime Compliance at Mox Bank. The discussion was moderated by London School of Economics professor of organizational psychology, Tom Reader, who studies how norms and behaviors relating to risk management emerge within organizations and contribute to outcomes.</p>
+<p>Reader’s current work investigates how organizations can better detect and respond to signals of impending and serious failure, proactively. In <a href="https://www.bankofengland.co.uk/working-paper/2021/organisational-culture-and-bank-risk">a paper</a> recently published by the Bank of England, he discusses the use of ‘unobtrusive data’ in the course of studying culture within organizations, and the conduct it promotes.</p>
+<p>Opening the panel discussion, Reader observed that regulators, boards and management often focus on risk governance “inputs” – like formal value statements, training protocols, etc. – and then examine subsequent performance outcomes – or “outputs” – to see that the inputs performed as expected. Missing entirely is a study of organizational “throughputs,” or data that reflects a firm’s culture-in-action. It is here that we may discover a normalization of deviance.</p>
+<p><strong>Probing Predilections</strong></p>
+<p>Since the 2007-2009 Global Financial Crisis, Mox Bank’s Wendy Ennis observed, investigations by regulators and the media into misconduct scandals at financial firms, and subsequent regulatory actions, have placed an emphasis on the personal accountability of senior leaders for setting a firm’s culture and the behavioral predilections such cultures promote.  While this is important and perhaps necessary, Ennis argued that we need to dig deeper, by enquiring into values and beliefs as they operate at the individual and collective level.</p>
+<p>Formal systems and processes for risk governance, Ennis noted, will fail to produce desired outcomes if not supported by an appropriate culture. While tone from the top is important in this regard, she allowed, “tone from the middle at least as important.” Firms must therefore maintain an atmosphere of “psychological safety” that encourages employees to speak up when they believe things have gone amiss.  That is, firms need to ensure that their employees will call-out deviance, rather than permit its normalization. Assessing cultural proclivities in this direction, Ennis argued, should be a management priority.</p>
+<p>But Reader observed that culture is often viewed as being too “wooly” to submit to formal metrics – a view he clearly challenged. While Kate Miller at Standard Chartered agreed this argument is heard regularly, she argued that it does not withstand scrutiny.  Culture, Miller maintained, is both felt and seen day-to-day, and can therefore be observed and studied.  Because it is constantly evolving, culture must be studied in this real-time and lived-in context.  A mix of behavioral and data science has begun to make this possible, she noted, and banks like hers are beginning to trial the use of tools that leverage these approaches.</p>
+<p>Temasek’s Jason Lee pointed out that a concern for culture measurement is not confined to the banking sector.  “Banks do not have a monopoly on bad behavior,” Lee noted, pointing to legal and regulatory action in other industries in the wake of countless corruption scandals.  In fact, he argued, probing culture for signs of potential misconduct may be <em>more </em>important in industries not subject to the same degree of regulatory scrutiny as that which prevails in the financial sector.</p>
+<p><strong>‘Misconduct by design’</strong></p>
+<p>Reader observed that people do things which they know to be wrong, but which they somehow didn’t think to be wrong at the time their action was taken.  This raises the question of ‘bad apples’ versus ‘bad barrels.’</p>
+<p>Miller noted that humans are predominantly social beings and so, understood in that context, it is the barrel that matters. She remarked that, since 2008, we have focused on willful and intentional misconduct that tends to be individual in nature.  But what we continue to see day in and day out, Miller argued, is that the workplace environment may erect structural drivers of misconduct.  She called this “misconduct by design.”</p>
+<p>A key difference in the behavior that is seen in banking as compared to other industries, Reader suggested, is that there is perhaps a greater readiness to take risk in finance.  Responding to this, Temasek’s Lee argued that there is nothing new in noting that people may at times face tension between meeting financial goals and doing what is required ethically.  How people navigate this tension is driven by firm culture, and this is true in banking and elsewhere.</p>
+<p>Building on that view, Ennis argued that misconduct is not often malevolent in nature but, rather may reflect “a slip in standards.”  Covid has heightened the risk of such slippage, she said.  The use of technology tools in this context is therefore increasingly important, as is prioritizing discussion of such issues frankly and directly with workplace teams.  Reader referred to this as to “listening to the mood music of the organization,” and suggested that behavioral science had much to offer in this context.</p>
+<p><strong>Managing from the front-foot</strong></p>
+<p>Reader commented that it is much easier to pick up on errors of commission rather than errors of omission, pointing specifically to the normalization of deviance in this connection.  So how are we to make tell-tale signs of trouble concrete and actionable – before problems arise?</p>
+<p>Temasek’s Lee argued that if culture is defined as the norms and values of an organization, such may be fairly seen as intangible in nature.  But if conduct is viewed as <em>reflective</em> of such norms and values, then such conduct may be taken as a highly tangible manifestation of organizational culture.  That is, we may be able to work backward from observable behavior to the underlying values and norms that promote it.</p>
+<p>We focus on the manifestations of culture, Lee continued, arguing that this is perhaps but the tip of the proverbial iceberg.  With advancements in AI and machine learning, he argued, we can now get ‘beneath the surface’ and identify things that need proactive investigation and perhaps behavioral science interventions that shape “choice architecture” in ways that are helpful.</p>
+<p>Ennis agreed, arguing that the standard tick-the-box checklist approach to risk governance is inadequate. However helpful, such checklists address only what is visible above the waterline. It is more important to delve deeper to learn how tone from the top is landing with staff, subjectively and qualitatively, “in real life.”</p>
+<p>Here, Reader noted, firms may make productive use of the “mounds of data” that they already possess, with a view to identifying cultural nuances at work in real-time.  Miller built on this argument, calling the use of data in this context “the next generation of risk analysis.”  She pointed here to Reader’s work on the use of unobtrusive sources of data.</p>
+<p>Advancements in AI create new capabilities for organizations to use their existing data differently, and to derive latent value from such.  Reader added that this may help to overcome a key limitation of traditional staff surveys: as culture worsens, people are less and less willing to speak up and, thus, survey responses become less and less reliable as a means of gauging culture. Going forward, Lee argued, measuring culture will involve multiple indicators and approaches to present a more holistic view of the firm.</p>
+<p>Key areas of future focus will therefore be: (1) making better use of data with AI and machine learning tools that remove the anecdotal bias of mere “gossip,” (2) bringing key stakeholders into the effort, to include investors, government, the community that an organization seeks to serve; and (3) staff turnover – particularly in control functions – is an area that will receive closer attention, as such in and of itself may serve as an early indicator of pending problems.</p>
+<p>In sum, while regulators and firms have in the past viewed misconduct risk as a problem that can only be addressed after harm is done, this ‘detect and correct’ mindset is being displaced rapidly by a ‘predict and prevent’ mindset.  Studying culture so as to anticipate trouble proactively positions management to operate from the front-foot: a capability that is increasingly expected.</p>
+<p>—</p>
+<p><strong>Stephen Scott is a risk management expert and founding CEO of US-based RegTech firm Starling. To read more of his work, <a href="https://starlingtrust.com/the-starling-compendium/"><span>download Starling’s latest annual Compendium</span></a>, which summarizes trends in the supervision of culture and conduct risk among banking industry regulators and standard setters.</strong></p>
+
+		<!-- END .ss-inline-share-wrapper -->
+		
+
+																														<div itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+											<div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+																									<p></p><meta itemprop="url" content="https://www.regulationasia.com/wp-content/uploads/RA-Logo-White-on-Transparentcopy-1.png"/>
+																							</div>
+											<!--mvp-org-logo-->
+											<meta itemprop="name" content="Regulation Asia"/>
+										</div>
+										<!--mvp-org-wrap-->
+										
+										<!--posts-nav-link-->
+																					<div>
+												<p><span itemprop="keywords"><a href="https://www.regulationasia.com/tag/bad-apples/" rel="tag">bad apples</a>, <a href="https://www.regulationasia.com/tag/bank-of-england/" rel="tag">Bank of England</a>, <a href="https://www.regulationasia.com/tag/behavioral-science/" rel="tag">behavioral science</a>, <a href="https://www.regulationasia.com/tag/conduct/" rel="tag">Conduct</a>, <a href="https://www.regulationasia.com/tag/conduct-risk/" rel="tag">Conduct Risk</a>, <a href="https://www.regulationasia.com/tag/corruption/" rel="tag">Corruption</a>, <a href="https://www.regulationasia.com/tag/culture/" rel="tag">Culture</a>, <a href="https://www.regulationasia.com/tag/diane-vaughan/" rel="tag">Diane Vaughan</a>, <a href="https://www.regulationasia.com/tag/financial-crime/" rel="tag">Financial crime</a>, <a href="https://www.regulationasia.com/tag/jason-lee/" rel="tag">Jason Lee</a>, <a href="https://www.regulationasia.com/tag/kate-miller/" rel="tag">Kate Miller</a>, <a href="https://www.regulationasia.com/tag/london-school-of-economics/" rel="tag">London School of Economics</a>, <a href="https://www.regulationasia.com/tag/misconduct/" rel="tag">Misconduct</a>, <a href="https://www.regulationasia.com/tag/mox-bank/" rel="tag">Mox Bank</a>, <a href="https://www.regulationasia.com/tag/nasa/" rel="tag">NASA</a>, <a href="https://www.regulationasia.com/tag/organisational-psychology/" rel="tag">organisational psychology</a>, <a href="https://www.regulationasia.com/tag/risk-governance/" rel="tag">risk governance</a>, <a href="https://www.regulationasia.com/tag/standard-chartered-bank/" rel="tag">Standard Chartered Bank</a>, <a href="https://www.regulationasia.com/tag/starling/" rel="tag">Starling</a>, <a href="https://www.regulationasia.com/tag/temasek/" rel="tag">Temasek</a>, <a href="https://www.regulationasia.com/tag/tom-reader/" rel="tag">Tom Reader</a>, <a href="https://www.regulationasia.com/tag/wendy-ennis/" rel="tag">Wendy Ennis</a></span>
+											</p></div>
+											<!--post-tags-->
+											<!-- MANESH ADDED, LINKEDIN DOESNT WORK			<div align="center">						
+<a href="https://twitter.com/RegulationAsia?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-screen-name="false" data-lang="en" data-show-count="false">Follow @RegulationAsia</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+								
+<script src="https://platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<script type="IN/FollowCompany" data-id="13592459"></script>
+							</div><br/> -->
+																																									            																																								</div>
+										<!--content-main-->
+									</div>
+									<!--post-cont-in-->
+																	</div>
+								<!--post-cont-out-->
+							</div>
+							<!--content-area-->
+						</article>
+																			</div>
+			<!--post-left-col-->
+		</div></div>]]></content:encoded>
+      <pubDate>Mon, 02 Aug 2021 05:50:52 +0000</pubDate>
+      <source>https://www.regulationasia.com/culture-conduct-risk-the-normalization-of-deviance/</source>
+    </item>
   </channel>
 </rss>
