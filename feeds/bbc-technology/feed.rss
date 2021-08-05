@@ -3,8 +3,8 @@
     <title>BBC News - Technology</title>
     <link>https://www.bbc.co.uk/news/</link>
     <description>BBC News - Technology</description>
-    <pubDate>Thu, 05 Aug 2021 16:05:53 +0000</pubDate>
-    <lastBuildDate>Thu, 05 Aug 2021 16:05:53 +0000</lastBuildDate>
+    <pubDate>Thu, 05 Aug 2021 17:09:04 +0000</pubDate>
+    <lastBuildDate>Thu, 05 Aug 2021 17:09:04 +0000</lastBuildDate>
     <image>
       <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
       <title>BBC News - Technology</title>
@@ -325,6 +325,16 @@
       <guid>https://www.bbc.co.uk/news/technology-58102983</guid>
       <pubDate>Thu, 05 Aug 2021 15:05:58 +0000</pubDate>
       <source>https://www.bbc.co.uk/news/technology-58102983</source>
+    </item>
+    <item>
+      <title>Google Maps warns drivers about emission charges</title>
+      <link>https://www.bbc.co.uk/news/technology-58102651</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/bbc-technology/https___www_bbc_co_uk_news_technology-58102651/image.jpg" /> 
+<div id="readability-page-1" class="page"><div width="compact"><article><header></header><div data-component="text-block"><p><b>Google Maps will now warn drivers in London and other cities if they are going to enter a low-emission zone with fees or fines. </b></p></div><div data-component="text-block"><p>Several major cities have such schemes to keep polluting traffic out of their busiest areas. </p></div><div data-component="text-block"><p>But where such zones begin is often unclear - and can catch out tourists and occasional local drivers alike. </p></div><div data-component="text-block"><p>To begin with, Google will alert drivers entering zones in Amsterdam, Barcelona, Berlin, London, and Paris. </p></div><div data-component="text-block"><p>London&#39;s Ultra Low Emission Zone (Ulez) covers an area with most of the city&#39;s tourist hotspots and historical landmarks, from:</p></div><div data-component="unordered-list-block"><div><div><ul role="list"><li>Mayfair, in the west, to Whitechapel, in the east</li><li>Clerkenwell, in the north, to Lambeth in the south </li></ul></div></div></div><div data-component="text-block"><p>Drivers of older cars below modern emission standards have to pay £12.50 in the zone. </p></div><div data-component="text-block"><p>And, until it expands, in October, it applies in the same area as the separate £15 congestion charge. </p></div><div data-component="image-block"><figure><p><span><span></span></span><span><span>image source</span>Google</span></p><figcaption><span>image caption</span>The Ulez appears in blue - with a warning the planned route crosses it</figcaption></figure></div><div data-component="text-block"><p>In the Paris zone, drivers without a windscreen sticker certifying their emissions can be fined:</p></div><div data-component="unordered-list-block"><div><div><ul role="list"><li>€68 (£58) for cars </li><li>€135 for bigger vehicles  </li></ul></div></div></div><div data-component="text-block"><p>And Berlin has a similar system. </p></div><div data-component="text-block"><p>&#34;The alerts will appear when planning a trip that goes through a low-emission zone and when nearing a zone while already en route to the destination,&#34; Google said. </p></div><div data-component="text-block"><p>They also linked to official local information, it said, adding: &#34;Based on this info, impacted users can choose an alternative mode of transportation or take another route.&#34; </p></div><div data-component="text-block"><p>Other apps, such as Waze - also owned by Google - already have features to avoid restricted zones in some cities. </p></div><div data-component="text-block"><p>But Google Maps is the most widely used navigation app, with estimates of its market share ranging from just under 70% to about 80%.</p></div><div data-component="text-block"><p>The company says it supports efforts to cut traffic pollution in the most built-up areas. </p></div><div data-component="text-block"><p>And it announced the move, in March, <a href="https://www.bbc.co.uk/news/business-56585877">alongside other planned changes</a>, including making the &#34;eco-friendly&#34; option the default route.</p></div><section data-component="tag-list"></section><section data-component="see-alsos"><ul role="list" spacing="responsive"><li></li><li></li><li></li><li></li><li></li></ul></section></article></div></div>]]></content:encoded>
+      <guid>https://www.bbc.co.uk/news/technology-58102651</guid>
+      <pubDate>Thu, 05 Aug 2021 16:37:50 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/technology-58102651</source>
     </item>
   </channel>
 </rss>
