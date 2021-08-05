@@ -8632,5 +8632,278 @@ into a volume as follows:</p>
       <pubDate>Wed, 04 Aug 2021 20:15:27 +0000</pubDate>
       <source>https://blog.x.company/tips-for-unleashing-radical-creativity-f4ba55602e17</source>
     </item>
+    <item>
+      <title>System on SO-DIMM</title>
+      <link>https://twitter.com/Foone/status/1423078973064441858</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="ScriptLoadFailure"><form action="" method="GET"><div dir="auto"><p><span>Something went wrong, but don’t fret — let’s give it another shot.</span></p></div></form></div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 06:45:49 +0000</pubDate>
+      <source>https://twitter.com/Foone/status/1423078973064441858</source>
+    </item>
+    <item>
+      <title>Datafuse – Modern Real-Time Data Processing in Rust</title>
+      <link>https://github.com/datafuselabs/datafuse/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text"><div>
+
+<p><strong>
+Modern Real-Time Data Processing &amp; Analytics DBMS with Cloud-Native Architecture
+</strong></p><p><strong>Built to make the Data Cloud easy!
+</strong></p>
+</div>
+<p><a href="https://starchart.cc/datafuselabs/datafuse" rel="nofollow"></a></p>
+<h2><a id="user-content-principles" aria-hidden="true" href="#principles"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Principles</h2>
+<ul>
+<li>
+<p><strong>Fearless</strong></p>
+<ul>
+<li>No data races, No unsafe, Minimize unhandled errors</li>
+</ul>
+</li>
+<li>
+<p><strong>High Performance</strong></p>
+<ul>
+<li>Everything is Parallelism</li>
+</ul>
+</li>
+<li>
+<p><strong>High Scalability</strong></p>
+<ul>
+<li>Everything is Distributed</li>
+</ul>
+</li>
+<li>
+<p><strong>High Reliability</strong></p>
+<ul>
+<li>Datafuse primary design goal is reliability</li>
+</ul>
+</li>
+</ul>
+<h2><a id="user-content-architecture" aria-hidden="true" href="#architecture"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Architecture</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/21e6b59296d6362323a9f6c738b22b85a36dfed6006c441de16c4e5cd57e60e1/68747470733a2f2f64617461667573652d313235333732373631332e636f732e61702d686f6e676b6f6e672e6d7971636c6f75642e636f6d2f64617461667573652d76312e737667"></a></p>
+<h2><a id="user-content-performance" aria-hidden="true" href="#performance"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Performance</h2>
+<ul>
+<li><strong>Memory SIMD-Vector processing performance only</strong></li>
+<li>Dataset: 100,000,000,000 (100 Billion)</li>
+<li>Hardware: AMD Ryzen 7 PRO 4750U, 8 CPU Cores, 16 Threads</li>
+<li>Rust: rustc 1.55.0-nightly (868c702d0 2021-06-30)</li>
+<li>Build with Link-time Optimization and Using CPU Specific Instructions</li>
+<li>ClickHouse server version 21.4.6 revision 54447</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Query</th>
+<th>FuseQuery (v0.4.48-nightly)</th>
+<th>ClickHouse (v21.4.6)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SELECT avg(number) FROM numbers_mt(100000000000)</td>
+<td>4.35 s.</td>
+<td><strong>×1.4 slow, (6.04 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT sum(number) FROM numbers_mt(100000000000)</td>
+<td>4.20 s.</td>
+<td><strong>×1.4 slow, (5.90 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT min(number) FROM numbers_mt(100000000000)</td>
+<td>4.92 s.</td>
+<td><strong>×2.7 slow, (13.05 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT max(number) FROM numbers_mt(100000000000)</td>
+<td>4.77 s.</td>
+<td><strong>×3.0 slow, (14.07 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT count(number) FROM numbers_mt(100000000000)</td>
+<td>2.91 s.</td>
+<td><strong>×1.3 slow, (3.71 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT sum(number+number+number) FROM numbers_mt(100000000000)</td>
+<td>19.83 s.</td>
+<td><strong>×12.1 slow, (233.71 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT sum(number) / count(number) FROM numbers_mt(100000000000)</td>
+<td>3.90 s.</td>
+<td><strong>×2.5 slow, (9.70 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT sum(number) / count(number), max(number), min(number) FROM numbers_mt(100000000000)</td>
+<td>8.28 s.</td>
+<td><strong>×4.0 slow, (32.87 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT number FROM numbers_mt(10000000000) ORDER BY number DESC LIMIT 100</td>
+<td>4.80 s.</td>
+<td><strong>×2.9 slow, (13.95 s.)</strong> </td>
+</tr>
+<tr>
+<td>SELECT max(number), sum(number) FROM numbers_mt(1000000000) GROUP BY number % 3, number % 4, number % 5</td>
+<td>6.31 s.</td>
+<td><strong>×1.02 fast, (6.18 s.)</strong> </td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li>ClickHouse system.numbers_mt is <b>16-way</b> parallelism processing, <a href="https://gist.github.com/BohuTANG/bba7ec2c23da8017eced7118b59fc7d5">gist</a></li>
+<li>FuseQuery system.numbers_mt is <b>16-way</b> parallelism processing, <a href="https://gist.github.com/BohuTANG/8c37f5390e129cfc9d648ff930d9ef03">gist</a></li>
+</ul>
+<h2><a id="user-content-getting-started" aria-hidden="true" href="#getting-started"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Getting Started</h2>
+<ul>
+<li><a href="https://datafuse.rs/overview/architecture/" rel="nofollow">Quick Start</a></li>
+<li><a href="https://datafuse.rs/overview/architecture/" rel="nofollow">Architecture</a></li>
+<li><a href="https://datafuse.rs/overview/performance/" rel="nofollow">Performance</a></li>
+</ul>
+<h2><a id="user-content-roadmap" aria-hidden="true" href="#roadmap"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Roadmap</h2>
+<p>Datafuse is currently in <strong>Alpha</strong> and is not ready to be used in production, <a href="https://github.com/datafuselabs/datafuse/issues/746">Roadmap 2021</a></p>
+<h2><a id="user-content-contributing" aria-hidden="true" href="#contributing"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Contributing</h2>
+<ul>
+<li><a href="https://datafuse.rs/development/contributing/" rel="nofollow">Contribution Guide</a></li>
+<li><a href="https://datafuse.rs/development/coding-guidelines/" rel="nofollow">Coding Guidelines</a></li>
+</ul>
+<h2><a id="user-content-license" aria-hidden="true" href="#license"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>License</h2>
+<p>Datafuse is licensed under <a href="https://github.com/datafuselabs/datafuse/blob/master/LICENSE">Apache 2.0</a>.</p>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 04:31:39 +0000</pubDate>
+      <source>https://github.com/datafuselabs/datafuse/</source>
+    </item>
+    <item>
+      <title>The world of cats: what our feline friends do when we’re not looking</title>
+      <link>https://www.theguardian.com/lifeandstyle/2021/jul/22/hidden-world-cats-what-feline-friends-doing-when-were-not-looking</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div tabindex="0" id="maincontent"><div><p><span><span>A</span></span><span>s I prepared to write this piece, my three-year-old cat, Larry, had been missing for 24 hours. I had checked under the bins, posted in a community Facebook group and Googled variations of “Lost cat how long normal before come home?” all day. </span></p><p>Larry was a house cat when we took him in, but my boyfriend and I had recently moved to a house with a garden so had started letting him out. Just like that, our adorable, loving, docile cat turned into the neighbourhood bruiser. He stopped snuggling with us in the morning, instead impatiently pawing at the door even before we had put down his breakfast.</p><p>At night, we would search the house for him, before giving up and going to bed. “I’m sure he’ll be back … soon,” I said to my boyfriend, with all the confidence of a mother whose teenager was out after curfew. All night, I would toss and turn, wondering if I would see his little pink nose again.</p><p>Cats demand our love freely, on their own terms, which means with no expectation of long-term commitment. The average outdoor cat may visit multiple homes assessing each on the quality of their cuddles and treats. Some experts believe that cats are, <a href="https://www.newyorker.com/tech/annals-of-technology/are-cats-domesticated" data-link-name="in body link">at best, semi-domesticated</a>, meaning that at any moment, they could flounce off and do just fine.</p><p>I grapple with this reality. I watch Larry sometimes and think: “I love you so much, and one day, you might leave me.” Any cat-owner knows the exquisite torture of having a free-roaming pet. Their travels remain a mystery, hinted at only by a clump of dust in their whiskers, or a streak of paint in their fur.</p><p>Eventually, of course, Larry swaggered home, weary from another adventure on the savannah (Lewisham, south London). Where had he been? What was he doing out there? What do our cats get up to, when their humans are not around?</p><p>To answer this, I contacted <a href="https://tractive.com/en/?gclid=Cj0KCQjwxJqHBhC4ARIsAChq4at30oTHnBdI1ixDNMNhUmzJhmfYpwIpSTNbgJ5_rEilBN4gvSohL0kaAhc6EALw_wcB" data-link-name="in body link">Tractive</a>, manufacturers of GPS trackers for cats and dogs. It kindly volunteered to provide me with some units. Next, I recruited five cat owners, all curious to know about what their charges are up to when out and about. </p><h2>Meet the cats </h2><p>(Feel free here to imagine a slow-motion montage from a Guy Ritchie film, voiced by Ray Winstone):</p><p><strong>Pablo</strong>: a bossy, two-year-old shorthair from Brixworth, Northamptonshire. Pablo is owned by Andrea Franklin, a 52-year-old sales manager.</p><p><strong>Bluebell</strong>: a British shorthair blue from Buckfastleigh, Devon, who purrs like an engine, loves frozen Lick-e-Lix treats, and went missing for three days last year, leaving her owner, 70-year-old retired personal assistant Diane Powell, distraught. “She’s never naughty on purpose,” Powell says.</p><p><strong>Marina</strong>: a vocal, four-year-old tabby from Acton, west London, who is the terror of the neighbourhood. “Sometimes the neighbours say on Facebook that Marina is bullying the other cats,” says her owner, Ahmed el Bouhy, a 17-year-old student.</p><figure id="3a26905a-534e-4eab-b3fa-558ad1872939"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=380&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=48bf3f3ab5296826a1338214268babf0 760w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=300&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=a9387aa632797d9ff14b4b49363b1170 600w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=c52bcf30b514a88fbd835588112508d5 1240w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=09d3925ac097c95a8684ba9b4cd524fe 1210w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=9457ebc562124c0b1910a86bd093db98 890w" sizes="(min-width: 1300px) 380px, 300px" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=380&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=9a7104cbbd72f7fac895eafc998ba131 380w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=300&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=69617cf76431884f601454da916e6c8c 300w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=edd042c867895f0d69bad2a2c4faa725 620w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=301673afe6556fbaf7a0170391e832a3 605w,https://i.guim.co.uk/img/media/a5f3d5695f6cd39637eba932a466336c20f2b345/0_0_4161_5784/master/4161.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=7b91961ed07d2bed39385e51b14bad03 445w" sizes="(min-width: 1300px) 380px, 300px"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>Ndah Tatani Mbawa, her three daughters and their cat, Zaki.</span> Photograph: Linda Nylind/The Guardian</figcaption></figure><p><strong>Zaki</strong>: a free-spirited, two-year-old ragdoll, who three times has got stuck up a tree in the garden of his owner, Ndah Tatani Mbawa, 43, a business analyst from Northampton. “The first time the tree surgeon charged £180 to get him down,” sighs Mbawa. “The second time was £160. The third time my husband climbed the tree himself.”</p><p><strong>Pisi</strong>: a muscular serial killer from Hartwell, Northamptonshire. He once disappeared for three months, before turning up alive and well in a nearby forest. “Most days he catches something,” says his owner, Will Benzie, a 49-year-old IT manager. “Mice, birds. Once a pretty sizable rabbit.”</p><p>And finally, <strong>Larry</strong>: the most phenomenally handsome cat in existence, and a good boy at that.</p><p>It’s time to see what they get up to.</p><hr/><h2><strong>Monday</strong></h2><p>“He’s crossing the track,” I text my boyfriend with the green vomit-face emoji. I live behind a busy railway track – trains run pretty much constantly into central London, including high-speed freight trains – but the track is about 30ft up from ground level. I didn’t think Larry could climb that high. He can.</p><p>“The prime cause of death in cats under one is being run over,” warns John Bradshaw, the author of <a href="https://www.theguardian.com/books/2013/aug/14/cat-sense-john-bradshaw-review" data-link-name="in body link">Cat Sense: The Feline Enigma Revealed</a>. Larry is also crossing streets around my house, although he does not go further than a few hundred metres in each direction, endlessly looping my home like a security guard patrolling a shopping centre. This is likely to be because I live in a densely populated neighbourhood with other cats. “Many cats will self-limit how far they go,” says Bradshaw. “They don’t like challenging other cats or being challenged.”</p><p>Cats are territorial, with established patches they defend. “Territory is <em>the </em>most important thing to cats,” says cat behaviourist <a href="http://www.catbehaviourist.com/" data-link-name="in body link">Anita Kelsey</a>. “Some will chase off other cats, and some can live peacefully. Cats learn to share space and avoid one another to make it work, as it can be damaging to be fighting all the time.”</p><p>By limiting himself to the area directly around my house, Larry, it seems, is a lover, rather than a fighter. The same, however, cannot be said for Pablo. “He’s travelled four and a half miles,” says a flabbergasted Franklin. “I genuinely thought he’d just be sitting in some old lady’s living room all day.” Far from it. “There’s an allotment near our house,” she says. “He’s in there a lot. And then he goes into different gardens. He seems to have a few hang-out spots. I think he has a crew.”</p><hr/><h2><strong>Tuesday</strong></h2><p>Pablo is getting more brazen, crossing a busy A-road into a country park. “It’s notorious for speeding there,” Franklin says. </p><figure id="ea771951-29b1-4b52-85a3-95a8838b0bad"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/e5527687d815431b4ec997a1f39973d74fde3f01/0_0_640_480/master/640.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=6931dd604261be0450aac3abb4abd9e5 1240w,https://i.guim.co.uk/img/media/e5527687d815431b4ec997a1f39973d74fde3f01/0_0_640_480/master/640.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=ae124aafec0e71f4de72c257e988bb23 1210w,https://i.guim.co.uk/img/media/e5527687d815431b4ec997a1f39973d74fde3f01/0_0_640_480/master/640.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=ae45d0cbf0dc4930a4af1e5ea42487a8 890w" sizes="(min-width: 660px) 620px, 100vw" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/e5527687d815431b4ec997a1f39973d74fde3f01/0_0_640_480/master/640.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=08e6c83c3f9d935129925e3dc25f3bce 620w,https://i.guim.co.uk/img/media/e5527687d815431b4ec997a1f39973d74fde3f01/0_0_640_480/master/640.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=16ad53eea9e6e931fde0dfd8c3bdafbe 605w,https://i.guim.co.uk/img/media/e5527687d815431b4ec997a1f39973d74fde3f01/0_0_640_480/master/640.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=4321b4e646dc5cddaa782c1c10bbd7f8 445w" sizes="(min-width: 660px) 620px, 100vw"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>Brazen ... Pablo.</span></figcaption></figure><p>Franklin believes it’s wrong to keep Pablo indoors. “It’s important for him to be able to go and do what comes naturally to him,” she says. “Not to judge people who don’t let their cats out. With that comes the anxiety of losing him. I know this sounds ridiculous, but it’s like letting your kids get more independent. You have to let them go at some point.”</p><p>In this view, in the UK, Franklin is in the majority. Unlike in the US, where domesticated cats typically stay indoors, in the UK <a href="https://www.pdsa.org.uk/get-involved/our-campaigns/pdsa-animal-wellbeing-report" data-link-name="in body link">just 26% of British cats are indoor-only</a>, according to the animal charity PDSA.</p><p>Not everyone is enamoured of this. “There is an anti-cat lobby,” says Bradshaw. “They are very vocal people. People who enjoy their gardens and allotments get seriously fed up with cat crap everywhere,” he says. </p><p>Then there’s the hunting. “Predation and hunting are natural attributes of cats,” says Prof Robbie McDonald, an expert in companion animal ecology at the University of Exeter. “Although a lot of individual cats don’t go anywhere near wildlife; it’s a minority.” (Larry won’t even kill a spider, much to my chagrin.)</p><p>The RSPB <a href="https://www.rspb.org.uk/birds-and-wildlife/advice/gardening-for-wildlife/animal-deterrents/cats-and-garden-birds/are-cats-causing-bird-declines/" data-link-name="in body link">says there</a> is “no clear scientific evidence” that cats are causing bird populations to decline, but there is a perception among some British bird-lovers that cats are a menace and should be kept indoors. (In countries where cats are <a href="https://www.theguardian.com/environment/2020/may/15/keep-pet-cats-indoors-say-researchers-who-found-they-kill-230m-native-australian-animals-each-year" data-link-name="in body link">not a native species</a>, such as Australia and New Zealand, they can have a devastating impact on wildlife.)</p><p>“I do feel that cats are an easy target,” says Bradshaw. “Skyscrapers kill more birds than cats do. But you don’t see people standing outside the factories where glass is made, saying: ‘You’re bird-killers.’”</p><hr/><h2><strong>Wednesday</strong></h2><p>Marina has been on rambunctious form. “She’s been harassing a few neighbours for food,” says El Bouhy. “Then went to a nearby construction site, and spent the night there.” El Bouhy, seeing her location on the Tractive app, went to collect her. “There was a guy on his break, petting her,” he says. “It took a bit of time to get her back.”</p><figure id="d400b180-cde4-4d29-8a70-334a748b0a07"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=380&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=573c3f22de45d7c74425668ee17a9756 760w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=300&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=e39391572dc4dfe4ee852126e60fd614 600w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=f6a1386c21f494dda09fe15708e2fca2 1240w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=80e71d8bf509470312610b92f8d403f8 1210w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=806cbd3f38d49434c9a5b75e58073d7e 890w" sizes="(min-width: 1300px) 380px, 300px" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=380&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=c3873543db101b51b5a970492b9304aa 380w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=300&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=6c876eec5eba72512fa46b6a52cd1285 300w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=be6e42d6435480c19b531b2f48a8412d 620w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=241752c1895cb2b18d1565b05288d9ce 605w,https://i.guim.co.uk/img/media/26704a9734d8bd1b22fe262e060ff0d83849f290/0_0_1715_2287/master/1715.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=e1498032639f00185fd6de084b407bdb 445w" sizes="(min-width: 1300px) 380px, 300px"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>Rambunctious ... Marina.</span></figcaption></figure><p>Over in Brixworth, Pablo’s hunting has ramped up. “This morning he went out without breakfast,” says Franklin. “He’s obviously getting his food somewhere else.” She watched in real time as Pablo spent the morning hunting in the allotments near her house. “He nipped home at lunch and brought a dormouse with him.”</p><p>There are ways to mitigate a cat’s impact on the local bird and small-mammal population. “If the cat is under your management – I hesitate to say control, because no one really controls a cat – you can work out ways to reduce the propensity of the cat to kill,” says McDonald. Bells on collars work, as does <a href="https://www.cell.com/current-biology/fulltext/S0960-9822(20)31896-0" data-link-name="in body link">switching cats on to a premium, high-protein food diet</a>, and giving them mental stimulation by playing with them in the morning. “Changing the cat’s food can reduce the amount of wildlife they kill by over a third,” says McDonald. “And playing with your cat, more than a quarter. These are positive actions for the cat that also have a positive outcome on their behaviour.”</p><p>In Buckfastleigh, Powell watches as Bluebell patrols a supermarket car park a few hundred metres from her house. “Like the car park attendant,” Powell says, amused. Shift finished, Bluebell prowls the streets looking for attention. “She’s spending a lot of time mooching around the back of houses,” says Powell. “Sometimes she goes in, to have a sleep on their sofa. And there’s a wall along the back of the houses where she spends a lot of time sitting, waiting for people to stroke her.”</p><hr/><h2><strong>Thursday</strong></h2><p>One wily cat has slipped his collar. “I came out of the house and her collar was on the gate post,” says Benzie. “I feel like that’s a message from Pisi. Stop tracking me.”</p><p>All the cat-owners, or “guardians”, as Kelsey calls them, have rapidly become addicted to following their cats on the app, myself included. “It’s so time-consuming,” Franklin complains. “I’ll be trying to work and then I think: <em>‘</em>Ooh, I wonder what he’s doing.’”</p><p>Knowing where Pablo will be at any given time of the day is reassuring. “The allotments are clearly his mainstay,” Franklin says. “Now, when we drive past the allotments, I look in and see him. I never worry about him, because I know where he’ll be.”</p><figure id="f68d5c1d-0bb7-4acc-a82d-2e13c9baae94"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/f84ff42f1d7e2c9c2bbfb24363a123fa79b58d6e/0_0_6093_3913/master/6093.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=a9d8154c475b42172e768366c3396bb0 1240w,https://i.guim.co.uk/img/media/f84ff42f1d7e2c9c2bbfb24363a123fa79b58d6e/0_0_6093_3913/master/6093.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=620d0fe309bb7ff0e041339571f923ef 1210w,https://i.guim.co.uk/img/media/f84ff42f1d7e2c9c2bbfb24363a123fa79b58d6e/0_0_6093_3913/master/6093.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=8353a7889c80774fd5bc7070255ad69f 890w" sizes="(min-width: 660px) 620px, 100vw" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/f84ff42f1d7e2c9c2bbfb24363a123fa79b58d6e/0_0_6093_3913/master/6093.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=dd0bf32e04793a3a370d98986e3b1c83 620w,https://i.guim.co.uk/img/media/f84ff42f1d7e2c9c2bbfb24363a123fa79b58d6e/0_0_6093_3913/master/6093.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=489580cd17d669c04c19e7fd55affda3 605w,https://i.guim.co.uk/img/media/f84ff42f1d7e2c9c2bbfb24363a123fa79b58d6e/0_0_6093_3913/master/6093.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=4942a73b3df6ce5a12b4fc5c1fa94b64 445w" sizes="(min-width: 660px) 620px, 100vw"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>Will Benzie and his cat Pisi.</span> Photograph: Linda Nylind/The Guardian</figcaption></figure><p>Benzie has long suspected that Pisi frequents a working coal yard about 100 metres from his house, “because his legs were black when he came back”. But the app shows that Pisi is also rifling around the coal sheds. “I don’t know if there are mice in there,” says Benzie.</p><p>Powell has been analysing Bluebell’s tracking data and noticed something unexpected. “If we go out of the house,” she says, referring to herself and her partner, “she comes in. It’s almost like she’s looking after the house for us.”</p><p>Mbawa is using her newfound knowledge of Zaki’s whereabouts to steal a march on her wayward pet. After seeing on the tracker that Zaki often visited the grounds of a local care home, she decided to walk down. “I saw him between some bushes and he looked at me and was shocked,” she says. “We looked at each other for a while, and he was embarrassed. He was scratching on a little tree and then he walked off … he looked as if he’d been found out.”</p><hr/><h2><strong>Friday</strong></h2><p>In Hartwell, Benzie has observed Pisi spending an unlikely amount of time in his neighbour’s back garden. “I went and asked her: ‘Have you been putting food out?’” Benzie says. “She smiled and said: ‘Yes, I’ve been putting it out back, so you can’t see it.’” Benzie also suspects that Pisi is getting a third, or even fourth, daily meal from the occupants of a row of houses about a mile away – after his morning visit to the coal yard, Pisi tends to wind up there in the afternoon. </p><figure id="7f19e021-addf-4a49-a0aa-71b251956c50"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=380&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=30fd0d3c5c6ab63d3aee8063c3878742 760w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=300&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=d3f82734418e3d984ce19bf15dd02156 600w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=84f8d1b358436701c5f59bcea478edf2 1240w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=e9773be77189e1288a18a437cae9e381 1210w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=04b4c2f02ef391880bb74be6774ec186 890w" sizes="(min-width: 1300px) 380px, 300px" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=380&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=be5fcb3cdcbc84aa1dd1fdf3318aed59 380w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=300&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=d8c5a9eea58095810b8452e3160d3f37 300w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=93cc33ecfdc419c8c5667c51f6bfa3cb 620w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=6bbecb1b0b9d176b4aed596a1c989092 605w,https://i.guim.co.uk/img/media/00761712a2f139acd8f8adb57912e1e3f50d47b0/0_145_1200_1455/master/1200.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=810072e47db46a2e867f50b0b4833d49 445w" sizes="(min-width: 1300px) 380px, 300px"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>‘Never naughty on purpose’ ... Bluebell.</span></figcaption></figure><p>In the trade, <a href="https://www.theguardian.com/lifeandstyle/2020/jan/22/claws-out-why-cats-are-causing-chaos-and-controversy-across-britain" data-link-name="in body link">pet detectives</a> refer to the act of neighbours feeding your pet cat as “cat seduction” – because they are seducing the cat away with extra food and treats. Cats, for their part, welcome this attention. “Friendly, confident cats will explore other people’s homes and might beg for food from various houses on a set route,” says Kelsey. When Bradshaw was consulted on a pioneering 2012 <a href="https://www.bbc.co.uk/programmes/b02xcvhw" data-link-name="in body link">Horizon documentary</a> that tracked cats, he found it was commonplace for cats to be fed multiple times a day. “There was one cat that had four owners,” he says. “Cats are opportunists.”</p><p>But what makes perfect strangers so inclined to feed other people’s cats?</p><p>“We tend to look at ourselves in very recent contexts,” says McDonald. “But our relationship with cats goes back to the dawn of civilisation really. When humans started farming, we created surpluses of grain and stored them, and cats were used to protect the grain stores from rodents. The inclination to live closely with, accommodate and, in some cases, admire and befriend these animals is part of what makes people social. It’s a very profound relationship between people and this sort of animal.”</p><p>No one is seducing my cat today. It’s raining, so Larry doesn’t leave my side.</p><p>All of the cat owners have come to realise the adorable pets that sleep at the foot of their beds and snuggle on their laps during films are actually independent beings with habits and routines of their own. In short, they are autonomous creatures, with personalities, fears, preferences, needs and, dare I say it, souls.</p><p>“She gets up to a lot more than I thought she does,” says El Bouhy of Marina. “I knew she went to the neighbours occasionally, but I didn’t think she spent the whole day going into their gardens, harassing them for food, and even crossing the railway by my house. I thought she spent half an hour going around, and then slept the rest of the day.”</p><p>Benzie has been so intrigued by Pisi’s behaviour, he plans to fit a miniature camera to her collar. “You think it’s kind of lovely that they’re going so far and doing all this stuff,” he says. “But now it makes me want to delve a bit deeper to see why.”</p><p>As I write this, Larry is sitting next to me, watching me type. His nose rests on his paw. Although I have loved watching him perambulate around my south London home like a dowager countess, I’ve relegated Larry’s tracking device to a drawer.</p><p>Let him go. If he wants to come back to me, he will.</p></div></div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 07:51:27 +0000</pubDate>
+      <source>https://www.theguardian.com/lifeandstyle/2021/jul/22/hidden-world-cats-what-feline-friends-doing-when-were-not-looking</source>
+    </item>
+    <item>
+      <title>Global Sourcebook for International Data Management</title>
+      <link>http://www.grcdi.nl/gsb/global%20sourcebook.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div text="black" link="blue" vlink="purple" alink="red">
+<p> <span><SPAN face="Times New Roman" color="#006600">Global Sourcebook for International Data Management</SPAN></span></p>
+<p><span><SPAN face="Times New Roman" color="#006600">                                         </SPAN></span><SPAN face="Times New Roman" color="#006600"><span>by <a href="https://www.grcdi.nl/author.htm">Graham Rhind</a></span></SPAN></p>
+
+
+<gcse:search></gcse:search>
+
+<p>
+<span opacity:1="" font="" face="Arial" <b=""><i><width="32" height="32">Help us to keep this resource free!  </width="32"></i></span>
+</p>
+<a href="http://www.grcdi.nl/gsb/global%20sourcebook.html">Global Sourcebook</a> | <a href="http://www.grcdi.nl/gsb/%5F%5FINDEX%5F%5F.html">Index</a> | <a href="http://www.grcdi.nl/gsb/%5F%5FPROPERTY%5F%5F.html">Properties</a> <!-- End of StatCounter Code for Default Guide -->
+
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 07:14:46 +0000</pubDate>
+      <source>http://www.grcdi.nl/gsb/global%20sourcebook.html</source>
+    </item>
+    <item>
+      <title>Ever wondered how much data web giants generate? Grab says 1.7MB/user/day</title>
+      <link>https://www.theregister.com/2021/08/03/grab_q1_2021/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_theregister_com_2021_08_03_grab_q1_2021_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="body">
+<p>Singapore-based mega-app Grab has revealed that it generates 40TB of data a day. All that data is clearly valuable: Grab has also announced record profits.</p>
+<p>The Southeast Asian company, which bought out Uber in Singapore and since expanded into e-commerce, payments, and financial services, did not disclose what it does with the data, nor how it is protected. But it did <a target="_blank" href="https://assets.grab.com/wp-content/uploads/media/ir/investor-presentation.pdf">disclose</a> [PDF] that it has 23.8 million monthly transacting customers, who collectively generated a record US$507 million adjusted net sales in its first quarter, boasting that the company saw a 39 per cent increase in adjusted net sales despite a COVID-related hit to its mobility services.</p>
+<p>The company told <i>The Register</i> that not all of that 40TB of daily data is generated by customers - millions of drivers and other partners also contribute. Doing the math on the user/data ratio is still interesting.</p>
+
+    
+
+<p>Grab also <a target="_blank" href="https://www.grab.com/sg/press/others/strong-first-quarter-2021-results/">claimed</a> that in Q1 2021 it was Southeast Asia&#39;s most downloaded app, with its mobility and delivery services drawing the highest share of average monthly active smartphone users in the region across iOS and Android combined.</p>
+
+        
+
+
+        
+
+<p>Not only are more people downloading the app in Southeast Asia, they are spending more. According to Grab, its spend per user increased by 31 per cent year-on-year.</p>
+<ul>
+
+<li><a href="https://www.theregister.com/2021/06/18/facebook_singapore_data_centre/">Facebook and Singapore teams looking for ways to get data centres relaxing in moist tropical climes</a></li>
+
+<li><a href="https://www.theregister.com/2021/05/06/grab_petxl_rideshare_singapore/">Big dogs get new ride-share service from Singaporean giant Grab</a></li>
+
+<li><a href="https://www.theregister.com/2020/12/07/ubers_asian_outpost_wins_singaporean/">Uber’s Asian outpost wins Singaporean banking licence</a></li>
+</ul>
+<p>The multinational company also <a target="_blank" href="https://www.grab.com/sg/investors/#lightbox-o6r87">said</a> in 2020 it was overall responsible for 50 per cent of Southeast Asia&#39;s online food delivery, 72 per cent of the region&#39;s ride-hailing services and 23 per cent of its e-wallet market. The online food delivery segment seems to be the one to watch, as it experienced 96 per cent year-on-year growth from Q1 2020 to Q1 2021.</p>
+<p>In an <a target="_blank" href="https://www.grab.com/sg/investors/#lightbox-o6r87">investor&#39;s call</a>, Grab president Ming Maa said: &#34;In Q1 2021, in spite of [COVID] re-emergence in various countries at different times, the diversification of our platform from both a geographic and segment perspective resulted in fairly stable GMV performance over the quarter.</p>
+<p>&#34;Now we did witness weaker mobility volumes in Q1, but this was offset by a strong uptick in deliveries with Grabmart proving to be one of the bright spots in the delivery segment.&#34;</p>
+
+        
+
+<p>Maa attributed the shift from mobility to delivery to lockdown measures across Southeast Asia. As for the future, he predicted:</p>
+
+<p>Another expectation for Grab in the second half of 2021 is its <a target="_blank" href="https://www.theregister.com/2021/04/14/grab_goes_public_through_spac/">plans</a> to go public in the United States through a US$40 billion merger with Altimeter Growth, a Special Purpose Acquisition Company (SPAC).</p>
+<p>On Monday, Grab and Altimeter Growth filed a US Securities and Exchange Commission draft registration statement on Form F-4 in preparation for the IPO. ®</p>
+                    
+                                            </div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 10:39:47 +0000</pubDate>
+      <source>https://www.theregister.com/2021/08/03/grab_q1_2021/</source>
+    </item>
+    <item>
+      <title>Google hits undo on Chrome browser alert change that broke websites, web apps</title>
+      <link>https://www.theregister.com/2021/08/05/google_chrome_iframe/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_theregister_com_2021_08_05_google_chrome_iframe_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="body">
+<p>Google has temporarily reversed Chrome&#39;s removal of browser alert windows and other prompts created via cross-origin iframes after a rocky rollout over the past two weeks broke web apps and alarmed developers.</p>
+<p>An iframe, or Inline Frame, is a portion of a web page embedded in another web page. When it includes resources from a different origin or domain, it&#39;s a cross-origin iframe.</p>
+<p>Since March, 2020, the team behind Chromium, the open-source engine of Chrome, has been planning to limit the capabilities of cross-origin iframes because they&#39;re a security liability. Specifically, they allow an embedded resource like an ad to present a prompt as if it were the host domain.</p>
+
+    
+
+<p>&#34;The current user experience is confusing, and has previously led to spoofs where sites pretend the message comes from Chrome or a different website,&#34; a Google engineer explained in the company&#39;s initial <a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/hTOXiBj3D6A/m/PVc8zwKTAwAJ" target="_blank" rel="nofollow">Intent to Remove notice</a> last year.</p>
+
+        
+
+
+        
+
+<p>&#34;Removing support for cross origin iframes’ ability to trigger the UI will not only prevent this kind of spoofing, but will also unblock further efforts to make the dialog more recognizable as part of the website rather than the browser.&#34;</p>
+<p>Google&#39;s answer to spoofing has been to prevent JavaScript code in cross-origin iframes from calling the alert, prompt, and confirm methods on the browser&#39;s window object – which web developers use to show dialog boxes for user notifications and interaction.</p>
+
+        
+
+<p>By doing so, Google has broken more than a few web apps. And eventually, Google <a href="https://github.com/whatwg/html/issues/6897#issuecomment-885773622" target="_blank" rel="nofollow">plans</a> to remove these prompt mechanisms completely (from same-origin contexts as well as cross-origin ones), again to prevent potential abuse.</p>
+<p>The deprecation of <code>window.alert</code>, <code>window.prompt</code>, and <code>window.confirm</code> from cross-origin iframes took effect with the release of Chrome 92.0.4515.107 on July 20. Since then, applications like social dev environment <a href="https://github.com/reactjs/reactjs.org/pull/3827" target="_blank" rel="nofollow">Codepen</a> and Microsoft&#39;s <a href="https://twitter.com/southpolesteve/status/1422973696621350913?s=20" target="_blank" rel="nofollow">Azure Cosmos DB</a> have encountered problems because they present users with alerts, notifications, and confirmation windows via cross-origin iframes.</p>
+<ul>
+
+<li><a href="https://www.theregister.com/2021/07/22/vid_me_video_hijacking/">Be careful what you inline: Defunct video-hosting domain used to inject smut flicks into news articles, more</a></li>
+
+<li><a href="https://www.theregister.com/2020/11/02/google_ad_privacy/">Google reCAPTCHA service under the microscope: Questions raised over privacy promises, cookie use</a></li>
+
+<li><a href="https://www.theregister.com/2019/08/19/clickjacking_countermeasures_chrome/">iFrame clickjacking countermeasures appear in Chrome source code. And it only took *checks calendar* three years</a></li>
+
+<li><a href="https://www.theregister.com/2019/12/06/chrome_app_detection_api_privacy/">If you want an example of how user concerns do not drive software development, check out this Google-backed API</a></li>
+</ul>
+<p>In the <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1065085" target="_blank" rel="nofollow">Chromium issue</a> where the removal is being tracked, developers have been chiming in to express their dismay at the way this change has been forced upon the web community.</p>
+<p>&#34;This change has created quite a difficulty for us because we use a paid third party service embedded via iframe in our web app and I pass a small amount of limited custom JavaScript to that third party app when I instantiate their tool (to trigger some actions and customize part of the tool to the user),&#34; <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1065085#c24" target="_blank" rel="nofollow">wrote</a> one developer last week.&#34; ...With this change I am scrambling to implement an ugly <code>window.parent.postMessage</code> workaround because chunks of our web app are now broken for our tens of thousands of users.&#34;</p>
+<p>&#34;I&#39;m an engineer for a large ERP company and work on a product where hundreds of large customers (hundreds of thousands of users) are no longer able to use the product due to the removal of cross origin dialogs,&#34; <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1065085#c37" target="_blank" rel="nofollow">wrote</a> another developer.</p>
+
+        
+
+<p>&#34;These customers generally choose to host the product themselves, which means signing up for the origin would fall on each of them individually. That isn&#39;t feasible for us or their IT departments. We internally are not even able to get it to work. We are also getting pushback on asking them to push out registry settings.&#34;</p>
+<blockquote>
+
+<p>My team is working around the clock and weekends trying to rewrite our product around this change</p>
+</blockquote>
+<p>&#34;My team is working around the clock and weekends trying to rewrite our product around this change and simply need more time. This type of change should have been documented and warned about ahead of time in my opinion.&#34;</p>
+<p>The outcry has proven voluble enough that Microsoft Edge last week <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1065085#c40" target="_blank" rel="nofollow">reverted the changes</a> in its upstream Chromium code to restore dialogs in cross-origin iframes. Shortly thereafter, a Google engineer said Chrome has <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1065085#c41" target="_blank" rel="nofollow">disabled its deprecation until August 15</a> to provide developers with more time to rewrite their apps.</p>
+<p>Google has even implemented a four-month opt-in &#34;<a href="https://developer.chrome.com/origintrials/#/register_trial/2541156089743802369" target="_blank" rel="nofollow">reverse origin trial</a>&#34; that temporarily revives cross-origin prompts for Chrome users and gives developers retrofitting large web apps more time to find replacements for the exiled API methods.</p>
+<p>&#34;This is peak Chrome; what seems to be a reasonably good idea that&#39;s hampered because it was pushed out thoughtlessly without putting any serious effort into notifying the people affected or making sure that nothing else breaks, or making sure that it thoroughly solves the problem,&#34; wrote developer Daniel Shumway in <a href="https://news.ycombinator.com/item?id=28055802" target="_blank" rel="nofollow">a post</a> to Hacker News.</p>
+<p>&#34;The product owners at Chrome are smart, but they&#39;re careless and constantly break the web because they don&#39;t seem to have enough of a sense of gravitas or caution about what they&#39;re doing.&#34; ®</p>
+                    
+                                            </div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 08:05:41 +0000</pubDate>
+      <source>https://www.theregister.com/2021/08/05/google_chrome_iframe/</source>
+    </item>
   </channel>
 </rss>
