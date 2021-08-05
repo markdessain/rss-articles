@@ -6927,5 +6927,1094 @@ https://media.npr.org/assets/img/2017/05/04/27th-4_custom-aca081934e40e370c36340
       <pubDate>Wed, 04 Aug 2021 19:45:17 +0000</pubDate>
       <source>https://www.charlieharrington.com/mario-paint-masterpiece</source>
     </item>
+    <item>
+      <title>An attempt at demystifying graph deep learning</title>
+      <link>https://ericmjl.github.io/essays-on-data-science/machine-learning/graph-nets/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-md-component="container">
+      
+      
+        
+      
+      <main data-md-component="main">
+        <div>
+          
+            
+              
+              
+            
+            
+              
+              
+            
+          
+          <div data-md-component="content">
+            <article>
+              
+                
+                  <a href="https://github.com/ericmjl/essays-on-data-science/edit/master/docs/machine-learning/graph-nets.md" title="Edit this page">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+                  </a>
+                
+                
+                
+<h2 id="introduction">Introduction</h2>
+<p>There are a ton of great explainers of what graph neural networks are.
+However, I find that a lot of them go pretty deep into the math pretty quickly.
+Yet, we still are faced with that age-old problem: where are all the pics??
+As such, just as I had attempted with Bayesian deep learning,
+I&#39;d like to try to demystify graph deep learning as well,
+using every tool I have at my disposal
+to minimize the number of equations and maximize intuition using pictures.
+Here&#39;s my attempt, I hope you find it useful!</p>
+<h2 id="graphs">Graphs</h2>
+<p>In my <a href="https://ericmjl.github.io/Network-Analysis-Made-Simple/index.html">Network Analysis Made Simple tutorial</a>,
+we see that the term &#34;graph&#34; are really nothing more than
+a synonym for networks.
+Defined strictly, graphs are comprised of <strong>nodes</strong>, i.e.
+entities, and <strong>edges</strong> that define <em>relations</em> between nodes.
+Examples are social networks (nodes = people, edges = friendship),
+and flight networks
+(nodes = airports, edges = flights that exist between the two networks).</p>
+<p>Pictorially, we&#39;d usually draw something that looks like this:</p>
+<p></p>
+<p>A graph <span><span>G</span></span>, in really concise mathematical notation,
+can be represented as <span><span>G = (V, E)</span></span>,
+or in plain English,
+an unordered collection of vertices (a synonym for nodes)
+and an unordered collection of edges.</p>
+<h2 id="graphs-as-arrays">Graphs as <em>arrays</em></h2>
+<p>One thing that&#39;s a really neat property of graphs is that we can actually represent them as <em>arrays</em>.
+This is covered in the <a href="https://ericmjl.github.io/Network-Analysis-Made-Simple/04-advanced/02-linalg/">Linear Algebra section</a> of <a href="https://ericmjl.github.io/Network-Analysis-Made-Simple/index.html">Network Analysis Made Simple</a>;
+I also wrote about this in the earlier sections of an essay I wrote on <a href="https://ericmjl.github.io/essays-on-data-science/machine-learning/message-passing/">message passing</a>
+that I&#39;d encourage you to check it out in its entirety,
+but nonetheless here&#39;s a simplified version to introduce you to the key ideas.</p>
+<p>Because graphs are comprised of nodes and edges,
+we need to figure out a way of representing both of them as arrays.
+Coming up, we&#39;ll explore how this can be done.</p>
+<h3 id="representing-nodes-as-arrays">Representing nodes as arrays</h3>
+<p>Let&#39;s start with nodes, our entities.
+Our nodes, being entities, may have certain properties.
+Let&#39;s use a concrete example of molecules,
+which is what I would consider
+a minimally complex example for exploring key ideas.
+(I use minimally complex examples as my anchoring examples to learn an idea,
+I hope this one is useful for you too!)</p>
+<p>Imagine we have a molecule of ethanoic acid.
+It&#39;s comprised of two carbons, two oxygen,
+and four hydrogens joined in the following fashion:</p>
+<p></p>
+<p>Each atom is a node, and edges are bonds between the atoms.
+Each atom, or node, carries <em>properties</em> or <em>features</em>
+which can be represented on the array.
+For example, there&#39;s the atomic mass
+(a floating point number, or integer if you desire to round it off).
+There&#39;s the valence of the atom as well.
+And many more!
+To keep things simple, I&#39;ll stick to just these two for now.
+As you can see, you&#39;ll end up with a <em>vector of features</em> per node.
+If we stack them up together,
+we get what we call a node feature matrix, which will become handy later.</p>
+<p></p>
+<h3 id="representing-edges-as-arrays">Representing edges as arrays</h3>
+<p>Similarly, there is an array representation of edges too!
+If you imagine lining up all of the atoms
+inside the ethanoic acid molecule along a square matrix,
+you can fill in the square matrix
+based on whether an edge exists between those two atoms.
+It&#39;ll look something like this:</p>
+<p></p>
+<p>If we wanted to, though, we could get really granular!
+We could have on adjacency matrix that shows us all of the single bonds,
+and another adjacency matrix that shows all of the double bonds.
+Or we could have an adjacency matrix that is <em>weighted</em>
+based on the number of bonds between two atoms.</p>
+<p></p>
+<p>Those are all <em>perfectly valid representations</em> of the edges of a graph,
+each with their own semantic meaning <em>and</em> tradeoffs
+for whatever modelling problem you might have.</p>
+<h2 id="message-passing">Message Passing</h2>
+<p>It&#39;s now time to think about message passing.
+Message passing is a very well-known operation
+in the network science and machine learning worlds,
+but you don&#39;t have to be intimidated about it!
+At its core, it&#39;s actually really simple,
+and you&#39;ll see that it totally has a linear algebra interpretation that,
+in my opinion, is pretty elegant!</p>
+<p>Let&#39;s start by defining what message passing on a graph is.</p>
+<p>Message passing on a graph is kind of what you would intuit it to be:
+if I have a message on a node,
+we want to pass the message to other nodes on the graph.
+Our message can only travel along the edges,
+though - otherwise, the structure of the graph would be irrelevant.</p>
+<p>Here&#39;s an example that is really, really simplified.
+(We&#39;ll see the exact same ideas in action
+on our ethanoic acid example in a short moment.)
+This example is drawn from my tutorial on network analysis,
+in particular, from the linear algebra section.</p>
+<p>Let&#39;s say we have a directed chain graph of four nodes.
+A &#34;message&#34; lives on the first node,
+and we want to pass it through the graph.
+In a first message passing iteration,
+we take the message on the first node and pass it to the next one.
+In the iteration after, we take the message and pass it to the next node.
+So on and so forth until we reach the last node.
+Here, there&#39;s no place the message can go;
+regardless of how many more steps we might desire to run message passing,
+the message won&#39;t go anywhere.</p>
+<p>As it turns out, there&#39;s a linear algebra interpretation of message passing!
+For the four node chain graph,
+we can consider the message as being a property of a node.
+For a node possessing the message,
+or more generally a copy of the message,
+we can assign it a value of 1.
+If a node doesn&#39;t have a copy of the message,
+then we assign it a value of 0.
+Here&#39;s where the magic happens.
+When we dot product the adjacency matrix against this message vector
+(which is akin to our node feature vector),
+the message will <em>move</em> from the first node to the next node.
+(Verify this point for yourself by hand!)</p>
+<p></p>
+<p>So it seems we can pass messages around nodes by simply doing dot products!
+Let&#39;s see this in action by looking at the same operation in action
+for ethanoic acid.
+Here, all nodes receive messages from their neighbors simultaneously.
+Notice how the graph looks like after performing message passing.
+The carbon attached to three hydrogens has
+a different value from the carbon attached to the oxygens;
+their value is the sum of their neighbors.
+&#34;Summing up neighbors&#34; is literally all that we are doing
+in this form of message passing,
+in other words,
+when we do a dot product of the adjacency matrix with a node feature matrix.</p>
+<p></p>
+<p>At this point, I&#39;d encourage you to pause reading
+and ponder over the ideas this far.
+It was pretty mind-blowing for me when I first really made the connection
+between message passing and linear algebra.
+I spent a few good weeks mulling the ideas I just described.</p>
+<h2 id="message-passing-neural-networks">Message Passing + Neural Networks</h2>
+<p>We&#39;re now going to see how message passing
+gets embedded inside a neural network -
+a network that learns on network.
+(Pretty meta, if you ask me!)</p>
+<p>To anchor our understanding,
+we will start with graph deep learning in a supervised learing setting,
+where our learning task is to predict a scalar number
+for every graph in a collection of graphs.
+One classic example where this has been done before
+is in chemical property prediction,
+the first of which I encountered being a paper
+by my deep learning teacher <a href="https://www.cs.toronto.edu/~duvenaud/">David Duvenaud</a>
+on <a href="https://arxiv.org/abs/1509.09292">learning molecular fingerprints</a>.
+Here, each input into the neural network is a <em>graph</em>,
+rather than a <em>vector</em>.
+For comparison, classical deep learning starts with rows of i.i.d. data
+that are fed through a neural network.</p>
+<p>We know that neural networks are composed of chains of math functions.
+(Really, that&#39;s all neural network models are at their core!)
+Feed forward neural networks chain together dot products;
+convolutional neural networks add in n-dimensional convolutions in the mix;
+meanwhile, recurrent neural networks have lag as part of its structure.
+Each of these provide <em>inductive biases</em>.
+By the way, that term, in my opinion,
+is nothing more than a fancy way of saying that
+we encode prior knowledge of our data generating process
+into the mathematical model.
+In each case, though, on a per-i.i.d.
+sample basis, we pass in one n-dimensional array at a time.</p>
+<p></p>
+<p>What about graph neural networks, then -
+what exactly does the input look like,
+and what is the general structure of such networks?
+To answer those questions,
+we&#39;re going to walk through
+three different kinds of graph neural network layers,
+the three that I&#39;m most familiar with,
+as specific examples of the general form of graph neural nets.
+By the end of us walking through them,
+we should have a much clearer grasp of the math that underlies these models.</p>
+<h3 id="message-passing-neural-networks-mpnns">Message Passing Neural Networks (MPNNs)</h3>
+<p>Message passing neural networks, as the name implies,
+means we inject <em>message passing</em> as an operation in the neural network.
+Let&#39;s see how we can define a message passing layer.
+Instead of accepting just a vector or n-dimensional image,
+the message passing layer accepts both the adjacency matrix
+and the node feature matrix and performs one round of message passing.
+But we know it&#39;s part of a <em>neural network</em>,
+so where does the <em>neural</em> piece come in?
+Well, right after message passing,
+we take the message-passed node feature matrix
+and apply the equivalent of a feed-forward neural network operation -
+linear transform + some activation function!</p>
+<p></p>
+<p>We can do this as many rounds as we desire -
+though it&#39;s important to note that
+we usually don&#39;t want to go for too many rounds.
+The long story cut short is that
+message passing has the effect of smoothing out node-level information,
+which <em>could</em> become undesirable.</p>
+<p>Once we have done one or two rounds of message passing,
+it might be desirable to have a vector representation of our graphs.
+But at the moment, we&#39;re stuck with two matrices -
+the adjacency matrix and the messaged-passed node feature matrix!
+Well, one canonical way of creating graph-level vector representations
+is to simply take a node-wise summation (or average)
+of the node feature matrix.
+Summations express that the size of a graph matters,
+while averages express that size should not matter.
+What you choose will depend on your particular problem.
+By the way, you as long as you have a reductive function
+that takes the node feature matrix and reduces it to a vector,
+you can satisfy the need to have a vector summary of a graph...
+as long as you can explain the semantics :).
+Regardless, let&#39;s call this layer a &#34;graph summary layer&#34;.</p>
+<p></p>
+<p>Once we have a vector-level representation of our graph,
+we can stick classical feed forward neural network layers
+on top of the graph processing layers
+to obtain the thing we&#39;re trying to predict.</p>
+<p></p>
+<p>And that, my friends, is how a classical message passing neural network works!
+Here&#39;s the framework I use to remember how GNNs work:</p>
+<ol>
+<li>Message passing operations, followed by</li>
+<li>Graph summarization operations, followed by</li>
+<li>Feed forward networks to predict output.</li>
+</ol>
+<p>In the broader machine learning framework of &#34;model, loss, optimizer&#34;,
+all we&#39;ve worked on here is to design a <em>model</em>
+that fits the kind of data that we have.
+You get to keep constant the <em>loss</em> and the <em>optimizer</em>.
+Keep this framework memorized,
+and use MPNNs as the anchoring minimally complex example,
+and everything else we discuss coming will become crystal clear!</p>
+<h3 id="graph-laplacian-networks">Graph Laplacian Networks</h3>
+<p>So what&#39;s up with graph laplacian networks?
+Well, really, at its core is all that&#39;s been done here
+is to replace each graph&#39;s adjacency matrix with their graph Laplacian matrix.
+That&#39;s it!
+Every other operation that you see in the pictures above remain the same.</p>
+<p>But what is the graph Laplacian?
+At its core, it&#39;s a measure of the local <em>derivative</em> of the graph,
+and we use it when we want to express that
+local differences in nodes matter to our graph-level property of interest.
+To explain this idea here any further
+would distract from our exploration of GNNs,
+so I would refer you to <a href="https://en.wikipedia.org/wiki/Laplacian_matrix">the Wikipedia entry</a>
+for those of you who desire a deeper understanding
+of this category of graph matrices.</p>
+<h3 id="graph-attention-networks">Graph Attention Networks</h3>
+<p>What about graph attention networks, then?
+Well, we know that the attention mechanism
+is nothing more than an operation that uses
+a neural network inside a neural network to learn weights of <em>some</em> kind.
+With graph attention networks,
+we use an embedded neural network to learn
+a per-graph adjacency-like matrix operator
+that we mask over with the adjacency matrix,
+which effectively gives us an edge attention matrix for message passing.
+(If you&#39;re feeling antsy and want to read an actual paper on this,
+check out the <a href="https://arxiv.org/abs/1710.10903">graph attention networks paper</a> paper.)</p>
+<p>And that&#39;s it! Everything else about the model can stay constant.</p>
+<p>Graph attention layers give us the most general message,
+data-driven passing operator that we can imagine.
+Rather than fix the message passing operator <em>a priori</em>,
+we simply learn the operator in a data-driven fashion.</p>
+<h3 id="general-form-of-graph-neural-networks">General form of graph neural networks</h3>
+<p>Okay, so we&#39;ve explored three examples of graph neural networks.
+What exactly is general here? Here&#39;s the answer:</p>
+<ol>
+<li>We must have a message passing operator, <span><span>A</span></span>.
+It can be learned or it can be provided <em>a priori</em>
+and remain fixed throughout the neural network.
+You basically have the freedom to define any form of <span><span>A</span></span> that you need!</li>
+<li>We need to have node feature matrices, <span><span>F</span></span>.</li>
+<li>For convenience,
+we usually transform our graphs&#39; array representations <span><span>A</span></span> and <span><span>F</span></span>
+into a summary vector that then gets processed
+by a feed forward neural network.</li>
+</ol>
+<p>Again, what remains relatively constant is the <em>structure</em> of the model -
+some form of generalized message passing
+followed by some form of graph summarization followed by a top model.
+As long as you have some sort of semantically-meaningful square matrix <span><span>A</span></span>
+and a semantically-meaningful node feature matrix <span><span>F</span></span>,
+you can follow the message passing -&gt; summarization -&gt; feed forward structure
+to build your GNN models.</p>
+<h2 id="mpnns-and-convolution-operations">MPNNs and convolution operations</h2>
+<p>When David taught me about graph neural networks,
+one idea really clicked:
+how message passing generalizes the grid convolution to graphs -
+which is why the &#34;graph convolution&#34; term shows up
+in the deep learning literature.
+Let&#39;s explore how this is the case
+by looking carefully at a simple grid convolution
+and a simple graph convolution.</p>
+<p>Starting off with the simplest grid convolution,
+let&#39;s say we have a 5x5 pixel image with a 3x3 convolution operator
+comprised of <span><span>1</span></span>s everywhere except the middle cell.
+When using the convolution operation (with certain border settings),
+we get the following result:</p>
+<p></p>
+<p>We actually can re-represent the grid of values as a
+lattice graph and do a message passing operation to obtain the same result:</p>
+<p></p>
+<p>And in doing so,
+we thus can see that the message passing operation
+using the adjacency matrix as our message passing operator
+is equivalent to a convolution
+with a filter of 1s surrounding a zero.
+Message passing on graphs more generally simply requires that
+we relax the condition that our graph be a lattice graph!</p>
+<h2 id="graph-learning-tasks">Graph learning tasks</h2>
+<p>Thus far, we explored how graph neural networks work
+in the context of a supervised machine learning problem
+where we want to build a model that links graphs as inputs
+to a property of the entire graph.
+Beyond this single learning task, though, there are other learning tasks.
+From a talk that my friend <a href="https://www.linkedin.com/in/chris522229197/">Chris Lin</a> delivered,
+I learned that there are a few primary categories of graph learning tasks.
+Here&#39;s a short overview of those learning tasks.</p>
+<h3 id="graph-level-prediction">Graph-level prediction</h3>
+<p>This is the category of problem we leveraged above
+to explore the internals of graph neural networks.
+Basically we frame the problem as &#34;given graph, predict number&#34;.
+It assumes that we have a bunch of i.i.d.
+data that have a natural graph structure as its representation.</p>
+<h3 id="node-labelling">Node labelling</h3>
+<p>This category of problems typically deals
+with one large graph and its adjacency matrix,
+and our desired output is a label (or a suite of labels)
+that need to be annotated on nodes.
+Some of the nodes have labels while others don&#39;t;
+message passing could be handy here
+because it encodes the <em>homophily</em> assumption -
+that is, for problems where we expect
+that similar things will be linked together,
+we can encode this inductive bias into our models
+much more naturally than other structural equations.</p>
+<h3 id="edge-presenceabsence-prediction">Edge presence/absence prediction</h3>
+<p>This is another class of problems where usually we are given one large graph,
+and the desired output is either whether
+an edge ought to exist between two nodes.
+This can be framed in terms of predicting
+the entries of the graph adjacency matrix, for example.</p>
+<h2 id="summary">Summary</h2>
+<p>Here, we started with array representations of single graphs.
+Then, we covered the message passing operation,
+which is a key operation in graph neural networks.
+We explored how we can compose message passing, graph summarization,
+and feed forward neural networks to do graph-level property prediction.
+Finally, we did a quick tour through the general categories
+of graph learning tasks in which graph neural networks are used.</p>
+<p>It&#39;s taken me 2-3 months of procrastination, brainstorming,
+and more to write all of this down, and even then,
+I doubt I have comprehensively covered
+all of the fundamentals of graph deep learning.
+That said, I believe that in this essay,
+we&#39;ve given ourselves a great starting point -
+you might even say, a launchpad -
+for delving into the vast swathe of literature out there.</p>
+<h2 id="with-thanks">With Thanks</h2>
+<p>I would like to give special thanks to my Patreon supporters,
+Alejandro, Rafael, Fazal, Brian, Hector, Carol, and Eddie.
+With the new kid, switching roles, and more of life hitting me in the face,
+it&#39;s taken a bit of time for me to get this essay out,
+but I&#39;m finally glad to have it done!</p>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li>I wrote an essay on <a href="https://ericmjl.github.io/essays-on-data-science/machine-learning/message-passing/">how to efficiently represent message passing</a>.</li>
+<li>Others have also made attempts at explainin GNNs, including <a href="https://theaisummer.com/graph-convolutional-networks/">The AI Summer</a>.</li>
+<li>The <a href="https://github.com/GRAND-Lab/Awesome-Graph-Neural-Networks">Awesome GNN Repository</a>.</li>
+</ul>
+<p>(The literature is expanding way too quickly; it&#39;s going to be hard to keep up!)</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+
+      
+    </div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 04:12:23 +0000</pubDate>
+      <source>https://ericmjl.github.io/essays-on-data-science/machine-learning/graph-nets/</source>
+    </item>
+    <item>
+      <title>Airyx OS</title>
+      <link>http://airyx.org/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+    
+
+    <p>Airyx™ is a new open-source desktop operating system that aims to provide
+a similar experience and compatibiilty with macOS® on x86-64 sytems. It
+builds on the solid foundations of FreeBSD, existing open source packages in
+the same space, and new code to fill the gaps. Airyx aims to feel sleek,
+stable, familiar and intuitive, handle your daily tasks, and provide as much
+compatibility as possible with the commercial OS that inspired it.</p>
+
+    <p>Airyx puts system things mainly into <span>/System</span>,
+<span>/Library</span>, and <span>/usr</span>. The
+<span>/usr/local</span> tree is reserved for user additions (like
+FreeBSD packages). User home directories are appropriately under <span>/Users</span>, and each has a <span>~/Library</span>
+folder for <a href="https://developer.apple.com/documentation/appkit">Cocoa</a>
+apps to use. <span>Zsh</span> is the default system shell.</p>
+
+    <p>Properly packaged applications will typically live under <span>/Applications</span> or <span>~/Applications</span>
+and are built as a <span>.app</span> <a href="https://en.wikipedia.org/wiki/Bundle_(macOS)">Bundle</a> or as an 
+<a href="https://appimage.org/">AppImage</a>. Traditional
+Unix-like applications are installed into fixed directories as usual. Airyx
+provides an implementation of Cocoa (still incomplete) and modern Objective-C
+runtime installed into <span>/System/Library/Frameworks</span>.
+Compilers and linkers have been patched to support Frameworks, and the standard
+<span>-F</span> and <span>-framework</span> arguments
+work as expected.  Support for XCode project files is planned, but BSD-style
+Makefiles are available today to easily build <span>.app</span>
+and <span>.framework</span> Bundles. Swift is also on the
+roadmap.</p>
+
+    
+    <ul>
+      <li><span></span>  Global menu bar</li>
+      <li><span></span>  Consistent keyboard shortcuts and menus</li>
+      <li><span></span>  Drag and drop app install and uninstall - no package manager, no installers</li>
+      <li><span></span>  Source compatibility with Cocoa APIs</li>
+      <li><span></span>  Familiar commands like <span>launchctl</span> and <span>open</span>
+      </li><li><span></span>  Fluid and elegant design reminiscent of Aqua</li>
+      <li><span></span>  Stable, secure, performant</li>
+    </ul>
+
+    
+    <ul>
+      <li><span></span>  FreeBSD packages, ports, and applications</li>
+      <li><span></span>  Many Linux applications work in FreeBSD&#39;s emulation layer</li>
+      <li><span></span>  Open-source Cocoa applications may compile &amp; run with Airyx&#39;s Cocoa runtime (unless they need GNUstep extensions)</li>
+      <li><span></span>  Darwin &amp; macOS® binaries will <i>not</i> run on Airyx (yet)</li>
+    </ul>
+    
+
+    
+
+    <p>If this sounds like your dream system, please help us make it a reality!
+Hit us up via the social icons in the header or join <span>#airyx</span> on <a href="https://libera.chat/">Libera</a> IRC network.</p>
+
+    <p>A Developer Preview image of Airyx is <a href="https://github.com/mszoek/airyx/releases">currently available here</a>.
+It&#39;s open to everyone, but is mainly intended for developers helping build the
+system and is not ready for daily use yet. Running in a virtual machine is
+recommended, although it should work on any hardware supported by FreeBSD
+12.2 with at least 4GB RAM. (8GB is recommended.)</p>
+
+  </div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 01:11:58 +0000</pubDate>
+      <source>http://airyx.org/</source>
+    </item>
+    <item>
+      <title>Apple enabling client-side CSAM scanning on iPhone tomorrow</title>
+      <link>https://twitter.com/matthew_d_green/status/1423071186616000513</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="ScriptLoadFailure"><form action="" method="GET"><div dir="auto"><p><span>Something went wrong, but don’t fret — let’s give it another shot.</span></p></div></form></div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 01:39:22 +0000</pubDate>
+      <source>https://twitter.com/matthew_d_green/status/1423071186616000513</source>
+    </item>
+    <item>
+      <title>The Six Dumbest Ideas in Computer Security (2005)</title>
+      <link>http://www.ranum.com/security/computer_security/editorials/dumb/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+
+<p>There&#39;s lots of innovation going on in security - we&#39;re  inundated with a steady stream of new stuff and it all sounds like it works just great. Every couple of months I&#39;m invited to a new computer security conference, or I&#39;m asked to write a foreword for a new computer security book. And, thanks to the fact that it&#39;s a topic of public concern and a &#34;safe issue&#34; for politicians, we can expect a flood of computer security-related legislation from lawmakers. So: computer security is definitely still a &#34;hot topic.&#34; But why are we spending all this time and money and still having problems?</p>
+<p>Let me introduce you to the <em><strong>six dumbest ideas in computer security</strong></em>. What are they? They&#39;re the <em><strong>anti-</strong></em>good ideas. They&#39;re the braindamage that makes your $100,000 ASIC-based turbo-stateful packet-mulching firewall transparent to hackers. Where do <em><strong>anti-</strong></em>good ideas come from? They come from misguided attempts to do the impossible - which is another way of saying &#34;trying to ignore reality.&#34; Frequently those misguided attempts are sincere efforts by well-meaning people or companies who just don&#39;t fully understand the situation, but other times it&#39;s just a bunch of savvy entrepreneurs with a well-marketed piece of junk they&#39;re selling to make a fast buck. In either case, these dumb ideas are the fundamental reason(s) why all that money you spend on information security is going to be wasted, unless you somehow manage to avoid them. </p>
+<p>For your convenience, I&#39;ve listed the dumb ideas in descending order from the most-frequently-seen. If you can avoid falling into the the trap of the first three, you&#39;re among the few true computer security elite. </p>
+<h2>#1) Default Permit</h2>
+<blockquote>
+  <p>This dumb idea crops up in a lot of different forms; it&#39;s incredibly persistent and difficult to eradicate. Why? Because it&#39;s so attractive. Systems based on &#34;Default Permit&#34; are the computer security equivalent of empty calories: tasty, yet fattening.</p>
+  <p>The most recognizable form in which the &#34;Default Permit&#34; dumb idea manifests itself is in firewall rules. Back in the very early days of computer security, network managers would set up an internet connection and decide to secure it by turning off incoming telnet, incoming rlogin, and incoming FTP. Everything else was allowed through, hence the name &#34;Default Permit.&#34; This put the security practitioner in an endless arms-race with the hackers. Suppose a new vulnerability is found in a service that is not blocked - now the administrators need to decide whether to deny it or not, hopefully, before they got hacked. A lot of organizations adopted &#34;Default Permit&#34; in the early 1990&#39;s and convinced themselves it was OK because &#34;hackers will never bother to come after us.&#34; The 1990&#39;s, with the advent of worms, should have killed off &#34;Default Permit&#34; forever but it didn&#39;t. In fact, most networks today are still built around the notion of an open core with no segmentation. That&#39;s &#34;Default Permit.&#34;</p>
+  <p>Another place where &#34;Default Permit&#34; crops up is in how we typically approach code execution on our systems. The default is to permit anything on your machine to execute if you click on it, unless its execution is denied by something like an antivirus program or a spyware blocker. If you think about that for a few seconds, you&#39;ll realize what a dumb idea that is. On my computer here I run about 15 different applications on a regular basis. There are probably another 20 or 30 installed that I use every couple of months or so. I still don&#39;t understand why operating systems are so dumb that they let any old virus or piece of spyware execute without even asking me. That&#39;s &#34;Default Permit.&#34;</p>
+  <p>A few years ago I worked on analyzing a website&#39;s security posture as part of an E-banking security project. The website had a load-balancer in front of it, that was capable of re-vectoring traffic by URL, and my client wanted to use the load-balancer to deflect worms and hackers by re-vectoring attacks to a black hole address. Re-vectoring attacks would have meant adopting a policy of &#34;Default Permit&#34; (i.e.: if it&#39;s not a known attack, let it through) but instead I talked them into adopting the opposite approach. The load-balancer was configured to re-vector any traffic <strong><em>not</em></strong> matching a complete list of correctly-structured URLs to a server that serves up image data and 404 pages, which is running a special locked-down configuration. Not surprisingly, that site has withstood the test of time quite well.</p>
+  <p>One clear symptom that you&#39;ve got a case of &#34;Default Permit&#34; is when you find yourself in an arms race with the hackers. It means that you&#39;ve put yourself in a situation where what you don&#39;t know <em><strong>can</strong></em> hurt you, and you&#39;ll be doomed to playing keep ahead/catch-up.</p>
+  <p>The opposite of &#34;Default Permit&#34; is &#34;Default Deny&#34; and it is a <em><strong>really</strong></em> good idea. It takes  dedication, thought, and understanding to implement a &#34;Default Deny&#34; policy, which is why it is so seldom done. It&#39;s not that much harder to do than &#34;Default Permit&#34; but you&#39;ll sleep much better at night.</p>
+</blockquote>
+<h2>#2) Enumerating Badness</h2>
+<blockquote>
+  <p>Back in the early days of computer security, there were only a relatively small number of well-known security holes. That had a lot to do with the widespread adoption of &#34;Default Permit&#34; because, when there were only 15 well-known ways to hack into a network, it was possible to individually examine and think about those 15 attack vectors and block them. So security practitioners got into the habit of &#34;Enumerating Badness&#34; - listing all the bad things that we know about. Once you list all the badness, then you can put things in place to detect it, or block it.</p>
+  <p><strong>Figure 1: </strong>The &#34;Badness Gap&#34;</p>
+  <p>Why is &#34;Enumerating Badness&#34; a dumb idea? It&#39;s a dumb idea because sometime around 1992 the amount of Badness in the Internet began to vastly outweigh the amount of Goodness. For every harmless, legitimate, application, there are dozens or hundreds of pieces of malware, worm tests, exploits, or viral code. Examine a typical antivirus package and you&#39;ll see it knows about 75,000+ viruses that might infect your machine. Compare that to the legitimate 30 or so apps that I&#39;ve installed on my machine, and you can see it&#39;s rather dumb to try to track 75,000 pieces of Badness when even a simpleton could track 30 pieces of Goodness. In fact, if I were to simply track the 30 pieces of Goodness on my machine, and allow nothing else to run, I would have simultaneously solved the following problems:</p>
+</blockquote>
+<ul>
+  <li>Spyware</li>
+  <li>Viruses</li>
+  <li>Remote Control Trojans</li>
+  <li>Exploits that involve executing pre-installed code that you don&#39;t use regularly</li>
+</ul>
+<blockquote>
+  <p>Thanks to all the marketing hype around disclosing and announcing vulnerabilities, there are (according to some industry analysts) between 200 and 700 new pieces of Badness hitting the Internet every month. Not only is &#34;Enumerating Badness&#34; a dumb idea, it&#39;s gotten dumber during the few minutes of your time you&#39;ve bequeathed me by reading this article. </p>
+  <p>Now, your typical IT executive, when I discuss this concept with him or her, will stand up and say something like, &#34;That sounds great, but our enterprise network is <em>really</em> complicated. Knowing about all the different apps that we rely on would be impossible! What you&#39;re saying sounds reasonable until you think about it and realize how absurd it is!&#34; To which I respond, &#34;How can you call yourself a &#39;Chief Technology Officer&#39; if you have no idea what your technology is doing?&#34; A CTO isn&#39;t going to know detail about every application on the network, but if you haven&#39;t got a vague idea what&#39;s going on it&#39;s impossible to do capacity planning, disaster planning, security planning, or virtually any of the things in a CTO&#39;s charter.</p>
+  <p>In 1994 I wrote a firewall product that needed some system log analysis routines that would alert the administrator in case some kind of unexpected condition was detected. The first version used &#34;Enumerating Badness&#34; (I&#39;ve been dumb, too) but the second version used what I termed &#34;<a href="http://www.ranum.com/security/computer_security/papers/ai/index.html">Artificial Ignorance</a>&#34; - a process whereby you <em>throw away the log entries you know aren&#39;t interesting</em>. If there&#39;s anything left after you&#39;ve thrown away the stuff you know isn&#39;t interesting, then the leftovers <em>must</em> be interesting. This approach worked amazingly well, and detected a number of very interesting operational conditions and errors that it simply never would have occurred to me to look for. </p>
+  <p>&#34;Enumerating Badness&#34; is the idea behind a huge number of security products and systems, from anti-virus to intrusion detection, intrusion prevention, application security, and &#34;deep packet inspection&#34; firewalls. What these programs and devices do is<em> outsource</em> your process of knowing what&#39;s good. Instead of you taking the time to list the 30 or so legitimate things you need to do, it&#39;s easier to pay $29.95/year to someone else who will try to maintain an exhaustive list of all the evil in the world. Except, unfortunately, your badness expert will get $29.95/year for the antivirus list, another $29.95/year for the spyware list, and you&#39;ll buy a $19.95 &#34;personal firewall&#34; that has application control for network applications. By the time you&#39;re done paying other people to enumerate all the malware your system could come in contact with, you&#39;ll more than double the cost of your &#34;inexpensive&#34; desktop operating system.</p>
+  <p>One clear symptom that you have a case of &#34;Enumerating Badness&#34; is that you&#39;ve got a system or software that needs signature updates on a regular basis, or a system that lets past a new worm that it hasn&#39;t seen before. The cure for &#34;Enumerating Badness&#34; is, of course, &#34;Enumerating Goodness.&#34; Amazingly, there is virtually no support in operating systems for such software-level controls. I&#39;ve tried using Windows XP Pro&#39;s Program Execution Control but it&#39;s oriented toward &#34;Enumerating Badness&#34; and is, itself a dumb implementation of a dumb idea. </p>
+  <p>In a sense, &#34;Enumerating Badness&#34; is a special dumb-case of &#34;Default Permit&#34; - our #1 dumb computer security idea. But it&#39;s so prevalent that it&#39;s in a class by itself.</p>
+</blockquote>
+<h2>#3) Penetrate and Patch </h2>
+<blockquote>
+  <p>There&#39;s an old saying, &#34;You cannot make a silk purse out of a sow&#39;s ear.&#34; It&#39;s pretty much true, unless you wind up using so much silk to patch the sow&#39;s ear that eventually the sow&#39;s ear is completely replaced with silk. Unfortunately, when buggy software is fixed it is almost always fixed through the addition of new code, rather than the removal of old bits of sow&#39;s ear.</p>
+  <p>&#34;Penetrate and Patch&#34; is a dumb idea best expressed in the BASIC programming language:</p>
+  <pre>10 GOSUB LOOK_FOR_HOLES
+20 IF HOLE_FOUND = FALSE THEN GOTO 50</pre>
+  <p>In other words, you attack your firewall/software/website/whatever from the outside, identify a flaw in it, fix the flaw, and then go back to looking. One of my programmer buddies refers to this process as &#34;turd polishing&#34; because, as he says, it doesn&#39;t make your code any less smelly in the long run but management might enjoy its improved, shiny, appearance in the short term. In other words, the problem with &#34;Penetrate and Patch&#34; is not that it makes your code/implementation/system <em>better by design</em>, rather it merely makes it <em>toughened by trial and error</em>. Richard Feynman&#39;s &#34;<a href="http://www.ranum.com/security/computer_security/editorials/dumb/feynman.html">Personal Observations on the Reliability of the Space Shuttle</a>&#34; used to be required reading for the software engineers that I hired. It contains some profound thoughts on expectation of reliability and how it is achieved in complex systems. In a nutshell its meaning to programmers is: &#34;Unless your system was <em>supposed to be hackable </em> then it shouldn&#39;t be hackable.&#34;</p>
+  <p>&#34;Penetrate and Patch&#34; crops up all over the place, and is the primary dumb idea behind the current fad (which has been going on for about 10 years) of vulnerability disclosure and patch updates. The premise of the &#34;vulnerability researchers&#34; is that they are helping the community by finding holes in software and getting them fixed before the hackers find them and exploit them. The premise of the vendors is that they are doing the right thing by pushing out patches to fix the bugs before the hackers and worm-writers can act upon them. Both parties, in this scenario, are being dumb because if the vendors were writing code that had been designed to be secure and reliable then vulnerability discovery would be a tedious and unrewarding game, indeed!</p>
+  <p>Let me put it to you in different terms: <em><strong>if &#34;Penetrate and Patch&#34; was effective, we would have run out of security bugs in Internet Explorer by now</strong></em>. What has it been? 2 or 3 a month for 10 years? If you look at major internet applications you&#39;ll find that there are a number that consistently have problems with security vulnerabilities. There are also a handful, like PostFix, Qmail, etc, that were engineered to be compartmented against themselves, with modularized permissions and processing, and - not surprisingly - they have histories of amazingly few bugs. The same logic applies to &#34;penetration testing.&#34; There are networks that I know of which have been &#34;penetration tested&#34; any number of times and are continually getting hacked to pieces. That&#39;s because their design (or their security practices) are so fundamentally flawed that no amount of turd polish is going to keep the hackers out. It just keeps managers and auditors off of the network administrator&#39;s backs. I know other networks that it is, literally, pointless to &#34;penetration test&#34; because they were designed from the ground up to be permeable only in certain directions and only to certain traffic destined to carefully configured servers running carefully secured software. Running a &#34;penetration test&#34; for Apache bugs is completely pointless against a server that is running a custom piece of C code that is running in a locked-down portion of an embedded system. So, &#34;Penetrate and Patch&#34; is pointless either because you know you&#39;re going to find an endless litany of bugs, or because you know you&#39;re not going to find anything comprehensible. Pointless is dumb. </p>
+  <p>One clear symptom that you&#39;ve got a case of &#34;Penetrate and Patch &#34; is when you find that your system is always vulnerable to the &#34;bug of the week.&#34; It means that you&#39;ve put yourself in a situation where every time the hackers invent a new weapon, it works against you. Doesn&#39;t that sound dumb? Your software and systems should be <em>secure by design</em> and should have been <em>designed with flaw-handling in mind</em>.</p>
+</blockquote>
+<h2> #4) Hacking is Cool</h2>
+<blockquote>
+  <p>One of the best ways to get rid of cockroaches in your kitchen is to scatter bread-crumbs under the stove, right? Wrong! That&#39;s a dumb idea. One of the best ways to discourage hacking on the Internet is to give the hackers stock options, buy the books they write about their exploits, take classes on &#34;extreme hacking kung fu&#34; and pay them tens of thousands of dollars to do &#34;penetration tests&#34; against your systems, right? Wrong! &#34;Hacking is Cool&#34; is a really dumb idea.</p>
+  <p>Around the time I was learning to walk, Donn Parker was researching the behavioral aspects of hacking and computer security. He says it better than I ever could:</p>
+  <p>Hidden in Parker&#39;s observation is the awareness that <strong><em>hacking is a social problem</em></strong>. It&#39;s not a technology problem, at all. &#34;<em>Timid people could become criminals.</em>&#34; The Internet has given a whole new form of elbow-room to the badly socialized borderline personality. The #4th dumbest thing information security practitioners can do is implicitly encourage hackers by lionizing them. The media plays directly into this, by portraying hackers, variously, as &#34;whiz kids&#34; and &#34;brilliant technologists&#34; - of course if you&#39;re a reporter for CNN, anyone who can install Linux probably <em>does</em> qualify as a &#34;brilliant technologist&#34; to you. I find it interesting to compare societal reactions to hackers as &#34;whiz kids&#34; versus spammers as &#34;sleazy con artists.&#34; I&#39;m actually heartened to see that the spammers, phishers, and other scammers are adopting the hackers and the techniques of the hackers - this will do more to reverse society&#39;s view of hacking than any other thing we could do.</p>
+  <p>If you&#39;re a security practitioner, teaching yourself how to hack is also part of the &#34;Hacking is Cool&#34; dumb idea. Think about it for a couple of minutes: teaching yourself a bunch of exploits and how to use them means you&#39;re investing your time in learning a bunch of tools and techniques that are going to go stale as soon as everyone has patched that particular hole. It means you&#39;ve made part of your professional skill-set dependent on &#34;Penetrate and Patch&#34; and you&#39;re going to have to be part of the arms-race if you want that skill-set to remain relevant and up-to-date. Wouldn&#39;t it be more sensible to learn how to design security systems that are hack-proof than to learn how to identify security systems that are dumb? </p>
+  <p>My prediction is that the &#34;Hacking is Cool&#34; dumb idea will be a dead idea in the next 10 years. I&#39;d like to fantasize that it will be replaced with its opposite idea, &#34;Good Engineering is Cool&#34; but so far there is no sign that&#39;s likely to happen. </p>
+</blockquote>
+<h2>#5) Educating Users</h2>
+<blockquote>
+  <p>&#34;Penetrate and Patch&#34; can be applied to human beings, as well as software, in the form of user education. On the surface of things, the idea of &#34;Educating Users&#34; seems less than dumb: education is always good. On the other hand, like &#34;Penetrate and Patch&#34; <em><strong>if it was going to work, it would have worked by now</strong></em>. There have been numerous interesting studies that indicate that a significant percentage of users will trade their password for a candy bar, and the Anna Kournikova worm showed us that nearly 1/2 of humanity will click on anything purporting to contain nude pictures of semi-famous females. If &#34;Educating Users&#34; is the strategy you plan to embark upon, you should expect to have to &#34;patch&#34; your users every week. That&#39;s dumb. </p>
+  <p>The real question to ask is not &#34;can we educate our users to be better at security?&#34; it is &#34;why do we need to educate our users at all?&#34; In a sense, this is another special case of &#34;Default Permit&#34; - why are users getting executable attachments at all? Why are users expecting to get E-mails from banks where they don&#39;t have accounts? Most of the problems that are addressable through user education are self-correcting over time. As a younger generation of workers moves into the workforce, they will come pre-installed with a healthy skepticism about phishing and social engineering.</p>
+  <p>Dealing with things like attachments and phishing is another case of &#34;Default Permit&#34; - our favorite dumb idea. After all, if you&#39;re letting all of your users get attachments in their E-mail you&#39;re &#34;Default Permit&#34;ing anything that gets sent to them. A better idea might be to simply quarantine all attachments as they come into the enterprise, delete all the executables outright, and store the few file types you decide are acceptable on a staging server where users can log in with an SSL-enabled browser (requiring a password will quash a lot of worm propagation mechanisms right away) and pull them down. There are freeware tools like MIMEDefang that can be easily harnessed to strip attachments from incoming E-mails, write them to a per-user directory, and replace the attachment in the E-mail message with a URL to the stripped attachment. Why educate your users how to cope with a problem if you can just drive a stake through the problem&#39;s heart? </p>
+  <p>When I was CEO of a small computer security start-up we didn&#39;t have a Windows system administrator. All of the employees who wanted to run Windows had to know how to install it and manage it <em>themselves</em>, or they didn&#39;t get hired in the first place.   My prediction is that in 10 years users that need education will be out of the high-tech workforce entirely, or will be self-training at home in order to stay competitive in the job market. My guess is that this will extend to knowing not to open weird attachments from strangers.</p>
+</blockquote>
+<h2>#6) Action is Better Than Inaction </h2>
+<blockquote>
+  <p>IT executives seem to break down into two categories: the &#34;early adopters&#34; and the &#34;pause and thinkers.&#34; Over the course of my career, I&#39;ve noticed that <em>dramatically</em> fewer of the &#34;early adopters&#34; build successful, secure, mission-critical systems. This is because they somehow believe that &#34;Action is Better Than Inaction&#34; - i.e.: if there&#39;s a new whizzbang, it&#39;s better to install it <em>right now</em> than to wait, think about it, watch what happens to the other early adopters, and then deploy the technology once it&#39;s fully sorted-out and has had its first generation of experienced users. I know one senior IT executive - one of the &#34;pause and thinkers&#34; whose plan for doing a wireless roll-out for their corporate network was &#34;wait 2 years and hire a guy who did a successful wireless deployment for a company larger than us.&#34; Not only will the technology be more sorted-out by then, it&#39;ll be much, much cheaper. What an utterly brilliant strategy!</p>
+  <p>There&#39;s an important corollary to the &#34;Action is Better Than Inaction&#34; dumb idea, and it&#39;s that:</p>
+  <p>You can see the &#34;Action is Better Than Inaction&#34; dumb idea all over corporate networks and it tends to correlate with senior IT managers that make their product-purchasing decisions by reading Gartner research reports and product glossies from vendors. If you find yourself in the chain of command of such a manager, I sincerely hope you&#39;ve enjoyed this article because you&#39;re probably far better acquainted with dumbness than I am.</p>
+  <p>One extremely useful piece of management kung-fu to remember, if you find yourself up against an &#34;early adopter&#34; is to rely on your peers. Several years ago I had a client who was preparing to spend a ton of money on a technology <em>without testing it operationally</em>. I suggested offhandedly to the senior IT manager in charge that he should send one of his team to a relevant conference (in this case, <a href="http://www.usenix.org/events/lisa05" target="_blank">LISA</a>) where it was likely that someone with hands-on experience with the technology would be in attendance. I proposed that the manager have his employee put a message on the &#34;meet and greet&#34; bulletin board that read:</p>
+  <p>It really is easier to not do something dumb than it is to do something smart. The trick is, when you avoid doing something dumb, to make sure your superiors know you navigated around a particularly nasty sand-bar and that you get appropriate credit for being smart. Isn&#39;t that the ultimate expression of professional kung-fu? To get <strong><em>credit</em></strong> for <em><strong>not</strong></em> doing <em><strong>anything</strong></em>?!</p>
+</blockquote>
+<h2>The Minor Dumbs</h2>
+<p>These dumb ideas didn&#39;t quite merit status as &#34;The Dumb<em>est</em>&#34; ideas in computer security, but they&#39;re pretty dumb and deserve mention in passing:</p>
+<div> 
+  <ul>
+    <li>&#34;We&#39;re Not a Target&#34; - <em>yes, you are</em>. Worms aren&#39;t smart enough to realize that your web site/home network isn&#39;t interesting.</li>
+    <li>&#34;Everyone would be secure if they all just ran &lt;security-flavor-of-the-month&gt;&#34; - <em>no, they wouldn&#39;t</em>. Operating systems have security problems because they are complex and system administration is not a solved problem in computing. Until someone manages to solve system administration, switching to the flavor-of-the-month is going to be <em>more</em> damaging because you&#39;re making it harder for your system administrators to gain a level of expertise that only comes with time. </li>
+    <li>&#34;We don&#39;t need a firewall, we have good host security&#34; - <em>no, you don&#39;t</em>. If your network fabric is untrustworthy every single application that goes across the network is potentially a target. 3 words: Domain Naming System.</li>
+    <li>&#34;We don&#39;t need host security, we have a good firewall&#34; - <em>no, you don&#39;t</em>. If your firewall lets traffic through to hosts behind it, then you need to worry about the host security of those systems.</li>
+    <li>&#34;Let&#39;s go production with it now and we can secure it later&#34; - <em>no, you won&#39;t</em>. A better question to ask yourself is &#34;If we don&#39;t have time to do it correctly now, will we have time to do it over once it&#39;s broken?&#34; Sometimes, building a system that is in constant need of repair means you will spend years investing in turd polish because you were unwilling to spend days getting the job done right in the first place.</li>
+    <li>&#34;We can&#39;t stop the occasional problem&#34; - <em>yes, you can</em>. Would <em>you</em> travel on commercial airliners if you thought that the aviation industry took this approach with your life? I didn&#39;t think so. </li>
+  </ul>
+</div>
+<h2>Goodbye and Good Luck</h2>
+<p>I&#39;ve tried to keep this light-hearted, but my message is serious. Computer security is a field that has fallen far too deeply in love with the whizzbang-of-the-week and has forsaken common sense. Your job, as a security practitioner, is to question - if not outright challenge - the conventional wisdom and the status quo. After all, if the conventional wisdom was working, the rate of systems being compromised would be going <em><strong>down</strong></em>, wouldn&#39;t it?</p>
+<p><SPAN face="Arial, Helvetica, sans-serif">mjr.<br/>
+</SPAN><SPAN face="Arial, Helvetica, sans-serif" size="-2">Morrisdale, PA Sept 1, 2005<br/>
+</SPAN><SPAN size="-2" face="Arial, Helvetica, sans-serif">(A big &#34;thank you&#34; goes to Abe Singer and Tina Bird for contributing a couple dumb ideas, and to Paul Robertson and Fred Avolio for acting as the test choir) </SPAN></p>
+
+
+</div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 01:37:00 +0000</pubDate>
+      <source>http://www.ranum.com/security/computer_security/editorials/dumb/</source>
+    </item>
+    <item>
+      <title>SQLite Is Dynamically Typed (2020)</title>
+      <link>https://blog.zachwf.com/posts/sqlite-is-dynamically-typed/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div role="main">
+  <div>
+    <div>
+      <article role="main">
+        <p>A small, cool fact about SQLite is that its columns are flexibly typed. You can
+store any value in any column! Try it out:</p>
+<pre><code data-lang="sqlite3">sqlite&gt; create table t1 (v1 int, v2 varchar(10));
+sqlite&gt; insert into t1 values (&#34;abc&#34;, &#34;this string is longer than 10 characters!&#34;);
+sqlite&gt; select * from t1;
+abc|this string is longer than 10 characters!
+sqlite&gt; select typeof(v1), typeof(v2) from t1;
+text|text
+</code></pre><p>The null type is still special:</p>
+<pre><code data-lang="sqlite3">sqlite&gt; create table t1 (v1 int, v2 varchar(10) NOT NULL);
+sqlite&gt; insert into t1 values (&#34;abc&#34;, NULL);
+Error: NOT NULL constraint failed: t1.v2
+</code></pre><p>The longer story is that column definitions express a “type affinity” and SQLite
+will try to do implicit conversions to match type affinity e.g. converting
+strings of numeric characters to integers:</p>
+<pre><code data-lang="sqlite3">sqlite&gt; insert into t1 values(&#34;123&#34;, &#34;&#34;);
+sqlite&gt; select typeof(v1) from t1;
+integer
+</code></pre><p>Lots of databases support the type conversion behavior, but SQLite can’t do the
+conversion it powers through and writes the bytes anyways.</p>
+<p>I’d be curious to hear more about how this type system came to be. It seems
+trickier to implement, but potentially useful? And also potentially
+anti-useful? Are there users who totally eschew column types and actually rely
+on this behavior for correctness?</p>
+<p>As always, the insanely great SQLite docs have a <a href="https://sqlite.org/datatype3.html">lot more
+detail</a>.</p>
+
+
+        
+          
+        
+
+        
+            <hr/>
+            
+        
+
+        
+          
+            
+          
+
+          
+                  <h4>See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="https://blog.zachwf.com/posts/bug-and-fix/">A Bug and a Fix</a></li>
+                
+                    <li><a href="https://blog.zachwf.com/posts/geohash/">A Fast and Simple Geohash Decoder</a></li>
+                
+                    <li><a href="https://blog.zachwf.com/posts/code-readings-douglas-crockford/">Code Readings: Douglas Crockford&#39;s secret to software teams that punch above their weight</a></li>
+                
+                    <li><a href="https://blog.zachwf.com/posts/two-simple-pandas-recipes/">Two Simple Pandas Recipes</a></li>
+                
+                    <li><a href="https://blog.zachwf.com/posts/a-humble-alternative-to-technical-interviews/">A Humble Alternative to Technical Interviews</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        
+      
+
+
+      
+        
+          
+          
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 15:16:26 +0000</pubDate>
+      <source>https://blog.zachwf.com/posts/sqlite-is-dynamically-typed/</source>
+    </item>
+    <item>
+      <title>Facebook’s claims about the Ad Observer are wrong</title>
+      <link>https://blog.mozilla.org/en/mozilla/news/why-facebooks-claims-about-the-ad-observer-are-wrong/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___blog_mozilla_org_en_mozilla_news_why-facebooks-claims-about-the-ad-observer-are-wrong_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article id="post-66790">
+  
+
+  <div>
+    
+<p>Recently the Surgeon General of the United States <a href="https://www.hhs.gov/sites/default/files/surgeon-general-misinformation-advisory.pdf">weighed in</a> on the spread of disinformation on major platforms and its effects on people and society. He echoed the calls of researchers, activists and organizations, like Mozilla, for the major platforms to release <strong>more</strong> data, and to provide access to researchers in order to analyze the spread and impact of misinformation. </p>
+
+
+
+<p>Yet Facebook has again taken steps to shut down this exact kind of research on its platform, a troubling pattern we have witnessed from Facebook including sidelining their own <a href="https://www.nytimes.com/2021/07/14/technology/facebook-data.html">Crowdtangle</a> and killing a <a href="https://www.propublica.org/article/facebook-blocks-ad-transparency-tools">suite of tools</a> from Propublica and Mozilla in 2019.  </p>
+
+
+
+<p>Most recently, Facebook has <a href="https://knightcolumbia.org/content/researchers-nyu-knight-institute-condemn-facebooks-effort-to-squelch-independent-research-about-misinformation">terminated the accounts</a> of New York University researchers that built Ad Observer, an extension dedicated to bringing greater transparency to political advertising that was critical for researchers and journalists during the presidential election. </p>
+
+
+
+<p>Facebook claims the accounts were shut down due to privacy problems with the Ad Observer.  In our view, those claims simply do not hold water. We know this, because before encouraging users to contribute data to the Ad Observer, which we’ve done repeatedly, we reviewed the code ourselves. And in this blog post, we want to explain why we believe people can contribute to this important research without sacrificing their privacy.  </p>
+
+
+
+<p>Anytime you give your data to another party, whether Facebook or Mozilla or researchers at New York University, it is important that you know whether that party is trustworthy, what data will be collected, and what will be done with that data. Those are critical things to consider before you potentially grant access to your data. And those are also key factors for Mozilla when we consider recommending an extension. </p>
+
+
+
+<p>Before Mozilla decided to recommend Ad Observer, we reviewed it twice, conducting both a code review and examining the consent flow to ensure users will understand exactly what they are installing. In both cases the team responsible for this add-on responded quickly to our feedback, made changes to their code, and demonstrated a commitment to the privacy of their users. We also conducted an in-depth design review of Ad Observer, the results of which can be found <a href="https://bug1676407.bmoattachments.org/attachment.cgi?id=9187255">here</a>. </p>
+
+
+
+<p>We decided to recommend Ad Observer because our reviews assured us that it respects user privacy and supports transparency. It collects ads, targeting parameters and metadata associated with the ads.<strong> It does not collect personal posts or information about your friends. And it does not compile a user profile on its servers.</strong> The extension also allows you to see what data has been collected by visiting the “My Archive” tab. It gives you the choice to opt in to sharing additional demographic information to aid research into how specific groups are being targeted, but even that is off by default.</p>
+
+
+
+<p>You don’t have to take our word for it. Ad Observer is open source, so anybody can see <a href="https://github.com/OnlinePoliticalTransparency/social-media-collector">the code</a> and  confirm it is designed properly and doing what it purports to do.</p>
+
+
+
+<p>Of course, companies like Facebook need to be proactive about third-parties that might be collecting data on their platform and putting their users at risk. Figuring out what third-parties to allow under what circumstances is certainly not an easy task. But in this case, the application of its policy is counterproductive. This is why Mozilla makes <a href="https://blog.mozilla.org/security/2018/08/01/safe-harbor-for-security-bug-bounty-participants/">exceptions for good-faith security research</a> in our own products and why we have been supportive <a href="https://s3.amazonaws.com/kfai-documents/documents/d6ebc73dd9/Facebook_Letter.pdf">of</a> <a href="https://docs.google.com/forms/d/e/1FAIpQLScLcoINv_uMedadkMvp4ZUSLmayCLQZPKQcbiV1cnGXtpy_4Q/viewform">calls</a> for Facebook to create safe harbors for public-interest research. </p>
+
+
+
+<p>The truth is that major platforms continue to be a safe haven for disinformation and extremism — wreaking havoc on people, our elections and society. We actually launched <a href="https://rally.mozilla.org" target="_blank" rel="noreferrer noopener">Mozilla Rally</a> to take back control of research from unresponsive platforms like Facebook. Telling the truth about misinformation needs consent, clarity and community, and businesses built on people’s data shouldn’t be scared of telling us what that data is used for. We’ve also pushed the industry through the <a href="https://blog.mozilla.org/wp-content/uploads/2019/01/Mozilla-letter-to-EU-Commission-on-Facebook-transparency-31-01-19-1.pdf">EU’s Code of Practice on Disinformation,</a>  <a href="https://blog.mozilla.org/netpolicy/2021/05/27/advancing-system-level-change-with-ad-transparency-in-the-eu-dsa/">encouraged</a> the European Commission to mandate disclosure of all advertisements on major platforms and encouraged users to contribute their data to Ad Observer. We need tools like Ad Observer to help us shine a light on the darkest corners of the web. And rather than standing in the way of efforts to hold platforms accountable, we all need to work together to support and improve these tools.</p>
+  </div>
+
+</article></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 00:45:29 +0000</pubDate>
+      <source>https://blog.mozilla.org/en/mozilla/news/why-facebooks-claims-about-the-ad-observer-are-wrong/</source>
+    </item>
+    <item>
+      <title>2019 Global Health Security Index: Countries Ranked by Preparedness for Pandemic</title>
+      <link>https://www.ghsindex.org/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_ghsindex_org_/image.jpg" /> 
+<div id="readability-page-1" class="page"><p>
+1. Prevention: Prevention of the emergence or
+release of pathogens
+2. Detection and Reporting: Early detection and reporting for epidemics of potential international concern
+3. Rapid Response: Rapid response to and mitigation of the spread of an epidemic
+4. Health System: Sufficient and robust health system to treat the sick and protect health workers
+5. Compliance with international norms: Commitments to improving national capacity, financing plans to address gaps, and adhering to global norms
+6. Risk Environment: Overall risk environment and country vulnerability to biological threats.
+NOTE: All data are normalized to a scale of 0 to 100, where 100 = best health security conditions.
+</p><div id="main" role="main" tabindex="-1">
+
+
+
+<div>
+<div>
+
+
+
+<section id="l-section--welcome">
+
+<div>
+<div>
+
+<p><span>The GHS Index is the first comprehensive assessment of global health security capabilities in 195 countries. Read more <a href="https://www.ghsindex.org/about" rel="noopener">about</a> the Index and the <a href="https://www.ghsindex.org/about/#InternationalPanel" rel="noopener">international panel</a> that helped develop it, download the <a href="https://www.ghsindex.org/wp-content/uploads/2020/04/2019-Global-Health-Security-Index.pdf" rel="noopener">report</a> and <a href="https://www.ghsindex.org/wp-content/uploads/2019/10/Global-Health-Security-Index-2019-Final-October-2019.zip" rel="noopener">data model</a>, and watch our introductory <a href="https://www.ghsindex.org/about/" rel="noopener">video</a>.</span></p>
+
+</div>
+
+</div>
+</section>
+</div>
+
+<section id="l-section--map">
+
+
+</section>
+<div>
+<section>
+
+<div>
+<p>
+<h2>40.2</h2>
+</p>
+<div>
+<p>The average overall GHS Index score is 40.2 out of a possible 100. While high-income countries report an average score of 51.9, the Index shows that collectively, international preparedness for epidemics and pandemics remains very weak.
+</p>
+
+</div>
+</div>
+</section> </div>
+
+<div id="l-section--findingsect">
+
+<div>
+<div>
+<div>
+<h3>Findings and Recommendations</h3>
+<div>
+<div>
+<p>The GHS Index assesses countries’ health security and capabilities across six categories, 34 indicators, and 85 sub-indicators. The findings are drawn from open source information that answered 140 questions across the categories.</p>
+<p>The full report offers 33 recommendations to address the gaps identified by the index.</p>
+</div>
+<div>
+<div>
+<p>Open/Close</p>
+<ol>
+<li>
+
+<div><p><strong>Data Highlights:</strong></p>
+<ul>
+<li>40.2: average overall Global Health Security Index score of a possible score of 100</li>
+<li>116: high- and middle-income countries not scoring above 50</li>
+</ul>
+
+<ul>
+<li>National governments should commit to take action to address health security risks.</li>
+<li>Health security capacity in every country should be transparent and regularly measured, and results should be published at least once every two years.</li>
+<li>Leaders should improve coordination, especially linkages between security and public health authorities, in insecure environments.</li>
+<li>New financing mechanisms should be established to fill preparedness gaps, such as a new multilateral global health security matching fund; and expansion of World Bank International Development Association (IDA) allocations to include preparedness.</li>
+<li>The Office of the United Nations (UN) Secretary-General should designate a permanent facilitator or unit for high-consequence biological events.</li>
+<li>Countries should test their health security capacities and publish after-action reviews, at least annually.</li>
+<li>Governments and donors should take into account countries’ political and security risk factors when supporting health security capacity development.</li>
+<li>The UN Secretary-General should call a heads-of-state-level summit by 2021 on biological threats including a focus on financing and emergency response.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> <li>
+
+<div><p><strong>Data highlights:</strong></p>
+<ul>
+<li>81% of countries score in the bottom tier for indicators related to deliberate risks (biosecurity)</li>
+<li>66% score in the bottom tier for indicators related to accidental risks (biosafety).</li>
+<li>Fewer than 5% of countries provide oversight for dual-use research</li>
+<li>92% of countries do not show evidence of requiring security checks for personnel with access to dangerous biological materials or toxins</li>
+</ul>
+
+<ul>
+<li>Governments and international organizations should develop the capabilities to address fast-moving pandemic threats.</li>
+<li>Governments should include measurable biosecurity and biosafety benchmarks in national health security strategies and track progress on an annual basis.</li>
+<li>A dedicated international normative body should be developed to promote the early identification and reduction of biological risks associated with advances in technology.</li>
+<li>Public and private organizations should invest a percentage of their sustainable development and health security portfolios in the area of biosecurity.</li>
+<li>Funders and researchers should provide incentives to identify and reduce biological risks associated with advances in technology and should invest in technical innovations that can improve biosecurity.</li>
+<li>Leaders should prioritize the development of operational linkages between security and public health authorities for biological crises.</li>
+<li>Countries and international organizations should prioritize the development of national biosurveillance capabilities and a global biosurveillance architecture.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+
+</div>
+</li> <li>
+
+<div><p><strong>Data highlights:</strong></p>
+<ul>
+<li>85% show no evidence of having completed a biological threat–focused International Health Regulations (IHR) simulation exercise with the World Health Organization (WHO) in the past year</li>
+<li>Fewer than 5% show a requirement to test their emergency operations center at least annually</li>
+<li>77% do not demonstrate a capability to collect ongoing or real-time laboratory data</li>
+<li>24% show evidence of a nationwide specimen transport system</li>
+<li>89% do not demonstrate a system for dispensing medical countermeasures during a public health emergency</li>
+<li>19% demonstrate at least one trained field epidemiologist per 200,000 people</li>
+</ul>
+
+<ul>
+<li>Countries should test their health security capacities and publish after-action reviews, at least annually. By holding annual simulation exercises, countries will show commitment to a functioning system. By publishing after-action reviews, countries can transparently demonstrate that their response capabilities will function in a crisis and can identify areas for improvement.</li>
+<li>Health security financing, evaluations, and planning should prioritize functional capability and regular exercises.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> <li>
+
+<div><p><strong>Data Highlights:</strong></p>
+<ul>
+<li>5% score in the top tier for financing</li>
+<li>One country, Liberia, has published a description of specific funding from its national budget for gaps identified in existing assessments and/or national action plans</li>
+<li>10% show evidence of senior leaders’ commitment to improve local or global health security capacity</li>
+</ul>
+
+<ul>
+<li>Health security preparedness financing should be tracked by a specific, globally recognized entity and briefed annually to heads of state.</li>
+<li>Domestic financing for health security should be urgently increased, made transparent, and tied to benchmarks within national action plans.</li>
+<li>Decision makers should create new health security preparedness financing mechanisms that incentivize measurable improvements, such as a such as a new multilateral global health security matching fund, and expansion of IDA allocations to include preparedness.</li>
+<li>International leaders should examine the availability of financing to support rapid and complete outbreak response. The UN should track and publish outbreak-related costs and contributions.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> <li>
+
+<div><p><strong>Data Highlights:</strong></p>
+<ul>
+<li>Higher overall score: Countries with effective governance and political systems</li>
+<li>55% score in the bottom and middle tiers for political and security risks indicators</li>
+<li>15% score in the highest tier for public confidence in government</li>
+<li>23% score in the top tier for political system and government effectiveness, representing approximately 14% of the global population</li>
+</ul>
+
+<ul>
+<li>Plans should be developed to assist countries with challenging risk environments and to bolster preparedness in countries bordering those at increased risk.</li>
+<li>National governments and donors should assess political and security risk factors when making resources available to support capacity development.</li>
+<li>The UN Security Council should urgently convene a series of meetings aimed at the development of rapid response capabilities, strategies, workforce, and protections necessary for outbreaks that originate in or spread to countries with high political or security risks.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> <li>
+
+<div><p><strong>Data Highlights:</strong></p>
+<ul>
+<li>Lowest scoring category: for health systems, average score of 26.4; 131 countries in the bottom tier; weaknesses among even high-income countries</li>
+<li>27% demonstrate the existence of an updated health workforce strategy</li>
+<li>3% show a public commitment to prioritizing healthcare services for healthcare workers who become sick as a result of participating in a public health response</li>
+<li>Low scores: physician and nurse/midwife density per 100,000 population</li>
+<li>11% show plans to dispense medical countermeasures during health emergencies</li>
+</ul>
+
+<ul>
+<li>Decision makers should measure and take into account health system capabilities as an integral part of all health security planning, investments, and financing strategies.</li>
+<li>Leaders should take steps to build and maintain robust healthcare and public health workforces that play a major role in biological crises.</li>
+<li>National Action Plan for Health Security (NAPHS) should take into account specific benchmarks to improve and finance the overall health system and its workforce.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> <li>
+
+<div><p><strong>Data Highlights:</strong></p>
+<ul>
+<li>30% demonstrate existence of mechanisms for sharing data among relevant ministries for human, animal, and wildlife surveillance</li>
+<li>8% demonstrate a cross-ministerial unit dedicated to zoonotic disease</li>
+<li>51% offer field epidemiological training programs that explicitly include animal health professionals</li>
+<li>62% have not submitted a report to the World Organisation for Animal Health on the incidence of human cases of zoonotic diseases for the past calendar year</li>
+</ul>
+
+<ul>
+<li>National public and animal health authorities should coordinate during the development of NAPHS and should incorporate a One Health approach as part of pandemic planning and national disaster preparedness and response efforts.</li>
+<li>Countries should identify an agency and grant it authority to coordinate training and information sharing among human, animal, and environmental health professionals for outbreak preparedness and response.</li>
+<li>Decision makers should consider infectious disease risks when developing policies and plans related to climate change, land use, and urban planning.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> <li>
+
+<div><p><strong>Data Highlights:</strong></p>
+<ul>
+<li>&lt;50% have submitted Confidence-Building Measures for the Biological Weapons Convention (BWC) in the past 3 years</li>
+<li>30% score well for UN Security Council Resolution (UNSCR) 1540 implementation measures related to legal frameworks and enforcement for countering biological weapons</li>
+<li>5% have in place a publicly available plan or policy for sharing genetic data, clinical specimens, and/or isolated biological materials that extends beyond influenza</li>
+<li>31% do not show evidence of a cross-border agreement on public health emergency response</li>
+<li>45% have conducted and published a WHO Joint External Evaluation (JEE) or precursor evaluation</li>
+</ul>
+
+<p><strong>Recommendations:</strong></p>
+<ul>
+<li>Countries should regularly undergo and publish a WHO JEE to increase transparency around global health security capacities and capabilities.</li>
+<li>Countries should establish national and regional protocols for rapidly sharing genetic materials and specimens during public health emergencies.</li>
+<li>National health authorities should develop epidemic- and pandemic-specific preparedness and response strategies as part of routine disaster and broader national security planning efforts.</li>
+</ul>
+
+<p>Read more on the <a href="https://www.ghsindex.org/report-model/">Report &amp; Model</a> page.</p>
+</div>
+</li> </ol>
+</div> </div>
+</div>
+
+</div>
+</div></div>
+</div>
+<div>
+<section>
+
+<div>
+<p>
+<h2>75%</h2>
+</p>
+<div>
+<p>At least 75% of countries receive low scores on globally catastrophic biological risk-related indicators, the greatest vulnerability being oversight of dual-use research. </p>
+
+</div>
+</div>
+</section> </div>
+
+
+<section id="l-section--exploreindexsect">
+
+
+</section>
+<div>
+<section>
+
+<div>
+<div>
+<p>Although 86% of countries invest local or donor funds in health security, few countries pay for health security gap assessments and action plans out of national budgets. </p>
+
+</div>
+</div>
+</section> </div>
+
+<section id="l-section--countryranksect">
+
+<div>
+<div>
+<p>Country Ranking View of Index Results</p> 
+</div>
+</div>
+</section>
+<div id="actionsrecsect">
+<div id="l-section--actionsrecsect">
+<div>
+<h3>Actions and Resources</h3>
+<div>
+<p>Understanding existing resources is crucial to building collective action and accountability. Use these resources to take action to build stronger national and global health security.</p>
+<div>
+<h4>Featured Actions &amp; Resources</h4>
+<ul>
+<li>
+<a href="https://www.ghsindex.org/ar/the-world-health-organization-who-joint-external-evaluation-jee-tool/" target="">The World Health Organization (WHO) Joint External Evaluation (JEE) Tool</a>
+<p>Advocate for a public health assessment: Scores from the World Health Organization (WHO) Joint External Evaluation (JEE) reports and the GHS Index reflect different assessments of health security, and the two can be used together to create a more complete picture of global preparedness.</p></li>
+<li>
+<a href="https://www.ghsindex.org/ar/the-global-health-security-agenda/" target="">The Global Health Security Agenda</a>
+<p>Stimulate global health partnerships: The Global Health Security Agenda (GHSA) can be used alongside the specific evaluative information of the JEE assessments to provide insight on the state of global cooperation to improve infectious disease control. </p></li>
+<li>
+<a href="https://www.ghsindex.org/ar/global-catastrophic-biological-risks-toward-a-working-definition-the-johns-hopkins-center-for-health-security/" target="">Global Catastrophic Biological Risks: Toward a Working Definition (The Johns Hopkins Center for Health Security)</a>
+<p>Understand the threats: “Global Catastrophic Biological Risks: Toward a Working Definition,” an essay written by the Johns Hopkins Center for Health Security, provides context on how the GHS Index indicators establish measures that can be used to prevent and respond to potential global catastrophic biological risks (GCBRs).</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+ </div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 01:20:39 +0000</pubDate>
+      <source>https://www.ghsindex.org/</source>
+    </item>
+    <item>
+      <title>A list of tech companies with 4 day work weeks</title>
+      <link>https://4dayweek.io/blog/10-tech-companies-with-4-day-work-weeks-2021</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___4dayweek_io_blog_10-tech-companies-with-4-day-work-weeks-2021/image.jpg" /> 
+]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 01:23:08 +0000</pubDate>
+      <source>https://4dayweek.io/blog/10-tech-companies-with-4-day-work-weeks-2021</source>
+    </item>
+    <item>
+      <title>Xsolla fires 150 employees using analysis of chat and email activity</title>
+      <link>https://gameworldobserver.com/2021/08/04/xsolla-fires-150-employees-using-big-data-and-ai-analysis-ceos-letter-causes-controversy</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___gameworldobserver_com_2021_08_04_xsolla-fires-150-employees-using-big-data-and-ai-analysis-ceos-letter-causes-controversy/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+            <div>
+              
+              <h3>
+                <p><span>Published by</span>
+                  <span>04.08.2021 17:34</span>
+                </p>
+                <a href="https://gameworldobserver.com/author/evgeny-obedkov">
+                  Evgeny Obedkov                </a>
+              </h3>
+				
+<section>
+    <h3>Tags:</h3>
+    <ul>
+        <li><a href="https://gameworldobserver.com/tag/layoffs/">layoffs</a>,</li><li><a href="https://gameworldobserver.com/tag/russia/">Russia</a>,</li><li><a href="https://gameworldobserver.com/tag/xsolla/">Xsolla</a></li>    </ul>
+</section>
+            </div>
+          </div><p><span>Russian payment services company Xsolla has fired 150 employees at once. What caused controversy wasn’t the staff reduction itself but the CEO’s letter, in which he tried to explain the reason behind this decision.</span></p><div>
+			      <p><a href="https://gameworldobserver.com/wp-content/uploads/2021/08/xsolla-layoffs.png"></a></p>
+<p><span>The email written by Xsolla CEO and founder Aleksandr Agapitov leaked on August 3. At first, some people suspected that it could have been fake, but its authenticity was later confirmed by some local game outlets and the company itself.</span></p>
+<p><span>150 people were fired from the company’s office in Perm, Russia. Agapitov informed his employees that they were being let go via the letter saying that they have been terminated based on big data analysis of their activity.</span></p>
+<p><span>Here’s the full translation of the email:</span></p>
+<p><i><span>You received this email because my big data team analyzed your activities in Jira, Confluence, Gmail, chats, documents, dashboards and tagged you as unengaged and unproductive employees. In other words, you were not always present at the workplace when you worked remotely.</span></i></p>
+<p><i><span>Many of you might be shocked, but I truly believe that Xsolla is not for you. Nadia and her care team partnered with seven leading HR agencies, as we will help you find a good place, where you will earn more and work even less. Sasha will help you get a recommendation, including the one from myself. And Natalia will read you your rights.</span></i></p>
+<p><i><span>Once again, thank you for your contribution. If you want to stay in contact with me, please write me a long letter about all your observations, injustice, and gratitude.</span></i></p>
+<p><span>In the end of the letter, Agapitov also shared a “list of those expelled.”</span></p>
+<p><a href="https://gameworldobserver.com/wp-content/uploads/2021/08/xsolla-screen-letter.jpg"></a></p>
+<p><span>Agapitov later</span><a href="https://app2top.ru/industry/xsolla-uvolila-okolo-150-sotrudnikov-kompaniya-ottalkivalas-ot-analiza-ih-aktivnosti-v-rabochih-prilozheniyah-188953.html" target="_blank" rel="noopener"> <span>told App2Top.ru</span></a><span> that Xsolla sometimes has to take difficult and unpopular measures to keep growing and evolving. “We want all our employees to think daily about how their actions and decisions affect the company’s fate and success because we have very ambitious goals in the coming years; it is one of Xsolla’s values and it is reflected in everything — from operating standards to compensation system,” he said, adding that all employees will receive compensation packages and help from HR agencies.</span></p>
+<p><span>As a result, Xsolla faced backlash for what was perceived as secretly spying on its employees. Many people also criticized the letter’s tone.</span></p>
+<p><span>According to Russian HR expert</span><a href="https://www.facebook.com/alena.vladimirskaya/posts/10222434808431941" target="_blank" rel="noopener"> <span>Alyona Vladimirskaya</span></a><span>, using big data and AI in HR shouldn’t violate employees’ rights. “Measuring employees’ performance by their network time and engagement rather than by digitized work results is both outdated and extremely ineffective,” she said, also advising the dismissed employees to sue the company for its actions.</span></p>
+          </div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 02:10:42 +0000</pubDate>
+      <source>https://gameworldobserver.com/2021/08/04/xsolla-fires-150-employees-using-big-data-and-ai-analysis-ceos-letter-causes-controversy</source>
+    </item>
   </channel>
 </rss>
