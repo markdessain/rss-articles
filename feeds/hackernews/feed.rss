@@ -5760,5 +5760,214 @@ Elon Musk has changed the world in many ways. He is known for being the head of 
       <pubDate>Fri, 06 Aug 2021 17:37:59 +0000</pubDate>
       <source>https://www.thefuturist.co/how-elon-musk-and-his-companies-are-changing-the-future-of-mankind/</source>
     </item>
+    <item>
+      <title>Ticket Monkey</title>
+      <link>https://blog.alexrohde.com/archives/749</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><article id="post-749">
+	<!-- .entry-header -->
+
+	
+	
+	<div>
+					
+<p>tl; dr – I hypothesize the physical and emotional distance of ticketing systems reduces job satisfaction and propose solutions.</p>
+
+
+
+
+
+
+
+<p>Bear with me.</p>
+
+
+
+<p>I remember when I was a kid I knew how to code. I didn’t get as good grades as I could have, I didn’t shine in a few other ways, but despite this I knew I could do something special. I could build interesting things and I could fix problems.</p>
+
+
+
+<p>When it came to my first job I felt the same way. At the time I’d say I was still a bit “rough around the edges” but I could fix problems, sometimes hard ones, and that made me useful. It felt great to be needed using the one way I knew I was good at. There was nothing like somebody walking over to my desk to tell me about a problem that was making their lives hard, and to be able to fix it for them.</p>
+
+
+
+<p>Pretty soon though a number of more senior engineers started speaking up. “We can’t have interruptions like this. We need to be more structured. We need to track this work. We need to put to asks in JIRA.” I had the same reaction a lot of people do, which was “Why do we need to track this? Do we not trust everybody is working to the best of their ability?”. I got the usual answers about the importance of estimation, planning, etc, and didn’t entirely understand, but accepted.</p>
+
+
+
+<p>Years later, senior myself, I would insist – <em>every code change must have an associated ticket</em>. That isn’t to say I’m some kind of agile evangelist, but I certainly found ticketing systems indispensable, even for the smallest of teams. Somewhere along the way I had forgotten that I had ever felt otherwise.</p>
+
+
+
+<p>Next role I became the main SRE for a chaotic startup. Some people would hate it, but I <em>loved</em> it. The buzz and thrill and of a war-room was incomparable to the transactional feature development that would eventually lead to an A/B release that would then possibly lead to a small % improvement in a metric. I loved fixing things for other engineers who I saw in person, who were happy and impressed that I would fix their issue and improved the whole system to make the issue impossible in the future.</p>
+
+
+
+<p>What I loved wasn’t inherent to being an SRE itself. Though a high-stakes role, it can also be as isolating as any role. It can be waking up to an alarm at night to login in by oneself and fix an issue, file a ticket, and have nobody notice.</p>
+
+
+
+<p><strong>What I loved was face-to-face interaction and a shared emotional narrative. </strong></p>
+
+
+
+<p><strong>From another angle </strong>– when I go to whole foods and watch the cashier scan my overpriced items, I wonder what they think. Though small talk with strangers is far from a strength for me, I struggle anyways to connect in whatever small way I can. I don’t think I could force a joke and trust the timing to line up with the variable checkout time. I try to be nice without being stiffly polite. It may mean bagging my own groceries, or avoiding the instinct to stare at my phone. I can’t even say for sure that cashiers notice or like it. <strong>I simply presume that if I were in their shoes I wouldn’t want to feel like a machine.</strong></p>
+
+
+
+<h2>The Answer</h2>
+
+
+
+<p>Well first, the question: How do we reconcile our desire to feel individually noticed and human with the business needs of standardization? I think this question is the most important piece of this article. I’ll make a proposal or two, to get the ball rolling, but the topic is wide-open.</p>
+
+
+
+<ul><li>What if tickets are filed normally through jira, but then the filer must also come over to the desk of the person operating on the ticket and explain the issue face-to-face?</li><li>What if tickets are described in a way that stresses the emotional importance to the user of the feature?</li><li>What if end-user satisfaction and wishes, as captured by PMs who communicate with users, was shared with engineers?</li></ul>
+
+
+
+<p>How would you achieve it?</p>
+					</div><!-- .entry-content -->
+
+	<!-- .entry-footer -->
+</article></div>]]></content:encoded>
+      <pubDate>Wed, 04 Aug 2021 15:14:52 +0000</pubDate>
+      <source>https://blog.alexrohde.com/archives/749</source>
+    </item>
+    <item>
+      <title>Price increase on .com domain names starting September 1, 2021</title>
+      <link>https://news.gandi.net/en/2021/07/price-increase-on-com-domain-name-prices-starting-september-1-2021</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___news_gandi_net_en_2021_07_price-increase-on-com-domain-name-prices-starting-september-1-2021/image.jpg" /> 
+<div id="readability-page-1" class="page"><article id="post-88499">
+
+	
+
+	<div>
+		<p><strong>Verisign, the registry for .com, has notified Gandi of a price increase on the registration of .com domain names starting August 31, 2021 at 9:00 PM Pacific (September 1, 2021 at 4:00 UTC).</strong></p>
+<p>We are aware that this price increase may have a negative impact on you. Unfortunately, due to the increase in costs, Gandi has no option but to carry this price increase into our pricing. We encourage you to read<a href="https://news.gandi.net/en/2020/09/how-much-does-a-domain-cost-and-what-comes-with-it/" target="_blank" rel="noopener"> this article from our blog that outlines the real price of a domain name and what it includes</a>.</p>
+<h2>The price of .com at Gandi</h2>
+<p>Therefore, we’ll be carrying over this price increase in our pricing grid. You can find the new prices for new domain creations, renewals, transfers, and restorations of <strong>.com</strong> domain names <strong>starting August 31, 2021 at 9:00 PM Pacific</strong> (September 1, 2021 at 4:00 UTC) in Grid A.</p>
+<p><strong>.com </strong><a href="https://www.gandi.net/en-us/domain/tld/com">https://www.gandi.net/en-us/domain/tld/com</a></p>
+<ul>
+<li>Create: <span><strong>$16.59* </strong></span>(current price <strong>$15.50<span>*</span></strong>)</li>
+<li>Renewal: <span><strong>$16.59* </strong></span>(current price <strong>$15.50<span>*</span></strong>)</li>
+<li>Transfer: <span><strong>$13.38*</strong></span> (current price <strong>$12.50<span>*</span></strong>)</li>
+<li>Restore: <span><strong>$139.10* </strong></span>(current price <strong>$130.00<span>*</span></strong>)</li>
+</ul>
+<h2>More price increases to come on .com?</h2>
+<p>The domain name industry may see further price increases in <strong>.com</strong> domains in the coming years: besides this year’s price increase, Verisign has been permitted to increase .com prices up to 7% in 2022 and 2023 as well as between 2026 to 2029.</p>
+<p>We strongly encourage you to renew your domain names for the maximum renewal period <strong>before August 31, 2021</strong> in order to benefit from the current price for the longest time frame.</p>
+<p>If you’ve registered your domain name for 1 year, you can renew it for an additional 9 years.</p>
+
+		<p><span><span>Tagged in</span> <a href="https://news.gandi.net/en/tag/dot-com/">.com</a><a href="https://news.gandi.net/en/tag/domain-fr/">Nom de domaine</a></span>	</p></div>
+
+	
+
+</article><section>
+	<h2>You may be interested in the following articles</h2>
+	<div>
+		
+<article id="post-89268">
+
+	<div>
+		
+		<p></p><div>
+
+			
+
+			<h3><a href="https://news.gandi.net/en/2021/08/how-to-restore-a-domain-name-from-your-user-account/">How to restore a domain name from your user account</a></h3>
+			<p>If your domain name has passed the expiration date, there’s still a chance to restore it during the redemption period. In today’s video, we’re going to show you where you can find restorable domains and how to restore them from your user account.</p>
+
+					<div>
+			<p><span> by </span>			<span aria-hidden="true">-</span>
+			<span>Posted on <time datetime="2021-08-06T16:29:11+02:00">08.06.2021</time></span></p>			
+					</div>
+		
+		</div>
+
+	</div>
+
+</article><!-- #post-89268 -->
+<article id="post-88083">
+
+	<div>
+		
+		<p></p><div>
+
+			
+
+			<h3><a href="https://news.gandi.net/en/2021/08/live-your-best-life-with-our-special-sale-on-live-and-life-domains/">Live your best life with our special sale on .live and .life domains!</a></h3>
+			<p>.Live your best .life for only $3.99, starting July 31, 2021, at 3:00 PM Pacific (22:00 UTC) through December 31, 2021 at 2:59 PM Pacific (22:59 UTC).</p>
+
+					
+		
+		</div>
+
+	</div>
+
+</article><!-- #post-88083 -->
+<article id="post-71896">
+
+	<div>
+		
+		<p></p><div>
+
+			
+
+			<h3><a href="https://news.gandi.net/en/2020/12/price-increase-on-io-on-january-1-2021/">Price increase on .io on January 21, 2021</a></h3>
+			<p>The .io registry has notified that the registration price for .io domain names will be increasing starting January 1, 2021</p>
+
+					<div>
+			<p><span> by <span><a href="https://news.gandi.net/en/author/julie-pelloille/">Julie</a></span></span>			<span aria-hidden="true">-</span>
+			<span>Posted on <time datetime="2020-12-21T17:42:16+01:00">12.21.2020</time></span></p>			
+					</div>
+		
+		</div>
+
+	</div>
+
+</article><!-- #post-71896 -->
+<article id="post-76498">
+
+	<div>
+		
+		<p></p><div>
+
+			
+
+			<h3><a href="https://news.gandi.net/en/2021/05/taiwan-trademark-association-hosts-event-about-domain-brand-protection-mechanisms/">Taiwan Trademark Association hosts event about domain brand protection mechanisms</a></h3>
+			<p>The Taiwan Trademark Association organized an event about domain protection mechanisms for brand owners on May 5, 2021 in Taipei. </p>
+
+					
+		
+		</div>
+
+	</div>
+
+</article><!-- #post-76498 -->	</div>
+</section></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 18:35:46 +0000</pubDate>
+      <source>https://news.gandi.net/en/2021/07/price-increase-on-com-domain-name-prices-starting-september-1-2021</source>
+    </item>
+    <item>
+      <title>Atlantic Ocean currents weaken, signalling big weather changes: study</title>
+      <link>https://www.reuters.com/business/environment/atlantic-ocean-currents-weaken-signalling-big-weather-changes-study-2021-08-05/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_reuters_com_business_environment_atlantic-ocean-currents-weaken-signalling-big-weather-changes-study-2021-08-05_/image.jpg" /> 
+<div id="readability-page-1" class="page"><p id="primary-image-caption" data-testid="primary-image-caption">General view shows the Atlantic ocean near the road between Saint-Jean-De-Luz and Hendaye, in Socoa, France, February 2, 2019. REUTERS/Regis Duvignau</p><div><p data-testid="paragraph-0">LONDON, Aug 5 (Reuters) - The Atlantic Ocean&#39;s current system, an engine of the Northern Hemsiphere&#39;s climate, could be weakening to such an extent that it could soon bring big changes to the world&#39;s weather, a scientific study said on Thursday.</p><p data-testid="paragraph-1">The Atlantic Meridional Overturning Circulation (AMOC) is a large system of ocean currents which transports warm water from the tropics northwards into the North Atlantic.</p><p data-testid="paragraph-2">As the atmosphere warms due to increased greenhouse gas emissions, the surface ocean beneath retains more of heat. A potential collapse of the system could have severe consequences for the world&#39;s weather systems.</p><p data-testid="paragraph-3">Climate models have shown that the AMOC is at its weakest in more than a 1,000 years. However, it has not been known whether the weakening is due to a change in circulation or it is to do with the loss of stability.</p><p data-testid="paragraph-4">The study, published in the journal Nature Climate Change, said the difference is crucial.</p><p data-testid="paragraph-5">&#34;The loss of dynamical stability would imply that the AMOC has approached its critical threshold, beyond which a substantial and in practice likely irreversible transition to the weak mode could occur,&#34; said Niklas Boers at the Potstdam Insitute for Climate Impact Research and author of the study.</p><p data-testid="paragraph-6">By analysing the sea-surface temperature and salinity patterns of the Atlantic Ocean, the study said the weakening of the last century is likely to be associated with a loss of stability.</p><p data-testid="paragraph-7">&#34;The findings support the assessment that the AMOC decline is not just a fluctuation or a linear response to increasing temperatures but likely means the approaching of a critical threshold beyond which the circulation system could collapse,&#34; Boers said.</p><p data-testid="paragraph-8">If the AMOC collapsed, it would increase cooling of the Northern Hemisphere, sea level rise in the Atlantic, an overall fall in precipitation over Europe and North America and a shift in monsoons in South America and Afria, Britain&#39;s Met Office said.</p><p data-testid="paragraph-9">Other climate models have said the AMOC will weaken over the coming century but that a collapse before 2100 is unlikely.</p><p><span>Reporting by Nina Chestney; Editing by Angus MacSwan</span></p><p>Our Standards: <a href="https://www.thomsonreuters.com/en/about-us/trust-principles.html" target="_blank">The Thomson Reuters Trust Principles.</a></p></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 18:26:02 +0000</pubDate>
+      <source>https://www.reuters.com/business/environment/atlantic-ocean-currents-weaken-signalling-big-weather-changes-study-2021-08-05/</source>
+    </item>
+    <item>
+      <title>The CIA’s Outsourced Torture Is Lost to History</title>
+      <link>https://foreverwars.substack.com/p/the-cias-outsourced-torture-is-lost</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___foreverwars_substack_com_p_the-cias-outsourced-torture-is-lost/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><figure><a target="_blank" href="https://cdn.substack.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F06eff336-107a-4064-b840-8f0ff8d1a3a7_1024x683.jpeg"></a><figcaption>Artist Steve Powers&#39; installation &#34;Waterboard Thrill Ride&#34; at the Coney Island arcade, August 14, 2008. Mario Tama, via Getty.</figcaption></figure></div><p> <em>Edited by Sam Thielman </em></p><p><strong>DESPITE THE REDACTIONS</strong>, the pseudonyms, and the thousands of unreleased pages, the Senate intelligence committee’s report into post-9/11 CIA torture – that is, <a href="https://www.intelligence.senate.gov/sites/default/files/publications/CRPT-113srpt288.pdf">the executive summary available to the public</a> – is the most robust oversight ever conducted of any part of the War on Terror. The committee typically defends the agencies and activities it nominally oversees; remarkably, the torture investigation revealed the gruesome realities inside the CIA’s black sites. It demonstrated, with precision and rigor, how the CIA constructed a Big Lie, called “Enhanced Interrogation,” around its barbarism. </p><p>But the committee’s lead investigator says that he could only investigate two of the three components of the torture program. The third is lost to history. </p><p><strong>THE CIA CALLED THE PROGRAM RDI</strong>, for <em>Renditions, Detentions and Interrogations</em>. “Renditions” are outsourced torture: the CIA abducts someone and sends them to be abused either by their home country’s security apparatus; or, in the “extraordinary rendition” variant, by a third country’s security apparatus. “Detentions” were the maintenance, logistics and direct operations of the black sites where the CIA, not an allied intelligence service, imprisoned people. “Interrogations” were the torture the CIA inflicted. </p><p>Renditions were the kernel of the program. They were the only aspect of CIA torture in operation on 9/11. The entity within the CIA Counterterrorism Center that conducted it, the Renditions Group, expanded after 9/11 to become the RDI Group, or “<a href="https://www.govinfo.gov/content/pkg/CRPT-113srpt288/pdf/CRPT-113srpt288.pdf">RDG</a>.” One of the people involved in the Renditions Group from inception, Mike Scheuer, explained many years ago in an underappreciated <a href="https://www.youtube.com/watch?v=gxdb5nnRMrU">video</a>, “After 9/11, the CIA was the only game in town. The Bush White House pushed on the CIA to accelerate the rendition program.” (Scheuer has been on a <a href="https://www.thedailybeast.com/michael-scheuer-hunted-bin-laden-for-cia-now-he-wants-americans-dead">journey</a>.) </p><p>Yet we know vastly more about the <em>D</em> and the <em>I</em> than we know about the <em>R</em>. The Senate’s investigation solely concerned the CIA’s detentions and interrogations. Over the six years of the investigation, the CIA fought aggressively to restrict even that constrained mandate. It was not going to allow Senate investigators to <em>expand</em> their remit, according to Daniel J. Jones, the lead investigator. “<em>Everything</em> was a heavy lift,” Jones remembers.</p><p>And even if the agency somehow <em>had</em> allowed him to investigate renditions, Jones’ experience of digging through deliberately confusing and incomplete records that the CIA provided – and sometimes subsequently disappeared – leads him to the conclusion that the agency’s own renditions records are likely far from extensive. </p><p>“The [CIA’s detention and interrogation] records in 2002 are detailed. As the ‘DI’ program went on, we saw less and less robust record-keeping,” Jones recalls. “One could imagine that also applied to rendition.” </p><p>All three components of the program were tied together, and so occasionally Jones saw glimpses; suggestions and clues to what rendition was. But not only was rendition beyond the scope of his investigation, he already had to contend with the maddening and painstaking work of figuring out who was and was not in CIA custody, then figuring out how meaningful such distinctions were when it came both to internal classifications and the actual treatment of human beings. It was arduous.</p><p>Officially speaking, the Senate was able to tally <em>at least</em> 119 people whom the CIA held in the black sites during their 2002-2008 existence. “There’s a back-and-forth we had with the agency on who was a CIA detainee and who wasn’t. The committee, to arrive at 119, is extremely conservative. Everyone who was involved in this investigation believes there was more than 119 CIA detainees,” Jones explained. </p><p>“If the CIA doesn’t know how many people were in its own custody, it’s very unlikely there’s any record-keeping of people who were merely <em>transients</em>” – that is, briefly in CIA custody before being whisked to a partner intelligence service – “and those who <em>weren’t </em>in their custody. ...Tenet and every other [CIA] director said [the torture program] was the CIA’s central counterterrorism program at the time. Because it was a central program – and incredibly sensitive – it would be reasonable to think the CIA would maintain a robust classified record,” he continued. </p><p>“If, in fact, the ‘DI’ part was viewed as the central component of the War on Terror by the CIA, there’s no reason to believe they would hold better records with the rendition program.”</p><p><strong>TWO BROAD FACTS ABOUT CIA TORTURE</strong> make Jones’s supposition especially compelling.</p><p>First, the only reason the Senate intelligence committee investigated at all is that two leading figures inside the program, Jose Rodriguez and Gina Haspel, destroyed videotapes of the torture of two men inside the first post-9/11 black site – something that also sparked a <em>criminal</em> investigation. Once the Senate learned about the destruction of those tapes <a href="https://www.nytimes.com/2007/12/06/washington/06cnd-intel.html">from </a><em><a href="https://www.nytimes.com/2007/12/06/washington/06cnd-intel.html">The New York Times</a></em>, rather than from the CIA, the committee could no longer credibly refuse to open an investigation of its own. </p><p>Second, in most major speeches and testimony, CIA directors George Tenet, Porter Goss, and Michael Hayden repeatedly emphasized that their War on Terror is an international team sport. They did this so often that journalists rarely bothered quoting it; it seemed like boilerplate. It was often self-serving, as when they cited the importance of cooperation with allied intelligence services as a reason to never disclose what that cooperation <em>did</em>. But they’re correct that reliance on various <em>Mukhabarats</em> makes their war viable. “I cannot overstate how vital these relationships are to our overall effort,” Hayden <a href="https://www.cfr.org/event/conversation-michael-v-hayden-0">said</a> in one <a href="https://www.c-span.org/video/?200866-1/combatting-terrorism">typical September 2007</a> appearance.</p><p>The absence of renditions records, even to the Senate torture report, is no longer exactly <em>news</em>. I reported it in 2016 in this <a href="https://www.theguardian.com/us-news/2016/sep/09/cia-insider-daniel-jones-senate-torture-investigation">20,000-plus-word, three-part series for </a><em><a href="https://www.theguardian.com/us-news/2016/sep/09/cia-insider-daniel-jones-senate-torture-investigation">The Guardian</a></em>. But what has bothered me ever since is how little attention and care that absence has ever received. In the wake of our <a href="https://foreverwars.substack.com/p/say-their-names-05a">recent </a><em><a href="https://foreverwars.substack.com/p/say-their-names-05a">Forever Wars </a></em><a href="https://foreverwars.substack.com/p/say-their-names-05a">piece about naming the dead</a>, I’ve been thinking about that more and more – the enormous gap in our historical knowledge of renditions; the likelihood that if the Senate torture report couldn’t go there, then we’re probably <em>not going</em> to fill those gaps; and the fact that pretty much no one gives a shit. </p><p>The awful conclusion is that disappearances work. </p><p><strong>WE KNOW </strong><em><strong>SOME </strong></em><strong>THINGS ABOUT RENDITIONS.</strong> In particular, we know that <a href="https://www.theguardian.com/us-news/2016/mar/28/cia-photographed-naked-detainees">the CIA took bondage nudes</a> of bound prisoners at the point of transferring them. <em>That</em> was documentation of the renditions – presumably made to provide proof that someone who might ultimately die in a foreign torture chamber was alive when the CIA had them. </p><p>Human Rights Watch, in 2008, was able to document 14 people the CIA rendered to the Jordanians. One of them, Abu Hamza al-Tabuki, <a href="https://www.hrw.org/report/2008/04/07/double-jeopardy/cia-renditions-jordan#">recalled</a>: “from the first day, they began to interrogate me using the methods of terror and fear, torture and beating, insults and verbal abuse, and threatening to expose my private parts <em>and rape me</em>. I was repeatedly beaten, and insulted, along with my parents and family.” Those familiar with the history of torture, particularly in a context of war, will note how present <em>sexual </em>torture is within it. </p><p>When the U.S. helped overthrow Moammar Qaddafi in 2011, it inadvertently led to the <a href="https://www.hrw.org/sites/default/files/reports/triploidocs_appendix1.pdf">publication</a> of the files locked in the offices of Qaddafi’s internal-security apparatus. That ended up accidentally exposing what CIA-Libya cooperation looked like in practice. <a href="https://www.wired.com/2012/09/helping-gadhafi-torture/">It’s really not a pleasant read</a>. Neither is the <a href="https://www.theguardian.com/us-news/2016/apr/29/egyptian-cleric-defends-cia-agent-convicted-rendition-abu-omar">messy history</a> of the rendition of Abu Omar, whom the CIA abducted in Milan <em>after</em> Italy had granted him asylum. </p><p>In my 2016 <em>Guardian</em> piece, I reported that renditions were the “largest” part of RDI. Jones reminds me, helpfully, that “we don’t really actually know that.” </p><p>Fair enough. I was using a <a href="https://www.europarl.europa.eu/doceo/document/TA-6-2007-0032_EN.html?redirect">European Parliament investigation from 2007</a> that reported: “at least <em>1,245 flights</em> operated by the CIA flew into European airspace or stopped over at European airports between the end of 2001 and the end of 2005, to which should be added an unspecified number of military flights for the same purpose; ...on one hand, there may have been more CIA flights than those confirmed by the investigations carried out by the Temporary Committee, while, on the other, not all those flights have been used for extraordinary rendition.” </p><p>Note that last line. Note how the EU acknowledges the limits of its investigative visibility into European complicity. The EU investigators are able to document over 1,200 CIA flights to Europe over four years. They can’t say each flight was a renditions ferry, or that each flight equals a person rendered. They <em>can</em> say they are unable to answer the question, and as a fallback, offer their best evidence as a proxy for the scale of a program whose surface they can barely scratch, thanks to the obstinacy of several governments. </p><p>Hayden, in 2007, weaponized that uncertainty to discredit the EU. “The suggestion that even a substantial number of those 1,245 flights were carrying detainees is frankly absurd on its face,” he <a href="https://www.cfr.org/event/conversation-michael-v-hayden-0">scoffed</a>.</p><p>Except it’s not absurd at all. It is true that Hayden had exclusive access to whatever remained of the CIA record, so he could make assertions about the CIA torture program being “designed only for the most dangerous terrorists and those believed to have the most valuable information, such as knowledge of planned attacks” from a position of authority.</p><p>Unfortunately for Hayden, Scheuer, who said he “ran renditions” when he was at the Counterterrorism Center, accidentally contradicted him in 2008. </p><p>“Under Mr. Clinton we had focused on very senior al-Qaeda people,” Scheuer (who didn’t respond to a message seeking comment) recalled at an event at Berkeley that year. After 9/11, he told the audience, “the bar went down a little bit, and we began to pick other people up.” (This is around <a href="https://www.youtube.com/watch?v=gxdb5nnRMrU">minute 32:30 in this video</a>.) </p><p>Defenders of rendition, Hayden included, tend to describe rendition as lawful, complete with guarantees from other nations of humane treatment. Scheuer is a rare CIA official who acknowledges on record that that’s bullshit. “Under Mr. Clinton, we were to take them off the street and arrange for them to be returned to a government that wanted them for a judicial process,” he said at that event. </p><blockquote><p>We went back to the White House and said, “This was what we planned to do, do you want us to do it?” Yes, was the answer. “Well, we’re going to take them to countries where they’re wanted, but your State Department, every year, is going to say ‘that country is a human rights abuser,’ or its judicial processes are not what we want them to be.” And everybody kind of puckered up and said, “Ooh, that may be a problem. Can you get these countries to say ‘We will treat these rendered people according to our own laws?’” And we said, “Yeah, we’re pretty sure that country X will treat them according [to their own laws] – that won’t get you off the hook!” But that’s as far as it went. Now, President Clinton and [national security adviser Sandy] Berger said that they insisted on guarantees that these prisoners would be treated according to American standards or international law. Now, I was there. I ran the operations. That was never a requirement that I knew of. That&#39;s entirely a kind of after-the-fact defense of what was done.</p></blockquote><p>Hayden has a track record of lying. When Jones was able to examine the records of the CIA’s detentions and interrogations, he saw just how heavily Hayden and others in the CIA manipulated the truth. An entire annex of the Senate intelligence report debunks a fusillade of lies Hayden told about CIA torture <em>in just one day of testimony.</em> (Appendix 3, starting on <a href="https://www.intelligence.senate.gov/sites/default/files/publications/CRPT-113srpt288.pdf">page 462 of the report.</a>) And that’s not the end of it: see <em><a href="https://www.penguinrandomhouse.com/books/622555/reign-of-terror-by-spencer-ackerman/">Reign of Terror</a></em><a href="https://www.penguinrandomhouse.com/books/622555/reign-of-terror-by-spencer-ackerman/">, out on Tuesday</a>. (Also, I have a story about Hayden showing up at one of my band’s shows; I might write about that for subscribers, so please do subscribe.) </p><p>Scroll up in this piece to the quote from Jones about how there’s a “back-and-forth” over who the agency counts as detainees, prompting the Senate to act conservatively in tallying 119 men at the black sites. Hayden, in 2007, claimed the number of black-site prisoners was “fewer than 100.” All this is particularly glaring when reviewing Hayden’s assertion, in the same speech, that “the number of renditions is actually even a smaller number, mid-range two figures.” </p><p><strong>WHAT WE LACK</strong>, and what we will likely always lack, is a <em>systemic</em> understanding of the renditions, extraordinary and (<em>sighs</em>) “ordinary.” The Senate intelligence committee report emerged from a unique opportunity and set of historical circumstances. Neither will come again. Jones performed an extraordinary service for history. I don’t write any of this to fault <em>him</em> for being unable to unearth the rendition program – no one outside of the Church and Pike committees has done more to force <em>real</em> transparency out of the CIA. </p><p>“We had two options in a world of limited resources: to attempt to totally detail all the renditions; or to detail the ‘D and I’ in US custody,” Jones said. “It’s still the right call, but it makes the false assumption that Congress can only have the most minimal of investigative resources. In essence, we’ve decided to live in this world of limited oversight.” Damn. Sit with that quote a moment. </p><p>Jones is pointing to a consequence-free obliteration of truth. The mark on the victim’s body is torture’s true measurement, especially when we believe that every human being has inherent worth and dignity. The official denial that the mark was made, aggregated across an unknown number of people, is no longer a crime against them alone but a crime against history. One of the people directly involved in both the mark and the denial, <em>after both were known</em>, <a href="https://www.thedailybeast.com/she-should-be-in-jailrights-groups-rally-to-stop-torture-overseer-turned-trump-cia-pick-gina-haspel">rose to become CIA director</a>, to bipartisan acclaim. One of her <a href="https://www.thedailybeast.com/the-proxy-war-over-joe-biden-adviser-avril-haines">boosters</a> is, right now, the <a href="https://www.dni.gov/index.php/who-we-are/leadership/director-of-national-intelligence">Director of National Intelligence</a>. Another chairs the Senate intelligence committee. </p><p>“The oversight mechanisms and the executive branch have allowed both inappropriate and illegal behavior to happen without consequence,” said Jones. “There’s <em>never</em> any accountability. There is no leash. It’s just unclipped. In such a lax oversight environment, why would they think they need records?”</p></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 16:41:26 +0000</pubDate>
+      <source>https://foreverwars.substack.com/p/the-cias-outsourced-torture-is-lost</source>
+    </item>
   </channel>
 </rss>
