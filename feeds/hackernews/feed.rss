@@ -4660,5 +4660,700 @@ Peabody &amp; Davis          Expires 28 October 2021               [Page 27]
       <pubDate>Fri, 06 Aug 2021 15:39:17 +0000</pubDate>
       <source>https://www.zdnet.com/article/starlink-is-better-than-its-satellite-competition-but-not-as-fast-as-landline-internet/</source>
     </item>
+    <item>
+      <title>CalyxOS – De-Googled Android Alternative</title>
+      <link>https://calyxos.org/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="content">
+      <section>
+  <div>
+    
+    <p>Everyone needs a phone. Not everyone wants to be spied on. Reclaim your privacy with CalyxOS.</p>
+  </div>
+</section>
+
+      <section>
+  <p>CalyxOS is an Android mobile operating system that <span>puts privacy and security into the hands of everyday users</span>. Plus, proactive security recommendations and automatic updates take the guesswork out of keeping your personal data personal.</p>
+</section>
+
+      <section>
+        <h2>CalyxOS Features</h2>
+<div>
+  <div>
+    <h3>Own Your Conversations</h3>
+    <p>💬 Call, text, or video chat privately with <a href="https://www.signal.org" rel="noopener noreferrer nofollow" target="_blank">Signal</a>.</p>
+    <p>🔐 Encrypted communication is prioritized and encouraged in the OS.</p>
+  </div>
+  <p>
+  </p>
+</div>
+<div>
+  
+  <p>
+  </p>
+</div>
+<div>
+  <div>
+    <h3>Download Your Favorite Apps</h3>
+    <p>📲 Download all of your favorite apps from <a href="https://f-droid.org/" rel="noopener noreferrer nofollow" target="_blank">F-Droid</a> and <a href="https://f-droid.org/en/packages/com.aurora.store/" rel="noopener noreferrer nofollow" target="_blank">Aurora Store</a>.</p>
+    <p>✌️ <a href="https://calyxos.org/features/microg">microG</a> replaces some functions of Google Play Services while maintaining much more anonymity and privacy. Completely Optional.</p>
+  </div>
+  <p>
+  </p>
+</div>
+
+      </section>
+      <section>
+  <h2>Learn More</h2>
+  <div>
+    <div>
+      <p>
+      </p>
+      
+    </div>
+    <div>
+      <p>
+      </p>
+      <div>
+        <h3>About CalyxOS</h3>
+        <p>Why did we create CalyxOS?</p>
+        <p><a href="https://calyxos.org/about">Learn More</a>
+      </p></div>
+    </div>
+  </div>
+</section>
+
+      <section>
+  <p>👩‍🔬</p>
+  <h2>Recent Research</h2>
+  <div>
+    <div>
+      <h3>User Personas</h3>
+      <p><a href="https://www.linkedin.com/in/mayagninova/" rel="noopener noreferrer nofollow" target="_blank">Maya Ninova, Ph.D.</a>, 2021</p>
+      <p>We recently conducted a diary study and a set of user interviews and synthesized a baseline understanding of who our users are. Download the research report!</p>
+      <p><a href="https://calyxos.org/assets/docs/user-research/personas/calyxos-user-personas-2021.pdf">Download PDF</a>
+    </p></div>
+  </div>
+</section>
+
+      <section>
+  <p>📰</p>
+  <h2>Recent News</h2>
+      
+      <div>
+        <div>
+          <h3><a href="https://calyxos.org/news/2021/08/05/august-update/">August Security update</a></h3>
+          <p>2021-08-05</p>
+          <p>The August update is here. It’s mostly identical to the Special Pixel 4a release (2.7.1), with the only addition being the security updates.</p>
+
+        </div>
+      </div>
+      
+      <div>
+        <div>
+          <h3><a href="https://calyxos.org/news/2021/08/04/verifying-builds/">Verifying CalyxOS builds</a></h3>
+          <p>2021-08-04</p>
+          <p>The official CalyxOS builds are signed with our private keys.
+Over-the-air (OTA) updates are also signed with the same keys, and once you install the OS, only updates signed with the same key can be installed.</p>
+
+        </div>
+      </div>
+      
+      <div>
+        <div>
+          <h3><a href="https://calyxos.org/news/2021/07/21/minor-update-sunfish/">Minor update for Pixel 4a</a></h3>
+          <p>2021-07-21</p>
+          <p>A small update is now available for the Pixel 4a (sunfish).
+It mostly contains bugfixes.</p>
+
+        </div>
+      </div>
+      
+      <a href="https://calyxos.org/news">See more</a>
+</section>
+
+      <section>
+  <div>
+      <div>
+      
+          <h3>Become a Member</h3>
+      <p>CalyxOS is a collaborative open source applied research project sponsored by the Calyx Institute, a 501(c)(3) non-profit dedicated to making privacy and security available for all.</p>
+      <p><a role="button" href="https://members.calyxinstitute.org/enroll" rel="noopener noreferrer nofollow" target="_blank">Join Now</a>
+      </p></div>
+  </div>
+</section>
+
+    </div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 17:07:36 +0000</pubDate>
+      <source>https://calyxos.org/</source>
+    </item>
+    <item>
+      <title>Semver doesn&#39;t mean MAJOR.MINOR.PATCH, it means FAILS.FEATURES.BUGS</title>
+      <link>https://twitter.com/willmcgugan/status/1423678688802058244</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="ScriptLoadFailure"><form action="" method="GET"><div dir="auto"><p><span>Something went wrong, but don’t fret — let’s give it another shot.</span></p></div></form></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 16:20:40 +0000</pubDate>
+      <source>https://twitter.com/willmcgugan/status/1423678688802058244</source>
+    </item>
+    <item>
+      <title>Driving 1725km in an electric car in 2 days</title>
+      <link>https://www.tbray.org/ongoing/When/202x/2021/08/05/Western-Electric</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="centercontent">
+<p itemprop="description">At 6:30 PM on Wednesday August 4<sup>th</sup> my 15-year-old daughter and I pulled up the Jaguar I-Pace electric car
+    in front of my 91-year-old Mom’s place in Regina, Saskatchewan. I was tired and achey because I’d just finished driving 1,725km
+    (1,072 miles) across two days to see her for the first time since Covid started.  I was happy to see Mom, happy about the first road-trip in a
+    long time, and happy to have tested the hypothesis that, in 2021, a fully-electric vehicle can handle long-haul travel.</p>
+
+<p><a href="https://www.tbray.org/ongoing/When/202x/2021/08/05/-big/PXL_20210805_162748024.jpg.html"></a></p>
+<p>My Mom, welcoming us to Saskatchewan. Normally she doesn’t look like the queen.</p>
+<p>This essay gathers together the data from the trip and tries to draw
+    conclusions. There’s also a
+    <a href="https://twitter.com/timbray/status/1422578253835821058">real-time Twitter thread</a> with typos and bad pictures.</p>
+
+<p>To my non-metric readers: Sorry, it’s in km.  I’ll convert a few of the key numbers.</p>
+
+<p id="p-1"><span>The experience</span> · 
+It was pretty wonderful, actually.  The Jaguar is a comfortable modern car with great seats, good audio, and all the
+    automation you’d expect.  It has awesome, overwhelming acceleration power for when you’re in a tricky passing situation.
+    My daughter was excellent company.
+    Cruising along a good road<span> —</span> and a lot of the Trans-Canada highway
+    is<span> —</span> becomes a pretty pleasing experience.</p>
+
+<p>The worst part, by a wide margin, was the wildfire smoke, between us and some of the
+    world’s most fantastic scenery.  But that’s a symptom of the onrushing climate crisis, and one of the best things we can do to
+    mitigate the devastation is to stop burning fossil fuels to travel.</p>
+
+<p><a href="https://www.tbray.org/ongoing/When/202x/2021/08/05/-big/PXL_20210804_135917188.jpg.html"></a></p>
+<p>Smoky sun while charging in West Hills Mall, Calgary</p>
+<p>Of course, this road trip was different from any previous experience, because charging.  In a fossil car, you don’t have to think,
+    you just wait for the tank to get a half or three quarters down, then pull over at the next station.  Recharging requires
+    planning; fortunately the tools are pretty good; more on that below.</p>
+
+<p id="p-9"><span>The chargers</span> · 
+One reason I decided this experiment was worth trying was Petro-Canada’s message about their
+    <a href="https://www.petro-canada.ca/en/personal/fuel/canadas-electric-highway">Electric Highway</a> program, and I quote: “We
+    have a charger every 250 km or less from Halifax, N.S. to Victoria, B.C.” There’s one not far from where I live in Vancouver, i
+    tried it, and it worked first time with just a credit-card tap, no fuss no muss.</p>
+
+<p>Trouble is, that quote is kind of a lie. There are gaps, and that’s when all the chargers are working, which fairly regularly
+    they’re not. But my experience is that Petro-Can, while good, is never your only charging option.</p>
+
+<p>Some background is required here. “High-power” Fast DC chargers come at multiple power levels: I saw 50, 100, 200, and
+    350kW. The difference makes a difference.  Our Jag can only really charge at 100kW, but my personal perception is that the
+    higher-power chargers fill up that last 20% much faster.  And it feels complicated; for example, in my
+    experience with a Co-op Connect charger, rated at “only” 100kW, it felt faster.</p>
+
+<p>When you use these things, they feel like first-generation tech, pushing the edges of what’s possible (or at least
+    maintainable). In particular, when you plug a 350kW charger into a car with a really low battery, once it’s finished syncing and
+    starts pumping electrons, the sound torques up like a 747 taking off.  And the installations include multiple big tall metal
+    boxes (see the picture below).  Also, the huge big thick connecting wire gets super hot to the touch.</p>
+
+<p><a href="https://www.tbray.org/ongoing/When/202x/2021/08/05/-big/PXL_20210804_041820412.jpg.html"></a></p>
+<p>Charging can be glamorous!</p>
+<p>Anyhow, my impression of the Petro-Can network remains mostly positive. The machines work well.  It’s annoying that some are
+    100kW, some 200, and some 350, for no obvious reason. It’s annoying that sometimes they’re stuck into a weird grubby back corner of the
+    lot in a way that makes it hard to get your car in the right position to reach the charging port with the wire.  But, good on
+    ’em.</p>
+
+<p><a href="https://www.electrify-canada.ca">Electrify Canada</a> is another organization that’s promising a national network of
+    fast chargers. They’re a partner of Electrify America, constructed by Volkswagen as part of their settlement over cheating on
+    emissions testing. Anyhow, maybe they’ll be great some day. Once I was far enough into the trip to have Petro-Can fully worked
+    out, I tried to find an Electrify charger in working condition but failed.</p>
+
+<p>If you’re OK with using 50kW chargers there are loads and loads of options. Many smaller-town Visitor Centres and and
+    Chambers of Commerce put one in, as has my own electrical utility, BC Hydro.  Once you’ve worked with a higher-power charger
+    though, they’re just not a satisfying experience.</p>
+
+<p id="p-5"><span>The numbers</span> · 
+Each line in the table below represents one driving leg and includes the charging experience at the beginning of that leg (thus absent
+    on each day’s initial leg). I think the column headings are mostly pretty obvious, except perhaps
+    for:</p>
+
+<ol>
+<li><p><b>kWh/h</b> is the amount of juice divided by the driving pause. Often the charger would report less time, which I put down
+    to initialization delay, so I think I’m using the right value. The variation here is a little random, because how fast it goes
+    depends strongly on how empty your battery is.</p>
+</li>
+<li><p><b>km/ch</b> stands for “km per charge-hour”, estimating the amount of road range you
+    get per hour of charging. Which I think is a really important number.</p>
+</li>
+<li><p><b>Network</b>; “PC” is
+    <a href="https://www.petro-canada.ca/en/personal/fuel/canadas-electric-highway">Petro-Canada</a>, “Flo”
+    <a href="https://www.flo.com/en-CA/">isn’t an acronym</a>, and “Co-op” is
+    <a href="https://www.fuel.crs/more/electric">Co-op Connect</a>.</p>
+</li>
+</ol>
+<p>There are two data sources: The drive-time data is from Jaguar’s trip logging via their
+    <a href="https://incontrol.jaguar.com/">Incontrol</a> app; thus the awkwardness caused by non-charge roadside stops.
+    The charge-time data is the output from the various charging sessions along the way.  I’m
+    certain that neither is perfect, but the results seem intuitively in the right neighborhood, based on my experience.</p>
+
+<table>
+<tbody><tr>
+<th colspan="9">Charging,</th>
+<th colspan="7">then driving</th>
+</tr>
+<tr>
+<th>Start time</th>
+<th>End time</th>
+<th>Charge time</th>
+<th>kWh</th>
+<th>$</th>
+<th>$/kWh</th>
+<th>kWh/h</th>
+<th>km/ch</th>
+<th>Network</th>
+<th>Start</th>
+<th>End</th>
+<th>Drive time</th>
+<th>km</th>
+<th>Speed</th>
+<th>Regen</th>
+<th>kWh/100km</th>
+</tr>
+<tr>
+<td>6:26</td>
+<td>8:00</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>PC</td>
+<td>Vancouver</td>
+<td>Hope</td>
+<td>1:34</td>
+<td>149.5</td>
+<td>96</td>
+<td>1.6</td>
+<td>23.6</td>
+</tr>
+<tr>
+<td>8:46</td>
+<td>10:32</td>
+<td>0:46</td>
+<td>28.3</td>
+<td>10.37</td>
+<td>0.37</td>
+<td>36.91</td>
+<td>148.94</td>
+<td>PC</td>
+<td>Hope</td>
+<td>Kamloops</td>
+<td>1:46</td>
+<td>193.8</td>
+<td>112</td>
+<td>3.5</td>
+<td>26.7</td>
+</tr>
+<tr>
+<td>11:26</td>
+<td>12:46</td>
+<td>0:54</td>
+<td>55.8</td>
+<td>13.97</td>
+<td>0.25</td>
+<td>62.00</td>
+<td>250.17</td>
+<td>PC</td>
+<td>Kamloops</td>
+<td>Salmon Arm</td>
+<td>1:20</td>
+<td>113.8</td>
+<td>87</td>
+<td>3.3</td>
+<td>20.4</td>
+</tr>
+<tr>
+<td>13:32</td>
+<td>16:25</td>
+<td>0:46</td>
+<td>27.1</td>
+<td>9.53</td>
+<td>0.35</td>
+<td>35.35</td>
+<td>142.63</td>
+<td>PC</td>
+<td>Salmon Arm</td>
+<td>Golden</td>
+<td>2:53</td>
+<td>248.8</td>
+<td>88</td>
+<td>6.9</td>
+<td>22.4</td>
+</tr>
+<tr>
+<td>17:11</td>
+<td>17:25</td>
+<td>0:46</td>
+<td>48.8</td>
+<td>10.70</td>
+<td>0.22</td>
+<td>63.65</td>
+<td>256.83</td>
+<td>PC</td>
+<td>Golden</td>
+<td>(roadside)</td>
+<td>0:14</td>
+<td>18.1</td>
+<td>69</td>
+<td>1.0</td>
+<td>33.0</td>
+</tr>
+<tr>
+<td>17:25</td>
+<td>19:06</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(roadside)</td>
+<td>Canmore</td>
+<td>1:41</td>
+<td>146.0</td>
+<td>89</td>
+<td>1.9</td>
+<td>21.4</td>
+</tr>
+<tr>
+<td>5:49</td>
+<td>6:51</td>
+<td></td>
+<td>60.4</td>
+<td>21.20</td>
+<td>0.35</td>
+<td></td>
+<td></td>
+<td>PC</td>
+<td>Canmore</td>
+<td>Calgary</td>
+<td>1:02</td>
+<td>101.2</td>
+<td>96</td>
+<td>1.6</td>
+<td>23.9</td>
+</tr>
+<tr>
+<td>7:44</td>
+<td>9:51</td>
+<td>0:53</td>
+<td>22.3</td>
+<td>13.85</td>
+<td>0.62</td>
+<td>25.25</td>
+<td>101.86</td>
+<td>Flo</td>
+<td>Calgary</td>
+<td>(roadside)</td>
+<td>2:07</td>
+<td>221.8</td>
+<td>107</td>
+<td>2.7</td>
+<td>23.1</td>
+</tr>
+<tr>
+<td>10:03</td>
+<td>10:39</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(roadside)</td>
+<td>Medicine Hat</td>
+<td>0:36</td>
+<td>64.1</td>
+<td>108</td>
+<td>0.8</td>
+<td>23.9</td>
+</tr>
+<tr>
+<td>11:45</td>
+<td>13:56</td>
+<td>1:06</td>
+<td>72.5</td>
+<td>21.08</td>
+<td>0.29</td>
+<td>65.91</td>
+<td>265.94</td>
+<td>PC</td>
+<td>Medicine Hat</td>
+<td>Swift Current</td>
+<td>2:11</td>
+<td>230.0</td>
+<td>107</td>
+<td>1.4</td>
+<td>25.5</td>
+</tr>
+<tr>
+<td>14:50</td>
+<td>16:24</td>
+<td>0:54</td>
+<td>54.0</td>
+<td>14.28</td>
+<td>0.26</td>
+<td>60.00</td>
+<td>242.10</td>
+<td>PC</td>
+<td>Swift Current</td>
+<td>Moose Jaw</td>
+<td>1:34</td>
+<td>170.7</td>
+<td>110</td>
+<td>1.1</td>
+<td>25.6</td>
+</tr>
+<tr>
+<td>16:43</td>
+<td>17:27</td>
+<td>0:19</td>
+<td>23.0</td>
+<td>5.54</td>
+<td>0.24</td>
+<td>72.63</td>
+<td>293.07</td>
+<td>Co-op</td>
+<td>Moose Jaw</td>
+<td>Regina</td>
+<td>0:44</td>
+<td>67.1</td>
+<td>92</td>
+<td>0.8</td>
+<td>27.9</td>
+</tr>
+<tr>
+<th>Total</th>
+<th></th>
+<th>6:24</th>
+<th>392.20</th>
+<th>$120.52</th>
+<th>0.31</th>
+<th>66.18</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>17:42</th>
+<th>1724.9</th>
+<th></th>
+<th>26.6</th>
+<th></th>
+</tr>
+<tr>
+<th>Average</th>
+<th></th>
+<th>0:48</th>
+<th>43.6</th>
+<th>$13.39</th>
+<th></th>
+<th>52.7</th>
+<th>212.7</th>
+<th></th>
+<th></th>
+<th></th>
+<th>1:28</th>
+<th>143.74</th>
+<th>97.5</th>
+<th></th>
+<th>24.8</th>
+</tr>
+</tbody></table>
+<p>Let’s have a closer look at the numbers that seem interesting to me.</p>
+
+<p id="p-7"><span>Charge time</span> · 
+17:42 driving, 6:24 charging (including one evening charge after the day’s drive was finished).  Not that great on the face
+    of it. Now, it clearly could have been less; since my confidence 
+    that any given charger would Just Work started out weak, I was carefully allowing for failures and not running the battery
+    very low. Later on in the trip as I gained confidence (specifically in the Petro-Canada network) I was willing to take on things
+    like the Calgary-to-Medicine Hat leg, 2:43 and 285.9km, running the battery from 90% down to 11%.</p>
+
+<p>Also my daughter is after all a teen-ager, and perhaps not quite as quick as I moving through cafes
+    and restrooms and so on.</p>
+
+<p>Also note that the legs are kind of short; this car can go 400km on a charge. But not when you’re on a big wide modern
+    Prairie highway with almost no other traffic, blasting along at 110km/h (65mph) or more, continuously. I think you’d find this
+    true of pretty well every electric vehicle.</p>
+
+<p>But, here’s the thing: It didn’t <em>feel</em> excessive. I can only remember a total of maybe fifteen minutes when we were
+    consciously just hanging waiting for charge. Most places, we got a coffee or lunch, hit the bathroom, took a walk around the block
+    for our knees’ sake, and then it was time to unplug and go.</p>
+
+<p>Having said that, this is a 2019 model-year car and the charging technology is improving. If we’d had a
+    Porsche Taycan and nothing but 350kW chargers, the story would have been very different.  Will the fast-charging technology make the leap
+    into the mainstream-car price plane? Will 350kW chargers become ubiquitious? I’d like to know.</p>
+
+<p>In this context, there’s another number there that I think is really interesting: The “km/c-h”, how far you can get on an
+    hour’s charge. For this particular car on this selection of chargers, it was over 200km (124 miles) per charge-hour.  I think
+    that’s enough? Maybe in the lower regions of enough, but there.</p>
+
+<p>And finally, I suspect every driving-safety professional would beam in approval of a power system that forces you to get out
+    of the car and move around every couple of hundred km.</p>
+
+<p id="p-8"><span>$$$</span> · 
+It cost us $120.52 in electricity. Is that a lot or a little?  I tentatively think they’re undercharging. While the
+    electricity itself is pretty cheap, the charging infrastructure isn’t. If this is going to work, the charging networks are going
+    to have to make money and I don’t see it at these prices.</p>
+
+<p>Bear in mind that at home with the Level 2 charger in the carport, charging feels close to free. Travel maybe doesn’t need to be as
+    cheap as the networks are currently making it.</p>
+
+<p>Also, charging by the minute seems wrong. I guess having a time-based component makes sense to keep slow chargers from
+    soaking up all the time, but especially at an extra-high-powered charger, a Porsche Taycan is going to get a whole lot more
+    range out of each minute than a five-year-old Nissan Leaf, so why should they pay less for the same amount of range? Hmmmm.</p>
+
+<p id="p-2"><span>PlugShare</span> · 
+If you’ve got a Tesla there’s less planning, the cars know where the Superchargers are.  If you have anything else, you really need
+    <a href="https://www.plugshare.com/">PlugShare</a>.  There are a few apps in this space, but PlugShare is best at showing
+    you a map with all the chargers on it, and thus helping you route-plan.  The reason it works is because it’s social; whenever
+    you hit a charging station you can “Check In” and leave a note saying whether it’s working and how fast it goes.  This
+    dramatically reduces the risk of rolling up to a station and finding it broken.     I absolutely
+    don’t think this journey would have been possible without it. </p>
+
+<p>Pro tip: When you’re planning a trip on PlugShare, put in <em>all</em> the chargers you might be able to use as you go along. Then
+    when you’re driving, you can look at your remaining range and your upcoming options and most choices become pretty easy.  It’s
+    got a limited but decent Android Auto app that I used a lot. (I assume CarPlay too?)</p>
+
+<p><a href="https://www.tbray.org/ongoing/When/202x/2021/08/05/-big/PXL_20210803_154006840.jpg.html"></a></p>
+<p>Jaguar I-Pace and
+    <a href="https://en.wikipedia.org/wiki/Ford_Mustang_Mach-E">Mustang Mach-E</a> charging up in Hope, BC.</p>
+<p id="p-6"><span>Futures</span> · 
+A question: Are there enough chargers, or too many?  At the moment, the answer is probably “too many”. One of the things I really
+    worried about was limping into some charging station to find all the chargers occupied and having to wait for an hour
+    before I could even start.  The picture above shows the only time I saw other humans; a young couple with a
+    four-day-old Mustang Mach-E, off for a joyride to Kamloops.  Otherwise, the chargers we visited showed no signs of
+    life. Somebody spent a lot of money to build an expensive resource that is today largely un-used.</p>
+
+<p>Having said that, anyone with even a shred of optimism about our future has to believe there are going to be a whole lot more
+    battery-electric cars coming. Here in BC at the west edge of Canada we have
+    <a href="https://vancouversun.com/news/local-news/b-c-tops-north-america-for-electric-vehicle-sales-in-2020-says-minister">North
+    America’s highest EV uptake</a>, pushing 10% of new car sales.</p>
+
+<p>When we were charging at the big Petro-Can station in Kamloops, walking from the the two well-positioned chargers to the
+    coffee shop, we went by the gas-sales part, which was <em>massive</em>, at least a dozen pumps and cars lined up for every
+    one.</p>
+
+<p>At some point that picture will flip, and there’ll be occasional vendors that still sell gas, but mostly just 
+    slick, fast, chargers.  I worry that the process will be kind of painful, but I’m sure it’ll happen. So I hope someone’s
+    planning the transition.</p>
+
+<p id="p-10"><span>Would you do it again?</span> · 
+Definitely.</p>
+
+<p>And everyone should stop driving fossil vehicles starting now. Because the climate crisis is upon us. We can’t prevent it now, but we can save
+    lives and reduce destruction if we slash carbon output. There’s no excuse not to.</p>
+
+<hr/>
+
+
+<hr/>
+
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 15:53:06 +0000</pubDate>
+      <source>https://www.tbray.org/ongoing/When/202x/2021/08/05/Western-Electric</source>
+    </item>
+    <item>
+      <title>Show HN: Open-source A/B Testing framework</title>
+      <link>https://github.com/growthbook/growthbook</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text"><p><a href="https://www.growthbook.io" rel="nofollow"></a></p>
+<p><b>The Open Source A/B Testing Platform</b></p>
+<p>
+    <a href="https://github.com/growthbook/growthbook/actions/workflows/ci.yml"></a>
+    <a href="https://github.com/growthbook/growthbook/blob/main/LICENSE"></a>
+    <a href="https://github.com/growthbook/growthbook/releases"></a>
+    <a href="https://join.slack.com/t/growthbookusers/shared_invite/zt-oiq9s1qd-dHHvw4xjpnoRV1QQrq6vUg" rel="nofollow"></a>
+</p>
+<p>Get up and running in 1 minute with:</p>
+<div data-snippet-clipboard-copy-content="git clone https://github.com/growthbook/growthbook.git
+cd growthbook
+docker-compose up -d
+"><pre>git clone https://github.com/growthbook/growthbook.git
+<span>cd</span> growthbook
+docker-compose up -d</pre></div>
+<p>Then visit <a href="http://localhost:3000" rel="nofollow">http://localhost:3000</a></p>
+<p><a href="https://www.growthbook.io" rel="nofollow"></a></p>
+<h2><a id="user-content-our-philosophy" aria-hidden="true" href="#our-philosophy"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Our Philosophy</h2>
+<p>The top 1% of companies spend thousands of hours building their own A/B testing platforms in-house.
+The other 99% are left paying for expensive 3rd party SaaS tools or hacking together unmaintained open source libraries.</p>
+<p>Growth Book gives you the flexibility and power of a fully-featured in-house A/B testing platform without needing to build it yourself.</p>
+<h2><a id="user-content-major-features" aria-hidden="true" href="#major-features"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Major Features</h2>
+<ul>
+<li><g-emoji alias="snowflake" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2744.png">❄️</g-emoji> Pull data from Snowflake, Redshift, BigQuery, Mixpanel, Google Analytics, <a href="https://docs.growthbook.io/app/datasources" rel="nofollow">and more</a></li>
+<li><g-emoji alias="ab" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f18e.png">🆎</g-emoji> Bayesian statistics engine with support for binomial, count, duration, and revenue metrics</li>
+<li><g-emoji alias="arrow_down" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2b07.png">⬇️</g-emoji> Drill down into A/B test results by browser, country, or any other attribute</li>
+<li><g-emoji alias="computer" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4bb.png">💻</g-emoji> Client libraries for <a href="https://github.com/growthbook/growthbook-react">React</a>, <a href="https://github.com/growthbook/growthbook-js">Javascript</a>, <a href="https://github.com/growthbook/growthbook-php">PHP</a>, <a href="https://github.com/growthbook/growthbook-ruby">Ruby</a>, and <a href="https://github.com/growthbook/growthbook-python">Python</a> with more coming soon</li>
+<li><g-emoji alias="eye" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f441.png">👁️</g-emoji> <a href="https://docs.growthbook.io/app/visual" rel="nofollow">Visual Editor</a> for non-technical users to create experiments <em>(beta)</em></li>
+<li><g-emoji alias="memo" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4dd.png">📝</g-emoji> Document experiments with screenshots and GitHub Flavored Markdown</li>
+<li><g-emoji alias="bell" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f514.png">🔔</g-emoji> Automated email alerts when tests become significant</li>
+<li><g-emoji alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji> Lightweight idea board and objective prioritization framework</li>
+</ul>
+<h2><a id="user-content-try-growth-book" aria-hidden="true" href="#try-growth-book"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Try Growth Book</h2>
+<h3><a id="user-content-managed-cloud-hosting" aria-hidden="true" href="#managed-cloud-hosting"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Managed Cloud Hosting</h3>
+<p>Create a free <a href="https://app.growthbook.io" rel="nofollow">Growth Book Cloud</a> account to get started.</p>
+<h3><a id="user-content-open-source" aria-hidden="true" href="#open-source"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Open Source</h3>
+<p>The included <a href="https://github.com/growthbook/growthbook/blob/main/docker-compose.yml">docker-compose.yml</a> file contains the Growth Book App and a MongoDB instance (for storing cached experiment results and metadata):</p>
+<div data-snippet-clipboard-copy-content="git clone https://github.com/growthbook/growthbook.git
+cd growthbook
+docker-compose up -d
+"><pre>git clone https://github.com/growthbook/growthbook.git
+<span>cd</span> growthbook
+docker-compose up -d</pre></div>
+<p>Then visit <a href="http://localhost:3000" rel="nofollow">http://localhost:3000</a> to view the app.</p>
+<p>Check out the full <a href="https://docs.growthbook.io/self-host" rel="nofollow">Self-Hosting Instructions</a> for more details.</p>
+<h2><a id="user-content-documentation-and-support" aria-hidden="true" href="#documentation-and-support"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Documentation and Support</h2>
+<p>View the <a href="https://docs.growthbook.io" rel="nofollow">Growth Book Docs</a> for info on how to configure and use the platform.</p>
+<p>Join <a href="https://join.slack.com/t/growthbookusers/shared_invite/zt-oiq9s1qd-dHHvw4xjpnoRV1QQrq6vUg" rel="nofollow">our Slack community</a> if you get stuck, want to chat, or are thinking of a new feature.</p>
+<p>Or email us at <a href="mailto:hello@growthbook.io">hello@growthbook.io</a> if Slack isn&#39;t your thing.</p>
+<p>We&#39;re here to help - and to make Growth Book even better!</p>
+<h2><a id="user-content-contributors" aria-hidden="true" href="#contributors"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Contributors</h2>
+<p>We <g-emoji alias="heart" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png">❤️</g-emoji> all contributions, big and small!</p>
+<p>Read <a href="https://github.com/growthbook/growthbook/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for how to setup your local development environment.</p>
+<p>If you want to, you can reach out via <a href="https://join.slack.com/t/growthbookusers/shared_invite/zt-oiq9s1qd-dHHvw4xjpnoRV1QQrq6vUg" rel="nofollow">Slack</a> or <a href="mailto:hello@growthbook.io">email</a> and we&#39;ll set up a pair programming session to get you started.</p>
+<h2><a id="user-content-license" aria-hidden="true" href="#license"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>License</h2>
+<p>This project uses the MIT license. The core Growth Book app will always remain open and free, although we may add some commercial enterprise add-ons in the future.</p>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 15:53:24 +0000</pubDate>
+      <source>https://github.com/growthbook/growthbook</source>
+    </item>
+    <item>
+      <title>ReadMe (YC W15) is hiring a Product Marketer who loves developers</title>
+      <link>https://readme.com/careers#product-marketing-manager</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___readme_com_careers#product-marketing-manager/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="__next"><div><div><div><div><p><a href="https://readme.com/"></a></p></div></div></div><section><div><p>You want to do work that matters. On a product people care about. Preferably with friends.</p><p>At ReadMe, you’ll have the autonomy to own your work, the flexibility to be your most effective, and the freedom to learn from mistakes.</p><p>We’re a startup. There&#39;s a lot to be done. But if you want to work with meaning and balance, you’ll love it here.</p><div><figure><figcaption><p>Kirby Carpenito</p><p>Codenames fiend</p></figcaption></figure><figure><figcaption><p>Ladies of ReadMe</p><p>Circa Feb. 2020 (There are more of us now!)</p></figcaption></figure><figure><figcaption><p>Gregory Koberger</p><p>Known to pretend to enjoy raisins</p></figcaption></figure><figure><figcaption><p>Kanad Gupta</p><p>Pisces Sun, Aries Moon, Leo Rising</p></figcaption></figure></div><div><div><p></p><div><p>You!</p><p>(Turn on your camera)</p></div></div></div></div><svg height="857" preserveAspectRatio="none" viewBox="0 0 1440 857" width="1440" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M1495.43 20.0448C1158.5 -23.0351 892.413 4.66835 697.166 103.155C501.92 201.641 236.035 226.414 -100.489 177.472L-137.807 714.709L1446.05 730.963L1495.43 20.0438L1495.43 20.0448Z" fill-rule="evenodd"></path><path d="M1440 58.4951C1131.17 25.997 891.171 50.959 720 133.38C548.829 215.802 308.829 238.358 6.55629e-05 201.048L0 951L1440 951L1440 58.4951Z" fill="white"></path></svg></section><section><div><p>A tight-knit team of engineers, marketers, customer success reps and all-around good folks building a tool that over 4,000 companies use daily.</p><p>Our office is in San Francisco; our clients are everywhere.</p><p>And because we’re a small team with tons of great customers, your impact here will be nothing short of huge.</p></div><div><section><p></p></section><section><p></p></section></div></section><section><svg fill="none" viewBox="0 0 1796 200" xmlns="http://www.w3.org/2000/svg"><path d="M0.000152588 102.231C0.000152588 102.231 415.75 291.796 924.681 118.372C1433.61 -55.0534 1795.74 95.8896 1795.74 95.8896V3095.67L9.15527e-05 3061.66L0.000152588 102.231Z" fill="white"></path></svg><div><figure><video autoplay="" controls="" loading="lazy" muted="" src="/static/img/careers/nests/nests-sf.mp4"><track default="" kind="captions" src="/static/img/careers/nests/nests-sf.vtt" srclang="en"/></video><figcaption><address><p>Mary Hoffbeck</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path></svg></address><p>Our Nest in San Francisco</p><p>🔈 Sound on! Mary gives an office tour of our HQ.</p><section><p></p></section><section><p></p></section></figcaption></figure><figure><video autoplay="" controls="" loading="lazy" muted="" src="/static/img/careers/nests/nests-columbus.mp4"></video><figcaption><address><p>Nataliya Petriv</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path></svg></address><p>The Columbus Nest</p><p>Nataliya walks us through our other, more eastern, HQ.</p><section><p></p></section><section><p></p></section></figcaption></figure></div></section><section><div><p>Most documentation is hideous, chronically outdated, and hard to manage. Most companies have no clue how their APIs are used.</p><p>We’re fixing that by making documentation and API logging simple, beautiful, and easy for everyone.</p><p>So companies can build stronger developer communities and make better connections with their customers.</p></div></section><div><svg fill="none" viewBox="0 0 1796 200" xmlns="http://www.w3.org/2000/svg"><path d="M0.000152588 102.231C0.000152588 102.231 415.75 291.796 924.681 118.372C1433.61 -55.0534 1795.74 95.8896 1795.74 95.8896V3095.67L9.15527e-05 3061.66L0.000152588 102.231Z" fill="white"></path></svg><section><div><p>Because better documentation means better relationships, better products, and better companies too.</p><p>When documentation is easy to create and maintain, developers can develop. Writers can write. Sales can sell more effectively. And customers can find what they need without having to call up support.</p></div></section></div><section><svg fill="none" viewBox="0 0 1796 200" xmlns="http://www.w3.org/2000/svg"><path d="M0.000152588 102.231C0.000152588 102.231 415.75 291.796 924.681 118.372C1433.61 -55.0534 1795.74 95.8896 1795.74 95.8896V3095.67L9.15527e-05 3061.66L0.000152588 102.231Z" fill="white"></path></svg><ul><li><div><p>Quarterly Retreats</p><p>Every few months, we spend a few days roadmapping in places like Santa Cruz or Tahoe. Come along!</p></div><div><p>Quarterly Offsite</p><p>Every few months, we spend a few days… on Zoom (but different)! We keep it interesting, though!</p></div></li><li><div><p>Healthcare for Owl</p><p>Including medical, dental, and vision coverage; as well as paid maternity/paternity leave. We also give each employee a OneMedical subscription.</p></div></li><li><div><p>WFH Wednesdays</p><p>Every week, we all work from home to get caught up on work… and laundry! Our work week is flexible, so you can work in a way that’s best for you.</p></div><div><p>WFH Everyday</p><p>A stipend for your home personal workspace to make sure you have everything you need.</p></div></li><li><div><p>Paid Gym Membership</p><p>And time to actually use it. Because your job should never take priority over your health.</p></div><div><p>Wellness Benefit</p><p>If you’re interested in finding a therapist, we want to help make that possible! We’ll help cover some of the cost of online therapy.</p></div></li><li><div><p>Unlimited Days Off</p><p>You’ve got a life outside of work. We want to grow as much as every startup, but we don’t work through weekends to do it.</p></div><div><p>Unlimited Days Off</p><div><p>You’ve got a life outside of work. We want to grow as much as every startup, but we don’t work through weekends to do it.</p><p>And don’t forget to take time off… it’s a pandemic!</p></div></div></li><li><div><p>Competitive Pay</p><p>We offer competitive salary and significant equity.</p></div></li></ul><svg fill="none" viewBox="0 0 1796 200" xmlns="http://www.w3.org/2000/svg"><path d="M0.000152588 102.231C0.000152588 102.231 415.75 291.796 924.681 118.372C1433.61 -55.0534 1795.74 95.8896 1795.74 95.8896V3095.67L9.15527e-05 3061.66L0.000152588 102.231Z" fill="white"></path></svg></section><section id="roles"></section></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 17:00:51 +0000</pubDate>
+      <source>https://readme.com/careers#product-marketing-manager</source>
+    </item>
+    <item>
+      <title>Robot police dog that scans homeless people sparks debate</title>
+      <link>https://www.euronews.com/next/2021/08/06/a-useful-tool-or-dehumanising-robot-police-dog-that-scans-homeless-people-sparks-debate</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_euronews_com_next_2021_08_06_a-useful-tool-or-dehumanising-robot-police-dog-that-scans-homeless-people-sparks-debate/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>Homeless residents of a state-run tent city in Honolulu, Hawaii, are having their eyes scanned by a robotic police dog.</p><p>Police in the city say it&#39;s a safer way to check for symptoms of COVID-19.</p><p>But local civil rights advocates say the use of the robot – called Spot – dehumanises some of Honolulu&#39;s most vulnerable residents.</p><p>&#34;Because these people are houseless it’s considered OK to do that,” said Jongwook Kim, legal director at the American Civil Liberties Union of Hawaii. “At some point it will come out again for some different use after the pandemic is over&#34;.</p><h2>&#39;COVID safe&#39;</h2><p>Acting Lt. Joseph O’Neal of the Honolulu Police Department’s community outreach unit defended the robot’s use in a media demonstration earlier this year.</p><p>He said it had protected officers, shelter staff and residents by scanning people’s body temperatures at a shelter where they could quarantine and get tested for COVID-19.</p><p>The robot is also used to remotely interview individuals who have tested positive for the virus.</p><p>&#34;We have not had a single person out there that said, ‘That’s scary, that’s worrisome,’&#34; O’Neal said. &#34;We don’t just walk around and arbitrarily scan people&#34;.</p><p>Police use of such robots is still rare and largely untested — and hasn’t always gone over well with the public.</p><p>Honolulu officials faced a backlash when a local news organisation, Honolulu Civil Beat, revealed that the Spot purchase was made with federal relief money.</p><h2>Public outcry in New York</h2><p>Late last year, the New York Police Department started using Spot after painting it blue and renaming it &#34;Digidog&#34;. It went mostly unnoticed until New Yorkers began spotting it in the wild and posting videos to social media.</p><p>Shortly afterwards, the department returned the robot to its manufacturer.</p><p>&#34;This is some Robocop stuff, this is crazy,&#34; was the reaction in April from Democratic congressman Jamaal Bowman.</p><p>He was one of several New York politicians to speak out after a widely shared video showed the robot strutting with police officers responding to a domestic-violence report at a high-rise public housing building in Manhattan.</p><p>Days later, after further scrutiny from elected city officials, the department said it was terminating its lease and returning the robot.</p><p>The expensive machine arrived with little public notice or explanation, public officials said, and was deployed to already over-policed public housing. Use of the high-tech canine also clashed with Black Lives Matter calls to defund police operations and reinvest in other priorities.</p><p>In the aftermath of the fiasco, Boston Dynamics, the company that makes the robots, Boston Dynamics, said it needed to do a better job of explaining the technology to the public and customers who have had little experience with it.</p><h2>&#39;Just a tool&#39;</h2><p>For the Dutch national police, one of the company’s customers, explaining the technology includes emphasising that Spot is a very good robot — well-behaved and not so smart after all.</p><p>&#34;It doesn’t think for itself,&#34; Marjolein Smit, director of the special operations unit of the Dutch national police, said of the remote-controlled robot. &#34;If you tell it to go to the left, it will go to the left. If you tell it to stop, it will stop&#34;.</p><p>Earlier this year, her police division sent its robot into the site of a deadly drug lab explosion near the Belgian border to check for dangerous chemicals and other hazards.</p><p>According to Boston Dynamics, its acceptable use guidelines prohibit Spot’s weaponisation or anything that would violate privacy or civil rights laws, which it said puts the Honolulu police in the clear ethically.</p><p>It&#39;s all part of a year-long effort by the company, which in the past relied on military funding, to make its robots seem friendlier and thus more palatable to local governments and consumer-oriented businesses.</p><h2>Military-grade</h2><p>By contrast, a lesser-known rival, Philadelphia-based Ghost Robotics, has no qualms about weaponisation and supplies its dog-like robots to several branches of the US military and its allies.</p><p>&#34;It’s just plug and play, anything you want,&#34; said Ghost Robotics CEO Jiren Parikh, who was critical of Boston Dynamics’ stated ethical principles as &#34;selective morality&#34; because of the company’s past involvement with the military.</p><p>Parikh added that his company doesn’t market its four-legged robots to police departments, though he said it would make sense for police to use them.</p><p>&#34;It’s basically a camera on a mobile device,&#34; he said.</p><p>There are roughly 500 Spot robots now in the wild. Perry said they&#39;re commonly used by utility companies to inspect high-voltage zones and other hazardous areas. Spot is also used to monitor construction sites, mines and factories, equipped with whatever sensor is needed for the job.</p><p>It’s still mostly controlled by humans, though all they have to do is tell it which direction to go and it can intuitively climb stairs or cross over rough terrain. It can also operate autonomously, but only if it’s already memorised an assigned route and there aren’t too many surprise obstacles.</p><h2>Should the police have robots?</h2><p>&#34;The first value that most people see in the robot is taking a person out of a hazardous situation,&#34; Michael Perry, vice president of business development at Boston Dynamics, said.</p><p>Kim, of the ACLU in Hawaii, acknowledged that there might be many legitimate uses for such machines, but said opening the door for police robots that interact with people is probably not a good idea.</p><p>He pointed to how Dallas police in 2016 stuck explosives on a wheeled robot to kill a sniper, fueling an ongoing debate about &#34;killer robots&#34; in policing and warfare.</p><p>&#34;There’s the potential for these robots to increase the militarization of police departments and use it in ways that are unacceptable,&#34; Kim said.</p><p>&#34;Maybe it’s not something we even want to let law enforcement have&#34;.</p></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 15:52:34 +0000</pubDate>
+      <source>https://www.euronews.com/next/2021/08/06/a-useful-tool-or-dehumanising-robot-police-dog-that-scans-homeless-people-sparks-debate</source>
+    </item>
+    <item>
+      <title>Mozilla: *Privacy Not Included</title>
+      <link>https://foundation.mozilla.org/en/privacynotincluded/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___foundation_mozilla_org_en_privacynotincluded_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<p>
+In our *Privacy Not Included buyer’s guide we review connected sex toys. This content is targeted for readers 18+ and may contain sensitive or mature information.
+</p>
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 14:21:22 +0000</pubDate>
+      <source>https://foundation.mozilla.org/en/privacynotincluded/</source>
+    </item>
   </channel>
 </rss>
