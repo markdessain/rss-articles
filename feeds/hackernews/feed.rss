@@ -5969,5 +5969,281 @@ Elon Musk has changed the world in many ways. He is known for being the head of 
       <pubDate>Fri, 06 Aug 2021 16:41:26 +0000</pubDate>
       <source>https://foreverwars.substack.com/p/the-cias-outsourced-torture-is-lost</source>
     </item>
+    <item>
+      <title>The Emacs Lock-In Effect or the Emacs Sunk Cost Fallacy</title>
+      <link>https://karl-voit.at/2021/07/23/emacs-lock-in/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___karl-voit_at_2021_07_23_emacs-lock-in_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article>
+
+<p>
+
+Update 2021-07-24: Reply/comment by Deep-Fox6860
+
+</p>
+
+<p>
+
+This is an extended comment from <a href="https://www.reddit.com/r/emacs/comments/opx6mb/sunk_cost_fallacy/">this original reddit thread</a> where <a href="https://www.reddit.com/user/Deep-Fox6860/">Deep-Fox6860</a> wrote:
+
+</p>
+
+<blockquote>Hi all, wanted to raise a discussion about a thought I had.</blockquote>
+
+<p>
+
+I think I understand what you&#39;re writing here and to some extend, I do agree.
+
+</p>
+
+<p>
+
+However, <b>I would like to challenge the point of view</b> to this good philosophical question on tool choice with this article.
+
+</p>
+
+	  <header><h2>Property of Flexible Tools in General</h2></header>
+
+<p>
+
+Yes, Emacs is a platform that requires investment in time and knowledge to be mastered. But what you get is a system that is as flexible as possible to deal with present and future changes of requirements.
+
+</p>
+
+<p>
+
+I can not think of a different situation where you are using a flexible tool that you adapt to your situation which does <b>not</b> come with the sunk cost fallacy or some kind of <a href="https://en.wikipedia.org/wiki/Vendor_lock-in">lock-in effect</a>, how I call it in my <a href="https://Karl-Voit.at/tags/pim">PIM</a> lectures.
+
+</p>
+
+	  <header><h2>Openess and the Right Tool Choice Process</h2></header>
+
+<p>
+
+Another aspect is: everything within Emacs and org mode as a frequent use-case is open. So you&#39;re free to switch to a different tool. The positive side is that your problem is not &#34;getting all of your data out of Emacs&#34;. Your problem will be to find a more suitable tool which lets you import all this accumulated data or which is able to drive your processes and workflows.
+
+</p>
+
+<p>
+
+In other words: In <b>any</b> situation where somebody finds a tool which fits to her/his set of requirements, working with it for a long time, adapting to the requirements step by step, generating data, managing information and knowledge, you will get to a point where switching to a different tool will cause you a high level of effort. This is nothing specific to Emacs in particular. In most cases, you will learn that you can&#39;t even get out all of your data any more. And here is where the openness of Emacs shines.
+
+</p>
+
+<p>
+
+I&#39;ve written down my proposal on <a href="https://Karl-Voit.at/2021/01/18/tool-choices">how people should choose their (software) tools</a>. If you followed this principle and your tool suits you well, you don&#39;t have to change to a different tool. (And if you do need to switch, following my tool choice process made sure that you are <b>able</b> to switch without data loss.)
+
+</p>
+
+	  <header><h2>Important Long-Term Aspects</h2></header>
+
+<p>
+
+<b>My personal opinion on Emacs is that I&#39;ll probably never switch to anything different in my life any more.</b> I learned to embrace its flexibility so that I can not think of many situations where Emacs does not provide me the features I need for my <a href="https://Karl-Voit.at/tags/pim">personal information management</a>. From this perspective, I do have a perfect lock-in situation which I usually try to avoid as much as possible. <b>This is the single lock-in situation I can think of that is a perfectly good thing to be in.</b>
+
+</p>
+
+<p>
+
+Another aspect why I do not consider time investment in technology like Emacs is a bad thing: Emacs knowledge is <b>long-term knowledge</b>.
+
+</p>
+
+<p>
+
+I did learn many things for proprietary tools over the last decades. A large percentage of this effort is now useless, making this past learning effort to a temporary one. Some knowledge got obsolete as fast as the next major release was published.
+
+</p>
+
+<p>
+
+On the other hand side, whatever I&#39;ve learned for technologies like Emacs, LaTeX, GNU/Linux, and so forth in the nineties, is still valid and useful to me nowadays. This can not be stressed enough: instead of un-learning and re-learning, I was able to improve and learn new things. <b>This scales much better than any proprietary or temporary knowledge.</b>
+
+</p>
+
+	  <header><h2>Scheuklappen-Effekt (German for &#34;blinkers effect&#34;)</h2></header>
+
+<p>
+
+In German &#34;Scheuklappen-Effekt&#34; means that you have a narrowed view for some reason. I don&#39;t know if there is a similar phrase in the English language.
+
+</p>
+
+<p>
+
+The difference between &#34;using Emacs for a long time and thinking less of other tools&#34; to the mentioned sunk cost fallacy situation may be that I don&#39;t think that I&#39;m using Emacs just because I don&#39;t think of alternatives any more. I use it because all in all, it&#39;s the best package I can get for now and most probably also for the future.
+
+</p>
+
+<p>
+
+I&#39;m using many tools outside of Emacs which could be replaced by Emacs-modes/methods right away (<a href="https://Karl-Voit.at/tags/emails">email</a>, web browsing, most of file management, ...). However, the openness of Emacs (and Org mode) allows me to work with Emacs and other tools in parallel, interfacing them smoothly so that I don&#39;t have much pain with these &#34;borders&#34;.
+
+</p>
+
+	  <header><h2>Reply by Deep-Fox6860</h2></header>
+
+<p>
+
+With <a href="https://www.reddit.com/r/emacs/comments/opx6mb/sunk_cost_fallacy/h69esq0/?utm_source=reddit&amp;utm_medium=web2x&amp;context=3">this comment on reddit</a>, Deep-Fox6860 added interesting aspects:
+
+</p>
+
+<blockquote>Regarding the openness, I started with org because I was hooked on the
+idea of having everything as simple text files and I thought I would
+be able to leave in the future, if I want to. I mean, the exits are
+well marked and still people choose to stay, it seems.</blockquote>
+
+<p>
+
+Here is my answer to that:
+
+</p>
+
+<p>
+
+Your remark on the openness and ability to move away is really interesting. It seems to be the case that people might tend to stay with tools that makes them more easy to leave. If this assumption is true, it has a certain level of irony, hasn&#39;t it?
+
+</p>
+
+<p>
+
+Flexibility as a bad thing? Of course! In my PIM lecture, I do have a section where I explain that there are (very simplified!) two categories of tools: simple tools and advanced tools. Both categories are perfectly valid for matching requirements. The issue is that people use simple tools when an advanced tool would provide them much more advantages in the long run. Likewise - and this is what you are referring to - when you choose an advanced tool like Emacs can be for requirements where a simple tool would be the better fit, you do have to face issues. The point is that <a href="https://Karl-Voit.at/2021/01/18/tool-choices">we need to teach people to do deliberate and wise choices for tools</a> before they do face issues because of wrong tool choice or lock-in effects.
+
+</p>
+
+
+  </article></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 19:04:35 +0000</pubDate>
+      <source>https://karl-voit.at/2021/07/23/emacs-lock-in/</source>
+    </item>
+    <item>
+      <title>Exploring the SameSite cookie attribute for preventing CSRF</title>
+      <link>https://simonwillison.net/2021/Aug/3/samesite/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___simonwillison_net_2021_Aug_3_samesite_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="primary">
+
+<div>
+
+
+
+
+<p>In reading Yan Zhu’s excellent write-up of the <a href="https://blog.azuki.vip/csrf/">JSON CSRF vulnerability</a> she found in OkCupid one thing puzzled me: I was under the impression that browsers these days default to treating cookies as <code>SameSite=Lax</code>, so I would expect attacks like the one Yan described not to work in modern browsers.</p>
+<p>This lead me down a rabbit hole of exploring how SameSite actually works, including building <a href="https://samesite-lax-demo.vercel.app/">an interactive SameSite cookie exploration tool</a> along the way. Here’s what I learned.</p>
+<h4>Background: Cross-Site Request Forgery</h4>
+<p>I’ve been tracking CSRF (Cross-Site Request Forgery) <a href="https://simonwillison.net/tags/csrf/?page=2">on this blog</a> since 2005(!)</p>
+<p>A quick review: let’s say you have a page in your application that allows a user to delete their account, at <code>https://www.example.com/delete-my-account</code>. The user has to be signed in with a cookie in order to activate that feature.</p>
+<p>If you created that page to respond to <code>GET</code> requests, I as an evil person could create a page at <code>https://www.evil.com/force-you-to-delete-your-account</code> that does this:</p>
+<div><pre><span>&lt;</span><span>img</span> <span>src</span>=&#34;<span>https://www.example.com/delete-my-account</span>&#34;<span>&gt;</span></pre></div>
+<p>If I can get you to visit my page, I can force you to delete your account!</p>
+<p>But you’re smarter than that, and you know that GET requests should be idempotent. You implement your endpoint to require a POST request instead.</p>
+<p>Turns out I can still force-delete accounts, if I can trick a user into visiting a page with the following evil HTML on it:</p>
+<div><pre><span>&lt;</span><span>form</span> <span>action</span>=&#34;<span>https://www.example.com/delete-my-account</span>&#34; <span>method</span>=&#34;<span>POST</span>&#34;<span>&gt;</span>
+<span>&lt;</span><span>input</span> <span>type</span>=&#34;<span>submit</span>&#34; <span>value</span>=&#34;<span>Delete my account</span>&#34;<span>&gt;</span>
+<span>&lt;/</span><span>form</span><span>&gt;</span>
+<span>&lt;</span><span>script</span><span>&gt;</span><span>document</span><span>.</span><span>forms</span><span>[</span><span>0</span><span>]</span><span>.</span><span>submit</span><span>(</span><span>)</span><span>&lt;/</span><span>script</span><span>&gt;</span></pre></div>
+<p>The form submits with JavaScript the instant they load the page!</p>
+<p>CSRF is an extremely common and nasty vulnerability—especially since it’s a hole by default: if you don’t know what CSRF is, you likely have it in your application.</p>
+<p>Traditionally the solution has been to use CSRF tokens—hidden form fields which “prove” that the user came from a form on your own site, and not a form hosted somewhere else. OWASP call this the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie">Double Submit Cookie</a> pattern.</p>
+<p>Web frameworks like Django implement <a href="https://docs.djangoproject.com/en/3.2/ref/csrf/">CSRF protection</a> for you. I built <a href="https://github.com/simonw/asgi-csrf">asgi-csrf</a> to help add CSRF token protection to ASGI applications.</p>
+<h4>Enter the SameSite cookie attribute</h4>
+<p>Clearly it would be better if we didn’t have to worry about CSRF at all.</p>
+<p>As far as I can tell, work on specifying the <code>SameSite</code> cookie attribute started <a href="https://github.com/httpwg/http-extensions/commit/aa0722c12ccb367b8f4498e982616064d105a006#diff-70cc0c0600a934d002ea91a4a36d5eb0b7d5edebcce5a40c9a811391cc0fecf6">in June 2016</a>. The idea was to add an additional attribute to cookies that specifies the policy for if they should be included in requests made to a domain from pages hosted on another domain.</p>
+<p>Today, all modern browsers support SameSite. MDN <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite">has SameSite documentation</a>, but a summary is:</p>
+<ul>
+<li>
+<code>SameSite=None</code>—the cookie is sent in “all contexts”—more-or-less how things used to work before SameSite was invented.</li>
+<li>
+<code>SameSite=Strict</code>—the cookie is only sent for requests that originate on the same domain. Even arriving on the site from an off-site link will not see the cookie, unless you subsequently refresh the page or navigate within the site.</li>
+<li>
+<code>SameSite=Lax</code>—cookie is sent if you navigate to the site through following a link from another domain but <em>not</em> if you submit a form. This is generally what you want to protect against CSRF attacks!</li>
+</ul>
+<p>The attribute is specified by the server in a <code>set-cookie</code> header that looks like this:</p>
+<pre><code>set-cookie: lax-demo=3473; Path=/; SameSite=lax
+</code></pre>
+<p>Why not habitually use <code>SameSite=Strict</code>? Because then if someone follows a link to your site their first request will be treated as if they are not signed in at all. That’s bad!</p>
+<p>So explicitly setting a cookie with <code>SameSite=Lax</code> should be enough to protect your application from CSRF vulnerabilities... provided your users have a browser that supports it.</p>
+<p>(Can I Use reports <a href="https://caniuse.com/same-site-cookie-attribute">93.95% global support</a> for the attribute—not quite high enough for me to stop habitually using CSRF tokens, but we’re getting there.)</p>
+<h4>What if the SameSite attribute is missing?</h4>
+<p>Here’s where things get interesting. If a cookie is set without a SameSite attribute at all, how should the browser treat it?</p>
+<p>Over the past year, all of the major browsers have been changing their default behaviour. The goal is for a missing SameSite attribute to be treated as if it was <code>SameSite=Lax</code>—providing CSRF protection by default.</p>
+<p>I have found it infuriatingly difficult to track down if and when this change has been made:</p>
+<ul>
+<li>Chrome/Chromium offer <a href="https://www.chromium.org/updates/same-site">the best documentation</a>—they claim to have ramped up the new default to 100% of users in August 2020. WebViews in Android still have the old default behaviour, which is scheduled to be fixed in Android 12 (<a href="https://en.wikipedia.org/wiki/Android_12">not yet released</a>).</li>
+<li>Firefox have a <a href="https://hacks.mozilla.org/2020/08/changes-to-samesite-cookie-behavior/">blog entry from August 2020</a> which says “Starting with Firefox 79 (June 2020), we rolled it out to 50% of the Firefox Beta user base”—but I’ve not been able to find any subsequent updates.</li>
+<li>I have no idea at all what’s going on with Safari!</li>
+</ul>
+<p>I started <a href="https://twitter.com/simonw/status/1422366158171238400">a Twitter thread</a> to try and collect more information, so please reply there if you know what’s going on in more detail.</p>
+<h4>The Chrome 2-minute twist</h4>
+<p>Assuming all of the above, the mystery remained: how did Yan’s exploit fail to be prevented by browsers?</p>
+<p>After some back-and-forth about this on Twitter <a href="https://twitter.com/bcrypt/status/1422370774896177154">Yan proposed</a> that the answer may be this detail, tucked away on the <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome Platform Status page for Feature: Cookies default to SameSite=Lax</a>.</p>
+<blockquote>
+<p>Note: Chrome will make an exception for cookies set without a SameSite attribute less than 2 minutes ago. Such cookies will also be sent with non-idempotent (e.g. POST) top-level cross-site requests despite normal SameSite=Lax cookies requiring top-level cross-site requests to have a safe (e.g. GET) HTTP method. Support for this intervention (“Lax + POST”) will be removed in the future.</p>
+</blockquote>
+<p>It looks like OkCupid were setting their authentication cookie without a <code>SameSite</code> attribute... which opened them up to a form-based CSRF attack but only for the 120 seconds following the cookie being set!</p>
+<h4>Building a tool to explore SameSite browser behaviour</h4>
+<p>I was finding this all very confusing, so I built a tool.</p>
+<p></p>
+<p>The code lives in <a href="https://github.com/simonw/samesite-lax-demo">simonw/samesite-lax-demo</a> on GitHub, but the tool itself has two sides:</p>
+<ul>
+<li>A server-side Python (<a href="https://www.starlette.io/">Starlette</a>) web application for setting cookies with different <code>SameSite</code> attributes. This is hosted on Vercel at <a href="https://samesite-lax-demo.vercel.app/">https://samesite-lax-demo.vercel.app/</a>
+</li>
+<li>An HTML page on a different domain that links to that cookied site, provides a POST form targetting it, embeds an image from it and executes some <code>fetch()</code> requests against it. This is at <a href="https://simonw.github.io/samesite-lax-demo/">https://simonw.github.io/samesite-lax-demo/</a>
+</li>
+</ul>
+<p>Hosting on two separate domains is critical for the tool to show what is going on. I chose Vercel and GitHub Pages because they are both trivial to set up to continuously deploy changes from a GitHub repository.</p>
+<p>Using the tool in different browsers helps show exactly what is going on with regards to cross-domain cookies.</p>
+<p>A few of the things I observed using the tool:</p>
+<ul>
+<li>
+<code>SameSite=Strict</code> works as you would expect. It’s particularly interesting to follow the regular <code>&lt;a href=...&gt;</code> link from the static site to the application and see how the strict cookie is NOT visible upon arrival—but becomes visible when you refresh that page.</li>
+<li>I included a dynamically generated SVG in a <code>&lt;img src=&#34;/cookies.svg&#34;&gt;</code> image tag, which shows the cookies (using SVG <code>&lt;text&gt;</code>) that are visible to the request. That image shows all four types of cookie when embedded on the Vercel domain, but when embedded on the GitHub pages domain it differs wildly:
+<ul>
+<li>Firefox 89 shows both the <code>SameSite=None</code> and the missing SameSite cookies</li>
+<li>Chrome 92 shows just the <code>SameSite=None</code> cookie</li>
+<li>Safari 14.0 shows no cookies at all!</li>
+</ul>
+</li>
+<li>Chrome won’t let you set a <code>SameSite=None</code> cookie without including the <code>Secure</code> attribute.</li>
+<li>I also added some JavaScript that makes a cross-domain <code>fetch(..., {credentials: &#34;include&#34;})</code> call against a <code>/cookies.json</code> endpoint. This didn’t send any cookies at all until I added server-side headers <code>access-control-allow-origin: https://simonw.github.io</code> and <code>access-control-allow-credentials: true</code>. Having done that, I got the same results across the three browsers as for the <code>&lt;img</code> test described above.</li>
+</ul>
+<p>Safari ignoring <code>SameSite=None</code> turns out to be this bug: <a href="https://bugs.webkit.org/show_bug.cgi?id=198181">Cookies with SameSite=None or SameSite=invalid treated as Strict</a>—it’s marked as fixed but I’m not certain the fix has been released yet—it doesn’t seem to be fixed on my macOS 10.15.6 laptop or my iOS 14.7.1 iPhone.</p>
+<p>Most excitingly, I was able to replicate the Chrome two minute window bug using the tool! Each cookie has its value set to the timestamp when it was created, and I added code to display how many seconds ago the cookie was set. Here’s an animation showing how Chrome on a form submission navigation can see the cookie that was set with <code>SameSite</code> missing at 114 seconds old, but that cookie is no longer visible once it passes 120 seconds.</p>
+<p></p>
+<h4>Consider your subdomains</h4>
+<p>One last note about CSRF that you should consider:  <code>SameSite=Lax</code> still allows form submissions from  subdomains of your primary domain to carry their cookies.</p>
+<p>This means that if you have a XSS vulnerability on one of your subdomains the security of your primary domain will be compromised.</p>
+<p>Since it’s common for subdomains to host other applications that may have their own security concerns, ditching CSRF tokens for Lax cookies may not be a wise step!</p>
+<h4 id="login-csrf-samesite-lax">Login CSRF and SameSite=Lax</h4>
+<p>Login CSRF is an interesting variety of CSRF with slightly different rules.</p>
+<p>A Login CSRF attack is when a malicious forces a user to sign into an account controlled by the attacker. Why do this? Because if that user then saves sensitive information the attacker can see it.</p>
+<p>Imagine I trick you into signing into an e-commerce account I control and saving your credit card details. I could then later sign in myself and buy things on your card!</p>
+<p>Here’s how that would work: Say the site’s login form makes a POST to <code>https://www.example.com/login</code> with <code>username</code> and <code>password</code> as the form fields. If those credentials match, the site sets an authentication cookie.</p>
+<p>I can set up my evil website with the following form:</p>
+<div><pre><span>&lt;</span><span>form</span> <span>action</span>=&#34;<span>https://www.example.com/login</span>&#34;<span>&gt;</span>
+  <span>&lt;</span><span>input</span> <span>type</span>=&#34;<span>hidden</span>&#34; <span>name</span>=&#34;<span>username</span>&#34; <span>value</span>=&#34;<span>my-username</span>&#34;<span>&gt;</span>
+  <span>&lt;</span><span>input</span> <span>type</span>=&#34;<span>hidden</span>&#34; <span>name</span>=&#34;<span>password</span>&#34; <span>value</span>=&#34;<span>my-password</span>&#34;<span>&gt;</span>
+<span>&lt;/</span><span>form</span><span>&gt;</span>
+<span>&lt;</span><span>script</span><span>&gt;</span><span>document</span><span>.</span><span>forms</span><span>[</span><span>0</span><span>]</span><span>.</span><span>submit</span><span>(</span><span>)</span><span>&lt;/</span><span>script</span><span>&gt;</span></pre></div>
+<p>I trick you into visiting my evil pge and you’re now signed in to that site using an account that I control. I cross my fingers and hope you don’t notice the “you are signed in as X” message in the UI.</p>
+<p>An interesting thing about Login CSRF is that, since it involves setting a cookie but not sending a cookie, <code>SameSite=Lax</code> would seem to make no difference at all. You need to look to other mechanisms to protect against this attack.</p>
+<p>But actually, you can use <code>SameSite=Lax</code> to prevent these. The trick is to only allow logins from users that are carrying at least one cookie which you have set in that way—since you know that those cookies could not have been sent if the user originated in a form on another site.</p>
+<p>Another option: check the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin">HTTP Origin header</a> on the oncoming request.</p>
+<h4>Final recommendations</h4>
+<p>As an application developer, you should set all cookies with <code>SameSite=Lax</code> unless you have a very good reason not to. Most web frameworks do this by default now—Django shipped <a href="https://github.com/django/django/commit/9a56b4b13ed92d2d5bb00d6bdb905a73bc5f2f0a">support for this</a> in <a href="https://docs.djangoproject.com/en/3.2/releases/2.1/#requests-and-responses">Django 2.1</a> in August 2018.</p>
+<p>Do you still need CSRF tokens as well? I think so: I don’t like the idea of users who fire up an older browser (maybe borrowing an obsolete computer) being vulnerable to this attack, and I worry about the subdomain issue described above.</p>
+<p>And if you work for a browser vendor, please make it easier to find information on what the default behaviour is and when it was shipped!</p>
+
+
+
+
+</div>
+
+</div></div>]]></content:encoded>
+      <pubDate>Tue, 03 Aug 2021 21:11:54 +0000</pubDate>
+      <source>https://simonwillison.net/2021/Aug/3/samesite/</source>
+    </item>
   </channel>
 </rss>
