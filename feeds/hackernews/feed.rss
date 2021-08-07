@@ -17599,5 +17599,473 @@ and check out these
       <pubDate>Sat, 07 Aug 2021 15:55:35 +0000</pubDate>
       <source>https://www.statnews.com/2021/08/05/artificial-intelligence-rare-disease-andp-medikanren/</source>
     </item>
+    <item>
+      <title>What it was like developing for NES back in 1990</title>
+      <link>https://twitter.com/KevEdwardsRetro/status/1423653418439254026</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="ScriptLoadFailure"><form action="" method="GET"><div dir="auto"><p><span>Something went wrong, but don’t fret — let’s give it another shot.</span></p></div></form></div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 17:48:23 +0000</pubDate>
+      <source>https://twitter.com/KevEdwardsRetro/status/1423653418439254026</source>
+    </item>
+    <item>
+      <title>A woman who rifles through New York’s garbage – exposing the city’s excesses</title>
+      <link>https://www.theguardian.com/us-news/2021/aug/07/new-york-city-garbage-trash-walks-anna-sacks</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div tabindex="0" id="maincontent"><div><figure id="00b1b636-a49a-41f9-9b68-36f15717cf05"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=1020&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=be427a70d7df8736c45994c3d1d1df3a 2040w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=940&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=8f96f65afba97979509256b8a02509de 1880w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=700&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=5ca4dac79beeb98dace94c1ec9d906fb 1400w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=700&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=5ca4dac79beeb98dace94c1ec9d906fb 1400w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=660&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=4a1aa94b9883278e7c8bd56715489fa6 1320w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=645&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=b29fbe3bdcbf91fd279f99b30b39185c 1290w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=465&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=b76aa8d1f6cf2f397296cfe29802c149 930w" sizes="(min-width: 1300px) 860px, (min-width: 1140px) 780px, (min-width: 660px) 620px, 100vw" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=1020&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=43cacc1aaf0d9d7df6418764c013a66e 1020w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=940&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=6fbd74406dfbc3ebb8fb02c316956d10 940w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=700&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=79c4883dbe2e7ace85a5843d3f31ec62 700w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=700&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=79c4883dbe2e7ace85a5843d3f31ec62 700w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=660&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=ee57f44d64c461c26ce36271a34ecd70 660w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=645&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=358b6dbb4b11c3f3335652402af052b6 645w,https://i.guim.co.uk/img/media/7e52a89f00ddf9711542fda889692816dfbeef81/0_211_6144_3686/master/6144.jpg?width=465&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=2f2ebe2f756be8431879fdd87b3f141d 465w" sizes="(min-width: 1300px) 860px, (min-width: 1140px) 780px, (min-width: 660px) 620px, 100vw"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>‘The plastic containers are never-ending.’</span> Photograph: Ismail Ferdous/The Guardian</figcaption></figure><p>On an ordinary street in the middle of Manhattan, Anna Sacks gets ready to rifle through the trash. But first, she takes out her phone and turns on the camera.</p><p>“You can see, they’ve ripped up the RXBars,” says Sacks in the resulting <a href="https://www.tiktok.com/@thetrashwalker/video/6945905574793972997?lang=en&amp;is_copy_url=1&amp;is_from_webapp=v1" data-link-name="in body link">TikTok video</a>, as she documents the depths of this particular bag of trash, plopped outside a CVS pharmacy. Her (puncture-proof) gloved hand maneuvers through the bag to reveal its contents: the aforementioned protein bars; tubes of toothpaste with the toothpaste squeezed out; a depleted makeup palette; a hairbrush that appears to covered in the aforementioned toothpaste. “Ugh,” Sacks manages at one point, before salvaging the hairbrush, noting it just needs to be washed. “It’s so gross that this is what they like to do, as a corporation, rather than help people.”</p><figure id="7bb1fb73-6ab7-4527-afac-f7a02566c05a"><div data-print-layout="hide" data-link-name="rich-link-3 | 3" data-component="rich-link" data-name="placeholder"></div></figure><p>Sacks’ social media channels are full of moments like this – a visual journey through corporate trash, residential recycling and other stuff that’s just left on the curb. Since 2018, Sacks has been going on what she calls “trash walks” in New York City, rummaging through the city’s discards in search of usable items – and documenting what she finds on Instagram (and more recently, TikTok), under <a href="https://www.instagram.com/thetrashwalker/" data-link-name="in body link">the handle</a> @thetrashwalker. On social media and in real life, Sacks never seems to run out of patience, even when confronted with the scale and pervasiveness of the problem she is trying to solve: our culture of throwing things out, which leads to businesses and consumers alike producing untold amounts of waste. By rooting through the trash in the country’s most densely populated city, Sacks hopes to expose just how much of what we deem to be garbage really isn’t.</p><figure id="a308694b-1c20-4085-bdf3-b1c81a91c3f8"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=380&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=cd49029a6b49b2c1e29f62b70c4c9d10 760w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=300&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=86e3cc5fdd94d333bae847151f7d813e 600w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=feeba6aa4b360f264e0836c7252b0279 1240w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=278231bbd3db048ca76d010848266d09 1210w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=80392854c7906313f5f5b7bb547af06b 890w" sizes="(min-width: 1300px) 380px, 300px" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=380&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=8050996c46720ccec54a85e231380e98 380w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=300&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=bbb2725ed1b635c74292e14e90a52bfe 300w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=f01355b986c7af855201acf3782561b9 620w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=d40de1c9c52485da9bca034ea2dd57eb 605w,https://i.guim.co.uk/img/media/115e01c3fda62abdfa1bb6598b6236494bb41ef9/0_0_4741_5926/master/4741.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=d4a682adcce9d6a53860d7e547e8813c 445w" sizes="(min-width: 1300px) 380px, 300px"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>Sacks ventures out in the Upper West Side on a freezing, windy Friday evening in December 2020.</span> Photograph: Ismail Ferdous/The Guardian</figcaption></figure><p>There are other Instagram accounts that highlight the possibilities of dumpster diving and regifting, like @<a href="https://instagram.com/stoopingnyc" data-link-name="in body link">stoopingnyc</a>. But more than publicizing discarded loveseats and Ikea dressers left on the street, Sacks’s work shines a light on the shame and indignity of producing this much waste – by showcasing just a fraction of the usable food, clothing, housewares and more that gets thrown out every day.</p><p>Sacks, 30, is an unflappable native New Yorker and environmental activist, with bright, curly red hair and an unwavering readiness to talk about her life’s work. On a trash walk last year, she laughed when I asked if she had to train herself to overcome any hesitancy before digging through people’s recycling. “This doesn’t gross me out,” she said.</p><p>“I don’t see myself stopping,” she added at another point. “I do this because I love it and it’s fun and exciting and it relaxes me. I lose track of time.”</p><p>Sacks’s trash walks have captured media attention over the years. In 2019, the Today Show joined Sacks on a trash walk, hitting <a href="https://www.today.com/money/anna-sacks-digs-through-corporate-trash-environment-t164180" data-link-name="in body link">five different CVS locations</a>. In January 2020, the New York Post accompanied Sacks as she went through <a href="https://nypost.com/2020/01/18/starbucks-still-throwing-away-boxes-of-food-after-no-waste-pledge/" data-link-name="in body link">Starbucks’ trash</a> and found that the chain “throw[s] away a king’s feast of unsold food every night”. (Within a week of their story’s publication, Starbucks announced new goals to reduce <a href="https://stories.starbucks.com/stories/2020/message-from-starbucks-ceo-kevin-johnson-starbucks-new-sustainability-commitment/" data-link-name="in body link">landfill waste</a>.)</p><p>Earlier this year, Sacks recalls finding “bags and bags” full of outdated decorations and paraphernalia outside a local Party City: New Year’s Eve napkins and tablecloths, Valentine’s Day plates, NFL merch from the Super Bowl. She posted about it in her neighborhood <a href="https://www.kcrw.com/news/shows/greater-la/used-goods-homeless-coronavirus-remembrance/wasted-buy-nothing" data-link-name="in body link">Buy Nothing</a> Facebook group, and took as much home as she could; a few days later, a woman who saw her post came by to take some of the items, hoping to use them in the pediatric hospital where she works.</p><p>“Honestly, it’s stuff that never should be made to begin with,” she says. Turning serious, she adds: “But my view is as long as it’s made, it should be used.”</p><figure id="b4dc13ef-995d-4552-9d1d-6c6588bd8f8b"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=1020&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=c9bc07dede2a4a75f91c3d86e2f9a56d 2040w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=940&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=a5a3114819d5ffa31f8f32206ff34e36 1880w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=700&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=c7158d744842f00019175aa5625b1137 1400w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=700&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=c7158d744842f00019175aa5625b1137 1400w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=660&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=23f01754e1169065de28f55734b493be 1320w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=645&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=638bcd0987336f4204f94c17a385e9f1 1290w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=465&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=8c9d090a4b54e9956bc82878fc25c752 930w" sizes="(min-width: 1300px) 860px, (min-width: 1140px) 780px, (min-width: 660px) 620px, 100vw" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=1020&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=d3996bec1970a4273dcf4c870141d8cb 1020w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=940&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=741f5c91d2b0305e405145505acb9939 940w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=700&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=3e09d28a449acd46cf3efb80f4972f07 700w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=700&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=3e09d28a449acd46cf3efb80f4972f07 700w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=660&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=61b23b52c4a9b53efb759c9e84a47914 660w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=645&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=57dd4353f6097f457b2d999a9ae52538 645w,https://i.guim.co.uk/img/media/eb157a941073d94b911caaee1d726bf03412152a/0_0_5767_4614/master/5767.jpg?width=465&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=fbeffc60151583a9bbb4a716f5b10bca 465w" sizes="(min-width: 1300px) 860px, (min-width: 1140px) 780px, (min-width: 660px) 620px, 100vw"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>Anna Sacks goes through recycling left out for sanitation pickup.</span> Photograph: Ismail Ferdous/The Guardian</figcaption></figure><p>Much of Sacks’s work takes aim at corporations. But she also sorts through residential recycling in her Upper West Side neighbourhood, which she takes as proof that there isn’t enough education around what’s really recyclable and what’s not.</p><p>In <a href="https://www.instagram.com/p/CLUjyYcJoVZ/" data-link-name="in body link">another video</a>, she digs through a bag of toys, including what look like hundreds of Lego pieces, put out as recycling. “There’s no way this is getting recycled in the normal recycling system,” she says on the video, fist full of Legos. “They’re too small. They’ll literally fall through the cracks.”</p><p>Zero-waste influencers have been around a long time, and in New York City, retired sanitation worker Nelson Molina has been showcasing his best trash finds, collected over years on the job, turning a city sanitation facility into a kind of <a href="https://www.openculture.com/2019/10/treasures-in-the-trash-a-secret-museum-inside-a-working-new-york-city-department-of-sanitation-garage.html" data-link-name="in body link">living art project</a>. But what’s different about Sacks’s Instagram is that it reveals the kind psychic pain that comes with bearing witness to – this much waste.</p><p>Last year Sacks put out a call on TikTok, asking anyone who had worked in retail and had been instructed to destroy unsold or returned merchandise to share their story. One TikTok user <a href="https://www.instagram.com/p/CHiojiDFkLI/" data-link-name="in body link">described</a> having to slash an office chair with a box cutter while working at an office supply store.</p><p>“It was disgusting,” the user said, adding that their managers later “watched me throw it in the trash, to make sure I would actually put in the trash. And I just – that didn’t feel right..”</p><p>This collection of horror stories – she shares the responses she’s gotten on TikTok under the hashtag #RetailMadeMe – captures a dystopian dynamic: asking low-wage retail employees to destroy goods or food that they themselves might actually want or need and not be able to afford.</p><p>In another particularly grim video that Sacks received and shared – unrelated to the #RetailMadeMe callout – <a href="https://www.instagram.com/p/CJzMqsXlYPb/" data-link-name="in body link">a live parakeet</a> was<strong> </strong>found in the trash outside a Petco location.</p><figure id="0c418e28-a420-423e-8f88-729f175c6790"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=380&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=133d408549594e1e2e753a3c690506b0 760w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=300&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=266c9f6fd3648c0b1d38430f0683c378 600w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=bbadc74ed0e9dac793a29431a921c6f5 1240w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=605&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=edd74de2417830153cbca49e6a30025c 1210w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=445&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=1c1471c3063cdd32c92e7e7a62707a08 890w" sizes="(min-width: 1300px) 380px, 300px" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=380&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=3394d2d13cdb6ae17816bc3ae907757c 380w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=300&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=f4572de964011b028a3a231373bea368 300w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=620&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=f72b570d0809332aa74fa6d780cb5fd5 620w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=605&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=cf53fea9cd3a26c19b779b52930f21e9 605w,https://i.guim.co.uk/img/media/0b3f2b994525ecae7980a34736b75c34521e49ab/0_0_4185_5231/master/4185.jpg?width=445&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=5d291b763ebbe2d65af30c1744a4a766 445w" sizes="(min-width: 1300px) 380px, 300px"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>‘My view is as long as it’s made, it should be used.’</span> Photograph: Ismail Ferdous/The Guardian</figcaption></figure><h2>The immense scale of waste requires large-scale solutions </h2><p>As the climate crisis continues, the need to reduce and divert waste has never been higher. In the 2020 fiscal year, New York City residents produced just under 10,000 tons of waste every day, according to <a href="https://dsny.cityofnewyork.us/wp-content/uploads/2020/09/about_dsny-non-dsny-collections-FY2020.pdf" data-link-name="in body link">a report</a> from the department of sanitation. Once it’s collected, none of it stays in New York City; roughly two-thirds of Manhattan’s residential waste goes to a waste-to-energy facility in Essex county, New Jersey. The rest of the city’s non-recyclable waste ends up in landfills and other waste-to-energy facilities in upstate New York, New Jersey, Pennsylvania, South Carolina and Virginia.</p><p>For decades, dumpster divers and freegans <a href="https://thecounter.org/freeganism-alex-barnard/" data-link-name="in body link">have brought attention</a> to the vast quantities of food that gets thrown out by grocery stores and restaurants every day, and have searched other people’s trash to support themselves. In recent years, the rise of <a href="https://www.vogue.com/article/stoopingnyc-instagram-new-york-sidewalk-treasures" data-link-name="in body link">stooping</a> and <a href="https://www.latimes.com/food/story/2021-04-15/angelenos-gleaning-collecting-extra-produce-food-hyperlocal-apps" data-link-name="in body link">Buy Nothing</a> groups has hinged on the idea of a economy of sharing, in which goods and services are exchanged freely between people who need them.</p><p>But these practices are pretty old. “People finding objects or food or ways of supporting their livelihood from the street [is] as old as the city itself,” says Robin Nagle, a professor at New York University with a focus on waste. Using Instagram to bring more attention to overproduction and waste, she notes, “could be the beginning of – or a push towards – more systemic changes in the flow of material”.</p><p>Sacks’s work hinges on the idea that trash could be not-trash if only it were in a different location – if it were retrieved from the waste stream and dropped into, say, your living room. It’s an empowering idea, effective in its simplicity. We all need things – maybe even things that somebody else is throwing out and willing to give away for free. But this idea also has its limits: on my trash walk with Sacks, we passed countless items left out in the recycling – a toaster, a nameplate that said “boss lady”, a self-help book on divorce, buttons for sewing, a full set of dishes and cutlery – all of which were still perfectly useful, but just not to me.</p><p>Which is partly why Sacks believes that real change will take big shifts in how corporations operate. In 2019, Sacks sent an email to Larry Merlo, then CEO of CVS Pharmacy, asking why they were throwing away items instead of donating them. The next day, Sacks received a call from a CVS regional manager in New York City; he later said he’d gotten special permission to donate goods from certain stores.</p><p>But herein lies the problem of reducing waste: the immense scale. CVS Pharmacy has <a href="https://cvshealth.com/about-cvs-health/our-company-at-a-glance" data-link-name="in body link">nearly 10,000 locations</a> across the US and Puerto Rico. “You shouldn’t need to receive special permission from the CEO to form new donation partnerships,” says Sacks. “How are you going to manage that?”</p><p>Sacks repeatedly comes back to the idea that retailers could give away unsold or lightly used, returned (but still good) items to their low-wage employees, instead of tossing them, or jumping through bureaucratic hurdles to donate them. This could be an “added perk”, she says, or an additional form of compensation, to bolster employees’ wages.</p><figure id="73526c73-a224-4211-aa7f-23d03dadf0a3"><div><picture itemprop="contentUrl"><source srcset="https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=1020&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=64244523cf1226cc7a81b2231aaba021 2040w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=940&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=d12c6fb45dbb8a62bd40661d5a4a0328 1880w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=700&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=9f5b9a88b5bf038ad8e9e715f14bef90 1400w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=700&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=9f5b9a88b5bf038ad8e9e715f14bef90 1400w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=660&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=0032df6e80e47a67d68dd1a95af1b44b 1320w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=645&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=d3e0da8d01cc21d13f6b5278e9088ff5 1290w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=465&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=5a1063fe76caeaff31244aab529800dc 930w" sizes="(min-width: 1300px) 860px, (min-width: 1140px) 780px, (min-width: 660px) 620px, 100vw" media="(-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi)"/><source srcset="https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=1020&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=e5ca465c6de4704aaa46f6b26d005420 1020w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=940&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=82e72efa8a82088564517edd4f497f0d 940w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=700&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=075dc0d4c487889cec6642860669fe68 700w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=700&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=075dc0d4c487889cec6642860669fe68 700w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=660&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=edd6f8ca7f3f97a28832acde83cec726 660w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=645&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=2e46220bc554a1162d2510d3248b8b01 645w,https://i.guim.co.uk/img/media/0ba2a384854535defc75af18c74ec0b89ef0f057/0_2444_4912_2945/master/4912.jpg?width=465&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=617ba95964af09dda7a6a98dbea49457 465w" sizes="(min-width: 1300px) 860px, (min-width: 1140px) 780px, (min-width: 660px) 620px, 100vw"/></picture></div><figcaption><span><svg width="11" height="10" viewBox="0 0 11 10"><path fill-rule="evenodd" d="M5.5 0L11 10H0z"></path></svg></span><span>‘I get so many comments [on Instagram] that say corporations want to donate but they can’t because they’ll be sued.’</span> Photograph: Ismail Ferdous/The Guardian</figcaption></figure><p>But Sacks recognises just how difficult this would be, requiring “a larger change in a corporate mentality of how they view employees”. The environment described by retail workers who have answered her calls for stories is “totally different from what I’ve ever experienced in my workplaces. I’ve never been thought of as not trustworthy or as a thief. So yeah, it [will require] a shift.”</p><p>Sacks believes real movement on the problem will also require bold legislation.</p><p>In the spring, Sacks left her job at ThinkZero, a zero-waste consultancy firm, and is working on building a coalition focused on passing legislation that would make donating “the obvious choice” for corporations, schools and other groups looking to offload unsold or unused goods. “If you don’t make it a law they’re not going to do it,” she says. “My overall goal [with the coalition] is for it to be bipartisan and common sense.”</p><p>Because Sacks’s videos pull back the veneer of corporate pledges to commit to sustainability, they are often shared by followers who say capitalism is the root problem. But Sacks says she finds that argument “polarizing” and that it “immediately alienates” those who equate critiques of capitalism as endorsement of socialism or communism.</p><p>“I don’t want to go into a capitalist vs. socialist or communist debate because I think it’s a binary. Can’t we imagine better systems?” says Sacks. “Can’t we imagine an improved system from what we have right now? Can’t we imagine better government regulation?”</p><p>But Sacks has found that she has to first debunk misconceptions about what corporations can or cannot do in order for her message to reach people.</p><p>“I get so many comments [on Instagram] that say, well, corporations want to donate but they can’t because they’ll be sued,” she says. Yet in 1996, Congress passed the Good Samaritan Food Donation Act in order to create a national standard around the liability faced by food donors, as state laws vary widely. The act <a href="https://www.usda.gov/sites/default/files/documents/usda-good-samaritan-faqs.pdf" data-link-name="in body link">offers protection</a> from criminal and civil liability to people who donate food that meets certain requirements to nonprofit organizations. Restaurants and retail grocers are covered under the act, but Sacks argues not enough people or businesses know about it or take advantage of it.</p><p>Indeed, the American penchant for viewing corporations as the victims of undue government overreach is on full display in the comments section of Sacks’ Instagram and TikTok pages.</p><p>“It’s really an interesting phenomenon, [of] humanizing corporations and thinking of them as humans with feelings,” she says. “There is a lot of trust in corporations and there is distrust in government, and I think those are going to be barriers.”</p><p>Some of us are already persuaded of the need for sustainability and a more circular economy; sometimes, the utility of someone else’s trash is obvious. The evening of our trash walk, Sacks showed me the many doughnuts and bagels left in bags outside a Dunkin’. It wasn’t long before a man approached us and asked if he could have some to eat. When he said he wishes he had a plate, Sacks looked through the haul of items she’d just collected. “If you want, I can give you this plastic box,” she said, quick to add it wasn’t clean.</p><p>Later that night, as we passed another building’s recycling piles, she stoped to point out a perfectly good bulk dog-food container, which she has seen left out on the street before. “The plastic containers are never-ending,” she says, and keeps walking me to the train.</p></div></div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 16:00:21 +0000</pubDate>
+      <source>https://www.theguardian.com/us-news/2021/aug/07/new-york-city-garbage-trash-walks-anna-sacks</source>
+    </item>
+    <item>
+      <title>Introduction To Program Synthesis</title>
+      <link>https://people.csail.mit.edu/asolar/SynthesisCourse/Lecture1.htm</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+
+
+<p>
+
+The dream of automating software development has been present from 
+the early days of the computer age. Already back in 1945, as part of his vision 
+for the Automatic Computing Engine, Alan Turing argued that 
+</p><p>
+<quote>
+Instruction tables will have to be made up by mathematicians with computing 
+experience and perhaps a certain puzzle-solving ability…
+
+This process of constructing instruction tables should be very fascinating. 
+There need be no real danger of it ever becoming a drudge, for any processes 
+that are quite mechanical may be turned over to the machine itself.
+<cite>copeland2012alan</cite>
+</quote> 
+</p><p>
+
+
+Traditionally, the way automation was incorporated into software development was through
+the use of compilers and high-level languages. 
+When the first FORTRAN compiler was developed, it was
+touted as &#34;The FORTRAN Automatic Coding System&#34;, it&#39;s 
+goal was nothing less than to allow the IBM 704 to
+</p><quote>
+code problems for itself and produce as good programs
+as human coders (but without the errors)
+<cite>Backus:1957</cite>
+</quote><p>.
+
+</p><p>
+
+Compilation and synthesis are very closely related in terms of their goals, they both 
+aim to support the generation of software from a high-level description of its 
+behavior. In general, though, we expect a synthesizer to do more than translate 
+a program from one notation to another as traditional compilers do;
+we expect it to discover <i>how</i> to perform
+the desired task. The line can be blurry since some aggressive optimizing
+compilers can be argued to actually discover how to perform a computation that was 
+specified at a high-level of abstraction (parallelizing compilers are a good example).
+One distinguishing feature between a compiler and a synthesizer is the element of <i>search</i>.
+In a compiler, an input description of the computation is transformed into a program
+by applying transformation rules according to a pre-defined schedule. By contrast, 
+a synthesizer is generally understood to involve a search for the program that
+satisfies the stated requirements. Again, the line is blurry, because several
+modern research compilers aggressively search the space of transformations to find 
+optimal implementations in a process known as <i>Autotuning</i>.  
+
+</p><p>
+
+Another class of techniques that is closely associated with synthesis is 
+<i>declarative programming</i>, and in particular <i>logic programming</i>. 
+The dream of logic programming was that programmers would be able to express
+the requirements of their computation in a logical form, and when given an input, 
+the runtime system would derive an output that satisfies the logical constraints through
+a combination of search and deduction. So the goals are also closely related to program synthesis, 
+but there are some important distinctions. First, rather than trying to discover an algorithm 
+to solve a particular problem, logic programming systems rely on a generic algorithm to search
+for a solution to every problem. Thins means that for many problems, they can be dramatically slower
+than a specialized program to solve a particular task. Additionally, if the problem is under-specified,
+the user may get a solution at runtime that is very far from the solution that was expected 
+for the program. 
+
+</p><p>
+
+Finally, Machine Learning corresponds to a third class of approaches that are closely related to program synthesis. 
+The canonical problem in Machine Learning is finding a function whose behavior closely matches a given dataset. 
+So machine learning problems can be thought of as a special case of program synthesis problems where the specification
+comes in the form of data. The biggest distinction between program synthesis and Machine Learning is that in Machine Learning, 
+the space of functions that the algorithm considers is very tightly prescribed. For example, linear classifiers, decision 
+trees and neural networks are some examples of classes of functions that have been very well studied, and each of these
+classes has its own specialized set of algorithms for deriving a function that matches a dataset. By contrast, 
+in program synthesis we are interested in general algorithms that can work with more general classes of programs, 
+with a particular interest in programs that support recursion or other forms of iteration. Traditionally, there
+was a second important distinction in that program synthesis generally aspired to discovering programs 
+that precisely matched the specification, whereas in machine learning the notion of learning from noisy data is deeply 
+engrained in all algorithms. This distinction is less relevant today since there is strong interest in the synthesis 
+commonity on algorithms that are robust to noise, or that behave well in the presence of incomplete specifications. 
+
+
+
+
+</p><h2> Program Synthesis</h2><p>
+
+So if program synthesis is not compilation, it is not logic programming, 
+and it is not machine learning, then what is program synthesis?
+As mentioned before, different people in the community have different working definitions 
+of what they would describe as program synthesis, but I believe the definition below is one 
+that both captures most of what today we understand as program synthesis and also 
+excludes some of the aforementioned classes of approaches. 
+
+</p><p>
+Program Synthesis correspond to a class of techniques that are able to generate a program 
+from a collection of artifacts that establish semantic and syntactic requirements for the generated code.
+</p><p>
+
+There are two elements of this definition that are important. The first is an emphasis on the generation of a program; 
+we expect the synthesizer to produce code that solves our problem, as opposed to relying on extensive
+search at runtime to find a solution for a particular input, as logic programming systems do. 
+The second is the emphasis on supporting specification
+of both semantic and syntactic requirements. We expect synthesis algorithms to provide us with some control 
+over the space of programs that are going to be considered, not just their intended behavior. 
+It is important to emphasize that individual synthesis systems may not themselves provide this flexibility; in fact, 
+the biggest successes of synthesis so far have been in specialized domains where constraints on the space of programs
+have been &#34;baked in&#34; to the synthesis system. Nevertheless, even if the flexibility is not exposed to the users, 
+the underlying synthesis algorithms do have significant flexibility in how the space of programs is defined, and 
+this is a big differentiator both with respect to compilation and with respect to machine learning. 
+In general, both of these requirements imply that our synthesis procedures will rely on some form of search, 
+although the success of synthesis will be largely driven by our ability to avoid having to exhaustively search
+the exponentially large space of programs that arise for even relatively simple synthesis problems. 
+
+
+
+</p><h2>Program Synthesis Today</h2>
+ 
+<slide>Lecture1:Slide14;Lecture1:Slide15</slide><p>
+These days, program synthesis is an active area of research with research papers being published every year in all
+the major programming systems conferences (PLDI, POPL, OOPSLA), as well as in formal methods (CAV, TACAS) 
+and machine learning (NeurIPS, ICLR, ICML). One important branch of synthesis research is focused on pushing the 
+envolope in terms of our ability to automatically generate non-trivial algorithms from very high-level artifacts. 
+Today, we are able to synthesize interesting algorithms such as 
+Karatsuba big-integer multiplication<cite>sketchthesis</cite>, Strassen&#39;s matrix-multiplication<cite>Srivastava:2010</cite>, or the functional 
+cartesian product algorithm of Barron and C. Strachey, which is considered the first functional pearl<cite>Feser:2015</cite>.
+And when it comes to the synthesis of programs from formal specifications, we are now able to synthesize provably 
+correct implementations of fairly complex algorithms; in a few years, we have been able to move 
+from things like sorting and list reversal to algorithms and data-structure manipulations such as 
+insertion into red-black trees or binary heaps<cite>Polikarpova:2016</cite>. 
+Another area where synthesis is fairly advanced is in the synthesis of bit-vector manipulations. 
+The winner of the most recent synthesis competition was able to synthesize every bit-vector manipulation that 
+the organizers threw at it. 
+
+</p><p>
+
+Another important branch of synthesis research focuses on the application of synthesis techniques to a broad class of problems. 
+For example, one area where program synthesis has been particularly succesful 
+is in the area of &#34;Data Wrangling&#34;, the manipulation of data, especially by people with no prior programming experience.
+The first commercial application of program synthesis was <i>FlashFill</i><cite>gulwani:2011:flashfill</cite>, a feature that was first incorporated
+into Excell 2013, which allows users to do data manipulation by providing a few examples and automatically derives
+a small program from the examples and applies the program to the rest of your data.
+On the research side, there have been significant advances in the ability to synthesize fairly complex database queries 
+either from examples<cite>Wang:2017</cite>, or from natural language queries<cite>Yaghmazadeh:2017</cite>.
+This area has proven to be a good fit for our current synthesis capabilities because on the one hand, there 
+is a strong need to make data analysis and cleaning accessible to non-programmers, and on the other hand, the
+programs in question are generally small and easy to describe through examples or other forms of natural interaction. 
+
+</p><p>
+<slide>Lecture1:Slide27;
+Lecture1:Slide28;
+Lecture1:Slide29;
+Lecture1:Slide33;
+</slide>
+
+Another area that has seen major interest is the reverse engineering of code. 
+Traditionally, we think of synthesis as starting with a specification and generating 
+an implementation from that. But in this case, that paradigm is flipped on its head: starting
+from an implementation, the goal is to infer a specification that characterizes the behavior of the given
+implementation. The idea was first proposed by Susmit Jha, Sumit Gulwani, Sanjit Seshia and Ashish Tiwari<cite>Jha:2010</cite>.
+It has most recently been popularized by Alvin Cheung in an approach known as <i>Verified Lifting</i>, where the goal 
+is to discover a high-level representation that is provably equivalent to an implementation and that can be used
+to generate a more efficient version of the code. The idea was first applied to the problem of generating SQL queries
+that are equivalent to a piece of imperative code, but has most recently been applied to a variety of problems ranging
+from modernizing legacy HPC applications<cite>Kamil:2016</cite>, to optimizing Map Reduce programs <cite>Ahmad:2018</cite>.
+
+</p><p>
+Another recent example of the use of synthesis for reverse engineering involves the creation of models of complex code for
+the purpose of program analysis. For example, a recent paper by Jinseong Jeon et al. <cite>Jeon:2016</cite> showed that
+it was possible to use synthesis to create models of complex reactive frameworks such as the Android and Java Swing by recording
+traces of the interaction between the framework and a test application and then forcing the synthesizer to produce a model
+that conforms to that trace and that follows known design patterns. A similar idea was used by 	Heule, Sridharan and Chandra
+to synthesize models of array manipulation routines in JavaScript <cite>Heule:2015</cite>. 
+
+</p><p>
+<slide>
+Lecture1:Slide41;
+Lecture1:Slide43;
+Lecture1:Slide44
+</slide>
+One particularly interesting research thrust is the application of synthesis techniques for problems that
+seemingly have nothing to do with automatic programming; there is a growing realization that program synthesis techniques can 
+actually be applied in a number of domains that have traditionally been though of as AI. For example, 
+back in 2013, we demonstrated that it was possible to apply program synthesis to the problem of providing feedback
+for programming assignments<cite>Singh:2013</cite>; similar ideas have been used to other
+forms of automated tutoring, from teaching automata theory<cite>D&#39;antoni:2015</cite> to teaching 
+deduction <cite>AhmedGK13</cite>.
+
+</p><p>
+
+More broadly, one of the more exciting research directions around program synthesis is the interaction between 
+synthesis and machine learning. On the one hand, there has been a lot of recent interest in applying machine
+learning techniques to synthesis problems, for example to be able to learn how to use complex APIs<cite>MuraliCJ17a</cite>. 
+But there is also significant interest in applying ideas from program synthesis to machine learning problems, 
+for example, in order to allow you to learn with less data or to generate interpretable models. 
+For example, in recent work, we showed that it was possible to learn language morphology rules from 
+small numbers of examples, or to learn visual concepts much more efficiently than with traditional machine learning<cite>EllisST15</cite>.
+
+
+
+
+
+</p><h2>Challenges</h2><p>
+
+In general, there are three major challenges one has to address when working with program synthesis. 
+In a recent paper, we refer to these as the Three Pillars of machine programming<cite>GottschlichSTCR18</cite>. 
+
+</p><p>
+<b>Intention.</b>
+The first challenge is what we have termed the Intention challenge: how do the users tell you their goals?
+The definition of synthesis talks about semantic and syntactic constraints, but the exact form of these
+will influence all subsequent decisions about the synthesis system. The success of the 
+FlashFill<cite>gulwani:2011:flashfill</cite> system has popularized the use of input-output examples 
+as a means of specification, but input-output examples are not suitable for every task. 
+In our own work on storyboard programming, we advocated for an approach to multi-modal synthesis, 
+where concrete examples were combined with abstract examples and logical specifications, so that 
+together they provided enough information about the intended behavior to produce a working 
+implementation of a data-structure manipulation<cite>SinghS12</cite>. 
+</p><p>
+One big aspect of the intention challenge is how to cope with under-specification. If there are multiple 
+programs that satisfy the requirements, how can we tell which one the user actually wants? 
+Of course one solution is to simply ignore this problem, if the user provides a partial specification, 
+they have no right to complain if they get a different program from the one they wanted. In practice, though,
+making a good choice can make the difference between a system that is useful, and one that is not. 
+</p>
+
+
+<p>
+<b>Invention.</b>
+
+The second challenge once we know what the user wants is to actually discover a piece of code that will 
+satisfy those requirements. Arguably this is the central challenge of synthesis, as it potentially involves
+inventing new algorithmic solutions to a problem. One of the key questions we will be dealing with in this
+course are different techniques that the community has developed to tackle the inherent complexity of this task.
+</p>
+
+<p>
+<b>Adaptation</b>
+
+The canonical view of synthesis is that the user is creating a brand new algorithm from scratch, and wants to leverage
+a synthesizer to create a correct implementation of the desired algorithm. However, most software development involves
+working in the context of existing software systems, fixing bugs, optimizing code, and performing other kinds of maintenance
+tasks. This pillar deals with the question of synthesis in a broader context, and the application of synthesis ideas 
+to broader software development tasks beyond green-field software creation. 
+ As we will see later, there are a number of compelling applications of program synthesis in support of the broader
+ software development process. 
+ </p>
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 16:44:10 +0000</pubDate>
+      <source>https://people.csail.mit.edu/asolar/SynthesisCourse/Lecture1.htm</source>
+    </item>
+    <item>
+      <title>The Ingenious Ancient Technology Concealed in the Shallows</title>
+      <link>https://www.hakaimagazine.com/features/the-ingenious-ancient-technology-concealed-in-the-shallows/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_hakaimagazine_com_features_the-ingenious-ancient-technology-concealed-in-the-shallows_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article>
+                <header>
+                    
+                    <h2>Fish traps have a long history around the world, and a vast network in a Vancouver Island estuary reveals generations of ecological wisdom.</h2>
+                    
+           
+          
+        </header>
+
+        
+                                          
+                        <section>
+          <h3>Article body copy</h3>
+          <p>It was a cool spring morning on British Columbia’s Vancouver Island when the ground began to buckle and heave. On the Richter scale, the earthquake reached a magnitude of 7.3 at a place called Forbidden Plateau. Seventy-five years later, it still holds the title as the most powerful onshore quake ever recorded in Canada. In nearby communities, brick walls fell and three-quarters of all chimneys collapsed. Two casualties were recorded that day: one man died of heart failure and another drowned after his dinghy was overturned by a wave generated when a piece of land gave way and thundered into the sea. For a while, that seemed like the end of the story. But over time, the changes wrought by the quake revealed a mystery that had lain hidden for generations—long enough to be forgotten.</p>
+<p>Twenty-two kilometers from the quake’s epicenter, locals started noticing wooden stakes appearing in the intertidal zone of Comox Harbour on the east side of Vancouver Island. They ranged in size from the width of an adult’s thumb to the width of an arm, but stuck out little more than ankle high from the sand and mud. Locals pondered the mystery; many assumed they were the leavings of some relatively recent industrial activity, or a fishing scheme abandoned by immigrants from Japan.</p>
+<p>In 2002, Nancy Greene, then an undergraduate anthropology student, walked among the barnacle-encrusted stakes and thought she’d found a fascinating subject for her senior project at Malaspina College (now Vancouver Island University). She had lived in the area since 1978, raised her children here, and was up for a new challenge. Little did she know it would consume countless hours, span more than a decade, or eventually reveal the largest unstudied archaeological feature yet found on the Pacific Northwest coast—one that would tell a remarkable tale of human ingenuity and adaptation in an era of climate change.</p>
+<hr/>
+<p>On the eastern slopes of the Beaufort Range, rain and meltwater flow down the Puntledge and Tsolum Rivers and converge in the Courtenay River before reaching Comox Harbour. These sheltered waters are part of the Salish Sea, which stretches from British Columbia’s Inside Passage down to Washington State’s Puget Sound. People have been living off the bounty of this marine environment ever since they began arriving in the region near the end of the last ice age, about 13,000 years ago. Comox Harbour lies within the protected waters of a broad, gently sloping estuary that covers an area of 9.6 square kilometers, slightly bigger than Golden Gate Park in San Francisco, California. It is the traditional territory of speakers of the extinct Pentlatch language, whose descendants form part of the 342-member K’ómoks First Nation, which along with the communities of Courtenay and Comox now surround the harbor.</p>
+<div id="attachment_35973"><p><a href="https://www.hakaimagazine.com/wp-content/uploads/map-fish-trap-people.png"></a></p><p>Map data by OpenStreetMap via ArcGIS</p></div>
+<p>There had always been a few bits of wood poking up through the sand and mud of Comox Harbour, but after the quake of 1946, thousands of stakes emerged across vast stretches of the intertidal zone. This was likely a result of liquefaction, a phenomenon in which shaking reduces the strength of the sediment and leads to erosion. Subsequent periods of dredging near the mouth of the river may have also contributed to the process. It was clear the stakes formed patterns, but just what those patterns represented was a puzzle until quite recently. In her interviews with members of local Indigenous communities, Nancy Greene found only one clue: a K’ómoks elder said that her grandmother told her the stakes were used to catch salmon, and that families owned specific weirs and were tasked with maintaining them.</p>
+<p>Cory Frank, manager of the K’ómoks Guardian Watchmen, encountered the stakes as a child and also pondered the mystery. But when he asked his elders what they were, they didn’t seem to know. What was well known were the frequent battles that took place in the harbor before colonization. Those foolish enough to attempt a raid on the people living here, or their rich resources, faced harsh consequences. “What we did with people like that was chop their heads off, put them on a spear, toss them in the sand, and leave them as a reminder for other people not to come.”</p>
+<p>Frank clearly relishes relaying the tale, a testament to the abundance of salmon and the tenacity of the people protecting their claim to Comox Harbour. Now, as the history of the stakes is becoming known, he says they are a source of pride in his community.</p>
+<div id="attachment_35974"><p><a href="https://www.hakaimagazine.com/wp-content/uploads/nancy-greene-fish-trap-people.jpg"></a></p><p>Nancy Greene studying the massive fish trap complex in Comox Harbour on Vancouver Island, British Columbia. Photo courtesy of Nancy Greene</p></div>
+<p>Uncovering that history required hands-on research. In 2003, after surveying the entire estuary, Greene pulled on her gumboots and set out with pin flags and a laser theodolite to take geolocations of stakes across an area encompassing a total of approximately 30 hectares. She enlisted her husband, retired geologist David McGee, and a team of volunteers to help find and mark the stakes while trying to outrun the incoming tide. Because not all tides are created equal, she had to account for variations in how much area a tide exposed, available light, and weather. After months of reconnaissance, then weeks of recording geolocations, she recalls that first moment seeing the information they had collected displayed on a computer screen. Suddenly, those individual nubs of Douglas fir and western red cedar became 900 little black points on a field of white—like a photographic negative of stars in the nighttime sky. Patterns began to emerge and repeat. It took months of analysis, she says, before she began to realize what they represented—the remains of an immense, highly coordinated, and sophisticated fish trap system, the largest such system discovered in North America, if not the world.</p>
+<hr/>
+<p>Think Hotel California for fish—they can easily check in, but they can never leave. Such is the purpose of fish traps, ingenious systems for catching wild fish and practicing fishery management the world over. Fish weirs, like the ones that appeared in Comox Harbour, are a specific kind of fish trap built as an obstruction across a river or tidal waters. Fish seeking shallows, or spawning grounds farther upstream, swim in with the tide and can’t escape. The ancient technology relied on a deep and intimate knowledge of local fish behavior.</p>
+<p>Evidence suggests that complex hunter-gatherer cultures around the world invented fish traps independently at different places and times. Unlike wooden stakes, rock assemblages used in other fish weirs are difficult to date, but radiocarbon dating of adjacent middens (piles of fish bones and shells) offers a kind of proxy. Some of the oldest confirmed traps in North America are on mainland British Columbia at the mouth of the Fraser River (4,500 to 5,280 years old) and in Maine (5,770 years old). The oldest-known fish traps, between 9,000 and 7,000 years old, were found in northern Europe. But the technology is probably far older. A line of stones found on the shore of an ancient lake in the Kenya Rift is reminiscent of the fish weirs used by the local people in modern times. It dates to the time of <em>Homo erectus</em> or at least 490,000 years ago. If this was indeed a weir, it would mean the technology predates modern humans.</p>
+<p><iframe loading="lazy" title="Fish trap animation 1.mp4" src="https://player.vimeo.com/video/579660023?dnt=1&amp;app_id=122963" width="600" height="338" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe></p>
+<p><span>At high tide, fish would be directed inside the traps; as the tide receded, they were stranded inside. Animation by School District 71 Indigenous Education and Fox &amp; Bee Studio</span></p>
+<p>The scale and complexity of the fish weirs found in Comox Harbour is staggering. Multiple traps were likely in use at the same time and, collectively, would catch immense quantities of fish. Over the course of her research, published in the <em>Canadian Journal of Archaeology </em>in 2015, Greene and her team recorded the position of 13,602 stakes. Radiocarbon dating of 57 stakes revealed ages ranging from 1,300 to just over 100 years old. Greene, now a research archaeologist, conservatively estimates there are approximately 150,000 to 200,000 stakes in the harbor, which represent the remains of more than 300 fish traps. She knows of no other site approaching this scale of stake density.</p>
+<p>In Comox Harbour, the patterns of the stake alignments reveal two distinct designs: one heart-shaped and one chevron-shaped. In both designs, removable lattice panels were likely lashed to the stakes to act as fences designed to lead the fish into the traps during high tide. When migrating fish encountered the barrier, they were directed into an opening at the crease between either the lobes of the heart or the wings of the chevron. As the tide receded, the fish inside the trap were stranded. The heart-shaped design mirrors historical fish weirs found in other sites along the Pacific Northwest coast, the east coast of North America, and coasts in other parts of the world. Depending on the height of the tide, the traps could have also served as holding ponds to keep fish alive in shallow water until people were ready to collect and process the catch. After the people had all they wanted, they removed the panels to allow fish to pass.</p>
+<p>The stakes from the heart-shaped traps correspond with the earlier dates returned from radiocarbon dating. They ranged in age from 1,240 years old to a little over 840 years old. Because of their proximity to nearby middens, and the preponderance of herring bones in those middens, Greene suggests the people of Comox Harbour used heart-shaped traps to catch herring. They built, operated, and maintained those traps during a prolonged era of warm temperatures and frequent droughts—an era that was coming to an end.</p>
+<div id="attachment_35987"><p><a href="https://www.hakaimagazine.com/wp-content/uploads/shapes2-fish-trap-people.png"></a></p><p>The people changed the shape of the fish traps to adapt to changing ocean conditions. Illustration by David McGee and Mercedes Minck</p></div>
+<p>On the east coast of Vancouver Island, there was a marked increase in precipitation around 850 years ago. As the air got cooler and ocean temperatures dropped, fish ranges shifted. The archaeological record reflects these changes. After using and maintaining the heart-shaped traps for over four centuries, local people abruptly replaced them with the chevron-shaped design. Greene found no evidence of a period of trial and error. Knowledge of this new design probably already resided within the local population, or they quickly obtained it. “There were heart-shaped traps, and then there were chevron-shaped traps,” she says. “There were no traps in between.” It was a rapid technological adaptation to an altered climate.</p>
+<p>The new chevron-shaped traps, which worked on the same principle of corralling schooling fish into a holding pen, were designed to catch much larger fish—up to 30 times the mass of herring. Local people built the traps to take advantage of a species multiplying exponentially in the cooler temperatures, a species that would come to support the very foundation, stability, and fluorescence of culture in Comox Harbour and all along the Pacific Northwest coast—a complex and sophisticated society that did not rely on agriculture. For the next five centuries, the people of Comox Harbour expanded, rebuilt, and maintained those traps for catching salmon.</p>
+<hr/>
+<p>Construction of the fish traps began above the high-tide line in the temperate rainforest. The people of Comox Harbour selected saplings then cut, trimmed, and pointed them. They waited for a favorable low tide, then measured, spaced, and drove the stakes into the intertidal sand and mud using pile drivers before the tide came rolling back in. Examples of pile drivers from the Pacific Northwest coast include some with handles and others with ergonomic thumb and finger grips etched into the stone. They repeated the process dozens of times, likely over numerous tide cycles, in order to create a single chevron-shaped salmon trap. Once the stakes were secure and the lattice panels were lashed in place—but before any salmon were taken—tradition dictates the people would pay respect.</p>
+<p>At the waters’ edge, a shaman would stand on a platform with his face painted red and eagle down in his hair—a symbol of peace and welcome. He would shake his ceremonial rattle and sing, then head out in his canoe. He would harpoon several salmon and put aside the first one he caught. The entire community would stand on the beach and watch, anticipating his return. When he came ashore, he would sing to and honor the first salmon by sprinkling it with eagle down. Once it was cooked and the feast complete, fishing could begin.</p>
+<p></p>
+<div id="attachment_36000"><p></p><p>There are hundreds of thousands of stakes in the Comox Harbour; Greene and her colleagues mapped a few thousand. Illustrations by David McGee and Mercedes Minck</p></div>
+<p>As salmon arrived in the harbor, in search of the freshwater surge from the Courtenay River and the spawning sites upstream, some encountered wooden panels that formed a barrier forcing them through the narrow opening of a trap. One by one, the salmon followed each other inside, where they found themselves directed back along the wings of the pen, unable to escape.</p>
+<p>During the salmon run, numerous fish traps would be in operation around the harbor. Men of high-status or lineage probably controlled access to the traps. Traditionally, in cultures along the Pacific Northwest coast, men were responsible for catching fish. Women and young children most often processed fish; slaves, who were considered genderless, were also likely given this task. The traps worked day and night, in concert with the tide, until either the salmon run subsided, or the people had their fill. They would then remove the panels and store them for the next run or season.</p>
+<p>The people of Comox Harbour designed their traps to be semi-permanent. This allowed for the selective catch of salmon while the panels were in place; once the panels were removed, the rest of the fish could easily pass between the bare stakes to spawn in the rivers and streams beyond. An example of just such a panel, nearly six meters long and radiocarbon dated to the late 14th century, was discovered in Comox Harbour. The traps were highly consistent in form and were likely built using standardized units of measurement. One series of three linked traps, which may have been in use at the same time, stretched over a distance of more than three football fields (320 meters). The traps ensured both the fish and the fishery thrived.</p>
+<div id="attachment_35978"><p><a href="https://www.hakaimagazine.com/wp-content/uploads/panel-fish-trap-people.jpg"></a></p><p>The remains of a removable fence were found in the harbor a few years ago. Photo courtesy of Genevieve Hill</p></div>
+<p>Greene suspects the fishery in and around Comox Harbour would have supported a high population density. She believes the enormous number of fish caught and processed here would go to feeding not only the local people over the coming winter months; they likely traded fish up and down the coast and across the Salish Sea. Prior to the smallpox epidemic of 1862, there were about 30,000 Indigenous people living along the coast of British Columbia’s Inside Passage. The fishery at Comox Harbour may have been the center of cultural activity in the northern Salish Sea for at least 1,300 years.</p>
+<p>Deidre Cullon, an archaeologist and adjunct professor in the geography department at Vancouver Island University, works for the Laich-Kwil-Tach Treaty Society. She has studied Pacific Northwest fish traps and wrote her doctoral dissertation on the relationship between Pacific Northwest peoples and salmon. “What I find,” she says, “is that the more we do and the more we learn, the more questions we have.”</p>
+<p>Cullon, like Greene, found it challenging to obtain any information about historical fish traps in the Indigenous communities she surveyed. Why has the cultural memory of these features and this technology all but vanished? She points to a “perfect storm” blowing out the flame of cultural memory.</p>
+<p>The smallpox epidemic of 1862 claimed the lives of half the Indigenous people on the coast of British Columbia. In that catastrophe, not only were keepers of knowledge lost; entire communities were abandoned. Lost, too, was the need for a high-production fishery—there were far fewer mouths to feed.</p>
+<p>“And then, right on the heels of that, the Canadian government chose to support commercial fishing for canneries,” Cullon explains. The government declared the traps illegal and sent their fisheries officers to destroy them. This was followed by the advent of the notorious residential school system, in which Indigenous children were removed from their families by the government and religious institutions and taken to far-off boarding schools, effectively separating them from their communities, language, and culture. This resulted in a profound disruption in the transfer of traditional knowledge, including the purpose and use of fish traps.</p>
+<div id="attachment_35979"><p><a href="https://www.hakaimagazine.com/wp-content/uploads/posts-fish-trap-people.jpg"></a></p><p>As the tide recedes in the harbor today, remains of the stakes poke out of the estuary. Photo courtesy of Nancy Greene</p></div>
+<p>Although the ways and means of fishing changed, salmon retained their place at the heart of Indigenous society on the Pacific Northwest coast. Among many First Nations on this coast, it was taboo to toss salmon remains on a rubbish heap, as was done with herring and shellfish. People released the remains of salmon into the sea out of respect for what they considered nonhuman kin.</p>
+<p>“The ocean was the water of life,” Cullon explains. “It had resurrection properties that allowed them to be reincarnated so that they can then return to the human world the following year.” In the Indigenous belief system, this respect and these traditions ensured the salmon’s return.</p>
+<p>But for over a generation now, the number of salmon returning to the coast of British Columbia has fallen sharply, due to more than a century of commercial fishing and development. In addition, climate change is threatening the ecosystem itself. This strikes at the heart of both Indigenous communities and society as a whole. If not the continued return of the salmon, what will the future bring?</p>
+<hr/>
+<p>On the Pacific Northwest coast, and around the world, change is underway again. On a bright summer day in 2020, a fisherman hauled in evidence little more than 80 kilometers south of Comox Harbour. He was fishing for salmon but described his catch as “a meter long and all muscle and all teeth.” It was a Pacific barracuda, an aggressive, predatory species common in the subtropical waters off Baja California, over 2,000 kilometers to the south. William Cheung, the Canada Research Chair in Ocean Sustainability and Global Change at the University of British Columbia, says that warmer-water fish, such as barracuda and ocean sunfish are arriving in local waters with increasing frequency. He predicts a future in which sardines, a fish more associated with Southern California, will become common on Canada’s west coast.</p>
+<p>Cheung’s research also opens a window into the past. He can corroborate the shift in ocean surface temperatures approximately 850 years ago, temperatures that favored salmon. And now, he sees another shift underway. After centuries of relative stability, ocean surface temperatures will likely continue to rise on the coast of British Columbia over the next 30 years. His projections suggest this warming will bring a 30 percent decline in sockeye salmon, but that’s only part of the story. Episodic marine heatwave events, such as the Blob, will exacerbate this baseline temperature increase—doubling the impact on fish like salmon.</p>
+<p>Cheung says the temperature increases he’s seeing now are resulting in changes that are beyond what people have experienced before. He’s concerned that adapting to those changes will be less straightforward in the future. What’s certain is that unprecedented change in the global marine ecosystem is taking place, and human-induced climate change is one of the primary drivers.</p>
+<p>The archaeological record shows the people of Comox Harbour used and adapted their fishing technology to help provide a nutritious food source and to ensure the sustainability of natural systems. They organized their society around it. Today, as climate change accelerates, and we continue the exploitation of global fish stocks to or beyond their capacity, modern society is leaving evidence of our commercial fishing philosophy in intertidal zones, on beaches, and adrift on and littering the bottom of the sea—much of it plastic. But on British Columbia’s central coast, just north of Vancouver Island, the Heiltsuk Nation is looking back to a traditional technology to help safeguard the future of their fishery.</p>
+<div id="attachment_35980"><p><a href="https://www.hakaimagazine.com/wp-content/uploads/intertidal-fish-trap-people.jpg"></a></p><p>The fish traps extend over the 9.6-square-kilometer harbor. Photo courtesy of Nancy Greene</p></div>
+<p>William Housty, conservation manager for the Heiltsuk Integrated Resource Management Department, says evidence of ancient stone fish traps and cedar stake fish weirs is found throughout Heiltsuk territory.</p>
+<p>“It’s not like throwing a net in the water and catching every salmon that’s swimming by,” he says of the old traps and weirs. They represent what he calls a brilliant technological approach because they were adapted on a creek-by-creek basis, which allowed for intimate knowledge and management focused on sustainability. Now, he says, the technology has proved to be invaluable for research.</p>
+<p>Today, biologists commonly use weirs for monitoring fishery health, but the technology is rarely used in the Indigenous territories where it evolved. In 2013, the Heiltsuk Nation built a fish weir, based on a traditional design, on the Koeye River, an important salmon-bearing stream. It has allowed local people to identify, tag, and release salmon; to understand critical relationships between rates of salmon survival and spawning; and to monitor stream temperature fluctuations—in short, to assess the health of the ecological system.</p>
+<p>“I think it’s genius,” Housty says of the technology that has a history of being adaptable to climate change. “One, to be able to feed yourself; two, to be able to maintain ecological diversity in the watersheds and stream systems; and three, just being mindful and respectful of the salmon themselves and making sure that we’re giving them the opportunity to spawn and come back—knowing full well that, in previous times, salmon were the main staple of our ancestors.”</p>
+<p>The salmon caught in the new Heiltsuk weir are not yet used for food or ceremonial purposes. That will only happen once local managers are confident sustainability objectives have been met. Housty looks forward to that day. When it arrives, he says the first fish taken will be welcomed with honor and respect.</p>
+        </section>
+        
+      </article></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 00:23:17 +0000</pubDate>
+      <source>https://www.hakaimagazine.com/features/the-ingenious-ancient-technology-concealed-in-the-shallows/</source>
+    </item>
+    <item>
+      <title>Creating Beautiful HTML Visualizations</title>
+      <link>https://tiiny.host/blog/creating-beautiful-html-visualizations-with-flourish-a-complete-guide/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___tiiny_host_blog_creating-beautiful-html-visualizations-with-flourish-a-complete-guide_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article>
+				<p>Beautiful visualizations are advancing the digital world day by day. Today, visualizations are important to help you stand out. Visualizations play a great role in capturing the audience’s attention and developing their keen interest in the content.</p>
+
+<p>The good news is that there are tools that can make visualizations easier to create, more accessible, and more shareable. What’s more is that they can help you tell stories with all kinds of data, across all kinds of devices.</p>
+
+<p>In this article, we’ve composed a complete guide on how you can use flourish to improve your work.</p>
+
+<p><strong><em>Creating beautiful HTML visualizations with Flourish can help you achieve your requirements. We recommend Flourish to produce the best visualizations and help you stand out among thousands of visualizations.</em></strong></p>
+
+<h2 id="what-is-flourish">What is Flourish?</h2>
+
+<p>Flourish is an incredible tool. It has a good selection of standard charts, as well as some additional animation on loading and handy interactivity. There are some great built-in color ranges to choose from, as well as the possibility to build your own. There’s also a good deal of customization in Flourish. These benefits help in making visualizations more effective and impactful.</p>
+
+<p>Flourish particularly sets itself apart from other tools as it provides several charts that you won’t find anywhere else. You can also customize these charts within a few minutes without any hassle. This will save you time and help you get better and quicker results.</p>
+
+<h2 id="why-flourish-above-all">Why Flourish above all?</h2>
+
+<p>There are many data visualization tools available but our first recommendation is Flourish. Why? It’s because when working with your data, Flourish.studio provides an online and always accessible help system to guide you through the process.</p>
+
+<p>You will see an enormous question mark on the bottom right-hand side of the page. Clicking that will lead you to a database of hints, tips, and tricks.</p>
+
+<h2 id="what-is-the-best-way-to-use-flourish">What is the best way to use Flourish?</h2>
+
+<p>Flourish.studio enables you to register your account. By registering on Flourish. You will be provided with a lot of authority over how you create and store your visualizations.</p>
+
+<p>When you first log in to Flourish.studio, you’ll see a little menu with the following options:</p>
+
+<p>1. My Projects</p>
+
+<p>2. New Visualization</p>
+
+<p>3. New Story</p>
+
+<p>From this menu, you may create either a single visualization (of which there are many) or a series of visualizations that are grouped to tell a data-driven story.</p>
+
+<p>This is your dashboard, so if you’ve already created visualizations, they’ll appear here as well.</p>
+
+<p></p>
+
+<p>When you go to flourish.studio’s site (<a href="https://flourish.studio" title="https://flourish.studio">https://flourish.studio</a>), you will be presented with a very extensive visual gallery of the visualization templates that it has available. This can be intimidating or confusing for beginners. It is important that you have some sense of the sort of way you would like to visualize your dataset.</p>
+
+<p>The creators of Flourish.studio have chosen a visualization-first approach. Visualizations make demo data easy to find and share. It shows you how data should be formatted.</p>
+
+<p>This is a great tool for showing what your final HTML visualizations will look like. So if you’re tense about the final outcome of your visualization, then don’t worry. You will be provided with a preview so you can have a better idea of your results.</p>
+
+<p></p>
+
+<p>There are many different options available on this screen to adjust the visualization. You can go into a lot of different settings such as how much information is shown, how the data is displayed, and the way it looks. When making changes to the parameters, the visualization immediately reflects those changes.</p>
+
+<p>To upload your data, you must select the data tab at the top.</p>
+
+<p>On the data panel, you may make manual changes to your data or upload it in a variety of formats. It’s worth noting that this can either replace or supplement the information already in the online file. The data you provide will be formatted differently depending on the type of visualization you’re making.</p>
+
+<p>For instance, flourish.studio will accept a geoJSON file that may be used to create cartographic primitives and they can be visualized.</p>
+
+<p>When data is present in the data table, you can select which columns should be seen on the right-hand screen. Any adjustments you make will be seen in the preview below your options.</p>
+
+<p></p>
+
+<p>Once you’ve received your desired designs, the final step in the process is to share the visualization. The “Export &amp; publish” button allows you to share your work. Sharing your work with others will also help you take suggestions and recommendations for modifying your designs further.</p>
+
+<p></p>
+
+<h2 id="what-are-the-pros-and-cons-of-flourish-studio">What are the pros and cons of Flourish Studio?</h2>
+
+<h3 id="pros">PROS:</h3>
+
+<ul>
+  <li>There are many templates for the users to start creating their visualizations.</li>
+  <li>It easily creates attractive and exclusive visualizations.</li>
+  <li>You can also generate maps and moving globes with Flourish Studio.</li>
+  <li>Flourish processes the result within a few minutes.</li>
+  <li>It is user-friendly and very helpful for beginners.</li>
+</ul>
+
+<h3 id="cons">CONS:</h3>
+
+<ul>
+  <li>The main problem is you will have to find your data first.</li>
+  <li>The free version of the tool is quite limited as compared to the paid version offerings.</li>
+</ul>
+
+
+
+<p>Flourish.studio enables you to store the visualization in static image files. You can use them on-screen or in print, or to integrate the visualization into your blog or other online sources with interactive components.</p>
+
+<p>Flourish.studio builds embedded code to insert into your HTML source as well as a single URL to share your built-in visualization with other members of your team.</p>
+
+<hr/>
+
+			</article></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 15:27:47 +0000</pubDate>
+      <source>https://tiiny.host/blog/creating-beautiful-html-visualizations-with-flourish-a-complete-guide/</source>
+    </item>
+    <item>
+      <title>WeWork Book: The $10T Mirage</title>
+      <link>https://www.axios.com/10-trillion-mirage-wework-book-0ee98f74-5370-419e-81ea-e0914bdc0f00.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_axios_com_10-trillion-mirage-wework-book-0ee98f74-5370-419e-81ea-e0914bdc0f00_html/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>This single slide — marked up in the yellow scrawl of SoftBank CEO Masayoshi Son — captures this era&#39;s euphoria over the hyper-scaling of tech startups, combusting with extremely low interest rates:</p><p><strong>The big picture: </strong>Cash gushers chase indefensible valuations on delusional growth prospects and paths to profitability, with little regard for the reality of the underlying business and market structure. </p><p><strong>The slide was uncovered </strong>by Wall Street Journal reporters <a data-vars-link-text="Eliot Brown" data-vars-click-url="https://twitter.com/eliotwb" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://twitter.com/eliotwb" target="_blank">Eliot Brown</a> and <a data-vars-link-text="Maureen Farrell" data-vars-click-url="https://twitter.com/maureenmfarrell" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://twitter.com/maureenmfarrell" target="_blank">Maureen Farrell</a> as they wrote the delicious new book &#34;<a data-vars-link-text="The Cult of We" data-vars-click-url="https://www.penguinrandomhouse.com/books/645810/the-cult-of-we-by-eliot-brown-and-maureen-farrell/" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://www.penguinrandomhouse.com/books/645810/the-cult-of-we-by-eliot-brown-and-maureen-farrell/" target="_blank">The Cult of We</a>,&#34; chronicling the wiles and humiliation of Adam Neumann, WeWork&#39;s day-drinking co-founder, former CEO, and chief snake-oil salesman. </p><p><strong>&#34;As he pondered</strong> a bigger investment in WeWork,&#34; the authors write, &#34;Son pushed WeWork&#39;s already ambitious financial projections into territory unprecedented in business history. During a meeting with Neumann, he scribbled out a vision for a company worth $10 trillion.&#34;</p><figure><amp-img id="10feaae6-605d-4cf8-b412-0bb0e2966f69" layout="responsive" src="https://images.axios.com/GC8q8vqeE9b5ZLBrI2fAJqJTiXc=/2021/08/07/1628346825566.jpg" alt="Graphic from &#34;The Cult of We,&#34; by kind permission of the authors, Eliot Brown and Maureen Farrell" width="1920" height="1080" i-amphtml-layout="responsive"><i-amphtml-sizer></i-amphtml-sizer></amp-img><figcaption>Graphic from &#34;The Cult of We,&#34; by kind permission of the authors, Eliot Brown and Maureen Farrell</figcaption></figure><p><strong>SoftBank made Goldman Sachs</strong> look downright restrained in a pitch deck, also obtained by the authors, to take WeWork public.</p><ul><li><strong>Goldman bankers</strong> included the bar chart shown above (&#34;Your Path to $1 Trillion&#34;), which &#34;played to both Neumann&#39;s hunger for a giant valuation and his affinity for simple visuals.&#34;</li></ul><p><strong>On the book&#39;s cover, </strong>business journalist <a data-vars-link-text="Charles Duhigg" data-vars-click-url="https://twitter.com/cduhigg" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://twitter.com/cduhigg" target="_blank">Charles Duhigg</a> calls it a portrait &#34;of how grifters came to be called visionaries.&#34;</p><ul><li><strong>The wild-haired Neumann </strong>— a yeller who combined a televangelist&#39;s frenzy with <a data-vars-link-text="tequila and weed" data-vars-click-url="https://www.wsj.com/articles/this-is-not-the-way-everybody-behaves-how-adam-neumanns-over-the-top-style-built-wework-11568823827" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://www.wsj.com/articles/this-is-not-the-way-everybody-behaves-how-adam-neumanns-over-the-top-style-built-wework-11568823827" target="_blank">tequila and weed</a>, plus quirks that included strolling Manhattan barefoot — eventually drove his baby off a financial cliff:</li></ul><blockquote><em>The rise and fall of WeWork was enabled by a collision of forces: a man characterized by charisma, unbridled optimism, and astute salesmanship met an entire financial system primed to fall under his spell. </em></blockquote><p><strong>&#34;Had a frothy</strong> venture capital sector not been so obsessed with the search for eccentric and visionary founders,&#34; the authors continue, &#34;WeWork might still occupy only a smattering of buildings in Brooklyn and lower Manhattan.&#34;</p><figure><amp-img id="ee6cd139-96f8-49a8-acec-7b0b13dacbf6" layout="responsive" src="https://images.axios.com/NHO1xDaTPiUP6Dfk_EZWRvc3jp4=/2021/08/07/1628346922752.jpg" alt="Cover: &#34;The Cult of We&#34;" width="1920" height="1080" i-amphtml-layout="responsive"><i-amphtml-sizer></i-amphtml-sizer></amp-img><figcaption>Cover: Crown</figcaption></figure><p><strong>The authors told me</strong> that COVID shutdown had sunk their reporting travel plans. But it turned out to be easier to talk to key players in the drama when they were stuck at home, rather than trying to meet them and gain their trust in a coffee shop. <strong>Maureen Farrell,</strong> who&#39;s on The Journal&#39;s Deals team, told me it&#39;s scary how much capital was destroyed during the We Work saga: </p><ul><li><strong>&#34;In this era </strong>of so much money chasing the next great idea, it makes people willing to not have the checks and balances.&#34;</li></ul><p><strong>Eliot Brown,</strong> who covered venture capital and now writes about the SPAC frenzy, said Neumann got &#34;smart people to do dumb things&#34;: </p><ul><li><strong>&#34;<a data-vars-link-text="Theranos" data-vars-click-url="https://www.cnbc.com/2021/08/04/judge-denies-elizabeth-holmes-request-to-suppress-patient-complaints-about-theranos.html" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://www.cnbc.com/2021/08/04/judge-denies-elizabeth-holmes-request-to-suppress-patient-complaints-about-theranos.html" target="_blank">Theranos</a></strong> was a charismatic entrepreneur making up numbers to trick investors. This was a charismatic entrepreneur using real numbers — but getting them to delude themselves.&#34;</li></ul><p><em><a data-vars-link-text="Read a free excerpt" data-vars-click-url="https://www.penguinrandomhouse.com/books/645810/the-cult-of-we-by-eliot-brown-and-maureen-farrell/#excerpt" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://www.penguinrandomhouse.com/books/645810/the-cult-of-we-by-eliot-brown-and-maureen-farrell/#excerpt" target="_blank">Read a free excerpt</a>, &#34;Chapter 1: The Hustler.&#34;</em></p></div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 17:21:56 +0000</pubDate>
+      <source>https://www.axios.com/10-trillion-mirage-wework-book-0ee98f74-5370-419e-81ea-e0914bdc0f00.html</source>
+    </item>
   </channel>
 </rss>
