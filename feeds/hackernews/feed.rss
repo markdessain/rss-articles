@@ -14843,5 +14843,630 @@ Body pain heat maps. (Alter et al., PLOS One, 2021) </p></div><div id="item_4765
       <pubDate>Fri, 06 Aug 2021 04:52:52 +0000</pubDate>
       <source>https://acoup.blog/2021/08/06/referenda-ad-senatum-august-6-2021-feelings-at-the-fall-of-the-republic-ancient-and-medieval-living-standards-and-zombies/</source>
     </item>
+    <item>
+      <title>Crypto community slams ‘disastrous’ new amendment to big infrastructure bill</title>
+      <link>https://techcrunch.com/2021/08/06/crypto-biden-amendment-infrastructure-bill-proof-of-work/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+	
+
+			
+	
+			<p>
+		</p>
+	</div><div>
+				<p id="speakable-summary">Biden’s major bipartisan infrastructure plan struck a rare chord of cooperation between Republicans and Democrats, but changes it proposes to cryptocurrency regulation are tripping up the bill.</p>
+<p>The administration intends to pay for $28 billion of its <a href="https://www.nytimes.com/2021/08/03/business/dealbook/infrastructure-bill-details.html">planned infrastructure spending</a> by tightening tax compliance within the historically under-regulated arena of digital currency. That’s why cryptocurrency is popping up in a bill that’s mostly about rebuilding bridges and roads.</p>
+<p>The legislation’s vocal critics argue that the bill’s effort to do so is slapdash, particularly a bit that would declare anyone “responsible for and regularly providing any service effectuating transfers of digital assets” to be a broker, subject to tax reporting requirements.</p>
+<p>While that definition might be more straightforward in a traditional corner of finance, it could force cryptocurrency developers, companies and even anyone mining digital currencies to somehow collect and report information on users, something that by design isn’t even possible in a decentralized financial system.</p>
+<p>Now, a new amendment to the critical spending package is<a href="https://twitter.com/SenToomey/status/1423731811096670215"> threatening to make matters even worse</a>.</p>
+<h2>Unintended consequences</h2>
+<p>In a joint letter about the bill’s text, Square, Coinbase, Ribbit Capital and other stakeholders warned of “financial surveillance” and unintended impacts for cryptocurrency miners and developers. The <a href="https://twitter.com/EFF/status/1422337127556157444">Electronic Frontier Foundation</a> and <a href="https://www.fightforthefuture.org/actions/stop-the-senate-from-sneaking-through-total-surveillance-of-the-crypto-economy/">Fight for the Future</a>, two privacy-minded digital rights organizations, also slammed the bill.</p>
+
+<p>Following the outcry from the cryptocurrency community, a pair of influential senators proposed an amendment to clarify the new reporting rules. Finance Committee Chairman Ron Wyden (D-OR) pushed back against the bill, proposing an amendment with fellow finance committee member Pat Toomey (R-PA) that would modify the bill’s language.</p>
+<p>The amendment would establish that the new reporting “does not apply to individuals developing block chain technology and wallets,” removing some of the bill’s ambiguity on the issue.</p>
+<p>“By clarifying the definition of broker, our amendment will ensure non-financial intermediaries like miners, network validators, and other service providers — many of whom don’t even have the personal-identifying information needed to file a 1099 with the IRS — are not subject to the reporting requirements specified in the bipartisan infrastructure package,” Toomey said.</p>
+<p>Wyoming Senator Cynthia Lummis also threw her support behind the Toomey and Wyden amendment, as did Colorado Governor Jared Polis.</p>
+<div>
+<blockquote data-width="550" data-dnt="true">
+<p lang="en" dir="ltr">The Wyden-Lummis-Toomey amendment is simple. It clarifies in law what most of us already believe—that validators of distributed ledger data like miners &amp; stakers, hardware wallet providers &amp; software developers should NOT be required to report transaction data to the IRS. <a href="https://t.co/cMtoHMehiU">pic.twitter.com/cMtoHMehiU</a></p>
+<p>— Senator Cynthia Lummis (@SenLummis) <a href="https://twitter.com/SenLummis/status/1423431963092848645?ref_src=twsrc%5Etfw">August 5, 2021</a></p></blockquote>
+</div>
+<h2>“Picking winners and losers”</h2>
+<p>The drama doesn’t stop there. With negotiations around the bill ongoing — the text could be finalized over the weekend — a pair of senators proposed a competing amendment that isn’t winning any fans in the crypto community.</p>
+<p>That amendment, from Sen. Rob Portman (R-OH) and Mark Warner (D-VA), would exempt traditional cryptocurrency miners who participate in energy-intensive “proof of work” systems from new financial reporting requirements, while keeping those rules in place for those using a <a href="https://twitter.com/binance/status/1423113906529177601">“proof of stake” system</a>. Portman worked with the Treasury Department to author the cryptocurrency portion of the original infrastructure bill.</p>
+<div>
+<blockquote data-width="550" data-dnt="true">
+<p lang="en" dir="ltr">Wow. Sen. Warner and Portman are proposing a last minute amendment competing with the Wyden-Lummis-Toomey amendment. It is a disastrous. It only excludes proof-of-work mining. And it does nothing for software devs. Ridiculous!</p>
+<p>Here is all it excludes: <a href="https://t.co/FA7K6NU2s0">pic.twitter.com/FA7K6NU2s0</a></p>
+<p>— Jerry Brito (@jerrybrito) <a href="https://twitter.com/jerrybrito/status/1423429377459736577?ref_src=twsrc%5Etfw">August 5, 2021</a></p></blockquote>
+</div>
+<p>Rather than requiring an investment in computing hardware (and energy bills) capable of solving increasingly complex math problems, proof of stake systems rely on participants taking a financial stake in a given project, locking away some of the cryptocurrency to generate new coins.</p>
+<p>Proof of stake is emerging as an attractive, climate-friendlier alternative that could reduce the need for heavy computing and huge amounts of energy required for proof of work mining. That makes it all the more puzzling that the latest amendment would specifically let proof of work mining off the hook.</p>
+<p>Some popular digital currencies like Cardano are already built on proof of stake. Ethereum, the second biggest cryptocurrency, is<a href="https://www.nbcnews.com/tech/tech-news/cryptocurrency-goes-green-proof-stake-offer-solution-energy-concerns-rcna1030"> in the process of migrating</a> from a proof of work system to proof of stake to help scale its system and reduce fees. Bitcoin is the most notable digital currency that relies on proof of work.</p>
+<p>The Warner-Portman amendment is being touted as a “compromise” but it’s not really halfway between the Wyden-Toomey amendment and the existing bill — it just introduces new problems that many crypto advocates view as a fresh existential threat to their work.</p>
+<p>Prominent members of the crypto community, including <a href="https://twitter.com/jack/status/1422667000950706187">Square founder and Bitcoin booster Jack Dorsey</a>, have thrown their support behind the Wyden-Lummis-Toomey amendment while slamming the second proposal as misguided and damaging.</p>
+<p>The executive director of Coincenter, a crypto think tank, called the Warner-Portman amendment “<a href="https://twitter.com/jerrybrito/status/1423429377459736577">disastrous</a>.” Coinbase CEO Brian Armstrong echoed that language. “At the 11th hour @MarkWarner has proposed an amendment that would decide which foundational technologies are OK and which are not in crypto,” he tweeted. “… We could find ourselves with the Senate deciding which types of crypto will survive government regulation.”</p>
+<div>
+<blockquote data-width="550" data-dnt="true">
+<p lang="en" dir="ltr">3/ This is the government trying to pick winners and losers in a nascent industry today, where some new technology is being developed every month. They are guaranteed to get it wrong, by writing in a few exceptions by hand today.</p>
+<p>— Brian Armstrong (@brian_armstrong) <a href="https://twitter.com/brian_armstrong/status/1423745182105849861?ref_src=twsrc%5Etfw">August 6, 2021</a></p></blockquote>
+</div>
+<div>
+<blockquote data-width="550" data-dnt="true">
+<p lang="en" dir="ltr">While I appreciate that my colleagues and the White House have acknowledged their original crypto tax had flaws, the Warner-Portman amendment picks winners and losers based on the type of technology employed. That’s horrible for innovation.</p>
+<p>— Senator Pat Toomey (@SenToomey) <a href="https://twitter.com/SenToomey/status/1423731811096670215?ref_src=twsrc%5Etfw">August 6, 2021</a></p></blockquote>
+</div>
+<p>Unfortunately for the crypto community — and the promise of the proof of stake model — the White House is apparently<a href="https://twitter.com/JenniferJJacobs/status/1423707773204897794"> throwing its weight behind the Warner-Portman amendment</a>, though that could change as eleventh hour negotiations continue.</p>
+
+
+			</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 11:03:26 +0000</pubDate>
+      <source>https://techcrunch.com/2021/08/06/crypto-biden-amendment-infrastructure-bill-proof-of-work/</source>
+    </item>
+    <item>
+      <title>Ultra Wide Monitors – A pain in the neck? (2020)</title>
+      <link>https://www.learnergo.com/lifestyle-ergo/2020/7/5/ultra-wide-monitors-a-pain-in-the-neck</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-nc-base="header" data-controller="AncillaryLayout">
+      
+
+      
+
+      <div>
+
+        
+
+        <div>
+          
+
+          <main>
+            
+              <section data-content-field="main-content">
+                <article id="post-5f02025938bdf707c8d654b8" data-item-id="5f02025938bdf707c8d654b8">
+
+    
+      
+    
+
+    <div data-layout-label="Post Body" data-type="item" data-updated-on="1593967895587" id="item-5f02025938bdf707c8d654b8"><div><div><div data-block-type="5" id="block-yui_3_17_2_1_1593967897423_74392"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+  
+    <div data-test="image-block-inline-outer-wrapper">
+
+      
+
+      
+        <figure>
+          
+        
+        
+
+        
+          
+            
+          <p>
+          </p>
+        
+          
+        
+
+        
+      
+        </figure>
+      
+
+    </div>
+  
+
+
+  
+
+
+</div></div><div data-block-type="2" id="block-f3a25c3108e2b1f22b40"><div><p>Before I launch into the ergonomics and math stuff, imagine that you’re at a movie theater.  If you sit in the front section of the theater, it’s hard to see the whole screen without twisting your neck from side to side. These seats are always the last to fill up and for a good reason. </p><p>Okay, now let’s talk about the ultra wide screen monitor trend.  Standard monitor widths have been 22-24 inches for a long time, and in many offices we would see 2 of them set up together for a dual screen setup that spanned up to 48 inches.  Along with that trend, we saw an increase in neck strain and pain related to static holding of the neck in a twisted position to view the far left of the display. Coincident? I think not.  </p></div></div><div data-block-type="5" id="block-yui_3_17_2_1_1593967897423_6539"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+  
+    <div data-test="image-block-inline-outer-wrapper">
+
+      
+
+      
+        <figure>
+          
+        
+        
+
+        
+          
+            
+          <p>
+          </p>
+        
+          
+        
+
+        
+      
+        </figure>
+      
+
+    </div>
+  
+
+
+  
+
+
+</div></div><div data-block-type="2" id="block-yui_3_17_2_1_1593967897423_7867"><div><p>And now, just in the past few years we started seeing new monitors on people’s desks with wide curved screens of about 34-36 inches wide. Not only are these pretty cool and minimal looking, but from an ergonomics perspective, it was encouraging because the total width went down from 48 to 36 inches, meaning that the neck didn’t have to rotate so far to see the edges of the screen(s). </p><p>But, just in these past few months I’ve seen a lot of posts on social media of “ultra wide” screens, ranging from 37 to 49 inches wide. Most of these ultra wides are marketed towards gamers for a psuedo-immersive experience, similar to virtual reality.       </p></div></div><div><div><div data-block-type="5" id="block-yui_3_17_2_1_1593967897423_4552"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+  
+    <div data-test="image-block-inline-outer-wrapper">
+
+      
+
+      
+        <figure>
+          
+        
+        
+
+        
+          
+            
+          <p>
+          </p>
+        
+          
+        
+
+        
+      
+        </figure>
+      
+
+    </div>
+  
+
+
+  
+
+
+</div></div></div><div><div data-block-type="5" id="block-yui_3_17_2_1_1593966463019_20174"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+  
+    <div data-test="image-block-inline-outer-wrapper">
+
+      
+
+      
+        <figure>
+          
+        
+        
+
+        
+          
+            
+          <p>
+          </p>
+        
+          
+        
+
+        
+      
+        </figure>
+      
+
+    </div>
+  
+
+
+  
+
+
+</div></div></div></div><div data-block-type="2" id="block-yui_3_17_2_1_1593967897423_9777"><p><h2>I was concerned about these new ultra wide monitors leading to neck problems, so I decided to do the math.</h2></p></div><div data-block-type="5" id="block-yui_3_17_2_1_1593967897423_22623"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+  
+    <div data-test="image-block-inline-outer-wrapper">
+
+      
+
+      
+        <figure>
+          
+        
+        
+
+        
+          
+            
+          <p>
+          </p>
+        
+          
+        
+
+        
+      
+        </figure>
+      
+
+    </div>
+  
+
+
+  
+
+
+</div></div><div data-block-type="2" id="block-yui_3_17_2_1_1594079932744_70725"><div><p><strong>Here’s the big important thing that people need to know about human vision: Our visual field only spans 30 degrees to either side of our midline, meaning we can see a 60 degree field with our eye balls; </strong><span><strong>without turning our head</strong></span><strong> (aka rotating the neck).  </strong></p><p>We can technically “see” further out than that on either side - all the way out to about 60 degrees on either side - but at that point, we are only able to detect the presence of something, not “recognize symbols”, such as reading text in your email inbox or on an Excel sheet.      </p><p>Since we know the limits of our human vision, and we know how far back we position ourselves from the screen, <span><strong>we can use geometry and trigonometry to calculate the maximum monitor width that we can use without straining the neck.</strong></span>  </p></div></div><div data-block-type="5" id="block-yui_3_17_2_1_1593967897423_19718"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+  
+    <div data-test="image-block-inline-outer-wrapper">
+
+      
+
+      
+        <figure>
+          
+        
+        
+
+        
+          
+            
+          <p>
+          </p>
+        
+          
+        
+
+        
+          
+          <figcaption>
+            <p>This “Big Bang Theory” moment was also a fun math lesson for my son - he loves math and I love using the white board that we got for distance learning during COVID19 pandemic shelter in place. FYI - In case you’re looking closely at this whiteboard, there are some notes and calculations on there that have nothing to do with this blog post :)</p>
+          </figcaption>
+        
+      
+        </figure>
+      
+
+    </div>
+  
+
+
+  
+
+
+</div></div><div data-block-type="2" id="block-yui_3_17_2_1_1593967897423_98771"><div><p>The monitor distance (i.e., the distance between your eyes and the screen) that a person settles on is based on the focal length of their eyes, the size and contrast of the font on the screen and the lighting in the room.  In my experience (which agrees with the documentation from OSHA and other professional sources), monitor distance (from the eyes to the screen) ranges from 22 to 38 inches. <span>I did my calculations with a monitor distance of 35 inches (and again with 28 inches just to see what that would do to the numbers).</span></p><p>Here’s what I found: </p><ul data-rte-list="default"><li><p>At a distance of 28 inches from the screen, we need to stick to a monitor width of 32 inches to be able to read the whole screen without turning the head</p></li><li><p>At 35 inches from the screen, we can comfortably read an entire monitor that is 40 inches wide without turning the head</p></li></ul><p>Here are some more interesting points (AND why your neck hurts when you work on a double / ultra wide monitor):</p><ul data-rte-list="default"><li><p>With a 49 inch screen, the extents of the screen span 78 degrees if you sit 35 inches back, and a whopping 100 degrees if the monitor is only 28 inches from your eyes <em>(remember that we are limited to a 60 degree span without twisting the neck)</em></p></li><li><p>With a 34 inch screen, the extents of the screen only span 52 degrees at a monitor distance of 35 inches, and 64 degrees if you sit closer to screen with a distance of 28 inches   </p></li></ul></div></div><div><div><div data-block-type="5" id="block-yui_3_17_2_1_1594079932744_16744"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+
+      <figure data-scrolled="" data-test="image-block-v2-outer-wrapper">
+
+        <div>
+          
+            <div data-animation-role="image" data-description="">
+            
+            <p></p>
+          
+            </div>
+          
+
+        </div>
+
+        
+          
+          <figcaption data-width-ratio="">
+            <div>
+
+              
+                <div><div><p>The Depth of your Desk Matters</p></div></div>
+              
+
+              
+                <div><p>30 inches allows for a more space between you and the screen. I always recommend a 30-inch deep desk and this is exactly why. A 24-inch deep desk (the other standard option) doesn’t allow you to get your eyes far enough away from the screen WITHOUT reaching your arms forward. The most neutral position for your arms/shoulders/neck/upper back is with the elbows right next to the body (i.e., your elbows directly beneath your shoulders), which is hard to do with a shallow desk, especially in combination with a WIDE monitor.</p></div>
+              
+
+              
+
+            </div>
+          </figcaption>
+        
+
+      </figure>
+
+    
+
+  
+
+
+</div></div></div><div><div data-block-type="5" id="block-yui_3_17_2_1_1594079932744_54066"><div>
+
+
+
+
+
+
+
+
+  
+
+    
+
+      <figure data-scrolled="" data-test="image-block-v2-outer-wrapper">
+
+        <div>
+          
+            <div data-animation-role="image" data-description="">
+            
+            <p></p>
+          
+            </div>
+          
+
+        </div>
+
+        
+          
+          <figcaption data-width-ratio="">
+            <div>
+
+              
+                <div><div><p>Gaming vs. Office Work</p></div></div>
+              
+
+              
+                <div><div><p>When gaming, you use your peripheral vision for detection of other avatars and targets, this is a much different task than letter/character recognition, as in reading. For this reason, you can likely maintain neutral neck posture (no twisting) while gaming on an ultra wide 49 inch screen. But, you if you tried having your email open on the far left side of the same ultra wide 49 inch screen, you would end up with a sore neck from turning your head to the left repeatedly and/or for prolonged periods of time.</p></div></div>
+              
+
+              
+
+            </div>
+          </figcaption>
+        
+
+      </figure>
+
+    
+
+  
+
+
+</div></div></div></div><div data-block-type="2" id="block-yui_3_17_2_1_1594079932744_74627"><div><h2><strong>My conclusions about wide screens:</strong></h2><ul data-rte-list="default"><li><p><strong>32 inch is a good choice if you want more screen space but your desk is narrow </strong>(~24 inches deep)</p></li><li><p><strong>40 inch should be okay if you have a deeper desk </strong>(~30 inches deep)</p></li><li><p><strong>49 inch may be fine for gaming, but could create neck problems for standard-office-type computing</strong></p><ul data-rte-list="default"><li><p><strong>If you use a 49 inch monitor for “work”, drag your active windows towards the center and avoid the extents of the screen</strong></p></li></ul></li></ul></div></div></div></div></div>
+
+    
+
+    
+
+    
+
+  </article>
+
+
+
+
+
+  
+              </section>
+            
+          </main>
+
+        </div>
+      </div>
+
+      
+
+
+    </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 10:27:53 +0000</pubDate>
+      <source>https://www.learnergo.com/lifestyle-ergo/2020/7/5/ultra-wide-monitors-a-pain-in-the-neck</source>
+    </item>
+    <item>
+      <title>This Captcha Patent Is an All-American Nightmare</title>
+      <link>https://www.eff.org/deeplinks/2021/08/captcha-patent-all-american-nightmare</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_eff_org_deeplinks_2021_08_captcha-patent-all-american-nightmare/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+            <article role="article">
+  
+  
+  <div>
+    <div><div><div>
+<p>A newly formed patent troll is looking for big money from small business websites, just for using free, off-the-shelf login verification tools. </p>
+<p>Defenders of the American Dream, LLC (DAD ), is sending out its <a href="https://www.eff.org/document/dad-demand-letter-redacted"><span>demand letters</span></a> to websites that use Google’s reCAPTCHA system, accusing them of infringing <a href="https://patents.google.com/patent/US8621578B1/en"><span>U.S. Patent No. 8,621,578</span></a>. Google’s reCAPTCHA is just one form of a <a href="https://en.wikipedia.org/wiki/CAPTCHA"><span>Captcha test</span></a>, which describes a wide array of test systems that websites use to verify human users and keep out bots. </p>
+<p>DAD’s letter tells targeted companies that DAD will take an $8,500 payment, but only if “licensing terms are accepted immediately.” The threat escalates from there. If anyone dares to respond that DAD’s patent might be not infringed, or invalid, fees will rise to at least $17,000. If <a href="https://patents.google.com/patent/US8621578B1/en"><span>DAD’s patent</span></a> gets subject to a legal challenge, DAD says they’ll increase their demand to at least $70,000. In the footnotes, DAD advises its targets that “not-for-profit entities are eligible for a discount.” </p>
+<p>The DAD demand letters we have reviewed are nearly identical, with the same fee structure. They mirror the one filed by the company itself (with the fee structure redacted) as part of their trademark application. This demand letter campaign is a perfect example of how the U.S. patent system fails to advance software innovation. Instead, our system enables extortionate behavior like DAD’s exploding fee structure. </p>
+<h3><strong>DAD Didn&#39;t Invent Image Captcha</strong></h3>
+<p>DAD claims it invented a novel and patentable image-based <a href="https://en.wikipedia.org/wiki/CAPTCHA"><span>Captcha system</span></a>. But there’s ample evidence of image-based Captcha tests that predate DAD’s 2008 patent application. </p>
+<p>The term “Captcha” was <a href="http://www.captcha.net/"><span>coined</span></a> by a group of researchers at Carnegie Mellon University in 2000. It’s an acronym, indicating a “Completely Automated Public Turing test to tell Computers and Humans Apart.” Essentially, it blocks automated tools like bots from getting into websites. Such tests have been important since the earliest days of the Internet. </p>
+<p>Early Captcha tests used squiggly lines or wavy text. The same group of CMU researchers who coined “Captcha” went on to work on an image-selection version they called ESP-PIX, which they had <a href="https://www.cs.cmu.edu/~mblum/search/Grant_Desc_v32.pdf"><span>published and made public</span></a> by 2005. </p>
+<p>By 2007, Microsoft had developed <a href="https://www.microsoft.com/en-us/research/publication/asirra-a-captcha-that-exploits-interest-aligned-manual-image-categorization/"><span>its own image-categorization Captcha</span></a>, which used photos from Petfinder.com, then asked users to identify cats and dogs. At the sime time, PayPal was working on new captchas that “might resemble simple image puzzles.” This was no secret—researchers from both companies <a href="https://www.nytimes.com/2007/06/11/technology/11code.html"><span>spoke to the New York Times</span></a> about their research, and Microsoft filed its own <a href="https://patents.google.com/patent/US20090077629A1/en"><span>patent application</span></a>, more than a year before DAD’s. </p>
+<p>There’s also evidence of earlier image-based Captcha tests in the patent record, like this early <a href="https://patents.google.com/patent/US20080216163A1/en?oq=2008%2F0216163"><span>2008 application</span></a> from a company called Binary Monkeys. Here&#39;s an image from the Binary Monkeys Patent: </p>
+<p><a href="https://www.eff.org/files/2021/08/06/patent_binary_monkey.png" target="_blank" rel="noopener noreferrer"></a></p>
+<p>And here&#39;s an image from DAD&#39;s patent: </p>
+<p><a href="https://www.eff.org/files/2021/08/06/patent_dad.png" target="_blank" rel="noopener noreferrer"></a></p>
+<p>So how did DAD end up with this patent? During patent prosecution, DAD’s predecessor <a href="https://www.eff.org/document/confident-v-best-buy-answer-and-counterclaims"><span>argued</span></a> that they had a novel invention because the Binary Monkeys application asks users to select “all images” associated with the task, as opposed to selecting “one image,” as in DAD’s test. The patent examiner suggested adding yet another limitation: that the user still be granted access to the website if they got one “known” image and one “suspected” image. </p>
+<p>Unfortunately, adding trivial tweaks to existing technology, such as small details about the needed criteria for passing a Captcha test, can and often <a href="https://arstechnica.com/tech-policy/2014/06/how-amazon-got-a-patent-on-white-background-photography/"><span>does result in a patent being granted</span></a>. This was especially true back in 2008, before patent examiners should have applied guidance from the Supreme Court’s 2014 <em>Alice v. CLS Bank</em> decision. That’s why we have <a href="https://www.eff.org/deeplinks/2019/02/call-action-tell-patent-office-not-reopen-software-patent-floodgates"><span>told the patent office to vigorously uphold Supreme Court guidelines</span></a>, and have defended the Alice precedent in <a href="https://www.eff.org/deeplinks/2017/05/congress-should-leave-alice-alone"><span>Congress</span></a>.  </p>
+<h3><strong>Where did DAD come from? </strong></h3>
+<p>DAD’s patent was originally filed by a Portland startup called Vidoop. In 2010, Vidoop and its patent applications were purchased by a San Diego investor who re-branded it as Confident Technologies. Confident Tech offered a “clickable, image-based CAPTCHA,” but ultimately didn’t make it as a business. In 2017 and 2018, Confident Tech sued Best Buy, Fandango Media, Live Nation, and AXS Group, claiming that the companies infringed its patent by using reCAPTCHA. Those cases all settled.</p>
+<p>In 2020, Trevor Coddington, an attorney who worked on Confident Tech’s patent applications, created Defenders of the American Dream LLC. He transferred the patents to this new entity and started sending out demand letters. </p>
+<p>They haven’t all gone to large companies, either. At least one of DAD’s targets has been a one-person online publishing company. Coddington’s letter complains about how Confident Tech failed in the marketplace and suggests that because of this, reCAPTCHA users should pay—well, him. The letter states: </p>
+<blockquote><p>[O]nce Google introduced its image-based reCAPTCHA for free, no less, [Confident Technologies] was unable to to maintain a financially viable business… Google’s efficient infringement forced CTI to abandon operations and any return on the millions of dollars of capital investment used to develop its patented solutions. Meanwhile, your company obtained and utilized the patented technology <u>for free</u>.” </p>
+</blockquote>
+<p>Creating new and better Captcha software is an area of ongoing research and innovation. While the lawyers and investors behind DAD have turned to patent threats to make money, other developers are actively innovating and competing with reCAPTCHA. There are competing image-based Captchas like <a href="https://www.hcaptcha.com/"><span>hCaptcha</span></a> and <a href="https://visualcaptcha.net/"><span>visualCaptcha</span></a>, as well as long lists of Captcha alternatives and companies that are <a href="https://blog.cloudflare.com/introducing-cryptographic-attestation-of-personhood/"><span>trying to make Captchas obsolete</span></a>. </p>
+<p>These individuals and companies are all inventive, but they’re not relying on patent threats to make a buck. They’ve actually written code and shared it online. Unfortunately, because of their real contributions, they’re more likely to end up the victims of aggressive patent-holders like DAD. </p>
+<p>We’ll never patent our way to a better Captcha. Looking at the history of the DAD patent—which shares no code at all—makes it clear why the patent system is such a bad fit for software. </p>
+<p>Related documents: </p>
+<ul>
+<li>Defenders of the American Dream <a href="https://www.eff.org/document/dad-demand-letter-redacted"><span>Patent Demand Letter</span></a></li>
+<li>Defenders of the American Dream <a href="https://www.eff.org/document/dad-trademark-application"><span>Trademark Application w/ Demand Letter</span></a></li>
+<li><a href="https://www.eff.org/document/confident-v-best-buy-answer-and-counterclaims"><span>Answer &amp; Counterclaims</span></a> to Confident Tech patent lawsuit against Best Buy</li>
+</ul>
+
+
+</div></div></div>  </div>
+
+          </article>
+    </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 10:32:27 +0000</pubDate>
+      <source>https://www.eff.org/deeplinks/2021/08/captcha-patent-all-american-nightmare</source>
+    </item>
+    <item>
+      <title>UPchieve (YC W21) is hiring a mobile engineer to democratize free tutoring</title>
+      <link>https://upchieve.welcomekit.co/jobs/mobile-engineer_brooklyn</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___upchieve_welcomekit_co_jobs_mobile-engineer_brooklyn/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<h2>The Opportunity</h2>
+
+<p>We’re a small team taking on the monumental challenge of democratizing access to academic support. That means we need team members who are excited by autonomy and willing to work on projects outside the scope of their job description if needed. Regardless of role, we also look for candidates who have a personal connection to our cause or a demonstrable interest in education or serving low-income populations.</p>
+
+<h2>The Role</h2>
+
+<p>As a Mobile Engineer, you’ll build our mobile app from scratch, and be its owner moving forward, while collaborating with our full-stack devs on mobile and frontend/backend development. You’ll help define our product by participating in our product management process, and be a mentor to other developers. You’ll work with:</p>
+
+<ul>
+<li>React Native</li>
+<li>Websockets</li>
+<li>Node.js and TypeScript</li>
+<li>MongoDB</li>
+<li>Mobile tools you recommend</li>
+</ul>
+
+<h2>The Team</h2>
+
+<p>You’ll be joining a diverse group of people passionate about using technology for social justice. “Diverse” isn’t a buzz-word for us, it’s a core value. We are female-founded, and ⅔ of our team are people of color. We were originally based in Brooklyn, NY, but at the onset of COVID became a remote-first organization and are working really well that way! We now have team members in New York, Denver, and the Bay Area.</p>
+
+<p>We’re an education-oriented team and helping each other develop professionally and personally is a priority. You’ll be the fourth member of the engineering team, which currently has one Senior and two Junior engineers. We’re looking for a mobile specialist, because we know mobile dev and deployment can be a different beast that requires specialized knowledge, but who doesn’t mind generalizing when needed: we’re a startup after all!</p>
+
+<h3>Within 1 Month, You’ll:</h3>
+
+<ul>
+<li>Get on-boarded by our team so you understand our relationships with students, volunteers and corporate partners.</li>
+<li>See what the tutoring experience is like by reviewing a session.</li>
+<li>Work with our product manager and UI/UX designer on the specs for the mobile app.</li>
+<li>Work with the CTO on choosing tooling for the mobile deployment and monitoring.</li>
+</ul>
+
+<h3>Within 3 Months, You’ll:</h3>
+
+<ul>
+<li>Prepare to ship the MVP of our new mobile app.</li>
+<li>Code review contributions from our open source community.</li>
+</ul>
+
+<h3>Within 6 Months, You’ll:</h3>
+
+<ul>
+<li>Add new features to the mobile app to bring feature parity with our web application.</li>
+<li>Mentor developers more junior than you on their career and skill growth.</li>
+<li>Assist with architecture and development of the web application as we add features new to all platforms.</li>
+</ul>
+
+<h3>Within 12 Months, You’ll:</h3>
+
+<ul>
+<li>Contribute to strategic decisions for the product and engineering teams.</li>
+</ul>
+
+</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 12:00:47 +0000</pubDate>
+      <source>https://upchieve.welcomekit.co/jobs/mobile-engineer_brooklyn</source>
+    </item>
+    <item>
+      <title>In praise of habits – so much more than mindless reflexes</title>
+      <link>https://psyche.co/ideas/in-praise-of-habits-so-much-more-than-mindless-reflexes</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___psyche_co_ideas_in-praise-of-habits-so-much-more-than-mindless-reflexes/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><p><strong>Habit is the foundation of</strong> the routines that comprise the vast bulk of our everyday lives. When we are not disturbed, we live our practical lives without engaging in anything like a cautious assessment of what it is we are doing at any given moment. No conscious deliberation or reflection is required to brew morning coffee, or to catch the morning train to work. As the late philosopher Hubert Dreyfus <a href="https://journals.sagepub.com/doi/10.1177/0270467603259868" target="_blank" rel="noreferrer noopener">said</a>, habits are a part of our ‘everyday coping practices’.</p>
+<p>In tune with this characterisation, philosophers of mind and cognitive scientists alike often conceive of habits as highly mechanistic and near-automatic responses to environmental cues that unfold outside of our deliberative control. This conception of habits as mindless and reflexive might seem intuitive when we recognise that they are often counterproductive to our capacity to pursue our goals and desires. For example, many of us might have recently found ourselves habitually reaching over to shake hands with people even when we had previously acknowledged that we should refrain from doing so in light of the pandemic.</p>
+<p>However, even our most mundane habitual routines actually display a great deal of intelligence. Indeed, they are often intelligently context-sensitive and flexible in such a way as can support and structure our goals and projects. Consider the example of driving the same route to work every morning. You might often find yourself wrapped up in thoughts about how your day will unfold, or how you might explain to your boss why you failed to complete some task, and yet you still easily navigate the roads that lead you to your destination. However, despite completing this task on something like autopilot, your drive will still be intelligently adjusted to situational intricacies, such as how fast or slow the driver in front of you is going, or when the traffic lights change. In attempting to account for the intelligent dimension of habit, researchers have moved away from construing habits as unintelligent mechanisms and towards modelling them as a species of belief. The puzzle we face in clarifying the character of habits is to <a href="https://link.springer.com/article/10.1007/s11245-020-09735-w" target="_blank" rel="noreferrer noopener">explain</a> their intelligent dimension while also acknowledging that they can often work against our intelligence and lead us astray.</p>
+<p>Why should we care about the resolution of this puzzle? Great thinkers since before Aristotle have overwhelmingly tended to characterise humans as rational animals in virtue of our capacity to form and intelligently adjust our beliefs. On this view, constructing good habits is vital – but, once a habitual routine is established, it is not itself intelligent. However, if we are serious about attributing intelligence to our embodied interactions with the world, then our notion of how to construe human rationality will need to be revised, and profound questions will need to be raised as to our conceptions of nonhuman animal intelligence.</p>
+<p>Gilbert Ryle, in his seminal work <em>The Concept of Mind</em> (1949), emphatically denied that habits were intelligent. (This might surprise some, since Ryle is widely recognised by philosophers as a historical champion of the view that intelligent behaviour is not always guided by theoretical knowledge.) For him, habits are mere mindless mechanisms. Indeed, he explicitly contrasts habitual doings with intelligent and skilful behaviours, claiming that it ‘is of the essence of merely habitual practices that one performance is a replica of its predecessors’. A habit is simply an unintelligent and stupefied way of reacting to the world.</p>
+<p>Skill acquisition in sports is often nothing but the process of cultivating a new motor habit through repetitive practice</p>
+<p>In <em>On Habit</em> (2014), Clare Carlisle <a href="https://www.routledge.com/On-Habit/Carlisle/p/book/9780415619141" target="_blank" rel="noreferrer noopener">notes</a> that this sort of characterisation of habit – as unintelligent and ‘a degradation of life, reducing spontaneity and vitality to mechanical routine’ – has been held by many influential philosophers of the mind throughout history, including <a href="https://aeon.co/essays/at-a-time-of-zealotry-spinoza-matters-more-than-ever" target="_blank" rel="noopener">Baruch Spinoza</a>, <a href="https://aeon.co/essays/on-immanuel-kants-hydraulic-model-of-moral-education" target="_blank" rel="noopener">Immanuel Kant</a> and <a href="https://aeon.co/essays/for-henri-bergson-laughter-is-what-keeps-us-elastic-and-free" target="_blank" rel="noopener">Henri Bergson</a>. Even today, the researchers Susana Ramírez-Vizcaya and Tom Froese <a href="https://doi.org/10.3389/fpsyg.2019.00301" target="_blank" rel="noreferrer noopener">identify</a> a prevalent notion of habit across several domains of the contemporary cognitive sciences that conceives of them as ‘rigid patterns of behaviour that are automatically activated by context cues’.</p>
+<p>One inclined to agree with this mechanical conception of habit as inherently unintelligent might argue that the puzzle we referred to above is simply ill-posed. After all, habits <em>are</em> stupid! On this analysis, any attempt to construe habits as intelligence-involving straightforwardly confuses habit and skill. An implication would be that our above purported examples of intelligent habits (such as the habit of driving the same route to the office every morning, which allows us to effectively reach our workplace, even when we are lost in irrelevant thoughts), insofar as they are intelligent, are not habits – they’re skills.</p>
+<p>This view of habits is misguided. Habits are not, despite what Ryle says, simply stupefied and rigid reactions to environmental triggers, or ‘single-track dispositions’ to respond to the world with highly stereotyped reflexes. To see this, we need only note that forging any clear-cut distinction between habit and skill is not even remotely intuitive or feasible. On one hand, many of our skills consist of habits. Skill acquisition in sports, for example, is often nothing but the process of cultivating a new motor habit through repetitive practice. On the other hand, habits often comprise skills. Consider the habit of whistling when you are bored. This is a considerably skilful act, which can in some cases constitute genuine musical expertise. For just these reasons, introducing a clear-cut distinction between skill and habit, such that habitual doings cannot, by definition, be skilled or intelligent, is wrongheaded.</p>
+<p><strong>In opposition to the mechanistic</strong> conception of habits, some, such as the philosopher Jason Stanley, <a href="https://www.pdcnet.org/jpr/content/jpr_2015_0040Supplement_0315_0323" target="_blank" rel="noreferrer noopener">advocate</a> for an intellectualist conception, on which habits are intelligent because they are really a kind of ‘settled belief’ about ways of achieving certain goals. In my initial weeks at a new workplace, I will have developed a belief about how I could successfully get to the office. Through my daily commute, this belief gradually becomes entirely automatic and unconscious. At this stage, I do not need to consciously consider what route I should take to the office but am instead guided by an unconscious belief about how to successfully get there. As this unconscious belief becomes entrenched, it might also become recalcitrant to counterevidence. I might, for instance, accidentally take this route to the office even after I am informed and sincerely convinced that there is a more efficient route. According to intellectualists, a habit is nothing but a deeply entrenched belief of this form. Holding this view, we could preserve the traditional view of human rationality as dependent on belief.</p>
+<p>This intellectualist view of habit as a form of belief, however, also has serious problems in accounting for the intelligent aspect of our habitual doings. Habits are, as our above examples show, often exquisitely context-sensitive. But if Stanley takes habitual doings to be intelligent and rational only in virtue of being guided by unconscious beliefs, then he relies on the idea that the intelligent flexibility of habits depends on the flexibility and rapid updating of unconscious beliefs. Emphasising this flexibility conflicts with his claim that habits themselves are guided by stubborn and recalcitrant unconscious beliefs. It is also unclear how unconscious neural processes can even involve beliefs (philosophers have tried in vain for decades to provide a satisfactory account of how they might). As such, if an alternative notion of habits can successfully explain their context-sensitivity without requiring a commitment to positing hidden, unconscious beliefs, then such an account would be more theoretically attractive.</p>
+<p>Seen through this pragmatist lens, habits are a treasure trove of possible responses to our environment, constrained by circumstance, but open to the world</p>
+<p>Both mechanical and intellectual conceptions of habit encounter significant difficulties in explaining how habits sustain intelligent behaviour. These conceptions have a common root problem, which is a failure to appreciate the pivotal role of perception that philosophers working in the phenomenological and pragmatist traditions have recognised. When we follow them in recognising the crucial role of perception in guiding our habitual doings, we can explain the intelligent aspect of habits while obviating any need to identify them as beliefs.</p>
+<p>For Dreyfus, we are no less experts at our everyday habitual routines than Serena Williams is an expert at tennis (albeit what we accomplish might be substantially less impressive). The consequence of this, for him, is that our everyday habits will be guided by expert-level perception and intuition. For instance, many of us have now cultivated social distancing practices. By that measure, as we incorporate these practices into our everyday lives, we are able to proficiently maintain an appropriate distance automatically. When someone next to you in an elevator stands too close, you immediately perceive them as standing too close, and are provoked or ‘solicited’ to move back and restore appropriate distance.</p>
+<p>Dreyfus is correct to highlight the important role of perceptual skill in guiding our habitual doings, but we think his account should be revised in one crucial respect. For Dreyfus, as we become experts at completing some everyday routine, the world increasingly draws us to act in one optimal, appropriate way. In other words, we will, as our everyday routines become engrained, come to perceive nothing other than the possibility of pursuing a singular optimal course of action for each situation. To make a long story short, we fear that this renders Dreyfus’s view of habits too close to the mindless, mechanical view of habit that we rejected above.</p>
+<p>The pragmatist philosopher <a href="https://aeon.co/essays/dewey-knew-how-to-teach-democracy-and-we-must-not-forget-it" target="_blank" rel="noopener">John Dewey</a> is instructive here. Dewey, like Dreyfus, construes habits as facilitating intelligent behaviour by shaping perception. However, he denies that, as we become experts at carrying out everyday routines, our habitual responses always become entirely automatic response patterns. Instead, for Dewey, writing in <em>Human Nature and Conduct</em> (1922), the ‘more numerous our habits the wider the field of possible observation and foretelling. The more flexible they are, the more refined is perception in its discrimination and the more delicate the presentation evoked by imagination …’ In other words, our habitual doings are intelligently adjusted to context precisely because we perceive the environment in which they have been cultivated in terms of the vast and discriminating habitual responses we might make to it. Habits, seen through this pragmatist lens, then, far from being blunt reflexes, amount to a treasure trove of possible responses to our situated environment, highly constrained by circumstance, but genuinely open to the world. Nor does Dewey deny that our thoughts will almost always be suffused by habit.</p>
+<p>Contemporary philosophy of mind is positively <a href="https://www.jstor.org/stable/26748805" target="_blank" rel="noreferrer noopener">replete</a> with <a href="https://www.hup.harvard.edu/catalog.php?isbn=9780674007963" target="_blank" rel="noreferrer noopener">warnings</a> that we <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/sjp.12119" target="_blank" rel="noreferrer noopener">ought</a> not to fall into easy dichotomies between intelligent and voluntary processes on the one hand, and unintelligent and automatic processes on the other. Indeed, even psychologists such as Daniel Kahneman who have influentially <a href="https://us.macmillan.com/books/9780374533557" target="_blank" rel="noreferrer noopener">advocated</a> for dual-processing views on which the brain comprises two distinct ‘systems’ – one habitual, unconscious, and quick, and another slow, conscious, and reflective – have for years conceded that such a picture is far too simplistic. One sure-fire way to cut right through this dichotomy is to note that, while habits can distort our goals, they can also be exquisitely context-sensitive. Accounting for this context-sensitivity will require acknowledging the pivotal role perceptual skills play in guiding our habitual doings. By recognising the flexible aspects of habits, we further distance ourselves from an outmoded view of intelligent action as one that’s always guided by appropriate intellectual apprehension of knowledgeable beliefs.</p></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 11:06:28 +0000</pubDate>
+      <source>https://psyche.co/ideas/in-praise-of-habits-so-much-more-than-mindless-reflexes</source>
+    </item>
   </channel>
 </rss>
