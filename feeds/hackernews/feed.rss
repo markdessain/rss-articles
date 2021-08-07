@@ -18085,5 +18085,254 @@ to broader software development tasks beyond green-field software creation.
       <pubDate>Sat, 07 Aug 2021 17:38:09 +0000</pubDate>
       <source>https://www.strayrobots.io/blog/object-detection-in-an-hour</source>
     </item>
+    <item>
+      <title>Ray Tracing Gems II</title>
+      <link>http://www.realtimerendering.com/raytracinggems/rtg2/index.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="about">
+<div>
+<h2>Series</h2><p>
+Visit <a target="_blank" href="http://raytracinggems.com">this page</a> for all books in the <i>Ray Tracing Gems</i> series.
+</p><hr/>
+<h2>About</h2>
+<p><i>Ray Tracing Gems II</i> book is a collection of articles focused on ray tracing techniques for serious practitioners. Written by industry experts with a particular focus on ray tracing, it offers a practical means to master the new capabilities of current and future GPUs with the latest graphics APIs.
+</p><ul>
+<li>The latest ray tracing techniques for developing real-time applications in multiple domains
+</li><li>Case studies from developers and studios who have shipped products that use real-time ray tracing.
+</li><li>Guidance, advice and best practices for rendering applications with various GPU-based ray tracing APIs (DirectX Raytracing, Vulkan Ray Tracing, OptiX)
+</li><li>High performance graphics for 3D graphics, virtual reality, animation, and more
+</li></ul>
+<hr/>
+<h2>Downloads and Print Copies</h2>
+<p>The electronic version of this books is free to download, and can be shared under the terms of the <a target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+</p><ul>
+<li><b><a href="https://link.springer.com/book/10.1007/978-1-4842-7185-8">Digital Edition PDF (open access)</a></b>
+</li></ul>
+<p>
+To order the hardcover or softcover print edition, visit <b><a href="https://smile.amazon.com/gp/product/148427184X?tag=realtimerenderin">Amazon</a></b> (paid link) or <b><a href="https://www.apress.com/us/book/9781484271841">Apress</a></b>.
+</p><hr/>
+<h2>Source Code</h2>
+<p>
+The book has a <b><a target="_blank" href="https://github.com/Apress/Ray-Tracing-Gems-II">source code repository on GitHub</a></b>.
+</p><h3>Table of Contents</h3>
+<ul>
+<li>Preface
+</li><li>Foreword by Andrew Glassner and Ignacio Llamas
+</li><li>Contributors
+</li><li>Notation
+</li><li><b>PART I: Ray Tracing Foundations</b>, editor: Per Christensen
+<ul>
+<li>1. A Breakneck Summary of Photographic Terms (and Their Utility to Ray Tracing), by Trevor David Black
+</li><li>2. Ray Axis-Aligned Bounding Box Intersection, by Peter Shirley, Ingo Wald, and Adam Marrs
+</li><li>3. Essential Ray Generation Shaders, by Morgan McGuire and Zander Majercik
+</li><li>4. Hacking the Shadow Terminator, by Johannes Hanika
+</li><li>5. Sampling Textures with Missing Derivatives, by Maksim Aizenshtein and Matt Pharr
+</li><li>6. Differential Barycentric Coordinates, by Tomas Akenine-Möller
+</li><li>7. Texture Coordinate Gradients Estimation for Ray Cones, by Wessam Bahnassi
+</li><li>8. Reflection and Refraction Formulas, by Eric Haines
+</li><li>9. The Schlick Fresnel Approximation, by Zander Majercik
+</li><li>10. Refraction Ray Cones for Texture Level of Detail, by Jakub Boksansky, Cyril Crassin, and Tomas Akenine-Möller
+</li><li>11. Handling Translucency with Real-Time Ray Tracing, by Tianyi &#34;Tanki&#34; Zhang
+</li><li>12. Motion Blur Corner Cases, by Christopher Kulla and Thiago Ize
+</li><li>13. Fast Spectral Upsampling of Volume Attenuation, by Johannes Jendersie
+</li><li>14. The Reference Path Tracer, by Jakub Boksansky and Adam Marrs
+</li></ul>
+</li><li><b>PART II: APIs and Tools</b>, editor: David Hart
+<ul>
+<li>15. The Shader Binding Table Demystified, by Will Usher
+</li><li>16. Introduction to Vulkan Ray Tracing, by Matthew Rusch, Neil Bickford, and Nuno Subtil
+</li><li>17. Using Bindless Resources with DirectX Raytracing, by Matt Pettineo
+</li><li>18. WebRays: Ray Tracing on the Web, by Nick Vitsas, Anastasios Gkaravelis, Andreas A. Vasilakis, and Georgios Papaioannou
+</li><li>19. Visualizing and Communicating Errors in Rendered Images, by Pontus Andersson, Jim Nilsson, and Tomas Akenine-Möller
+</li></ul>
+</li><li><b>PART III: Sampling</b>, editor: Thomas Müller
+<ul>
+<li>20. Multiple Importance Sampling 101, by Anders Lindqvist
+</li><li>21. The Alias Method for Sampling Discrete Distributions, by Chris Wyman
+</li><li>22. Weighted Reservoir Sampling: Randomly Sampling Streams, by Chris Wyman
+</li><li>23. Rendering Many Lights with Grid-Based Reservoirs, by Jakub Boksansky, Paula Jukarainen, and Chris Wyman
+</li><li>24. Using Blue Noise for Ray Traced Soft Shadows, by Alan Wolfe
+</li></ul>
+</li><li><b>PART IV: Shading and Effects</b>, editor: Cem Yuksel
+<ul>
+<li>25. Temporally Reliable Motion Vectors for Better Use of Temporal Information, by Zheng Zeng, Shiqiu Liu, Jinglei Yang, Lu Wang, and Ling-Qi Yan
+</li><li>26. Ray Traced Level of Detail Cross-Fades Made Easy, by Holger Gruen
+</li><li>27. Ray Tracing Decals, by Wessam Bahnassi
+</li><li>28. Billboard Ray Tracing for Impostors and Volumetric Effects, by Felix Brüll, Robin Fynn Diedrichs, and Thorsten Grosch
+</li><li>29. Hybrid Ray Traced and Image-Space Refractions, by Daniel Parhizgar and Marcus Svensson
+</li><li>30. Real-Time Ray Traced Caustics, by Xueqing Yang and Yaobin Ouyang
+</li><li>31. Tilt-Shift Rendering Using a Thin Lens Model, by Andrew Kensler
+</li></ul>
+</li><li><b>PART V: Intersection</b>, editor: Angelo Pesce
+<ul>
+<li>32. Fast and Robust Ray/OBB Intersection Using the Lorentz Transformation, by Rodolfo Sabino, Creto Augusto Vidal, Joaquim Bento Cavalcante-Neto, and José Gilvan Rodrigues Maia
+</li><li>33. Real-Time Rendering of Complex Fractals, by Vinícius da Silva, Tiago Novello, Hélio Lopes, and Luiz Velho
+</li><li>34. Improving Numerical Precision in Intersection Programs, by Ingo Wald
+</li><li>35. Ray Tracing of Blobbies, by Manuele Sabbadin and Marc Droske
+</li><li>36. Curved Ray Traversal, by Christiaan Gribble
+</li><li>37. Ray-Tracing Small Voxel Scenes, by Dylan Lacewell
+</li></ul>
+</li><li><b>PART VI: Performance</b>, editors: Josef Spjut and Michael Vance
+<ul>
+<li>38. CPU Performance in DXR, by Peter Morley
+</li><li>39. Inverse Transform Sampling Using Ray Tracing Hardware, by Nate Morrical and Stefan Zellmann
+</li><li>40. Accelerating Boolean Visibility Operations Using RTX Visibility Masks, by Dirk Gerrit van Antwerpen and Oliver Klehm
+</li><li>41. Practical Spatial Hash Map Updates, by Pascal Gautron
+</li><li>42. Efficient Spectral Rendering on the GPU for Predictive Rendering, by David Murray, Alban Fichet, and Romain Pacanowski
+</li><li>43. Efficient Unbiased Volume Path Tracing on the GPU, by Nikolai Hofmann and Alex Evans
+</li><li>44. Path Tracing RBF Particle Volumes, by Aaron Knoll, Gregory P. Johnson, and Johannes Meng
+</li><li>45. Fast Volumetric Gradient Shading Approximations for Scientific Ray Tracing, by Carson Brownlee and David DeMarle
+</li></ul>
+</li><li><b>PART VII: Ray Tracing in the Wild</b>, editor: Jacob Munkberg
+<ul>
+<li>46. Ray Tracing in Control, by Juha Sjöholm, Paula Jukarainen, and Tatu Aalto
+</li><li>47. Light Sampling in Quake 2 Using Subset Importance Sampling, by Tobias Zirr
+</li><li>48. Ray Tracing in Fortnite, by Patrick Kelly, Yuriy O&#39;Donnell, Kenzo ter Elst, Juan Cañada, and Evan Hart
+</li><li>49. ReBLUR: A Hierarchical Recurrent Denoiser, by Dmitry Zhdan
+</li><li>50. Practical Solutions for Ray Tracing Content Compatibility in Unreal Engine 4, by Evan Hart
+</li></ul>
+</li></ul><p>
+Bibtex entry:
+</p><pre>@book{Marrs2021,
+  title = {Ray Tracing Gems II},
+  editor = {Adam Marrs, Peter Shirley, and Ingo Wald},
+  publisher = {Apress},
+  year = {2021},
+  note ={\url{http://raytracinggems.com/rtg2}},
+}
+	</pre>
+</div>
+
+<div>
+<p>
+Cover image by the NVIDIA Creative team, which includes Gavriil Klimov (Creative Director), Jacob Norris (Lead Environment Artist), Andrej Stefancik (Senior 3D Artist), Gregor Kopka (Lead 3D Artist), Artur Szymczak (Senior Lighting Artist), Chase Telegin (Technical Artist), Alessandro Baldasseroni (Lead 3D Artist), Fred Hooper (Lead VFX Artist), and Ilya Shelementsev (Senior 3D Artist).</p></div>
+
+
+</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 08:55:07 +0000</pubDate>
+      <source>http://www.realtimerendering.com/raytracinggems/rtg2/index.html</source>
+    </item>
+    <item>
+      <title>What comes after open source? (2019)</title>
+      <link>https://denisnazarov.com/what-comes-after-open-source</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><p><em>This post explores the differences between software tools and services; how the stateful nature of software services led them to be closed; and posits how crypto networks can catalyze a new era of open services that reignite combinatorial innovation.</em></p>
+<!-- excerpt -->
+<p>Before the ubiquity of internet services (search, maps, social, commerce), software was more similar in its nature to tools (word processing, spreadsheets, graphics editing).</p>
+<p>Because of the permissionless nature of open source code, software tools benefitted from combinatorial innovation and evolved quickly.</p>
+<p>Internet services use software tools (like databases) as their building blocks, but also provide new and advanced functionality that tools aren’t capable of. They are dynamic, social, and collaborative in ways tools are not. A service’s reliance on <a href="https://en.wikipedia.org/wiki/State_(computer_science)">state</a> makes it fundamentally different than a tool. A service’s software, when instantiated, creates a vessel for persisting state. It starts off empty and becomes useful only when filled with data, users or both.</p>
+<p>The business model of internet services is predicated on monetizing state. State is a competitive advantage, and is defended by keeping services proprietary and closed. Further combinatorial innovation of services is restricted because outside developers can’t benefit from true composability of existing services and their underlying data.</p>
+<p>DNS, the <a href="https://www.cloudflare.com/learning/dns/what-is-dns/">phonebook of the internet</a>, while limited in capability, is one of a handful examples of a successful early open internet service that resulted in a lot of downstream innovation. Because of incompatible incentives, there are no open internet services today that come close to the complexity or utility of dominant closed ones.</p>
+<p>That’s where crypto comes in. Crypto networks rely on open source code, but also instantiate global services that depend on open state. Open state is a critical requirement for cryptographic verification and provides the lynchpin of trust in blockchains. In addition, tokens create a new incentive model for sustaining crypto networks that is aligned with their open nature.</p>
+<h2>Conditions for innovation</h2>
+<p>Combinatorial innovation is a cultural process for invention by which existing ideas are combined in novel ways to create new ideas. The resulting output is fed back into the process to generate more new ideas, ad infinitum. As more ideas are explored, more possibilities present themselves.</p>
+<p>Take the analogy of a garden: A healthy garden requires room for growth, ample light, regular watering, and an attentive gardener. Similar prerequisites exist for robust combinatorial innovation: A healthy landscape where a diverse set of products and services can grow.</p>
+<p>First, a community of inventors must be <strong>interconnected</strong> through communication technology (language, writing) so ideas can flow widely and efficiently. The presence of a culture of <strong>sharing</strong> allows ideas to be challenged and refined (scientific method, peer review), and for the strongest ones to rise to the top.</p>
+<p>Participation in a global marketplace for ideas (capitalism) provides the <strong>incentives</strong> for inventors to compete, driving innovation.</p>
+<p>But all of these together are complex systems. Complex technology naturally leads to <strong>modularity</strong>. Specialists subdivide and conquer that complexity to improve the building blocks, creating fractal competition.</p>
+<p>Software is the ultimate environment for combinatorial innovation, excelling in all dimensions at an unprecedented scale: The internet is the ultimate connectivity network. Open source culture continuously refines modules of code. And billions of users with interconnected devices present an unprecedented addressable market.</p>
+<h2>Software tools: the user is in control</h2>
+<p>In some ways, software tools are not unlike the products of the industrial era. Like a manufacturing tool, they carry out a particular function, useful in and of itself.</p>
+<p>In fact, early software predominantly produced better digital versions of industrial information and media processing tools:</p>
+<table>
+<thead>
+<tr>
+<th>Software tool</th>
+<th>Industrial tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Word processor (WordPerfect)</td>
+<td>Typewriter</td>
+</tr>
+<tr>
+<td>Spreadsheet (Excel)</td>
+<td>Accounting book</td>
+</tr>
+<tr>
+<td>Graphics editor (Photoshop)</td>
+<td>Darkroom</td>
+</tr>
+</tbody>
+</table>
+<p>Later, as computers became more affordable, ubiquitous and interconnected by the internet, a new breed of service-like software emerged, enabling new modes of communication, collaboration and interaction, upending the top-down models of production and distribution in media industries, and also bringing forth new implications for power and control.</p>
+<p>All tool-like software has certain key properties:</p>
+<p>It is <strong>self contained</strong>. Run the code and it’ll do what is promised. There are no external dependencies. Word processor software, for example, is so useful by itself that successful companies were built selling computers with a <a href="https://www.youtube.com/watch?v=AuX-6761KTQ">single purpose</a>.</p>
+<p>It offers <strong>single player utility</strong>. Like a hammer that you own, you don’t need anything or anyone else to use it.</p>
+<p>The <strong>user is the operator</strong>. There is a strong sense of ownership, even property, as well as control, for the user. It’s your personal tool, not a service you hire from someone else.</p>
+<p>Copies are <strong>interchangeable</strong>. If you forget your laptop, you can borrow a friend’s and still retouch your pictures in their instance of Photoshop.</p>
+<p>Not surprisingly, the initial business model for tool-like software was selling licenses. Piracy naturally emerged, since the tools were so useful, but the code was also easy and inexpensive to copy and share. Piracy, in a sense, is natural to the combinatorial innovation process, since intellectual property is a barrier to the flow of ideas.</p>
+<p>The open source community rapidly created openly-licensed alternatives to most proprietary software, free to reuse and modify. Since the idea of tool software is synonymous with its utility, anyone can attempt to create an alternate, open version from scratch (even though open source alternatives were often <a href="https://en.wikipedia.org/wiki/GIMP">inferior</a> to <a href="https://en.wikipedia.org/wiki/Adobe_Photoshop">proprietary</a> originals).</p>
+<p>Next, as connectivity to the internet became commonplace and the web started to pick up steam, the focus of software innovation shifted from digital productivity tools to programming communication and interactivity between computers. Software edged toward offering new capabilities of being collaborative, multiplayer, dynamic, and social, in turn producing the building blocks for the next generation of software, internet services.</p>
+<h2>Code vs state</h2>
+<p>To understand the evolution, it is important to to distinguish between the <strong>logic</strong> (code) of a program and its <strong>ability to remember</strong> (state).</p>
+<p>Early software was functional in nature—an input led to an output. A story in your mind is translated to a digital document with the aid of a word processor. A scanned photo is cropped and text is overlaid with image processing software.</p>
+<p>The ability to remember preceding events or user interactions (state) was primitive and minimal. State input also only came from the single user of the program.</p>
+<p>Internet services leveraged sophisticated state management, allowing them to provide unprecedented new utility.</p>
+<h2>Internet services: users give up state</h2>
+<p>Personal computing is defined by the idea that a user runs a <strong>personal</strong> instance of a program on <strong>their</strong> computer. The internet is defined by a new class of software centered around the concept of a <strong>shared</strong> service that runs on a <strong>remote</strong> server.</p>
+<p>Instead of “one computer, one program”, where there are many identical instances of software run by independent individuals, one server operator (or company) runs a single instance of a program on their server (or datacenter). Lots of people connect to that service and interact with it over the internet.</p>
+<p>Importantly, instead of a user maintaining their own state, a service maintains state on a user’s behalf.</p>
+<p>This has important consequences. Power shifts away from the user and their private <a href="https://youtu.be/rTRzYjoZhIY">bicycle for the mind</a>. A new force of consolidation and control emerges. Ironically, the internet, a decentralized communication network, produced some of the most centralizing services in history.</p>
+<p>Let’s look at the generic definition of “service”:</p>
+<blockquote>
+<p>a system supplying a public need such as transport, communications, or utilities such as electricity and water.</p>
+</blockquote>
+<p>Services are categorically different than tools.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Car</td>
+<td>Transportation network</td>
+</tr>
+<tr>
+<td>Engine</td>
+<td>Power grid</td>
+</tr>
+<tr>
+<td>Personal blog</td>
+<td>Social network</td>
+</tr>
+<tr>
+<td>RSS reader</td>
+<td>Search engine</td>
+</tr>
+<tr>
+<td>TensorFlow</td>
+<td>Google Ads</td>
+</tr>
+<tr>
+<td>Unity</td>
+<td>Dota 2</td>
+</tr>
+<tr>
+<td>MP3 player</td>
+<td>Spotify</td>
+</tr>
+</tbody>
+</table>
+<p>Services thrive at scale, from both <a href="https://en.wikipedia.org/wiki/Economies_of_scale">economies of scale</a> (an industrial concept) and a new notion of stateful <a href="https://a16z.com/2016/03/07/all-about-network-effects/">network effects</a>. They desire to be global and singular. They have long, continuous lifespans and operate autonomously. Like for services in the real world, a failure of an internet service is catastrophic for users that depend on it.</p>
+<p>Users find more value in plugging into an existing service than from building their own, making them naturally become monopolies.</p>
+<p>Services can be deployed in data centers, enabling applications to run at a scale that would be infeasible for a personal computer. Crawling the entire web is possible by a well funded and architected service.</p>
+<h2>State gives services superpowers</h2>
+<p>A user may interact with the service to address a personal need, for example, to find a certain website with the aid of a keyword query. The service satisfies that need by returning a list of results, but a byproduct of the user’s action is the service improving its global state. In the case of search, the user action updates the global ranking of the selected website in the system, improving results for all other users in the future. Even though users are using the service for a selfish reason, the service gets smarter and more useful for all users.</p>
+<p>Over a service’s lifespan, the utility of its code begins to diverge with the utility of its state.</p>
+<p>State compounds and becomes more valuable superlinearly. Code, while crucial for the stable operation and evolution of a service, becomes less important and necessary to defend.</p>
+<p>It is not surprising that most services are primarily constructed out of open source components. Anyone can attempt to copy a service or even re-instantiate the actual codebase, but an existing service with more users will have more useful state, and will be more desirable to new users. This creates a feedback loop, where more users beget more state, leading to a more useful service that attracts further users and more state.</p>
+<h2>From open source to open services</h2>
+<p>As my partner Chris has <a href="https://www.wired.com/story/how-blockchain-can-wrest-the-internet-from-corporations/">written</a>, we are seeing a great consolidation of internet services among a few corporations. Years of state accumulated by innovative companies produced tremendously useful services (search, maps, social, commerce), but further combinatorial innovation is off-limits to outside developers and entrepreneurs. Rebuilding services from scratch on the same terms and this late in the game is hopeless.</p>
+<p>As crypto networks evolve, they are likely to provide strong incentives to unlock further state and create open services in many areas dominated by closed ones today. Open services powered by crypto networks will present unprecedented opportunity for a new generation of developers and entrepreneurs to innovate.</p>
+<p><em>Thanks to <a href="https://twitter.com/jessewldn">Jesse Walden</a> and <a href="https://twitter.com/cdixon">Chris Dixon</a> for reviewing drafts of this post.</em></p>
+</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 19:17:24 +0000</pubDate>
+      <source>https://denisnazarov.com/what-comes-after-open-source</source>
+    </item>
   </channel>
 </rss>
