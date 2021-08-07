@@ -16839,5 +16839,200 @@ We’re asking readers like you to support The Walrus so we can continue to lead
       <pubDate>Sat, 07 Aug 2021 14:16:50 +0000</pubDate>
       <source>https://drrollergator.substack.com/p/damned-lies-and-vaccine-statistics</source>
     </item>
+    <item>
+      <title>Incorrect expression calculation between programming languages</title>
+      <link>https://news.ycombinator.com/item?id=28085642</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><table id="hnmain">
+        <tbody><tr><td></td></tr>
+<tr id="pagespace" title="Incorrect expression calculation between programming languages"></tr><tr><td><table>
+        <tbody><tr id="28085642">
+      <td><span></span></td>      <td><center><a id="up_28085642" href="https://news.ycombinator.com/vote?id=28085642&amp;how=up&amp;goto=item%3Fid%3D28085642"></a></center></td><td><a href="https://news.ycombinator.com/item?id=28085642">Incorrect expression calculation between programming languages</a></td></tr><tr><td colspan="2"></td><td>
+        <span id="score_28085642">14 points</span> by <a href="https://news.ycombinator.com/user?id=mingodad">mingodad</a> <span title="2021-08-06T11:24:11"><a href="https://news.ycombinator.com/item?id=28085642">3 hours ago</a></span> <span id="unv_28085642"></span> | <a href="https://news.ycombinator.com/hide?id=28085642&amp;goto=item%3Fid%3D28085642">hide</a> | <a href="https://hn.algolia.com/?query=Incorrect%20expression%20calculation%20between%20programming%20languages&amp;type=story&amp;dateRange=all&amp;sort=byDate&amp;storyText=false&amp;prefix&amp;page=0">past</a> | <a href="https://news.ycombinator.com/fave?id=28085642&amp;auth=750ada710a2652430fafe2d5ed752c960f3318f5">favorite</a> | <a href="https://news.ycombinator.com/item?id=28085642">11 comments</a>              </td></tr>
+      <tr></tr><tr><td colspan="2"></td><td>This expression shows that we have several disagreements between programming languages about what is the end result:<p>=====</p><p>EXPR = (((((((788)*(8.46))))+8342*1.803-1))*4186.4*(15))*(((22%284/((7530/((2)*(((((25))-421))))))*597%2663)+7283.8-9.60+167.8644%((3))))+(8871)</p><p>POSTGRESQL = 8291561284461.33301440</p><p>SQUILU = 8291561284461.3</p><p>JAVA = 8.291561284461331E12</p><p>D = 8.29156e+12</p><p>SQLITE = 8290383058308.3</p><p>PHP = 8035491468054</p><p>JAVSCRIPT = 8036090802426.098</p><p>MYSQL = 8036090802312.071</p><p>PYTHON = 1.1107636287e+13</p><p>RUBY = 11107636286950.146</p><p>LUA = 11665910614443</p><p>=====</p></td></tr>
+        <tr></tr><tr><td colspan="2"></td><td>
+          
+      </td></tr>
+  </tbody></table></td></tr>
+<tr><td></td></tr>
+      </tbody></table></div></div>]]></content:encoded>
+      <pubDate>Fri, 06 Aug 2021 11:24:11 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28085642</source>
+    </item>
+    <item>
+      <title>Benjamin Banneker’s Broods of Cicadas</title>
+      <link>https://www.historytoday.com/archive/natural-histories/benjamin-bannekers-broods-cicadas</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>  <section>
+          
+            <div><p>In the spring of 1749 Benjamin Banneker – the 17-year-old son of a freed slave – thought the world was about to be eaten whole. While working on his family’s farm in Oella, Maryland, he saw ‘thousands of locusts’ suddenly rise up from the ground and ‘creep …up the trees and bushes’, as if directed by some unseen hand. Fearing that they had come to ‘eat and destroy the fruit of the Earth, and would occasion a famine in the land’, he set about killing them as quickly as he could. But he soon realised it was pointless. There were just too many of them. Helpless, he waited with trepidation for the destruction to begin. Yet it never came and within a matter of weeks the ‘locusts’ had vanished without trace. </p>
+<p>What Banneker thought were ‘locusts’ turned out to be a species of periodical cicadas (<i>Magicicada</i>) and what he had seen was just one of several gigantic ‘broods’ native to North America (Brood X). Like their European counterparts, periodical cicadas spend the vast majority of their lives underground as immature nymphs. Secreted in burrows, they feed off the xylem found in roots and generally don’t cause any bother. Once every 13 or 17 years (depending on the brood), when the temperature of the soil is just right – usually in late April or May – they clamber upwards <i>en masse</i>. When they reach the surface, they shed their outer skin and assume their adult, winged, form. The mating ritual then begins. Gathering together in ‘choruses’, the males make a high-pitched clicking sound to attract females; and for the next few weeks they reproduce with proverbial enthusiasm. Yet as soon as they have laid their eggs in the bark of trees they die, leaving their young to hide until the next great awakening. </p>
+<p>Banneker was not the first person to see periodical cicadas in North America, of course. Sightings had been reported in 1633 [1634], 1666 and 1675, and brief descriptions of the insect’s life cycle had been published by Andreas Sandel and the botanist John Bartram in 1715 and 1737. Nor was Banneker the only person to remark on the 1749 emergence. Peter Kalm, a Swedish naturalist, witnessed the same brood while visiting Pennsylvania. He, too, would write a study of the cicada’s habits, albeit hedged about with caveats. But Banneker’s encounter was nevertheless to prove vital to our understanding of the cicada’s periodicity – and would mark the beginning of one of the most remarkable, if overlooked, scientific careers of the American Enlightenment. </p>
+
+<h3><b>Auspicious return</b></h3>
+<p>Banneker was born on 9 November 1731, the son of Robert and Mary Bannaka (or Bannaky). In surviving documents, Mary is described as a ‘free black’, and is most likely to have been the daughter of a black slave and a white indentured servant. Robert, by contrast, was a freed slave. Like so many others, he had been taken from Guinea and forcibly transported to Maryland to work on the tobacco plantations that were the mainstay of the colonial economy. How long he was kept in this condition is unclear, but he was fortunate to be granted his freedom just before the British authorities introduced measures to prevent slave-owners from manumitting their slaves without the legislature’s permission. </p>
+<p>Despite Robert and Mary’s background, the Bannekers were moderately prosperous. In 1737, when Benjamin was six, his father purchased 100 acres of land in exchange for 7,000 lbs of tobacco and the family built a small log cabin, which stands to this day. Benjamin received little formal education. He is likely to have learned the rudiments of reading and writing from his grandmother, Molly Welsh; but whether he went on to attend a local school is unclear. If he did, it cannot have been for long. </p>
+<p>Benjamin had a hunger for learning, though. Anything to do with the natural world fascinated him and his encounter with the cicadas in 1749 seems to have been instrumental in persuading him to cultivate his interest seriously. Judging by his later account, his scientific instincts were already well developed. He not only had a keen eye, but also formulated a sensible (if mistaken) hypothesis about the cicadas’ environmental impact. He even appears to have suspected that their immense numbers were key to their survival. Most tellingly, he also made a mental note not to forget what he had seen and to determine by observation when they would return. </p>
+<p>From that moment on, patterns and periodicity would be an abiding preoccupation. Four years later, he tried his hand at clock-making. Captivated by the rapid pace of technological change, or – more likely – drawn to the oft-cited analogy between watchmaking and the workings of nature, he built a wooden clock of his own by copying the mechanism of a pocket watch he borrowed from a wealthy friend. For a young man with little, if any, experience of timepieces, it was nothing short of remarkable. </p>
+<figure role="group">
+
+<figcaption>Frontispiece of Benjamin Banneker’s Almanac, 1795. Alamy.</figcaption>
+</figure>
+
+<p>His learning was, at this stage, very much of a practical bent. Driven by curiosity, he proceeded by trial and error whenever he had a free moment. By necessity, his progress was halting and uncertain – more so after his father’s death in 1759 obliged him to assume responsibility as head of the household. But his enquiring mind continued to whir and, when the cicadas returned in 1766, he was no longer the wide-eyed <i>naïf </i>of 17 years before. This time he ‘had more sense than to endeavour to destroy them, knowing they were not so pernicious to the fruit of the Earth as I did imagine they would be’. And, being less afraid, he was able to observe them closely – more closely, in fact, than many other scientists who witnessed their appearance at the same time. For, while they were generally content to study a single resurgence and guess at their periodicity on the basis of hearsay, Banneker seems already to have realised that the only way to establish the length of their cycle for certain was to watch them over a much longer period. </p>
+<p>The cicadas’ return proved auspicious. Six years after he watched them rise up in clouds from the ground, three brothers – Andrew, John, and Joseph Ellicott – bought some land not far from Banneker’s farm. Unlike most Marylanders, who were Catholic, the Ellicotts were Quakers and had little time for racial prejudices. They quickly struck up a friendship with their neighbour and, on learning that Banneker shared their passion for science, gladly lent him books with which to further his studies. </p>
+
+<h3><b>Calculating cicadas</b></h3>
+<p>Little is known of Banneker’s life in the following decades. Nothing has survived to indicate how he was affected by the Revolutionary War. But by the time the cicadas came back for a third time in 1783, just a few months before the conflict ended, Banneker had made striking progress in all his studies – and was well placed to capitalise on his talents under the new Republic. Some five years later he began studying astronomy intensively and was sufficiently skilled in mathematics that he could calculate the tides and a host of other phenomena. </p>
+<p>In spring 1791 Major Andrew Ellicott – the son of Banneker’s neighbour, Joseph – was asked by Thomas Jefferson, then the Secretary of State, to survey the area earmarked for the new federal capital and he immediately invited Banneker to join his team. The extent of Banneker’s contribution to this project has, admittedly, been much debated. The evidence is ambiguous at best. But whatever his role, the mere fact of his involvement is eloquent testimony to the esteem in which his learning was beginning to be held. </p>
+<p>After leaving the surveying expedition, Banneker concentrated on preparing an almanac and ephemeris for the year 1792. This contained exhaustive tables detailing ‘the Motions of the Sun and Moon, the … Aspects of the Planets, the Rising and Setting of the Sun … Age of the Moon … Conjunctions, Eclipses, Judgement of the Weather’ and countless other wonders, all calculated by hand, using a series of self-derived (and remarkably complex) formulae. He showed this to his old friend Andrew Ellicott, who was so impressed that he sent it to James Pemberton, the president of the Pennsylvania Society for Promoting the Abolition of Slavery and for the Relief of Free Negroes Unlawfully Held in Bondage. Pemberton had it checked by an astronomer and, on being assured of its ‘extraordinary’ accuracy, arranged for it to be published. It met with immediate success – so much so that Banneker prepared several more editions in the years which followed. </p>
+<p>At about the same time, Banneker also became committed to securing justice for African Americans. Perhaps encouraged by the Ellicotts, he wrote a letter to Thomas Jefferson, who, in addition to being the Secretary of State, was also compromised by his involvement in the slave trade. Though he repeatedly condemned the institution of slavery, and once boasted that he wanted his slaves always to be well treated, he did not hesitate to order violent floggings and fathered six children by a slave girl. Much to Banneker’s chagrin, he also viewed slaves as being of inferior intelligence – although whether this was due to nature or nurture, he could not say. Banneker forcefully took Jefferson to task for his hypocrisy. Vilifying the Secretary for ‘detaining by fraud and violence so numerous a part of my brethren under groaning captivity and cruel oppression’, he demanded radical change. </p>
+<p>Jefferson’s reply was courteous, if evasive. Perhaps stung by Banneker’s criticisms, he confined himself to vague wishes for some improvement in slaves’ living conditions. Later that same day, however, he sent a copy of Banneker’s almanac to the Marquis de Condorcet, accompanied by a note extolling his mathematical genius and hoping that such ‘eminence’ would be ‘so multiplied as to prove’ the intellectual equality of all men. </p>
+
+<h3><b>Rising again</b></h3>
+<p>Astronomy and mathematics remained Banneker’s principal interests, however, and he did not hesitate to bring them to bear on his study of the cicadas. At some point around the time he wrote to Jefferson, he compiled all the data he had so far accumulated in a note, inscribed in his ‘Astronomical Journal’. It was not long, but it was as detailed and comprehensive an account as anyone had yet written and represented the fruits of almost 50 years of study. Most important of all, it also included a prediction. Rejecting the hearsay and supposition favoured by most other scientists in favour of his past observations, he wrote that:</p>
+<blockquote><p><i>They may be expected again in the year 1800, which is Seventeen years since their last appearance to me. So that if I may venture So to express it, their periodical return is Seventeen years, but they, like the Comets, make but a short stay with us … [Yet] if their lives are Short, they are merry, they begin to Sing of make a noise from the first they come out of the Earth till they die.</i></p>
+</blockquote>
+<p>Soon proved right, Banneker’s prediction was of huge value. It established beyond doubt that Brood X followed a 17-year cycle and allowed farmers throughout the eastern United States to prepare appropriately, saving needless effort and no end of worry. </p>
+<p>Seduced by the music of the stars as much as by the singing of cicadas, Banneker continued searching for patterns in nature until his death, nine years later, at the age of 78. Many of his papers were lost in a fire shortly afterwards; and, in the decades which followed, his work was largely overlooked. Thankfully, the record has recently begun to be set right, but there is still a long way to go. Given that Brood X returned only a few weeks ago – just as Banneker suggested it would – this is the perfect time to give this most remarkable of men the recognition he deserves as a pioneer of American science and justice. </p>
+
+<p><strong>Alexander Lee</strong> is a fellow in the Centre for the Study of the Renaissance at the University of Warwick. His latest book, <i>Machiavelli: His Life and Times</i>, is now available in paperback.</p>
+</div>
+      
+      </section>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 05 Aug 2021 00:31:20 +0000</pubDate>
+      <source>https://www.historytoday.com/archive/natural-histories/benjamin-bannekers-broods-cicadas</source>
+    </item>
+    <item>
+      <title>Bug in Lynx&#39; SSL certificate validation – leaks password in clear text via SNI</title>
+      <link>https://www.openwall.com/lists/oss-security/2021/08/07/1</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+
+
+
+
+
+
+<a href="https://www.openwall.com/lists/oss-security/2021/08/05/1">[&lt;prev]</a> <a href="https://www.openwall.com/lists/oss-security/2021/08/07/2">[next&gt;]</a> <a href="https://www.openwall.com/lists/oss-security/2021/08/07/2">[thread-next&gt;]</a> <a href="https://www.openwall.com/lists/oss-security/2021/08/07/">[day]</a> <a href="https://www.openwall.com/lists/oss-security/2021/08/">[month]</a> <a href="https://www.openwall.com/lists/oss-security/2021/">[year]</a> <a href="https://www.openwall.com/lists/oss-security/">[list]</a>
+<pre>Date: Sat, 7 Aug 2021 03:51:07 +0200
+From: Axel Beckert &lt;abe@...ian.org&gt;
+To: lynx-dev@...gnu.org
+Cc: oss-security@...ts.openwall.com, security@...ian.org,
+	991971@...s.debian.org
+Subject: Re: [Lynx-dev] bug in Lynx&#39; SSL certificate validation -&gt; leaks
+ password in clear text via SNI (under some circumstances)
+
+Hi,
+
+On Fri, Aug 06, 2021 at 05:14:32PM +0000, Thorsten Glaser
+&lt;tg@...bsd.de&gt; wrote in
+<a href="https://lists.nongnu.org/archive/html/lynx-dev/2021-08/msg00000.html" rel="nofollow">https://lists.nongnu.org/archive/html/lynx-dev/2021-08/msg00000.html</a>:
+&gt; this affects both OpenSSL and Debian’s nonGNUtls builds:
+&gt; 
+&gt; lynx https://user:pass@...t/
+&gt; 
+&gt; … will lead to…
+&gt; 
+&gt; SSL error:host(user:pass@...t)!=cert(CN&lt;mainhost&gt;:SAN&lt;DNS=host&gt;:SAN&lt;DNS=otherhost&gt;
+&gt; 
+&gt; … for OpenSSL lynx and…
+&gt; 
+&gt; SSL error:host(user:pass@...t)!=cert(CN&lt;mainhost&gt;)-Continue? (n)
+&gt; 
+&gt; … for nonGNUtls lynx.
+&gt; 
+&gt; Obviously, user:pass@ need to be stripped before comparing.
+
+This is more severe than it initially looked like: Due to TLS Server
+Name Indication (SNI) the hostname as parsed by Lynx (i.e with
+&#34;user:pass@&#34; included) is sent in _clear_ text over the wire even
+_before_ I can even said &#34;n&#34; for &#34;no, don&#39;t continue to talk with this
+server&#34; in Lynx&#39;s prompt as shown above.
+
+I was able to capture the password given on the commandline in traffic
+of an TLS handshake using tcpdump and analysing it with Wireshark:
+
+From Wiresharks TLS dissector:
+
+Server Name Indication extension
+    Server Name list length: 28
+    Server Name Type: host_name (0)
+    Server Name length: 25
+    Server Name: user:pass@....example.org
+                 ^^^^^^^^^^
+
+From Wiresharks &#34;Follow TCP stream&#34;:
+
+...........a
+....jV.. ......../.......D.&amp;....R.+.,.....	.
+.../.0...............z.{./.5.A...
+.....|.}.3.9.E.............2.8.D.......p............$.&#34;...user:pass@....example.org......#...
+...
+.................
+..............................
+
+(PCAPs available on request. Actually did the test with a local server
+of mine. But it should be easy to reproduce, be it with any Linux
+distribution.)
+
+I did this test with Lynx from Debian Experimental (which has the
+current Lynx upstream release 2.9.0dev.8) as well as with Lynx from
+Debian 8 Jessie ELTS (which has Lynx 2.8.9dev.1) and both leak the
+password via SNI. I though assume that older releases of Lynx are
+probably also affected as well, at least if they or the according
+crypto libraries support SNI.
+
+But given that the symptoms Thorsten discovered stayed unreported for
+quite some years, I assume that this use case is a rather seldom one.
+Nevertheless only trying to use Lynx that way (and seeing it fail)
+already leaks the used password.
+
+IMHO this nevertheless needs a CVE-ID.
+
+Cc&#39;ing Debian Security Team as well as the OSS Security mailing list
+for making them aware of this issue. I also updated the subject of
+this thread to make it less ambigous on other mailing lists.
+
+And I&#39;m also Cc&#39;ing the according Debian bug report which I created
+for tracking this issue in Debian: <a href="https://bugs.debian.org/991971" rel="nofollow">https://bugs.debian.org/991971</a>
+
+		Kind regards, Axel
+-- 
+ ,&#39;&#39;`.  |  Axel Beckert &lt;abe@...ian.org&gt;, <a href="https://people.debian.org/~abe/" rel="nofollow">https://people.debian.org/~abe/</a>
+: :&#39; :  |  Debian Developer, ftp.ch.debian.org Admin
+`. `&#39;   |  4096R: 2517 B724 C5F6 CA99 5329  6E61 2FF9 CD59 6126 16B5
+  `-    |  1024D: F067 EA27 26B9 C3FC 1486  202E C09E 1D89 9593 0EDE
+
+<span><strong>Download attachment &#34;</strong><a href="https://www.openwall.com/lists/oss-security/2021/08/07/1/1" rel="nofollow" download="">signature.asc</a><strong>&#34; of type &#34;</strong>application/pgp-signature<strong>&#34; (834 bytes)</strong></span>
+</pre>
+<p><a href="http://www.openwall.com/blists/">Powered by blists</a> - <a href="http://lists.openwall.net">more mailing lists</a>
+
+
+</p><p>
+Please check out the
+<a href="https://oss-security.openwall.org/wiki/">
+Open Source Software Security Wiki</a>, which is counterpart to this
+<a href="https://oss-security.openwall.org/wiki/mailing-lists/oss-security">mailing list</a>.
+</p><p>
+Confused about <a href="https://www.openwall.com/lists/">mailing lists</a> and their use?
+<a href="https://en.wikipedia.org/wiki/Electronic_mailing_list">Read about mailing lists on Wikipedia</a>
+and check out these
+<a href="https://www.complang.tuwien.ac.at/anton/mail-news-errors.html">guidelines on proper formatting of your messages</a>.
+</p></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 15:26:26 +0000</pubDate>
+      <source>https://www.openwall.com/lists/oss-security/2021/08/07/1</source>
+    </item>
+    <item>
+      <title>Scientists make discovery of dead zones where nothing can live on two US coasts</title>
+      <link>https://thehill.com/changing-america/sustainability/climate-change/566674-scientists-make-shocking-discovery-of-dead</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___thehill_com_changing-america_sustainability_climate-change_566674-scientists-make-shocking-discovery-of-dead/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+                <div><div><div property="content:encoded"><p><span>Scientists surveying the bottom of the Gulf of Mexico discovered a “dead-zone” — where low oxygen levels make the area inhospitable to fish —  “equivalent to more than four million acres of habitat.”</span></p><p><span>The National Oceanographic and Atmospheric Administration (NOAA) </span><a href="https://www.noaa.gov/news-release/larger-than-average-gulf-of-mexico-dead-zone-measured"><span>released the survey’s findings</span></a><span> this week, which were uncovered by scientists aboard a research cruise. Typically, dead zones cover around 5,400 square miles. But the hypoxic zone near the Gulf this year measured around 6,334 square miles. </span></p><p>“This year, we have seen again and again the profound effect that climate change has on our communities — from historic drought in the west to flooding events. Climate is directly linked to water, including the flow of nutrient pollution into the Gulf of Mexico,” Environmental Protection Agency Assistant Administrator for Water Radhika Fox said in the release.</p><p>“As we work to address the Gulf of Mexico hypoxic zone, we must consider climate change and we must strengthen our collaboration and partnerships to make needed progress,” Fox added. </p><hr/><p><strong>READ MORE STORIES FROM CHANGING AMERICA</strong></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/565626-new-study-says-global-warming-could-kill-83"><strong>NEW STUDY SAYS GLOBAL WARMING COULD KILL 83 MILLION PEOPLE BY THE END OF THE CENTURY</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/562694-experts-say-western-us-now-trapped-in-death"><strong>EXPERTS SAY WESTERN US NOW TRAPPED IN DEATH CYCLE OF EXTREME HEAT, DROUGHT, FIRE</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/environment/562165-scientists-now-racing-to-study-heat-conditions"><strong>SCIENTISTS NOW RACING TO STUDY HEAT CONDITIONS THAT SPONTANEOUSLY KILL HUMANS</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/557867-trump-lashes-out-after-biden-says-joint-chiefs"><strong>TRUMP LASHES OUT AFTER BIDEN SAYS JOINT CHIEFS TOLD HIM GREATEST THREAT TO US IS GLOBAL WARMING</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/557118-climate-crisis-will-crush-worlds-biggest"><strong>CLIMATE CRISIS WILL CRUSH WORLD’S BIGGEST NATIONS TWICE AS HARD AS COVID-19, SAYS NEW STUDY</strong></a></p><hr/><p>Dead zones develop when “excess nutrients” from cities and farms drain — ”runoff” — into the water, decaying algae and eventually making the area uninhabitable for most marine life, according to NOAA. Research indicates that hypoxic waters can drastically alter marine diets, reproduction and growth.</p><p>Based on runoff data, NOAA predicted the average hypoxic zone would encompass 4,880 square miles, while the largest hypoxic zone recorded since measurements began was 8,776 square miles in 2017.</p><p>Nicole LeBoeuf, Assistant Administrator for NOAA’s National Ocean Service, said in the release that data collected from the cruise will aid in modeling designed “to simulate how river discharge, nutrient loads, and oceanographic conditions influence hypoxic conditions in the Gulf and affect living resources.” </p><p>“By understanding the scale and effects of these hypoxia events, we can better inform the best strategies to reduce its size and minimize impacts to our coastal resources and economy,” LeBoeuf concluded. </p><hr/><p><strong>America is changing faster than ever!</strong> <strong>Add Changing America to your </strong><a href="https://www.facebook.com/ChangingAmerica/"><strong>Facebook</strong></a><strong> or </strong><a href="https://twitter.com/changingamerica"><strong>Twitter</strong></a><strong> feed to stay on top of the news.</strong></p><hr/><p>Similarly, hypoxic zones were reported near Oregon, where they have occurred each year since 2002, according to The Guardian. Yet this year, the zones were reported earlier than they have been in decades. </p><p><span>“Low dissolved oxygen levels have become the norm on the Pacific Northwest coast, but this event started much earlier than we&#39;ve seen in our records,” Oregon State University Professor Francis Chan, director of the NOAA cooperative institute CIMERS, </span><a href="https://research.noaa.gov/article/ArtMID/587/ArticleID/2779/Low-oxygen-waters-off-Washington-Oregon-coasts-risk-becoming-large-%E2%80%9Cdead-zones%E2%80%9D"><span>said in a release</span></a><span>. “This is the earliest start to the upwelling season in 35 years.”</span></p><hr/><p><strong>READ MORE STORIES FROM CHANGING AMERICA</strong></p><hr/><p><a href="https://thehill.com/changing-america/sustainability/energy/555634-in-historic-first-climate-activists-are-now-on-exxons"><strong>IN HISTORIC FIRST, CLIMATE ACTIVISTS ARE NOW ON EXXON’S BOARD</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/549711-biden-promises-to-cut-us-emissions-in-half-in"><strong>BIDEN PROMISES TO CUT US EMISSIONS IN HALF IN LESS THAN 10 YEARS AHEAD OF WORLD CLIMATE SUMMIT</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/547379-scientists-say-unimaginable-amounts-of-water"><strong>SCIENTISTS SAY ‘UNIMAGINABLE AMOUNTS’ OF WATER WILL POUR INTO OCEANS IF ICE SHELVES COLLAPSE AMID GLOBAL HEATING</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/climate-change/545194-new-study-says-the-earth-could-see-six-month"><strong>NEW STUDY SAYS THE EARTH COULD SEE SIX MONTH-LONG SUMMERS</strong></a></p><p><a href="https://thehill.com/changing-america/sustainability/environment/544337-surprising-study-finds-sharks-are-key-to"><strong>SURPRISING STUDY FINDS SHARKS ARE KEY TO RESTORING DAMAGED HABITATS, FIGHTING CLIMATE CHANGE</strong></a></p></div></div></div>            </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 14:24:59 +0000</pubDate>
+      <source>https://thehill.com/changing-america/sustainability/climate-change/566674-scientists-make-shocking-discovery-of-dead</source>
+    </item>
   </channel>
 </rss>
