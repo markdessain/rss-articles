@@ -15468,5 +15468,1072 @@ Body pain heat maps. (Alter et al., PLOS One, 2021) </p></div><div id="item_4765
       <pubDate>Fri, 06 Aug 2021 11:06:28 +0000</pubDate>
       <source>https://psyche.co/ideas/in-praise-of-habits-so-much-more-than-mindless-reflexes</source>
     </item>
+    <item>
+      <title>Mixed views on new DNS top level domains (TLDs)</title>
+      <link>https://utcc.utoronto.ca/~cks/space/blog/tech/NewTLDsMyMixedViews</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><h2>I have mixed views on new DNS top level domains (TLDs)</h2>
+
+	<p><small>August  4, 2021</small></p>
+</div><div><p>Over on Twitter <a href="https://twitter.com/thatcks/status/1421962079943151620">I said something</a> related
+to new TLDs. I have some views on what I said that are for another
+entry, but for now I want to sort out some views on new TLDs in
+general.</p>
+
+<p>New top level DNS domains come in two flavours; there are country
+TLDs (and country-like ones) and what are officially called <a href="https://en.wikipedia.org/wiki/Generic_top-level_domain">generic
+TLDs</a>,
+things like &#34;.online&#34; and so on.  Adding new country TLDs is obviously
+required and is sensible, and I feel this is also the case for new
+TLDs for country-like entities that aren&#39;t strictly countries, such
+as the European Union (which is not in <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>, although &#39;EU&#39; is reserved
+for identifying it and it has .eu as a TLD). I think this is most
+people&#39;s view on country TLDs, since it&#39;s hard to argue that new
+countries should be frozen out of having their own TLD when existing,
+older ones get TLDs.</p>
+
+<p>(I&#39;m neutral on the use of country TLDs to create attractive looking
+URLs, for example various domains using .ly and .io.)</p>
+
+<p>What I have mixed feelings about are all of the generic, non-country
+TLDs (gTLDs), which are sometimes called <em>vanity TLDs</em>. <a href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains">There are
+a lot of these gTLDs</a> (<a href="https://data.iana.org/TLD/tlds-alpha-by-domain.txt">also</a>) and <a href="https://blog.benjojo.co.uk/post/the-death-of-a-tld">some
+number of them wind up getting shut down after a while</a>, among other
+issues. People can also criticize a number of gTLDs for being either
+unnecessary or not having a good general use, and some of them have
+clashed with common unofficial internal use (for example, .dev,
+<a href="https://en.wikipedia.org/wiki/.dev">which also forces HTTPS for all websites in it</a>). All of this makes it sound
+like there should be either no new gTLDs at all or at least a lot
+fewer of them.</p>
+
+<p>However, the choices for how many new gTLDs to have are none, some,
+or as many as people want. If the choice is &#34;some&#34;, <a href="https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority">IANA</a> is
+put in the position of deciding which gTLDs and which gTLD purposes
+are worthy enough to be approved, and which aren&#39;t. I doubt there&#39;s
+any broad agreement on what the criteria for this should be, which
+means that IANA would basically be making arbitrary decisions (either
+for gTLDs or for the gTLD criteria). The choice of &#34;none&#34; feels
+unsatisfactory and excessively conservative; it&#39;s saying that despite
+the Internet&#39;s evolution since the original gTLDs were picked (and
+despite the wart of .mil), nothing needs to change. That leaves the
+choice of allowing as many gTLDs as people want to pay for, which
+is the current situation.</p>
+
+<p>So on the one hand I don&#39;t really like the explosion of gTLDs and the
+various consequences of that, but on the other hand I&#39;m not sure I
+see a better practical choice. You could tinker around the edges, for
+example by saying that all gTLDs have to have a public purpose and not
+be restricted to a single company (so no .google or .microsoft), but
+I don&#39;t think that would be a big change. And I&#39;m not sure that those
+company domains are the worst gTLD annoyances.</p>
+</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 11:07:33 +0000</pubDate>
+      <source>https://utcc.utoronto.ca/~cks/space/blog/tech/NewTLDsMyMixedViews</source>
+    </item>
+    <item>
+      <title>Framework Patterns</title>
+      <link>https://blog.startifact.com/posts/framework-patterns.html#</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div itemprop="articleBody text">
+    <div>
+<p>A software framework is code that calls your (application) code. That&#39;s how we
+distinguish a framework from a library. Libraries have aspects of frameworks so
+there is a gray area.</p>
+<p>My friend Christian Theune puts it like this: a framework is a text where you
+fill in the blanks. The framework defines the grammar, you bring some of the
+words. The words are the code you bring into it.</p>
+<p>If you as a developer use a framework, you need to tell it about your code.
+You need to tell the framework what to call, when. Let&#39;s call this
+<em>configuring</em> the framework.</p>
+<p>There are many ways to configure a framework. Each approach has its own
+trade-offs. I will describe some of these framework configuration patterns
+here, with brief examples and mention of some of the trade-offs. Many
+frameworks use more than a single pattern. I don&#39;t claim this list is
+exhaustive -- there are more patterns.</p>
+<p>The patterns I describe are generally language agnostic, though some depend on
+specific language features. Some of these patterns make more sense in object
+oriented languages. Some are easier to accomplish in one language compared to
+another.  Some languages have rich run-time introspection abilities, and that
+make certain patterns a lot easier to implement. A language with a powerful
+macro facility will make other patterns easier to implement.</p>
+<p>Where I give example code, I will use Python. I give some abstract code
+examples, and try to supply a few real-world examples as well. The examples
+show the framework from the perspective of the application developer.</p>
+<div id="pattern-callback-function">
+<h2>Pattern: Callback function</h2>
+<p>The framework lets you pass in a callback function to configure its behavior.</p>
+<div id="fictional-example">
+<h3>Fictional example</h3>
+<p>This is a <cite>Form</cite> class where you can pass in a function that implements what
+should happen when you save the form.</p>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>Form</span>
+
+<span>def</span> <span>my_save</span><span>(</span><span>data</span><span>):</span>
+    <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+
+<span>my_form</span> <span>=</span> <span>Form</span><span>(</span><span>save</span><span>=</span><span>my_save</span><span>)</span>
+</pre>
+</div>
+<div id="real-world-example-python-map">
+<h3>Real-world example: Python map</h3>
+<p>A real-world example: <cite>map</cite> is a (nano)framework that takes a (pure) function:</p>
+<pre><span>&gt;&gt;&gt;</span> <span>list</span><span>(</span><span>map</span><span>(</span><span>lambda</span> <span>x</span><span>:</span> <span>x</span> <span>*</span> <span>x</span><span>,</span> <span>[</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>]))</span>
+<span>[</span><span>1</span><span>,</span> <span>4</span><span>,</span> <span>9</span><span>]</span>
+</pre>
+<p>You can go very far with this approach. Functional languages do. If you glance
+at React in a certain way, it&#39;s configured with a whole bunch of callback
+functions called React components, along with more callback functions called
+event handlers.</p>
+</div>
+<div id="trade-offs">
+<h3>Trade-offs</h3>
+<p>I am a big fan of this approach as the trade-offs are favorable in many
+circumstances. In object-oriented languages this pattern is sometimes ignored
+because people feel they need something more complicated like pass in some
+fancy object or do inheritance, but I think callback functions should in fact
+be your first consideration.</p>
+<p>Functions are simple to understand and implement. The contract is about as
+simple as it can be for code. Anything you may need to implement your function
+is passed in as arguments by the framework, which limits how much knowledge you
+need to use the framework.</p>
+<p>Configuration of a callback function can be very dynamic in run-time -- you can
+dynamically assemble or create functions and pass them into the framework,
+based on some configuration stored in a database, for instance.</p>
+<p>Configuration with callback functions doesn&#39;t really stand out, which can be a
+disadvantage -- it&#39;s easier to see someone subclasses a base class or
+implements an interface, and language-integrated methods of configuration
+can stand out even more.</p>
+<p>Sometimes you want to configure multiple related functions at once, in which
+case an object that implements an interface can make more sense -- I describe
+that pattern below.</p>
+<p>It helps if your language has support for function closures. And of course your
+language needs to actually support first class functions that you can pass
+around -- Java for a long time did not.</p>
+</div>
+</div>
+<div id="pattern-subclassing">
+<h2>Pattern: Subclassing</h2>
+<p>The framework provides a base-class which you as the application developer can
+subclass. You implement one or more methods that the framework will call.</p>
+<div id="id1">
+<h3>Fictional example</h3>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>FormBase</span>
+
+<span>class</span> <span>MyForm</span><span>(</span><span>FormBase</span><span>):</span>
+    <span>def</span> <span>save</span><span>(</span><span>self</span><span>,</span> <span>data</span><span>):</span>
+        <span>...</span> <span>application</span> <span>code</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+</pre>
+</div>
+<div id="real-world-example-django-rest-framework">
+<h3>Real-world example: Django REST Framework</h3>
+<p>Many frameworks offer base classes - Django offers them, and Django REST
+Framework even more.</p>
+<p>Here&#39;s an example from Django REST Framework:</p>
+<pre><span>class</span> <span>AccountViewSet</span><span>(</span><span>viewsets</span><span>.</span><span>ModelViewSet</span><span>):</span>
+    <span>&#34;&#34;&#34;
+    A simple ViewSet for viewing and editing accounts.
+    &#34;&#34;&#34;</span>
+    <span>queryset</span> <span>=</span> <span>Account</span><span>.</span><span>objects</span><span>.</span><span>all</span><span>()</span>
+    <span>serializer_class</span> <span>=</span> <span>AccountSerializer</span>
+    <span>permission_classes</span> <span>=</span> <span>[</span><span>IsAccountAdminOrReadOnly</span><span>]</span>
+</pre>
+<p>A <cite>ModelViewSet</cite> does a lot: it implements a lot of URLs and request methods to
+interact with them. It integrates with Django&#39;s ORM so that you get a REST API
+that you can use to create and update database objects.</p>
+</div>
+<div id="subclassing-questions">
+<h3>Subclassing questions</h3>
+<p>When you subclass a class, this is what you might need to know:</p>
+<ul>
+<li>What base classes are there?</li>
+<li>What methods can you override?</li>
+<li>When you override a method, can you call other methods on <cite>self</cite> (<cite>this</cite>)
+or not? Is there is a particular order in which you are allowed to call these
+methods?</li>
+<li>Does the base class provide an implementation of this method, or is
+it really empty?</li>
+<li>If the base class provides an implementation already, you need to know
+whether it&#39;s intended to be supplemented, or overridden, or both.</li>
+<li>If it&#39;s intended to be supplemented, you need to make sure to call
+this method on the superclass in your implementation.</li>
+<li>If you can override a method entirely, you may need to know what methods to
+use to to play a part in the framework -- perhaps other methods that can be
+overridden.</li>
+<li>Does the base class inherit from other classes that also let you override
+methods? when you implement a method, can it interact with other methods on
+these other classes?</li>
+</ul>
+</div>
+<div id="id2">
+<h3>Trade-offs</h3>
+<p>Many object-oriented languages support inheritance as a language feature. You
+can make the subclasser implement multiple related methods. It seems obvious to
+use inheritance as a way to let applications use and configure the framework.</p>
+<p>It&#39;s not surprising then that this design is very common for frameworks. But I
+try to avoid it in my own frameworks, and I often am frustrated when a
+framework forces me to subclass.</p>
+<p>The reason for this is that you as the application developer have to start
+worrying about many of the questions above. If you&#39;re lucky they are answered
+by documentation, though it can still take a bit of effort to understand it.
+But all too often you have to guess or read the code yourself.</p>
+<p>And then even with a well designed base class with plausible overridable
+methods, it can still be surprisingly hard for you to do what you actually
+<em>need</em> because the contract of the base class is just not right for your use
+case.</p>
+<p>Languages like Java and TypeScript offer the framework implementer a way to
+give you guidance (<cite>private/protected/public</cite>, <cite>final</cite>). The framework designer
+can put hard limits on which methods you are allowed to override. This takes
+away some of these concerns, as with sufficient effort on the part of the
+framework designer, the language tooling can enforce the contract. Even so such
+an API can be complex for you to understand and difficult for the framework
+designer to maintain.</p>
+<p>Many languages, such as Python, Ruby and JavaScript, don&#39;t have the tools to
+offer such guidance. You can subclass any base class. You can override any
+method. The only guidance is documentation. You may feel a bit lost as a
+result.</p>
+<p>A framework tends to evolve over time to let you override more methods in more
+classes, and thus grows in complexity. This complexity doesn&#39;t grow just
+linearly as methods get added, as you have to worry about their interaction as
+well. A framework that has to deal with a variety of subclasses that override a
+wide range of methods can expect less from them. Too much flexibility can make
+it harder for the framework to offer useful features.</p>
+<p>Base classes also don&#39;t lend themselves very well to run-time dynamism - some
+languages (like Python) <em>do</em> let you generate a subclass dynamically with
+custom methods, but that kind of code is difficult to understand.</p>
+<p>I think the disadvantages of subclassing outweigh the advantages for a
+framework&#39;s external API. I still sometimes use base classes <em>internally</em> in a
+library or framework -- base classes are a lightweight way to do reuse there.
+In this context many of the disadvantages go away: you are in control of the
+base class contract yourself and you presumably understand it.</p>
+<p>I also sometimes use an otherwise empty base class to define an interface, but
+that&#39;s really another pattern which I discuss next.</p>
+</div>
+</div>
+<div id="pattern-interfaces">
+<h2>Pattern: interfaces</h2>
+<p>The framework provides an interface that you as the application developer can
+implement. You implement one or more methods that the framework calls.</p>
+<div id="id3">
+<h3>Fictional example</h3>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>Form</span><span>,</span> <span>IFormBackend</span>
+
+<span>class</span> <span>MyFormBackend</span><span>(</span><span>IFormBackend</span><span>):</span>
+    <span>def</span> <span>load</span><span>(</span><span>self</span><span>):</span>
+        <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>load</span> <span>the</span> <span>data</span> <span>here</span> <span>...</span>
+
+    <span>def</span> <span>save</span><span>(</span><span>self</span><span>,</span> <span>data</span><span>):</span>
+        <span>...</span> <span>application</span> <span>code</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+
+<span>my_form</span> <span>=</span> <span>Form</span><span>(</span><span>MyFormBackend</span><span>())</span>
+</pre>
+</div>
+<div id="real-world-example-python-iterable-iterator">
+<h3>Real-world example: Python iterable/iterator</h3>
+<p>The iterable/iterator protocol in Python is an example of an interface. If you
+implement it, the framework (in this case the Python language) will be able to
+do all sorts of things with it -- print out its contents, turn it into a list,
+reverse it, etc.</p>
+<pre><span>class</span> <span>RandomIterable</span><span>:</span>
+    <span>def</span> <span>__iter__</span><span>(</span><span>self</span><span>):</span>
+         <span>return</span> <span>self</span>
+    <span>def</span> <span>next</span><span>(</span><span>self</span><span>):</span>
+        <span>if</span> <span>random</span><span>.</span><span>choice</span><span>([</span><span>&#34;go&#34;</span><span>,</span> <span>&#34;stop&#34;</span><span>])</span> <span>==</span> <span>&#34;stop&#34;</span><span>:</span>
+            <span>raise</span> <span>StopIteration</span>
+        <span>return</span> <span>1</span>
+</pre>
+</div>
+<div id="faking-interfaces">
+<h3>Faking interfaces</h3>
+<p>Many typed languages offer native support for interfaces. But what if your
+language doesn&#39;t do that?</p>
+<p>In a dynamically typed language you don&#39;t really <em>need</em> to do anything: any
+object can implement any interface. It&#39;s just you don&#39;t really get a lot of
+guidance from the language. What if you want a bit more?</p>
+<p>In Python you can use the standard library <cite>abc</cite> module, or <cite>zope.interface</cite>.
+You can also use the <cite>typing</cite> module and implement base classes and in Python
+3.8, <a href="https://www.python.org/dev/peps/pep-0544">PEP-544</a> protocols.</p>
+<p>But let&#39;s say you don&#39;t have all of that or don&#39;t want to bother yet as you&#39;re
+just prototyping. You can use a simple Python base class to describe an
+interface:</p>
+<pre><span>class</span> <span>IFormBackend</span><span>:</span>
+    <span>def</span> <span>load</span><span>(</span><span>self</span><span>):</span>
+        <span>&#34;Load the data from the backend. Should return a dict with the data.&#34;</span>
+        <span>raise</span> <span>NotImplementedError</span><span>()</span>
+
+    <span>def</span> <span>save</span><span>(</span><span>self</span><span>,</span> <span>data</span><span>):</span>
+        <span>&#34;Save the data dict to the backend.&#34;</span>
+        <span>raise</span> <span>NotImplementedError</span><span>()</span>
+</pre>
+<p>It doesn&#39;t do anything, which is the point - it just describes the methods that
+the application developer should implement. You could supply one or two with a
+simple default implementation, but that&#39;s it. You may be tempted to implement
+framework behavior on it, but that brings you into base class land.</p>
+</div>
+<div id="id4">
+<h3>Trade-offs</h3>
+<p>The trade-offs are quite similar to those of callback functions. This is a
+useful pattern to use if you want to define related functionality in a single
+bundle.</p>
+<p>I go for interfaces if my framework offers a more extensive contract that
+an application needs to implement, especially if the application
+needs to maintain its own internal state.</p>
+<p>The use of interfaces can lead to clean composition-oriented designs, where you
+adapt one object into another.</p>
+<p>You can use run-time dynamism like with functions where you assemble an
+object that implements an interface dynamically.</p>
+<p>Many languages offer interfaces as a language feature, and any object-oriented
+language can fake them. Or have too many ways to do it, like Python.</p>
+</div>
+</div>
+<div id="pattern-imperative-registration-api">
+<h2>Pattern: imperative registration API</h2>
+<p>You register your code with the framework in a registry object.</p>
+<p>When you have a framework that dispatches on a wide range of inputs, and you
+need to plug in application specific code that handles it, you are going to
+need some type of registry.</p>
+<p>What gets registered can be a callback or an object that implements an
+interface -- it therefore builds on those patterns.</p>
+<p>The application developer needs to call a registration method explicitly.</p>
+<p>Frameworks can have specific ways to configure their registries that build on
+top of this basic pattern -- I will elaborate on that later.</p>
+<div id="id5">
+<h3>Fictional Example</h3>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>form_save_registry</span>
+
+<span>def</span> <span>save</span><span>(</span><span>data</span><span>):</span>
+   <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+
+<span># we configure what save function to use for the form named &#39;my_form&#39;</span>
+<span>form_save_registry</span><span>.</span><span>register</span><span>(</span><span>&#39;my_form&#39;</span><span>,</span> <span>save</span><span>)</span>
+</pre>
+</div>
+<div id="real-world-example-falcon-web-framework">
+<h3>Real-world example: Falcon web framework</h3>
+<p>A URL router such as in a web framework uses some type of registry. Here is
+an example from the Falcon web framework:</p>
+<pre><span>class</span> <span>QuoteResource</span><span>:</span>
+    <span>def</span> <span>on_get</span><span>(</span><span>self</span><span>,</span> <span>req</span><span>,</span> <span>resp</span><span>):</span>
+        <span>...</span> <span>user</span> <span>code</span> <span>...</span>
+
+<span>api</span> <span>=</span> <span>falcon</span><span>.</span><span>API</span><span>()</span>
+<span>api</span><span>.</span><span>add_route</span><span>(</span><span>&#39;/quote&#39;</span><span>,</span> <span>QuoteResource</span><span>())</span>
+</pre>
+<p>In this example you can see two patterns go together: <cite>QuoteResource</cite>
+implements an (implicit) interface, and you register it with a particular
+route.</p>
+<p>Application code can register handlers for a variety of routes, and the
+framework then uses the registry to match a request&#39;s URL with a route, and
+then can all into user code to generate a response.</p>
+</div>
+<div id="id6">
+<h3>Trade-offs</h3>
+<p>I use this pattern a lot, as it&#39;s easy to implement and good enough for many
+use cases. It has a minor drawback: you can&#39;t easily see that configuration is
+taking place when you read code. Sometimes I expose a more sophisticated
+configuration API on top of it: a DSL or language integrated registration or
+declaration, which I discuss later. But this is foundational.</p>
+<p>Calling a method on a registry is the most simple and direct form to register
+things. It&#39;s easy to implement, typically based on a hash map, though you can
+also use other data structures, such as trees.</p>
+<p>The registration order can matter. What happens if you make the same
+registration twice? Perhaps the registry rejects the second registration.
+Perhaps it allows it, silently overriding the previous one. There is no general
+system to handle this, unlike patterns which I describe later.</p>
+<p>Registration can be done anywhere in the application which makes it possible to
+configure the framework dynamically. But this can also lead to complexity and
+the framework can offer fewer guarantees if its configuration can be updated at
+any moment.</p>
+<p>In a language that supports import-time side effects, you can do your
+registrations during import time. That makes the declarations stand out more.
+This is simple to implement, but it&#39;s also difficult to control and understand
+the order of imports. This makes it difficult for the application developer to
+do overrides. Doing a lot of work during import time in general can lead to
+hard to predict behavior.</p>
+</div>
+</div>
+<div id="pattern-convention-over-configuration">
+<h2>Pattern: convention over configuration</h2>
+<p>The framework configures itself automatically based on your use of conventions
+in application code. Configuration is typically driven by particular names,
+prefixes, and postfixes, but a framework can also inspect other aspects of the
+code, such as function signatures.</p>
+<p>This is typically layered over the procedural registration pattern.</p>
+<p>Ruby on Rails made this famous. Rails will automatically configure the database
+models, views and controllers by matching up names.</p>
+<div id="id7">
+<h3>Fictional example</h3>
+<pre><span># the framework looks for things prefixed form_save_. It hooks this</span>
+<span># up with `myform` which is defined elsewhere in a module named `forms`</span>
+<span>def</span> <span>form_save_myform</span><span>(</span><span>data</span><span>):</span>
+   <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+</pre>
+</div>
+<div id="real-world-example-pytest">
+<h3>Real-world example: pytest</h3>
+<p>pytest uses convention over configuration to find tests. It looks for modules
+and functions prefixed by <cite>test_</cite>.</p>
+<p>pytest also goes further and inspects the arguments to functions to figure out
+more things.</p>
+<pre><span>def</span> <span>test_ehlo</span><span>(</span><span>smtp_connection</span><span>):</span>
+    <span>response</span><span>,</span> <span>msg</span> <span>=</span> <span>smtp_connection</span><span>.</span><span>ehlo</span><span>()</span>
+    <span>assert</span> <span>response</span> <span>==</span> <span>250</span>
+    <span>assert</span> <span>0</span>  <span># for demo purposes</span>
+</pre>
+<p>In this example, pytest knows that <cite>test_ehlo</cite> is a test, because it is
+prefixed with <cite>test_</cite>. It also knows that the argument <cite>smtp_connection</cite> is a
+fixture and looks for one in the same module (or in its package).</p>
+<p>Django uses convention over configuration in places, for instance when it looks
+for the variable <cite>urlpatterns</cite> in a specially named module to figure out what
+URL routes an application provides.</p>
+</div>
+<div id="id8">
+<h3>Trade-offs</h3>
+<p>Convention over configuration can be great. It allows the user to type code and
+have it work without <em>any</em> ceremony. It can enforce useful norms that makes
+code easier to read -- it makes sense to prefix tests with <cite>test_</cite> anyway, as
+that allows the human reader to recognize them.</p>
+<p>I like convention over configuration in moderation, for some use cases. For
+more complex use cases I prefer other patterns that allow registration with
+minimal ceremony by using features integrated into the language, such as
+annotation or decorator syntax.</p>
+<p>The more conventions a framework has, the more disadvantages show up. You have
+to learn the rules, their interactions, and remember them. You may sometimes
+accidentally invoke them even though you don&#39;t want to, just by using the wrong
+name. You may want to structure your application&#39;s code in a way that would be
+very useful, but doesn&#39;t really work with the conventions.</p>
+<p>And what if you wanted your registrations to be dynamic, based on database
+state, for instance? Convention over configuration is a hindrance here, not a
+help. The developer may need to fall back to a different, imperative
+registration API, and this may be ill-defined and difficult to use.</p>
+<p>It&#39;s harder for the framework to implement some patterns -- what if
+registrations need to be parameterized, for instance? That&#39;s easy with
+functions and objects, but here the framework may need more special naming
+conventions to let you influence that. That may lead the framework designer to
+use classes over functions, as in many languages these can have attributes with
+particular names.</p>
+<p>Static type checks are of little use with convention over configuration -- I
+don&#39;t know of a type system that can enforce you implement various methods if
+you postfix your class with the name <cite>View</cite>, for instance.</p>
+<p>If you have a language with enough run-time introspection capabilities such as
+Ruby, Python or JavaScript, it&#39;s pretty easy to implement convention over
+configuration. It&#39;s a lot harder for languages that don&#39;t offer those features,
+but it may still be possible with sufficient compiler magic. But those same
+languages are often big on being explicit, and convention over configuration&#39;s
+magic doesn&#39;t really fit well with that.</p>
+</div>
+</div>
+
+<div id="pattern-language-integrated-registration">
+<h2>Pattern: language integrated registration</h2>
+<p>You configure the application by using framework-provided annotations for code.
+Registrations happen immediately.</p>
+<p>Many programming languages offer some syntax aid for annotating functions,
+classes and more with metadata. Java has annotations. Rust has attributes.
+Python has decorators which can be used for this purpose as well.</p>
+<p>These annotations can be used as a way to drive configuration in a registry.</p>
+<div id="id11">
+<h3>Fictional example</h3>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>form_save_registry</span>
+
+<span># we define and configure the function at the same time</span>
+<span>@form_save_registry.register</span><span>(</span><span>&#39;my_form&#39;</span><span>)</span>
+<span>def</span> <span>save</span><span>(</span><span>data</span><span>):</span>
+   <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+</pre>
+</div>
+<div id="real-world-example-flask-web-framework">
+<h3>Real-world example: Flask web framework</h3>
+<p>A real-world example is the <cite>@app.route</cite> decorator of the Flask web framework.</p>
+<pre><span>from</span> <span>flask</span> <span>import</span> <span>Flask</span>
+<span>app</span> <span>=</span> <span>Flask</span><span>(</span><span>__name__</span><span>)</span>
+
+<span>@app.route</span><span>(</span><span>&#39;/&#39;</span><span>)</span>
+<span>def</span> <span>hello_world</span><span>():</span>
+    <span>return</span> <span>&#39;Hello, World!&#39;</span>
+</pre>
+</div>
+<div id="id12">
+<h3>Trade-offs</h3>
+<p>I use this method of configuring software sometimes, but I&#39;m also aware of its
+limitations -- I tend to go for language integrated <em>declaration</em>, discussed
+below, which looks identical to the end user but is more predictable.</p>
+<p>I&#39;m warier than most about exposing this as an API to application developers,
+but am happy to use it inside a library or codebase, much like base classes.
+The ad-hoc nature of import-time side effects make me reach for more
+sophisticated patterns of configuration when I have to build a solid API.</p>
+<p>This pattern is lightweight to implement at least in Python -- it&#39;s not much
+harder than a registry. Your mileage will vary dependent on language. Unlike
+convention over configuration, configuration is explicit and stands out in
+code, but the amount of ceremony is kept to a minimum. The configuration
+information is co-located with the code that is being registered.</p>
+<p>Unlike convention over configuration, there is a natural way to parameterize
+registration with metadata.</p>
+<p>In languages like Python this is implemented as a possibly significant
+import-time side-effect, and may have surprising import order dependencies. In
+a language like Rust this is done by compiler macro magic -- I think the Rocket
+web framework is an example, but I&#39;m <a href="https://mobile.twitter.com/faassen/status/1198341833060999169">still trying to understand how it
+works</a>.</p>
+</div>
+</div>
+<div id="pattern-dsl-based-declaration">
+<h2>Pattern: DSL-based declaration</h2>
+<p>You use a DSL (domain specific language) to configure the framework. This DSL
+offers some way to hook in custom code. The DSL can be an entirely custom
+language, but you can also leverage JSON, YAML or (shudder) XML.</p>
+<p>You can also combine these: I&#39;ve helped implement a workflow engine that&#39;s
+configured with JSON, and expressions in it are a subset of Python expressions
+with a custom parser and interpreter.</p>
+<p>It is typically layered over some kind of imperative registration system.</p>
+<div id="id13">
+<h3>Fictional example</h3>
+<pre><span>{</span>
+   <span>&#34;form&#34;</span><span>:</span> <span>{</span>
+     <span>&#34;name&#34;</span><span>:</span> <span>&#34;my_form&#34;</span><span>,</span>
+     <span>&#34;save&#34;</span><span>:</span> <span>&#34;my_module.save&#34;</span>
+   <span>}</span>
+<span>}</span>
+</pre>
+<p>We have a custom language (in this case done with JSON) that lets us configure
+the way our system works. Here we plug in the <cite>save</cite> behavior for <cite>my_form</cite> by
+referring to the function <cite>save</cite> in some Python module <cite>my_module</cite>.</p>
+</div>
+<div id="real-world-example-plone-cms-framework">
+<h3>Real-world example: Plone CMS framework</h3>
+<p><a href="https://trypyramid.com/">Pyramid</a> and <a href="https://plone.org/">Plone</a> both are descendants of <a href="https://blog.startifact.com/posts/my-exit-from-zope.html">Zope</a>, and you can use ZCML, a
+XML-derived configuration language with them both.</p>
+<p>Here is some ZCML from Plone:</p>
+<pre><span>&lt;configure</span>
+    <span>xmlns=</span><span>&#34;http://namespaces.zope.org/zope&#34;</span>
+    <span>xmlns:browser=</span><span>&#34;http://namespaces.zope.org/browser&#34;</span>
+    <span>i18n_domain=</span><span>&#34;my.package&#34;</span><span>&gt;</span>
+
+  <span>&lt;!-- override folder_contents --&gt;</span>
+  <span>&lt;configure</span> <span>package=</span><span>&#34;plone.app.content.browser&#34;</span><span>&gt;</span>
+      <span>&lt;browser:page</span>
+          <span>for=</span><span>&#34;Products.CMFCore.interfaces._content.IFolderish&#34;</span>
+          <span>class=</span><span>&#34;my.package.browser.foldercontents.MyFolderContentsView&#34;</span>
+          <span>name=</span><span>&#34;folder_contents&#34;</span>
+          <span>template=</span><span>&#34;folder_contents.pt&#34;</span>
+          <span>layer=</span><span>&#34;my.package.interfaces.IMyPackageLayer&#34;</span>
+          <span>permission=</span><span>&#34;cmf.ListFolderContents&#34;</span>
+      <span>/&gt;</span>
+  <span>&lt;/configure&gt;</span>
+<span>&lt;/configure&gt;</span>
+</pre>
+<p>This demonstrates a feature offered by a well-designed DSL: a way to do a
+structured override of behavior in the framework.</p>
+</div>
+<div id="id14">
+<h3>Trade-offs</h3>
+<p>Custom DSLs are a very powerful tool if you actually need them, and you do need
+them at times. But they are also a lot more heavyweight than the other methods
+discussed, and that&#39;s a drawback.</p>
+<p>A custom DSL is thorough: a framework designer can build it with very clean
+boundaries, with a clear grammar and hard checks to see whether code conforms
+to this grammar. If you build your DSL on JSON or XML, you can implement such
+checks pretty easily using one of the various schema implementations.</p>
+<p>A custom DSL gives the potential for non-developers to configure application
+behavior. At some point in a DSL there is a need to interface with user code,
+but this may be abstracted away quite far. It lets non-developers reuse code
+implemented by developers.</p>
+<p>A DSL can be extended with a GUI to make it even easier for non-developers to
+configure it.</p>
+<p>Since code written in a DSL can be stored in a database, you can store complex
+configuration in a database.</p>
+<p>A DSL can offer certain security guarantees -- you can ensure that DSL code can
+only reach into a limited part of your application.</p>
+<p>A DSL can implement a declaration engine with sophisticated behavior -- for
+instance the general detection of configuration conflicts (you try to configure
+the same thing in conflicting ways in multiple places), and structured, safe
+overrides that are independent of code and import order. A DSL doesn&#39;t have to
+use such sophistication, but a framework designer that designs a DSL is
+naturally lead in such a direction.</p>
+<p>A drawback of DSL-based configuration is that it is quite distant from the code
+that it configures. That is fine for some use cases, but overkill for others. A
+DSL can cause mental overhead -- the applciation developer not only needs to
+read the application&#39;s code but also its configuration files in order to
+understand the behavior of an application. For many frameworks it can be much
+nicer to co-locate configuration with code.</p>
+<p>A DSL also provides little flexibility during run-time. While you <em>could</em>
+generate configuration code dynamically, that&#39;s a level of meta that&#39;s quite
+expensive (lots of generate/parse cycles) and it can lead to headaches for the
+developers trying to understand what&#39;s going on.</p>
+<p>DSL-based configuration is also quite heavy to implement compared to many other
+more lightweight configuration options described.</p>
+</div>
+</div>
+<div id="pattern-imperative-declaration">
+<h2>Pattern: imperative declaration</h2>
+<p>You use a declaration engine like in a DSL, but you drive it from programming
+language code in an imperative way, like imperative registration. In fact, an
+imperative declaration system can be layered over a imperative registration
+system.</p>
+<p>The difference from imperative registration is that the framework implements a
+deferred configuration engine, instead of making registrations immediately.
+Configuration commands are first collected in a separate configuration phase,
+and only after collection is complete are they executed, resulting in actual
+registrations.</p>
+<div id="id15">
+<h3>Fictional example</h3>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>Config</span>
+
+<span>def</span> <span>save</span><span>(</span><span>data</span><span>):</span>
+   <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+
+<span>config</span> <span>=</span> <span>Config</span><span>()</span>
+<span>config</span><span>.</span><span>form_save</span><span>(</span><span>&#39;my_form&#39;</span><span>,</span> <span>save</span><span>)</span>
+<span>config</span><span>.</span><span>commit</span><span>()</span>
+</pre>
+<p>The idea here is that configuration registries are only modified when
+<cite>config.commit()</cite> happens, and only after the configuration has been validated.</p>
+</div>
+<div id="real-world-example-pyramid-web-framework">
+<h3>Real-world example: Pyramid web framework</h3>
+<p>From the Pyramid web framework:</p>
+<pre><span>def</span> <span>hello_world</span><span>(</span><span>request</span><span>):</span>
+    <span>return</span> <span>Response</span><span>(</span><span>&#39;Hello World!&#39;</span><span>)</span>
+
+<span>with</span> <span>Configurator</span><span>()</span> <span>as</span> <span>config</span><span>:</span>
+    <span>config</span><span>.</span><span>add_route</span><span>(</span><span>&#39;hello&#39;</span><span>,</span> <span>&#39;/&#39;</span><span>)</span>
+    <span>config</span><span>.</span><span>add_view</span><span>(</span><span>hello_world</span><span>,</span> <span>route_name</span><span>=</span><span>&#39;hello&#39;</span><span>)</span>
+</pre>
+<p>This looks very similar to a plain registry, but inside something else is going
+on: it first collects <em>all</em> registrations, and then generically detects whether
+there are conflicts, and generically applies overrides. Once the code exits the
+<cite>with</cite> statement, config is complete and committed.</p>
+</div>
+<div id="id16">
+<h3>Trade-offs</h3>
+<p>This brings some of the benefits of a configuration DSL to code. Like a DSL,
+the configuration system can detect conflicts (the route name &#39;hello&#39; is
+registered twice), and it allows sophisticated override patterns that are not
+dependent on the vagaries of registration order or import order.</p>
+<p>Another benefit is that configuration can be generated programmatically, so
+this allows for a certain amount of run-time dynamism without some the costs
+that a DSL would have. It is still good to avoid such dynamism as much as
+possible though, as it can make for very difficult to comprehend code.</p>
+<p>The code that is configured may still not be not co-located with the
+configuration, but at least it&#39;s all code, instead of a whole new language.</p>
+</div>
+</div>
+<div id="pattern-language-integrated-declaration">
+<h2>Pattern: language integrated declaration</h2>
+<p>You configure the application by using framework-provided annotations for code.
+This configuration is declarative and does not immediately take place.</p>
+<p>Language integration declaration looks like language integrated registration,
+but uses a configuration engine like with imperative declaration.</p>
+<div id="id17">
+<h3>Fictional example</h3>
+<pre><span>from</span> <span>framework</span> <span>import</span> <span>Config</span>
+
+<span>config</span> <span>=</span> <span>Config</span><span>()</span>
+
+<span># we define and configure the function at the same time</span>
+<span>@config.form_save</span><span>(</span><span>&#39;my_form&#39;</span><span>)</span>
+<span>def</span> <span>save</span><span>(</span><span>data</span><span>):</span>
+   <span>...</span> <span>application</span> <span>code</span> <span>to</span> <span>save</span> <span>the</span> <span>data</span> <span>somewhere</span> <span>...</span>
+
+<span># elsewhere before application starts</span>
+<span>config</span><span>.</span><span>commit</span><span>()</span>
+</pre>
+</div>
+<div id="real-world-example-morepath-web-framework">
+<h3>Real-world example: Morepath web framework</h3>
+<p>My own <a href="https://morepath.readthedocs.io">Morepath</a> web framework is configured this way.</p>
+<pre><span>import</span> <span>morepath</span>
+
+<span>class</span> <span>App</span><span>(</span><span>morepath</span><span>.</span><span>App</span><span>):</span>
+    <span>pass</span>
+
+<span>@App.path</span><span>(</span><span>path</span><span>=</span><span>&#39;/hello&#39;</span><span>)</span>
+<span>class</span> <span>Hello</span><span>(</span><span>object</span><span>):</span>
+    <span>pass</span>
+
+<span>@App.view</span><span>(</span><span>model</span><span>=</span><span>Hello</span><span>)</span>
+<span>def</span> <span>view_get</span><span>(</span><span>self</span><span>,</span> <span>request</span><span>):</span>
+    <span>return</span> <span>&#34;Hello world!&#34;</span>
+</pre>
+<p>Here two things happen: an instance of <cite>Hello</cite> is registered for the route
+<cite>/hello</cite>, and a <cite>GET</cite> view is registered for such instances. You can supply
+these decorators in any order in any module -- the framework will figure it
+out. If you subclass <cite>App</cite>, and re-register the <cite>/hello</cite> path, you have a new
+application with new behavior for that path, but the same view.</p>
+</div>
+<div id="id18">
+<h3>Trade-offs</h3>
+<p>I like this way of configuring code very much, so I built a framework for it.</p>
+<p>This <em>looks</em> very similar to language-integrated <strong>registration</strong> but the
+behavior is declarative.</p>
+<p>It&#39;s more explicit than convention over configuration, but still low on
+ceremony, like language-integrated registration. It co-locates configuration
+with code.</p>
+<p>It eliminates many of the issues with the more lightweight language-integrated
+registration while retaining many of its benefits. It imposes a lot of
+structure on how configuration works, and this can lead to useful properties:
+conflict detection and overrides, for instance.</p>
+<p>It&#39;s a lot more heavy-weight than just passing in a callback or object with an
+interface -- for many frameworks this is more than enough ceremony, and nothing
+beats how easy that is to implement and test.</p>
+<p>You can&#39;t store it in a database or give it to a non-programmer: for that, use
+a DSL.</p>
+<p>But if want a configuration language that&#39;s powerful and friendly, this is a
+good way to go.</p>
+<p>It&#39;s a lot more difficult to implement though, which is a drawback. If you use
+Python, you&#39;re in luck: I&#39;ve implemented a framework to help you build this,
+called <a href="https://dectate.readthedocs.io">Dectate</a>. My <a href="https://morepath.readthedocs.io">Morepath</a> web framework is built on it.</p>
+<p>In Dectate, import-time side-effects are minimized: when the decorator is
+executed the parameters are stored, but registration only happens when
+<cite>commit()</cite> is executed. This means there is no dependence on run-time import
+order, and conflict detection and overrides are supported in a general way.</p>
+</div>
+</div>
+<div id="conclusion">
+<h2>Conclusion</h2>
+<p>I hope this helps developers who have to deal with frameworks to understand the
+decisions made by these frameworks better. If you have a problem with a
+framework, perhaps I gave you some arguments that lets you express it better as
+well.</p>
+<p>And if you design a framework -- which you should do, as larger applications
+need frameworks to stay coherent -- you now hopefully have some more concepts
+to work with to help you make better design decisions.</p>
+</div>
+</div>
+    </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 13:51:38 +0000</pubDate>
+      <source>https://blog.startifact.com/posts/framework-patterns.html#</source>
+    </item>
+    <item>
+      <title>World’s Oldest Coin Mint Discovered in 2,800-Year-Old Chinese Foundry</title>
+      <link>https://www.artnews.com/art-news/news/oldest-mint-spade-coins-chinese-foundry-1234601047/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="main-wrapper"> 
+	
+
+			<p><a href="#pagetop">
+			Skip to main content		</a></p>
+		<header>
+			
+		
+</header>
+		 <!-- marker for pmc-sticky-ad (aka Mobile Adhesion Ads) -->
+
+		
+		
+	<main>
+
+		
+		<a name="pagetop"></a>
+		
+
+	<div id="post-1234601047">
+		<header>
+			
+
+		</header>
+
+		
+
+		
+
+		<div>
+
+			<article>
+				<div>
+	
+<figure>
+
+			<div>
+	
+			<p>
+	
+			</p>
+	
+	</div>
+	
+			
+			<figcaption>
+	
+					<span>Spatial distribution of the minting remains in the foundry&#39;s excavation area. Red dots mark deposits with clay moulds and green dots mark deposits with fragments of finished spade coins.</span>
+							<cite>Photo Z. Qu. Figure H. Zhao</cite>
+		
+	</figcaption>
+
+			
+</figure>
+
+</div>
+
+				<div>
+					<p>Archaeologists have uncovered the world’s oldest known coin mint, along with pieces of spade-shaped metal currency, inside a bronze foundry dating to 770 B.C.E. in Guanzhuang, China. Using accelerator mass spectrometry (AMS) radiocarbon dating, the new research, published this month in <a href="https://doi.org/10.15184/aqy.2021.94" rel="nofollow" target="_blank"><em>Antiquity</em></a>, reveals the coin mint began operating between 640 and 550 B.C.E., after the foundry switched from producing other valuable items to creating currency.</p>
+<p>This discovery marks Guanzhuang as the world’s oldest-known <a href="https://www.artnews.com/t/minting/" id="auto-tag_minting" data-tag="minting">minting</a> site. Guanzhuang is located near the Yellow River in the Central Plains of China and was founded in 800 B.C.E. It was subsequently abandoned sometime after 450 B.C.E. Archaeological excavations of the city have been ongoing since 2011, where researchers have uncovered fortifications, including wall foundations and moats. “Ceramics, burials and historical records suggest that the site was a regional centre of the Zheng State,” the researchers write.</p>
+
+<section>
+	
+	<h2 id="section-heading">
+
+	
+		Related Articles
+	
+	</h2>
+
+
+	
+</section>
+
+<p>In the outer city, just beyond the inner gate, a craft-production area was discovered. It would have once been host to workshops for the creation of bronze, ceramic, jade, and bone artifacts. Of these structures, the bronze foundry was the largest, with over 2,000 pits for production waste—some almost ten feet wide and eight feet deep. Found there were the remains of tools used to cast the artifacts, including crucibles and ladles.</p>
+<p>Archaeologists also discovered bronze droplets, unfinished or broken bronze artifacts, and charcoal and furnace fragments. There were ceramic sherds, too, as well as over 6,000 clay molds that were used to produce high-status ritual vessels, weapons, chariot fittings, musical instruments, ornaments, and tools.</p>
+<p>The foundry was close to Guanzhuang’s inner city and its administrative center, though researchers said it was uncertain whether the foundry began minting <a href="https://www.artnews.com/t/coins/" id="auto-tag_coins" data-tag="coins">coins</a> upon government orders. “It is about 150 years later [after its initial establishment] that the minting activities appeared in this foundry,” said Hao Zhao, lead author of the paper and researcher at Zhengzhou University, in a statement. Soon after its transition, however, other foundries across China followed suit.</p>
+<div>
+	
+<figure>
+
+			<div>
+			<a href="https://www.artnews.com/wp-content/uploads/2021/08/Figure-6_FINAL.jpg">
+	
+			<p>
+	
+			</p>
+	
+			</a>
+	</div>
+	
+			
+			<figcaption>
+	
+					<span>Unused clay cores for casting spade coins and coin SP-2.</span>
+							<cite>Photo H. Zhao</cite>
+		
+	</figcaption>
+
+			
+</figure>
+
+</div>
+
+<p>The team found 54 clay cores for casting hollow-handled spade coins—22 unused cores and 32 discarded core heads—providing evidence that the entire minting process, including mold-making and coin-casting, was performed in the foundry. All the clay cores were very similar, meaning there was a “high degree of standardization [in the] spade coins minted at Guanzhuang,” according to the researchers. “The clay cores were carefully made with the aid of a measuring tool to regulate their size and minimize variation.”</p>
+
+<p>Spade coins—some of the earliest currency in the world—are thought to represent an association between the weeding tool they are shaped after and a form of standardized money. Two spade coins were found at Guanzhuang, along with the clay molds used to cast them. The most complete example of the pair is a pointed-shoulder spade that originally measured over five inches long, with three parallel lines on its surface. “The inner clay core is still embedded in the socket of the coin handle,” write the researchers. Only the handle survives of the second fragment, but both coins would have been identical.</p>
+<p>The Guanzhuang coin mint is the first of its kind in China ever to be dated with certainty. It also represents the world’s earliest known standardized metal currency. Other known examples include the Lydian Lion, a coin made of electrum and a predecessor to the coins of ancient Greece and Rome, and the Persian daric, a gold coin of the Achaemenid Empire.</p>
+<p>“Making coins was one of the most revolutionary financial innovations in human history,” said Zhao, noting that wealth was easier to trade, count, and hoard after the invention of the minting process.</p>
+				</div>
+
+				
+
+			</article>
+
+			
+		</div>
+	</div>
+
+	
+
+		
+
+</main>
+
+<section>
+			
+	<h2 id="section-heading">
+
+	
+		Newswire
+	
+	</h2>
+
+		
+</section>
+
+
+
+
+
+
+		
+
+		
+		
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 10]>
+<script defer='defer' src='https://www.artnews.com/wp-content/plugins/pmc-plugins/pmc-swiftype/assets/js/swiftypecomponents-ie.js?ver=2.0' id='pmc-swiftype-components-ie-js'></script>
+<![endif]-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Start: Localize Video Player Events -->
+
+<!-- End: Localize Video Player Events -->
+
+<!-- pmc-tags-bottom Global --><!-- START callback function for onhashchange(when the hash tag in the url gets updated) -->
+
+<!-- end pmc-tags-bottom Global --><!-- pmc-tags-bottom Digioh -->
+<!--START Lightbox Javascript-->
+
+<!--END Lightbox Javascript-->
+
+<!-- end pmc-tags-bottom Digioh --><!-- pmc-tags-bottom Comscore -->
+	
+<!-- end pmc-tags-bottom Comscore --><!-- pmc-tags-bottom Quantcast -->
+	
+	
+<!-- end pmc-tags-bottom Quantcast --><!-- pmc-tags-bottom Pingdom --><!-- DO NOT REMOVE, comment for engineering, 4BAfe4nkpyAktm3S -->
+<!-- end pmc-tags-bottom Pingdom -->		
+</div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 12:20:04 +0000</pubDate>
+      <source>https://www.artnews.com/art-news/news/oldest-mint-spade-coins-chinese-foundry-1234601047/</source>
+    </item>
+    <item>
+      <title>Planning for Servers in 2022 and Beyond</title>
+      <link>https://www.servethehome.com/planning-for-servers-in-2022-and-beyond-series/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_servethehome_com_planning-for-servers-in-2022-and-beyond-series_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+            <!-- image --><div><figure><a href="https://www.servethehome.com/wp-content/uploads/2021/08/Changes-to-Servers-2022-Cover-Web.jpg" data-caption="Changes To Servers 2022 Cover Web"></a><figcaption>Changes To Servers 2022 Cover Web</figcaption></figure></div>
+            <!-- content --><p>Over the past few months, regular readers will have noticed that we have been running a series looking at the key technologies that will impact our readers in the next few quarters. The transition of server architecture in 2022 is going to be quite unlike what we saw in the Xeon E5 era from ~2012 to 2017 and one could argue even through Skylake/ Naples bringing that to 2019. The fact around seven years of relatively low innovation means that there are now folks with 9-10 years of experience that have never seen a massive shift in server architecture. Our Planning for Servers in 2022 and Beyond series has been focused on showing just how much will change in the very near future.<span id="more-54843"></span></p>
+<h2>CPUs and Interconnects in 2022 and Beyond</h2>
+<p>The relatively well-known changes to server CPUs in 2022 will be the DDR5 transition along with higher core counts. We have covered the move to chiplets and more advanced packaging for some time and these technologies will help drive much of the industry’s change over the next few years.</p>
+<figure id="attachment_50367" aria-describedby="caption-attachment-50367"><a href="https://www.servethehome.com/intel-xe-hpc-ponte-vecchio-shows-next-gen-packaging-direction/intel-xe-hpc-ponte-vecchio-package-brighter/" rel="attachment wp-att-50367"></a><figcaption id="caption-attachment-50367">Intel Xe HPC Ponte Vecchio Package Brighter</figcaption></figure>
+<p>We also focused on some of the less-discussed changes. One of them is simply the increase in onboard “close” memory on CPUs that we will see in different forms starting really in 2022. We discussed this in <a href="https://www.servethehome.com/server-cpus-transitioning-to-the-gb-onboard-era/">Server CPUs Transitioning to the GB Onboard Era</a>.</p>
+<p><iframe loading="lazy" title="Why Server CPUs Are Going from MB to GB Onboard" width="696" height="392" src="https://www.youtube.com/embed/wWhrKNbKrK0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>We also discussed the transition to Arm servers and how that ecosystem is evolving in our review of a modern Arm server platform in <a href="https://www.servethehome.com/ampere-altra-wiwynn-mt-jade-server-review-the-most-significant-arm-server/">Ampere Altra Wiwynn Mt. Jade Server Review The Most Significant Arm Server</a>. This will be a big change and will have a slightly different focus than many of the x86 servers we have seen to date.</p>
+<p><iframe loading="lazy" title="Most Significant Server of 2020 from Wiwynn and Ampere" width="696" height="392" src="https://www.youtube.com/embed/jESiMLQVNf4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>Moving beyond the chips themselves, CXL will become an enormous force in the industry starting in 2022 but then picking up as we get to CXL 2.0 and beyond. You can check out our piece: <a href="https://www.servethehome.com/compute-express-link-or-cxl-what-it-is-and-examples/">Compute Express Link or CXL What it is and Examples</a> for more on that.</p>
+<p><iframe loading="lazy" title="CXL in Next-gen Servers Will Make Today&#39;s Servers Obsolete" width="696" height="392" src="https://www.youtube.com/embed/Mp9L7OClb2U?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>The CPU, and perhaps more importantly, the role of the CPU in servers is going to change drastically over the next few quarters. After CXL we will get Gen-Z and have already started seeing systems with prototypes for that such as with our <a href="https://www.servethehome.com/gen-z-in-dell-emc-poweredge-mx-and-cxl-implications/">Gen-Z in Dell EMC PowerEdge MX</a> piece.</p>
+<h2>Storage Trends</h2>
+<p>One of the biggest trends we are going to see is the EDSFF shift to the various E1 and E3 form factors. This is going to be the shift away from rotating disk-based form factors and into something that is designed for PCIe/ CXL devices including flash storage. EDSFF allows for more power and cooling potential for higher-power devices whether that is traditional SSDs, computational storage devices, or even AI accelerators. You can read more about that in our <a href="https://www.servethehome.com/e1-and-e3-edsff-to-take-over-from-m-2-and-2-5-in-ssds-kioxia/">E1 and E3 EDSFF to Take Over from M.2 and 2.5 in SSDs</a> article.</p>
+<p><iframe loading="lazy" title="EDSFF E1 and E3 to Replace M.2 and U2/U3/2.5in SSDs in Data Centers" width="696" height="392" src="https://www.youtube.com/embed/29Nh3p6779E?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>We also discussed the Intel Optane persistent memory and how that will change a bit in future generations, including why Micron shifted its focus from DIMM-attached 3D XPoint. You can read about that in <a href="https://www.servethehome.com/glorious-complexity-of-intel-optane-dimms-and-micron-exiting-3d-xpoint/">Glorious Complexity of Intel Optane DIMMs and Micron Exiting 3D XPoint</a>.</p>
+<p><iframe loading="lazy" title="The Glorious Complexity of Intel Optane DIMMs and Why Micron Quit" width="696" height="392" src="https://www.youtube.com/embed/dOV3gGncGU8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>There are still a few more storage pieces we want to cover. We covered SAS4 a number of times, but we felt these are going to be the more impactful changes.</p>
+<h2>Networking and Fabric</h2>
+<p>On the networking side, the industry over the last 12 months or so has coalesced around the DPU terminology. We have a bit about why DPUs are needed and how to determine if a device is a DPU in <a href="https://www.servethehome.com/what-is-a-dpu-a-data-processing-unit-quick-primer/">What is a DPU A Data Processing Unit Quick Primer</a>.</p>
+<p><iframe loading="lazy" title="What is a DPU - A Quick STH Primer to the New Processor" width="696" height="392" src="https://www.youtube.com/embed/S92rdAwIuNk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>We also have the <a href="https://www.servethehome.com/dpu-vs-smartnic-sth-nic-continuum-framework-for-discussing-nic-types/">STH NIC Continuum Framework</a> that we are using to evaluate different types of network devices. The DPU space, for example, has many types of devices and although in the lab we have mostly shown the Mellanox-NVIDIA BlueField-2 in STH articles, we also have done hands-on with the <a href="https://www.servethehome.com/fungible-dpu-based-storage-cluster-hands-on-look/">Fungible DPU-based Storage Cluster</a>.</p>
+<p><iframe loading="lazy" title="DPU vs SmartNIC vs Exotic FPGAs A Guide to Differences and Current DPUs" width="696" height="392" src="https://www.youtube.com/embed/tOeketsa96I?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>Networking is an area that continually must evolve to faster iterations in order to deal with not just bigger servers, but also faster-connected devices with technologies such as 5G at the edge. We have done a number of AI platforms and O-RAN platform reviews at STH, but it is always fun to look at the switches. One example is the <a href="https://www.servethehome.com/inside-an-innovium-teralynx-7-based-32x-400gbe-switch/">Inside an Innovium Teralynx 7-based 32x 400GbE Switch</a>. This week we covered <a href="https://www.servethehome.com/marvell-acquiring-innovium-for-high-end-switch-asic/">Marvell Acquiring Innovium</a> in recognition of this trend and platform.</p>
+<p><iframe loading="lazy" title="Inside a 400GbE 32-port Teralynx 7 Hyper-scale Switch" width="696" height="392" src="https://www.youtube.com/embed/p1qmvr-VYw8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>Looking beyond these 32x 400GbE switches, we are going to transition to an era of needing <a href="https://www.servethehome.com/hands-on-with-the-intel-co-packaged-optics-and-silicon-photonics-switch/">silicon photonics and co-packaged optics</a>. That will have to happen perhaps not in 2022, but we are only a few years away.</p>
+<p><iframe loading="lazy" title="Hands-on with Intel Co-Packaged Optics and Silicon Photonics Switch" width="696" height="392" src="https://www.youtube.com/embed/Esgyj26vdxs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>We have also been covering the transition to 2.5GbE for the campus edge but those are less focused on traditional servers. We have also looked at some of the accelerators for 5G infrastructure since that is an entire space with a massive amount of investment.</p>
+<h2>AI Accelerators</h2>
+<p>The AI accelerator market will move to the OAM form factor that we started covering in 2019 in <a href="https://www.servethehome.com/facebook-ocp-accelerator-module-oam-launched/">Facebook OCP Accelerator Module OAM Launched</a> and <a href="https://www.servethehome.com/facebook-zion-accelerator-platform-for-oam/">Facebook Zion Accelerator Platform for OAM</a>.</p>
+<figure id="attachment_33552" aria-describedby="caption-attachment-33552"><a href="https://www.servethehome.com/facebook-zion-accelerator-platform-for-oam/facebook-zion-oam-module-with-cooling/" rel="attachment wp-att-33552"></a><figcaption id="caption-attachment-33552">Facebook Zion OAM Module With Cooling</figcaption></figure>
+<p>We are seeing OAM as a major force in the AI accelerator industry in 2022 and beyond even if there are some very cool alternatives out there such as making one large chip as <a href="https://www.servethehome.com/our-interview-with-andrew-feldman-ceo-of-cerebras-systems/">Cerebras Systems</a> does.</p>
+<figure id="attachment_37642" aria-describedby="caption-attachment-37642"><a href="https://www.servethehome.com/nvidia-tesla-t4-ai-inferencing-gpu-review/nvidia-tesla-t4-back/" rel="attachment wp-att-37642"></a><figcaption id="caption-attachment-37642">NVIDIA Tesla T4 Back</figcaption></figure>
+<p>At the edge, we now have almost a dozen articles focused on using cards like the <a href="https://www.servethehome.com/nvidia-tesla-t4-ai-inferencing-gpu-review/">NVIDIA T4</a> or PCIe-based A100 modules for edge inferencing in <a href="https://www.servethehome.com/asus-rs720a-e11-rs24u-review-amd-epyc-7763-and-nvidia-a100-in-2u/">traditional servers</a> but also <a href="https://www.servethehome.com/inspur-ne3412m5-edge-ai-and-storage-platform-review-intel-xeon/">mobile/ ruggedized</a> and ORAN style form factors. Since a huge application is going to be video analytics we have started on more video/ edge AI platforms such as the <a href="https://www.servethehome.com/xilinx-kria-kv260-fpga-based-video-ai-development-kit-is-a-huge-step/">Xilinx Kria KV260 FPGA-based Video AI Development Kit</a> since these platforms will be part of a tidal shift in data flowing from the edge to the core of networks. AI inference will be a feature in almost every server in the very near future and that will cover the cloud to the edge in that statement.</p>
+<h2>Power and Cooling</h2>
+<p>Recently we just looked at some of the liquid cooling options in <a href="https://www.servethehome.com/liquid-cooling-next-gen-servers-getting-hands-on-3-options-supermicro/">Liquid Cooling Next-Gen Servers Getting Hands-on with 3 Options</a>.</p>
+<p><iframe loading="lazy" title="Liquid Cooling High-End Servers Direct to Chip, Rear Door, and Immersion Cooling" width="696" height="392" src="https://www.youtube.com/embed/4Np1HnWiHb4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>The next generation of servers will certainly use more power and require more cooling so we have started covering those solutions. They are a major reason we are working on a massive behind-the-scenes upgrade.</p>
+<h2>Final Words</h2>
+<p>The purpose of this Friday piece was simply to discuss some of the biggest changes that we have been covering on STH that will happen in 2022 and beyond. These are the immediate changes as the pace of innovation in the data center speeds up. For our readers who feel more comfortable in the slower pace of innovation from 2012 to 2017 or 2019, starting next year we are going to see massive shifts. The implication of this is that planning needs to happen today to ensure facilities are ready to take on the new operating models in 2022 and beyond.</p>
+<p>Some of our keen readers will also notice that we have focused on doing videos for many of these big 2022 and beyond topics. There are still several on the to-do list and some that we have covered and not featured above, but there is also limited time until the next generation arrives. The point is: get ready for a wild ride.</p>
+        </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 10:57:41 +0000</pubDate>
+      <source>https://www.servethehome.com/planning-for-servers-in-2022-and-beyond-series/</source>
+    </item>
+    <item>
+      <title>Capturing the Disappearing Sounds of the Workplace</title>
+      <link>https://www.bbc.co.uk/news/uk-scotland-tayside-central-58056235</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_bbc_co_uk_news_uk-scotland-tayside-central-58056235/image.jpg" /> 
+<div id="readability-page-1" class="page"><article><header><p><span><strong>By Graeme Ogston</strong></span></p></header><div data-component="image-block"><figure><p><span><span></span></span><span><span>image source</span>Kris Miller / BBC</span></p><figcaption><span>image caption</span>Siôn Parkinson recorded the sound of jute machines at Dundee&#39;s Verdant Works</figcaption></figure></div><div data-component="text-block"><p><b>The sound of workplace hustle and bustle is something that&#39;s been missing from many of our lives over the past 16 months.</b></p></div><div data-component="text-block"><p>And with the way we work changing all the time, some of these sounds could soon become a distant memory.</p></div><div data-component="text-block"><p>A new project has been launched in Dundee, inviting people to send in the noise of their offices, factories, labs or shops for an archive that will preserve these evocative sounds for future generations.</p></div><div data-component="text-block"><div><p><a href="https://songwork.org/">Song Work</a> has already collected about 50 workplace sounds, including a <a href="https://songwork.org/recordings/praga-multi-purpose-motorised-printing-press-01-switching-on-and-off">printing press</a> at Dundee Contemporary Arts and <a href="https://songwork.org/recordings/tyre-factory-floor-01-machine-siren-forklift-horn-pneumatic-decompression">noises from the city&#39;s Michelin tyre factory</a>, which <a href="https://www.bbc.co.uk/news/uk-scotland-tayside-central-53234736">closed in 2020</a>. </p></div></div><div data-component="image-block"><figure><p><span><span></span></span><span><span>image source</span>Sion Parkinson</span></p><figcaption><span>image caption</span>Field recordist Andy Truscott captured the sounds of the Michelin factory floor in 2018</figcaption></figure></div><div data-component="text-block"><div><p>The site has been created by Dundee artist Siôn Parkinson, working with the <a href="https://scotlands-sounds.nls.uk/">National Library of Scotland Sounds.</a></p></div></div><div data-component="text-block"><p>Siôn said the Michelin recording was of personal significance.</p></div><div data-component="text-block"><p>He said: &#34;I was born in Dundee after my father came to help set up the Michelin tyre factory.</p></div><div data-component="text-block"><p>&#34;We were lucky enough to record it in 2018, and we didn&#39;t know then that the factory would soon close with the loss of 850 jobs. </p></div><div data-component="text-block"><p>&#34;That&#39;s the sound of my heritage, my father being here. </p></div><div data-component="text-block"><p>&#34;All of that is kind of suddenly lost, so we&#39;re really lucky to be able to have preserved that and to give it to the library.&#34;</p></div><div data-component="image-block"><figure><p><span><span></span></span><span><span>image source</span>STEPHANE DE SAKUTIN/Getty</span></p><figcaption><span>image caption</span>The sounds of an MRI scanner are featured in the Song Work archive</figcaption></figure></div><div data-component="text-block"><p>Another sound in the archive was collected after Siôn was diagnosed with epilepsy last year.</p></div><div data-component="text-block"><p>He said: &#34;Part of that process was to have an MRI scan, and the sound of being in that machine was extraordinary. </p></div><div data-component="text-block"><p>&#34;Speaking with the team that work at Ninewells Hospital, they recognise that the sounds of this machine will also soon become obsolete as they&#39;re replaced with more up-to-date technology.&#34;</p></div><div data-component="text-block"><p>He said that while the MRI sounds are &#34;almost unlistenable&#34; on their own, they could be used as part of a music track or film score.</p></div><div data-component="text-block"><p>He said: &#34;I&#39;m drawn to these kinds of sound environments and how we might be able to use them to make music. </p></div><div data-component="text-block"><p>&#34;One of the reasons that we set up the website was so that artists and musicians could use it to download sounds for free which they might be able to use.&#34;</p></div><div data-component="image-block"><figure><p><span><span></span></span><span><span>image source</span>Erika Stevenson</span></p><figcaption><span>image caption</span>The sound of machinery at Dundee Contemporary Arts print studio was also recorded</figcaption></figure></div><div data-component="text-block"><p>A new song has been commissioned to launch the website.</p></div><div data-component="text-block"><div><p><a href="https://songwork.org/recordings/this-a-work-song-humans-aren-t-working">This Is a Work Song, Humans Aren&#39;t Working</a> was created by artist and musician <a href="https://surfacepressure.net/">Tommy Perman</a> using sounds from the Michelin field recording.</p></div></div><div data-component="text-block"><p>Siôn said: &#34;He was listening to the key in which the the ambience of the factory was in, and the rhythm of some of the machines.</p></div><div data-component="text-block"><p>&#34;It has a resonance for a closed-down factory, but also for where we are right now, with lots of people working from home, and the whole changing face of how we will work in the future.&#34; </p></div><div data-component="image-block"><figure><p><span><span></span></span><span><span>image source</span>Kris Miller / BBC</span></p><figcaption><span>image caption</span>Siôn is encouraging others to submit the sounds of their own workplaces</figcaption></figure></div><div data-component="text-block"><p>Siôn said he wanted people to use their phones to record the sounds around them and to submit them to the Song Work website. </p></div><div data-component="text-block"><p>&#34;It&#39;s very easy to do, microphones on phones nowadays are incredibly powerful,&#34; he said.</p></div><div data-component="text-block"><p>&#34;There&#39;s a heritage element to the project by gifting these sounds to the National Library of Scotland Sounds archive.</p></div><div data-component="text-block"><p>&#34;They will be able to use them, so that in future we&#39;ll be able to remember some of the sounds that were part of our everyday lives.&#34;</p></div><div data-component="text-block"><p><b>All images are subject to copyright.</b></p></div><section data-component="tag-list"></section></article></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 11:17:18 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/uk-scotland-tayside-central-58056235</source>
+    </item>
+    <item>
+      <title>What Do You Do with a Billion Grams of Surplus Weed?</title>
+      <link>https://thewalrus.ca/what-do-you-do-with-a-billion-grams-of-surplus-weed/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___thewalrus_ca_what-do-you-do-with-a-billion-grams-of-surplus-weed_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article id="post-139654">
+
+	
+	
+	
+	<div>
+		<p><span>B</span><span>ack in 2018</span>, during those months before Canada legalized recreational cannabis, things were good for the pot industry. Companies were being hyped as pioneers in “the green frontier” and “proof that money grows on trees.” Cannabis stocks were going ballistic, and three of the largest companies’ share values had each increased by more than 200 percent over the course of 2017—according to media outlet <em>MJBizDaily</em>, the Canadian Marijuana Index had risen by 117 percent in December of that year alone. Investors were not just making money, they were making money <em>fast</em>.</p>
+
+<p>Nowhere was the hype more obvious than Smiths Falls, Ontario, where a mundane press event one hot summer day in August 2018—the opening of cannabis producer Tweed’s visitors’ centre—offered a bizarre study of an industry primed for ascension. About a dozen TV cameras were present, plus photographers, reporters, dignitaries of the local business community, and politicians, all crowding through a routine facility tour. The event was a master class in buzz generation: it featured sample chocolates and an invitation to imagine them dosed with cannabis; production rooms that were still half empty and an invitation to imagine them finally full in a few short months; a gift shop and café and an invitation to imagine them packed with happy buyers. That all of it seemed somewhat half-finished could be glossed over—the promise of prosperity was obvious.</p>
+<p>The town of Smiths Falls had come to see cannabis as a path to economic salvation. It had been hurting since 2008, when chocolatier Hershey closed shop. Tweed moving into the old chocolate plant in 2013 gave residents reasons both real and symbolic to be hopeful. As far as any of the company and government folks on the junket were concerned, Smiths Falls was ground zero for a new worldwide movement. The mayor called it the cannabis capital of the universe, and perhaps he was right. A few US states had piloted recreational cannabis, but this felt different—Canadian legalization would create a national industry with the sheen of a social revolution. Prohibition and the unequal criminalization of cannabis were, in principle, coming to an end. Global brands were in the making. Multinational corporations were on the rise. Countries across the world were going to look at Canada and be inspired—we were the future.</p>
+
+<p>Three years later, much of that hype has vanished, and now both industry and government are beginning thorough post-mortems of what is, and isn’t, working with pot legalization. The lavish A-list parties, so common in the early days, were petering out even before COVID-19 arrived. Barely more than half of all pot sales today are conducted through the legal market (and that milestone was only recently reached). Back in early 2019, Tweed—later renamed Canopy Growth Corporation—had a valuation north of $20 billion and active growing facilities in St. John’s, Fredericton, Bowmanville, Edmonton, and Saskatchewan, as well as two in BC’s Lower Mainland. In the last year, all seven have been closed or sold. At the original location, in Smiths Falls, layoffs are a regular occurrence. Since 2018, total reported net losses amount to more than $3.8 billion. Across the industry as a whole, total losses since 2015 are north of $10 billion. </p>
+<p>The most poignant sign of the failure of the cannabis business, however, might be sitting in warehouses across the country. At its peak, last October, following the 2020 growing season, there was about 1.1 billion grams of harvested or processed cannabis held in storage: 95 percent of inventory has not been purchased by retailers or wholesalers, and much of it is “assumed to be largely unsaleable,” writes <em>MJBizDaily</em>’s Matt Lamers, whether because of degradation or excess supply. We have more pot in this country than we can possibly sell. Producers today are sitting on a massive, and predictable, oversupply that is slowly becoming worthless—and that’s going to cost a lot of companies a lot of money.</p>
+
+<p><span>T</span><span>he industry’s woes</span> can be traced in part to its temporarily lucrative early relationship with investment capital. After Justin Trudeau’s Liberals took power, in 2015, elected in part on the promise of pot, large producers, including Canopy Growth and Aurora, sought out listings on a variety of Canadian stock exchanges. They were after retail investors, and producers hired third-party investor-relations firms to promote their stocks as a once-in-a-generation chance to get in on the ground floor not just of a company but of an entire industry. Strong retail investment soothed whatever lingering anxieties Bay Street might have had about the sector. “The cannabis boom was an investment banker’s dream,” wrote Mark Rendell and Tim Kiladze in a 2019 <em>Globe and Mail</em> article. “With so much retail investor demand, it was easy to underwrite share sales—and to dictate the terms of the game.”</p>
+<p>In the absence of any other metrics, like revenue or sales projections, investors learned to judge a company by “funded capacity,” a rough measure of how much cannabis a given company could potentially grow on the land it possessed. The result was a production arms race: more investment meant new facilities, which meant more production, which meant more investment, which meant more money pushed into production. This cycle went on and on.</p>
+<p>“Cannabis investors asked for a big scale of production when they should have asked for a good scale of sales,” says John Fowler, the former CEO of The Supreme Cannabis Company, one of the producers that attracted a lot of buzz early on. (Supreme’s stock price doubled over the back half of 2017, and its market cap peaked in early 2018—nearly a full year before legal pot actually went on sale.) “They shouldn’t have talked about funding capacity, thrown money behind anybody who was going to build square footage.”</p>
+<p>The logic governing the industry ahead of legalization tended to assume that any pot a company could grow would ultimately be sold. Licensed producers were accounting for their cannabis in ways that didn’t always make sense—valuing their inventory on their balance sheets similarly to stable commodities like vegetables, which have relatively consistent market prices and are more-or-less guaranteed to sell. (That many of the executives in the industry at that time had backgrounds in alcohol and commodities, where the price of a product and its path to market are more stable, likely played a role.) Really, cannabis had neither: nobody was exactly sure what the market price for retail pot would be, nor did anyone have a concrete idea of what consumers actually wanted. But pretending otherwise made the companies look great on paper. Valuation corresponded most with funded capacity, which is how you got a $20 billion company that hadn’t sold a single gram to recreational buyers. “Gross margins in the sector are distorted as a result, making firms look more profitable than they really are,” wrote Joe Castaldo in <em>Maclean’s</em> in early 2018, peeling back the layers of this accounting practice.</p>
+<p>Producers themselves often did little to dispel this idea. Fowler recalls companies keeping and storing fan leaves (leaves that contain low levels of psychoactive cannabinoids) at a higher value than they were worth to bolster their balance sheets. “This was five years ago—nobody was asking questions. All the company has to do is say, ‘Well, we’re hopeful we’re going to find a way to make oil out of this, so let’s keep it on the balance sheet.’”</p>
+
+<p>But, for investors who saw stock prices going gangbusters throughout 2017 and early 2018, the weed game was already profitable. The business model at that time didn’t demand actual weed sales: selling hype, selling the <em>potential</em> of selling weed, was proving lucrative. Stories of everyday Canadians getting rich on pot stocks fanned the flames even further. Investment was cast as a high-risk, huge-reward opportunity. Plus, it was providing massive amounts of capital to companies that needed to build highly specialized facilities to adhere to strict government regulations. With help from this investor enthusiasm, the industry expanded to 102 licensed producers by April 2018. The investments in facilities, massive hiring sprees, and fantastical marketing budgets all followed, undeterred by projections that it would be years before most producers turned any profit.</p>
+<p>“There were steps along the way where decisions were made by big companies that . . . made sense at the time,” says Jay Rosenthal, a long-time industry analyst. “Public markets were responding to funded capacity. . . . The more capacity you had, the more people believed your company was going to be real and therefore would invest in your stock.”</p>
+<p>Fowler makes a similar point. “It was advantageous for companies to keep that legend alive,” he says. “When the market was still giving people credit for so many years of forward sales, nobody wanted to stick up their hand and be a wet blanket and say, ‘Hey, we don’t think those sales are going to happen.’”</p>
+<p>In the early days of legalization, product shortages, illustrated by news footage of lineups for stores with emptied shelves, reinforced the idea that more production capacity was needed. Under pressure to quickly supply the legal market and to stop wasting bureaucratic time, Health Canada adjusted its approval process to require that companies have a facility in place before they could be licensed. The idea was to bump serious players with existing assets to the front of the line and stop approving licences for facilities that were still speculative. By late 2019, the market had flipped into oversupply, but even then, little was done to slow the pace of production. The capitalist logic of the market had pushed large producers to make ever more cannabis—to strive tirelessly to outproduce their competition, to drive down production costs, and to flood the market with more and more pot products whether people wanted them or not.</p>
+<p><span>L</span><span>egalization has always</span> had critics from within the cannabis world, people who see a lost opportunity to support smaller, more sustainable producers as the bedrock of the cannabis industry. The know-how already existed in the many operations that had supplied unregulated markets for generations. Rather than constructing a hybrid system that legitimized parts of the existing cannabis market, the federal government set up a highly regulated system over which Health Canada maintained significant control. The result was an industry that was politically palatable but whose corporate character could feel alienating to some veterans of the cannabis world.</p>
+<p>By the time legalization took effect, Tim Barnhart had already been selling weed commercially for a few years, beyond the reach of the Canadian government, out of his Legacy 420 store on Tyendinaga Mohawk Territory, east of Toronto. He has watched the way cannabis legalization has played out from an Indigenous vantage: seeing corporations claim to be pioneering what he was already doing pretty sustainably for his own people. </p>
+<p>Barnhart also saw some of these well-funded companies using their influence to impact regulations in selfish ways. In one memorable example, Canopy Growth’s former CEO, Bruce Linton, lobbied hard against outdoor growing, famously floating the theory to Senate members visiting the company’s facility that teenagers could ransack a licensed grower via drones.</p>
+<p>“Had you had medical growers in there, and Indigenous Canadians, I think you would have had a set of good hybrid regulations, but what you have today is the financialization of [cannabis], and it’s not working for anybody—not even the LPs,” Barnhart says, referring to licensed producers.</p>
+<p>There is a growing sense that things have not gone to plan. Since its high point in January 2018, the Canadian Marijuana Index has dropped by about 82 percent. There has also been turnover among many high-profile executives—Linton and Fowler, as well as leaders at Aphria and 48North, among them. The largest companies still rarely, if ever, report quarterly profits as an era of mergers and acquisitions begins to consolidate the market. The first half of 2021 saw Canopy Growth’s purchase of Supreme and the merger of Tilray and Aphria—two of the first and largest companies on the scene.</p>
+<p>“Just as I don’t think any company in the industry would tell you they’ve gotten every decision right, nor should we expect that the federal government has gotten every decision right,” says Ryan Greer, former co-chair of the National Cannabis Working Group. The government is required to undertake a review of the Cannabis Act’s wider impact starting no later than this October, but the industry is getting a head start by leading its own analysis, highlighting issues like burdensome regulations and supply chain issues—or, as Greer summarizes, “general overall regulatory burden. It is a very costly and cumbersome process to navigate.”</p>
+
+<p>Some now see an industry that has strayed from its original anti-prohibition path and failed in ways that feel distinctly capitalist. “There are people who aren’t able to fill their full prescriptions with legal cannabis because of costs,” says Caryma Sa’d, a lawyer and the executive director of cannabis-advocacy organization NORML Canada. A recent survey conducted by Abacus Data for Medical Cannabis Canada found that those who access medical cannabis legally pay on average 34 percent more for their medicine than if they bought from the unregulated market.</p>
+<p>And yet, cannabis producers are throwing away more product than ever before. Since 2018, nearly 450 million grams of unpackaged cannabis have been destroyed, according to reporting from <em>MJBizDaily</em>. Nearly 280 million grams of that was from 2020 alone, representing almost 20 percent of all production that year. (An “expected” loss in commercial growing is between 5 and 8 percent.) Add to that nearly 3.8 million finished packages of dried flower, 1.5 million packages of extracts, and more than 700,000 packaged edibles. </p>
+<p>“Maybe this is a feature of capitalism,” Sa’d says. “We are throwing out food while people go hungry; we have empty houses and people are homeless. So to see that replicated in the cannabis space is unfortunate but perhaps unsurprising.”</p>
+<p>The question is not whether there is money to be made in cannabis—almost all experts agree that the pot business is viable in the long run—but why the industry’s most well-funded producers have been so consistently unable to turn a profit on something once talked about as a licence to print money. Canadians spent roughly $2.6 billion on legal cannabis in 2020—a healthy amount, but far short of the $6.5 billion that CIBC projected in 2018. Even in a year that saw legal cannabis finally comprise more than half the market, the biggest companies are still in the red: Aurora reported more than $3 billion in losses for 2020; Canopy Growth’s losses totalled $1.3 billion; Tilray lost $271 million (US). As Dan Sutton, CEO of the boutique producer Tantalus Labs, put it in an interview with <em>BIV</em>, “Today there are no consistently profitable cannabis cultivators—big or small—in Canada. Zero.”</p>
+<p><span>W</span><span>hile the financial</span> losses keep piling up, the industry is beginning to change. After a sluggish rollout, more “microcultivators” are gaining licences for smaller craft operations. A smaller scale of production could be a more sustainable business model, but even these seem ill-fitting within a heavily regulated cannabis economy. Forced, in most cases, to sell to a provincial wholesaler along with everyone else in the sector, craft producers can struggle to gain traction when they come up against the marketing departments of the Auroras and Canopies. The business model that underwrote the early days of legalization has yet to stabilize, and a long-expected phase of difficult bankruptcies, mergers, and consolidation—meaning mass layoffs and abandoned growing facilities—is here.</p>
+<p>A drive through Tyendinaga or Kettle Point, Ontario, on the other hand, offers a window into another way forward: a sovereign, self-regulating Indigenous cannabis trade. Shops along the road are located just a few kilometres away from the field where the cannabis is grown. The quality is often quite good. Some of the shops are supported by Legacy 420’s nation-to-nation wholesale and quality-testing services. If nothing else, these operations demonstrate that safe cannabis sales aren’t the exclusive dominion of highly regulated shareholder capitalism—that safely growing and selling pot need not require a degree in capital finance.</p>
+<p>“Done the right way, it can be a lucrative industry,” Barnhart says. “But Canada didn’t get it right. So now they have a costly product, a surplus that’s all dried out, and I don’t know what they’re going to do. There’s going to be huge corporate write-down again, and I’m not sure where that’s going to leave a lot of these players.”</p>
+<!-- AI CONTENT END 1 -->
+		<section id="sexy_author_bio_widget-2"><div id="sexy-author-bio"><p><a href="https://thewalrus.ca/author/kieran-delamont/" target="_top"></a></p><p>Kieran Delamont is a writer and photographer based in Nova Scotia, located in Mi&#39;kma&#39;ki—the ancestral and unceded territory of the Mi&#39;kmaq people. His work has appeared in <em>Broadview</em>, <em>Maisonneuve</em>, TVO, and elsewhere. He has been writing about the cannabis industry since 2016.</p></div><div id="sexy-author-bio"><p><a href="https://thewalrus.ca/author/byron-eggenschwiler/" target="_top"></a></p><p>Byron Eggenschwiler has done artwork for the <em>New York Times</em>, the <em>Wall Street Journal</em>, and <em>GQ</em>.</p></div></section><section id="custom_html-46"><div><!-- Widget Shortcode --><div id="custom_html-44"><div><h4>Like What You’re Reading?</h4>
+
+
+<h4>Fact-based journalism is our passion and your right.</h4><p>
+We’re asking readers like you to support The Walrus so we can continue to lead the Canadian conversation.</p></div></div><!-- /Widget Shortcode --><!-- AI CONTENT END 2 -->
+</div></section>	</div><!-- .entry-content -->
+
+	
+	<!-- .entry-footer -->
+
+		
+</article></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 10:55:40 +0000</pubDate>
+      <source>https://thewalrus.ca/what-do-you-do-with-a-billion-grams-of-surplus-weed/</source>
+    </item>
   </channel>
 </rss>
