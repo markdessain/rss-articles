@@ -25530,5 +25530,947 @@ There is one interoperable world-wide Web.</p></blockquote>
       <pubDate>Sun, 08 Aug 2021 17:00:42 +0000</pubDate>
       <source>https://jobs.lever.co/ophelia/ea3e680d-659a-4478-a863-c2bf35177227</source>
     </item>
+    <item>
+      <title>Ode to a Streaming ByteString</title>
+      <link>https://blog.sumtypeofway.com/posts/ode-to-a-streaming-bytestream.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="content">
+            <article>
+                
+                
+                  <h2>Or: Lazy I/O without Shooting Yourself in the Foot</h2>
+                
+                
+                  <h3>2021-07-24</h3>
+                
+                <section>
+                    <p>One of my favorite founding principles<span><label for="sn-0"></label><span>The cynics among us might refer to it as a myth rather than a principle, given that Unix is no stranger to massive, kitchen-sink programs. Indeed, I’m writing this post in <a href="https://blog.sumtypeofway.com/posts/emacs-config.html">such a program</a>.</span></span> of Unix is the universality of streams of bytes. Unix shells give us a <a href="http://okmij.org/ftp/Computation/monadic-shell.html">monadic</a> <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)">pipeline</a> operator <code>|</code>, that, given some computation <code>a | b</code>, executes <code>a</code> so that its output forms the input to <code>b</code>. This principle affords the <a href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html">standard Unix commands</a> succinct composition, allowing the executing shell, rather than the programs themselves, to control the flow of data through a composed sequence of shell commands. Indeed, the principle of byte stream manipulation serves as the foundation for entire entire programming languages like <code>sed</code> and <code>awk</code>. Tools like <code>xargs</code> and <code>tee</code> and <code>parallel</code> provide higher-order combinators to construct pipelines from further pipelines in ways beyond the capabilities of the pipeline operator itself.</p>
+<p>Let’s consider some properties of programs that work well in pipelined computations such as these, using <code>grep</code> as the archetypal such program. <code>grep</code> is, of course, a tool of near-unparalleled importance, being enshrined in the POSIX standard, and it’s been optimized probably as <a href="https://ridiculousfish.com/blog/posts/old-age-and-treachery.html">thoroughly</a> as any other program. Our programs are probably not <code>grep</code>, but they may need to emulate how <code>grep</code> manages its input streams:</p>
+<ol>
+<li><em>It hides the details of resource manipulation.</em> The operating system, its system libraries, the shell in current use, and the implementation of its <code>|</code> operator hide the details of how input is batched and fed between files. Given that these details are abstracted from us, we should assume that input is buffered and chunked as necessary, and that these buffers and chunks are handled with as little overhead as possible. In particular, byte buffers read from an input stream should only be copied and retained if the program explicitly requests it: old input should never hang around in memory, given that the size of that input is theoretically unbounded.</li>
+<li><em>It consumes its input lazily.</em> If I tell <code>grep</code> to search a ten-gigabyte file for one and only one occurrence of a string, it should consume only as much input as is required to fulfill my request. If more bytes are read from a stream than needed, it should be indistinguishable, performance-wise, from reading as little input as is possible, and should produce no change in observable program behavior.</li>
+<li><em>It cleans up its resources.</em> Should <code>grep</code> request resources from the OS, or spawn some other helper process, these resources and subprocesses should be reclaimed quickly and reliably, even in the face of upstream or downstream pipeline failures, or even just a user impatiently hammering <code>Ctrl+C</code> and sending dozens of <code>SIGKILL</code> signals.</li>
+</ol>
+<p>C programs excel at fulfilling these criteria. Ha! Just kidding. C programs <em>can</em> excel at streaming data manipulation, because C programming entrusts <em>you</em> with its details, and you <em>might</em> be someone who excels at streaming data manipulation. Though the POSIX standard provides certain guarantees<span><label for="sn-1"></label><span>The POSIX standard <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/_Exit.html#tag_16_01_03_01">specifies</a> that certain resources—file descriptors, directory streams, stream converters from <code>iconv()</code>, and message catalogs from <code>catopen</code>—are relinquished upon program exit. Child processes spawned with the <code>exec</code> family of functions are usually not terminated (unless specifically requested by the parent process or an associated process group). Shared memory may or may not be relinquished, depending on whether other processes are referring to it. This digression is getting long enough as is; read the standard if you’re really curious.</span></span> about the manner in which resources are reclaimed upon program exit, you are still responsible for managing resources during program execution. There aren’t too many layers of abstraction between you, <code>stdin</code>, and <code>stdout</code>. Sure, if your underlying <code>FILE*</code> struct can do some caching for you, it probably does, but you can always read directly with <code>read(2)</code> or with some lower-level efficiency-focused framework like <code>kqueue</code>, <code>epoll</code>, <code>libdispatch</code>, or <code>io_uring</code>.</p>
+<p>With higher-level, garbage-collected languages, things become a good bit trickier. It is the responsibility of a higher-level language to insulate us from the concerns of C: as with shell scripts, we should have, in the common case, no particular knowledge of how files are read, how memory is allocated, or how input is buffered. For most programs, especially the quick-and-dirty ones at which garbage-collected languages excel, such details won’t matter. But when you find yourself outside the realm of “most programs”, the situation can prove vexing: the nature of a high-level language to isolate you from decisions made about resource management becomes a problem when the correctness of your software depends on the details of said resource management. We find ourselves confronted with a particularly tricky dialectic: high-level languages aid in the development of programs by abstracting away details, but hinder said development when program correctness depends directly on properties of these abstracted details, such as when writing code that handles error conditions robustly or remains reliable in the presence of resource pressure.<span><label for="sn-2"></label><span>The difficulties encountered when addressing these concerns in portable shell scripts are just one of the many reasons we don’t write everything in shell.</span></span></p>
+<p>Haskell’s declarative nature, non-strict evaluation, and correct-by-construction philosophy makes it, at least in theory, an attractive solution for writing code that works well in streaming pipelines. In practice, however, we run into three interrelated but distinct problems, ones that display a nice symmetry with the properties of well-managed input streams outlined above:</p>
+<ol>
+<li>the <em>streaming problem</em>: how do we write Haskell code that processes potentially-infinite data streams in a finite amount of memory?</li>
+<li>the <em>lazy I/O problem</em>: given Haskell’s non-strict semantics, how do we consume input from the outside world lazily and efficiently?</li>
+<li>the <em>resource manipulation problem</em>: given that we have no direct control over the lifetime of data, how do we ensure that our code manages and relinquishes expensive resources correctly?</li>
+</ol>
+<p>I’m going to discuss how to address these problems, using the <code>streaming</code> ecosystem to address the first point, the <code>streaming-bytestring</code> library the second, and the <code>resourcet</code> library the third. Given Haskell’s more-than-one-way-to-do-it philosophy, there exist many alternative ecosystems—libraries like <a href="https://hackage.haskell.org/package/conduit"><code>conduit</code></a>, <a href="https://hackage.haskell.org/package/pipes-bytestring"><code>pipes-bytestring</code></a>, <a href="https://hackage.haskell.org/package/streamly"><code>streamly</code></a>, and <a href="https://hackage.haskell.org/package/io-streams"><code>io-streams</code></a> all provide tools to address these problems—but the <code>streaming</code> ecosystem is the one with which I am most familiar, and one with a generally friendly interface expressed with function composition. Both <code>streaming</code> and <code>streaming-bytestring</code> are cleverly designed and carefully thought through; I hope that this post serves as an exploration of their associated design decisions and resulting idioms. But to appreciate the depth of the problem, we have to start by discussing how Haskell represents byte buffers and streams of data, and how infelicities in their standard formulation provide <code>streaming-bytestring</code> its raison d’être.</p>
+
+<p><em>Feel free to skip to the next section if you’re already familiar with Haskell string types and the perils of lazy I/O.</em></p>
+<p>Haskell is notorious for its plethora of string types: <code>String</code> (a lazy list of four-byte <code>Char</code> values); strict and lazy <code>Text</code> values, and strict, lazy, and short <code>ByteString</code> values<span><label for="sn-3"></label><span>The <code>bytestring</code> package also provides <code>Data.ByteString.Char8</code> and <code>Data.ByteString.Char8.Lazy</code>, but these actually use the same type in-memory, and provide <code>APIs</code> dealing in <code>Char</code> and <code>String</code> values rather than <code>Word8</code> and <code>[Word8]</code>, the former of which can be more natural as long as you know that your input is Latin-1 compatible.</span></span>. For the purposes of this article, we’re not going to worry about <code>String</code> or <code>Text</code>, because both operate on values known to be valid Unicode data. Our streaming pipelines operate on bytes, not Unicode characters—if, say, we want to be able to operate on binary data in such a pipeline, attempting to represent that data as Unicode text is inherently wrong. As such, we’ll focus only on Haskell’s byte buffer type, <code>ByteString</code>. Strict <code>ByteStrings</code> are pretty easy to understand:</p>
+<div id="cb1"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span>module</span> <span>Data.ByteString</span> <span>where</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span>data</span> <span>ByteString</span> <span>-- strict</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  <span>=</span> <span>BS</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>      <span>{-# UNPACK #-}</span> <span>!</span>(<span>ForeignPtr</span> <span>Word8</span>) <span>-- payload</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>      <span>{-# UNPACK #-}</span> <span>!</span><span>Int</span> <span>-- length</span></span></code></pre></div>
+<p><code>ByteString</code> represents a byte buffer and its associated length; in this it is similar to Go’s <code>[]byte</code> or Rust’s <code>&amp;[u8]</code> (though it has one fewer datum to track, as the Rust and Go types offer mutable access to the associated byte buffer and thus must keep track of its total capacity). <code>ByteString</code> values can contain <code>NUL</code> bytes, or indeed any other <code>Word8</code> value. If a given <code>ByteString</code> represents human-readable text, it must be converted to <code>Text</code> values explicitly with <code>Data.Text.Encoding</code> (for UTF-8/16/32) or <code>String</code> values with the <a href="https://hackage.haskell.org/package/encoding-0.8.5/docs/Data-Encoding.html#t:Encoding"><code>encoding</code></a> library; conversion failures should be handled at those callsites, though the correct behavior is often to throw an exception. This representation also allows for quick serialization and deserialization to C <code>char*</code> values, by extracting that <code>ForeignPtr Word8</code> and treating it as the memory address that it is. Similarly, we can choose to create that <code>ForeignPtr Word8</code> by copying from another source (like another <code>ByteString</code> or from a socket), or without copying by using unsafe <code>ByteString</code> operations (which can break referential transparency, but are sometimes necessary in extremely low-level code).</p>
+<p>A memory and length pair, supporting O(1) length and indexing and O(n) concatenation, is pretty straightforward. More interesting is this type, the lazy <code>ByteString</code>. For the sake of clarity of examples, we’ll use a different type name than does <code>bytestring</code>, which uses the <code>ByteString</code> name for both lazy and strict variants, disambiguating via the module name (<code>Data.ByteString</code> for strict, and <code>Data.ByteString.Lazy</code> for lazy).</p>
+<div id="cb2"><pre><code><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span>module</span> <span>Data.ByteString.Lazy</span> <span>where</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span>import</span> <span>Data.ByteString</span> <span>qualified</span> <span>as</span> <span>Strict</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span>data</span> <span>ByteString</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>  <span>=</span> <span>Empty</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>  <span>|</span> <span>Chunk</span> <span>{-# UNPACK #-}</span> <span>!</span><span>Strict.ByteString</span> <span>ByteString</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>                         <span>-- ^ head chunk    -- ^ lazy tail</span></span></code></pre></div>
+<p>Rather than being a strictly evaluated pair of buffer and length, this is a lazy list, similar to what we would have were we to represent it with <code>[ByteString]</code>: <code>Empty</code> is like <code>[]</code> and <code>Chunk</code> is like the <code>:</code> operator. The only operative difference is that the first strict <code>ByteString</code> parameter is evaluated strictly, which slightly reduces its overhead in memory. The second parameter, a lazy <code>ByteString</code> representing the rest of the string, is <em>not</em> strict, since the whole point of this enterprise is to let the Haskell runtime manage the laziness associated with our lazy list of byte buffers. This sounds like a great deal: GHC’s evaluator is a finely-tuned instrument, and it’s unlikely that we can improve thereupon.</p>
+<p>This lets us imagine how <code>ByteStream.Lazy.readFile</code> would work: given some chunk size N, the runtime would read <code>N</code> bytes from a source, placing them in the <code>!ByteString</code> parameter. The second parameter would then be a thunk that, if evaluated, would read another byte buffer of maximum length <code>N</code>. If that second parameter is never evaluated—in other words, if our calling code operates only on the first <code>N</code> bytes, the <code>Lazy.ByteString</code> parameter will never be evaluated, and the overhead of reading further bytes is never incurred. This, indeed, is more-or-less how that function <a href="https://hackage.haskell.org/package/bytestring-0.11.1.0/docs/src/Data.ByteString.Lazy.html#hGetContentsN">is implemented</a>.</p>
+<p>Yet lazy <code>ByteString</code> values <em>don’t</em> work reliably when reading files lazily from disk. It violates the principle of deterministic resource cleanup: once a <code>Chunk</code> is read, reading beyond its embedded <code>ByteString</code> requires evaluating its second parameter, which entails further system calls to perform further needed disk I/O to build another <code>Chunk</code> (or an <code>Empty</code> if we’re at the end of the file). Should those system calls reference a socket or file descriptor that has since been closed, we’ll encounter a runtime crash. Even though <code>openFile</code> takes place in the <code>IO</code> monad, the resulting <code>ByteString</code> has <code>IO</code> hidden nefariously within, even when passed to contexts where it should be pure. I’ve seen this referred to as “pseudo-pure”: it may look like a pure computation, but it can incur I/O happening somewhere else, which, even if it works, is not the Haskell way. I/O is too important to be left implicit!</p>
+<p>This has all been an exceptionally long-winded way to explain why no basic string type fulfills all our criteria in the presence of lazy I/O:</p>
+<ul>
+<li><code>String</code> and <code>Text</code> operations fail in the face of binary or non-Unicode data;</li>
+<li>A strict <code>ByteString</code> is read all-at-once into memory, which violates both our need for laziness and constant resource consumption;</li>
+<li><code>Lazy.ByteString</code> violates the princple of deterministic resource cleanup, unless you use Haskell’s experimental support for linear types, which prevent lazy bytestrings from outliving their associated file handle (though linear types are a bleeding-edge feature that have yet to see widespread adoption).</li>
+</ul>
+<p>Now, this may not always matter. Your program may deal only in small files, in which case you don’t need lazy I/O at all: you can just read file contents in as a strict <code>ByteString</code> and you’ll be okay. Computers have a <em>lot</em> of memory nowadays. But Haskell is a lazy language, and it excels at problems that can be phrased lazily. Should our business logic be a matter of lazy stream processing, we need some sort of abstraction that can lazily stream byte buffers from a source of data with constant memory consumption, minimal copying, and safe, deterministic resource cleanup. The trifecta of <code>streaming</code>, <code>streaming-bytestring</code>, and <code>resourcet</code> take care of this: let’s take a look and see how it works.</p>
+
+<h2 id="the-important-types">The Important Types</h2>
+<p>The <code>Stream</code> type <code>Stream (Of a) m r</code> represents a stream capable of yielding zero or more <code>a</code> values, performing effects in <code>m</code>, and returning a final <code>r</code> result type. We can see these capabilities in the definition of <code>Stream</code> itself: such a computation can yield a computed <code>Step</code>, embed a monadic <code>Effect</code>, or simply <code>Return</code> a pure value.</p>
+<div id="cb3"><pre><code><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span>module</span> <span>Streaming</span> <span>where</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span>data</span> <span>Stream</span> f m r</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>  <span>=</span> <span>Step</span> <span>!</span>(f (<span>Stream</span> f m r)) <span>-- yield an item, and the rest of a stream, defined by the functor f</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  <span>|</span> <span>Effect</span> (m (<span>Stream</span> f m r)) <span>-- perform some monadic effect resulting in a further stream</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span>|</span> <span>Return</span> r <span>-- do nothing and return a final value</span></span></code></pre></div>
+<p>The most common functor used as the value of <code>f</code> is the <code>Of</code> functor, which is identical to the tuple type <code>(,)</code>, but strict in its left argument, again to avoid the overhead of a lazy value when we know that the value in question has already been evaluated.</p>
+<div id="cb4"><pre><code><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span>module</span> <span>Data.Functor.Of</span> <span>where</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  <span>data</span> <span>Of</span> a b <span>=</span> <span>!</span>a <span>:&lt;</span> b</span></code></pre></div>
+<p>The usual way to run a <code>Stream</code> is to call <code>Streaming.toList</code>, which returns an <code>Of</code>-pair containing a list of yielded <code>a</code> values and a final <code>r</code>. Note that <code>Of</code> is partially applied within the <code>Stream</code>, with its parameter <code>a</code> being the type of elements a stream yields.</p>
+<div id="cb5"><pre><code><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span>toList ::</span> <span>Monad</span> m <span>=&gt;</span> <span>Stream</span> (<span>Of</span> a) m r <span>-&gt;</span> m (<span>Of</span> [a] r)</span></code></pre></div>
+<p>There’s nothing here specific to bytestrings or I/O, which means that <code>Stream</code> is suitable for building streaming abstractions in any monad, not just <code>IO</code>. In contrast, <code>ByteStream</code> is concerned with holding chunked <code>ByteString</code> values, not with <code>Stream</code>:</p>
+<div id="cb6"><pre><code><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span>module</span> <span>Streaming.ByteString</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span>data</span> <span>ByteStream</span> m r</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  <span>=</span> <span>Empty</span> r</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>  <span>|</span> <span>Chunk</span> <span>{-# UNPACK #-}</span> <span>!</span><span>ByteString</span> (<span>ByteStream</span> m r)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>  <span>|</span> <span>Go</span> (m (<span>ByteStream</span> m r))</span></code></pre></div>
+<p>You’ll notice that <code>ByteStream</code> is similar to <code>Lazy.ByteString</code>, with a few differences. Firstly, it has access to two type variables <code>m</code> and <code>r</code>: <code>m</code> represents a monadic context, with which chunked reads can perform side effects, using the <code>Go</code> constructor. This <code>Go</code> constructor is also new; it makes it explicit that reading further <code>ByteString</code> chunks can cause side effects, unlike <code>Lazy.ByteString</code>, which hid the fact that file I/O may occur when reading long strings from disk. By using <code>MonadResource</code> to clean up file handles, we can indicate, with the type system, that reading <code>ByteString</code> values out of a <code>ByteString</code> entails disk I/O, and thread that <code>MonadResource</code> constraint anywhere that file handles or ephemeral data must be cleaned up. Lastly, the <code>Empty</code> constructor takes an <code>r</code> argument, representing the final value, if any, of a given <code>ByteStream</code> computation.</p>
+<p>The difference between <code>ByteStream</code> and the lazy <code>ByteString</code> might not seem seismic, but it represents something very profound about Haskell: often, we gain expressive power by treating <em>computations as data</em>. The fact that <code>ByteStream</code> has a <code>Go</code> constructor, which allows embedding arbitrary <code>m</code>-actions as long as they return a further <code>ByteStream</code>, gives <code>ByteStream</code> the ability to represent any kind of computation. In the case of <code>ByteStream</code> values yielded from the system, that <code>m</code> can be <code>IO</code>, or a monad transformer implementing <code>MonadIO</code>, or an effect stack implementing <code>Lift IO</code>. But if we were dealing with a <code>ByteStream</code> defined ahead of time, that <code>m</code> can be <code>Identity</code>.<span><label for="sn-4"></label><span>An interesting consequence of this is the <code>Show</code> instance for <code>ByteStream</code>, which requires the <code>m</code> parameter to be <code>Identity</code> and the <code>r</code> return type to be <code>()</code>, because the <code>Show</code> typeclass does not have access to the monadic context required to print out, say, a <code>ByteStream</code> that needs <code>IO</code> to perform its effects. (To print such a <code>ByteStream</code>, you’d pass it to the <code>stdout</code> eliminator, of type <code>MonadIO m =&gt; ByteStream m r -&gt; m r</code>, which evaluates that stream for its effects and prints to the console any chunks encountered while doing so.)</span></span></p>
+<p>Furthermore, <code>ByteStream</code> isn’t just a computation, it’s a monad transformer, parameterized in terms of some parent monad <code>m</code>. This means we can use it in unexpected ways, such as the base monad in our <a href="https://blog.sumtypeofway.com/posts/serving-http-content-with-fused-effects.html">quick-and-dirty web server</a>: in that case, having a <code>ByteStream IO</code> monad at the center of our effect stack gave us the capability to send streams of bytes down a network connection, using the <code>sendM</code> function. We farmed out the handling of <code>Request</code> values to the <code>Reader</code> effect, and a <code>State</code> effect took care of handling <code>Response</code> values, but for an HTTP handler to do anything useful, it must have access to a sink of bytes. Using <code>Lift (ByteStream IO)</code> allowed us access to such capabilities, without divulging the way in which these bytes are ultimately transmitted to the user (all we know is that it happens in <code>IO</code>, as indeed all network activity must).</p>
+<h2 id="creating-a-bytestream">Creating a <code>ByteStream</code></h2>
+<p>Examining the ways to construct <code>ByteStream</code> values makes the relationship between <code>ByteString</code>, <code>Stream</code>, and <code>ByteStream</code> clearer:</p>
+<div id="cb7"><pre><code><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span>-- An empty ByteString is generalizable to any m, but carries no value</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span>-- in its return type.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span>empty ::</span> <span>ByteStream</span> m ()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span>-- The current program&#39;s standard input is itself a stream of bytes,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span>-- using &#39;MonadIO&#39; to actually read from the input&#39;s file descriptor.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span>stdin ::</span> <span>MonadIO</span> m <span>=&gt;</span> <span>ByteStream</span> m ()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span>-- If we already have a strict ByteString, we can package it up with</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span>-- &#39;Chunk&#39; (and an &#39;Empty&#39; tail).</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span>fromStrict ::</span> <span>Strict.ByteString</span> <span>-&gt;</span> <span>ByteStream</span> m ()</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a><span>-- Converting from a lazy ByteStream to a ByteString is a matter of</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span>-- folding over the former, replacing the &#39;Empty&#39; and &#39;Chunk&#39;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a><span>-- constructors with those provided by ByteStream.</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a><span>fromLazy ::</span> <span>Lazy.ByteString</span> <span>-&gt;</span> <span>ByteStream</span> m ()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a><span>-- In general, we can see ByteStream as a more efficient</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a><span>-- representation of a Stream of unchunked Word8 values, or a stream</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a><span>-- of chunked, strict ByteString values. Note that these preserve the</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a><span>-- return value of the input Stream.</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a><span>pack</span><span> ::</span> <span>Stream</span> (<span>Of</span> <span>Word8</span>) m r <span>-&gt;</span> <span>ByteStream</span> m r</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true"></a><span>fromStream ::</span> <span>Stream</span> (<span>Of</span> <span>Strict.ByteString</span>) m r <span>-&gt;</span> <span>ByteStream</span> m r</span></code></pre></div>
+<p>More interesting is the fundamental file-reading method, <code>readFile</code>. It is interesting in that it is the first time we see <code>MonadResource</code>, a typeclass provided by the <code>resourcet</code> package.</p>
+<div id="cb8"><pre><code><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span>readFile</span><span> ::</span> <span>MonadResource</span> m <span>=&gt;</span> <span>FilePath</span> <span>-&gt;</span> <span>ByteStream</span> m ()</span></code></pre></div>
+<p>The <code>MonadResource</code> typeclass represents monads that are capable of managing the lifetime of critical resources, even in the presence of Haskell’s support for asynchronous exceptions. In a multithreaded Haskell program, any thread can send an exception to any other thread at any time, thanks to the fearsome <code>Control.Exception.throwTo</code>. <code>MonadResource</code>, and its corresponding <code>ResourceT</code> monad transformer, allow us a degree of durability in the face of this fact. Though <code>readFile</code> entails accessing a file on disk, we can be confident that even the most unluckily-timed of exceptions will not result in the associated file handle being orphaned or left unclosed. Additionally, the fact that this <code>MonadResource m</code> constraint is propagated, via the <code>m</code> parameter, to the resulting <code>ByteStream</code> makes it explicit that accessing the entirety of the associated <code>ByteStream</code> requires access to an associated resource, the lifetime of which is managed by the invoking <code>MonadResource</code> computation.</p>
+<h2 id="running-extracting-and-converting">Running, Extracting, and Converting</h2>
+<p>Since <code>ByteString</code> is the lingua franca byte-buffer type, it follows that we need to be able to run a <code>ByteStream</code> and assemble its constituent chunks into a <code>ByteString</code>, whether lazy or strict. However, because <code>ByteStream</code> computations have a return value, we must take it into account as well. We do so by using the <code>Of</code> type, again taking advantage of <code>Of a b</code>’s slight efficiency compared to <code>(a, b)</code>.</p>
+<div id="cb9"><pre><code><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span>toLazy ::</span> <span>ByteStream</span> m r <span>-&gt;</span> m (<span>Of</span> <span>Lazy.ByteString</span> r)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span>toStrict ::</span> <span>ByteStrean</span> m r <span>-&gt;</span> m (<span>Of</span> <span>Strict.ByteString</span> r)</span></code></pre></div>
+<p>That <code>toStrict</code> function looks awfully tempting, and indeed it is, given how ubiquitous strict <code>ByteString</code> is in practice. We must be careful, however, not to lose constant-memory streaming here; if we create some infinite stream, and then immediately blow our memory by reading it aggressively into a buffer, then we haven’t accomplished anything. A safer approach is converting it back into a <code>Stream</code>:</p>
+<div id="cb10"><pre><code><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span>unpack ::</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>Stream</span> (<span>Of</span> <span>Word8</span>) m r</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span>toChunks ::</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>Stream</span> (<span>Of</span> <span>Strict.ByteString</span>) m r</span></code></pre></div>
+<p>Note that <code>unpack</code> and <code>toChunks</code> return their result in a pure context, not a monadic one, since converting between stream types doesn’t entail actually running the streams.</p>
+<p>The interface boundaries between bytestrings and streams aren’t the only kind of eliminators that <code>ByteStream</code> supports. Indeed, familiar functions like <code>head</code>, <code>last</code>, and <code>length</code> are eliminators, consuming their input and running it for as long is as needed to return a result:</p>
+<div id="cb11"><pre><code><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span>head</span><span> ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> m (<span>Of</span> (<span>Maybe</span> <span>Word8</span>) r)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span>last</span><span> ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> m (<span>Of</span> (<span>Maybe</span> <span>Word8</span>) r)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span>length</span><span> ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> m (<span>Of</span> <span>Int</span> r)</span></code></pre></div>
+<p>Most of these eliminators have variant forms, suffixed with an underscore, that discard the <code>ByteStream</code>’s return value, returning only the left-hand side of the <code>Of</code>-pair; given how often one deals with <code>ByteStream m ()</code>, these functions can save many a pattern-match. Note that the only difference between these functions and their equivalents over strict or lazy bytestrings is the <code>m</code> effects parameter: because getting the constitient chunks of a <code>ByteString m ()</code> may involve monadic effects in <code>m</code>, these functions must have a monadic return type.</p>
+<div id="cb12"><pre><code><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span>head_ ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> m (<span>Maybe</span> <span>Word8</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span>last_ ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> m (<span>Maybe</span> <span>Word8</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span>length_ ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> m <span>Int</span></span></code></pre></div>
+<h2 id="transformations">Transformations</h2>
+<p>As with the above eliminators, there also exist familiar combinators for building new <code>ByteStream</code> values out of existing ones:</p>
+<div id="cb13"><pre><code><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span>cons ::</span> <span>Monad</span> m <span>=&gt;</span> <span>Word8</span> <span>-&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>ByteStream</span> m r</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span>map</span><span> ::</span> <span>Monad</span> m <span>=&gt;</span> (<span>Word8</span> <span>-&gt;</span> <span>Word8</span>) <span>-&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>ByteStream</span> m r</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span>append ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>ByteStream</span> m s <span>-&gt;</span> <span>ByteStream</span> m s</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span>take</span><span> ::</span> <span>Monad</span> m <span>=&gt;</span> <span>Int64</span> <span>-&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>ByteStream</span> m r</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span>drop</span><span> ::</span> <span>Monad</span> m <span>=&gt;</span> <span>Int64</span> <span>-&gt;</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>ByteStream</span> m r</span></code></pre></div>
+<p>Again, it helps to start thinking in computations rather than in data. <code>take n</code> takes in a <code>ByteString</code> computation and returns the result of limiting that computation’s underlying byte stream to <code>n</code> characters. <code>map</code> promotes a function on bytes (<code>Word8 -&gt; Word8</code>) to a function operating over <code>ByteStream</code> computations. In promoting <code>ByteString</code> values to <code>ByteStream</code> computations, we’ve lost none of the vocabulary from <code>ByteString</code> with which we’re familiar, but that vocabulary becomes in turn more lyrical and powerful. Note that unlike the eliminators, these functions do not run in <code>m</code>: they merely describe modifiers to existing <code>ByteStream</code> computations, deferring the actual execution of the stream to an eliminator.</p>
+
+<p>I enjoy the interplay between the types provided by <code>streaming</code> and <code>streaming-bytestring</code>, and in an effort to share why this is so, I’ve expressed the classic Knuth-McIlroy word-frequency classifier: given some input file, we are to process it word-by-word, keeping track of how many times a given word is encountered, and print the twenty-five most commonly-occurring words. This isn’t a <em>perfect</em> problem to express with streaming combinators, since to classify the occurrences of words we must retain them in memory (and thereby break streaming), but it’s a classic problem and the resulting code is quite handsome. Let’s build it, like so. First, we’ll need some imports.</p>
+<div id="cb14" data-tangle="../tangles/Streaming.hs"><pre><code><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span>{-# LANGUAGE ImportQualifiedPost #-}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span>module</span> <span>Main</span> <span>where</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span>import</span> <span>Control.Category</span> ((&gt;&gt;&gt;))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span>import</span> <span>Control.Monad.Trans.Resource</span> (<span>MonadResource</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span>import</span> <span>Data.ByteString</span> <span>qualified</span> <span>as</span> <span>Strict</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a><span>import</span> <span>Data.ByteString.Lazy</span> <span>qualified</span> <span>as</span> <span>Lazy</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a><span>import</span> <span>Data.HashMap.Strict</span> <span>qualified</span> <span>as</span> <span>Map</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a><span>import</span> <span>Data.List</span> <span>qualified</span> <span>as</span> <span>List</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a><span>import</span> <span>Data.Monoid</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a><span>import</span> <span>Data.Word8</span> <span>qualified</span> <span>as</span> <span>Word8</span> <span>-- from &#39;word8&#39; package</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a><span>import</span> <span>Streaming</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a><span>import</span> <span>Streaming.Prelude</span> <span>qualified</span> <span>as</span> <span>Streaming</span></span></code></pre></div>
+<p>Given a <code>FilePath</code> as input, we need to return an association list, mapping words to their frequency.</p>
+<div id="cb15" data-tangle="../tangles/Streaming.hs"><pre><code><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span>classify ::</span> <span>MonadResource</span> m <span>=&gt;</span> <span>FilePath</span> <span>-&gt;</span> m [(<span>Strict.ByteString</span>, <span>Int</span>)]</span></code></pre></div>
+<p>In classical Haskell fashion, we’ll express this with function composition. As is my preference when explicating compositions, I’m going to use the <code>&gt;&gt;&gt;</code> operator, provided by <code>Control.Category</code>, to express said composition in a left-to-right fashion. Furthermore, I’m going to place, in the comments, the type of the computation at the given point. If omitted, it is the same as the previous stage. (We could do this in code with <code>id</code> and the <code>TypeApplications</code> extension, which has the advantage of checking our assumptions at each stage, but it gets a little noisy.)</p>
+<p>We start off by calling <code>ByteStream.readFile</code>, yielding a stream with resource-based access, but no associated return type. We then normalize the input by converting everything to lowercase and ignoring.</p>
+<div id="cb16" data-tangle="../tangles/Streaming.hs" data-padline="no"><pre><code><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>classify                          <span>-- FilePath</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>  <span>=</span> ByteStream.readFile           <span>-- ByteStream m ()</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> ByteStream.map Word8.toLower</span></code></pre></div>
+<p>At this point, we want to split this <code>ByteStream</code> up into individual words, so that we can eventually shove these words piece-by-piece into the actual classification stage. <code>ByteStream.splitWith</code> takes care of this for us, yielding a stream where the functorial type is itself <code>ByteStream m</code> (rather than the <code>Of</code> functor that we usually use). That <code>m</code> appears twice in the resulting type, since it’s propagated both to the <code>Stream</code> and the <code>ByteStream</code> yielded from each per-element chunk of the stream.</p>
+<div id="cb17" data-tangle="../tangles/Streaming.hs" data-padline="no"><pre><code><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> ByteStream.splitWith Word8.isSpace <span>-- Stream (ByteStream m) m ()</span></span></code></pre></div>
+<p>Subsequently, we want to ensure that there aren’t any stray empty strings. The <code>denull</code> function operates on <code>Streams</code> of <code>ByteStreams</code>, removing any empty chunks that appear.</p>
+
+<p>We now have a <code>Stream</code> containing <code>ByteStream</code> values, each of which we know to be all lowercase characters. We now need to build something capable of representing a histogram of their frequency of occurrence. At first glance, such a data type could be <code>Map (ByteStream m ()) Int</code>, but we run into a problem: <code>ByteStream</code> quantities have no <code>Ord</code> instance, being computations rather than bare values. Nor do we have a <code>Hashable</code> instance, so we cannot evade this with <code>HashMap</code>. What we must do instead is take a step that converts our functorial shape from <code>ByteStream m</code> to <code>Of Strict.ByteString</code>, element-by-element. <code>Streaming.mapped</code> is a combinator capable of changing the functorial shape in such a way, and to it we pass a familiar function: <code>toStrict</code>, the function that turns a <code>ByteStream</code> into a <code>Strict.ByteString</code>. (Though calling this function on a massive <code>ByteStream</code> could break streaming, we know the individual words are going to be fairly short, so we needn’t worry.) Subsequently, we can filter the stream to remove punctuation and other such non-alphanumeric characters.</p>
+<div id="cb19" data-tangle="../tangles/Streaming.hs"><pre><code><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> Streaming.mapped ByteStream.toStrict <span>-- Stream (Of Strict.ByteString) m ()</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> Streaming.filter (<span>ByteString</span><span>.</span><span>all</span> Word8.isAlpha)</span></code></pre></div>
+<p>Now we must build a <code>HashMap</code>-based histogram. Though we could pull in the <code>foldl-statistics</code> package rather than do this ourselves, it’s not painful to express with the <code>streaming</code> library’s <code>fold_</code> function, which takes a step function, a starting value, and an extraction function. Our starting value will be the empty <code>HashMap</code>, our extraction function will be its <code>toList</code> destructor yielding <code>(ByteString, Int)</code> pairs, and our step function will either insert <code>1</code> or add <code>1</code> to the value already contained therein.</p>
+<div id="cb20" data-tangle="../tangles/Streaming.hs"><pre><code><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> <span>let</span> step m str <span>=</span> Map.insertWith (<span>+</span>) str <span>1</span> m</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>     <span>in</span> Streaming.fold_ step Map.empty Map.toList <span>-- m [(ByteString, Int)]</span></span></code></pre></div>
+<p>And now we can use the list primitives<span><label for="sn-5"></label><span>A fun exercise for the interested reader is to use a less naïve method to extract the most common occurrences, avoiding the overhead of <code>Map.toList</code>.</span></span> <code>sortOn</code> and <code>take</code> to extract the twenty-five most common occurrences. (The <code>snd &gt;&gt;&gt; Down</code> invocation ensures that we compare each <code>(ByteString, Int)</code> pair based on its second field, in descending order.)</p>
+<div id="cb21" data-tangle="../tangles/Streaming.hs"><pre><code><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> <span>fmap</span> (List.sortOn (<span>snd</span> <span>&gt;&gt;&gt;</span> <span>Down</span>) <span>&gt;&gt;&gt;</span> List.take <span>25</span>)</span></code></pre></div>
+<p>Put all together, we have a pipeline that is aesthetically appealing, and around half as fast as do the optimized-over-decades tools that make up McIlroy’s pipeline (which is what we expect, given that Haskell programs run around half as fast as does handwritten C).</p>
+<div id="cb22"><pre><code><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span>classify ::</span> <span>MonadResource</span> m <span>=&gt;</span> <span>FilePath</span> <span>-&gt;</span> m [(<span>ByteString</span>, <span>Int</span>)]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>classify <span>=</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>   ByteStream.readFile</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> ByteStream.map Word8.toLower</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> ByteStream.splitWith Word8.isSpace</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> ByteStream.denull</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> Streaming.mapped ByteStream.toStrict</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> Streaming.filter (<span>ByteString</span><span>.</span><span>all</span> Word8.isAlpha)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> <span>let</span> step m str <span>=</span> Map.insertWith (<span>+</span>) str <span>1</span> m</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true"></a>          <span>in</span> Streaming.fold_ step Map.empty Map.toList</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true"></a>     <span>&gt;&gt;&gt;</span> <span>fmap</span> (List.sortOn (<span>snd</span> <span>&gt;&gt;&gt;</span> <span>Ord</span><span>.</span><span>Down</span>) <span>&gt;&gt;&gt;</span> List.take <span>25</span>)</span></code></pre></div>
+
+<p>Here’s another example, extracted from some code I once worked on to interact with Git repositories. This code, given some <code>Blob</code> type carrying with it a pointer to some Git data on disk, summarizes its contents, retaining both the first line of the blob for display as well as the number of bytes found in the blob in total.</p>
+<div id="cb23"><pre><code><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span>newtype</span> <span>Result</span> <span>=</span> <span>Result</span> (<span>Of</span> (<span>Maybe</span> <span>Lazy.ByteString</span>) <span>Int</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a><span>summarize ::</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a>  (<span>MonadMask</span> m, <span>MonadUnliftIO</span> m, <span>Git.MonadGit</span> r m, <span>Git.Libgit2.HasLgRepo</span> m) <span>=&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a>  <span>Git.Blob</span> r m <span>-&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>  m <span>Result</span></span></code></pre></div>
+<p>The first few lines are uninteresting, as they are concerned solely with coercing the <code>Lazy.ByteString</code> contents of this <code>Git.Blob</code> into a <code>ByteStream</code>. The only new function here is <code>mwrap</code>, an alias for the <code>Go</code> constructor, which promotes an effect returning a <code>ByteStream</code> into a <code>ByteStream</code> itself.</p>
+<div id="cb24"><pre><code><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a>summarize <span>=</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>  Git.blobToLazyByteString     <span>-- m Lazy.ByteString</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> <span>fmap</span> ByteStream.fromLazy <span>-- m (ByteStream m ())</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> ByteStream.mwrap         <span>-- ByteStream m ()</span></span></code></pre></div>
+<p>Now we must think a bit harder. The <code>ByteStream</code> contents of this blob have two purposes: we must count the number of lines therein, and we must retain their first line for display purposes. As such, we have two eliminating functions we want to use <code>ByteStream.head_</code> and <code>ByteStream.length</code>. Because <code>ByteStream</code> hews closely to a consumer-producer model, it won’t suffice simply to invoke these functions: we must copy the <code>ByteStream</code> input.</p>
+<p>The copy operation on strict <code>ByteString</code> values has a pretty straightforward type signature:</p>
+<div id="cb25"><pre><code><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span>copy ::</span> <span>ByteString</span> <span>-&gt;</span> <span>ByteString</span></span></code></pre></div>
+<p>Not rocket science: it takes in a byte buffer, copies it with <code>memcpy</code> or some equivalent formulation, and returns the copy. In contrast, the type signature of <code>streaming-bytestring</code>’s copy operation is subtzle:</p>
+<div id="cb26"><pre><code><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span>copy ::</span> <span>ByteStream</span> m a <span>-&gt;</span> <span>ByteStream</span> (<span>ByteStream</span> m) a</span></code></pre></div>
+<p>Copying a <code>ByteStream</code> is <em>not</em> a process of <code>memcpy</code>. Indeed, we specifically don’t want to copy the byte buffers within the stream, because that can be expensive, and we’re not operating destructively upon them, since Haskell is a pure language. Instead, our <code>copy</code> will copy the <em>constructors</em>, rather than the <em>contents</em>, of <code>ByteStream</code>, wrapping them around the <code>m</code> parameter in <code>ByteStream m</code> and ultimately yielding a nested <code>ByteStream (ByteStream m)</code>. This nested datum represents our responsibility to handle those effects, whatever we do to them. In handling those effects, we will eliminate that nested <code>ByteStream</code> layer, returning it to an <code>m</code>, and ultimately acting on a stream of data in two ways without breaking streaming or incurring otiose buffer copies.</p>
+<div id="cb27"><pre><code><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> ByteStream.copy <span>-- ByteStream (ByteStream m) ()</span></span></code></pre></div>
+<p>We now have two eliminators to call. Let’s start by specializing the type of <code>length_</code> so that it behaves as though we had passed in a <code>ByteStream (ByteStream m)</code>, using the <code>TypeApplications</code> extension to GHC:</p>
+<div id="cb28"><pre><code><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a>length_ <span>@</span>(<span>ByteStream</span> m)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span>  ::</span> <span>Monad</span> m <span>=&gt;</span> <span>ByteStream</span> (<span>ByteStream</span> m) r <span>-&gt;</span> <span>ByteStream</span> m <span>Int</span></span></code></pre></div>
+<p>Computing the <code>length</code> of a nested <code>ByteStream</code> returning an <code>r</code> value returns another <code>ByteStream</code>, but paired up with more information. The resulting <code>ByteStream</code> now keeps track of the length of all the data that runs through it; when it finishes and returns an <code>r</code> value, that value is now associated with an <code>Int</code> representing that length. The fact that computing the <code>length</code> of that nested <code>ByteStream</code> entailed its elimination is made apparent by the fact that the resulting <code>ByteStream</code> is flat, its monadic parameter just <code>m</code>.</p>
+<div id="cb29"><pre><code><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> ByteStream.length_ <span>-- ByteStream m Int</span></span></code></pre></div>
+<p>Now that we’re set to compute the length of the input stream as a whole, we need to extract its first line. As with our previous examples, we’ll call <code>lines</code> to turn the input <code>ByteStream</code> into a <code>Stream</code>, then <code>Streaming.mapped</code> to yield a stream of <code>Lazy.ByteString</code> values (since the whole file contents could, concievably, be on one line, we must exercise caution). We’ll then call <code>head</code> to get the first line of the blob and its total length.</p>
+<div id="cb30"><pre><code><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> ByteStream.lines <span>-- Stream (ByteStream m) m Int</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> Streaming.mapped ByteStream.toLazy <span>-- Stream (Of Lazy.ByteString) m Int</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> Streaming.head <span>-- m (Of (Maybe Lazy.ByteString), Int)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a><span>&gt;&gt;&gt;</span> <span>fmap</span> <span>Result</span> <span>-- m Result</span></span></code></pre></div>
+<p>All together, this pipeline is remarkably concise, and it retains glorious type safety. We can be confident that, should we be provided some massive Git blob, our program will not chew through more memory than it should.</p>
+<div id="cb31"><pre><code><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span>summarize ::</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>  (<span>MonadMask</span> m, <span>MonadUnliftIO</span> m, <span>Git.MonadGit</span> r m, <span>Git.Libgit2.HasLgRepo</span> m) <span>=&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a>  <span>Git.Blob</span> r m <span>-&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a>  m <span>Result</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a>summarize <span>=</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true"></a>  Git.blobToLazyByteString <span>-- m Lazy.ByteString</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> <span>fmap</span> ByteStream.fromLazy <span>-- m (ByteStream m ())</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> ByteStream.mwrap <span>-- ByteStream m ()</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> ByteStream.copy <span>-- ByteStream (ByteStream m) ()</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> ByteStream.length_ <span>-- ByteStream m Int</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> ByteStream.lines <span>-- Stream (ByteStream m) m Int</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> Streaming.mapped ByteStream.toLazy <span>-- Stream (Of Lazy.ByteString) m Int</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> Streaming.head <span>-- m (Of (Maybe Lazy.ByteString), Int)</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true"></a>  <span>&gt;&gt;&gt;</span> <span>fmap</span> <span>Result</span> <span>-- m Result</span></span></code></pre></div>
+
+<p>You may notice that these examples don’t deal exclusively with the tools provided by <code>streaming-bytestring</code>: idiomatic use of <code>streaming-bytestring</code> is inextricably connected with <code>streaming</code> itself. I pointed out earlier that <code>ByteStream</code> is like a version of <code>Lazy.ByteString</code> extended to encapsulate effectful computations, and that doing so gives us <code>ByteStream</code> instances for <code>Functor</code>, <code>Monad</code>, and <code>MonadTrans</code>. But the similarities don’t end there: because <code>streaming</code> depends on the <code>mmorph</code> package, these types also implement the <code>MFunctor</code> and <code>MMonad</code> classes, which represent functors and monads in the category of monads. (If your attention just wandered, I know, I <em>know</em>, but stay with me. I promise that this is pretty cool.)</p>
+<p>Let’s start by taking a look at the <code>copy</code> operations for <code>Stream</code> and <code>ByteStream</code>.</p>
+<div id="cb32"><pre><code><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a>Streaming.copy<span> ::</span> <span>Stream</span> (<span>Of</span> a) m r <span>-&gt;</span> <span>Stream</span> (<span>Of</span> a) (<span>Stream</span> (<span>Of</span> a) m) r</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a>ByteStream.copy<span> ::</span> <span>ByteStream</span> m r <span>-&gt;</span> <span>ByteStream</span> (<span>ByteStream</span> m) r</span></code></pre></div>
+<p>These functions both take in an action based in some monad <code>m</code> and return a new action in which that <code>m</code> is wrapped in a further type, <code>Stream (Of a) m</code> for the former and <code>ByteStream m</code> for the latter. For both of these, we can think of copying as a <em>nesting</em> operation. And as it happens, <code>MFunctor</code> and <code>MMonad</code> provide us vocabulary to handle monads within monads. We’ll cover <code>MFunctor</code> here, as it’s pretty simple.</p>
+<div id="cb33"><pre><code><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span>class</span> <span>MFunctor</span> t <span>where</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span>  hoist ::</span> <span>Monad</span> m <span>=&gt;</span> (<span>forall</span> a <span>.</span> old a <span>-&gt;</span> new a) <span>-&gt;</span> t old b <span>-&gt;</span> t new b</span></code></pre></div>
+<p><code>hoist</code> promotes a natural transformation from <code>old</code> to <code>new</code> to a function operating on <code>MFunctor</code> values, one that changes the type of the nested monad parameter <code>m</code>. We can see this in action if we speak in terms of <code>Stream</code> and <code>ByteStream</code>:</p>
+<div id="cb34"><pre><code><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a>hoist <span>@</span>(<span>Stream</span> (<span>Of</span> a)) <span>::</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a>  <span>Monad</span> m <span>=&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a>  (<span>forall</span> a <span>.</span> old a <span>-&gt;</span> new a) <span>-&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a>  <span>Stream</span> (<span>Of</span> a) old r <span>-&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a>  <span>Stream</span> (<span>Of</span> a) new r</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true"></a>hoist <span>@</span><span>ByteStream</span> <span>::</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true"></a>  <span>Monad</span> m <span>=&gt;</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true"></a>  (<span>forall</span> a <span>.</span> old a <span>-&gt;</span> new a) <span>-&gt;</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true"></a>  <span>ByteStream</span> old r <span>-&gt;</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true"></a>  <span>ByteStream</span> new r</span></code></pre></div>
+<p>Thanks to <code>hoist</code>, we have a consistent vocabulary for speaking about nested <code>Stream</code> and <code>ByteStream</code> values, no matter how deeply nested they may be. It also gives us certain invariants for how we can expect our library to behave: for example, hoisting the <code>effects</code> eliminator into a nested <code>ByteStream</code> peels away the nesting, discarding all chunks and merely running the effects. From this we can deduce that <code>copy &gt;&gt;&gt; hoist effects</code> is equivalent to <code>id</code>, as is just plain <code>copy &gt;&gt;&gt; effects</code> itself. Whether we want to flatten a nested monad externally or internally with <code>hoist</code>, we have options: use whichever is more aesthetically pleasing at the time.</p>
+
+<p>If you kept with me during all of this, I appreciate you. This post got away from me, length-wise. But now it is over.</p>
+<p><em>I thank Rob Rix and Joe Kachmar for their comments and suggestions on drafts of this article.</em></p>
+                </section>
+            </article>
+        </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 15:57:58 +0000</pubDate>
+      <source>https://blog.sumtypeofway.com/posts/ode-to-a-streaming-bytestream.html</source>
+    </item>
+    <item>
+      <title>The Kawa Scheme Language</title>
+      <link>http://www.gnu.org/software/kawa/index.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+
+<p>Kawa is a general-purpose programming language that runs on the Java platform.
+It aims to combine:
+</p>
+<div><ul>
+<li><p>the benefits of dynamic scripting languages
+(non-verbose code with less boiler-plate, fast and easy start-up,
+a <a href="http://en.wikipedia.org/wiki/Read-eval-print_loop" target="_top">REPL</a>,
+no required compilation step); with
+</p></li>
+<li><p>the benefits of traditional compiled languages (fast execution, static error detection,
+modularity, zero-overhead Java platform integration).
+</p></li>
+</ul></div>
+<p>It is an extension of the long-established <a href="http://www.schemers.org/" target="_top">Scheme</a>
+language, which is in the Lisp family of programming languages.
+Kawa has many <a href="http://www.gnu.org/software/kawa/Features.html" title="Kawa: Features">useful features</a>.
+</p>
+<p>Kawa is also a useful <a href="http://www.gnu.org/software/kawa/Framework.html" title="Kawa: The Kawa language framework">framework</a> for implementing
+other programming languages on the Java platform.
+It has many useful utility classes.
+</p>
+<p>This manual describes version 3.1.1, updated 16 January 2020.
+See the summary of <a href="http://www.gnu.org/software/kawa/news.html" title="Kawa: News - Recent Changes">recent changes</a>.
+</p>
+<p>The <a href="http://www.gnu.org/software/kawa/tutorial/index.html" title="Kawa: Kawa Scheme Tutorial">Kawa tutorial</a> is useful to get stated.
+While it is woefully incomplete, it does link to some other more in-depth
+(but not Kawa-specific) Scheme tutorials.
+</p>
+<p>For copyright information on the software and documentation,
+see <a href="http://www.gnu.org/software/kawa/License.html" title="Kawa: License">License</a>.
+</p>
+<p>Various people and orgnizations <a href="http://www.gnu.org/software/kawa/Acknowledgements.html" title="Kawa: Acknowledgements and thanks">have contributed to Kawa</a>.
+</p>
+<p>This package has nothing to do with the defunct Kawa commercial Java IDE.
+</p>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 16:34:38 +0000</pubDate>
+      <source>http://www.gnu.org/software/kawa/index.html</source>
+    </item>
+    <item>
+      <title>Glenfiddich uses its own whisky waste to fuel its trucks</title>
+      <link>https://eandt.theiet.org/content/articles/2021/07/glenfiddich-uses-own-whisky-waste-to-fuel-trucks/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><p>
+                            Scotch whisky maker Glenfiddich has announced that it will convert its delivery trucks to run on low-emission biogas made from waste products from its own whisky distilling process.
+                        </p><div>
+                        <p>The company said it has installed fuelling stations at its Dufftown distillery in north-eastern Scotland which use technology developed by its parent company William Grant and Sons. It will convert its production waste and residues into an Ultra-Low Carbon Fuel (ULCF) gas that produces minimal carbon dioxide and other harmful emissions.</p>
+<p>Glenfiddich said the transition to using fuel made from the distillery’s waste product is part of a “closed-loop” sustainability initiative. Stuart Watts, distillery director at William Grant, said traditionally Glenfiddich has sold off spent grains left over from the malting process to be used for a high-protein cattle feed.</p>
+<p>However, through <a rel="noopener noreferrer" href="https://eandt.theiet.org/content/articles/2019/05/the-unexpected-ways-in-which-factories-are-saving-energy/" target="_blank">anaerobic digestion</a> – where bacteria break down organic matter, producing biogas – the distillery can also use the liquid waste from the process to make fuel and eventually recycle all of its waste products this way.</p>
+<p>“The thought process behind this was ‘What can we do that’s better for us all?’,” Watts said.</p>
+<figure>
+         <picture>
+            <source media="(min-width: 1200px)" data-srcset="/media/16411/6wwrnv5dnrkj3pxxlgkgeuzfka.jpg?anchor=center&amp;mode=crop&amp;width=1200&amp;rnd=132718562730000000"/>
+            <source media="(min-width: 960px)" data-srcset="/media/16411/6wwrnv5dnrkj3pxxlgkgeuzfka.jpg?anchor=center&amp;mode=crop&amp;width=800&amp;rnd=132718562730000000"/>
+            <source media="(min-width 760px)" data-srcset="/media/16411/6wwrnv5dnrkj3pxxlgkgeuzfka.jpg?anchor=center&amp;mode=crop&amp;width=640&amp;rnd=132718562730000000"/>
+            <source media="(min-width 320px)" data-srcset="/media/16411/6wwrnv5dnrkj3pxxlgkgeuzfka.jpg?anchor=center&amp;mode=crop&amp;width=320&amp;rnd=132718562730000000"/>
+            <!-- fallback image for non supporting browsers -->
+            
+         </picture>
+
+            <figcaption>
+                  <p> View of the Glenfiddich truck, that runs on whiskey-by-product based biogas, in Dufftown, Scotland.</p>
+                                 <p>Image credit: William Grant &amp; Sons/Handout via Reuters</p>
+            </figcaption>
+      </figure>
+<p>The distiller, which sells over 14 million bottles of single-malt whisky a year, said its whisky waste-based biogas is already powering three specially converted trucks that transport Glenfiddich spirit from production at Dufftown through to bottling and packaging, covering four William Grant sites in central and western Scotland.</p>
+<p>Sixteenth-century English chronicler Raphael Holinshed wrote that, when consumed moderately, whisky’s many medicinal benefits include preventing the “head from whirling, the tongue from lisping... the hands from shivering, the bones from aching.”</p>
+<p>Experts now add that its waste products could also benefit the environment. The biogas emitted by whisky&#39;s production process cuts CO2 emissions by over 95 per cent compared to diesel and other fossil fuels and reduces other harmful particulates and greenhouse gas emissions by up to 99 per cent, Glenfiddich said.</p>
+<p>The trucks Glenfiddich is using are converted vehicles from truck maker Iveco that normally run on liquefied natural gas. Each biogas truck will displace up to 250 tonnes of CO2 annually, according to the distiller.</p>
+<p>Glenfiddich has a fleet of around 20 trucks and Watts believes the technology could be applied throughout the delivery fleets of William Grant and Sons’ whisky brands. It could also be scaled up to fuel other company’s trucks.</p>
+<p>The Scottish whisky industry hopes to hit carbon net-zero targets by 2040.</p>
+<figure>
+         <picture>
+            <source media="(min-width: 1200px)" data-srcset="/media/16413/oiwfwfk4mvoq3kiifyh4iosnom.jpg?anchor=center&amp;mode=crop&amp;width=1200&amp;rnd=132718563110000000"/>
+            <source media="(min-width: 960px)" data-srcset="/media/16413/oiwfwfk4mvoq3kiifyh4iosnom.jpg?anchor=center&amp;mode=crop&amp;width=800&amp;rnd=132718563110000000"/>
+            <source media="(min-width 760px)" data-srcset="/media/16413/oiwfwfk4mvoq3kiifyh4iosnom.jpg?anchor=center&amp;mode=crop&amp;width=640&amp;rnd=132718563110000000"/>
+            <source media="(min-width 320px)" data-srcset="/media/16413/oiwfwfk4mvoq3kiifyh4iosnom.jpg?anchor=center&amp;mode=crop&amp;width=320&amp;rnd=132718563110000000"/>
+            <!-- fallback image for non supporting browsers -->
+            
+         </picture>
+
+            <figcaption>
+                  <p>Stuart Watts, a director of Glenfiddich parent company William Grant &amp; Sons, stands by a fuelling station next to their truck, that runs on whiskey-by-product based biogas, in Dufftown, Scotland.</p>
+                                 <p>Image credit:  Stuart Watts, a director of Glenfiddich parent company William Grant &amp; Sons, stands by a fuelling station next to their truck, that runs on whiskey-by-product based biogas, in Dufftown, Scotland, Britain in this undated handout obtained July 26, 2021</p>
+            </figcaption>
+      </figure>
+<p>Earlier this year, <a rel="noopener noreferrer" href="https://eandt.theiet.org/content/articles/2021/02/scotch-whisky-distilleries-to-be-powered-by-tidal-power/" target="_blank">Nova Innovation</a> installed a series of underwater turbines off the west coast of Scotland, with its turbines generating renewable energy to power local Scotch whisky distilleries.</p>
+<p>Last year, <a rel="noopener noreferrer" href="https://eandt.theiet.org/content/articles/2020/08/government-pushes-distilleries-to-go-green-with-10m-fund/" target="_blank">the Government announced a £10m fund to assist UK distilleries with transitions to low-carbon fuels</a>, such as hydrogen and biomass.</p>
+<p>Glenfiddich is not the only one using its waste products to fuel its vehicles. In 2012, <a rel="noopener noreferrer" href="https://eandt.theiet.org/content/articles/2012/09/one-for-the-road-making-fuel-from-whisky-waste/" target="_blank">independent whisky maker Tullibardine became the world’s first distillery to supply ingredients to make biofuel</a> for vehicles from its waste products.</p>
+                    </div><p>Sign up to the <a href="https://eandt.theiet.org/newsletters/">E&amp;T News e-mail</a> to get great stories like this delivered to your inbox every day.</p></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 17:38:53 +0000</pubDate>
+      <source>https://eandt.theiet.org/content/articles/2021/07/glenfiddich-uses-own-whisky-waste-to-fuel-trucks/</source>
+    </item>
+    <item>
+      <title>Clock Synchronization (2020)</title>
+      <link>https://signalsandthreads.com/clock-synchronization/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___signalsandthreads_com_clock-synchronization_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+		<h2 id="000004">00:00:04</h2>
+
+<p>Welcome to Signals And Threads, in-depth conversations about every layer of the tech stack from Jane Street. I’m Ron Minsky.</p>
+
+<h2 id="000115">00:01:15</h2>
+
+<p>So, I guess the rough gist is something like you have some oscillator, a little crystal effectively that’s inside the computer that is oscillating at some frequency, and that’s driving an interrupt that the operating system is going to handle in some level – there’s probably lots of details here that I’m just skipping over – but that’s driving an interrupt that’s going happen in the operating system. And the operating system is using that to derive its notion of time, and so if you have a really high-quality oscillator, and those timer interrupts happen at the right rate so that you’re tracking real-time that might just happen, and if your oscillator’s very good, and very stable you could actually just be pretty close to the correct time just by virtue of that. But the truth is that most computers come with fairly bad oscillators and they change their frequencies for various reasons like heat, so if you are using your computer to compile the Linux kernel or something like that, that could change the heat profile, change the frequency of the oscillator, and actually change how well you’re doing of keeping real time.</p>
+
+<h2 id="000205">00:02:05</h2>
+
+<p>When we naively think of clock synchronization as people, we think of it as like, “I’m going to go set my clock”. I’m going to look at what time it is and adjust my clock to match whatever real-time is, but you’re actually talking about a different thing here. You’re talking not just about setting what the right time is right now but keeping that time correct, essentially keeping the rate at which time is going forward in sync.</p>
+
+<h2 id="000224">00:02:24</h2>
+
+<p>Correct. You’d love it if you could get like a really, really high-quality oscillator for super cheap in all your computers and then you wouldn’t need a lot of adjustment to get them to keep the correct time, but that would be really expensive. You can buy such things, they just cost a lot of money.</p>
+
+<h2 id="000237">00:02:37</h2>
+
+<p>So, you say that heat and various other things that are going on in the computer will cause this rate at which time is appearing to march forward inside of your computer to drift around. How accurate are these? Can give me a kind of numerical sense of how far these things drift away?</p>
+
+<h2 id="000253">00:02:53</h2>
+
+<p>The stuff that we run, we capture some of these statistics, we see machines that have a frequency correction applied to them of, say, 50 parts per million, which is like microseconds per second, so that works out to roughly a couple seconds per day, is how you would wind up drifting off. But I’m sure that if you had a super old desktop under your desk, that you stole from your parents or something and you were trying to rebuild into a Linux box, you might have worse numbers than that. Like a sort of relatively current generation server from a well-known vendor, you’re talking somewhere around 50 to 100 microseconds per second that they can sort of walk-off out of alignment.</p>
+
+<h2 id="000327">00:03:27</h2>
+
+<p>Okay, so clock synchronization is the process of trying to get all of those clocks that you have across your whole data center and across multiple data centers to be in sync with each other. Is that the right way of thinking about it?</p>
+
+<h2 id="000339">00:03:39</h2>
+
+<p>I think so. “In sync”, is an interesting sort of thing to say, right? You kind of would like that if you were able to instantaneously ask two random servers on your network, what time it was at the same exact point in time, if you could somehow magically do that, that they would agree to some relatively small margin of error, and I think that that’s kind of what we mean by clock synchronization. That if you could somehow magically freeze time and go ask every single computer on your network, “Hey. What time do you think it is?” that they would all roughly agree to within some error bound that you can define.</p>
+
+<h2 id="000413">00:04:13</h2>
+
+<p>Right. And this basic model actually assumes that there is a well-defined notion of what it means to be instantaneously at the same time, which isn’t exactly true because of relativity and stuff like that, but we’re going to mostly ignore that. So, I guess one property that you’re highlighting here is having the clocks agree with each other, and that’s part of it, but there’s another piece, right, which is having the clocks agree with some external reference. There’s some notion of like, what does the world think the time is? So, where does that external reference come from?</p>
+
+<h2 id="000435">00:04:35</h2>
+
+<p>I’m not an expert on this stuff, but I’ll give you the sort of 10,000-foot view. You have various physics laboratories all over the world, like NPL in the UK, and other places across the world. They all have measurements of what they think time is, using things like hydrogen masers and sort of very accurate atomic methods. They contribute all of that stuff to a single source who kind of averages it, or does some sort of weighting, to come up with what the correct time is, and then you kind of magic that over to the Air Force, who then sends it up to the GPS constellation. And GPS has a mechanism for getting time from the GPS satellites down to GPS receivers, and so if you’re a person who runs a computer network and you’re interested in synchronizing your clocks to a relatively high degree of accuracy with something like UTC, which is effectively Greenwich Mean Time, it is just sort of the current time without time zones applied. </p>
+
+<h2 id="000557">00:05:57</h2>
+
+<p>And for the purposes of this conversation, we’re going to treat those GPS receivers as the received wisdom as to what time it is, and our job is to figure out how, inside of a computer network, you make all of the different devices agree with each other and agree with that external reference.</p>
+
+<h2 id="000611">00:06:11</h2>
+
+<p>Correct.</p>
+
+<h2 id="000612">00:06:12</h2>
+
+<p>Why is it important? What does having synchronized clocks help you do?</p>
+
+<h2 id="000622">00:06:22</h2>
+
+<p>If you put yourself in the shoes of a financial regulatory authority, and you have all these different participants out there doing stuff with computer systems, and something weird happens, and you’d like to come up with a total ordering of events of what led to this crazy thing – or what led to this good thing, who knows – but you want to have a total ordering of events. If people don’t have good clock synchronization, to some external source, you can’t compare the timestamp from participant A to the timestamp from participant B, so if you were to decree everybody must have time that is within some error bound, you know if these timestamps are within that error bound, well, then I can’t be sure about the ordering, but if they’re farther away than that then I can be sure about the ordering. I can know which one came first and which one came second, and that can be very useful.</p>
+
+<h2 id="000655">00:06:55</h2>
+
+<p>So that’s the motivation that’s very specific to our industry, but don’t people in other industries care a lot about clock synchronization, too? I would have thought that there are other reasons that would drive you to want to synchronize the machines on the network.</p>
+
+<h2 id="000706">00:07:06</h2>
+
+<p>Oh, sure. There’s lots of different things. I mean, just like a general sysadmin topic, a lot of times you want to gather logs from all the systems on your computer network, and you want to analyze them for various reasons. Maybe it’s because you’re concerned about intruders. Or maybe it’s because you’re just trying to understand the way things are functioning, and if your clocks aren’t synchronized it’s very hard to kind of understand things that might have happened on system B and how they relate to system A because the two timestamps are just not – you just can’t compare them if they’re not synchronized.</p>
+
+<h2 id="000733">00:07:33</h2>
+
+<p>And I suppose there are also some distributed systems, algorithmic reasons to want clocks. Certainly, some kinds of distributed algorithms end up using clocks as ways of breaking ties between systems, and so that requires at least some reasonable level of synchronization.</p>
+
+<h2 id="000745">00:07:45</h2>
+
+<p>For sure. There’s also other network protocols that are widely used that require clock synchronization, but much less precise levels of clock synchronization. Kerberos is a widely used authentication protocol, and that requires that the clocks be synchronized to within five minutes, and the idea there is to thwart replay attacks, and stuff like that, making sure that somebody can’t obtain your credentials from a couple days ago and use them again, that kind of thing. So there, it’s like the error bars are very wide but there’s still some sort of synchronization necessary.</p>
+
+<h2 id="000814">00:08:14</h2>
+
+<p>Right. And I guess that’s a general theme when thinking about synchronization: different applications require different levels of synchronization, but more closely synchronized never hurts.</p>
+
+<h2 id="000821">00:08:21</h2>
+
+<p>There’s definitely tradeoffs as you start to get into the lower bounds, but yeah. If they were all free, sure, I’d like to have them exactly the same.</p>
+
+<h2 id="000828">00:08:28</h2>
+
+<p>How do people normally approach this problem of clock synchronization? What are the standard tools out there?</p>
+
+<h2 id="000833">00:08:33</h2>
+
+<p>Most people, you just kind of run whatever your distribution shipped as an NTP daemon. NTP stands for the Network Time Protocol, and it is a protocol that up until not that long ago, I just kind of assumed used some kind of magic, and it knows how to talk to some servers on the Internet or some local servers that you probably then having talking to servers on the Internet, and it synchronizes your clocks with those servers. It exchanges some packets, maybe it takes a little while, maybe a few minutes, maybe longer. You probably don’t understand exactly why, but eventually, your clocks are relatively in sync to within maybe tens, or so, of milliseconds.</p>
+
+<h2 id="000905">00:09:05</h2>
+
+<p>Can you give us a tour of how NTP actually works?</p>
+
+<h2 id="000909">00:09:09</h2>
+
+<p>Like I said, for a long time, I just kind of assumed it was magic and didn’t really think too hard about it, and then at some point, I got tasked, within Jane Street, to actually look at some of this stuff and try and meet some requirements that were a little bit harder than the sort of standard tens of milliseconds synchronization. So I actually went and just was like, “Okay. Well. How does NTP do this from first principles?” right? Like, let’s go read some of the papers from David Mills. Let’s just go see if we can actually reason this out ourselves. At the end of the day, it’s just four timestamps. There’s a lot more complicated stuff around it, but the sort of core of it is these four timestamps.</p>
+
+<h2 id="001040">00:10:40</h2>
+
+<p>Can you maybe explain what it is about the calculation that depends on the symmetry between the send time and the received time?</p>
+
+<h2 id="001048">00:10:48</h2>
+
+<p>Those delays are kind of what tie it together, right? You know that if the clocks were in sync you know that the timestamp that you took minus the timesstamp that I took should be equal to the delay of the packet to get to you, right? And vice versa. My timestamp, from the second one that I received, minus your timestamp should be equal to the delay that it took for the packet to get from you to me. And you’re like, “Well. What do I do with this information?” And you say, “What if I just assume that those two delays are equal?” and if I assume that those two delays are equal, then I can start rearranging the various pieces of the equation. And then that’s how you can actually solve for the delay and the offset.</p>
+
+<h2 id="001122">00:11:22</h2>
+
+<p>What’s the role of the two timestamps on the server-side? So, if you ask me what time it is, I write down when I receive it, and then I write down the time where I send it back. You could imagine a simpler protocol with just three timestamps. Then you just assume that that time that I wrote down happened in the middle of that interval, the interval between the time you sent the first method and received the second message.</p>
+
+<h2 id="001146">00:11:46</h2>
+
+<p>How do you know when in the middle is, right? There’s lots of vagaries that happen with operating systems like if you timestamp it on either end, as soon as you receive the packet you timestamp it, and then maybe you have to do some work, and then right before you send it back you timestamp it, and that’s sort of how you get closest to those differences I mentioned representing the actual network delay from one to the other.</p>
+
+<h2 id="001204">00:12:04</h2>
+
+<p>And I guess an extra assumption that you’re making here is that in that period between the first timestamp and the second timestamp you had better assume that the rate at which the clock is going forward is about right. I think that throws another error term into the equation. It’s, I think, typically extremely small, right? If you just, it certainly seems like something you can, in practice, ignore. Because if you just look at the number of parts per million, or whatever that you were talking about, in terms of how much drift there is in a real computer clock, I think that is, in fact, pretty tiny.</p>
+
+<h2 id="001232">00:12:32</h2>
+
+<p>Right, well you’ve got the correction being applied by the time daemon that’s running on the computer, which is keeping the clock in sync. Presumably, the server-side of this communication is also taking time from somewhere either reference clock or some sort of higher upstream stratum in NTP, like clocks that are better than it, something like a GPS receiver, and it has applied a sort of correction to the operating system to say, “Hey, I currently believe that the frequency is off by this much. Please correct that when you hand me back time.” So, I feel like your biggest – I guess to your point of being able to ignore in practice – your biggest concern would be if in between those two timestamps something massive changed, like the temperature rose or dropped by many, many degrees or something such that, that frequency correction was now just wildly incorrect.</p>
+
+<h2 id="001315">00:13:15</h2>
+
+<p>Okay, so we have now a network protocol. Put a timestamp, send a message, another timestamp, another timestamp, you get it back. Now the computer that started all this has some estimate for how much it’s clock is off. What does it do then?</p>
+
+<h2 id="001327">00:13:27</h2>
+
+<p>In the simple world, you could just set your time. You could just, you could just sort of say like, “And the time should be X,” but that’s not generally how most Network Time Protocol daemons work. What they’ll do is they’ll take a number of samples from a single server, but many times you have multiple servers configured so you’ll take many samples from multiple servers, and you’ll sort of apply different criteria to these things to decide if you should even consider them. I think the reference implementation of NTPD has this notion of a “popcorn spike,” where if your offset, you know, if you’ve gotten back 30 samples and they all kind of look about the same, but then you get one that’s wildly off, you just kind of say like, “I’m gonna ignore that one, because likely that was just due to some crazy queueing somewhere in the network or something like that.”</p>
+
+<h2 id="001407">00:14:07</h2>
+
+<p>You can sort of think of this as a kind of voting algorithm: You have a bunch of different oracles that are telling you things about what time is, you kind of bring them all together and have some way of computing an aggregate assumption about what the time currently is that tries to be robust to errors and drop outliers and the like.</p>
+
+<h2 id="001423">00:14:23</h2>
+
+<p>Yeah, I think that’s right. You try to pick out the people who are lying to you, right? Some of those servers you might be talking to upstream might just be telling you incorrect things. They’re generally referred to in sort of NTP parlance as falsetickers, and the ones who are not falsetickers are truechimers.</p>
+
+<h2 id="001436">00:14:36</h2>
+
+<p>Oh, that’s awesome.</p>
+
+<h2 id="001438">00:14:38</h2>
+
+<p>I’m not sure why exactly these are the names, but these are some of the names you might see if you’re looking around the internet. So you try and pick out the ones that are telling you the truth. You apply some other various heuristics to them to try and figure out which ones you think are the best, right? Which ones maybe have the smallest error bars – even though you might think that these are decent sources to use some of them might have wider error bars than others, right, like your samples may represent a sort of wider range than the other ones – so you try and figure out which ones are the best and then you use that to sort of tell your operating system to effectively speed up or slow down its frequency correction for how off it is, and try and sort of remove that error over time. You don’t just abruptly adjust the time that the system thinks it is. Most time daemons will not aggressively step the clock. The reason for that is that most applications do not enjoy when the time just changes drastically, especially not when it changes drastically in the negative direction.</p>
+
+<h2 id="001526">00:15:26</h2>
+
+<p>This highlights another property you want out of your clocks, which we haven’t touched on yet, which is: we said we want our clocks to be accurate. Your criterion for what it means for them to be right is you go to them and ask them what time it is, and they give numbers pretty close to each other. But there’s another property you want, which is you want the clocks to, in a micro sense, advance about a second per second and you especially want it to never go backwards, because there are lots of algorithms on a computer, which are making the assumption implicitly and you know, naively reasonably, that the clocks only go forward, and lots of things can get screwed up when you allow clocks to jump backwards.</p>
+
+<h2 id="001600">00:16:00</h2>
+
+<p>Right. So, a way that you can maintain that property that you just mentioned, while still correcting, is simply effectively tell the operating system like “Hey, slow down. I want to have time slow down effectively such that like this error gets removed, but I don’t have to actually step time backwards and make applications sad.”</p>
+
+<h2 id="001614">00:16:14</h2>
+
+<p>And I actually remember this, personally, from many years ago where the one place where I really intersected with clock synchronization in a serious way was, I was asked to look at Jane Street’s clock synchronization on its Windows machines. I wrote a small program that sent little NTP packets to the Windows machines, which knew the NTP protocol and responded appropriately. And they had the four timestamps on them, and instead of trying to compute the average I actually computed upper and lower bounds on how far the clock sync was off and generated a little graph to see what was going on. And I remember being quite surprised to discover that if you graphed how far off the clocks were you’d see this weird sawtooth behavior where the clocks would go out of sync, and then, bang, they would be in sync again, and then slowly out of sync and then in sync again. And that’s because the Windows NTP daemon we were running was configured to just smash the clock to the correct value and not do any of the kind of adjusting of the rate, which I think if I remember correctly, that’s called slewing, which is, I think, a term I’ve heard in no other context.</p>
+
+<h2 id="001713">00:17:13</h2>
+
+<p>Yeah, that is correct.</p>
+
+<h2 id="001715">00:17:15</h2>
+
+<p>Okay, so NTP lets you, in fact, do the slewing in an appropriate way so you can keep the rates pretty close to the real-time rates, but still, over time, slowly converge things back if they are far apart. In practice, how quickly can NTP bring clocks that are desynchronized back together?</p>
+
+<h2 id="001731">00:17:31</h2>
+
+<p>At least with some of the newer time daemons… so I don’t know what the default is for the reference implementation. I know with some of the newer daemons like chrony, the default is that it takes 12 seconds to remove one second of error. So depending on how far away you were you can sort of like work it out, right, 12 seconds to remove one second. So if you were a day, it’d be 86,400 times 12, which is a lot of seconds.</p>
+
+<h2 id="001751">00:17:51</h2>
+
+<p>So that’s actually quite fast, which means the rate at which the clock moves forward can be off by on the order of 10%, which is pretty aggressively pushing on the gas there.</p>
+
+<h2 id="001801">00:18:01</h2>
+
+<p>And these knobs are adjustable. If you really want to you can sort of change the max rate at which they will attempt to make these adjustments.</p>
+
+<h2 id="001806">00:18:06</h2>
+
+<p>So, we had clock synchronization working on our systems before you started in 2012, and yet you needed to redo it. What were we doing, and why did we have to redo it?</p>
+
+<h2 id="001816">00:18:16</h2>
+
+<p>So, we did what I’m sure lots of people do. We discussed GPS appliances before – so we have some GPS appliances, which are bringing us accurate-ish time, and then we pointed a bunch of time servers at those GPS appliances using NTP, and we pointed a bunch of clients at those time servers, and we sort of dusted our hands off and said, “Ah, done.” There was no real requirements around what is the maximum error. Are we trying to maintain anything? If you look at any given time can you tell us how far off any given system is from, say, UTC? And so that served us fine for a while. The main motivation for some of the work that was done was a bunch of different financial regulations that happened in Europe, but one of them specifically had to do with time synchronization, and what it said was that you have to be able to show that your clocks are in sync with UTC to within 100 microseconds. So the 100 microsecond number was the big change. At first, when we first heard this requirement. It’s like, “Well. Maybe we’re good. We don’t actually know at the moment like maybe we’re just fine.”</p>
+
+<h2 id="001911">00:19:11</h2>
+
+<p>Okay, and so we looked at it, and were we just fine?</p>
+
+<h2 id="001913">00:19:13</h2>
+
+<p>No, definitely not. So it was, I think I said it before, but like most systems were like a couple hundred microseconds out, but the real problem, or one of the real problems, was that they sort of would bounce all over the place. Like sometimes they could be relatively tight, say 150 microseconds, but various things would happen on the system that could disturb them and knock them, say, four or 500 microseconds out of alignment. If a bunch of systems all start on a given computer at the same time, and they all start using the processors very aggressively, that’ll fundamentally change the heat profile of the system. As the heat profile changes the frequency will change and then the time daemon might have a harder time keeping the correct time, because the frequency is no longer what it was before, and it has to sort of figure it out as it goes. </p>
+
+<h2 id="002015">00:20:15</h2>
+
+<p>What did you find?</p>
+
+<h2 id="002017">00:20:17</h2>
+
+<p>I definitely did the dumb thing, right, and I went to Google and I said, “How do you meet MiFID II time compliance regulations,” or something along those lines, and probably many different sort of combinations of those words to try and find all the good articles. If you just do that, what you find out is that everyone tells you should be using PTP, which is the Precision Time Protocol. It’s a completely different protocol. And if you go read on the internet, you’ll see that it is capable of doing “better time synchronization” than NTP, but nobody really tends to give you reasons. Lots of people will say things like “NTP is good to milliseconds. PTP is good to microseconds,” but without any sort of information backing that. So if you just do that, you’re like, “Well. We should clearly just run PTP. No problem. Let’s just do that.”</p>
+
+<h2 id="002113">00:21:13</h2>
+
+<p>Where does the precision of the Precision Time Protocol come from?</p>
+
+<h2 id="002115">00:21:15</h2>
+
+<p>Exactly. And what I found actually surprised me to some extent. The protocol is a little different. The sort of who sends what messages when is a little bit different. It involves multicast, which is different. But at the end of the day, it’s those same four timestamps that are being used to do the calculation, which I found a bit surprising. I was sort of like, “Now, if it’s the same four timestamps, more or less, what is it about PTP that makes it much more accurate?” And what I was able to find is, I think it’s basically three things. </p>
+
+<h2 id="002326">00:23:26</h2>
+
+<p>The idea is, I guess, you can do in some sense, the moral equivalent of what NTP does with the two middle timestamps. Where there are two timestamps in NTP that come from the server that’s reporting time. It’s like when it receives and then when it sends out and you get to subtract out from the added noise that gap between those two timestamps, and then the idea is you can do this over and over again across the network, and so delays and noise are introduced by, for example, queueing on the switch, would go away. Like you would essentially know how much those delays were and as a result, you could potentially be much more accurate.</p>
+
+<h2 id="002401">00:24:01</h2>
+
+<p>Yeah. I think that’s roughly the conclusion I came to, that that’s what makes PTP more accurate than NTP, which was surprising to me. And then I did a bunch of research and was talking to various people in the industry, and at various conferences and stuff, and there was some agreement that you can make NTP also very accurate you just have to control some of these things, so there are… in addition to being able to do hardware timestamping with PTP packets some cards, these days, support the ability to hardware timestamp all the packets, and if your machine is just acting as an NTP server and most of the packets it receives are NTP packets, well then you’re effectively timestamping NTP packets. Some cards also will timestamp just NTP packets. They can sort of recognize them and timestamp only those, but it was sort of like “Okay if we have the right hardware, we can get the timestamping bit of it. That’s kind of an interesting thing. With the different NTPD implementation, chrony being the other implementation I’m talking about as opposed to the reference one, you can turn that knob for how frequently you should poll your server, I think as much as like 16 times a second. There’s a bit of like diminishing returns there, it’s not always better to go lower… point being, you can tune it to at least match sort of what PTP’s default of once a second.</p>
+
+<h2 id="002559">00:25:59</h2>
+
+<p>It seems like in some sense, the design of PTP where it relies for its extra accuracy on these switches violates this old end-to-end property that people talk about as the design of the internet of trying to get as much of the functionalities you can around the edge of the system. And I think that is motivated by a lot of the kind of concerns you’re talking about: you have more control over the endpoints, and you want to rely on the fabric for as little as possible. I guess the other reason you want to rely on the fabric it’s not just that there are different groups, and like, “ Oh, it’s hard to work with people in different areas and coordinate.” It’s also in various ways, fundamentally harder to manage networks than it is to manage various other kinds of software, but the reality is, in many organizations, in many contexts, a lot of getting the network right involves an extremely good, extremely well trained, extraordinarily careful human being, just going in and changing the configs and not getting it wrong. It’s kind of a terrifying system, and the less complexity, you can ask the people who have to go in and do this terrifying thing of modifying the network, the less complexity you can ask them to take care of the better.</p>
+
+<h2 id="002701">00:27:01</h2>
+
+<p>I mean, that’s a very, very true point. And another aspect of it is having less black-box systems involved. So, chrony is an open-source project, we can sort of inspect the code and see what it’s doing and understand how it behaves. The GPS appliances are not but the idea of having less black-box systems where, “Hey, that’s really strange. Why did we see this spike? We have absolutely no idea.” The amount we can minimize that kind of stuff, the better.</p>
+
+<h2 id="002722">00:27:22</h2>
+
+<p>Right. The primary currency of the sysadmin is inspectability.</p>
+
+<h2 id="002724">00:27:24</h2>
+
+<p>Yes.</p>
+
+<h2 id="002727">00:27:27</h2>
+
+<p>You want to be able go in and figure out what the hell is happening.</p>
+
+<h2 id="002730">00:27:30</h2>
+
+<p>Yes. Huge proponent of things you can inspect and debug.</p>
+
+<h2 id="002732">00:27:32</h2>
+
+<p>You talked a bunch about hardware timestamping, and I have a kind of dumb and mechanical question about all this, which is you talked about essentially software processes keeping clocks up to date. You have this NTP daemon that knows how to adjust the rates of things and stuff, but then you talked about the NIC going in timestamping packets. So does the NIC have a hardware clock and the motherboard have a hardware clock, or the CPU? How are these clocks related to each other? What’s actually going on when you’re doing hardware timestamping?</p>
+
+<h2 id="002801">00:28:01</h2>
+
+<p>Yeah, the NIC also has a hardware clock.</p>
+
+<h2 id="002803">00:28:03</h2>
+
+<p>Is it a different time? Do you have to run NTP between the NIC and the host system?</p>
+
+<h2 id="002808">00:28:08</h2>
+
+<p>I think that would be challenging, but like yes, you can use a thing from the Linux PTP project to move time from a network card to the system. It’s called phc2sys. That’s just a thing you can do, You have time on your network cards, you can move that time to the system, you can move it from the system to another network card, you can kind of shift this time around in various ways. But yes, the cards themselves do also have a clock on them that you’re also keeping in sync.</p>
+
+<h2 id="002830">00:28:30</h2>
+
+<p>So another thing you mentioned about PTP is that it uses multicast. So, I’ve had the chance to sit down and talk at length with Brian Nigito, in a <a href="https://signalsandthreads.com/multicast-and-the-markets/">previous episode</a> of this podcast, about multicast, and I’m curious what role multicast plays here in the context of PTP?</p>
+
+<h2 id="002845">00:28:45</h2>
+
+<p>The whole idea is that at the sort of root of this time distribution tree you have what’s known as a grandmaster, and you can have multiple grandmasters, and a grandmaster is just something that doesn’t need to be getting PTP, time from PTP. It’s like you know the GPS reference or something else. You have this grandmaster you can have multiple ones. There’s a thing called the best master clock algorithm for the participants of PTP to determine which of them is the best one to act as the grandmaster at any given time, and then the idea is that you multicast out these packets to say, “Here’s my first timestamp,” and it just makes it easier on the network. As a PTP client, you just have to come on and start listening for these multicast messages and then you can start receiving time, as opposed to you having to actually reach out and be configured to go talk to the server. You can just sort of have less configuration and start receiving these time updates from the grandmaster.</p>
+
+<h2 id="002928">00:29:28</h2>
+
+<p>Got it. So you think it’s mostly a kind of zero-configuration kind of story.</p>
+
+<h2 id="002931">00:29:31</h2>
+
+<p>It also makes it easier for the grandmaster. You don’t have to maintain these connections. You don’t have to have all these sockets open. You just sort of have like one socket there kind of multicasting out. It’s not 100% true, because there’s a delay request and a delay response message that’s involved in all this too.</p>
+
+<h2 id="003037">00:30:37</h2>
+
+<p>Yeah, the base behavior you’re describing sounds pathological, right? Essentially, quadratic. You get….</p>
+
+<h2 id="003042">00:30:42</h2>
+
+<p>Yeah.</p>
+
+<h2 id="003045">00:30:45</h2>
+
+<p>Everyone sends a message to everyone. That is not usually a recipe for good algorithmic complexity.</p>
+
+<h2 id="003047">00:30:47</h2>
+
+<p>I’m not sure why it was designed that way. It could be that the original people were sort of thinking that you’d have these smaller domains where you have these boundary clocks. Or sort of you’re multicasting… you’re sort of limited to how many people you’re talking to. But I kind of agree the default behavior seems a little crazy to me, and that’s why in our case, where we are using PTP (we’re using it in a small area of the world) we have it configured to do that hybrid thing where the actual sync message comes in multicast, but the delay request and the delay response wind up being unicast. </p>
+
+<h2 id="003212">00:32:12</h2>
+
+<p>(Laughter)</p>
+
+<h2 id="003214">00:32:14</h2>
+
+<p>It makes no sense whatsoever. The timestamp is off the charts. And we’ve had GPS appliances do things like that, and so part of my thinking through this was, you know, “Geez, at the end of the day I really don’t want to be pulled back to a single GPS appliance that is providing time to potentially large swathes of the network,” because if it goes crazy there’s no real provisions in PTP for finding the crazy person everybody will just follow those crazy timestamps wherever they lead.</p>
+
+<h2 id="003241">00:32:41</h2>
+
+<p>At least for a while. It sounds like there’s a way of eventually deciding someone else is the right one to pay attention to, but it means for short periods of time you may end up just listening to the wrong guy.</p>
+
+<h2 id="003250">00:32:50</h2>
+
+<p>I’m not an expert in exactly what’s involved in the best master clock algorithm, but I thought what was in the best master clock algorithm was simply about how good your clock was, and so if you were sitting there saying, “I have the best clock. It’s fantastic.” but then you’re telling people the completely wrong time because you had some kind of a bug or misconfiguration, you would continue to operate in that mode indefinitely.</p>
+
+<h2 id="003309">00:33:09</h2>
+
+<p>That’s fascinating. What it sounds like is despite the fact that PTP is newer, and, in some ways, shinier, and in some ways having fundamentally better capabilities for some aspect of what it’s doing, it also just threw out a bunch of the careful engineering that had gone into NTP over a long period, because NTP has significantly more robust ways of combining clocks than what you’re describing for PTP.</p>
+
+<h2 id="003329">00:33:29</h2>
+
+<p>Yes, that was my kind of interpretation of looking at all this stuff: it feels like we threw out a lot of the safety, and that makes me super nervous based on my experience with these devices.</p>
+
+<h2 id="003337">00:33:37</h2>
+
+<p>So here we are, we have an NTP solution that’s not working well enough, and a PTP solution that’s kind of terrifying. So, where’d you go from there?</p>
+
+<h2 id="003347">00:33:47</h2>
+
+<p>So, we’re trying to build a proof of concept. At the end of the day, we sort of figured, “All right. We have these GPS appliances.” We talked about hardware timestamping before on the GPS appliances, and how they can’t hardware timestamp the NTP packets, so that’s problematic. We thought, “How can we move time from the GPS appliances off into the rest of the network?” And so we decided that we could use PTP to move time from the GPS appliances to a set of Linux machines, and then on those Linux machines we could leverage things, like hardware timestamping, and the NTP interleaved mode to move the time from those machines onto machines further downstream. </p>
+
+<h2 id="003509">00:35:09</h2>
+
+<p>I see. And this was already built into existing NTP clients, this ability to take advantage of hardware timestamps by moving them to the next interaction. That’s not a thing you had to invent.</p>
+
+<h2 id="003518">00:35:18</h2>
+
+<p>Nope, it’s existed for a while, and it, I think given with the reference NTP implementation it can leverage timestamps taken at the driver level to do something similar, but chrony adds the ability to actually leverage hardware timestamps in the same fashion, sort of sending them in the next message so that they can calculate a more accurate difference.</p>
+
+<h2 id="003534">00:35:34</h2>
+
+<p>Because hardware timestamps are a relatively new invention of all of this, right? When NTP was designed I don’t think there was any devices that did hardware timestamping.</p>
+
+<h2 id="003542">00:35:42</h2>
+
+<p>I think that is true, and as I was saying before, when this all first came to fruition the things that supported hardware timestamping were PTP specific.</p>
+
+<h2 id="003550">00:35:50</h2>
+
+<p>Okay, so now you have an infrastructure where there’s a bunch of GPS devices, a layer of Linux servers, which get time via PTP from those GPS devices, and then act as NTP servers for the rest of the network.</p>
+
+<h2 id="003605">00:36:05</h2>
+
+<p>Correct.</p>
+
+<h2 id="003606">00:36:06</h2>
+
+<p>So maybe I missed, why does that first layer have to use PTP rather than NTP?</p>
+
+<h2 id="003611">00:36:11</h2>
+
+<p>The major reason is that the GPS appliances… its apropos to what we were just talking about… The GPS appliances will hardware timestamp their PTP because they have dedicated cards for it, but they don’t hardware timestamp their NTP, so the quality of time that you’re getting off of the GPSes if you’re talking NTP to them – like, if you just remove the time servers and you have the clients talk directly to the GPS appliances, for example – it’s just going to be a lot lower quality. And to be honest, I don’t know if they support the interleaved mode of NTP, like it’s not something I ever really dug into. It sort of goes back to that black box thing of like, “Well, we can configure this thing in such a way that it spits out hardware timestamped PTP and be relatively confident that it’s doing that job.” But anything more esoteric gets a little dicey.</p>
+
+<h2 id="003650">00:36:50</h2>
+
+<p>Got it. And you solve the false ticker problem by basically having each Linux server that’s acting as a kind of NTP… marrying each one of those to an individual GPS device. So if that GPS device is crazy then the Linux server will say crazy things, but then things internally on the network are going to, in a fault-tolerant way, combine together multiple of these Linux servers and be able to use the high accuracy way of getting data from those servers.</p>
+
+<h2 id="003715">00:37:15</h2>
+
+<p>That’s exactly right. We constrain the servers that any given client can pick using various sort of knobs within chrony because we want to meet certain requirements, and so we would like to ensure that any given client is going to talk to his local NTP server as opposed to one that is, say, 600 microseconds away somewhere, because as soon as you go to talk to that one that’s 600 microseconds away, you introduce a lot of potential error. And so what we do is we force the NTP clients to talk to their local servers, and then we also configure them to talk to a bunch of other servers, which are sort of too far away to get very high accurate time, but we use them just as you described, to sort of call out and figure out if either of the two local ones have gone crazy. If both of the two local ones have gone crazy. Well, we’re kind of out of luck.</p>
+
+<h2 id="003757">00:37:57</h2>
+
+<p>How well did this all work in practice?</p>
+
+<h2 id="003759">00:37:59</h2>
+
+<p>It worked surprisingly well. So sort of designing the system coming up with a system that can do this stuff and remain fault-tolerant and all that is one thing, but then there’s also the other thing of show me, right, like show me that you’re within 100 microseconds of UTC. So that required understanding like, what are the errors? And that comes back to the sort of asymmetry question and understanding things like if the NTP daemon is not accepting updates from its server for whatever reason because maybe it thinks the server is crazy, or because it thinks that the samples it just took are incorrect like maybe you had a popcorn spike or something like that, it’ll do a thing where it’ll basically increment a number that represents its uncertainty about how much it might be drifting while not getting good updates from its server, and so you kind of have to add together all these different errors. </p>
+
+<h2 id="003920">00:39:20</h2>
+
+<p>It’s expensive in a few ways. It’s expensive in the physical hardware, you have to provision, but it’s also just expensive in the net complexity of the network, right? I think there’s a lot of reasons why we want to try and keep the network simple and having a whole separate network just sounds like a disaster from a management perspective.</p>
+
+<h2 id="003934">00:39:34</h2>
+
+<p>Agreed. Right. So I was like, “I really don’t want to go down that road.” So we sort of said, “Well. Let’s see what happens.” And so I was just saying, most of the time we can attest that we are better than 35 microseconds, you know, 35 mics of error worst case, but there are situations where you can cause that to fall over. You can… for example, we have some clients that don’t support hardware timestamping. They’re just older generation servers, they don’t have NICs with hardware timestamping. If on those things, you just saturate the NIC for five minutes solid you’re probably going to get your error bounds outside of 100 mics, just going to happen. But on newer machines that do support hardware timestamping you can do things like that, and still stay within 50 mics of UTC, which is pretty cool. </p>
+
+<h2 id="004202">00:42:02</h2>
+
+<p>So after all of this, not that I want to call this into existence, but imagine that there’s a new version of European regulations, MiFID III comes out and says, “Now you have to be within 10 microseconds.” Assuming that technology is still as it is now what would you have to do to get the next order of magnitude in precision?</p>
+
+<h2 id="004222">00:42:22</h2>
+
+<p>Not this. So I think probably you’d want to go to something like PTP, but probably not just PTP directly. There’s a thing called White Rabbit, which is kind of like some PTP extensions, basically. I think it might actually be completely formalized in the most recent PTP specification. But that is a combination of roughly PTP with synchronous ethernet. So synchronous Ethernet allows you to get syntonization across the network, so you can sort of make sure that the frequencies are the same.</p>
+
+<h2 id="004248">00:42:48</h2>
+
+<p>Can I ask you what the word syntonization means?</p>
+
+<h2 id="004251">00:42:51</h2>
+
+<p>It just basically means that those two, the frequencies are in sync. So it doesn’t mean that we have the same time, but it means that we are sort of advancing at the same rate.</p>
+
+<h2 id="004258">00:42:58</h2>
+
+<p>I see. So there are techniques, essentially, that let you get the rate the same without necessarily getting the clocks in sync first.</p>
+
+<h2 id="004304">00:43:04</h2>
+
+<p>Correct. And is my understanding that White Rabbit sort of uses this idea that you can have the rates the same, with PTP, to work out some additional constraints that they can solve and get sub-nanosecond time synchronization. I think we would have to put a lot more thought into the sort of reliability and redundancy story. I sort of discounted PTP because it didn’t necessarily have the best reliability/redundancy story. It’s not to say we couldn’t have figured out a way to make it work for us. We almost certainly could’ve. You could have two grandmasters, one sitting there as the primary doing its normal operation, one sitting there as a standby, and if the primary one goes crazy for some reason you, could have some automated tooling or something that an operator could use to take it out of service, and bring the secondary into service and only have maybe a minor service disruption. I can imagine us doing that work but given the problem, we were trying to solve it seemed not necessary. We can solve this problem using this existing technology, but I do think if we had to go much lower like you said an order of magnitude lower, we’d have to start looking at something else.</p>
+
+<h2 id="004405">00:44:05</h2>
+
+<p>Well. Thank you, so much. This has been really fun. I’ve really enjoyed learning about how the whole wild world of clock synchronization is knit together.</p>
+
+<h2 id="004414">00:44:14</h2>
+
+<p>Well. Thank you, very much. It was a pleasure being here. It’s a pleasure talking about these things. It’s fun to try and solve these interesting, challenging problems.</p>
+
+<h2 id="004422">00:44:22</h2>
+
+<p>You can find links related to the topics that Chris and I discussed, as well as a full transcript and glossary at <a href="https://signalsandthreads.com/">signalsandthreads.com</a>. Thanks for joining us, and see you next week.</p>
+
+	</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 17:49:14 +0000</pubDate>
+      <source>https://signalsandthreads.com/clock-synchronization/</source>
+    </item>
+    <item>
+      <title>Tortured phrases: A dubious writing style emerging in science</title>
+      <link>https://arxiv.org/abs/2107.06751</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___arxiv_org_abs_2107_06751/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="content-inner">
+  <div id="abs">
+    
+    
+    
+      
+    
+  
+    <p><a href="https://arxiv.org/pdf/2107.06751">Download PDF</a></p><blockquote>
+      <span>Abstract:</span>  Probabilistic text generators have been used to produce fake scientific
+papers for more than a decade. Such nonsensical papers are easily detected by
+both human and machine. Now more complex AI-powered generation techniques
+produce texts indistinguishable from that of humans and the generation of
+scientific texts from a few keywords has been documented. Our study introduces
+the concept of tortured phrases: unexpected weird phrases in lieu of
+established ones, such as &#39;counterfeit consciousness&#39; instead of &#39;artificial
+intelligence.&#39; We combed the literature for tortured phrases and study one
+reputable journal where these concentrated en masse. Hypothesising the use of
+advanced language models we ran a detector on the abstracts of recent articles
+of this journal and on several control sets. The pairwise comparisons reveal a
+concentration of abstracts flagged as &#39;synthetic&#39; in the journal. We also
+highlight irregularities in its operation, such as abrupt changes in editorial
+timelines. We substantiate our call for investigation by analysing several
+individual dubious articles, stressing questionable features: tortured writing
+style, citation of non-existent literature, and unacknowledged image reuse.
+Surprisingly, some websites offer to rewrite texts for free, generating
+gobbledegook full of tortured phrases. We believe some authors used rewritten
+texts to pad their manuscripts. We wish to raise the awareness on publications
+containing such questionable AI-generated or rewritten texts that passed (poor)
+peer review. Deception with synthetic texts threatens the integrity of the
+scientific literature.
+
+    </blockquote>
+
+    <!--CONTEXT-->
+    
+  </div>
+</div><div>
+      <h2>Submission history</h2><p> From: Guillaume Cabanac [<a href="https://arxiv.org/show-email/5ef25b51/2107.06751">view email</a>]
+      </p></div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 15:54:37 +0000</pubDate>
+      <source>https://arxiv.org/abs/2107.06751</source>
+    </item>
+    <item>
+      <title>Xsolla CEO says firing using an algorithm-based solution protect minorities</title>
+      <link>https://gameworldobserver.com/2021/08/06/xsolla-founder-on-mass-layoffs-and-ai-based-employee-appraisal-system</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___gameworldobserver_com_2021_08_06_xsolla-founder-on-mass-layoffs-and-ai-based-employee-appraisal-system/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+	
+	
+  <section>
+    <nav>
+		    </nav>
+    <div>
+		
+
+      <main>
+		  
+  <article>
+    <div>
+        <div>
+          
+          <div>
+            <div>
+              
+              <h3>
+                <p><span>Published by</span>
+                  <span>06.08.2021 18:23</span>
+                </p>
+                <a href="https://gameworldobserver.com/author/evgeny-obedkov">
+                  Evgeny Obedkov                </a>
+              </h3>
+				
+<section>
+    <h3>Tags:</h3>
+    <ul>
+        <li><a href="https://gameworldobserver.com/tag/layoffs/">layoffs</a>,</li><li><a href="https://gameworldobserver.com/tag/xsolla/">Xsolla</a></li>    </ul>
+</section>
+            </div>
+          </div>
+			              <p><span>Aleksandr Agapitov discussed the latest controversy surrounding his decision to lay off around 150 employees from Xsolla. He explained how exactly employee performance has been evaluated and what he thinks of people criticizing him.</span></p>
+          <div>
+			      <p><a href="https://gameworldobserver.com/wp-content/uploads/2021/08/xsolla-logo.jpg"></a></p>
+<p><span>An interview with Agapitov was</span><a href="https://meduza.io/feature/2021/08/06/my-formalno-esche-nikogo-ne-uvolili-my-skazali-kompaniya-vas-ne-tsenit" target="_blank" rel="noopener"> <span>published by Meduza</span></a><span> on August 6. Below is the summary of that interview.</span></p>
+<h2><b>On Xsolla’s internal appraisal system</b></h2>
+<ul>
+<li aria-level="1"><span>The company’s decision regarding layoffs was inspired by Netflix, Harward, and other organizations that lay off 10% of the most unengaged and ineffective employees on a regular basis. However, Xsolla had no plans to fire these many people until it stopped growing by 40% year-over-year.</span></li>
+<li aria-level="1"><span>The performance rating system was implemented in early 2021. The company measures its employees’ efficiency on a 100-point scale, based on 30 characteristics. The list includes writing and reading articles in the internal Wiki, creating and closing task tickets, as well as dashboard activity and participation in internal meetings.</span></li>
+<li aria-level="1"><span>According to Agapitov, writing and reading texts is way more efficient than making presentations. That’s why he thinks that every employee should read the information about the business and other companies in Xsolla’s Wiki. “Some people just didn’t really want to educate themselves or learn about the company’s plans. We offered them a generous severance pay,” Agapitov said.</span></li>
+<li aria-level="1"><span>Xsolla only tracks work logs, so the founder thinks that the company doesn’t violate employees’ privacy. He claimed that if a person’s “digital footprint” is not visible, they shouldn’t work at Xsolla.</span></li>
+<li aria-level="1"><span>The company also planned to implement the so-called “digital mirror,” so every employee could learn what AI thinks of their work and engagement. However, the development team wasn’t enthusiastic about this idea, so its rollout is pending.</span></li>
+</ul>
+<h2><b>Why did Xsolla lay off dozens of people at once?</b></h2>
+<ul>
+<li aria-level="1"><span>The company analyzes its revenue twice a week, comparing figures year-over-year.</span></li>
+<li aria-level="1"><span>Xsolla’s revenue increased by 80% last year, thanks to the effect that the pandemic had on the games industry.</span></li>
+<li aria-level="1"><span>However, the growth slowed down because the lack of offline events made it harder to attract new customers to the platform.</span></li>
+<li><span>According to Agapitov, Xsolla stopped showing a 40% growth during the last six months, so he decided to reduce the staff.</span></li>
+</ul>
+<h2><b>More details about the layoffs</b></h2>
+<ul>
+<li aria-level="1"><span>Roughly 150 laid-off employees account for a third of the company’s staff of around 500 people. The goal was to reduce the salary budget by ten percent, not to fire 10 percent of the employees. Agapitov was prepared to fire as many low-performing people from the bottom of the rating as necessary to achieve a 10% salary fund reduction.</span></li>
+<li aria-level="1"><span>Most layoffs happened in Perm, where Xsolla was initially founded. Agapitov fired six people from the US (out of 50 US-based staff) and two people from Asia (out of 12 employees working at the South Korean office).</span></li>
+<li aria-level="1"><span>The company laid off people specializing in different spheres. “Worst programmers, worst marketers, worst office managers, worst admins, and even worst accountants,” Agapitov commented.</span></li>
+<li aria-level="1"><span>Xsolla plans to cut 10% of its budget every 12 months until it starts showing at least a 40% growth again. The company is now looking for new talent in Asia and Europe.</span></li>
+<li aria-level="1"><span>Agapitov also admitted that his blunt statements could have scared a lot of employees. “I realize I’m having trouble with my emotional intelligence but I’m working on it,” he said.</span></li>
+<li aria-level="1"><span>Despite the mass layoffs, he isn’t afraid of possible investigations. He thinks that Xsolla hasn’t violated Russian labor laws and, formally, hasn’t fired anyone yet. “To all employees who received the letter, we said that the company doesn’t value you, so we will find you a better job with a better salary,” Agapitov commented. “Likewise, you aren’t interested in Xsolla’s future either. So here is your generous severance pay, good luck.”</span></li>
+<li aria-level="1"><span>The Xsolla founder also realizes that some people might want to leave in the wake of this controversy. But he thinks that his company only needs engaged employees who care about their personal and professional growth.</span></li>
+</ul>
+<h2><b>Why does Agapitov think that he did everything right?</b></h2>
+<ul>
+<li aria-level="1"><span>He claimed that the US media would have seen the decision as quite positive, as Xsolla follows the “practices common for this region.”</span></li>
+<li aria-level="1"><span>Agapitov went on to say how companies nowadays protect minorities and can be overly cautios if they have to fire their representatives, which can make these employees almost immune to layoffs. “Our algorithm-based solution is as unbiased as possible. Therefore, from the point of view of the US media and society, it is much better for us [to fire a person based on the algorithm] rather than some manager doing it, based on their own views,” he said.</span></li>
+<li aria-level="1"><span>According to Agapitov, the whole controversy started because remote work in Russia is a huge problem. He claimed that some find it difficult to work from home, so if someone criticizes his decision, it is only because they realize that they are inefficient employees themselves.</span></li>
+<li aria-level="1"><span>The Xsolla founder also noted that the US PR firm he worked with doesn’t see this situation as a crisis for the company. “Whatever you tell the press, there are only two kinds of stories </span><span> —</span><span> stories of fear and stories of hope. Fear sells better, and this is a scary story that sells very well,” Agapitov said.</span></li>
+</ul>
+          </div>
+			    
+			<section>
+			<h3>Read also:</h3>
+			<ul>
+									<li><a href="https://gameworldobserver.com/2021/08/05/xsolla-cites-growth-rate-slowdown-as-reason-for-layoffs-ceos-tweet-causes-further-controversy/" target="_blank">Xsolla cites growth rate slowdown as reason for layoffs, CEO’s tweet causes further controversy</a></li>
+									<li><a href="https://gameworldobserver.com/2021/08/04/xsolla-fires-150-employees-using-big-data-and-ai-analysis-ceos-letter-causes-controversy/" target="_blank">Xsolla fires 150 employees using big data and AI analysis, CEO’s letter causes controversy</a></li>
+									<li><a href="https://gameworldobserver.com/2021/07/20/xsollas-game-developer-day-contest-for-latam-devs-announced-with-150k-prize-pool/" target="_blank">Last chance to apply for XDC Contest for LATAM devs. Submissions closing July 21</a></li>
+									<li><a href="https://gameworldobserver.com/2021/07/02/xsolla-and-wn-events-to-hold-game-developer-day-latam-on-july-27-2021-submissions-open-for-xdc-contest-for-latam-developers/" target="_blank">Xsolla and WN Events to hold Game Developer Day LATAM on July 27, 2021. Submissions open for XDC Contest for LATAM Developers</a></li>
+							</ul>
+					</section>
+	
+
+			    
+<section>
+	<hr/>
+<p><em>Got a story you&#39;d like to share? Reach us at <a href="mailto:press@gameworldobserver.com"><strong>press@gameworldobserver.com</strong></a></em></p></section>
+
+
+			    <section>
+    <h3>Tags:</h3>
+    <ul>
+        <li><a href="https://gameworldobserver.com/tag/layoffs/">layoffs</a></li><li><a href="https://gameworldobserver.com/tag/xsolla/">Xsolla</a></li>    </ul>
+</section>
+
+			    
+			    
+        </div>
+      </div>
+  </article>
+	
+      </main>
+
+		
+
+    </div>
+  </section>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 17:31:46 +0000</pubDate>
+      <source>https://gameworldobserver.com/2021/08/06/xsolla-founder-on-mass-layoffs-and-ai-based-employee-appraisal-system</source>
+    </item>
   </channel>
 </rss>
