@@ -22890,5 +22890,631 @@ Jim Hall</td>
       <pubDate>Sat, 07 Aug 2021 07:43:48 +0000</pubDate>
       <source>https://penntoday.upenn.edu/news/Penn-Museum-metal-artifacts-Thailand-challenge-archaeological-theory</source>
     </item>
+    <item>
+      <title>Where’s the Accelerator?</title>
+      <link>https://eclecticlight.co/2021/08/08/last-week-on-my-mac-wheres-the-accelerator/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-first_letter="L">
+		<p>Last week I’ve been trying to get to grips with two techniques of making apps go faster on Apple’s new M1 chips: using parallel processing from assembly language, and with features in Apple’s rich and extensive Accelerate libraries. Neither has been straightforward, largely because of documentation.</p>
+<p>Arm provides copious documentation on features of its processor designs which include detailed accounts of their instruction sets and architecture, often running to thousands of pages in PDFs of 50 MB and more. The big snag with these, other than their sheer volume, is that they are generic across each processor architecture, and none is specific to the cores which Apple has built into its M1 chip.</p>
+<p>So finding out exactly what works and what doesn’t is a journey of exploration. Fascinating though it is, it also takes time, a great deal of browsing of PDFs, and experimentation. If you don’t believe me, then read <a href="https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms" target="_blank" rel="noopener">Apple’s terse article</a> and please tell me exactly which of Arm’s reference manuals apply to the cores in the M1. Even Apple shies away from that, providing a link to the top level of Arm’s developer site.</p>
+<p>For the vast majority of developers, trying to access the M1 directly is a non-starter, so they look to Apple to facilitate that; in the case of many numeric and related features, those are included in the Accelerate and related libraries. In recent years, Apple has been going out of its way to explain these extensive collections, largely engineered by its Vector &amp; Numerics team.</p>
+<p>Members of that team spoke at WWDC in 2018, saying: “Accelerate is easy to use. Most of the time it’s just one function call and the job is done.” The following year they had additional good news: “Accelerate’s libraries are immensely powerful but up until now, their interfaces weren’t that friendly to Swift developers. We’ve looked at four libraries and created new Swift-friendly APIs to make using Accelerate in Swift projects really easy. Please visit our site where we have samples, articles, and extensive reference material that covers the entire Accelerate framework.” They appeared again this year, although their shorter presentation was primarily aimed this time at those using C++.</p>
+<p>So I first set off to explore the documentation, as anyone would. From some excellent introductory articles, which whetted my appetite, I decided to look in more detail at several functions, including one which calculates the dot-product of two short vectors. Before you throw your hands up in horror and click on to something more understandable, let me explain that this is little more than basic arithmetic.</p>
+<p>For example, if you have two vectors of length 4, containing single-precision floating-point numbers, to calculate their dot-product all you do is multiply the four corresponding pairs of numbers, one from each vector, and add those products together to a total. This may seem dull stuff, but it’s a commonplace requirement, and is highly amenable to processing in parallel.</p>
+<p>I therefore opened Xcode’s documentation, found the simd section, and selected the data type I was interested in, Single-Precision Floating-Point Vectors, and this is what I saw.</p>
+<p><span></span></p>
+<p>I’m pleased to report that the current beta version of Xcode does expand on this with an overview, although that is more confusing still as it states that many functions are provided in three variants, the default, a precise variant, and a fast variant. Then it stops dead without listing or detailing any functions at all.</p>
+<p>Maybe, as sometimes happens, the function listing was elsewhere in the documentation. So I searched for the dot-vector call which at least appears in an example. But Xcode’s documentation reported No Results.</p>
+<p><span></span></p>
+<p>At this stage, one approach is to type in some code and use Xcode’s autocomplete feature with the letters of the alphabet in order to discover which functions that knows about. It’s tedious, but has got me out of a hole on many occasions now. Instead, I turned to that excellent third-party product Dash, which Apple amazingly kicked out of its App Store a couple of years ago, presumably because it was far too useful.</p>
+<p><span></span></p>
+<p>Dash was no different, and its search also drew a blank. So I really was imagining all this after all.</p>
+<p>It was then that I went back and re-read the words of one of those engineers, when he referred to “Please visit our site where we have samples” … I found this site <a href="https://developer.apple.com/documentation/accelerate" target="_blank" rel="noopener">here</a>, and that <a href="https://developer.apple.com/documentation/accelerate/working_with_vectors" target="_blank" rel="noopener">introductory article</a>, which led me to Apple’s real documentation.</p>
+<p><span></span></p>
+<p>Overlooking the obvious, that what Apple thinks passes for documentation is so minimal as to be embarrassing, why has none of this been incorporated into Xcode? If it’s too expansive to store locally, why doesn’t Xcode link to these online pages?</p>
+<p>Having devoted three sessions in recent WWDCs to Accelerate and its relatives like simd, and promised “extensive reference material”, why is Apple not just hiding this light under a bushel, but hiding the bushel too?</p>
+	</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:43:07 +0000</pubDate>
+      <source>https://eclecticlight.co/2021/08/08/last-week-on-my-mac-wheres-the-accelerator/</source>
+    </item>
+    <item>
+      <title>The PDP-11 Basic Analysis Project</title>
+      <link>https://www.learningpdp11.com/pdp-11-basic-analysis</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><p><span><span><span><span>The PDP-11 BASIC Analysis project is an effort to disassemble and analyse line-by-line the operation of the PDP-11 BASIC code. The analysis is extensive and multiple blog entries have been posted describing different components of the BASIC application. </span></span></span></span></p><p><span><span><span><span>A couple of clarifications in advance, this is not a project about loading or using BASIC on the PDP-11. </span></span></span></span></p><p><span><span><span><span>If, you&#39;re looking for a line-by-line disassembly of the PDP-11 BASIC code, here you go:</span></span></span></span></p><div>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/using-the-trap-instruction" target="_blank" rel="noopener">Part 0</a></span>: The PDP-11 BASIC code relies heavily on the use of software TRAPs. You need a clear and concise understanding of these before any of the rest of this series is going to make sense. Also, this article describes the code used by PDP-11 BASIC to &#34;route&#34; TRAPs to different handling subroutines. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-1" target="_blank" rel="noopener">Part 1</a></span>: Analyses the TTY interrupt handling routines, TRAP 0, TRAP 2 and TRAP 66.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-2" target="_blank" rel="noopener">Part 2</a></span>: Analyses TRAP 100, TRAP 72 and TRAP 152. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-3" target="_blank" rel="noopener">Part 3</a></span>: Analyses TRAP 70, TRAP 10, TRAP 4 and the odd-numbered TRAP values. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-4" target="_blank" rel="noopener">Part 4</a></span>: Describes the initial setup and the display of the short-form options dialog. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-5" target="_blank" rel="noopener">Part 5</a></span>: Explains the operation of the long-form options dialog, the memory and tape reader configuration, deleting the extended functions, loading the EXF function, jumping to display &#34;READY&#34; and entering the syntax parsing loop. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-6" target="_blank" rel="noopener">Part 6</a></span>: Starts the analysis of the syntax parsing code by looking at the identification of line numbers, determining which command has been entered and the tokenising of the BASIC command. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-7" target="_blank" rel="noopener">Part 7</a></span>: Analyses TRAP 74, TRAP 76, TRAP 102 and TRAP 104. These are used in the second part of the syntax parsing code analysis. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-8" target="_blank" rel="noopener">Part 8</a></span>: Describes the remainder of the syntax parsing code, the execution of BASIC commands in immediate mode and the storage of BASIC commands in deferred mode. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-9" target="_blank" rel="noopener">Part 9</a></span>: Examines TRAP 106 and the operation of the BASIC LIST command. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-10" target="_blank" rel="noopener">Part 10</a></span>: Looks at the operation of the OLD, SAVE and DELETE BASIC commands.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-11" target="_blank" rel="noopener">Part 11</a></span>: Describes the BASIC runtime state storage model and examines in detail TRAP 130, TRAP 122, TRAP 112 and TRAP 114. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-12" target="_blank" rel="noopener">Part 12</a></span>: Analyses the GOTO, GOSUB and RETURN BASIC commands, as well as TRAP 120 and TRAP 134. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-13" target="_blank" rel="noopener">Part 13</a></span>: Explains in detail the operation of the integer-to-ASCII functionality by examining TRAP 64, TRAP 14 and TRAP 12. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-14" target="_blank" rel="noopener">Part 14</a></span>: Examines the structure of floating point numbers in PDP-11 BASIC and looks at TRAP 36 and TRAP 40.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-15" target="_blank" rel="noopener">Part 15</a></span>: This post examines some of the floating point operations; TRAP 24 (negatate a floating point number), TRAP 20 (add two floating point numbers) and TRAP 22 (subtract two floating point numbers).</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-16" target="_blank" rel="noopener">Part 16</a></span>: Examines the multiplication code; TRAP 62 (32-bit integer multiplication), TRAP 16 (16-bit integer multiplication) and TRAP 30 (floating point multiplication).</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-17" target="_blank" rel="noopener">Part 17</a></span>: This post will take a look at some more floating point manipulation TRAPs; TRAP 26 (floating point division) and TRAP 34 (floating point comparison). TRAP 54, which is used by TRAP 34, is also described, along with TRAP 32. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-18" target="_blank" rel="noopener">Part 18</a></span>: Describes the ASCII-to-floating point parsing code, TRAP 6.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-19" target="_blank" rel="noopener">Part 19</a></span>: Introduces user-defined functions and describes the BASIC DEF command, along with some TRAPs that support its operation (TRAP 140, TRAP 126 and TRAP 110). </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-20" target="_blank" rel="noopener">Part 20</a></span>: Describe the operation of TRAPs that are used to manage floating point variables on the stack and in the runtime state storage. We&#39;ll be looking at TRAP 142, TRAP 150, TRAP 146, TRAP 144 and TRAP 132. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-20-1" target="_blank" rel="noopener">Part 21</a></span>: Analyses the mathemetical expression evaluation code. Expressions are used all over the place and the main entry point to parsing them is TRAP 136.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-22" target="_blank" rel="noopener">Part 22</a></span>: Describes the operation of TRAP 124 and the BASIC DIM and LET commands, as well as the DATA and REM commands. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-23" target="_blank" rel="noopener">Part 23</a></span>: Analyses the BASIC IF command. </span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-24" target="_blank" rel="noopener">Part 24</a></span>: Analyses the BASIC INPUT, READ and RESTORE commands.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-25" target="_blank" rel="noopener">Part 25</a></span>: Analyses the BASIC FOR and NEXT commands.</span></span></span></span></p>
+	</li>
+	<li>
+	<p><span><span><span><span><span><a href="https://www.learningpdp11.com/post/reverse-engineering-pdp-11-basic-part-26" target="_blank" rel="noopener">Part 26</a></span>: Describes TRAP 116 and the BASIC RUN, STOP, END and RANDOMIZE commands.</span></span></span></span></p>
+	</li>
+</div><p><span><span><span><span>This project is still underway, so I will keep this page up to date as I add new parts of the analysis. </span></span></span></span></p></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 11:34:27 +0000</pubDate>
+      <source>https://www.learningpdp11.com/pdp-11-basic-analysis</source>
+    </item>
+    <item>
+      <title>Tesorio (YC S15) is hiring – join our 100% distributed fintech team</title>
+      <link>https://www.tesorio.com/careers#job-openings</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_tesorio_com_careers#job-openings/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+    
+    
+            
+
+
+
+<section>
+    
+    <div>
+                            
+
+        
+                        
+                        
+        
+                            
+                        
+    <picture>
+        <source srcset="/imager/images/27110/careers_hero_mobile_babca312b8580418374bf7d648c9dbf9.jpg 1x, /imager/images/27110/careers_hero_mobile_873f2c52fb70a0b8d5d37c80fc25256b.jpg 2x" media="(max-width: 376px)"/>
+        <source srcset="/imager/images/27110/careers_hero_mobile_7f6d0c647ffc9566e1587fe6516b73b4.jpg 1x, /imager/images/27110/careers_hero_mobile_563059bdf48cc7cf11f8cbd918990662.jpg 2x" media="(max-width: 414px)"/>
+        <source srcset="/imager/images/27110/careers_hero_mobile_9437fb3d70165e91ed5b7ba6889d2b14.jpg 1x, /imager/images/27110/careers_hero_mobile_295d0af180a1a137c39204c8b415a735.jpg 2x" media="(max-width: 767px)"/>
+        <source srcset="/imager/images/27109/careers_hero_desktop_1bd8172ac2173c6c153d883a115b44a9.jpg 1x, /imager/images/27109/careers_hero_desktop_d6fbef9df33fb71875f966227ca3f5f9.jpg 2x" media="(max-width: 1200px)"/>
+        <source srcset="/imager/images/27109/careers_hero_desktop_c01172881e0d73b676eb08f35b854a28.jpg 1x, /imager/images/27109/careers_hero_desktop_40f51448f1735f32716f9efed372d4a4.jpg 2x" media="(max-width: 1600px)"/>
+        <source srcset="/imager/images/27109/careers_hero_desktop_9591ac0e77c4e636f66624bdcbd6073c.jpg 1x, /imager/images/27109/careers_hero_desktop_e2f8fa9b9a3245dc933a8f441b69dd23.jpg 2x" media="(max-width: 1920px)"/>
+        <source srcset="/imager/images/27109/careers_hero_desktop_3ad29a01ce7f9879c3e6ed5efd26bf37.jpg 1x" media="(min-width: 1920px)"/>
+        
+    </picture>
+
+
+                </div>
+</section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            
+
+
+
+<section>
+    <div data-aos="fade-up" data-aos-duration="1700">
+        <div>
+                            <h2>Meet Tesorio</h2>
+                                        <p>We’re a distributed team of data scientists, developers, and finance geeks who all love to make products that are easy to use and backed by cutting edge machine learning. We take a lot of pride in what we do, and we have fun while doing it.</p>
+                    </div>
+                                <div>
+                
+
+        
+            
+    
+    
+                    
+                    
+    <picture>
+        <source srcset="/imager/images/27117/tesorio_team_cc325105f8935734f9fae93e950be2da.jpg 1x, /imager/images/27117/tesorio_team_7493179990fd10feda01aec26379b9cf.jpg 2x" media="(max-width: 376px)"/>
+        <source srcset="/imager/images/27117/tesorio_team_6a3de139dd69e8cfd94ef8334bc3e54c.jpg 1x, /imager/images/27117/tesorio_team_183c4f3a1b2516b9c477456c062ae653.jpg 2x" media="(max-width: 414px)"/>
+        <source srcset="/imager/images/27117/tesorio_team_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/27117/tesorio_team_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(max-width: 767px)"/>
+        <source srcset="/imager/images/27117/tesorio_team_ea7ed646b876f71d3806b30fc92790fc.jpg 1x, /imager/images/27117/tesorio_team_c0f7d5c81edcda46dabf1c7955168dc4.jpg 2x" media="(max-width: 1200px)"/>
+        <source srcset="/imager/images/27117/tesorio_team_ea7ed646b876f71d3806b30fc92790fc.jpg 1x, /imager/images/27117/tesorio_team_c0f7d5c81edcda46dabf1c7955168dc4.jpg 2x" media="(min-width: 1600px)"/>
+        
+    </picture>
+
+                </div>
+                        </div>
+</section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            
+<section>
+    <div>
+        <div data-aos="fade-up" data-aos-duration="1700">
+                            <ul>
+                                            <li>
+                            <div>
+                                                                    <h3>
+                                        “When I&#39;m asked why I love my job, I say the people.”
+                                    </h3>
+                                                                                                    <p>Mary Reschar, Marketing</p>
+                                    
+                                                            </div>
+                                                                                                <div>
+                                        <div>
+                                        
+
+        
+            
+    
+    
+                    
+                    
+    <picture>
+        <source srcset="/imager/images/31927/careers-quote-mary_cc325105f8935734f9fae93e950be2da.jpg 1x, /imager/images/31927/careers-quote-mary_7493179990fd10feda01aec26379b9cf.jpg 2x" media="(max-width: 376px)"/>
+        <source srcset="/imager/images/31927/careers-quote-mary_6a3de139dd69e8cfd94ef8334bc3e54c.jpg 1x, /imager/images/31927/careers-quote-mary_183c4f3a1b2516b9c477456c062ae653.jpg 2x" media="(max-width: 414px)"/>
+        <source srcset="/imager/images/31927/careers-quote-mary_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/31927/careers-quote-mary_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(max-width: 767px)"/>
+        <source srcset="/imager/images/31927/careers-quote-mary_cec2f792f5d31d2e3d682446ba8f2a34.jpg 1x, /imager/images/31927/careers-quote-mary_0f1e7d55ad1ffab9f0f0dc9e1b8c2a31.jpg 2x" media="(max-width: 1200px)"/>
+        <source srcset="/imager/images/31927/careers-quote-mary_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/31927/careers-quote-mary_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(min-width: 1600px)"/>
+        
+    </picture>
+
+                                            </div>
+                                    </div>
+                                                                                    </li>
+                                            <li>
+                            <div>
+                                                                    <h3>
+                                        “I‘ve been at Tesorio since the beginning — it&#39;s made me the person I am today.”
+                                    </h3>
+                                                                                                    <p>Peter Hadlaw, Engineering</p>
+                                    
+                                                            </div>
+                                                                                                <div>
+                                        <div>
+                                        
+
+        
+            
+    
+    
+                    
+                    
+    <picture>
+        <source srcset="/imager/images/31943/careers-quote-peter_cc325105f8935734f9fae93e950be2da.jpg 1x, /imager/images/31943/careers-quote-peter_7493179990fd10feda01aec26379b9cf.jpg 2x" media="(max-width: 376px)"/>
+        <source srcset="/imager/images/31943/careers-quote-peter_6a3de139dd69e8cfd94ef8334bc3e54c.jpg 1x, /imager/images/31943/careers-quote-peter_183c4f3a1b2516b9c477456c062ae653.jpg 2x" media="(max-width: 414px)"/>
+        <source srcset="/imager/images/31943/careers-quote-peter_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/31943/careers-quote-peter_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(max-width: 767px)"/>
+        <source srcset="/imager/images/31943/careers-quote-peter_cec2f792f5d31d2e3d682446ba8f2a34.jpg 1x, /imager/images/31943/careers-quote-peter_0f1e7d55ad1ffab9f0f0dc9e1b8c2a31.jpg 2x" media="(max-width: 1200px)"/>
+        <source srcset="/imager/images/31943/careers-quote-peter_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/31943/careers-quote-peter_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(min-width: 1600px)"/>
+        
+    </picture>
+
+                                            </div>
+                                    </div>
+                                                                                    </li>
+                                            <li>
+                            <div>
+                                                                    <h3>
+                                        “It&#39;s hard not to love your job when you believe in the product so much.”
+                                    </h3>
+                                                                                                    <p>Sam Tearle, Sales</p>
+                                    
+                                                            </div>
+                                                                                                <div>
+                                        <div>
+                                        
+
+        
+            
+    
+    
+                    
+                    
+    <picture>
+        <source srcset="/imager/images/31944/careers-quote-sam_cc325105f8935734f9fae93e950be2da.jpg 1x, /imager/images/31944/careers-quote-sam_7493179990fd10feda01aec26379b9cf.jpg 2x" media="(max-width: 376px)"/>
+        <source srcset="/imager/images/31944/careers-quote-sam_6a3de139dd69e8cfd94ef8334bc3e54c.jpg 1x, /imager/images/31944/careers-quote-sam_183c4f3a1b2516b9c477456c062ae653.jpg 2x" media="(max-width: 414px)"/>
+        <source srcset="/imager/images/31944/careers-quote-sam_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/31944/careers-quote-sam_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(max-width: 767px)"/>
+        <source srcset="/imager/images/31944/careers-quote-sam_cec2f792f5d31d2e3d682446ba8f2a34.jpg 1x, /imager/images/31944/careers-quote-sam_0f1e7d55ad1ffab9f0f0dc9e1b8c2a31.jpg 2x" media="(max-width: 1200px)"/>
+        <source srcset="/imager/images/31944/careers-quote-sam_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/31944/careers-quote-sam_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(min-width: 1600px)"/>
+        
+    </picture>
+
+                                            </div>
+                                    </div>
+                                                                                    </li>
+                                            <li>
+                            <div>
+                                                                    <h3>
+                                        “Working here is so great that I’ve referred several people in my network to join.”
+                                    </h3>
+                                                                                                    <p>Aurelio Grott, Engineering</p>
+                                    
+                                                            </div>
+                                                                                                <div>
+                                        <div>
+                                        
+
+        
+            
+    
+    
+                    
+                    
+    <picture>
+        <source srcset="/imager/images/37572/careers-quote-aurelio_cc325105f8935734f9fae93e950be2da.jpg 1x, /imager/images/37572/careers-quote-aurelio_7493179990fd10feda01aec26379b9cf.jpg 2x" media="(max-width: 376px)"/>
+        <source srcset="/imager/images/37572/careers-quote-aurelio_6a3de139dd69e8cfd94ef8334bc3e54c.jpg 1x, /imager/images/37572/careers-quote-aurelio_183c4f3a1b2516b9c477456c062ae653.jpg 2x" media="(max-width: 414px)"/>
+        <source srcset="/imager/images/37572/careers-quote-aurelio_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/37572/careers-quote-aurelio_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(max-width: 767px)"/>
+        <source srcset="/imager/images/37572/careers-quote-aurelio_cec2f792f5d31d2e3d682446ba8f2a34.jpg 1x, /imager/images/37572/careers-quote-aurelio_0f1e7d55ad1ffab9f0f0dc9e1b8c2a31.jpg 2x" media="(max-width: 1200px)"/>
+        <source srcset="/imager/images/37572/careers-quote-aurelio_b9245d1214c1b47155d73576126d5cfb.jpg 1x, /imager/images/37572/careers-quote-aurelio_931fbb70fe4c7dc04da3bba6b79816dc.jpg 2x" media="(min-width: 1600px)"/>
+        
+    </picture>
+
+                                            </div>
+                                    </div>
+                                                                                    </li>
+                                    </ul>
+                
+                    </div>
+    </div>
+</section>    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                        
+<section>
+    <div data-aos="fade-up" data-aos-duration="1700">
+                    <h2>
+                Benefits
+            </h2>
+                <ul>
+                            <li>
+                                                                        <p>
+                            </p>
+                                                                                                            <p>
+                            Competitive salaries &amp; stock options
+                        </p>
+                                                        </li>
+                            <li>
+                                                                        <p>
+                            </p>
+                                                                                                            <p>
+                            Team events, awesome coworkers, plenty of snacks and cool Tesorio swag
+                        </p>
+                                                        </li>
+                            <li>
+                                                                        <p>
+                            </p>
+                                                                                                            <p>
+                            Paid vacation, sick time, company holidays (including your birthday!)
+                        </p>
+                                                        </li>
+                            <li>
+                                                                        <p>
+                            </p>
+                                                                                                            <p>
+                            Comprehensive Health Insurance (Medical, Dental &amp; Vision)
+                        </p>
+                                                        </li>
+                            <li>
+                                                                        <p>
+                            </p>
+                                                                                                            <p>
+                            401(k) Plan
+                        </p>
+                                                        </li>
+                            <li>
+                                                                        <p>
+                            </p>
+                                                                                                            <p>
+                            Health &amp; Wellness stipend
+                        </p>
+                                                        </li>
+                    </ul>
+    </div>
+</section>            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            
+
+
+<section id="job-openings">
+    <div data-aos="fade-up" data-aos-duration="1700">
+                    <h2>
+                Openings
+            </h2>
+                <div>
+                            <ul>
+                                        <li>
+                        <h3>
+                            
+                        </h3>
+                    </li>
+                                        <li>
+                        <h3>
+                            
+                        </h3>
+                    </li>
+                                        <li>
+                        <h3>
+                            
+                        </h3>
+                    </li>
+                                        <li>
+                        <h3>
+                            
+                        </h3>
+                    </li>
+                                    </ul>
+                                        <ul>
+                                              <li data-type="Sales">
+                            <article>
+                                
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Sales">
+                            <article>
+                                <div>
+                                    <h4>
+                                        Business Development Representative (BDR) Manager: Remote
+                                    </h4>
+
+                                    
+                                </div>
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="CustomerSuccess">
+                            <article>
+                                
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Engineering">
+                            <article>
+                                
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Engineering">
+                            <article>
+                                <div>
+                                    <h4>
+                                        Engineering Manager - LatAm
+                                    </h4>
+
+                                    
+                                </div>
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Engineering">
+                            <article>
+                                
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Engineering">
+                            <article>
+                                <div>
+                                    <h4>
+                                        Senior Backend Engineer - LatAm
+                                    </h4>
+
+                                    
+                                </div>
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="DataScience">
+                            <article>
+                                
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Engineering">
+                            <article>
+                                
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Engineering">
+                            <article>
+                                <div>
+                                    <h4>
+                                        Senior Frontend Engineer - LatAm
+                                    </h4>
+
+                                    
+                                </div>
+
+                                
+                            </article>
+                         </li>
+                                              <li data-type="Sales">
+                            <article>
+                                <div>
+                                    <h4>
+                                        Solution Engineer  (Remote)
+                                    </h4>
+
+                                    
+                                </div>
+
+                                
+                            </article>
+                         </li>
+                                     </ul>
+                    </div>
+    </div>
+</section>    
+    
+    
+    
+    
+    
+    
+    
+    
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 12:00:15 +0000</pubDate>
+      <source>https://www.tesorio.com/careers#job-openings</source>
+    </item>
+    <item>
+      <title>The Babylonians used Pythagorean ideas long before Pythagoras</title>
+      <link>https://www.economist.com/science-and-technology/the-babylonians-used-pythagorean-ideas-long-before-pythagoras/21803301</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_economist_com_science-and-technology_the-babylonians-used-pythagorean-ideas-long-before-pythagoras_21803301/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><header><h2 data-test-id="Article Description" itemprop="description">Surveyors employed them to measure out land</h2></header><div data-test-id="Lead Image"><div itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://www.economist.com/img/b/1280/720/90/sites/default/files/images/2021/08/articles/main/20210807_stp002.jpg"/><p></p></div></div><hr/></div><div itemprop="text"><p data-caps="initial"><span data-caps="initial">M</span><small>OST READERS</small> will have encountered Pythagoras’s theorem about right-angled triangles—that the square on the hypotenuse is equal to the sum of the squares on the other two sides—at school. But the less-mathematically inclined might have been tempted to ask when such knowledge would ever be useful in real life. One answer, predating Pythagoras by over 1,000 years, is in land surveying.</p><div><figure><figcaption>Listen to this story</figcaption><audio controls="" id="audio-player" preload="none" src="https://www.economist.com/media-assets/audio/067%20Science%20and%20technology%20-%20Ancient%20geometry-f702026af39bfa5f9ffa452ef5cd6b42.mp3" title="The Babylonians used Pythagorean ideas long before Pythagoras" controlslist="nodownload"><p>Your browser does not support the &lt;audio&gt; element.</p></audio></figure><p>Enjoy more audio and podcasts on<!-- --> <a id="audio-ios-cta" href="https://apps.apple.com/app/apple-store/id1239397626?pt=344884&amp;ct=article%20audio%20player&amp;mt=8" target="_blank" rel="noreferrer">iOS</a> <!-- -->or<!-- --> <a id="audio-android-cta" href="https://play.google.com/store/apps/details?id=com.economist.lamarr&amp;referrer=utm_source%3Darticle%2520audio%2520player" target="_blank" rel="noreferrer">Android</a>.</p></div><p>Lurking in a museum in Istanbul is a 3,700-year-old clay tablet known as Si.427. It has been there since it was dug up in the 19th century in Sippar, an ancient Babylonian city in what is now Iraq. Only this year, however, has its significance been revealed—by Daniel Mansfield, a mathematician at the University of New South Wales, in Australia. As he describes in <em>Foundations of Science</em>, Dr Mansfield has shown that Si.427 is inscribed with the world’s oldest known example of applied geometry.</p><p>Si.427 seems to have been created by a surveyor defining land boundaries after part of a field was sold. This is, of itself, unremarkable. What is remarkable is that its text describes the use of what are now called Pythagorean triples to draw accurate right angles.</p><p>Pythagorean triples are special cases of Pythagoras’s theorem. They are sets of whole numbers that correspond to the lengths of the sides of particular right-angled triangles. Three, four and five for example, or five, 12 and 13. Another tablet, Plimpton 322, showed many decades ago that the Babylonians knew about these triples. What researchers could not agree on was why they were interested.</p><p>Dr Mansfield’s answer is surveying, for this was a period when agriculture was developing, and with it the idea of land ownership. One way to measure the size of a field is to divide it into rectangles and right-angled triangles, both of which have easily calculated areas. Knowing Pythagorean triples makes drawing the right angles needed to construct these figures easier, and so is useful information. <small>QED</small>.</p><p><em>An early version of this article was published online on August 4th 2021</em></p><p data-test-id="Footnote">This article appeared in the Science &amp; technology section of the print edition under the headline &#34;No need for a protractor&#34;</p></div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 09:19:15 +0000</pubDate>
+      <source>https://www.economist.com/science-and-technology/the-babylonians-used-pythagorean-ideas-long-before-pythagoras/21803301</source>
+    </item>
   </channel>
 </rss>
