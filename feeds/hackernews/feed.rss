@@ -20962,5 +20962,1842 @@ We had been wanting to expand Nedi&#39;s SleepBandits app beyond sleep to all so
       <pubDate>Sun, 08 Aug 2021 07:08:52 +0000</pubDate>
       <source>https://www.xda-developers.com/prototype-airpower-mat/</source>
     </item>
+    <item>
+      <title>; Echo “Shell Injection”</title>
+      <link>https://matklad.github.io//2021/07/30/shell-injection.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+    <article>
+  
+  <p>Jul 30, 2021</p>
+  <div id="preamble">
+<div>
+<p>This is an introductory article about <a href="https://en.wikipedia.org/wiki/Code_injection#Shell_injection">shell injection</a>, a security vulnerability allowing an attacker to execute arbitrary code on the user’s machine.
+This is a well-studied problem, and there are simple and efficient solutions to it.
+It’s relatively easy to design library API in such a way as to shield the application developer from the risk of shell injections.</p>
+<p>There are two reasons why I am writing this post.
+First, this year I’ve pointed out this issue in <a href="https://old.reddit.com/r/rust/comments/ls096k/rust_cmd_lib_v010_to_write_shellscript_like_tasks/goqlv3m/">three</a> <a href="https://lobste.rs/s/9yu5sl/after_discussion_here_i_created_lib_for#c_ckkova">different</a> <a href="https://lobste.rs/s/p1hict/zxpy_tool_for_shell_scripting_python#c_zuaapx">libraries</a>.
+It seems that, although the problem is well-studied, its not well known, so just repeating some things might help.
+Second, I’ve recently reported a related problem about one of the VS Code APIs, and I want to use this piece as an extended GitHub comment :-)</p>
+</div>
+</div>
+<div>
+<h2 id="a-curious-case-of-pwnd-script"><a href="#a-curious-case-of-pwnd-script"></a>A Curious Case Of Pwnd Script</h2>
+<div>
+<p>Shell injection can happen when a program needs to execute another program, and one of the arguments is controlled by the user/attacker.
+As a model example, let’s write a quick script to read a list of URLs from stdin, and run <code>curl</code> for each one of those.</p>
+<p>That’s not realistic, but small and illustrative.
+This is what the script could look like in NodeJS:</p>
+<div>
+<p>curl-all.js</p>
+<div>
+<pre><code data-lang="js"><table><tbody><tr><td><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td><pre><span>const</span> <span>readline</span> <span>=</span> <span>require</span><span>(</span><span>&#39;</span><span>readline</span><span>&#39;</span><span>);</span>
+
+<span>const</span> <span>util</span> <span>=</span> <span>require</span><span>(</span><span>&#39;</span><span>util</span><span>&#39;</span><span>);</span>
+<span>const</span> <span>exec</span> <span>=</span> <span>util</span><span>.</span><span>promisify</span><span>(</span><span>require</span><span>(</span><span>&#39;</span><span>child_process</span><span>&#39;</span><span>).</span><span>exec</span><span>);</span>
+
+<span>async</span> <span>function</span> <span>main</span><span>()</span> <span>{</span>
+  <span>const</span> <span>input</span> <span>=</span> <span>readline</span><span>.</span><span>createInterface</span><span>({</span>
+    <span>input</span><span>:</span> <span>process</span><span>.</span><span>stdin</span><span>,</span>
+    <span>output</span><span>:</span> <span>process</span><span>.</span><span>stdout</span><span>,</span>
+    <span>terminal</span><span>:</span> <span>false</span><span>,</span>
+  <span>});</span>
+
+  <span>for</span> <span>await</span> <span>(</span><span>const</span> <span>line</span> <span>of</span> <span>input</span><span>)</span> <span>{</span>
+    <span>if</span> <span>(</span><span>line</span><span>.</span><span>trim</span><span>().</span><span>length</span> <span>&gt;</span> <span>0</span><span>)</span> <span>{</span>
+      <span>const</span> <span>{</span> <span>stdout</span><span>,</span> <span>stderr</span> <span>}</span> <span>=</span> <span>await</span> <span>exec</span><span>(</span><span>`curl </span><span>${</span><span>line</span><span>}</span><span>`</span><span>);</span>
+      <span>console</span><span>.</span><span>log</span><span>({</span> <span>stdout</span><span>,</span> <span>stderr</span> <span>});</span>
+    <span>}</span>
+  <span>}</span>
+<span>}</span>
+
+<span>main</span><span>()</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>I would have written this in Rust, but, alas, it’s not vulnerable to this particular attack :)</p>
+<p>The interesting line is this one:</p>
+<div>
+<div>
+<pre><code data-lang="js"><table><tbody><tr><td><pre>1
+</pre></td><td><pre><span>const</span> <span>{</span> <span>stdout</span><span>,</span> <span>stderr</span> <span>}</span> <span>=</span> <span>await</span> <span>exec</span><span>(</span><span>`curl </span><span>${</span><span>line</span><span>}</span><span>`</span><span>);</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>Here, we use are using <a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback"><code>exec</code></a> API from node to spawn a child <code>curl</code> process, passing a line of input as an argument.</p>
+<p>Seems to work for simple cases?</p>
+<div>
+<div>
+<pre><code><table><tbody><tr><td><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td><pre>$ cat urls.txt
+https://example.com
+
+$ node curl-all.js &lt; urls.txt
+{
+  stdout: &#39;&lt;!doctype html&gt;...&lt;/html&gt;\n&#39;,
+  stderr: &#39;% Total    % Received ...&#39;
+}
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>But what if we use a slightly more imaginative input?</p>
+<div>
+<div>
+<pre><code><table><tbody><tr><td><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td><pre>$ node main.js &lt; malice_in_the_wonderland.txt
+{
+  stdout: &#39;PWNED, reading your secrets from /etc/passwd\n&#39; +
+    &#39;root:x:0:0:System administrator:/root:/bin/fish\n&#39; +
+    &#39;...&#39; +
+    &#39;matklad:x:1000:100::/home/matklad:/bin/fish\n&#39;,
+  stderr: &#34;curl: try &#39;curl --help&#39; for more information\n&#34;
+}
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>That feels bad — seems that the script somehow reads the contents of my <code>/etc/passwd</code>.
+How did this happen, we’ve only invoked <code>curl</code>?</p>
+</div>
+</div>
+<div>
+<h2 id="spawning-a-process"><a href="#spawning-a-process"></a>Spawning a Process</h2>
+<div>
+<p>To understand what have just happened, we need to learn a bit about how spawning a process works in general.
+This section is somewhat UNIX-specific — things are implemented a bit differently on Windows.
+Nonetheless, the big picture conclusions hold there as well.</p>
+<p>The main API to run a program with command line arguments is the <code>exec</code> family of functions.
+For example, here’s <code>execve</code>:</p>
+<div>
+<div>
+<pre><code data-lang="c"><table><tbody><tr><td><pre>1
+2
+</pre></td><td><pre><span>int</span> <span>execve</span><span>(</span><span>const</span> <span>char</span> <span>*</span><span>pathname</span><span>,</span> <span>char</span> <span>*</span><span>const</span> <span>argv</span><span>[],</span>
+           <span>char</span> <span>*</span><span>const</span> <span>envp</span><span>[]);</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>It takes the name of the program (<code>pathname</code>), a list of command line arguments (<code>argv</code>), and a list of environment variable for the new process (<code>envp</code>), and uses those to run the specified binary.
+How exactly this happens is a fascinating story with many forks in the plot, but it is beyond the scope of the article.</p>
+<p>What is curious though, is that while the underlying system API wants an array of arguments, the <code>child_process.exec</code> function from node takes only a single string: <code>exec(&#34;curl http://example.com&#34;)</code>.</p>
+<p>Let’s find out!
+To do that, we’ll use the <a href="https://strace.io">strace</a> tool.
+This tool inspects (traces) all the system calls invoked by the program.
+We’ll ask <code>strace</code> to look for <code>execve</code> in particular, to understand how node’s <code>exec</code> maps to the underlying system’s API.
+We’ll need the <code>--follow</code> argument to trace all processes, and not just the top-level one.
+To reduce the amount of output and only print <code>execve</code>, we’ll use the <code>--trace</code> flag:</p>
+<div>
+<div>
+<pre><code><table><tbody><tr><td><pre>1
+2
+3
+4
+5
+6
+</pre></td><td><pre>$ strace --follow --trace execve node main.js &lt; urls.txt
+execve(&#34;/bin/node&#34;, [&#34;node&#34;, &#34;curl-all.js&#34;], 0x7fff97776be0)
+...
+execve(&#34;/bin/sh&#34;, [&#34;/bin/sh&#34;, &#34;-c&#34;, &#34;curl https://example.com&#34;], 0x3fcacc0)
+...
+execve(&#34;/bin/curl&#34;, [&#34;curl&#34;, &#34;https://example.com&#34;], 0xec4008)
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>The first <code>execve</code> we see here is our original invocation of the <code>node</code> binary itself.
+The last one is what we want to do — spawn <code>curl</code> with a single argument, an url.
+And the middle one is what node’s <code>exec</code> actually does.</p>
+<p>Let’s take a closer look:</p>
+<div>
+<div>
+<pre><code><table><tbody><tr><td><pre>1
+</pre></td><td><pre>/bin/sh -c &#34;curl https://example.com&#34;
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>Here, node invokes the <code>sh</code> binary (system’s shell) with two arguments: <code>-c</code> and the string we originally passed to <code>child_process.exec</code>.
+<code>-c</code> stands for command, and instructs the shell to interpret the value as a shell command, parse, it and then run it.</p>
+<p>In other words, rather then running the command directly, node asks the shell to do the heavy lifting.
+But the shell is an interpreter of the shell language, and, by carefully crafting the input to <code>exec</code>, we can ask it to run arbitrary code.
+In particular, that’s what we used as a payload in the bad example above:</p>
+<div>
+<p>malice_in_the_wonderland.txt</p>
+<div>
+<pre><code><table><tbody><tr><td><pre>1
+</pre></td><td><pre>; echo &#39;PWNED, reading your secrets from /etc/passwd&#39; &amp;&amp; cat /etc/passwd
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>After the string interpolation, the resulting command was</p>
+<div>
+<div>
+<pre><code><table><tbody><tr><td><pre>1
+</pre></td><td><pre>/bin/sh -c &#34;curl; echo &#39;...&#39; &amp;&amp; cat /etc/passwd&#34;
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>That is, first run <code>curl</code>, then <code>echo</code>, then read the <code>/etc/passwd</code>.</p>
+</div>
+</div>
+<div>
+<h2 id="those-who-study-history-are-doomed-to-repeat-it"><a href="#those-who-study-history-are-doomed-to-repeat-it"></a>Those Who Study History Are Doomed to Repeat It</h2>
+<div>
+<p>There’s an equivalent safe API in node: <a href="https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options"><code>spawn</code></a>.
+unlike <code>exec</code>, it uses an array of arguments rather then a single string.</p>
+<div>
+<div>
+<pre><code data-lang="js"><table><tbody><tr><td><pre>1
+2
+</pre></td><td><pre><span>-</span>  <span>exec</span><span>(</span><span>`curl </span><span>${</span><span>line</span><span>}</span><span>`</span><span>)</span>
+<span>+</span> <span>spawn</span><span>(</span><span>&#34;</span><span>curl</span><span>&#34;</span><span>,</span> <span>line</span><span>)</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>Internally, the API bypasses the shell and uses <code>execve</code> directly.
+Thus, this API is not vulnerable to shell injection — attacked can run <code>curl</code> with bad arguments, but it can’t run something else than <code>curl</code>.</p>
+<p>Note that it’s easy to implement <code>exec</code> in terms of <code>spawn</code>:</p>
+<div>
+<div>
+<pre><code data-lang="js"><table><tbody><tr><td><pre>1
+2
+3
+</pre></td><td><pre><span>function</span> <span>myExec</span><span>(</span><span>cmd</span><span>)</span> <span>{</span>
+  <span>return</span> <span>spawn</span><span>(</span><span>&#34;</span><span>/bin/sh</span><span>&#34;</span><span>,</span> <span>&#34;</span><span>-c</span><span>&#34;</span><span>,</span> <span>cmd</span><span>)</span>
+<span>}</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>It’s a common pattern among many languages:</p>
+<div>
+<ul>
+<li>
+<p>there’s an <code>exec</code>-style function that takes a string and spawns <code>/bin/sh -c</code> under the hood,</p>
+</li>
+<li>
+<p>the docs for this function include a giant disclaimer, saying that using it with user input is a bad idea,</p>
+</li>
+<li>
+<p>there’s a safe alternative which takes arguments as an array and spawns the process directly.</p>
+</li>
+</ul>
+</div>
+<p>Why provide an exploitable API, while a safe version is possible and is more direct?
+I don’t know, but my guess is that it’s mostly just history.
+C has <a href="https://en.cppreference.com/w/c/program/system"><code>system</code></a>, Perl’s backticks correspond directly to that, Ruby got backticks from Perl, Python just has <code>system</code>, node was probably influenced by all these scripting languages.</p>
+<p>Note that security isn’t the only issue with <code>/bin/sh -c</code> based API.
+Read <a href="https://julialang.org/blog/2012/03/shelling-out-sucks/">this other post</a> to learn about the rest of the problems.</p>
+</div>
+</div>
+<div>
+<h2 id="take-aways"><a href="#take-aways"></a>Take Aways</h2>
+<div>
+<p>If you are an <em>application developer</em>, be aware that this issue exists.
+Read the language documentation carefully — most likely, there are two flavors of process spawning functions.
+Note how shell injection is similar to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a> and <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a>.</p>
+<p>If you <em>develop a library</em> for conveniently working with external processes, use and expose only the shell-less API from the underlying platform.</p>
+<p>If you <em>build a new platform</em>, don’t provide <code>bin/sh -c</code> API in the first place.
+Be like <a href="https://deno.land/manual@v1.12.2/examples/subprocess">deno</a> (and also Go, Rust, Julia), don’t be like <a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback">node</a> (and also Python, Ruby, Perl, C).
+If you <em>have</em> to maintain such API for legacy reasons, clearly document the issue about shell injection.
+Documenting how to do <code>/bin/sh -c</code> by hand might also be a good idea.</p>
+<p>If you are <em>designing a programming language</em>, be careful with string interpolation syntax.
+It’s important that string interpolation can be used to spawn a command in a safe way.
+That mostly means that library authors should be able to deconstruct a <code>&#34;cmd -j $arg1 -f $arg2&#34;</code> literal into two (compile-time) arrays: <code>[&#34;cmd -j &#34;, &#34; -f &#34;]</code> and <code>[arg1, arg2]</code>.
+If you don’t provide this feature in the language, library authors will split the interpolated string, which would be unsafe (not only for shelling out — for SQLing or HTMLing as well).
+Good examples to learn from are JavaScript’s
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates">tagged templates</a>
+and Julia’s
+<a href="https://julialang.org/blog/2013/04/put-this-in-your-pipe/#do-nothing_backticks">backticks</a>.</p>
+</div>
+</div>
+<div>
+<h2 id="whats-about-vs-code"><a href="#whats-about-vs-code"></a>What’s About VS Code?</h2>
+<div>
+<p>Oh, right, the actual reason why I am writing this thing.
+The TL;DR for this section is that I want to complain about a specific API design a bit.</p>
+<p>This story begins in <a href="https://github.com/rust-analyzer/rust-analyzer/issues/9058">#9058</a>.</p>
+<p>I was happily hacking on some Rust library.
+At some point I pressed the “run tests” button in <a href="https://rust-analyzer.github.io">rust-analyzer</a>.
+And, surprised, accidentally pwned myself!</p>
+<div>
+<div>
+<pre><code><table><tbody><tr><td><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+</pre></td><td><pre>Executing task: cargo test --doc -- Plotter&lt;D&gt;::line_fill --nocapture
+
+warning: An error occurred while redirecting file &#39;D&#39;
+open: No such file or directory
+
+The terminal process
+/bin/fish &#39;-c&#39;, &#39;cargo test --doc -- Plotter&lt;D&gt;::line_fill --nocapture&#39;
+failed to launch (exit code: 1).
+
+Terminal will be reused by tasks, press any key to close it.
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>That was disappointing.
+C’mon, how come there’s a shell injection in the code I help to maintain?
+While this is not a big problem for rust-analyzer (our security model assumes trusted code, as each of <code>rustup</code>, <code>cargo</code>, and <code>rustc</code> can execute arbitrary code by design), it’s definitely was big blow to my aesthetics sensibilities!</p>
+<p>Looking at the git history, it was me who had missed “concatenate arguments into a single string” during review.
+So I was definitely a part of the problem here.
+But the other part is that the API that takes a single string exists at all.</p>
+<p>Let’s look at the API:</p>
+<div>
+<div>
+<pre><code data-lang="ts"><table><tbody><tr><td><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+</pre></td><td><pre><span>export</span> <span>class</span> <span>ShellExecution</span> <span>{</span>
+  <span>/**
+    * Creates a shell execution with a full command line.
+    *
+    * @param commandLine The command line to execute.
+    * @param options Optional options for the started the shell.
+    */</span>
+  <span>constructor</span><span>(</span>
+    <span>commandLine</span><span>:</span> <span>string</span><span>,</span>
+    <span>options</span><span>?:</span> <span>ShellExecutionOptions</span>
+  <span>);</span>
+
+  <span>/* ... */</span>
+<span>}</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>So, this is exactly what I am describing — a process-spawning API that takes a single string.
+I guess, in this case this <em>might</em> even be justified — the API opens a literal shell in the GUI, and the user can interact with it after the command finishes.</p>
+<p>Anyway, after looking around I quickly found another API, which <em>seemed</em> (ominous music in the background) like what I was looking for:</p>
+<div>
+<div>
+<pre><code data-lang="ts"><table><tbody><tr><td><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td><pre><span>export</span> <span>class</span> <span>ShellExecution</span> <span>{</span>
+  <span>/**
+    * Creates a shell execution with a command and arguments.
+    * For the real execution the editor will construct a
+    * command line from the command and the arguments. This
+    * is subject to interpretation especially when it comes to
+    * quoting. If full control over the command line is needed
+    * please use the constructor that creates a `ShellExecution`
+    * with the full command line.
+    *
+    * @param command The command to execute.
+    * @param args The command arguments.
+    * @param options Optional options for the started the shell.
+    */</span>
+  <span>constructor</span><span>(</span>
+    <span>command</span><span>:</span> <span>string</span> <span>|</span> <span>ShellQuotedString</span><span>,</span>
+    <span>args</span><span>:</span> <span>(</span><span>string</span> <span>|</span> <span>ShellQuotedString</span><span>)[],</span>
+    <span>options</span><span>?:</span> <span>ShellExecutionOptions</span>
+  <span>);</span>
+<span>}</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<p>The API takes a array of strings.
+It also tries to say something about quoting, which is a good sign!
+The wording is perplexing, but seems that it struggles to explain to me that passing <code>[&#34;ls&#34;, &#34;&gt;&#34;, &#34;out.txt&#34;]</code> won’t actually redirect, because <code>&gt;</code> will get quoted.
+This is exactly what I want!
+The absence of any kind of a security note on both APIs is concerning, but oh well.</p>
+<p>So, I refactored the code to use this second constructor, and, 🥁 🥁 🥁, it still had the exact same behavior!
+Turns out that this API takes an array of arguments, and just concatenates them, unless I explicitly say that each argument needs to be escaped.</p>
+<p>And <em>this</em> is what I am complaining about — that the API looks like it is safe for an untrusted user input, while it is not.
+This is misuse resistance resistance.</p>
+<p>That’s all, thanks for reading!</p>
+</div>
+</div>
+</article>
+
+  </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:29:31 +0000</pubDate>
+      <source>https://matklad.github.io//2021/07/30/shell-injection.html</source>
+    </item>
+    <item>
+      <title>Increase HTTP performance by fitting in the initial TCP slow start window</title>
+      <link>https://sirupsen.com/napkin/problem-15/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="article-content">
+<p>
+This is an edition of the <a href="https://sirupsen.com/napkin/">Napkin Math newsletter</a>,
+a newsletter about using napkin math and first-principle thinking to
+estimate the performance of systems.
+You can <a href="https://sirupsen.com/napkin">subscribe through email.</a>
+</p>
+<p>Did you know that if your site’s under ~12kb the first page will load
+significantly faster? Servers only send a few packets (typically 10)
+in the initial round-trip while TCP is warming up (referred to as TCP slow
+start). After sending the first set of packets, it needs to wait for
+the client to acknowledge it received all those packets.</p>
+<p>Quick illustration of transferring ~15kb with an initial TCP slow start window
+(also referred to as initial congestion window or <code>initcwnd</code>) of 10 versus 30:</p>
+<p></p>
+<p>The larger the initial window, the more we can transfer in the first roundtrip,
+the faster your site is on the initial page load. For a large roundtrip time
+(e.g. across an ocean), this will start to matter a lot. Here is the approximate
+size of the initial window for a number of common hosting providers:</p>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>First Roundtrip Bytes (<code>initcwnd</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://readwise.io/">Heroku</a></td>
+<td>~12kb (10 packets)</td>
+</tr>
+<tr>
+<td><a href="https://www.onepeloton.ca/">Netlify</a></td>
+<td>~12kb (10 packets)</td>
+</tr>
+<tr>
+<td><a href="https://yellowco.co/">Squarespace</a></td>
+<td>~12kb (10 packets)</td>
+</tr>
+<tr>
+<td><a href="https://fashionnova.com/">Shopify</a></td>
+<td>~12kb (10 packets)</td>
+</tr>
+<tr>
+<td><a href="https://tailwindcss.com/">Vercel</a></td>
+<td>~12kb (10 packets)</td>
+</tr>
+<tr>
+<td><a href="https://www.cutsandbruisesbarbershop.com/">Wix</a></td>
+<td>~40kb (~30 packets)</td>
+</tr>
+<tr>
+<td><a href="https://www.fastly.com/">Fastly</a></td>
+<td>~40kb (~30 packets)</td>
+</tr>
+<tr>
+<td><a href="https://demos.creative-tim.com">Github Pages</a></td>
+<td>~40kb (~33 packets)</td>
+</tr>
+<tr>
+<td><a href="https://sirupsen.com/static/html/network-napkin/100kb">Cloudflare</a></td>
+<td>~40kb (~33 packets)</td>
+</tr>
+</tbody>
+</table>
+<p>To generate this, I wrote a script that you can use <a href="https://github.com/sirupsen/initcwnd"><code>sirupsen/initcwnd</code></a> to
+analyze your own site. Based on the report, you can attempt to tune your page
+size, or tune your server’s initial slow start window size (<code>initcwnd</code>) (see
+bottom of article). Read on, and we’ll go into far more detail!</p>
+<p></p>
+<hr/>
+<p>Dear Napkin Mathers, it’s been too long. Since last, I’ve left Shopify after 8
+amazing years. Ride of a lifetime. For the time being, I’m passing the time with
+standup paddleboarding (did a 125K 3-day trip the week after I left),
+recreational programming (of which napkin math surely is a part), and learning
+some non-computer things.</p>
+<p>In this issue, we’ll dig into the details of exactly what happens on the wire
+when we do the initial page load of a website over HTTP. As I’ve already hinted
+at, we’ll show that there’s a magical byte threshold to be aware of when
+optimizing for short-lived, bursty TCP transfers. If you’re under this threshold,
+or increase it, it’ll potentially save the client from several roundtrips.
+Especially for sites with a single location that are often requested from far
+away (i.e. high roundtrip times), e.g. US -&gt; Australia, this can make a <em>huge</em>
+difference. That’s likely the situation you’re in if you’re operating a
+SaaS-style service. While we’ll focus on HTTP over the public internet, TCP slow
+start can also matter to RPC inside of your data-centre, and especially across
+them.</p>
+<p>As always, we’ll start by laying out our naive mental model about how we <em>think</em>
+loading a site works at layer 4. Then we’ll do the napkin math on expected
+performance, and confront our fragile, naive model with reality to see if it
+lines up.</p>
+<p>So what do we think happens at the TCP-level when we request a site? For
+simplicity, we will exclude compression, DOM rendering, Javascript, etc., and
+limit ourselves exclusively to downloading the HTML. In other words: <code>curl --http1.1 https://sirupsen.com &gt; /dev/null</code> (note that <a href="https://github.com/sirupsen/initcwnd"><code>sirupsen/initcwnd</code></a>
+uses <code>--compressed</code> with <code>curl</code> to reflect reality).</p>
+<p>We’d expect something alone the lines of:</p>
+<ul>
+<li>1 DNS roundtrip (we’ll ignore this one, typically cached close by)</li>
+<li>1 TCP roundtrip to establish the connection (<code>SYN</code> and <code>SYN+ACK</code>)</li>
+<li>2 TLS roundtrips to negotiate a <em>secure</em> connection</li>
+<li>1 HTTP roundtrip to request the page and the server sending it</li>
+</ul>
+<p></p>
+<p>To make things a little more interesting, we’ll choose a site that is
+geographically further from me that isn’t overly optimized: <code>information.dk</code>, a
+Danish newspaper. Through some DNS lookups from servers in different geographies
+and by using <a href="https://bgp.he.net/ip/109.238.50.144">a looking glass</a>, I can determine that all their HTML traffic
+is always routed to a datacenter in Copenhagen. These days, many sites are
+routed through e.g. Cloudflare POPs which will have a nearby data-centre, to
+simplify our analysis, we want to make sure that’s not the case.</p>
+<p>I’m currently sitting in South-Western Quebec on an LTE connection. I can
+determine <a href="https://cln.sh/5Br6AV">through <code>traceroute(1)</code></a> that my traffic is travelling to
+Copenhagen through the path Montreal -&gt; New York -&gt; Amsterdam -&gt; Copenhagen.
+<a href="https://cln.sh/CFgnEZ">Round-trip time is ~140ms</a>.</p>
+<p></p>
+<p>If we add up the number of round-trips from our napkin model above (excluding
+DNS), we’d expect loading the Danish site would take us <code>4 * 140ms = 560ms</code>.
+Since I’m on an LTE connection where I’m not getting much above 15 mbit/s, we
+have to factor in that it takes another <a href="https://www.wolframalpha.com/input/?i=160kb+at+15+mbit%2Fs">~100ms to transfer the data</a>,
+in addition to the 4 round-trips. So with our napkin math, we’re expecting that
+we should be able to download the 160kb of HTML from a server in Copenhagen
+within a ballpark of <code>~660ms</code>.</p>
+<p>Reality, however, has other plans. When I run time <code>curl --http1.1 https://www.information.dk</code> it takes 1.3s! Normally we say that if the napkin
+math is within ~10x, the napkin math is likely in line with reality, but
+that’s typically when we deal with nano and microseconds. Not off by
+~<code>640ms</code>!</p>
+<p>So what’s going on here? When there’s a discrepancy between the napkin math and
+reality, it’s because either (1) the napkin model of the world is incorrect, or
+(2) there’s room for optimization in the system. In this case, it’s a bit of
+both. Let’s hunt down those 640ms. 👀</p>
+<p>To do that, we have to analyze the raw network traffic with Wireshark. Wireshark
+brings back many memories.. some fond, but mostly… frustration trying to
+figure out causes of intermittent network problems. In this case, for once it’s
+for fun and games! We’ll type <code>host www.information.dk</code> into Wireshark to make
+it capture traffic to the site. In our terminal we run the <code>curl</code> command above
+for Wireshark to have something to capture.</p>
+<p>Wireshark will then give us a nice GUI to help us hunt down the roughly half a
+second we haven’t accounted for. One thing to note is that in order to get
+Wireshark to understand the TLS/SSL contents of the session it needs to know the
+secret negotiated with the server. There’s a complete guide <a href="https://everything.curl.dev/usingcurl/tls/sslkeylogfile">here</a>, but
+in short you pass <code>SSLKEYLOGFILE=log.log</code> to your <code>curl</code> command and then point
+to that file in Wireshark in the TLS configuration.</p>
+<h2 id="problem-1-3-tls-roundtrips-rather-than-2">Problem 1: 3 TLS roundtrips rather than 2</h2>
+<p></p>
+<p>We see the TCP roundtrip as expected, <code>SYN</code> from the client, then <code>SYN+ACK</code> from
+the server. Bueno. But after that it looks fishy. We’re seeing <em>3</em> round-trips
+for TLS/SSL instead of the expected 2 from our drawing above!</p>
+<p></p>
+<p>To make sure I wasn’t misunderstanding something, I double-checked with
+<code>sirupsen.com</code>, and sure enough, it’s showing the two roundtrips in Wireshark as
+anticipated:</p>
+<p></p>
+<p>If we carefully study the annotated Wireshark dump above for the Danish
+newspaper, we can see that the problem is that for whatever reason the server is
+waiting for a TCP ack in the middle of transmitting the certificate (packet 9).</p>
+<p>To make it a easier to parse, the exchange looks like this:</p>
+<p></p>
+<p>Why is the server waiting for a TCP ACK from the client after transmitting ~4398
+bytes of the certificate? Why doesn’t the server just send the whole certificate
+at once?</p>
+<h2 id="bytes-in-flight-or-the-initial-congestion-window">Bytes in flight or the “initial congestion window”</h2>
+<p>In TCP, the server carefully monitors how many packets/bytes it has in flight.
+Typically, each packet is ~1460 bytes of application data. The server doesn’t
+necessarily send <em>all</em> the data it has at once, because the server doesn’t know
+how “fat” the pipes are to the client. If the client can only receive 64 kbit/s
+currently, then sending e.g. 100 packets could completely clog the network. The
+network most likely will drop some random packets which would be even slower to
+compensate from than sending the packets at a more sustainable pace for the
+client.</p>
+<p>A <em>major</em> part of the TCP protocol is the balancing act of trying to send as
+much data as possible at any given time, while ensuring the server doesn’t
+over-saturate the path to the client and lose packets. Losing packets is very
+bad for bandwidth in TCP.</p>
+<p>The server only keeps a certain amount of packets in flight at any given time.
+“In flight” in TCP terms means “unacknowledged” packets, i.e. packets of data
+the server has sent to the client that the client hasn’t yet sent an
+acknowledgement to the server that it has received. Typically for every
+successfully acknowledged packet the server’s TCP implementation will decide to
+increase the number of allowed in-flight packets by 1. You may have heard this
+simple algorithm referred to as “TCP slow start.” On the flip-side, if a packet
+has been dropped then the server will decide to have slightly less bytes in
+flight. Throughout the existence of the TCP connection’s lifetime this dance
+will be tirelessly performed. In TCP terms what we’ve called “in-flight” is
+referred to as the “congestion window” (or <code>cwnd</code> in short-form).</p>
+<p></p>
+<p>Typically after the first packet has been lost the TCP implementation switches
+from the simple TCP slow start algorithm to a more complicated <a href="https://upload.wikimedia.org/wikipedia/commons/2/24/TCP_Slow-Start_and_Congestion_Avoidance.svg">“Congestion
+Control Algorithm”</a> of which there are dozens. Their job is: Based on what
+we’ve observed about the network, how much should we have in flight to maximize
+bandwidth?</p>
+<p>Now we can go back and understand why the TLS handshake is taking 3 roundtrips
+instead of 2. After the client’s starts the TLS handshake with <code>TLS HELLO</code>, the
+Danish server really, really wants to transfer this ~6908 byte certificate.
+Unfortunately though the server’s congestion window (packets in flight allowed) at
+the time just isn’t large enough to accommodate the whole certificate!</p>
+<p>Put another way, the server’s TCP implementation has decided it’s <em>not</em>
+confident the poor client can receive that many tasty bytes all at once yet –
+so it sends a petty 4398 bytes of the certificate. Of course, 63% of a
+certificate isn’t enough to move on with the TLS handshake… so the client
+sighs, sends a TCP ACK back to the server, which then sends the meager 2510 left
+of the certificate so the client can move on to perform its part of the TLS
+handshake.</p>
+<p>Of course, this all seems a little silly… first of all, why is the certificate
+6908 bytes?! For comparison, it’s 2635 for my site. Although that’s not too
+interesting to me. What’s more interesting is why is the server only sending
+6908 bytes? That seems scanty for a modern web server!</p>
+<p>In TCP how many packets we can send on a brand new connection before we know
+<em>anything</em> about the client is called the “initial congestion window.” In a
+configuration context, this is called <code>initcwnd</code>. If you reference the yellow
+graph above with the packets in flight, that’s the value at the first roundtrip.</p>
+<p>These days, the default for a Linux server is 10 packets, or <code>10 * 1460 = 14600 bytes</code>, where 1460 is roughly the data payload of each packet. That would’ve fit
+that monster certificate of the Danish newspaper. Clearly that’s not their
+<code>initcwd</code> since then the server wouldn’t have patiently waited for my ACK.
+Through some digging it appears that prior to <a href="https://blog.cloudflare.com/optimizing-the-linux-stack-for-mobile-web-per/">Linux 3.0.0 <code>initcwnd</code> was
+3</a>, or ~<code>3 * 1460 = 4380</code> bytes! That approximately lines up, so it seems
+that the Danish newspaper’s <code>initcwnd</code> is 3. We don’t know for sure it’s Linux,
+but we know the <code>initcwnd</code> is 3.</p>
+<p>Because of the exponential growth of the packets in flight, <code>initcwnd</code> matters
+quite a bit for how much data we can send in those first few precious
+roundtrips:</p>
+<p></p>
+<p>As we saw in the intro, it’s common among CDNs to raise the values from the
+default to e.g. 32 (~46kb). This makes sense, as you might be transmitting
+images of many megabytes. Waiting for TCP slow start to get to this point can
+take a few roundtrips.</p>
+<p>Another other reasons, this is also why HTTP2/HTTP3 moved in the direction of
+moving more data through the same connection as it has an already “warm” TCP
+session. “Warm” meaning that the congestion window / bytes in flight has already
+been increased generously from the initial by the server.</p>
+<p>The TCP slow start window is also part of why points of presence (POPs) are
+useful. If you connect to a POP in front of your website that’s 10ms
+away, negotiate TLS with the POP, and the POP already has a warm connection
+with the backend server 100ms away – this improves performance dramatically,
+with no other changes. From <code>4 * 100ms = 400ms</code> to <code>3 * 10ms + 100ms = 130ms</code>.</p>
+<h2 id="how-many-roundtrips-for-the-http-payload">How many roundtrips for the HTTP payload?</h2>
+<p>Now we’ve gotten to the bottom of why we have 3 TLS roundtrips rather than the
+expected 2: the initial congestion window is small. The congestion window
+(allowed bytes in flight by the server) applies equally to the HTTP payload
+that the server sends back to us. If it doesn’t fit inside the congestion
+window, then we need multiple round-trips to receive all the HTML.</p>
+<p>In Wireshark, we can pull up a TCP view that’ll give us an idea of how many
+roundtrips was required to complete the request (<a href="https://github.com/sirupsen/initcwnd"><code>sirupsen/initcwnd</code></a> tries to
+guess this for you with an embarrassingly simple algorithm):</p>
+<p></p>
+<p>We see the TCP roundtrip, 3 TLS roundtrips, and then 5-6 HTTP roundtrips to get
+the ~160kb page! Each little dot in the picture shows a packet, so you’ll notice
+that the congestion window (allowed bytes in flight) is roughly doubling every
+roundtrip. The server is increasing the size of the window for every successful
+roundtrip. A ‘successful roundtrip’ means a roundtrip that didn’t drop packets, and
+in some <a href="https://cloud.google.com/blog/products/networking/tcp-bbr-congestion-control-comes-to-gcp-your-internet-just-got-faster">newer algorithms</a>, a roundtrip that didn’t take too much time.</p>
+<p>Typically, the server will continue to double the number of packets (~1460 bytes each) for each successful roundtrip until either an unsuccessful roundtrip happens (slow or dropped packets), <em>or</em> the bytes in flight would exceed the <em>client’s</em> receive window.</p>
+<p>When a TCP session starts, the client will advertise how many bytes <em>it</em> allows in flight. This typically is much larger than the server is wiling to send off the bat. We can pull this up in the initial <code>SYN</code> package from the client and see that it’s ~65kb:</p>
+<p></p>
+<p>If the session had been much longer and we pushed up against that window, the client would’ve sent a TCP package updating the size of the receive window. So there’s two windows at play: the server manages the number of packets in flight: the <em>congestion window</em>. The congestion window is controlled by the server’s <em>congestion algorithm</em> which is adjusted based on the number of successful roundtrips, but always capped by the client’s <em>receive window</em>.</p>
+<p>Let’s look at the amount of packets transmitted by the server in each roundtrip:</p>
+<ul>
+<li>TLS roundtrip: 3 packets (~4kb)</li>
+<li>HTTP roundtrip 1: 6 (~8kb)</li>
+<li>HTTP roundtrip 2: 10 (~14kb)</li>
+<li>HTTP roundtrip 3: 17 (~24kb)</li>
+<li>HTTP roundtrip 4: 29 (~41kb)</li>
+<li>HTTP roundtrip 5: 48 (~69kb, this in theory would have exceeded the 64kb current
+receive window since the client didn’t enlarge it for some reason. The server
+only transmitted ~64kb)</li>
+<li>HTTP roundtrip 6: 9 (12kb, just the remainder of the data)</li>
+</ul>
+<p>The growth of the congestion window is a <em>textbook</em> cubic function, it has a
+<a href="https://www.wolframalpha.com/input/?i=cubic+fit+3%2C+6%2C+10%2C+17%2C+29%2C+48">perfect fit</a>:</p>
+<p></p>
+<p>I’m not entirely sure why it follows a cubic function. I expected TCP slow start
+to just double every roundtrip. 🤷 As far as I can gather, on modern TCP
+implementation the congestion window is doubled every roundtrip until a packet
+is lost (as is the case for most other sites I’ve analyzed, e.g. the session in
+the screenshot below). After <em>that</em> we might move to a cubic growth. This
+might’ve changed later on? It’s completely up to the TCP implementation.</p>
+<p>This is part of why I wrote <code>sirupsen/initcwnd</code> to spit out the size of the
+windows, so you don’t have to do any math or guesswork, here for a Github repo
+(uncompressed):</p>
+<p></p>
+<h2 id="consolidating-our-new-model-with-the-napkin-math">Consolidating our new model with the napkin math</h2>
+<p>So now we can explain the discrepancy between our simplistic napkin math model
+and reality. We assumed 2 TLS roundtrips, but in fact there was 3, because of
+the low initial congestion window by the server. We also assumed 1 HTTP
+roundtrip, but in fact there was 6, because the server’s congestion window and
+client’s receive window didn’t allow sending everything at once. This brings our
+total roundtrips to <code>1 + 3 + 6 = 10</code> roundtrips. With our roundtrip time at
+130ms, this lines up perfectly with the 1.3s total time we observed at the top
+of the post! This suggests our new, updated mental model of the system reflects
+reality well.</p>
+<h2 id="ok-cool-but-how-do-i-make-my-own-website-faster">Ok cool but how do I make my own website faster?</h2>
+<p>Now that we’ve analyzed this website together, you can use this to analyze your
+own website and optimize it. You can do this by running
+<a href="https://github.com/sirupsen/initcwnd"><code>sirupsen/initcwnd</code></a> against your website. It uses some very simple
+heuristics to guess the windows and their size. They don’t work always,
+especially not if you’re on a slow connection or the website streams the
+response back to the client, rather than sending it all at once.</p>
+<p>Another thing to be aware of is that the Linux kernel (and likely other kernels)
+caches the congestion window size (among other things) with clients via the
+route cache. This is great, because it means that we don’t have to renegotiate
+it from scratch when a client reconnects. But it might mean that subsequent runs
+against the same website will give you a far larger <code>initcwnd</code>. The lowest you
+encounter will be the right one. Note also that a site might have a fleet with
+servers that have different <code>initcwnd</code> values!</p>
+<p>The output of <code>sirupsen/initcwnd</code> will be something like:</p>
+<p></p>
+<p>Here we can see the size of the TCP windows. The initial window was 10 packets
+for Github.com, and then doubles every roundtrip. The last window isn’t a full
+80 packets, because there wasn’t enough bytes left from the server.</p>
+<p>With this result, we could decide to change the <code>initcwnd</code> to a higher value to
+try to send it back in fewer roundtrips. This might, however, have drawbacks
+for clients on slower connections and should be done with care. It does show
+some promise that CDNs have values in the 30s. Unfortunately I don’t have access
+to enough traffic to see for myself to study this, as <a href="https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-initcwnd">Google did</a> when
+they championed the change from a default of 3 to 10. That document also
+explains potential drawbacks in more detail.</p>
+<p>The most practical day-to-day takeaway might be that e.g. base64 inlining images
+and CSS may come with serious drawbacks if it throws your site over a congestion
+window threshold.</p>
+<p>You can change <code>initcwnd</code> with the <code>ip(1)</code> command on Linux, from here to the
+default 10 to 32:</p>
+<div><pre><code data-lang="bash">simon@netherlands:~$ ip route show
+default via 10.164.0.1 dev ens4 proto dhcp src 10.164.0.2 metric <span>100</span>
+10.164.0.1 dev ens4 proto dhcp scope link src 10.164.0.2 metric <span>100</span>
+
+simon@netherlands:~$ sudo ip route change default via 10.164.0.1 dev ens4 proto dhcp src 10.164.0.2 metric <span>100</span> initcwnd <span>32</span> initrwnd <span>32</span>
+
+simon@netherlands:~$ ip route show
+default via 10.164.0.1 dev ens4 proto dhcp src 10.164.0.2 metric <span>100</span> initcwnd <span>32</span> initrwnd <span>32</span>
+10.164.0.1 dev ens4 proto dhcp scope link src 10.164.0.2 metric <span>100</span>
+</code></pre></div><p>Another key TCP setting it’s worth tuning for TCP is
+<code>tcp_slow_start_after_idle</code>. It’s a good name: by default when set to 1, it’ll
+renegotiate the congestion window after a few seconds of no activity (while you
+read on the site). You probably want to set this to 0 in
+<code>/proc/sys/net/ipv4/tcp_slow_start_after_idle</code> so it remembers the congestion
+window for the next page load.</p>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 06:27:56 +0000</pubDate>
+      <source>https://sirupsen.com/napkin/problem-15/</source>
+    </item>
+    <item>
+      <title>Unlocking PinkRabbit: Using 90s Email Software in 2021</title>
+      <link>https://jessicastokes.net/blog/2021/06/10/unlocking-pinkrabbit/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><article>
+        <span> 4:30 pm, 10 Jun 2021</span>
+
+        <p><strong>tl;dr</strong>: I found some quirky software from the dotcom boom and restored it to working order. I&#39;d love to tell you the story of how I got here if you stick around, but if you&#39;re more interested in a more direct description, you can head <a href="https://archive.org/details/pinkrabbit">straight to the Internet Archive</a>.</p>
+<h3>Part 1: Discovering DreamFlyer</h3>
+<p>Ever since I got a Dreamcast, I&#39;ve wound up collecting some of the internet and multimedia software it was home to in its lifetime. I really enjoy the colourful and creative interfaces of its various web browsers, and find the ambitions of <a href="https://www.thedreamcastjunkyard.co.uk/2017/11/dream-library-dreamcast-foreunner-to.html">their foray into downloadable content on 33.6kbps modems</a> fascinating.</p>
+<p>In 2019 I happened to be shopping for games on eBay and found a copy of <a href="https://segaretro.org/DreamFlyer">DreamFlyer</a> for US$1. I knew very little about it, and the internet seemed to know about as much. Figuring it was something intriguing to add to the collection I picked it up.</p>
+<p>I&#39;d dabbled in getting my Dreamcast set up to send emails before, adapting <a href="https://dreamcastlive.net/sega-swirl-guide/">Dreamcast Live&#39;s instructions</a> to something that suited my email host and felt a bit better, running a mail relay on the DreamPi which would retrieve emails from a folder within my regular email hosting. It worked fine with Dreamcast web browsers&#39; email clients, and it was fun to play around and discover that email has changed a lot in the past 20 years, but once DreamFlyer arrived I couldn&#39;t coax it into sending an email. I figured either it required a long-dead server, or just wasn&#39;t happy. I think I basically just forgot about DreamFlyer for a while.</p>
+<p>For my birthday in 2021 a friend sent me a Sega-themed happy birthday, and my mind immediately went back to DreamFlyer. I decided I was going to reply with something composed in DreamFlyer. After all, even if emailing wouldn&#39;t be useful in 2021 I could screen capture it and send that. I spent a few minutes composing the flyer, covering it in all manner of stamps, took a screenshot and replied. And then I wondered, what if I tried emailing it again?</p>
+<center><a href="https://jessicastokes.net/img/posts/2021-06-10-unlocking-pinkrabbit/dreamflyer-card.png"></a></center>
+<p>So I put in my own email address and hit send. I waited as it dialled up to my LAN, and then with a quick fanfare I got a message box. It didn&#39;t look like the error message I&#39;d seen the last time. It had actually sent!</p>
+<p>Jumping over to my phone, I refreshed my inbox, and sure enough, there was my email, with a &#34;tml&#34; attachment and this footer:</p>
+<blockquote>
+<p>【添付データについて】</p>
+<p>●Windows95/98もしくはMacintoshをお使いの場合、以下のホームページから表示ソフト（無料）をダウンロードしてご覧ください。</p>
+<p>※お問い合わせ先：</p>
+</blockquote>
+<p>Basically, it&#39;s saying that the attachment was composed using DreamFlyer, which is email software for the Dreamcast. Free viewer software for Windows and Macintosh is available from that URL, and if you need more information, you can contact SEGA Enterprises. Neat! I checked the attachment with a hex editor and it didn&#39;t have any recognisable format I could decipher.</p>
+<p>At this point I wanted to see my computer view the email, so I tried browsing that site. Naturally, it&#39;s no longer on the live web, so I turned to the Internet Archive&#39;s Wayback Machine. To my surprise, the executable <a href="https://web.archive.org/web/20040812023304if_/http://www.isao.net/dreamflyer/dl/index.html">had made it into a crawl</a>. I managed to set it up in CrossOver with <code>LC_ALL</code> overridden to <code>ja-JP</code>. Cool! I fired it up, and was greeted with an error message complaining that the program had expired, and that I should download an updated version. Uh-oh!</p>
+<h3>Part 2: Unlocking DreamFlyer</h3>
+<p>This was a setback, but I fired up a VM with a copy of Ghidra. It&#39;s not the best, but it&#39;s the disassembler which has given me the best results for free so far. I spent a few hours tracing back from calls to <code>GetLocalTime</code>, but ultimately yeilded nothing clear-cut. I&#39;d later learn that Ghidra didn&#39;t really know how to recognise any symbols in this binary.</p>
+<p>Eventually I decided to try searching for string data, to see if I could find the strings related to the error message and work from there. I tried the <code>strings</code> utility, but the one provided with macOS doesn&#39;t have support for anything but ASCII text by default, and I was pretty sure I&#39;d need Shift JIS support. Eventually I tried the same thing in Ghidra, and after scrolling through the list of strings, at the bottom I struck gold.</p>
+<p>There, at <code>0x8a71a</code>, was the UTF-16 string <code>2001/8/1</code>. I checked the Readme, and indeed, it stated that the program would expire after July 31, 2001. Surely, I thought to myself, this was for informational purposes, or otherwise just a display string, but I edited it to a far-future date, fired up DreamFlyer, and it worked! I was able to view the email I had actually composed and sent from my Dreamcast.</p>
+<center><a href="https://jessicastokes.net/img/posts/2021-06-10-unlocking-pinkrabbit/dreamflyer-pc.png"></a></center>
+<p>At this point, I wondered about the Macintosh version the footer had mentioned - I have a lovely PowerBook G4 Titanium, and it&#39;d be neat to send emails from the Dreamcast to it, so I scoured each revision of the DreamFlyer for PC site. Sadly, despite references to it on <a href="https://web.archive.org/web/20001004190821if_/http://www.dricas.com:80/dfhour/viewer/download.html">at least one page</a>, I only managed to find that copy of the Windows version on ISAO.net, all the way until the site changed <a href="https://web.archive.org/web/20011223032513if_/http://www.isao.net/dreamflyer/">in 2001 to say it was no longer available</a>.</p>
+<p>That message, though, mentioned that users could move to a program called <a href="https://web.archive.org/web/20020611053551if_/http://prabbit.colabo.co.jp/index.html">PinkRabbit</a>, and import their messages from DreamFlyer, guiding users to move their &#34;tml&#34; files into PinkRabbit&#39;s &#34;mailbox&#34; folder. My curiosity was piqued, it looked like DreamFlyer was actually part of a much larger ecosystem! Indeed, peeking into the readme files supplied with DreamFlyer for PC revealed that PinkRabbit was an entire family of multimedia email software, including PinkRabbit-branded software for Windows and Macintosh, as well as FINAL FANTASY VIII Mail for Windows, Trihoo Mail for Windows, Kumomail for Windows and Macintosh, and several others.</p>
+<p>With this discovered, I collated this information as well as copies of DreamFlyer&#39;s original installer and my patched executable, onto <a href="https://archive.org/details/dflyerpc">the Internet Archive</a>.</p>
+<h3>Part 3: Tracking down PinkRabbit</h3>
+<p>With that put aside, I was intrigued by this broader family of applications. There was very little about it on the internet, and even scouring the Wayback Machine for any hints on their website came up empty.</p>
+<p>I tried searching more broadly for PinkRabbit, and after trimming down a lot of unrelated search result, stumbled upon the book <a href="https://www.kinokuniya.co.jp/f/dsg-01-9784883990641">「PinkRabbitで作る　かわいい　メール」</a> (&#34;Cute email made with PinkRabbit&#34;) by Takamatsu Yoshiaki (ISBN4-88399-064-8, published by Subarusya). This book originally came with a CD-ROM containing copies of two variants of PinkRabbit: <em>Classic</em> and <em>CUTiE</em>. My wife and I were already looking to import something from Japan, and I found a copy on Yahoo Auctions for ¥350. The listing wasn&#39;t clear on whether the CD-ROM was included, but for so little I thought I had to try it out. Bare minimum we&#39;d get a decent quality scan of the cover onto the internet for the first time.</p>
+<p>Further reading of PinkRabbit&#39;s website revealed that although the Macintosh version had not launched at the same time as the Windows version, it had been <a href="https://web.archive.org/web/19990427105622if_/http://prabbit.colabo.co.jp/pub/mactop/index.html">available since early 1999</a>. This made the missing Macintosh version of DreamFlyer all the more curious given <a href="https://www.suruga-ya.jp/product/detail/142000109">the Dreamcast version launched in December 1999</a>.</p>
+<h3>Part 4: Unlocking PinkRabbit</h3>
+<p>It took a few weeks for the order to filter through local post and then out to international, but eventually I found the book in my hands. I gently flexed it experimentally, and it felt like there was a CD in there! Sure enough, flipping to the back page, there it was in all its pink glory.</p>
+<center><a href="https://jessicastokes.net/img/posts/2021-06-10-unlocking-pinkrabbit/pinkrabbit-de-tsukuru-kawaii-mail@2x.jpg"></a></center>
+<p>I perused the book a bit with the help of some OCR translations. Along with a full colour section which gives screenshots of the included stationery and stamps, it revealed a little more about the original functionality. It was available for free via signing up for an online account, and had a companion online service which provided additional stamps, postage stamps and stationery for download. There was also the option to create your own sticker or stamp. Neat! Just like DreamFlyer, it had no vendor lock-in; you could point it at your own email servers just fine. The TransMediaLetter file format was the only proprietary bit of the chain.</p>
+<p>Classic and CUTiE were also revealed to be two variants of the program, which didn&#39;t diverge that much at all; the difference coming down to the <a href="https://web.archive.org/web/19991006131356if_/http://prabbit.colabo.co.jp/pub/info/pinkra/family2.html">theming, graphics, and included stationery and stamps</a>. Classic is a bit more neutral, but still pretty cute, while CUTiE goes all-in on the candy colouring.</p>
+<p>Firing up a Windows 2000 machine with the Japanese locale installed, I popped in the CD. It AutoPlayed a web page, providing a choice of Classic or CUTiE, as well as a catalogue of the additional stationery included on the CD.</p>
+<p>I got the program installed, fired it up, and was unsurprised to see the same expiry message as DreamFlyer. I wasn&#39;t sure if they would, but I guess it made sense that they&#39;d have expiry on their own versions as well. With the knowledge I had from DreamFlyer it didn&#39;t take long for me to find a similar expiry date in the <code>srabbit.exe</code> executable, at <code>0x900fa</code>. This limited use of this version to the end of 2003. I did the same as I had on DreamFlyer, opened it up again and... was greeted with the same expiry message! I checked and re-checked my work, tried changing the date in the other <code>prabbit.exe</code> executable, but no amount of fiddling with the dates got it working. Odd!</p>
+<p>Looking at the supplied readme, I quickly learned that in addition to the quoted expiry date of the 31st of December 2003, it additionally included a 31-day trial timer.</p>
+<blockquote>
+<p>使用期限はインストール後31日です。2003年12月31日以降はご使用になれません。</p>
+</blockquote>
+<p>The suggested that the user could simply register for an account and download an updated version whenever that happened. Unfortunately, that registration system was long gone at this stage, and this requirement had all but guaranteed that no copies had survived.</p>
+<p>Well, that wasn&#39;t going to stop me completely. DreamFlyer already worked, and it was clearly very similar code, if not the same, so I&#39;d come back later. I instead turned my attention to the Macintosh version. Firing up the CD on my PowerBook G4 Titanium revealed a pair of StuffIt Self-Extracting Archives for installers, and a similar HTML catalogue to the Windows version.</p>
+<p>I got it installed, and fired it up. Sure enough, despite the Apple Platinum window borders, it had the same restrictions as the Windows version, and had long since expired. I discovered fairly quickly that the Macintosh version also had the expiry date within the application&#39;s data fork, this time as an ASCII string rather than UTF-16. Curiously, changing this string to a far-future date unlocked the application&#39;s functionality.</p>
+<p>At this point I was a bit puzzled, and finding myself a bit out of my depth in reverse-engineering the Windows application, I put the call out online for help. In the meantime, I checked the other version, and it turned out that both variants had identical executables across both platforms, which would make it a bit simpler to patch!</p>
+<p><a href="https://twitter.com/_Ninji">Ninji</a> was kind enough to answer the call. Sending my notes along with copies of the Windows installers, he set about reverse engineering the expiry error. Along the way we discovered some curiosities, like a mysterious debug mode activated by the mere presence of a <code>debmode.ini</code> file alongside the executable, which seemed to connect to a long-offline FTP server at <code>ftp.gao.co.jp</code>.</p>
+<p>It didn&#39;t take long for Ninji to find the routines responsible. It turned out to be storing a file in <code>%WINDIR%</code> called <code>SRABBIT.001</code>, and using the creation date of this file to control the expiry. Additionally, the code to handle this would add 32,400 seconds (or 9 hours) to the file&#39;s creation time in an apparent attempt to implement the Japanese Standard Time time zone. This instead meant that in other time zones the trial period on Windows wouldn&#39;t actually start for a few hours after installation. Sure enough, adjusting the creation time of the file by a few hours unlocked the application. Fantastic, waylaid on Windows by a late-90s time zone bug. 😂</p>
+<p>Of course, this wasn&#39;t a permanent fix; the 31-day trial still applied, it just meant it could be worked around. Further investigation eventually revealed the routines responsible for this were retrieving information from another UTF-16 string in the executable. This one was the string <code>SRABBIT.001,31</code> at <code>0x90182</code>. It turned out to indicate the file name, as well as the duration of the trial period in days.</p>
+<p>Luckily for our purposes, the programmers had written a null check into this routine, meaning that changing this to represent an empty string (by changing the first byte to a null byte) stopped the program from creating or checking the creation date of the <code>SRABBIT.001</code> file, and behaving like it wasn&#39;t a trial version at all! The Windows lockout was defeated!</p>
+<center><a href="https://jessicastokes.net/img/posts/2021-06-10-unlocking-pinkrabbit/pinkrabbit-classic-win.png"></a></center>
+<p>With this knowledge I turned back to the Macintosh version, fired up Sherlock, and searched for &#34;SRABBIT&#34;. Pretty soon I was pointed into the <code>tmailbmp</code> folder alongside the application. There was our trial control file. It seemed fairly likely that these were using the same code, then! I popped the application into <a href="https://macintoshgarden.org/apps/hexedit">HexEdit</a> and found that <code>SRABBIT.001,31</code> string was also present in the data fork, at <code>0xefd1f</code>. Given the Macintosh&#39;s history as a Pascal-first system, this didn&#39;t appear to be a null-terminated string, which made me worry it might require more complicated patching. I also couldn&#39;t find a Pascal-style length indicator, and changing the byte before merely broke the executable, but it turned out that a null byte worked just fine! Both versions were unlocked. 🎉</p>
+<center><a href="https://jessicastokes.net/img/posts/2021-06-10-unlocking-pinkrabbit/pinkrabbit-cutie-mac.png"></a></center>
+<h3>Conclusion</h3>
+<p>With all that done, Misty submitted the PinkRabbit CD-ROM to Redump, and put <a href="https://archive.org/details/pink_rabbit_de_tsukuru_kawaii_mail">a copy on the Internet Archive</a>. I additionally contributed <a href="https://archive.org/details/pinkrabbit">extracted and patched copies</a> much like I had with <a href="https://archive.org/details/dflyerpc">DreamFlyer</a>. And now both are there for anyone to play around with again.</p>
+<p>It was a lot of fun digging into this artefact of the 90s where cuteness was the prime directive. I really wish more software was focused on being cute, computers would be a lot more interesting if they did.</p>
+<h3>Appendix: Novelties</h3>
+<p>Given the executables are the identical, PinkRabbit just looks for resource files in the directory it&#39;s stored in. This means if you were to copy the <code>tmailbmp</code> folder from DreamFlyer for Windows into PinkRabbit for Macintosh, PinkRabbit for Macintosh can become DreamFlyer for Macintosh! This makes the fact that Sega&#39;s variant seemingly never got its promised Macintosh release all the more puzzling.</p>
+
+
+
+
+
+
+
+      </article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 06:14:48 +0000</pubDate>
+      <source>https://jessicastokes.net/blog/2021/06/10/unlocking-pinkrabbit/</source>
+    </item>
+    <item>
+      <title>The Economics of OnlyFans: Most accounts make less than $145/mo</title>
+      <link>https://xsrus.com/the-economics-of-onlyfans</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+      <div>
+        <div>
+          <p><a href="https://xsrus.com/the-economics-of-onlyfans">April 24, 2020</a></p>
+<h4 id="a-perfect-storm-of-a-global-pandemic-a-bleak-love-life-and-impending-global-recession-caused-one-of-my-friends-to-consider-making-an-onlyfans-account.">A perfect storm of a global pandemic, a bleak love life, and impending global recession caused one of my friends to consider making an OnlyFans account.</h4>
+<p>OnlyFans has become part of the zeitgeist recently.</p>
+<p>The <a href="https://www.vox.com/the-goods/2019/8/1/20748707/egirl-definition-what-is-an-eboy">rise of e-girls</a> and the <a href="https://thewest.com.au/news/wa/wa-model-jem-wolfie-breaks-social-media-makes-millions-on-onlyfans-ng-b881158181z">prospects of making millions</a> make it a fun thing to gawk at in a reality-tv kind of way. It has benefitted fabulously from the pandemic too. With everyone stuck at home all day, less of us have jobs and we all have less to entertain ourselves with. More existential boredom equals more<span></span> <span>“</span>fans” and<span></span> <span>“</span>creators” alike.</p>
+<p>I was curious about this <a href="https://www.complex.com/life/2020/03/onlyfans-trending-on-twitter-weird-specific-interests">trending</a> yet mysterious company, and wanted to find out more.</p>
+<p>Despite dipping its toe in the mainstream, there wasn’t much about OnlyFans in the news. There are many interviews with OnlyFans creators, but I wanted some hard data.</p>
+<p>To get it, I scraped the Onlyfans website and did some analysis. The results are presented below for your pleasure. At the very bottom, I explain how I got them.</p>
+<p>To start I go through OnlyFans as a business, explaining why I think it is a unicorn in disguise. Next, we’ll look at how OnlyFans is more unequal than the least equal country in the world. Finally, I’ll return to the question I began this essay with. Should you make an OnlyFans account?</p>
+<h2 id="onlyfans-is-a-billion-dollar-business">OnlyFans is a billion dollar business</h2>
+<p>Sex has always sold well. Now OnlyFans use the leverage of software to multiply its profits, giving power to the performers along the way.</p>
+<p>Their business is as simple as it gets. They provide a platform for paywalled content. Creators, mostly fitness models and amateur pornstars, post exclusive content, to which only their paying<span></span> <span>“</span>fans” have access. OnlyFans takes a 20% cut, one giant pimp in the middle of an online marketplace of punters and showgirls.</p>
+<p>It’s the Uber-isation of wanking; the logical conclusion to <a href="https://www.ribbonfarm.com/2019/02/28/markets-are-eating-the-world/">markets eating the world</a>. Instead of monetising a spare room or a Prius you monetise your selfies.</p>
+<p>While Uber and Airbnb disrupted taxi-companies and hotel chains, OnlyFans are disrupting a seedier incumbent — the porn industry. Big Porn is <a href="https://en.wikipedia.org/wiki/Hot_Girls_Wanted">notorious</a> for taking advantage of young women. Via their commission-based model, OnlyFans pays the performers their share, giving power back to the pornstars.</p>
+<p>OnlyFans is actually an even better business model than Airbnb or Uber. As the owner of a rental property, or a gig taxi driver, I can only cater to one group of people at any one time. But as an OnlyFans creator, I can broadcast content to the multitude all at once. Making money on Airbnb or Uber is linear — I always have to do one more ride, or host one more visit. On OnlyFans it’s multiplicative — the same selfie can serve 10 adoring fans or 1000.</p>
+<p>If you have minimal shame, a drooling audience and are willing to get your togs off its a pretty sweet deal: Creators can make millions of dollars a year just posting photos and videos.</p>
+<p>Since they take a share of their revenues, what is good for creators is good for OnlyFans themselves. And by the looks of recent trends, business has been very good indeed.</p>
+<p>OnlyFans have benefited massively from the coronavirus crisis. Search activity has doubled since the lockdown, and according to Alexa, their traffic has surged.</p>
+<p></p>
+<p><em>Source: Google Trends</em></p>
+<p>Even before the pandemic they were growing rapidly. They paid <a href="https://beta.companieshouse.gov.uk/company/10354575/filing-history">£641k corporation tax in 2018</a>, which at an effective tax rate of 15% implies 2018 revenues of around £4m, or $5.5m. Today in 2020, their top users alone make this much money through their site.</p>
+<p>With a couple of assumptions, it’s easy to estimate their yearly revenue today. And oh god is it big.</p>
+<p>In 2019, <a href="https://thewest.com.au/news/wa/wa-model-jem-wolfie-breaks-social-media-makes-millions-on-onlyfans-ng-b881158181z">they had over 60,000 content creators and 7m registered users</a>. Extrapolating from the Google growth trends, it’s safe to say they have at least 10m users today. I calculated the average revenue per creator per month (about $250) and the average subscription fee (about $8.7) from my scraped data. Applying the 20% commission and assuming only half the users and creators are active, we end up with a lower bound of $90m, and an upper bound of $104m.</p>
+<p>That’s an annual growth rate of between 304% and 334%. Absolute nuts.</p>
+<p>But how much are they worth? According to this article, OnlyFans takes home 60% of their revenue net of processing and fees. This means they make profits between $54m and $62m. Since the business really doesn’t have to do anything besides host the platform, collect fees, and store content securely, its probably worthy of an <span>EBIT</span> multiple of around 15x. This gives a total valuation of between $810m and $936m.</p>
+<p>Who knew you could make so much money hosting nudes? The crazy thing is that this valuation is probably still too low. The estimate of the number of users is likely too conservative — <a href="https://www.1843magazine.com/people/onlyfans-a-day-in-the-life-of-a-topless-creator">The Economist has it at 12m</a>. Also, it doesn’t take into account their recent surge in traffic, nor the likely sustained increase in traffic due to social distancing (See if you can work out why).</p>
+<p>There are risks too. In any business that sells exclusivity, security is paramount. <a href="https://www.vice.com/en_us/article/884dgx/onlyfans-leak-isnt-anything-new">Apparently</a> there was a big leak in February, but the company denies this.</p>
+<p>Risks aside, OnlyFans is a stunningly good business. But for a company which claims to democratise paid content, its amazing how unequal it is.</p>
+<h2 id="almost-all-money-is-made-by-the-top-creators">Almost all money is made by the top creators</h2>
+<p>This is a histogram of the monthly revenue per OnlyFans account from the set that I scraped. <a href="https://xsrus.com/writing/posts/power-laws-school">Remind you of anything</a>?</p>
+<p></p>
+<p>The revenue of content creators follows a classic power law distribution. The top accounts make something like $100,000 a month (these aren’t in my sample). The median account makes $180 a month.</p>
+<p>The top 1% of accounts make 33% of all the money. The top 10% of accounts make 73% of all the money. This isn’t the 80:20 rule; it’s the 80:14 rule.</p>
+<p>The standard way to measure inequality of an economy is with a Gini Index. An index of 0 implies a communist utopia, a value of 1 implies a single greedy capitalist owns all the wealth. The Gini index of OnlyFans is 0.83. The most unequal society in the world, South Africa, has a Gini index of 0.68. OnlyFans is less equal than an ex-apartheid state.</p>
+<p>OnlyFans is so unequal because chancers make accounts with zero fans, while big Instagram stars take their following with them. A large proportion of accounts have no fans at all, and the lion’s share of fans are shared by the top accounts.</p>
+<h2 id="most-creators-probably-lose-money">Most creators probably lose money</h2>
+<p>Being an independent explicit online content creator is by <a href="https://www.1843magazine.com/people/onlyfans-a-day-in-the-life-of-a-topless-creator">many</a> <a href="https://extra.ie/2020/02/15/news/real-life/onlyfans-risks-creators-sex-work">accounts</a> <a href="https://www.vice.com/en_uk/article/neagv8/only-fans-sex-worker-interview">exhausting</a>. Your<span></span> <span>“</span>fans” are not merely fans, they’re paying customers. To keep that sweet money flowing into their bank accounts, content creators often have to work harder and harder to satisfy their patrons.</p>
+<p></p>
+<p>Most accounts take home less than $145 per month (after commission). The modal revenue is $0.00, and the next most common is $4.99.</p>
+<p>Creators put hours into each post, and on top of that, they interact one-on-one, with fans who can message them at any time. To break even on an OnlyFans account, creators need to earn more per month than the cost of hours spent engaging. The median take-home revenue is $136 per month. If you value a creator’s time at a $15 minimum wage, the median creator needs to be spending less than 9 hours per month on her OnlyFans to break even. This is less than 20 minutes a day.</p>
+<p>Fans expect regular, prompt engagement, and many creators compare OnlyFans to running a business. It seems unlikely that you could satisfy all your fans demands in less time than it takes to make and eat breakfast.</p>
+<p>Relative to effort, it looks like most accounts lose money.</p>
+<p>For this reason, unless you already have a large following from somewhere like Instagram or Twitch, making an OnlyFans is unlikely to be worth the effort.</p>
+<p>I’d invest my money in OnlyFans, but not my time. Sorry would-be fans, you’ll have to get your kicks elsewhere.</p>
+<h3 id="addendum-getting-the-tip">Addendum: Getting the tip</h3>
+<p>One important thing this analysis of public data misses is tipping. A substantial proportion of the top accounts’ revenue comes from tips — money which fans send directly to creators for private messages or photos. Unfortunately, tipping amounts aren’t published by onlyfans so there’s a lot I don’t know about it.</p>
+<p>I do know it can be very lucrative — some accounts request minimum hundreds of dollars per tip. Unlike posting public photos though, tipping doesn’t scale — you have to make every individual fan feel special. If you’re a large account and can charge hundreds per tip its easy money, but if you’re just starting out, tips make it harder, not easier, to attain a sustainable income because they require more work.</p>
+<hr/>
+<h2 id="how-i-did-it">How I did it</h2>
+<p>First I emailed them to ask if I could see their aggregate level data. They sent me this reply.</p>
+<p></p>
+<p>Thanks Vlad. So I tried scraping their site instead.</p>
+<p>I quickly learned that scraping OnlyFans is very difficult. This is not surprising — security is central to their business model. If you could scrape the images or videos off their platform, they wouldn’t have a business. I tried using Selenium and Beautiful Soup but neither one worked for me. So I used Sikuli instead.</p>
+<p><a href="http://sikulix.com/">Sikuli</a> is a graphical user interface automation tool. It allows you to write scripts that mimic the behaviour of a real person — the computer physically moves the mouse to click on things, and types letters one by one into the search bar, just like you would. This means your script can<span></span> <span>“</span>trick” websites into thinking you’re a real person, so they won’t block you. A disadvantage of Sikuli is it requires your entire machine to function. Like an <span>AI</span> villain in a sci-fi movie, the computer literally takes control of your keyboard and mouse, so you can’t do anything while its running. It also takes much longer than a conventional web scraper.</p>
+<p></p>
+<p>I used a Chrome plugin to get leaf urls from the root OnlyFans site. Then I ran the Sikuli script a couple of times overnight with a <span>VPN</span> randomiser, so the site wouldn’t block my real <span>IP</span> address. OnlyFans have a Javascript waiting page which takes a randomised amount of time to load before you can see an account. Once the page loaded, my script manually saved down the full html file. Many times I loaded a url, only to find the account was unavailable — this is what happens when they block your <span>IP</span> address, which happened eventually despite the randomiser. After scraping around one thousand accounts I gave up and began processing.</p>
+<h3 id="processing">Processing</h3>
+<p>I processed the files using Beautiful Soup. I grabbed the number of likes, photos, videos, audios, the subscription price, and the last time the account was online. Most accounts didn’t have their number of fans publicly available, but if they did I grabbed that too.</p>
+<p></p>
+<p>I saved them down in a pandas data frame so I could easily analyse and visualise the data.</p>
+<h3 id="analysis">Analysis</h3>
+<p>Because many accounts don’t have their number of fans available, I had to estimate it. I calculated the number of likes per post, and chose to use that as a proxy for number of fans. This is likely an underestimate; Jem Wolfe has over 12,000 fans, but this number isn’t publicly available on her page. In contrast, she only has 6920 likes per post. You can multiply the number of fans by the subscription price to get monthly revenue. Many accounts didn’t have one subscription price but several, depending on promotions or length of time subscribed. I set the subscription price for all of these accounts to the minimum, $4.99.</p>
+<p>If interested, you can find the code I used <a href="https://github.com/ThomHollands/onlyfans">here</a>.</p>
+
+<p><em>Thanks to Nat Fried for helping get the data, Katie Hollands for reading an early draft and Flora Zamula for mentioning the importance of tips.</em></p>
+          
+
+          
+          
+
+          <hr/>
+
+          <a href="https://xsrus.com/coronavirus-a-story-and-two-perspectives">
+            <h5>Previous post</h5>
+            <span>Coronavirus: A story and two perspectives</span>
+            <span>After two weeks of struggle, it seems I have overcome COVID-19. The virus infected my mind long before it penetrated my body, and I am still</span>
+          </a>
+
+          <a href="https://xsrus.com/digesting-uncertainty">
+            <h5>Next post</h5>
+            <span>Digesting Uncertainty</span>
+            <span>Hurtling at full speed across the savannah, a man flees a charging lion. After a prolonged chase, he evades it by scrambling up a tree. To an</span>
+          </a>
+        </div>
+
+      </div>
+    </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:02:54 +0000</pubDate>
+      <source>https://xsrus.com/the-economics-of-onlyfans</source>
+    </item>
+    <item>
+      <title>Ex-Tesla Employee Called Racial Slur Wins Rare $1M Award</title>
+      <link>https://www.bloomberg.com/news/articles/2021-08-05/ex-tesla-employee-called-racial-slur-wins-rare-1-million-award</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+    <header>
+        
+        <a href="https://www.bloomberg.com/feedback">Need help? Contact us</a>
+    </header>
+    <section>
+        <h2>We&#39;ve detected unusual activity from your computer network</h2>
+        <p>To continue, please click the box below to let us know you&#39;re not a robot.</p>
+        
+    </section>
+    <section>
+        <section>
+            <h3>Why did this happen?</h3>
+            <p>Please make sure your browser supports JavaScript and cookies and that you are not blocking them from loading. For more information you can review our <a href="https://www.bloomberg.com/notices/tos">Terms of Service</a> and <a href="https://www.bloomberg.com/notices/tos">Cookie Policy</a>.</p>
+        </section>
+        <section>
+            <h3>Need Help?</h3>
+            <p>For inquiries related to this message please <a href="https://www.bloomberg.com/feedback">contact our support team</a> and provide the reference ID below.</p>
+            <p>Block reference ID: </p>
+        </section>
+    </section>
+    
+    <!-- Google Tag Manager -->
+    
+    <!-- End Google Tag Manager -->
+
+
+</div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:22:08 +0000</pubDate>
+      <source>https://www.bloomberg.com/news/articles/2021-08-05/ex-tesla-employee-called-racial-slur-wins-rare-1-million-award</source>
+    </item>
+    <item>
+      <title>Once an Addict, Always an Addict?</title>
+      <link>https://www.deprocrastination.co/blog/once-an-addict-always-an-addict</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_deprocrastination_co_blog_once-an-addict-always-an-addict/image.jpg" /> 
+<div id="readability-page-1" class="page"><article><p></p><p>Is an addictive personality a thing?</p><p>Is an addict’s brain permanently broken?</p><p>Can you recover from addiction or does it last a lifetime?</p><p>You’ve probably heard<em>Once an addict, always an addict (OAAA)</em>before. I had to explore whether it’s true because the implications of it are rather serious.</p><p>People have a lot of opinions about this topic, but they’re usually based on emotions, not reality, and lead to misconceptions. So I dove deep into the topic and looked at what science says about it.</p><p>Luckily, the catchphrase isn’t based on science.</p><p>And it can be really unhelpful to think this way.</p><p>Also,<em>Once an addict, always an addict</em>is not a viable position in today’s behavioral addictions centered around the internet, social media, technology because you can’t really quit them all.</p><p>Read the first part (<a href="https://www.deprocrastination.co/blog/what-is-addiction">What is an addiction</a>) for this to make sense to you.</p><p>And now let’s dive into the topic proper.</p><p>There are 2 main ways of thinking about recovering from addictions.</p><p><strong>Opinion A:</strong></p><p>Addiction is a chronic disease that will keep returning to your life. Recovery is temporary (also called remission) and doesn’t mean you’re cured forever. This supports the<em>once an addict, always an addict</em>concept.</p><p><strong>Opinion B:</strong></p><p>Addiction is a learned way of coping with negative emotions that changes your brain rapidly. You can unlearn it, your brain will change once again via neuroplasticity.</p><p><strong>Arguments for A</strong></p><ol><li>Certain changes in the brain are long lasting and this might make you more susceptible to addictions. This probably depends on the severity, the length, and type of the addiction. Addictions can alter your brain so it won’t be functioning like it used to.</li></ol><ol><li>Your life has factors that make you prone to addiction - addictive personality (more on this below), you experienced a childhood trauma, you might be prone to depression, or anxiety.</li></ol><p><strong>Arguments for B</strong></p><ol><li>People who successfully recover from addiction live a better life. So calling it disease doesn’t help. When you recover from an addiction, you don’t go back to zero. Instead, you live a better life. You don’t return back to baseline so we shouldn’t call it recovery.<sup>[<a href="#ftnt1">1]</a></sup></li><li>People overcome addiction without any formal treatment all the time and sometimes it is out of nowhere.<sup>[<a href="#ftnt3">3]</a></sup></li><li>People who recover from addiction are less likely to take on another addiction.<sup>[<a href="#ftnt2">2]</a></sup></li></ol><p>If you compare the two, it’s an interesting development.</p><p>Opinion A (addiction = chronic disease) is based on the strongest version of the brain disease model of addiction.</p><p>A similar outlook is also supported by Alcoholics Anonymous. The first step in their recovery program is to admit that you have no control over your addiction and to commit to abstinence forever. This can be viable for substance use disorder or things you don’t have to engage with ever again. It’s a simple rule that people follow and people in AA build up streaks.</p><p>AA thinking makes sense and has been practiced for almost a century, but that doesn’t make it true. It’s based on 1930’s assumptions.</p><p>Opinion A can make people feel powerless.<em>I’m an addict and I’ll be that way forever</em>- it creates feelings of shame and being a victim. It also creates a stigma in society that addicts are somewhat broken and can’t be fixed.</p><p>Opinion A seems a little bit outdated. Abstinence isn’t necessarily the goal.</p><p>We think it’s not the best approach.</p><p>On the other hand, opinion B (addiction = a learned way of coping) provides a more helpful outlook on the topic. If your brain changes, you stop being addicted. If enough time passes, you can start engaging in the behavior in a healthy way once again.</p><p>This is the path to freedom and mastery. You’re not a slave of your addiction, you don’t have to be scared of it anymore.</p><p>This has some merit, for example, when it comes to alcohol - you can go from being addicted to alcohol, to having a social drink once a week.</p><p>Then there are things where there is no other way. You probably can’t realistically abstain from the Internet.</p><p>Opinion A would mean that if you’re addicted to the internet, you should abstain forever because it’s only time before you relapse and start using it compulsively again.</p><p>To resolve how much you can really recover from addiction, we need to resolve another question first.</p><h2 id="is-there-an-addictive-personality">Is there an addictive personality?</h2><p>There is a general notion that there is such a thing as an addictive personality.</p><p>Once again, even if something makes sense, it doesn’t make it true.</p><p>There is limited support for the concept of addictive personality in scientific studies. Certain people are more anxious, and worse at dealing with stress. They can have a certain genetic makeup that makes them more prone to anxiety. These people might be more susceptible to addictions. But that doesn’t mean they have an addictive personality.</p><p><strong>Thinking that you have an addictive personality is unhelpful</strong>. It’s something you can’t change and it rather victimizes the addict and can be used as an excuse to not do anything about their current state.</p><p>People often claim to have an addictive personality. Especially, when they seem to be trading one addiction for another. But what if they don’t have an addictive personality? What if they become addicted all the time because they don’t resolve the underlying cause of their addictions?</p><p>Another argument people use is that addictions run in their family. In reality, there are probably more factors involved.</p><p>Yes, the family might be more susceptible to stress and anxiety through genes.</p><p>Or maybe, if the family has to deal with an addict, it can cause a lot of stress or even trauma to the family which can cause another person to become addicted as an escape from this.</p><p>It might also be the case that the whole family is ill-equipped to deal with stress and anxiety… If parents don’t know how to deal with emotions, their kid usually doesn’t learn it as well.</p><p>As an aside, no wonder people are ill-equipped to deal with their emotions. After all, it’s been only a decade or two since it became somewhat socially accepted for a man to actually have feelings and experience emotions. Before, you were told to man up and just deal with it.</p><p>Addictive personality is only weakly supported by science and it can be unhelpful in overcoming addictions because it’s something you can’t change.</p><h2 id="so-can-you-recover-from-an-addiction">So can you recover from an addiction?</h2><p>You most certainly can.</p><p>People do it all the time without any formal treatment. That doesn’t mean it’s easy. Depending on how much the brain is altered by the addiction, it can be super difficult.</p><p>Also, most studies have been done on substances (drugs, alcohol, cigarettes). You can view behavior addictions like the lite versions of addictions, so the recovery will be quicker.</p><p><strong>Q: Is my brain ever going to be functioning normally? Or is it permanently broken?</strong></p><p>A: Your brain is adaptive and neuroplasticity will take place.</p><p>In certain cases, the brain won’t ever be the same, but it can become functional again. It depends on the length of the addiction and the type of addiction (chemical addictions being much worse). But most people recover.</p><p>I think, there is an even more interesting question</p><p><strong>Q: Can I ever come back to the behavior?</strong></p><p>A: The neural pathways will be there for a long time, so you have to remember that you’re more susceptible. What wires together, fires together.</p><p>However, that doesn’t mean you need to avoid the behavior forever.</p><p>There are people who went through AA, recovered from their alcohol addiction, and are able to drink moderately.</p><p>Increasing the likelihood you can safely come back to the behavior depends on how much you resolve the underlying causes of the addiction.</p><p>The 3 conditions are following:</p><ul><li>If enough time passes—we’re talking of months or years—your brain rewires.</li><li>You learn how to deal with your emotions much more,</li><li>Your life is better than it used to be.</li></ul><p>If you meet these conditions, then you’re probably ready to engage in the behavior again. Once again, we’re talking about behavioral addictions only (no drugs, alcohol, cigarettes - it can be more tricky with them).</p><p>This means that you might try to engage in the addictive behavior you used to do.</p><p>Here are some examples:</p><p>If you’re addicted to social media, you might use them in a time limited window.</p><p>Gaming 2 days per week after finishing all your responsibilities.</p><p>Watching Netflix only with friends on the weekend.</p><p>Deal with these like experiments, nothing temporary. If you can’t do it, you’re not ready… or you don’t have to ever return to the potentially addictive behavior if you don’t want to.</p><p>Doesn’t that sound better?</p><p>Breaking your shackles, overcoming addiction, and then not being worried about it anymore.</p><p>Especially with behavioral addictions, it might even be desirable to do something moderately.</p><p>It sounds like growth as a person.</p><h2 id="what-about-other-addictive-things">What about other addictive things?</h2><p>If you successfully overcame one addiction, you might be less susceptible to others.<sup>[<a href="#ftnt2">2]</a></sup></p><p>Because you have already developed a toolbox to deal with emotional adversity. Also, people also know how much it sucks to be addicted so they are wary of another addiction.</p><p>This doesn’t mean you should go and try coke because you overcame a different addiction. No, this is to break the habit of thinking that you have an addictive personality.</p><p>We’ve already explained that an addictive personality is more of a construct.</p><p>On one hand, thinking that you have an addictive personality can be helpful because you’re scared of addiction and you will abstain on purpose from other things.</p><p>On the other hand, it also can make you feel like you’re powerless and can make you more susceptible to getting addicted. Especially if you give in and start engaging in addictive behavior, you might feel you aren’t in control.</p><p>It’s better to not use the addictive personality concept because you can’t change it and focus on areas you can improve: becoming more mindful of your behavior, learning how to deal with your emotions, and improving your life in general.</p><p>If you do this, you will increase the probability that you won’t get addicted again.</p><h2 id="summary">Summary</h2><p><em>Once an addict, always an addict</em>is a catchy phrase that isn’t based on real science.</p><p>You can recover from addiction and even moderate the behavior later on in life.</p><p>Your brain can start functioning normally again in a span of a few months. It doesn’t have to be the same, but it should work just fine.</p><p>If you successfully overcome an addiction, resolve the underlying issues, you might even be less prone to future addiction.</p><p>The next question is then, how to recover from addiction?</p></article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:31:26 +0000</pubDate>
+      <source>https://www.deprocrastination.co/blog/once-an-addict-always-an-addict</source>
+    </item>
+    <item>
+      <title>When in Tokyo, forget everything you know about 7-Elevens and convenience stores</title>
+      <link>https://www.latimes.com/sports/olympics/story/2021-08-07/7-elevens-convenience-stores-tokyo-japan-olympics</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_latimes_com_sports_olympics_story_2021-08-07_7-elevens-convenience-stores-tokyo-japan-olympics/image.jpg" /> 
+<div id="readability-page-1" class="page"><div data-dateline="">
+                                                <div><div><p><span>TOKYO — </span></p><p>The first time can be disorienting. You walk past shelves brimming with instant ramen — curry, seafood, chili tomato — all in packages of bright red, orange and yellow. </p><p>Deep-fried rice crackers and soy-flavored potato chips fill another aisle, not far from a bewildering selection of sugary candies and a dozen brands of sake.</p><p>The refrigerated section occupies the entire back wall: tofu bars, udon with shredded beef, steamed chicken and broccoli in onion dressing, boiled eggs sprinkled with tuna and bonito flakes.</p><p>There are so many carefully prepared meals, glistening in their clear plastic containers, it is difficult to focus. How fresh are they? Some don’t have expiration dates — they have expiration <i>hours.</i></p>
+<p>All of which makes you blink your eyes and look back over your shoulder to double-check the familiar green, red and orange sign you passed on the way in.</p><p>Yes, this is a 7-Eleven.</p>
+<p> Eating can be troublesome at the <a href="https://www.latimes.com/sports/olympics">Summer Olympics</a>. Journalists, sports officials and support staff work ungodly long days, the dining choices at arenas and stadiums limited to soft drinks and hamburgers.</p>
+<p>Tokyo’s omnipresent convenience stores — known as <i>konbini </i>— have extended a lifeline to some 42,000 accredited foreigners who converged here for the  Games. This kind of selection, this degree of quality, in a store still open when you return to your hotel past midnight, isn’t just convenience. It’s paradise.</p><div data-align-center="" data-click="enhancement"><figure>
+        <picture>
+    
+    
+            <source type="image/webp" data-srcset="https://ca-times.brightspotcdn.com/dims4/default/2699bc1/2147483647/strip/true/crop/5154x3180+0+0/resize/320x197!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F1f%2F12%2Faa06e9e641d395051631658beab8%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5717.jpg 320w,https://ca-times.brightspotcdn.com/dims4/default/ab77e90/2147483647/strip/true/crop/5154x3180+0+0/resize/568x350!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F1f%2F12%2Faa06e9e641d395051631658beab8%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5717.jpg 568w,https://ca-times.brightspotcdn.com/dims4/default/7a8d174/2147483647/strip/true/crop/5154x3180+0+0/resize/768x474!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F1f%2F12%2Faa06e9e641d395051631658beab8%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5717.jpg 768w,https://ca-times.brightspotcdn.com/dims4/default/a1df32b/2147483647/strip/true/crop/5154x3180+0+0/resize/840x518!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F1f%2F12%2Faa06e9e641d395051631658beab8%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5717.jpg 840w" data-lazy-load="true"/>
+    
+
+    
+    
+
+
+</picture>
+
+    
+    
+        <div>
+    <p>A 7-Eleven clerk at a store in Tokyo stocks one of the food shelves.</p><p>(Gary Ambrose / For The Times)</p>
+        </div>
+    
+</figure>
+</div>
+<p>Aside from the glare of fluorescent lighting and omnipresent coffee machines,  <i>konbini </i>have little in common with their American counterparts.</p><p>Estimates place their number on this island nation between 50,000 and 60,000; they abound in Tokyo, averaging about eight per square mile, with 7-Eleven, FamilyMart and Lawson as the most common chains.</p>
+<p> Though not especially large, these stores are packed with a startling range of goods. Where else can you buy concert tickets, men’s underwear and tuna mayo onigiri wrapped in savory seaweed while also paying your monthly utility bill?</p><div data-align-center="" data-click="enhancement"><figure>
+        <picture>
+    
+    
+            <source type="image/webp" data-srcset="https://ca-times.brightspotcdn.com/dims4/default/171686e/2147483647/strip/true/crop/4777x3575+0+0/resize/320x240!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3d%2F36%2F24a8a9c24fa19d338827add65f6a%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5705.jpg 320w,https://ca-times.brightspotcdn.com/dims4/default/e5282db/2147483647/strip/true/crop/4777x3575+0+0/resize/568x425!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3d%2F36%2F24a8a9c24fa19d338827add65f6a%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5705.jpg 568w,https://ca-times.brightspotcdn.com/dims4/default/54d48d7/2147483647/strip/true/crop/4777x3575+0+0/resize/768x575!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3d%2F36%2F24a8a9c24fa19d338827add65f6a%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5705.jpg 768w,https://ca-times.brightspotcdn.com/dims4/default/7a2d319/2147483647/strip/true/crop/4777x3575+0+0/resize/840x629!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3d%2F36%2F24a8a9c24fa19d338827add65f6a%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5705.jpg 840w" data-lazy-load="true"/>
+    
+
+    
+    
+
+
+</picture>
+
+    
+    
+        <div>
+    <p>Premade meals fill the shelves at 7-Elevens in Tokyo.</p><p>(Gary Ambrose / For The Times)</p>
+        </div>
+    
+</figure>
+</div>
+<p>On a Friday afternoon, a team official from Thailand perused the toiletries section where a pair of quality nail clippers can be had for a few dollars. The ATMs often accept foreign debit and credit cards.</p><p>But packaged meals and delicacies are where these stores truly shine, with so much more than ever-rotating hot dogs and re-warmed chicken strips. The selection changes constantly, new arrivals announced weekly on the internet, anticipated with the same fervor otherwise reserved for the release of Yeezy sneakers or an album drop.</p>
+<p>Featured items during the final days of the  Games included plump sea urchin rice bowls and pork yakiniku bento with onion sauce. 7-Elevens, owned by a Japanese corporation, have collaborated with Michelin star restaurants on<i> </i>Tsuta Ramen and other instant noodles.</p><p>“The quality is next level,” says Kaila Imada, a senior editor for the multiplatform Time Out Tokyo, who has written connoisseur’s guides to the <i>konbini</i>. “You can find dinner there and it will be a top-notch dinner.”</p><div data-align-right="" data-click="enhancement">
+    
+        <div data-click="infoBox" data-border-top="" data-module-id="0000017b-1da6-dad7-a5ff-5fe672e1000c">
+  
+
+  
+
+  
+    <p>COLUMN ONE</p>
+  
+
+  
+    <p>A showcase for compelling storytelling from the Los Angeles Times.</p>
+  
+
+  
+
+  
+    
+  
+</div>
+    
+</div>
+<p>Not everything is fancy — the late food critic <a href="https://www.latimes.com/business/hollywood/la-fi-ct-bourdain-obit-20180608-story.html">Anthony Bourdain</a> once raved about Lawson’s egg-salad sandwich.</p>
+<p>“So I’ve given up many vices in my life, many shameful, filthy, guilty pleasures that I used to like that I just don’t do anymore. Cocaine, heroin, prostitutes, the musical styling of Steven Tyler,” he said during his “Parts Unknown” series on CNN. “One thing I just can’t give up. One thing I keep coming back to every time I come back to Japan.”</p><p>Bourdain referred to the plastic-wrapped sandos — as they are called here — as “pillows of love.”</p><p><b>::</b></p><p>The initial jolt is more than visual. This immersive experience begins at the sliding glass doors as you leave the city’s heat behind, stepping into a blast of air conditioning. Music plays from hidden speakers, accompanied by a symphony of commerce.</p><p>As Japanese author Sayaka Murata writes in her novel “Convenience Store Woman”:</p>
+<p><i>A convenience store is a world of sound. From the tinkle of the door chime to the voices of TV celebrities advertising new products over the in-store cable network, to the calls of the store workers, the beeps of the bar code scanner, the rustle of customers picking up items and placing them in baskets, and the clacking of heels walking around the store. It all blends into the convenience store sound that ceaselessly caresses my eardrums …</i></p><p><i>A convenience store is not merely a place where customers come to buy practical necessities. It has to be somewhere they can enjoy and take pleasure in discovering things they like.</i></p>
+<p>This public communion draws congregants of all ages and demographics. In the morning, salarymen with their pressed white shirts and briefcases wait in line behind kids getting something to eat before school. Workers in blue coveralls stop by for lunch. Dinnertime? Be prepared to wait. </p>
+<p>A love of <i>konbini</i> and its community spurred two Americans living in Japan, Michael Markey and Matthew Savas, to start a podcast last year. “Conbini Boys,” which uses an alternate spelling, has grown to 62 episodes.</p><p>“It’s structural to Japanese society,” Savas, who has since moved back to the U.S., says of the stores. “You’ll see all kinds of people going to a <i>konbini</i>.”</p><div data-align-center="" data-click="enhancement"><figure>
+        <picture>
+    
+    
+            <source type="image/webp" data-srcset="https://ca-times.brightspotcdn.com/dims4/default/a8cf3b6/2147483647/strip/true/crop/4548x3648+0+0/resize/320x257!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fc9%2F8a%2Ff23ef8944a099eb6b68b5b03c9c0%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5693.jpg 320w,https://ca-times.brightspotcdn.com/dims4/default/2c24f0b/2147483647/strip/true/crop/4548x3648+0+0/resize/568x456!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fc9%2F8a%2Ff23ef8944a099eb6b68b5b03c9c0%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5693.jpg 568w,https://ca-times.brightspotcdn.com/dims4/default/d66013d/2147483647/strip/true/crop/4548x3648+0+0/resize/768x616!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fc9%2F8a%2Ff23ef8944a099eb6b68b5b03c9c0%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5693.jpg 768w,https://ca-times.brightspotcdn.com/dims4/default/ba5ea74/2147483647/strip/true/crop/4548x3648+0+0/resize/840x674!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fc9%2F8a%2Ff23ef8944a099eb6b68b5b03c9c0%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5693.jpg 840w" data-lazy-load="true"/>
+    
+
+    
+    
+
+
+</picture>
+
+    
+    
+        <div>
+    <p>7-Eleven stores in Tokyo feature a number of unique food items like dried squid and smoked squid.</p><p>(Gary Ambrose / For The Times)</p>
+        </div>
+    
+</figure>
+</div>
+<p>The prices are reasonable, with meals costing $3 to $6. A dollar buys a puck-sized korokke — or croquette — with a blend of potato and beef that tastes both sweet and savory. People can rely on the stores to be open, no matter what.</p>
+<p>“We call them our local superheroes,” Imada says. “They’re always there for us, 24 hours a day, whatever you need … they’re always open regardless of rain, shine or typhoon.”</p><p>Shinichi Mine and Satoshi Tanaka, whose “TabiEats” YouTube channel has more than 500,000 subscribers, visited Los Angeles before the pandemic and decided to sample breakfast at an American 7-Eleven. They were in for a surprise.</p>
+<p>“It says fresh fruits on the container, but actually it wasn’t fresh. It was actually previously frozen because the fruits were soggy and bad,” Mine said. “Even the breakfast sandwich was soggy for some reason.”</p>
+<p>“Why can’t a simple thing like this be a bit better?” he asked. “It’s kind of strange.”</p><p>The bottom line might be part of the answer.</p><p>Because they throw out fresh items that aren’t sold quickly enough, <i>konbini</i> account for part of an estimated 640,000 tons of food wasted annually in Japan, according to a 2019 report by the NHK news service. Lawson and 7-Eleven started programs to discount items close to their expiration time. </p><div data-align-center="" data-click="enhancement"><figure>
+        <picture>
+    
+    
+            <source type="image/webp" data-srcset="https://ca-times.brightspotcdn.com/dims4/default/e62e447/2147483647/strip/true/crop/3550x3165+0+0/resize/320x285!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fa1%2F2d%2F4d9e2bd44030abe7a9d59b81d0ec%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5735.jpg 320w,https://ca-times.brightspotcdn.com/dims4/default/c837235/2147483647/strip/true/crop/3550x3165+0+0/resize/568x506!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fa1%2F2d%2F4d9e2bd44030abe7a9d59b81d0ec%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5735.jpg 568w,https://ca-times.brightspotcdn.com/dims4/default/94fe9b3/2147483647/strip/true/crop/3550x3165+0+0/resize/768x685!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fa1%2F2d%2F4d9e2bd44030abe7a9d59b81d0ec%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5735.jpg 768w,https://ca-times.brightspotcdn.com/dims4/default/29d17a5/2147483647/strip/true/crop/3550x3165+0+0/resize/840x749!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fa1%2F2d%2F4d9e2bd44030abe7a9d59b81d0ec%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5735.jpg 840w" data-lazy-load="true"/>
+    
+
+    
+    
+
+
+</picture>
+
+    
+    
+        <div>
+    <p>Chunky chocolate flakes are among the items available at 7-Elevens in Tokyo.</p><p>(Gary Ambrose / For The Times)</p>
+        </div>
+    
+</figure>
+</div>
+
+<p>The U.S. business model favors a longer, more-profitable shelf life. American convenience stores, often linked to gas stations, have conditioned customers to expect something different, as in Flamin’ Hot Cheetos and Red Vines.</p><p>“In the U.S., the idea of convenience is linked not only to the idea of quick, but also cheap,” Linda Hagen, an assistant professor who studies consumer behavior at USC’s Marshall School of Business, wrote in an email. “So this close mental association that convenience equals fast, cheap, unhealthy is a big part of why convenience stores offer the assortments they do.”<br/></p><p>::</p><p> <i>Konbini</i> have played a special role at these Pandemic Games.</p><div data-align-center="" data-click="enhancement"><figure>
+        <picture>
+    
+    
+            <source type="image/webp" data-srcset="https://ca-times.brightspotcdn.com/dims4/default/7419336/2147483647/strip/true/crop/4664x3370+0+0/resize/320x231!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F7c%2F7b%2Fee802b964fc3a65a95a40149b069%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5677.jpg 320w,https://ca-times.brightspotcdn.com/dims4/default/9a8a833/2147483647/strip/true/crop/4664x3370+0+0/resize/568x410!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F7c%2F7b%2Fee802b964fc3a65a95a40149b069%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5677.jpg 568w,https://ca-times.brightspotcdn.com/dims4/default/7e3a1ce/2147483647/strip/true/crop/4664x3370+0+0/resize/768x555!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F7c%2F7b%2Fee802b964fc3a65a95a40149b069%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5677.jpg 768w,https://ca-times.brightspotcdn.com/dims4/default/a504b32/2147483647/strip/true/crop/4664x3370+0+0/resize/840x607!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F7c%2F7b%2Fee802b964fc3a65a95a40149b069%2Fla-photos-freelance-contract-813674-la-sp-tokyo-olympics-5677.jpg 840w" data-lazy-load="true"/>
+    
+
+    
+    
+
+
+</picture>
+
+    
+    
+        <div>
+    <p>You can buy shrimp fritters and grilled fatty pork at 7-Elevens in Tokyo.</p><p>(Gary Ambrose / For The Times)</p>
+        </div>
+    
+</figure>
+</div>
+<p>With  coronavirus cases surging in Tokyo, foreigners have been asked to limit interaction with the populace, but convenience stores have been a conspicuous exception. Pump bottles of sanitizer are stationed at the entrance and plastic sheets hang in front of registers.</p>
+<p>No fluency in Japanese is required; checkout counters feature large touch screens that guide customers through transactions. With a minimum of pointing, a typically patient clerk shows an Uzbek journalist how to feed coins into the cash slot and everyone has learned to gesture if they need a plastic bag. Not all meals have English on the label, so people crowd around the refrigerated shelves, scrutinizing the fried rice and beef dishes, grabbing whatever looks good.</p><p>The mention of convenience stores among Americans here prompts smiles and starts everyone chattering about their favorite purchases. Savas rhapsodizes about shopping at a <i>konbini </i>early on, trying a dish called chiki, which is boneless chicken from a hot box.</p><p>“I distinctly remember sitting in my car, biting into it and a gush of juice bursting out of the chicken, splashing my glasses and clothes,” he said. “From that day forward, I was a changed man.”</p><p>Each visit offers so many choices, so many opportunities for something you have never tasted before. Growing bolder with experience, you might reach for deep-fried fish paste or smoked gizzards.</p>
+<p>The first time at  a <i>konbini</i>, though, can be tough.</p><p>Your eyes dart from package to package as the theme song from “The Little Mermaid” tinkles in the background. All those shapes and textures, the Japanese characters in bold type. So many colors — crimson, chartreuse, neon yellow — you don’t normally associate with food.</p><p>The first time, you might just reach for the egg-salad sandwich.</p></div></div>
+                                            </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:27:10 +0000</pubDate>
+      <source>https://www.latimes.com/sports/olympics/story/2021-08-07/7-elevens-convenience-stores-tokyo-japan-olympics</source>
+    </item>
+    <item>
+      <title>Testing in production: using JSON Schema for 3rd party API response validation</title>
+      <link>https://kristiandupont.medium.com/testing-3rd-party-api-access-b2808494ccd</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___kristiandupont_medium_com_testing-3rd-party-api-access-b2808494ccd/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><section><div><div><div><div><div><div><p><a rel="noopener" href="https://kristiandupont.medium.com/?source=post_page-----b2808494ccd--------------------------------"></a></p></div></div></div></div><blockquote><p id="45fe">..using JSON Schemas to validate in production, ensuring sound mocks and supplying Typescript types.</p></blockquote><p id="3788"><a href="https://www.submotion.io/" rel="noopener nofollow">Submotion</a> offers a central place to manage SaaS accounts and subscriptions. This is made possible by connecting to a bunch of third party API’s. It’s an amazing fact that so many companies expose API’s that allow you to integrate with their service, to mutual benefit. Using such API’s is fairly trivial and even though things like OAuth implementations quite often diverge from the standard, it’s usually not too hard to set up.</p><figure><div role="button" tabindex="0"><div><div><div><p></p><p></p></div></div></div></div></figure><p id="ca1c">However<em>, testing</em> such integrations is painful.</p><p id="7e14">Proper end-to-end test<span id="rmm"><span id="rmm">i</span></span>ng is not feasible in a CI setup. It’s not only slow and relies on access to outside servers that could be down, it’s also next to impossible to set up useful fixtures.</p><p id="e280">Initially I tried to set up a record/playback system to alleviate this. That works well in some situations, but Submotion almost always connects via OAuth which is difficult to automate (by design), and even then, I still had the issue with fixtures. I would want to test that Submotion detects, say, that an account has been deleted. In order to do that, I had to actually create and subsequently delete an account in Slack or whatever, a very involved task. </p><p id="636b">I was discussing this with my friend Lars who has put a lot of thought into these and <a href="https://www.fullstackagile.eu/2016/03/20/dont-let-your-mocks-lie-to-you/" rel="noopener nofollow">similar</a> <a href="https://www.fullstackagile.eu/2021/06/24/bluetooth-ble-mock-recorder/" rel="noopener nofollow">issues</a>. He suggested that I <em>move the assertions from the test into production code</em>. Now, I remember doing this sort of thing a lot in C++ where assertions are common in the debug build and then removed in production. However, this didn’t feel like a Node-native approach and it rubbed me the wrong way somehow. But, as he pointed out, such assertions could just log warnings in production, and when running locally or via tests, they could throw. That way, I would continuously run validation on real responses meaning that said validations are kept up to date and good enough to keep my mock data sound. Although this is strictly validating, it still feels to me like a variation on the <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/" rel="noopener nofollow">parse, don’t validate</a> philosophy coined by Alexis King. And while it’s still work in progress, so far it’s a big step forward.</p></div></div></section><section><div><div><p id="930e">Here is what I do in practice:</p><ol><li id="cbbf">Make a request or two to the 3rd party API in question, and save the JSON responses in a file. This is the sketch.</li><li id="f3ba">Convert these into JSON Schemas using a tool like <a href="https://transform.tools/json-to-json-schema" rel="noopener nofollow">https://transform.tools/json-to-json-schema</a></li><li id="d703">Clean up the schemas. They can rarely be inferred correctly from a single response, so some tweaking is required. Notably, I add <code><a href="https://json-schema.org/understanding-json-schema/reference/string.html#format" rel="noopener nofollow">format</a></code> fields for things like emails, URLs or IP addresses where applicable.</li><li id="905e">Then, use <a href="https://ajv.js.org/" rel="noopener nofollow">AJV</a> (with <a href="https://www.npmjs.com/package/ajv-formats" rel="noopener nofollow">ajv-formats</a>) to validate the responses right after making a request. If validation fails, log an error or, if running tests, throw an exception</li><li id="6c46">Finally, use <a href="https://www.npmjs.com/package/as-typed" rel="noopener nofollow">as-typed</a> with the schema to get a typed response. It’s not perfect but much nicer than an untyped one and I can be confident that my runtime validation is aligned with the type check.</li></ol><p id="5eb5">Here is an example and a simplified version of the approach:</p><figure><div></div></figure><p id="cb24">Of course, schema validation/type checking only looks at the shape of the responses which means there is still lots of room for semantic errors. There is nothing stopping me from expanding this setup with more semantic assertions which would further improve the quality but I haven’t really found my sweet spot for that yet. Perhaps in a future post.</p></div></div></section></div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 07:36:06 +0000</pubDate>
+      <source>https://kristiandupont.medium.com/testing-3rd-party-api-access-b2808494ccd</source>
+    </item>
+    <item>
+      <title>Does Oil Come from Dinosaurs?</title>
+      <link>https://www.powells.com/post/original-essays/does-oil-come-from-dinosaurs</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_powells_com_post_original-essays_does-oil-come-from-dinosaurs/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="itemPlaceholderContainer">
+<tbody><tr>
+</tr><tr>
+<td>
+<b>
+J D</b> <span>
+August 10, 2020
+at 06:32 PM</span>
+</td>
+</tr>
+<tr>
+<td>
+Your theory that oil is from decomposed plankton is impossible. Fracking (hydrolic fracturing) releases oil from beneath the earth’s crust. There were never living creatures that deep inside the earth. Oil is produced in the center of the earth in a process of which we are ignorant. We don’t even have a decent hypothesis about abiotic oil.
+Please stop propagating easily disproved theories as if they are science. Next, you’ll tell us that humans are causing climate change and we killed the dinosaurs.</td>
+</tr>
+<tr>
+<td>
+<b>
+robert quinn</b> <span>
+November 14, 2018
+at 03:57 AM</span>
+</td>
+</tr>
+<tr>
+<td>
+Trump is a racist, orange man bad dinosaur who causes climate change!</td>
+</tr>
+<tr>
+<td>
+<b>
+Paddy Whack</b> <span>
+September 24, 2018
+at 07:45 PM</span>
+</td>
+</tr>
+<tr>
+<td>
+Saturn&#39;s smoggy moon Titan has hundreds of times more natural gas and other liquid hydrocarbons than all the known oil and natural gas reserves on Earth.
+https://www.space.com/4968-titan-oil-earth.html
+Obviously, this means that Titan is the original homeworld of Dinosaurs.</td>
+</tr>
+<tr>
+<td>
+<b>
+Ray</b> <span>
+September 20, 2017
+at 12:16 PM</span>
+</td>
+</tr>
+<tr>
+<td>
+An intelligent refutation of a commonly held belief. It never made sense to me and with the literally billions of gallons of crude that has been pumped out of the ground and the amount remaining it seemed untenable that that many dinosaurs existed.</td>
+</tr>
+<tr>
+<td>
+<b>
+Jim Hall</b> <span>
+September 17, 2017
+at 02:21 AM</span>
+</td>
+</tr>
+<tr>
+<td>
+I too once believed that petroleum was distilled from animal remains of eons past. However massive amounts of hydrocarbons are found in our solar system that have no life to provide the stock to produce the oil from. So where did this enormous amount of liquid hydrocarbon come from? Good question, but certainly not from dinosaurs or the like. There is a moon of Saturn that has oceans of surface hydrocarbons. A geologist proposed this idea several years ago to the consternation of the mass of oilmen. But still his ideas made good sense. Thank you for your contribution on this subject, very interesting.
+Regards,
+Jim Hall</td>
+</tr>
+</tbody></div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:19:23 +0000</pubDate>
+      <source>https://www.powells.com/post/original-essays/does-oil-come-from-dinosaurs</source>
+    </item>
+    <item>
+      <title>Is Britain becoming more meritocratic than America?</title>
+      <link>https://www.economist.com/britain/2021/08/07/is-britain-becoming-more-meritocratic-than-america</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_economist_com_britain_2021_08_07_is-britain-becoming-more-meritocratic-than-america/image.jpg" /> 
+<div id="readability-page-1" class="page"><div itemprop="text"><p data-caps="initial"><span data-caps="initial">I</span><small>N 1774 THOMAS PAINE</small> left Britain for America to become a radical pamphleteer and revolutionary agitator. In “Common Sense”, published two years later, he explained why he had chosen to emigrate. Britain was built on heredity, a loathsome practice rooted in theft (William the Conqueror was the original bandit who stole the people’s land) and perpetuated by idiocy (what could be more absurd than giving a job to someone because of who their parents were?). “The artificial noble sinks into a dwarf before the noble of nature,” he said, and Britain was a land of artificial nobles. America, by contrast, was animated by the glorious principle of merit.</p><div><figure><figcaption>Listen to this story</figcaption><audio controls="" id="audio-player" preload="none" src="https://www.economist.com/media-assets/audio/047%20Britain%20-%20Bagehot-dcd6e5cec6e5f862f3e12a76f964fc02.mp3" title="Is Britain becoming more meritocratic than America?" controlslist="nodownload"><p>Your browser does not support the &lt;audio&gt; element.</p></audio></figure><p>Enjoy more audio and podcasts on<!-- --> <a id="audio-ios-cta" href="https://apps.apple.com/app/apple-store/id1239397626?pt=344884&amp;ct=article%20audio%20player&amp;mt=8" target="_blank" rel="noreferrer">iOS</a> <!-- -->or<!-- --> <a id="audio-android-cta" href="https://play.google.com/store/apps/details?id=com.economist.lamarr&amp;referrer=utm_source%3Darticle%2520audio%2520player" target="_blank" rel="noreferrer">Android</a>.</p></div><p>Paine’s argument has been a fixture of British thinking ever since. “England is the most class-ridden country under the sun,” George Orwell complained in 1941: “a land of snobbery and privilege”. In William Golding’s novel, “Rites of Passage”, published in 1980, a character laments that “Class is the British language”. And it is to America that the British habitually look for opportunity unencumbered by nonsense about parentage and the pronunciation of the letter “h”. Chartists in the 1830s and 1840s sang “Yankee Doodle” and waved the American flag. In the 1960s and 1970s, moderate leftists such as Tony Crosland and Shirley Williams wanted to make Britain more like America. British-American transplants like Henry James and T.S. Eliot were snobs; America attracted British radicals like W.H. Auden and Christopher Hitchens.</p><p>This contrast between hierarchical Britain and meritocratic America has always been exaggerated. America has no monarchy or House of Lords, but it has dynastic families such as the Adamses, Kennedys and Bushes. It has no equivalent of British aristocrats’ cut-glass vowels, but it has cliques such as the Boston Brahmins and the Proper Philadelphians, not to mention the Southern gentry. America gives ambassadorships to big party donors rather than professional diplomats, a practice the British abandoned in the mid-19th century. As president, Donald Trump was flagrantly nepotistic, relying on his daughter, Ivanka, and her husband, Jared Kushner. But compared with the Bushes, Clintons and Kennedys, this was evolution, not revolution.</p><p>Social mobility stagnated in both countries as the winners from the Thatcher and Reagan revolutions consolidated their gains. But Britain is trying much harder than America to get it going once again. A combination of British angst and American complacency may be the beginning of a great reversal: Britain is becoming more meritocratic, even as America becomes less so.</p><p>True, two Old Etonians, David Cameron and Boris Johnson, recently made it to the top of the Conservative Party. But the number of <small>MP</small>s from modest backgrounds has been rising, especially with the conquest of northern constituencies in 2019. The Treasury, Foreign Office, Home Office and Department of Health are all led by the children of immigrants. In broadcast journalism, and arguably in business, an upper-class bray is increasingly a handicap.</p><p>The two countries’ differing trajectories are perhaps most obvious in education, especially in admissions to the universities that act as gatekeepers to the elite. A comparison of Oxford and Harvard is telling. Oxford is trying hard to attract poor and working-class applicants, and several of its colleges have introduced a “foundation year” to get them up to speed before they start degree courses. In 2020, 68% of the undergraduates it admitted, excluding those from overseas, had attended state schools. That was up from 62% in 2019, and 55% a decade ago.</p><p>This meritocratic push was aided by school reforms started in the 2000s by Labour governments, and continued by the Tories since 2010, which created schools in inner cities that offer education of the highest standard. One is Brampton Academy in Newham, a poor London borough, which draws most of its pupils from ethnic minorities. Last year it won 55 places in Oxford and Cambridge, more than Eton’s 48. Its sixth form is highly selective, and provides intensive coaching for Oxbridge entrance exams.</p><p>By contrast Harvard, like other elite American universities, practises plutocracy modified by affirmative action for African-American applicants and, to a lesser extent, Hispanic ones. The intention is to compensate for the terrible injustice of slavery and, more broadly, to find merit where it was once overlooked. But it is undermined by an almost wilful blindness to disadvantage that stems from class, not race. Harvard recruits more students from the richest 1% than the poorest 60%, discriminating in favour of relatives of faculty and alumni (known as “legacies”), star athletes and the “dean’s list”, which mysteriously tends to feature the offspring of politicians, celebrities and donors. “Holistic assessment” of candidates encourages <small>CV</small>s that bristle with boasts about pricey trips to Africa to help the poor. It boosts the well-connected, who can get supporting letters from impressive names. Peter Arcidiacono of Duke University calculates that three-quarters of successful white applicants in these favoured categories would have been rejected if they had been treated the regular way.</p><h2>Changing places</h2><p>And rather than creating institutions like Brampton Academy to prise open Harvard’s gates, America’s policymakers are dismantling elite public schools. Boston Latin School in Boston and Lowell High School in San Francisco, which have a fine record of getting their pupils into Ivy League universities, are being forced to drop entrance examinations and admit by lottery, which will probably mean an end to academic excellence.</p><p>Even as America’s ingrained belief that it is a meritocracy is taken as licence to behave in a flagrantly anti-meritocratic fashion, Britain’s anxiety about being class-bound seems to have made it hypersensitive to unearned privilege (excepting a few institutions granted special status, such as the monarchy). This anxiety may finally be producing positive results, rather than, as so often in the past, nothing more useful than self-doubt. <span data-ornament="ufinish">■</span></p><p><strong><em>Correction (August 6th 2021):</em></strong> A previous version of this article accused William James of being a snob. It should have read Henry James.</p><p data-test-id="Footnote">This article appeared in the Britain section of the print edition under the headline &#34;The great reversal&#34;</p></div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 07:54:37 +0000</pubDate>
+      <source>https://www.economist.com/britain/2021/08/07/is-britain-becoming-more-meritocratic-than-america</source>
+    </item>
+    <item>
+      <title>1password is considering a self-hosted option to store vaults</title>
+      <link>https://1password.community/discussion/115018/support-for-local-vaults/p3</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___1password_community_discussion_115018_support-for-local-vaults_p3/image.jpg" /> 
+<div id="readability-page-1" class="page">
+<header>
+<nav>
+
+</nav>
+</header>
+<section id="Body">
+<div>
+<nav id="Breadcrumbs">
+<span itemscope="" itemtype="http://schema.org/BreadcrumbList"><span><a href="https://1password.community/"><span>Topics</span></a></span><span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><meta itemprop="position" content="1"/><span>›</span> <span><a itemprop="item" href="https://1password.community/categories/linux-beta"><span itemprop="name">Linux Beta</span></a></span></span></span>
+</nav>
+<section id="Content">
+<div><p><span><span role="navigation" id="PagerBefore" aria-label="Pagination - Top"> <a href="https://1password.community/discussion/115018/support-for-local-vaults/p2" rel="prev" tabindex="0" title="Previous Page" aria-label="Previous Page">«</a><a href="https://1password.community/discussion/115018/support-for-local-vaults" aria-label="Page 1" tabindex="0">1</a><a href="https://1password.community/discussion/115018/support-for-local-vaults/p2" aria-label="Page 2" tabindex="0" rel="prev">2</a><a href="https://1password.community/discussion/115018/support-for-local-vaults/p3" aria-label="Page 3" tabindex="0" aria-current="page">3</a><span aria-disabled="true">»</span> </span></span></p><div><h2>Comments</h2> <ul>
+<li id="Comment_584964">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Mike, I love this. I won&#39;t be shouting your plans from the rooftops, just quietly staying here in the forums and supporting the Pi-type plans. I mentioned, and I&#39;ll say again, if AB wanted to created a little Pinode for the home server instance I&#39;d probably spend money on it. I get that you probably don&#39;t want to get into hardware sales directly as it might be a pain for legal, regulatory, support, liability, etc. Maybe partnering with a Pi-community or someone to help make it unofficial official.</p>
+<p>The world has been scary and sad of late, so happy to have you and others doing your work and our discussion today.</p>
+<p>Off to google 1P Emergency Kit PDF.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_584969">
+
+</li>
+<li id="Comment_585122">
+<div>
+
+
+<div>
+<div>
+<div>
+<blockquote><p>It would actually be battle-tested already as it would replicate what we use for 1Password service already, just pushed down into a self-contained service that you can run locally. Plus it&#39;d work out of the box with same 1Password apps (including 1Password beta for Linux here) that uses the same 1Password APIs which handles the syncing automatically because the local service is the oracle of truth (that tells 1Password how to sync in your network). The only difference is that you&#39;d have to run backups on your own but that&#39;s not any different from what you&#39;d have to do now with standalone vaults.</p></blockquote>
+<p>Sounds like this moves into a direction, where we will get our own little 1Password cloud service </p>
+<p>And as I&#39;m having troubles to move documents to local vaults again, this sounds even better, because this definitely won&#39;t happen if this is also the same cloud-like platform!</p>
+<p>Two more thoughts:</p>
+<ul><li>I hope the database which is linked to the stateless container, will be recoverable (I&#39;m thinking about the problems in the Windows world where you have to recover a client (or even the Domain Controller) and suddenly it fell out of the domain because the trust isn&#39;t given anymore)</li>
+<li>I would be really pleased if there is a ARM version (as the Pi&#39;s are ARM driven) that we would also get a x86 version, I think I would love to run this on my vSphere cluster </li>
+</ul><p>Oh and it&#39;s so great to see you and your colleagues also being so passionate, this makes this thread even better! Everybody foreseeing kind of the same bright future </p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585141">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Keep in mind that this is all still mostly theoretical, nothing is a sure thing but all of this is the desire we have right now as we continue to focus and evolve 1Password on Linux. Another hint of what the future may bring is in our recent interview here: <a href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2Fserokell.io%2Fblog%2Frust-in-production-1password">https://serokell.io/blog/rust-in-production-1password</a></p>
+<blockquote><p>These have been in production for the last few years and we’ve seen great success. So much so that we’re now in the midst of a complete rewrite of nearly our entire product lineup, and Rust is a major part of that story. We are using Rust to create a headless 1Password app that encompasses all of the business logic, cryptography, database access, server communication, and more wrapped in a thin UI layer that is native to the system on which we’re deploying.</p></blockquote>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585145">
+<div>
+
+
+<div>
+<div>
+<p>I echo what Mike just said. I think our best bet is to wait with some patience and continue on our current versions before we proceed. Mike is providing us a bit of a peak under the covers at the new model year car before a reveal (so to speak) but nothing is in stone. I do not plan to advertise his conversations with us anywhere else in hopes that he is allowed a bit more leeway to provide a little inside baseball in the future.</p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585148">
+<div>
+
+
+<div>
+<div>
+<p></p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585229">
+<div>
+
+
+<div>
+<div>
+<div>
+<blockquote><p>Keep in mind that this is all still mostly theoretical, nothing is a sure thing but all of this is the desire we have right now as we continue to focus and evolve 1Password on Linux.</p></blockquote>
+<p>Off course, off course!</p>
+<p>And such theoretical discussions don&#39;t belong to the big public anyway </p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585351">
+<div>
+
+
+<div>
+<div>
+<p>We appreciate the patience and understanding, truly 💙</p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585521">
+<div>
+
+
+<div>
+<div>
+<div>
+<p><a href="https://1password.community/profile/MikeT" rel="nofollow">@MikeT</a>, Thank you for the detailed responses. I agree with <a href="https://1password.community/profile/Sn0man" rel="nofollow">@Sn0man</a> &#39;s comments that I hope you’re reading our desires in a positive and passionate 1Password advocate light, and the willingness to assist.</p>
+<blockquote><p>We&#39;re talking about basically maintaining two different apps within the same interface (one example: one app uses a simple API to make a single item change quickly and another uses the local file system to replace an entire file to modify it)</p></blockquote>
+<p>That does clarify the issue, thank you. And I agree with your statement that this forum and thread is more biased toward your power users.</p>
+<blockquote><p>First, we have an option to block sending data to specific platforms already.</p></blockquote>
+<p>I like this, and would be interested in getting the more granular information you mentioned. I use the same OS for a few different places, but I want to control which vaults can be accessed by device. Something I raised in a support ticket, is that I&#39;d also like to be able to control by user on the device. I have a work around for that with the local storage, but it&#39;s definitely not ideal. I certainly take your critique that mac address can be spoofed, and that something more secure is needed.</p>
+<blockquote><p>Just to clarify, the Docker solution if possible would just be all local. It would not be syncing anything to the cloud. If you want to include both in the same 1Password app, you can because you&#39;d just enter the sign in address of the docker&#39;s instance and treat it like a second 1Password account, it&#39;s just local. This is why this docker idea is far more desirable for us.</p></blockquote>
+<p>I was thinking that the docker container would be more like a separate vault. Can you clarify what you mean by a second account?</p>
+<p>Part of the reason I ended up checking on the linux beta was I ran into an issue where my main computer died (mac OS) and then took out my access to the local vaults. I have them backed up, but didn&#39;t have a way to access them.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_585816">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Hi <a href="https://1password.community/profile/A10" rel="nofollow">@A10</a>,</p>
+<p>You&#39;re welcome.</p>
+<blockquote><p>I was thinking that the docker container would be more like a separate vault. Can you clarify what you mean by a second account?</p></blockquote>
+<p>You can have multiple 1Password.com (<em>and .ca/.eu</em>) memberships, for an example; a lot of people have their own private 1Password account while also using a 1Password account from their work company (<em>or another team like a sport team, club, and/or another family</em>), they can sign in to any number of 1Password accounts in the same app. Each account have their own vaults, settings, permissions, and so on.</p>
+<p>Here&#39;s a screenshot of me signed in with two 1Password accounts, one called <code spellcheck="false" tabindex="0">Item Editors</code> and <code spellcheck="false" tabindex="0">samurai</code> is another testing account I use.</p>
+<p></p>
+<p><code spellcheck="false" tabindex="0">Everything</code> view is the union of both 1Password accounts in the same view.</p>
+<p></p>
+<p>You could create a vault collection to show specific vaults from various 1Password accounts or just one like this:</p>
+<p></p>
+<p>Does that help clarify why Docker/container is desirable and why it means we&#39;d only have one app with a unified experience? It basically means you can treat the 1Password account from the container as a local account that you sign into the same 1Password app and the app wouldn&#39;t see any difference between them. The local account can have any number of vaults you want to keep local and other 1Password account you sign in can be hosted by us, your work company, and so on.</p>
+<blockquote><p>Part of the reason I ended up checking on the linux beta was I ran into an issue where my main computer died (mac OS) and then took out my access to the local vaults. I have them backed up, but didn&#39;t have a way to access them.</p></blockquote>
+<p>If you need it now, you can use a virtual machine (<em>KVM is built-in for Linux</em>) to run Windows and use our Windows app to access your standalone vaults.</p>
+<p>That&#39;s part of why we offer the 1Password memberships, folks don&#39;t want to worry about backups and need access to their data anywhere at any time. You can use 1Password.com web app, 1Password command line tool, 1Password in your browser, any apps we have available at the moment, which we&#39;re extending with Linux now and more in the future.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_588004">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>It is very enlightening to read through all your thoughts and Ideas. Gets me all excited about future feature possibilities.</p>
+<p><strong>Encrypted Exports</strong></p>
+<p>Local vaults keep their own backups for the entire vault but they don&#39;t keep the entire history like what can be seen through the my.1password.com site unless those are back-up separately before they are removed. Is it possible to open a local vault as read only on a device?</p>
+<p><strong>Vault Syncing Granularity</strong></p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_588121">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>I don&#39;t have a horse in this race, but I want to say Kudos! to everyone involved. There has obviously been a lot of thought put into this thread, it is extremely admirable. Not to take away from the contributions of the users, but that 1P peeps have put so much into this is amazing. If only all developers/owners/founders/business folk did the same.</p>
+<p>Insert applause here.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_588736">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Thank you so much for the kind words, <a href="https://1password.community/profile/johann_koebbe" rel="nofollow">@johann_koebbe</a>. 🤗</p>
+<p>Regarding the encrypted exports, <a href="https://1password.community/profile/MONKi1P" rel="nofollow">@MONKi1P</a>, it will be a different format than what we used in opvault. These exports will have an accompanying command line tool that will allow you to decrypt these files so you&#39;ll always be able to access your data. As for the item history that you can view on 1password.com, that will not be included. The export will include the information that&#39;s stored in the client&#39;s local cache.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_588751">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Just read through this whole thread, pretty informative.</p>
+<p>Adding myself as a +1 for some kind of standalone/self hosted Linux solution that doesn&#39;t involve an external network. Been a user/supporter for well over a decade now and I recently set up 1Password on Linux for the first time and was disappointed to see I couldn&#39;t use my current sync solution, but such is life.</p>
+<p>Also not concerned with the financial aspect, happy to pay a monthly subscription, just want control over where/how I sync things.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_588776">
+<div>
+
+
+<div>
+<div>
+<p><a href="https://1password.community/profile/dteare" rel="nofollow">@dteare</a> ahhh yes a commandline tool, that&#39;s wonderful for future proofing!</p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_598119">
+<div>
+
+
+<div>
+<div>
+<p>1Password is very good software.</p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_598121">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Yeah, if something doesn&#39;t happen soon I&#39;m migrating to bitwarden, which we&#39;ve just deployed at work after ruling out 1password, because of the lack of local vault storage.</p>
+<p>Honestly it&#39;s a pity, I&#39;d rather stay with 1pass, but this lack of local vaults is hindering the acceptability of the software for many it seems.</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_598857">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>With the latest news for 1Pass for Linux...</p>
+<p>Do we get local vaults yet? Or are we still the ugly stepchild that gets ignored?</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_598946">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>It&#39;s great to hear you saw the news! Yes indeed, <a rel="nofollow" href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2Fblog.1password.com%2Fwelcoming-linux-to-the-1password-family%2F">1Password for Linux has officially launched</a>! 🎉🥳🎊</p>
+<p>The launch was a huge success so you&#39;re right, now would be a great time to revisit this discussion. As described in <a rel="nofollow" href="https://1password.community/discussion/comment/576271/#Comment_576271">my comment above</a> it will be incredibly difficult to add support for local vaults as 1Password for Linux relies on the server to perform a lot of the heavy lifting. The most likely path towards a modern day version of local vaults would be self-hosting of the 1Password service.</p>
+<p>We&#39;ve seen some excitement for self-hosting in this thread and a few others as well so there&#39;s definitely some interest in this idea. It&#39;s hard to gauge interest piecemeal like this, however, so I&#39;d like to measure things more formally with a survey. I&#39;m putting together a set of questions to see who wants this feature, how it will help them, and some detailed questions to help ensure we build the right thing if and when we decide to move forward on this.</p>
+<p>I&#39;ll update this thread with the survey once it&#39;s ready. I&#39;m planning on using <a rel="nofollow" href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2F1password.com%2Fsecrets">1Password Secrets Automation</a> to store survey responses directly within one of my vaults. I thought this would be a fabulous way to ensure we protect the privacy of people&#39;s information and their comments. It also gives me a great opportunity to geek out with our other big launch of this year. 🙂</p>
+<p>Take care,</p>
+<p>++dave;</p>
+</div>
+ </div>
+</div>
+</div>
+ </li>
+<li id="Comment_599257">
+<div>
+
+
+<div>
+<div>
+<p>Excellent work on the linux app and thank you, it is an amazing release. That being said, like some I cannot adopt it as my default pw manager without either local only vaults or the ability to choose sync location. Hopefully that will make it into a future release, I think that&#39;s a crucial feature these days.</p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_599296">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Hello <a href="https://1password.community/profile/vwest" rel="nofollow">@vwest</a>! Thank you for the kind words. 🤗 It&#39;s great to hear you excitement about 1Password for Linux! 😍</p>
+<p>I merged your question into this thread as I have <a rel="nofollow" href="https://1password.community/discussion/comment/598946/#Comment_598946">a long winded response</a> just above your comment that answers this in detail.</p>
+<p>Please give it a read to see where we&#39;re at and watch for an update from me in the future with details on the survey. In the meantime, however, I&#39;d like to better understand the &#34;or the ability to choose sync location&#34; part of your question. How are you syncing today?</p>
+<p>Take care and enjoy the rest of your weekend. 👋</p>
+<p>++dave;</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_599495">
+<div>
+
+
+<div>
+<div>
+<p>Please ensure the survey announcement is not just in this thread, but in the release notes at the time. I&#39;ve missed a few of the previous surveys, due to not knowing they exist (until after they closed)</p>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_599597">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Thanks for the heads-up <a href="https://1password.community/profile/k4n30" rel="nofollow">@k4n30</a>!</p>
+<p>We will make sure everyone is notified properly. We don&#39;t want to leave anyone out! 😊</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_602482">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Hello everyone, 👋</p>
+<p>Last week we announced <a rel="nofollow" href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2Fblog.1password.com%2F1password-8-for-windows-is-now-in-early-access%2F">early access for 1Password 8 on Windows</a> and along with it we also completed setting up our self-hosting survey. For everyone who is using local/standalone vaults entirely within your network (i.e. no cloud based sync services like Dropbox or iCloud) and would like to self-host your very own 1Password service, please take this survey:</p>
+<p><a rel="nofollow" href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2Fsurvey.1password.com%2Fself-host">Self-hosted 1Password kick-starter</a></p>
+<p>We&#39;ll be using this survey to gauge interest in this feature, as well as making sure we build the right solution in the event there is enough demand to move things forward.</p>
+<p>As for privacy, this survey is powered by <a rel="nofollow" href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2F1password.com%2Fsecrets">1Password Secret Automation</a>. All data collected is stored within a special 1Password vault that will only be shared with myself and select 1Password employees. Your email will only be used for discussions around this feature.</p>
+<p>If self-hosting is something you&#39;re interested in, please complete the survey to let us know! 🤗</p>
+<p>++dave;</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+<li id="Comment_603976">
+
+</li>
+<li id="Comment_604038">
+<div>
+
+
+<div>
+<div>
+<div>
+<p>Hello <a href="https://1password.community/profile/Axell" rel="nofollow">@Axell</a>, 👋</p>
+<p>By &#34;cases&#34; I&#39;m assuming you mean vaults, the main &#34;encrypted container&#34; that items are kept within. To clarify, in 1Password 7 we had two types of vaults: vaults used with the 1Password.com service and what we called &#34;local vaults&#34; or &#34;standalone vaults&#34; which were synced however you decided to, typically Dropbox or iCloud.</p>
+<p>Assuming we&#39;re talking about the same feature, then the answer is no, they are not implemented as the new releases do not have support for local/standalone vaults and 1Password 7 will be the last version to support them. The new apps rely on the server to perform a lot of the heavy lifting so we will not be adding support for local vaults as they existed in earlier versions.</p>
+<p>With that said, there is a possibility that we can achieve the same goals in a different way. A new, modern day equivalent of local vaults would be self-hosting of the 1Password service. We&#39;ve seen some excitement in this thread for this feature and so we created a survey to better understand people&#39;s needs and desires for such a service. If this sounds like something you&#39;d be interested in, please take the survey:</p>
+<p><a rel="nofollow" href="https://1password.community/home/leaving?allowTrusted=1&amp;target=https%3A%2F%2Fsurvey.1password.com%2Fself-host%2F">Self-hosted 1Password kick-starter</a></p>
+<p>The hope of the survey is to help gauge demand to help us decide if this is something we should build and to help us ensure we do things in a way people will like if we decide to move forward here.</p>
+<p>I hope that helps. Please let me know,</p>
+<p>+dave;</p>
+</div>
+ </div>
+</div>
+</div>
+</li>
+</ul>
+</div></div>
+</section>
+</div>
+</section>
+
+
+
+</div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 04:08:44 +0000</pubDate>
+      <source>https://1password.community/discussion/115018/support-for-local-vaults/p3</source>
+    </item>
+    <item>
+      <title>Google “contemplated buying some or all of Epic” to stop “contagion”</title>
+      <link>https://www.rockpapershotgun.com/google-contemplated-buying-some-or-all-of-epic-to-stop-contagion-court-documents-say</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_rockpapershotgun_com_google-contemplated-buying-some-or-all-of-epic-to-stop-contagion-court-documents-say/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="content_above">
+        <div>
+
+
+  <p>
+    If you click on a link and make a purchase we may receive a small commission.
+    <a href="https://www.rockpapershotgun.com/editorial-policy">Learn more</a>.
+  </p>
+
+  <article data-ads="true" data-article-type="news" data-paywalled="false" data-premium="false" data-type="article">
+
+<header>
+  
+
+    <div>
+        
+
+        <p><span>Epic&#39;s antitrust suit against Google rumbles on</span>
+    </p></div>
+
+    
+
+
+
+
+
+<div>
+  <figure>
+  <a href="https://assets2.rockpapershotgun.com/fortnite-creative-maps-finest-2v2.png/BROK/resize/1920x1920%3E/format/jpg/quality/80/fortnite-creative-maps-finest-2v2.png" target="_blank" data-lightbox="true">
+  
+  </a>
+  </figure>
+</div>
+</header>    <div>
+        <div>
+          <p>Newly <a href="https://storage.courtlistener.com/recap/gov.uscourts.cand.364325/gov.uscourts.cand.364325.159.5.pdf">unsealed documents</a> in Epic&#39;s antitrust court case against Google allege that the tech giant considered buying &#34;some or all&#34; of Epic Games, out of concern over the Fortnite developer&#39;s intention to sidestep the Google Play app store.
+</p>
+<!--more-->
+<p>The document doesn&#39;t contain any of the internal messages where such a plan is considered, but a previously redacted paragraph is now included in court documents, as reported <a href="https://www.theverge.com/2021/8/6/22612921/google-epic-antitrust-case-court-filings-unsealed">by The Verge yesterday</a>:
+</p>
+<blockquote>&#34;For example, Google has gone so far as to share its monopoly profits with business partners to secure their agreement to fence out competition, has developed a series of internal projects to address the &#39;contagion&#39; it perceived from efforts by Epic and others to offer consumers and developers competitive alternatives, and has even contemplated buying some or all of Epic to squelch this threat.&#34;</blockquote>
+<p>Responding to the Verge article on Twitter, Epic Games CEO said that they were only finding out now &#34;about Google&#39;s consideration&#34;:
+</p>
+<blockquote><p dir="ltr" lang="en">This was unbeknownst to us at the time, and because of the court’s protective order we’re just finding out now about Google’s consideration of buying Epic to shut down our efforts to compete with Google Play.<a href="https://t.co/HSS1edUrQm">https://t.co/HSS1edUrQm</a></p>— Tim Sweeney (@TimSweeneyEpic) <a href="https://twitter.com/TimSweeneyEpic/status/1423677740851531781?ref_src=twsrc%5Etfw">August 6, 2021</a></blockquote> <p>Elsewhere in the court documents, Epic also allege that Google offered them a &#34;special deal&#34; to launch Fortnite on the Google Play store, which they rejected, and referred to the experience of installing apps on Android phones outside of the store as &#34;frankly abysmal.&#34; 
+</p>
+<figure>
+<iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" data-always-load="true" data-lazyload="true" data-src="https://www.youtube-nocookie.com/embed/ila7p2s6qeM" frameborder="0">
+</iframe></figure>
+<p>Much of the document&#39;s claims and offered evidence remains redacted, but Epic further allege that after they signed a distribution agreement for Fortnite with Samsung&#39;s Android app store, Google &#34;took action to ensure that OEMs would not enter into partnerships with distributors like Epic.&#34;</p>
+<p>A lot of attention has been paid to <a href="https://www.rockpapershotgun.com/apple-fires-shots-at-epic-for-hosting-itchio-and-its-offensive-and-sexualised-games">Epic&#39;s lawsuit against Apple</a> regarding restrictions on the app store, but their lawsuit against Google was launched on the same day and is related to the same issue. Epic claim that Apple and Google&#39;s control of their app store&#39;s constitutes a monopoly, and want to be able to offer users alternative routes to buying their games such as Fortnite - without having to give Apple or Google a 30% cut. The outcomes of both cases have enormous ramifications for Apple and Google&#39;s walled gardens, and for every software developer who releases on those platforms. It could also have consequences for other platforms including consoles, and other digital stores such as Steam.
+</p>
+        </div>
+
+
+    </div>
+  </article>
+
+      </div>
+
+
+  
+  </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 08:31:55 +0000</pubDate>
+      <source>https://www.rockpapershotgun.com/google-contemplated-buying-some-or-all-of-epic-to-stop-contagion-court-documents-say</source>
+    </item>
+    <item>
+      <title>Why Don’t Green Buildings Live Up to Hype on Energy Efficiency?</title>
+      <link>https://e360.yale.edu/features/why-dont-green-buildings-live-up-to-hype-on-energy-efficiency</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___e360_yale_edu_features_why-dont-green-buildings-live-up-to-hype-on-energy-efficiency/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+  
+    
+
+
+
+
+<header>
+  <div>
+        
+  
+
+    <p>Analysts call it the “energy performance gap” — the difference between promised energy savings in green buildings and the actual savings delivered. The problem, researchers say, is inept modeling systems that fail to capture how buildings really work.</p>
+  
+
+ 
+  
+    
+
+    
+
+
+
+
+
+
+
+  </div> <!-- article titles content -->
+</header> <!-- article titles -->
+  
+  
+
+
+    
+    <section>
+
+                      
+                        
+
+<p>Not long ago in the southwest of England, a local community set out to replace a 1960s-vintage school with a new building using triple-pane windows and super-insulated walls to achieve the highest possible energy efficiency. The new school proudly opened on the same site as the old one, with the same number of students, and the same head person—and was soon burning more energy in a month than the old building had in a year.</p>
+                        
+ <!-- footnoteBlock -->
+                        
+<div>
+
+  <figure>
+
+    <div>
+      
+                  
+      <p><a href="https://e360.yale.edu/assets/site/Exterior_Light_Shelves_-_Green_Office_Building_Denver_Colorado.jpg" data-caption="" data-credit="U.S. EPA/WIKIMEDIA COMMONS">
+  
+  
+  
+    
+  
+  
+  
+      
+    
+                
+    
+                
+    
+                
+    
+                
+    
+                
+    
+                
+    
+            
+  
+</a>
+      </p>
+          </div>
+
+        <figcaption>
+              <p><span></span>
+          <span>U.S. EPA/WIKIMEDIA COMMONS</span></p>
+    </figcaption>
+    
+  </figure>
+
+</div> <!-- imageBlock -->
+                        
+
+<div>
+<p>The underfloor heating system in the new building was so badly designed that the windows automatically opened to dump heat several times a day even in winter.  A camera in the parking lot somehow got wired as if it were a thermal sensor, and put out a call for energy any time anything passed in front of the lens.  It was “a catalogue of disasters,” according to David Coley, a University of Bath specialist who came in to investigate.</p>
+<p>Many of the disasters were traceable to the building energy model, a software simulation of energy use that is a critical step in designing any building intended to be green. Among other errors, the designers had extrapolated their plan from a simplified model of an isolated classroom set in a flat landscape, with full sun for much of the day. That dictated window tinting and shading to reduce solar gain. Nobody seems to have noticed that the new school actually stood in a valley surrounded by shade trees and needed all the solar gain it could get.  The classrooms were so dark the lights had to be on all day.   </p>
+<p>It was an extreme case.  But it was also a good example, according to Coley, of how overly optimistic energy modeling helps cause the “energy performance gap,” a problem that has become frustratingly familiar in green building projects.   The performance gap refers to the failure of energy improvements, often undertaken at great expense, to deliver some (or occasionally all) of the promised savings. A <a href="http://www.sciencedirect.com/science/article/pii/S0378778816303814" target="_blank" rel="noreferrer noopener">study</a> last year of refurbished apartment buildings in Germany, for instance, found that they missed the predicted energy savings by anywhere from 5 to 28 percent. In Britain, <a href="https://www.gov.uk/government/publications/low-carbon-buildings-best-practices-and-what-to-avoid" target="_blank" rel="noreferrer noopener">an evaluation</a> of 50 “leading-edge modern buildings,” from supermarkets to health care centers, reported that they “were routinely using up to 3.5 times more energy than their design had allowed for” — and producing on average 3.8 times the predicted carbon emissions</p>
+</div>
+                        
+<div>
+  <blockquote>Buildings account for 40 percent of climate change emissions and are the fastest growing source of emissions. </blockquote>
+</div>
+                        
+
+<div>
+<p>The performance gap is “a vast, terrible enormous problem,” in the words of one building technology specialist, and that’s not an exaggeration.  Though much of the public concern about energy consumption and climate change focuses on automotive miles-per-gallon, the entire transport sector — including trains, planes, ships, trucks, and cars — accounts for just 26 percent of U.S. climate change emissions.  Buildings come in at 40 percent, and they are the fastest growing source of emissions, according to the U.S. Green Building Council.  </p>
+<p>Eliminating the performance gap matters particularly for European Union nations, which have a legally binding commitment to <a href="https://ec.europa.eu/clima/citizens/eu_en" target="_blank" rel="noreferrer noopener">reduce emissions by 80 to 95 percent below 1990 levels</a> by mid-century.  But knowing with confidence what savings will result matters for anybody trying to figure out how much to invest in a particular energy improvement.</p>
+<p>Researchers have generally blamed the performance gap on careless work by builders, overly complicated energy-saving technology, or the bad behaviors of the eventual occupants of a building.  But in a <a href="http://journals.sagepub.com/doi/10.1177/0143624416684641" target="_blank" rel="noreferrer noopener">new study</a>, Coley and his co-authors put much of the blame on inept energy modeling.  The title of the study asks the provocative question “Are Modelers Literate?” Even more provocatively, a <a href="http://www.bath.ac.uk/research/news/2017/05/02/illiterate-modellers/" target="_blank" rel="noreferrer noopener">press release</a> from the University of Bath likens the misleading claims about building energy performance to the Volkswagen emissions scandal, in which actual emissions from diesel engine cars were up to 40 times higher than “the performance promised by the car manufacturer.”</p>
+<p>For their study, Coley and his co-authors surveyed 108 building industry professionals — architects, engineers, and energy consultants — who routinely use energy performance models.  To keep the problem simple, the researchers asked participants to look at a typical British semi-detached home recently updated to meet current building codes. Then they asked test subjects to rank which improvements made the most difference to energy performance. Their answers had little correlation with objective reality, as determined by a study monitoring the actual energy performance of that home hour-by-hour over the course of a year. A quarter of the test subjects made judgments “that appeared worse than a person responding at random,” according to the study, which concluded that the sample of modelers, “and by implication the population of building modelers, cannot be considered modeling literate.”</p>
+</div>
+                        
+<div>
+  <blockquote>‘We have cases where modelers will come up with a savings measure that is more than the energy use of the house,’ says one scientist. </blockquote>
+</div>
+                        
+
+<div>
+<p>Predictably, that conclusion raised hackles. “The sample seems odd to me,” said Evan Mills, a building technology specialist at Lawrence Berkeley National Laboratory, “to include so many people who are junior in the practice, and then to be criticizing the industry at large.” He noted that almost two-thirds of the 108 test subjects had five years or less experience in construction.  But Coley and his co-authors found that even test subjects with “higher-level qualifications, or having many years of experience in modeling,” were no more accurate than their juniors. </p>
+<p>In any case, Mills acknowledged, “the performance gap is real, and we must be aware of models not properly capturing things. We have cases where modelers will come up with a savings measure that is more than the energy use of the house, because they are just working with the model,” and not paying attention to the real house. </p>
+<p>That sort of problem — energy models showing unreasonable results — also turns up at the preliminary stage on 50 percent of projects going through the LEED certification process, said Gail Hampsmire of the U.S. Green Building Council.   Designers have a tendency to take a “black box” approach, providing whatever inputs a particular energy model requires and then accepting the outputs “without evaluating the reasonability of those results,” she said. “You always have the issue of garbage in/garbage out, and the capability of the modeler to identify whether they are getting garbage out is critical.”</p>
+<p>So what’s the fix?  The current accreditation requirements for energy modelers are “very gentle,” said Coley, but “when you’re trying to get something off the ground relatively quickly, you can’t send everybody back to college for three years.” In any case, the problem isn’t really education in the formal sense. </p>
+<p>“It has to do with feedback,” he said, or the lack of it. The culture of building construction says it’s perfectly reasonable for architects — but not energy modelers —to travel hundreds of miles to see how the actual building compares with what they designed.  For energy modelers, there’s not even an expectation that they’ll get on the phone with the building manager at year one and ask how energy usage compares with the original model. As a result, said Coley, energy modeling can become like theoretical physics: “You can very easily create a whole web of theories, and then you find yourself studying the physics of your theories, not the physics of the real world.” </p>
+</div>
+                        
+<div>
+  <blockquote>The organization that gives LEED certification is now requiring that developers post actual energy usage on an online data base.</blockquote>
+</div>
+                        
+
+<div>
+<p>The answer, he suggested, is a regulatory requirement that modelers follow up on their work by routinely checking their predictions against a building’s actual energy consumption. A system of modest inducements could also make that feedback more broadly available — for instance, by promising to take three weeks off the planning permissions process for developers who commit to posting actual energy usage to an online database. The Green Building Council has begun to require that sort of reporting for projects seeking LEED certification, said Hampsmire, with an online platform now in development “for building owners to track their own performance and compare it with other buildings.”</p>
+<p>A second problem, according to Coley, is the tendency of government agencies to require simplified energy models at the start of the design process.  The requirements often include certain uniform assumptions about energy use, making it easier to compare one building with another.  “Because you have to do that at the start, it becomes the default, and this sets up a kind of ‘Alice in Wonderland’ world, and it’s not surprising that modelers model this artificial world.”  But at least in the United States that has become less of a problem in recent years, according to Hampsmire.  Current building code requirements are “fairly good,” she said. “They don’t say, ‘Model energy use for a building occupied eight hours a day,’” or some other arbitrary standard. Instead, “they specifically state that all energy use has to be modeled <em>as anticipated</em>.”</p>
+<p>The takeaway from all this isn’t to discredit energy modeling but to improve it.  Builders increasingly need realistic modeling, said Coley, by people with a deep knowledge of building physics and at least as much experience with real buildings as with energy models. Without that, the result will be even more $500-million office blocks with too much glass on the southern exposure, causing everybody inside to bake on a hot summer afternoon.  Without smart energy modeling, the result will be a world spinning even faster into out-of-control climate change.</p>
+<p>“This isn’t rocket science,” said the Berkeley Laboratory’s Mills.  But then he added, “It’s harder than rocket science.”</p>
+</div>
+                  </section>
+
+
+    
+
+  </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 07:54:58 +0000</pubDate>
+      <source>https://e360.yale.edu/features/why-dont-green-buildings-live-up-to-hype-on-energy-efficiency</source>
+    </item>
   </channel>
 </rss>
