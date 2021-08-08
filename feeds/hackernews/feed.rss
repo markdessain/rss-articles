@@ -27209,5 +27209,568 @@ expression power (more concise code can be a benefit or a curse) and so on.</p>
       <pubDate>Sun, 08 Aug 2021 18:20:53 +0000</pubDate>
       <source>https://thereader.mitpress.mit.edu/what-irony-is-not/</source>
     </item>
+    <item>
+      <title>Show HN: Forever Domains</title>
+      <link>https://foreverdomains.io/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="accordion" role="tablist" aria-multiselectable="true">
+            
+            <div>
+              
+              <div id="collapseTwo" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false">
+                <p>
+                  You can use it like any other domain, however a .forever domain will NEVER expire.  Unlike other domains, you completely control your .forever domain and no one can ever take it from you or censor your access to the domain.  You can register [your family name].forever and pass it down from generation to generation.  
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseThree" role="tabpanel" aria-labelledby="headingThree" aria-expanded="true">
+                <p>
+                   .forever is a top-level domain in the <a href="https://handshake.org">Handshake</a> root zone, so you will need a Handshake resolver in order to view .forever domains.  We created <a href="https://impervious.com/fingertip.html">Fingertip</a>, an easy to use menubar app to simplify this. It uses <a href="https://github.com/handshake-org/HIPs/blob/master/HIP-0005.md">HIP-5</a> to delegate subdomain management to our fork of ENS.
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseFour" role="tabpanel" aria-labelledby="headingFour" aria-expanded="true">
+                <p>
+                  To make this easy, we&#39;ve created <a href="https://impervious.com/fingertip.html">Fingertip</a>, an open source menu bar app that uses <a href="https://github.com/handshake-org/hnsd">hnsd</a> (an SPV resolver daemon for the Handshake network) + Ethereum to resolve .forever domains. 
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseFive" role="tabpanel" aria-labelledby="headingFive" aria-expanded="true">
+                <p>
+                  An advantage of Handshake is that it doesn&#39;t require trusting Certificate Authorities (CAs) for SSL.  HTTPS is done with <a href="https://en.wikipedia.org/wiki/DNS-based_Authentication_of_Named_Entities">DANE</a>, a DNS-based authentication, which requires no trust or centralized control over SSL certificates.  It is more secure than https on traditional domains because you don&#39;t have to trust CAs.
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseSix" role="tabpanel" aria-labelledby="headingSix" aria-expanded="true">
+                <p>
+                  The management of .forever domains is done with a fork of ENS which includes an implementation of <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1185.md">EIP-1185</a>, which allows DNS on ENS.  Our contracts have been verified on etherscan and you can <a href="https://etherscan.io/address/0x24bf911ebF9cc5Ce5d65041b9343D7c5F9565509#code">view them here</a>, or <a href="https://github.com/imperviousinc/forever-contracts">on github</a>.
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseSeven" role="tabpanel" aria-labelledby="headingSeven" aria-expanded="true">
+                <p>
+                  Of course!  Since .forever uses DNS, you can set up a .well-known directory on your domains, using <a href="https://hsd-dev.org/HIPs/proposals/0002/">HIP-2</a>, to publish a wallet address for your domain.  An advantage of this in comparison to .eth or .crypto is that you can dynamically create a new address for each request without paying gas fees.  Hooray!
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseEight" role="tabpanel" aria-labelledby="headingEight" aria-expanded="true">
+                <p>
+                  Nope!  We do have an ENS reverse registrar deployed, which helps to map the .forever domains you own to your Ethereum wallet address.  This is so that you can easily see and manage the domains you own from the <a href="https://app.foreverdomains.io">app.foreverdomains.io</a> website, or other apps and integrations.
+                </p>
+              </div>
+            </div>
+            <div>
+              
+              <div id="collapseNine" role="tabpanel" aria-labelledby="headingNine" aria-expanded="true">
+                <p>
+                  Yes, every .forever domain is issued as an <a href="https://eips.ethereum.org/EIPS/eip-721">ERC-721</a> token. Building on this standard makes it easier for developers to integrate with .forever domains and it lets users manage their domain ownership from any compatible wallet, exchange, or marketplace.
+                </p>
+              </div>
+            </div>
+          </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 18:25:07 +0000</pubDate>
+      <source>https://foreverdomains.io/</source>
+    </item>
+    <item>
+      <title>BioNTech Plans to Address Infectious Diseases on the African Continent</title>
+      <link>https://investors.biontech.de/news-releases/news-release-details/biontech-provides-update-plans-develop-sustainable-solutions</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><article role="article">
+
+  <div>
+                <ul><li><em>BioNTech aims to develop the first mRNA-based vaccine for Malaria prevention with the initiation of a clinical trial by end of 2022</em></li><li><em>BioNTech is evaluating sustainable mRNA vaccine production capacities in Africa; the Company’s efforts are supported by the joint convening powers of the World Health Organization (WHO) and the Africa Centers for Disease Control and Prevention (Africa CDC)</em></li><li><em>BioNTech’s Malaria project is part of the ‘eradicateMalaria’ initiative, led by the kENUP Foundation, to accelerate the eradication of Malaria</em></li></ul><p><strong>MAINZ, Germany, July 26, 2021</strong> (GLOBE NEWSWIRE) – <a href="https://www.globenewswire.com/Tracker?data=8ge2scCYOCGnIgGflD9o9WkpeZLdGP4xiXJPg-QmcGD9d6_621GAJ1OVd6arUkJZ33DgWdLepE8kKbblmjf7kQ==" rel="nofollow" target="_blank"><u>BioNTech SE</u></a> (Nasdaq: BNTX, “BioNTech”) today announced the launch of its Malaria project, which aims to develop a well-tolerated and highly effective Malaria vaccine and implement sustainable vaccine supply solutions on the African continent.</p>  <p>BioNTech’s Malaria project has two key objectives: </p>  <p>First, the development of a safe and highly effective mRNA vaccine with durable protective immunity to prevent Malaria and disease-associated mortality. BioNTech will assess multiple vaccine candidates featuring known Malaria targets such as the circumsporozoite protein (CSP), as well as new antigens discovered in the pre-clinical research phase. The most promising mRNA vaccine candidates will be selected for clinical development. The start of the clinical trial for the first vaccine candidate is planned for the end of 2022. The Malaria vaccine development program is an extension of BioNTech’s COVID-19 vaccine efforts. Building on two decades of mRNA research and its clinical stage mRNA platform, BioNTech has co-developed the first mRNA-based COVID-19 vaccine together with its partner Pfizer.</p>  <p>The second objective is the development of sustainable vaccine production and supply solutions on the African continent. BioNTech is exploring possibilities to set up state-of-the-art mRNA manufacturing facilities, either with partners or on its own. The facilities are expected to manufacture various mRNA-based vaccines upon approval to ensure sustainable supply operations. BioNTech plans to co-locate its African manufacturing capabilities with the technology transfer hubs under development by the WHO, in alignment with the African manufacturing strategy created by the Africa CDC. This strategy aims to expand the capacity of low- and middle-income countries to manufacture contemporary vaccines end-to-end, and scale up production to increase global access.</p>  <p>“The response to the pandemic has shown that science and innovation can transform people&#39;s lives when all key stakeholders work together towards a common goal. We are committed to bringing our innovations to those who need them most,” said <strong>Prof. Dr. Ugur Sahin, CEO and co-founder of BioNTech</strong>. “We are more than grateful to be part of the joint efforts of the Eradicate Malaria project. Together with our partners, we will do whatever it takes to develop a safe and effective mRNA-based Malaria vaccine that will prevent the disease, reduce mortality and ensure a sustainable solution for the African continent and other regions affected by this disease. Our efforts will include cutting-edge research and innovation, significant investments in vaccine development, the establishment of manufacturing facilities, and the transfer of manufacturing expertise to production sites on the African continent and wherever else it is needed.”</p>  <p>BioNTech has undertaken comprehensive antigen discovery processes to identify antigens for various vaccine candidates. Since 2019, the Company has collaborated with the Bill and Melinda Gates foundation to develop Human Immunodeficiency Virus (HIV) and Tuberculosis programs and provide affordable access to vaccines to low- and middle-income countries. For Tuberculosis, BioNTech plans to begin clinical trials for testing a vaccine candidate in 2022, just about two years after the program was initiated. The antigen discovery processes for Malaria and Tuberculosis are being conducted by specialized teams at BioNTech’s headquarters in Mainz. Currently, BioNTech and its partners are developing vaccines against nine different infectious diseases, and the Company continues to develop 15 oncology programs at clinical stage based on four different drug classes, including mRNA.</p>  <p>The World Health Organization (WHO), European Commission and other organizations have been involved in the early planning phase of BioNTech’s Malaria project and have offered their support to identify and set up the necessary infrastructure. Collaboration with the African Union and the Africa CDC under the partnership for African Vaccine Manufacturing programme will ensure that the enabling factors such as regulatory alignment and policy transfer, as well as country coordination are in place to get the vaccines from factories to the citizens of the African Union.</p>  <p>BioNTech’s Malaria project is part of the ‘eradicateMalaria’ initiative, led by the kENUP Foundation, to accelerate the eradication of Malaria. The kENUP Foundation is a non-profit public benefit foundation supporting research-based innovation in the wider health industries for societal benefit.</p>  <p><strong>About Malaria</strong> <em>(source WHO)</em> </p>  <p><strong>About Tuberculosis</strong><em> (source WHO) </em></p>  <p><strong>About BioNTech</strong></p>  <p><strong>Forward-Looking Statements</strong></p>  <p>For a discussion of these and other risks and uncertainties, see BioNTech’s Annual Report on Form 20-F for the Year Ended December 31, 2020, filed with the SEC on March 30, 2021, which is available on the SEC’s website at www.sec.gov. All information in this press release is as of the date of the release, and BioNTech undertakes no duty to update this information unless required by law.</p>  <p><strong>BioNTech Contacts:</strong></p>  <p>Investor Relations</p>  </div>
+</article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 19:34:56 +0000</pubDate>
+      <source>https://investors.biontech.de/news-releases/news-release-details/biontech-provides-update-plans-develop-sustainable-solutions</source>
+    </item>
+    <item>
+      <title>Imaging Cygnus a at 8.45 GHz with ATA</title>
+      <link>https://destevez.net/2021/08/imaging-cygnus-a-at-8-45-ghz-with-ata/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><article id="post-10107">
+
+	<!-- .entry-header -->
+
+	<div>
+		
+<p>Earlier this year, I published a post showing our results of the <a href="https://destevez.net/2021/03/interferometric-imaging-with-allen-telescope-array/" data-type="post" data-id="9784">interferometric imaging of Cassiopeia A and Cygnus A at 4.9 GHz with the Allen Telescope Array</a>. Near the end of July, I decided to perform more interferometric observations of Cygnus A at a higher frequency, in order to obtain better resolution. I chose a frequency of 8.45 GHz because it is usually a band clean of interference (since it is allocated to deep space communications), it is used by other radio observatories, so flux densities can be compared directly with previous results, and because going higher up in frequency the sensitivity of the old feeds at ATA starts to decrease.</p>
+
+
+
+<p>This post is a summary of the observations and results. The code and data is included at the end of the post.</p>
+
+
+
+<h4>Observation set up</h4>
+
+
+
+<p>For these observations, I used 6 antennas that have recently entered into service. The configuration of the USRPs is the same as I described in my <a href="https://destevez.net/2021/03/interferometric-imaging-with-allen-telescope-array/" data-type="post" data-id="9784">post from March</a>, so only one baseline can be correlated at a time and the set of baselines that can be formed is limited to those obtained by choosing one of the antennas available for USRP1 and one of the antennas available for USRP2, as follows:</p>
+
+
+
+<ul><li>USRP1: 2c, 2e, 3l, 5b</li><li>USRP2: 2j, 2m</li></ul>
+
+
+
+<p>Therefore, only 8 baselines can be formed with these 6 antennas.</p>
+
+
+
+<p>The sources observed in these observations are as follows:</p>
+
+
+
+<ul><li>3C286 as polarization calibrator, flux density scale calibrator, and backup phase calibrator</li><li>J2007+404 as primary phase calibrator; this is a 2.85 Jy source <a href="https://science.nrao.edu/facilities/vla/observing/callist">listed as a VLA calibrator</a></li><li>3C84 as bandpass calibrator and backup phase calibrator</li><li>Cygnus A as science target</li></ul>
+
+
+
+<p>Cygnus A is located at only 1.59 degrees separation from the calibrator J2007+404. The image below, taken from the <a href="https://public.nrao.edu/vlass/">VLASS</a> 2-4 GHz VLA sky survey shows both of them. Cygnus A is inside the black box, since VLASS excludes very strong sources, and J2007+404 can be seen towards the left of Cygnus A, showing large sidelobes in this <a href="https://science.nrao.edu/vlass/data-access/vlass-epoch-1-quick-look-users-guide">quicklook image</a> due to its rather high flux density (compared with the sensitivity of this survey). This image has been obtained with the web interface to the <a href="http://archive-new.nrao.edu/vlass/HiPS/VLASS2.1/Quicklook/">VLASS2.1 HiPS data</a>, which allows us to explore the radio sky easily.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/cygA_VLASS.jpg"></a><figcaption>Cygnus A and J2007+404 in <a href="https://public.nrao.edu/vlass/">VLASS</a></figcaption></figure>
+
+
+
+<p>I used the same GNU Radio software correlator as back in March. This is contained in the <a href="https://github.com/daniestevez/ata_interferometry/">ata_interferometry</a> Github repository. The observed bandwidth was 40.96 MHz, using the X and Y polarizations. All the polarimetric autocorrelations and cross-correlations were computed in real time, and phased in post-processing and reduced to UVFITS files with 64 frequency channels and 1 second integration time.</p>
+
+
+
+<h4>Observation scheduling</h4>
+
+
+
+<p>The observations were carried out during three consecutive days: 23, 24 an 25 July. The first day was a full track observation of 3C286 only. The goal of this observation was to gather as much data as possible for polarization calibration, and additionally to serve as a check of the system.</p>
+
+
+
+<p>The second day, the observation of all the targets was carried out, following this order:</p>
+
+
+
+<ul><li>3C286 was observed as soon as it rose, and until Cygnus A rose</li><li>When Cygnus A and J2007+404 rose, they were scanned alternatively, with infrequent scans of 3C286</li><li>When 3C84 rose, the pattern of scanning Cygnus A and J2007+404 continued, but the infrequent scans of 3C286 were replaced by infrequent scans of 3C84</li><li>When Cygnus A and J2007+404 set, 3C84 was observed for an hour more, with the goal of using this final segment for bandpass calibration</li></ul>
+
+
+
+<p>Unfortunately, there was a problem with the observation script throughout the night, before Cygnus A rose, so several hours of data were lost. The third day the same schedule was followed, with the observation script already corrected, so all the data was gathered.</p>
+
+
+
+<p>The figure below shows the calibrated visibility amplitudes of the whole three days. Colouring is by field, with 3C286 in black, J2007+404 in pink, Cygnus A in orange, and 3C84 in green.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/amplitudes.png"></a><figcaption>Calibrated visibility amplitudes coloured by field</figcaption></figure>
+
+
+
+<p>The plot shows the great differences in brightness of the sources, with Cygnus A being by far the brightest. It is often not easy to get calibrators close to the science target that have a flux density of at least a few Jy, which is necessary for good results with the ATA 6.1 m dishes observing with only 40 MHz of bandwidth and one baseline at a time. Therefore, the presence of J2007+404 so close to Cygnus A is a happy coincidence.</p>
+
+
+
+<p>3C84 is by far one of the strongest compact calibrators, so it is quite useful for bandpass calibration and other calibrations that benefit from high SNR.</p>
+
+
+
+<h4>Calibration</h4>
+
+
+
+<p>Calibration and imaging was performed in <a href="https://casa.nrao.edu/">CASA</a> 6.2.0. First, some flagging of interference was done with <code>tfcrop</code>. Then data that was visibly bad when examining the amplitudes or phases with <code>msview</code> was manually flagged.</p>
+
+
+
+<p>Two separated bandpass calibrations were performed using the scans of 3C84 at the end of the second and third day, after Cygnus A had set. The calibration from the second day turned out to be much better because there was some unknown problem during the third day that caused a loss in sensitivity. The amplitude of the cross-correlations decreased suddenly, while the amplitude of the autocorrelations wasn’t affected. Moreover, the variance of the visibilities increased significantly. Therefore, the bandpass solution from the second day was chosen to be applied to all the data.</p>
+
+
+
+<p>The figures below show the bandpass solutions. As I remarked in my post from March, it is not possible to use CASA for a delay calibration because of the baseline-by-baseline scans. Therefore, the delays, which are small, are absorbed by the bandpass phase.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/bandpass_amplitude.png"></a><figcaption>Bandpass amplitude solution (both polarizations)</figcaption></figure>
+
+
+
+<p>It is interesting that the reference antenna, 2j, has a noticeable delay difference in the X and Y polarizations, whereas the rest of the antennas have more similar delays.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/bandpass_phase_Poln0.png"></a><figcaption>Bandpass phase solution (X polarization)</figcaption></figure>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/bandpass_phase_Poln1.png"></a><figcaption>Bandpass phase solution (Y polarization)</figcaption></figure>
+
+
+
+<p>Besides calibrating the bandpass, these scans of 3C84 are used to perform a time-independent phase calibration, which is then used as the phase offset between the X and Y polarizations. This allows all further phase calibrations to be performed in a polarization-independent way, which increases the SNR.</p>
+
+
+
+<p>Next, a polarization-independent phase calibration is done on each compact calibrator. The solution intervals are chosen manually during most of the observations in order to fit well with the 8 baseline cycle.</p>
+
+
+
+<p>The figure below shows the results of applying this phase calibration, together with the bandpass and X-Y phase offset to the three compact sources 3C286 (black), J2007+404 (pink) and 3C84 (green). The decrease in sensitivity at some point during the third day is apparent in the noise in the phase of J2007+404.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/calibrators_phase.png"></a><figcaption>Calibrated phase for compact sources</figcaption></figure>
+
+
+
+<p>After phase calibration, amplitude calibration is done. This is carried out in a polarization-dependent way, since the gains of the two channels can change independently. The idea is to use 3C286 as the flux density calibrator and to transfer the flux scale to the other calibrators. However, there are the following two quirks to handle.</p>
+
+
+
+<p>On the second day there is a long gap without data, separating 3C286 and the other sources. This means that the amplitude scale from 3C286 can’t be transferred to the other sources, since the gains can have changed somewhat during that gap (and in fact the correct amplitude transfer shows that it has changed). Therefore, what we do for this day is to use 3C84 as the amplitude scale, forcing the flux measured on the third day during calibration.</p>
+
+
+
+<p>On the third day we have the problem with the change in sensitivity, that causes a sudden decrease of visibility amplitudes. The segments before and after the change are calibrated and transferred separately, and this seems to work well.</p>
+
+
+
+<p>The figures below show the calibrated amplitudes of each of the calibrators. There is perhaps a slight difference in amplitude for 3C84 comparing the second and third days. This is caused by the peculiar calibration process explained above, but it is something minor.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/calibrators_amplitude_Field3C286.png"></a><figcaption>Calibrated amplitudes for 3C286</figcaption></figure>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/calibrators_amplitude_FieldJ2007404.png"></a><figcaption>Calibrated amplitudes for J2007+404</figcaption></figure>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/calibrators_amplitude_Field3C84.png"></a><figcaption>Calibrated amplitudes for 3C84</figcaption></figure>
+
+
+
+<p>For each of these sources, the bandpass and X-Y phase offset from 3C84 on the second day and the amplitude and phase calibration from itself are used. For Cygnus A, the bandpass and X-Y phase offset are also taken from 3C84 and the amplitude and phase calibration is taken from J2007+404.</p>
+
+
+
+<h4>Imaging</h4>
+
+
+
+<p>Imaging is done using multi-scale cleaning and roughly the same parameters as in my post from March. A pixel size of 4 arcseconds is used. In contrast to that post, an image size of 512×512 pixels is used to image the whole primary beam, though we don’t expect to see any other objects away from the phase centre in each field.</p>
+
+
+
+<p>The figure below shows the UV coverage for Cygnus A. There is coverage between approximately 0.2kλ to 7λ, which corresponds to resolutions between 30 arcsec and 17 arcmin.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/cyga_uv.png"></a><figcaption>UV coverage for Cygnus A</figcaption></figure>
+
+
+
+<p>The next figure shows the amplitude versus modulus of (U,V). We can see that several baselines are probing the first nulls of the visibility of Cygnus A. In some of the  baselines we see that the line is double. There are somewhat different gain calibrations on each of the two days. This will be fixed with self-calibration after imaging.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/cyga_uvwave_amp.png"></a><figcaption>Amplitude versus |(U,V)| for Cygnus A</figcaption></figure>
+
+
+
+<p>For the compact sources, first an image is done without many clean iterations to generate a model, then phase and amplitude self-calibration is made, and a second image is cleaned with more iterations. The images are not very interesting, since the sources are unresolved, but imaging is a good way to check that everything is working correctly.</p>
+
+
+
+<p>For Cygnus A, first an image is cleaned, then a phase self-calibration is done, a new clean image is done, and finally a phase and amplitude self-calibration is done with the new image, thus producing a final self-calibrated image.</p>
+
+
+
+<p>The SNR for each of the images is shown below. This is computed as the quotient of the maximum pixel brightness and the RMS in an area that does not contain the object. We can see how the SNRs of 3C84 and Cygnus A increase greatly after self-calibration. Since these objects are very bright, the image SNR is mainly limited by calibration errors.</p>
+
+
+
+<pre>3C84.image SNR: 163.43
+3C84_selfcal1.image SNR: 406.75
+3C286.image SNR: 409.76
+3C286_selfcal1.image SNR: 474.12
+J2007+404.image SNR: 182.80
+J2007+404_selfcal1.image SNR: 189.06
+CygA.image SNR: 168.43
+CygA_selfcal1.image SNR: 230.08
+CygA_selfcal2.image SNR: 539.46</pre>
+
+
+
+<p>The images for the three calibrators are shown below.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/3C286.jpg"></a><figcaption>Clean image for 3C286</figcaption></figure>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/J2007.jpg"></a><figcaption>Clean image for J2007+404</figcaption></figure>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/3C84.jpg"></a><figcaption>Clean image for 3C84</figcaption></figure>
+
+
+
+<p>The next figure shows the image for Cygnus A. We can clearly see the double source structure.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/CygnusA.jpg"></a><figcaption>Clean image for Cygnus A</figcaption></figure>
+
+
+
+<p>A zoom to this image and the addition of a contour plot reveal more detail. The contours are set at 2.5, 5, 10, 20, 30, 40, 50, 60, 70, 80 and 90% levels.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/CygnusA_zoom.jpg"></a><figcaption>Clean image for Cygnus A (detail)</figcaption></figure>
+
+
+
+<p>In the central part between the two lobes there is a flux of around 3 Jy/beam. This is significantly higher than the noise floor, which is a fraction of a Jy/beam. It provides evidence that we are detecting the small central component, that corresponds to the supermassive black hole in the active galaxy. The figure below, taken from <a href="http://www.aoc.nrao.edu/~ccarilli/cyga.shtml">this page</a>, shows an image done with VLA at 5 GHz that has 60 times more resolution and shows the central component clearly.</p>
+
+
+
+<figure><a href="https://destevez.net/wp-content/uploads/2021/08/cyga.jpg"></a><figcaption>5 GHz VLA image of Cygnus A with 0.5 arcsec resolution (taken from <a href="http://www.aoc.nrao.edu/~ccarilli/cyga.shtml">this page</a>)</figcaption></figure>
+
+
+
+<p>The total flux density in the image of Cygnus A is 201.6 Jy,  and the maximum brightness is 79.7 Jy/beam.</p>
+
+
+
+<h4>Polarimetry</h4>
+
+
+
+<p>I hoped to use these observations to study the polarization of Cygnus A. This is the reason why the first day was devoted to a full track observation of 3C286. However, I have not been able to obtain a satisfactory polarization calibration. It is difficult to detect the polarized signature in the cross-hands due to the large leakages and low SNR. Moreover, the changes in the relative amplitudes of the parallel-hands do not seem so consistent between different baselines, for some unknown reason.</p>
+
+
+
+<p>I have even been following the <a href="https://casaguides.nrao.edu/index.php?title=3C286_Polarization">CASA tutorial for polarimetric imaging of 3C286 with ALMA</a> (since ALMA also uses a linear polarization basis, unlike the VLA), trying to improve my techniques. However, after trying to do something with the data for a while, I think that it is not good enough, and better data needs to be gathered.</p>
+
+
+
+<h4>Code and data</h4>
+
+
+
+<p>The code used in this post for correlation and phasing is the usual GNU Radio FX software correlator pipeline from the <a href="https://github.com/daniestevez/ata_interferometry/">ata_interferometry</a> repository. The calibration and imaging in CASA was done with <a href="https://github.com/daniestevez/ata_interferometry/blob/main/CASA/CygA_2020724.py">this script</a>.</p>
+
+
+
+<p>The data has been published as the dataset “<a href="https://zenodo.org/record/5170601#.YRAS2pLtaCg">Cygnus A 8.45 GHz interferometric observation with Allen Telescope Array</a>” in <a href="https://zenodo.org">Zenodo</a>.</p>
+	</div><!-- .entry-content -->
+
+	<!-- .entry-footer -->
+
+				
+</article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 19:11:40 +0000</pubDate>
+      <source>https://destevez.net/2021/08/imaging-cygnus-a-at-8-45-ghz-with-ata/</source>
+    </item>
+    <item>
+      <title>The &#39;snake&#39; who saved the monarchy</title>
+      <link>https://unherd.com/2021/08/the-snake-who-saved-the-monarchy/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___unherd_com_2021_08_the-snake-who-saved-the-monarchy_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+<p>Forty years ago, on 10 August, a tall and wiry old man died at Kensington Palace, aged 94. He had been a cultivated chap — a former Director of the Midland Bank, Secretary of the Literary Society and Director of the Royal Academy of Music. He read Shakespeare on the Tube as he travelled to meetings at the bank, and wrote amateur poetry. Occasionally royalty stopped to chit chat on their way past, as Princess Margaret once did with her new baby. In later retirement, he had become something of a hermit, looking like “a pot-bellied old beaver”, to use his own words, and growing an ungainly beard.</p>
+<p>This man was Alan “Tommy” Lascelles, former Private Secretary to George VI and Queen Elizabeth II, and the Assistant Private Secretary to Edward VIII when he was Prince of Wales. He had lived, grace-and-favour, at the Old Stables at Kensington Palace (he thought it was one of the nicest houses in England) since he retired in 1953. Having been a courtier, on and off, from 1920-1953, he gives a fascinating insight into how to preserve a monarchy in a democracy.</p>
+
+<p>Lascelles gets caricatured as a stiff-arsed, hard-bristled, curmudgeonly enforcer of horrible rules in <em>The Crown</em><em>, </em>forever thwarting true love’s course. As well as playing a role in Edward VIII’s abdication, Lascelles is seen as one of the Establishment men who decided Princess Margaret couldn’t marry Peter Townsend. But despite this crucial role in modern Royal history, the real Lascelles remains slightly out of sight to us. There is no biography. His archives in Churchill College, Cambridge are largely closed — especially material relating to the monarchy. Edward Owens, who recently wrote a book about the royal family and the mass media, was denied access to them. His diaries, although excellent, were selectively edited by his friend Rupert Hart-Davis; they reveal a much more emotional, sensible, likeable man than the popular image.</p>
+<p>There is no consensus, then, on Lascelles’s true character. To Edward VIII, living in exile as the Duke of Windsor, Lascelles was always “that snake”. The feeling was mutual. When Harold Nicolson had lunch with Lascelles three days after the Abdication, the courtier said the former King was “like a child in the fairy stories who had been given every gift except a soul”. He was also spitting with rage about the fact that Edward VIII was not patriotic enough: “He never cared about England or the English.” Ferdinand Mount <a href="https://www-lrb-co-uk.lonlib.idm.oclc.org/the-paper/v40/n01/ferdinand-mount/always-the-same-dream" target="_blank" rel="noopener">remembers</a> Lascelles visiting his school, where Mount “was startled by his explosion of venom against the Duke of Windsor … He was memorably unpleasant.”</p>
+
+<p>But Lascelles wasn’t just a stickler for arcane and snobbish standards, nor did he take a cruel pleasure in enforcing them. He stood for fair play and pragmatism. When Noël Coward was recommended for a knighthood, Lascelles advised George VI against. The King was constantly approving court martials against young RAF officers who had written dud cheques, and Coward had recently been fined for cheating his Income Tax. It would have been wrong for those young men to be punished while Coward was honoured.</p>
+<p>Essentially honourable, then, despite being memorably unpleasant. Lascelles understood that although monarchy must be staged, that doesn’t mean it can be fake. The public spectacle has to be a true enough expression of the values it upholds. That is why the knighthood had to be refused, and why Wallace Simpson couldn’t be Queen. (In one of his more venomous moments, Lascelles wrote that the King’s subjects would not tolerate “a shop-spoiled American, with two living husbands and a voice like a rusty saw”.) That is why, after the abdication, Lascelles went to some lengths to keep Edward out of the country, to try and eradicate the whole affair from the public mind. It is also why, irrespective of the way it happened, Lascelles came to believe the abdication was inevitable. Edward, he said, was “habitually ready to sacrifice truth to his personal likes or dislikes”; Edward’s celebrity wasn’t enough to maintain the monarchy.</p>
+<p>Lascelles believed in the institution but said, “I have never idealised any member of the House of Windsor”. When Harold Nicolson was commissioned to write George V’s biography, Lascelles told him it would be the biography of an institution, and that there would be no need to “descend into personalities”. This isn’t just bluster. The night the abdication was announced, Lascelles walked round and round St James’s Park, thinking about James II. The stability of the monarchy mattered to him. He described the abdication as “a real tragedy in my life”.</p>
+
+<p>And yet for someone with such strong principles, Lascelles lacked a sense of direction. As a young graduate, he was rather louche. Although he was skittling around London dining with what Bertie Wooster would call some of the better elements, his diary never comes alive like it does when he shoots his first stag, or when he’s riding a horse. (He gives thanks that he inherited the “long, flat Lascelles thighs.”) His main interest as a young man — just like Edward VIII’s — was to be active. A series of possible careers — Foreign Office, stockbroker, journalist — were tried, hated, failed or simply never started. Without the war, he would have been edging towards becoming a drifter. Instead, despite a somewhat inactive war, he was awarded the Military Cross.</p>
+<p>After the Armistice, he worked for his brother-in-law, the Governor of Bombay. Writing to his uncle <a href="https://commonreader.substack.com/p/what-kind-of-ordinary-the-sad-but" target="_blank" rel="noopener">Adolphous Liddell</a> (another slightly lost soul) he said: “there is much in all the flummery and ceremonial which, even after a long course of military discipline, irritates me profoundly.” We might be surprised at this lack of admiration for imperial flummery. This is, after all, Alan Lascelles: reactionary, establishment stalwart, slayer of marriages, arch defender of the old order. But it was precisely this slightly detached view that made him such a good courtier.</p>
+<p>Lascelles believed in the substance of royalty, not just the display. The day after George V died, nearly 20 years after that complaint about imperial flummery, the King’s body was taken to a little church at the end of the garden at Sandringham for a small private ceremony ahead of the large, public spectacle:</p>
+<p><em>“The guardsmen, with scarcely a sound, slung the coffin on their shoulders and laid it before the altar; and there, after a very brief service, we left it, to be watched for thirty-six hours by the men of the Sandringham Estate. I daresay when all the tumult and shouting dies, that little ceremony will remain in my mind as the most impressive of all.”</em></p>
+<p>Lascelles was not the sort of Royalist who was in it for the memorial plates and days out at the park. He was a genuine believer. He could talk of the King as a Deity with little exaggeration. He was burying the head of his tribe. This is why there was such a kerfuffle with the new King. Edward VIII wanted to run a very different sort of tribe.</p>
+
+<p>Lascelles’s history with Edward VIII is essential to understanding later events. When he returned from India in 1920, his friend Letty Elcho brought him a letter offering a job with Edward VIII, then Prince of Wales. Lascelles was attracted to the job partly because St. James’s Palace was half a mile from his house and a quarter of a mile from his club, but mostly because “I have got a very deep admiration for the Prince, and I am convinced that the future of England is as much in his hands as in any individual”. Remarkably, had this job not come along, he would have signed on as an apprentice to a printing firm.</p>
+<p>This deep admiration would not last, and Lascelles’s ability to see the ridiculous in the Royal was important to his role as a courtier. After nine years of watching the Prince drink, gamble, womanise, neglect his duties, be rude to members of the British establishment, and — shockingly for the feudal Alan — show very little interest when there was a scare that George V might die, he stormed out in 1929, in the sort of resignation so many of us have dreamed of making:</p>
+<p><em>When he asked me why I wanted to leave him, I paced his room for the best part of an hour, telling him, as I might have told a younger brother, exactly what I thought of him and his whole scheme of life, and foretelling, with an accuracy that might have surprised me at the time, that he would lose the throne of England.</em></p>
+<p>Most of us, after such an exit, would never go back. And Lascelles had only drifted into the role. Quitting it, he called himself “an inverted Falstaff” (because he was thin, just as thin in middle age as when he was young), leaving Prince Hal to “work out his own damnation”. But, after two years of reading and gardening with his family in the country, and a stint working for the Governor General in Canada, he was asked to re-join the Royal staff.</p>
+<p>At first, he refused. The job was with George V, who he once described as “the godhead” — but Lascelles had said in his resignation letter: “Very few men can go on being private secretaries all their lives, and I am not one of them.” And besides, he pointed out, when the king died, he would be in a very difficult position, to put it mildly, having told the next-in-line exactly what he thought of him. Clive Wigram, George V’s Private Secretary — who was hiring Lascelles to be his assistant — told him not to worry. The King was in splendid health and had years left in him. Lascelles wrote to his wife Joan saying he was going to take the job: “It is no use going about the world singing ‘God Save the King’ if one isn’t prepared to assist the Deity when called upon.”</p>
+
+<p>And so, in January 1936, he travelled to Norfolk to start his new job. He had found a first-class carriage reserved for him at Liverpool Street. Once the journey was underway, “a young man appeared in the doorway of my carriage. I was about to tell him to go away when I recognised him as the Duke of York.” It was a good thing he recognised him. The young man would accede as George VI within 12 months, and Lascelles would become his Private Secretary in 1943. The Duke of York said to him halfway through the journey, “What’s all this about the King not being well?” George V died within four days. The soulless Edward was king.</p>
+<p>And so, from a combination of lassitude, duty, and blue-blooded patriotism, Lascelles ended up as Assistant Private Secretary to a man he was morally repulsed by. Gentlemen do not just drop out of Royal service because they dislike the new King. It is perhaps surprising that Edward kept Lascelles on. But it seems obvious from this distance — as it seemed to Lascelles then — that Edward had never planned to make it that far and wasn’t going to stay long.</p>
+<p>The royal family is meant to bring spectacle to our lives by displaying theirs: a glittering pageant of Births, Deaths, and Marriages. As the monarchy lost power through the nineteenth century, they replaced it with performance. Public engagement became Queen Victoria’s way of maintaining her relevance. And this new mode of royal existence is part of what made Edward VIII such a star as Prince of Wales: his tours of America, Canada, and South Africa were massive successes. But by the end of George V’s reign, British royalty had consolidated a new covenant with the people: “private probity, public spectacle.”</p>
+<p>Lascelles was the high priest of the Georgian model and had seen first-hand that Edward was all public spectacle and no private probity. A courtier out of duty (and because he found nothing else to do), he realised that unless the royal family stuck to its principles — to the principles forced on it by a changing world — it would suffer. To the extent that he was a propagandist, an enemy of Edward VIII, a reactionary, and everything else he is claimed to be, it was because he realised the royal family had very little choice. Much of what Lascelles is said to have brought about may well have been inevitable as monarchy adjusted to democracy.</p>
+<p>He had always been a slightly unwilling courtier. (He told his daughter long after he retired that, if he could have his life again, he would breed horses. “Racehorses, or cart-horses: any sort of horses.”) He was good at it, though. It remains to be seen whether he will eventually be remembered as the last of the old school who helped the monarchy transition to its modern function — or as a crusty old reactionary who needlessly destroyed a clutch of happy lives. But when his archives are eventually dusted off, I doubt we will find any dark secrets in there. We already know the fundamentals. He was a man who believed in royal morals underpinning royal spectacles.</p>
+
+<p>What would he make of the modern monarchy? In his 1990 review of Philip Ziegler’s <em>Edward VIII</em>, Christopher Hitchens <a href="https://www.google.co.uk/books/edition/For_the_Sake_of_Argument/bJbCBAAAQBAJ?hl=en&amp;gbpv=1&amp;dq=%E2%80%9Cthe+magic+of+the+throne+is+now+inextricable+from+Charles+and+the+Annenbergs,+Diana+and+Donald+Trump+%E2%80%93+the+extension+of+Edward%E2%80%99s+international+white-trash+habit+into+modern+showbiz+and+celeb+culture.%E2%80%9D&amp;pg=PT255&amp;printsec=frontcover" target="_blank" rel="noopener">observed</a> that “the magic of the throne is now inextricable from Charles and the Annenbergs, Diana and Donald Trump — the extension of Edward’s international white-trash habit into modern showbiz and celeb culture.” This line might stand as a eulogy for the Lascelles’s school: that there is little point in having a Royal Family unless they adhere to certain difficult and sometimes out-of-date principles. For Lascelles, as for the public at that time, those principles were about marriage. One of the last things he did was sit in the garden of Kensington Palace to watch the firework celebrations of Charles and Diana’s wedding. The next day, he asked for news about the event every few minutes, anxious it should all be going well. He died two weeks later.</p>
+<p>Undoubtedly, the sort of revelations we have heard about the Royal Family since would have been anathema to his sense of decorum. But Tommy didn’t speculate. A young man from the BBC once tried to persuade him to appear in what Lascelles called “a television orgy on The Future of the British Monarchy”. Lascelles gave a forthright reply: “I told him I would as soon walk stark naked down Piccadilly.” We might find it easy to dismiss him as an old fogey. But how confidently can we say that we are beyond his concerns about private probity? Are we above worrying about what makes an acceptable royal spouse?</p>
+
+<!-- 				<div class="share" style="text-align: left;">
+				     <h5>Share:</h5>
+
+				     <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Funherd.com%2F2021%2F08%2Fthe-snake-who-saved-the-monarchy%2F?=frbottom">
+					     
+				     </a>
+				     <a href="https://twitter.com/intent/tweet?text=The+snake+who+saved+the+monarchy @UnHerd&url=https%3A%2F%2Funherd.com%2F2021%2F08%2Fthe-snake-who-saved-the-monarchy%2F?=frbottom" target="_blank">
+					     
+				     </a>
+				     <a href="mailto:?subject=The snake who saved the monarchy%20-%20by%20UnHerd.com&body=I%20thought%20you%20may%20like%20this%20article%20from%20UnHerd:%20https%3A%2F%2Funherd.com%2F2021%2F08%2Fthe-snake-who-saved-the-monarchy%2F?=thepostindexfrmemail">
+						
+					</a>
+				</div>
+				
+				-->
+
+			</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 15:29:32 +0000</pubDate>
+      <source>https://unherd.com/2021/08/the-snake-who-saved-the-monarchy/</source>
+    </item>
+    <item>
+      <title>Big Tech are supposed to be the plumbers, not patricians of internet discourse</title>
+      <link>https://bombthrower.com/articles/when-dissent-is-misinformation-fallacies-become-facts/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___bombthrower_com_articles_when-dissent-is-misinformation-fallacies-become-facts_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+<div id="theme-content-section"><div>
+<div data-css="tve-u-16f84a0a72b"><div data-css="tve-u-16f84a0a423"><div data-css="tve-u-16f84a07bd6"><div><p><span>
+<a href="https://bombthrower.com/articles/author/mark" rel="nofollow" dynamic-postlink="tcb_post_author_link">
+
+</a>
+</span>
+</p></div></div></div></div>
+<section data-css="tve-u-16f805e6958"><h2>When dissent is misinformation, fallacies become facts</h2>
+<blockquote><p><em>“Whoever practices this prophylaxis will experience the pleasure, not from time to time to lose every third or fourth patient from puerperal fever, but perhaps lose only one in four hundred”<br/>
+</em></p></blockquote>
+<p>My friend <a href="https://twitter.com/dmckenty">Doug McKenty</a>, who does <a href="https://theshiftnow.com/">The Shift podcast</a> was just suspended by Mailchimp. He’s been getting more vocal about what he calls healthcare freedom (read: vaccine passports), and something about that coloured outside the lines.</p>
+<p>Mailchimp, an email list provider, is known for doing this. You effectively pay Mailchimp to curate what you can or cannot say to your own email subscribers.  You’re using their mailservers, and in their mind that’s what gives them the right and the moral authority to monitor <em>the content</em> of your communications to your own audience.<span id="more-2580"></span></p>
+<p>In my book <a href="https://easydns.com/blog/2019/10/22/unassailable-the-book-that-protects-you-from-cancel-culture-and-deplatform-attacks/">Unassailable: Protect Yourself From Deplatform Attacks, Cancel Culture and other Online Disasters</a> (the e-book version has been <a href="https://axisofeasy.com/aoe/the-missing-manual-for-defending-yourself-against-deplatforming-and-cancel-culture/">available for free</a> for some time now) I devote an entire chapter to the machinations of the Big Tech and how they overstep the bounds of rationality when it comes to deciding what is within their purview and what isn’t, or shouldn’t be.</p>
+<p>No tech company should be enforcing their Terms of Service based on what they <em>think</em> their users have done or <em>might do</em> off of their own platforms. Yet Twitter, Facebook, Patreon and who knows who else do that.</p>
+<p>A mailer company like Mailchimp has no business even parsing the content of their paying clients, let alone summarily judging whether it is misinformation or not. Mail providers should care about two things and two things only:</p>
+<ol>
+<li>The list is clean (opt-in and confirmed)</li>
+<li> The mailings aren’t infected with any kind of malware.</li>
+</ol>
+<p>That’s it. Beyond that it really isn’t their business and it’s the height of grandiosity and hubris to think that it is.</p>
+<p>Patreon’s CEO Jack Conte <a href="https://www.youtube.com/watch?v=YmcK6GvgVPs">describes how</a> their Trust and Safety Team remove all subjective elements from the decision to demonetize somebody’s content by evaluating them based on “Manifest Observable Behaviour”:</p>
+<blockquote><p><em>“Manifest observable behavior is to remove personal values and beliefs when the team is reviewing content. It’s a review method that’s <strong>entirely based on observable facts</strong>: <strong>what has a camera seen</strong>, <strong>what has an audio device recorded</strong>. It doesn’t matter what your intentions are, your motivations, who you are, your identity, your ideology. The trust and safety team only looks at Manifest Observable Behaviour. We get rigorous and specific because we’re talking about removing a person’s income. The authority to take away a human being’s income is a sobering responsibility. It is not something to be done on a whim.”</em></p></blockquote>
+<p>What does this process resemble? It actually sounds a lot like a legal proceeding, albeit one that’s entirely one-sided, devoid of any semblance of due process or legal protection under the law, and probably carried out by teams of purple-haired Millennials with nose hoops and personal pronoun mood-rings.</p>
+<p>When tech companies take it upon themselves to arbitrate what is or isn’t misinformation, or taking action based on events that occur outside of their own platforms what they are doing, at its core, is adjudicating international law. Do you really want your domain registrar or your web host doing that?</p>
+<p>These companies think they’re the patricians of internet discourse. The reality is they’re the plumbing.</p>
+<h2>Fact Checks, Fallacies and Misinformation</h2>
+<p>“Fact Checks” are another entirely subjective catch phrase dolled up to look like objective truth. These days a fact check is more likely to be a logical fallacy and the reality is, most people don’t even know what logical fallacies<em> are.</em></p>
+<p>When the <a href="https://bombthrower.com/articles/late-stage-globalism-when-anything-that-is-not-censored-is-a-lie/">Associated Press “fact checked” US Senate testimony on the efficacy of Ivermectin</a> claiming <em>“there is no evidence that Ivermectin is a ‘miracle drug’ against COVID” </em>and they labeled it <em>false</em>, they committed a logical fallacy called “appeal to ignorance” (absence of evidence is not evidence of absence).</p>
+<p>The vast majority of all media narrative around COVID-19, on masks, lockdowns, Ivermectin, HCQ and yes, vaccines, can be categorized into <em>five</em> logical fallacies:</p>
+<ol>
+<li><a href="https://yourlogicalfallacyis.com/appeal-to-authority"><strong>Appeal to Authority:</strong></a> whatever experts and unaccountable technocrats say is objectively true. If you disagree with the experts you are disputing science itself (even the ones who were neck deep in funding the gain-of-function research that quite possibly led to the lab release that caused the pandemic).</li>
+<li><a href="https://yourlogicalfallacyis.com/bandwagon"><strong>Bandwagon:</strong></a> Because everybody else believes something, you have a moral obligation to believe it too. Anything you’ve come across or read that contradicts what everybody else believes to be true is “misinformation”.</li>
+<li><a href="https://yourlogicalfallacyis.com/ad-hominem"><strong>Ad Hominem:</strong></a> is not an argument at all, it’s an attack. “Covidiots”, “Deniers” these are not rational counter-arguments, they’re slurs. Anybody employing them is not  engaging in discourse but rather bigotry and prejudice. This is as inexcusable as racism. Over the past few years many have been challenged to examine their own biases and privilege, in certain contexts for perfectly valid reasons. Anybody engaging in this type of othering toward skeptics and contrarians lacks self-awareness and empathy to the same degree as a racist.</li>
+<li><a href="https://yourlogicalfallacyis.com/appeal-to-emotion"><strong>Appeal To Emotion:</strong></a> Corporate media thrives on fear. Social media platforms on anger. It’s why every time CNN says “Delta variant” it is “highly contagious” instead of “less fatal”. If everybody knew that <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1001358/Variants_of_Concern_VOC_Technical_Briefing_18.pdf">recent data out of the UK</a> (among others) indicates the Delta variant has a fatality rate that’s even lower than the already quite low Alpha variant, basically the same as seasonal flu, then they may just calm down. And we can’t have that.</li>
+<li><a href="https://yourlogicalfallacyis.com/special-pleading"><strong>Moving the Goalposts</strong>:</a> 15-days to flatten the curve became #NoJabNoJob in about 18 months. You’re still supposed to wear a mask if you’re fully vaccinated, the media has already decided that a fourth wave will occur in the fall and the really forward looking thinkers are gearing us up for climate lockdowns.  “We’re all in this together” turned into that Dr. Seuss story about the Sneeches. Also, Dr Seuss got canceled.</li>
+</ol>
+
+<p></p>
+
+<p>There are those that believe there is no subjectivity involved in any of this. They think, as Jack Conte does, that there are standalone objective truths, like Manifest Observable Behaviour. Realms where nuance, uncertainty and conflicting data are banished. All right thinking people grok The Truth and only wrong thinking people dispute it.</p>
+<p>Triggernometry’s Konstantin Kissin recently put out a Twitter thread on vaccine hesitancy:</p>
+<blockquote>
+<p dir="ltr" lang="en">You’re struggling to understand why some people are vaccine hesitant. The “let me help you” megathread:</p>
+<p>Imagine you’re a normal person. The year is 2016. Rightly or wrongly, you believe most of what you see in the media.</p>
+<p>— Konstantin Kisin, wrong opinions within (@KonstantinKisin) <a href="https://twitter.com/KonstantinKisin/status/1422181544161128450?ref_src=twsrc%5Etfw">August 2, 2021</a></p></blockquote>
+
+
+<p>It lays out the case, fairly cogently, why the general public may just simply be confused, distrustful and hesitant as opposed to being morally reprobate monsters. Further, it enumerates, in painstaking detail, multiple pillars of official canon which turned out to be, misinformation, for lack of a better word (unless that word is <em>“lies”). </em></p>
+<p>We see Fauci removing his mask the moment the cameras stop rolling. We see AOC sitting amongst a fairly close knit crowd put one on for the express purpose of a photo op and then take it off again. But if you send an email to your own subscribers via Mailchimp wondering out loud if masks are nothing more than performative theatre, you’ll get shut down.</p>
+<p>How does any of this establish the credibility and public trust required to mobilize that last 20% to 30% needed to (purportedly) achieve herd immunity? It doesn’t.</p>
+<p>From WMD in Iraq being a “slum dunk” through “Subprime is Contained” to “Tapering will be like watching paint dry”, anybody who has actually been keeping track of the expert authorities track records <em>over the past 20 years</em> has legitimate reason to believe that experts don’t know anything. At least nothing of <em>predictive </em>value.</p>
+<p>Another chapter in <a href="https://easydns.com/blog/2019/10/22/unassailable-the-book-that-protects-you-from-cancel-culture-and-deplatform-attacks/">my boo</a>k asks the question ‘Does Deplatforming Even Work?’ Short answer is: it doesn’t. Over the long haul suppression of material amplifies it. If you want fewer unhinged conspiracy theories circulating about COVID, stop deplatforming anybody who isn’t mindlessly parroting Fauci.</p>
+<p>What is really needed is a society-wide <a href="https://bombthrower.com/articles/cracking-the-contrarians-code/">crash course in critical thinking</a>, and not to be incessantly hectored and told what <em>not </em>to think. The Davos crew, the entrenched elites of late stage globalism think we’re headed toward a world managed by expert technocrats. But they haven’t exactly put up a string of successes and this approach to public policy has arguably failed its most important test.</p>
+<p>We’re headed toward a decentralized world governed by consensus as expressed through open source protocols and smart contracts. The battle is not about left vs right, conservative vs liberal where either side would have you believe that content cleanly bisects into Truth and Misinformation. The defining tension of the next 20 years will between decentralization vs bureaucracy, platforms vs protocols and nation states vs networks.</p>
+<p>As for the opening quote of today’s piece? Semmelweis lived a tragic life. The <a href="https://www.npr.org/sections/health-shots/2015/01/12/375663920/the-doctor-who-championed-hand-washing-and-saved-women-s-lives">battle to convince the medical establishment</a> of his day that <em>washing ones hands </em> after performing an autopsy and before delivering a baby would prevent the spread of  “cadaverous particles” from corpses to mothers and newborns was seen as delusional. Surely AP would have “fact checked” it as <em>false.</em> Politifact would have rated it <a href="https://thefederalist.com/2021/05/21/politifact-quietly-retracts-fact-check-of-covid-19-wuhan-lab-theory/">“pants on fire”</a>. After all, that there was no such thing as <em>germs</em> was settled science.</p>
+<p>The stress of the scorn and demonization took a lot out of Semmelweis. He apparently aged the equivalent of decades in just three years since he commenced his writing campaign in 1857 promoting his theories until the publication of his Aetiology in 1860.</p>
+<p></p>
+<p>He died alone and in ignominy, having been committed to a mental institution by his medical peers.</p>
+<p><em>Mark E. Jeftovic is the CEO of the Toronto-based web services company <a href="https://easydns.com">easyDNS</a>. To receive future posts in your mailbox <strong><a href="https://bombthrower.com/">join the free Bombthrower mailing list.</a> </strong>To get premium research on companies and stocks that are poised to win big as crypto continues its ascent, try our Crypto Capitalist Portfolio <strong><a href="https://bombthrower.com/crypto-join">trial offer</a></strong>.</em></p>
+
+<p><a href="#" rel="nofollow" onclick="window.print(); return false;" title="Printer Friendly, PDF &amp; Email"></a></p></section><div data-ct="thrive_author_box" data-ct-name="About the Author" data-shortcode="thrive_author_box" data-css="tve-u-1708154523d">
+<div data-css="tve-u-17081545240">
+<div data-css="tve-u-17081545242">
+<div data-css="tve-u-17081545244">
+<div><p><span>
+<a href="https://bombthrower.com/articles/author/mark" rel="nofollow" dynamic-postlink="tcb_post_author_link">
+
+</a>
+</span>
+</p></div>
+</div>
+<div data-css="tve-u-17081545249">
+<div>
+<p data-css="tve-u-1708154524c">About the author </p><p data-css="tve-u-1708154524e"><h4 data-css="tve-u-17081545250"><span data-extra_key="" data-option-inline="1" data-shortcode="tcb_post_author_name" data-shortcode-name="Author Name" data-css="tve-u-17081545251">Mark E. Jeftovic</span></h4></p><p data-css="tve-u-17081545255"><span data-extra_key="" data-option-inline="1" data-shortcode="tcb_post_author_bio" data-shortcode-name="Author Bio">Mark E. Jeftovic is the founder of Bombthrower and CEO of easyDNS.com, a company he co-founded in 1998 which has been operating along the lines described within these pages.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 15:53:57 +0000</pubDate>
+      <source>https://bombthrower.com/articles/when-dissent-is-misinformation-fallacies-become-facts/</source>
+    </item>
+    <item>
+      <title>Screw You, Microsoft Edge</title>
+      <link>http://www.charlespetzold.com/blog/2021/08/Screw-You-Microsoft-Edge.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/http___www_charlespetzold_com_blog_2021_08_Screw-You-Microsoft-Edge_html/image.jpg" /> 
+<div id="readability-page-1" class="page"><article>
+            <header>
+                <h2>
+                    <a href="http://www.charlespetzold.com/blog/2021/08/Screw-You-Microsoft-Edge.html">Screw You, Microsoft Edge</a>
+                </h2>
+
+                <p>August 8, 2021</p>
+            </header>
+
+            
+            <p>
+            Recently while searching for a book on <a href="https://bookshop.org/">Bookshop.org</a>, I was interrupted by a popup apparently generated by Microsoft Edge advising me of an alternative:
+            </p>
+            <p>
+                
+            </p>
+            <p>
+            Excuse me? The assumption that I need help buying a book is the biggest insult I’ve encountered on Windows since the days of Clippy.
+            </p>
+            <p>
+            A further insult is the implication that I make buying decisions based solely on price. There might be numerous reasons why I choose one retailer over another for my book purchases. I might prefer a retailer that focuses solely on books, or a retailer that is not a large chain. More generally, I might make a decision based on the company’s carbon footprint, or perhaps their reputation in paying fair wages, or what political candidates and movements they support, or whether the CEO uses his wealth to launch himself into space.
+            </p>
+            <p>
+            Of course, these concepts are entirely beyond the scope of Edge’s braindead algorithm that apparently knows only whether one number is larger than another.
+            </p>
+
+
+        </article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 17:29:28 +0000</pubDate>
+      <source>http://www.charlespetzold.com/blog/2021/08/Screw-You-Microsoft-Edge.html</source>
+    </item>
   </channel>
 </rss>
