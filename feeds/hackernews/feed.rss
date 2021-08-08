@@ -26472,5 +26472,742 @@ scientific literature.
       <pubDate>Sun, 08 Aug 2021 17:31:46 +0000</pubDate>
       <source>https://gameworldobserver.com/2021/08/06/xsolla-founder-on-mass-layoffs-and-ai-based-employee-appraisal-system</source>
     </item>
+    <item>
+      <title>Cleaning Up Git History</title>
+      <link>https://blog.sulami.xyz/posts/cleaning-up-git-history/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><section>
+            <p>A clean git commit history is often underrated and can be immensely useful to ease code reviews and understand changes in the future (potentially in the midst of an outage).</p>
+<p>Of course we are talking about the final history here as committed to the shared repository, not the intermediate history while we are working on the code. Sometimes the intermediate history is good enough to be pushed directly, but this is actually fairly rare.</p>
+<p>Cleaning up the history might seem tedious at first for marginal cosmetic benefits, but it gets much easier and faster with practice. Here I am collecting some tips for cleaning up a git commit history before publishing it to others, for example in the form of a pull request.<span><label for="sn-1"></label><span>Another good time to clean up the history is before merging, if we have added additional commits to address review comments. Don’t merge commits that just exist to address comments, fix the original bad commits.</span></span></p>
+<h2 id="what-makes-a-good-commit">What Makes A Good Commit?</h2>
+<p>A clean commit history is one that is comprised only of good commits. But what makes a commit good? There are two parts to this, the content of the commit, and the commit description.</p>
+<p>There are many standards for commit messages, but I personally use the <a href="https://github.com/erlang/otp/wiki/writing-good-commit-messages">OTP commit guidelines</a> as the base. I then try to include any important technical and product consideration in the message, such as the motivation for the change, and maybe technical nuances such as alternative implementations considered and tradeoffs. See <a href="https://github.com/alphagov/govuk-puppet/commit/63b36f93bf75a848e2125008aa1e880c5861cf46">Dan Carley’s amazing example</a>.</p>
+<p>The content of the commit is a bit more fuzzy, but here is what I am looking for:</p>
+<p>Every commit should make sense by itself. There is a <em>just right</em> size for commits, where there is nothing to add and nothing to remove. We want to add/remove/change exactly one thing in each commit. If we are struggling to come up with a good commit summary, that is a hint that our commit is not well scoped. Ideally this means a reviewer can review our changes commit-by-commit. We try to tell a story in commits.</p>
+<p>Every commit should be runnable, that is we should be able to <code>git
+checkout</code> any commit and get a functional code base. This means no “<em>WIP</em>” commits or commit chains that only restore functionality at the end. This is important so that we can revert or rollback to any commit if things go sideways.</p>
+<h2 id="techniques">Techniques</h2>
+<p>Git is very flexible, and for many of the techniques described here there are faster ways of performing the same actions. I am describing multi-step methods which preserve several individual commits for longer, as it is much easier to combine two commits than to split a single commit.<span><label for="sn-2"></label><span>Specifically I tinker a lot with the history, combining several of these techniques here, before I do the final interactive rebase to resolve all changes. This way I can change my mind halfway through without any trouble undoing anything.</span></span></p>
+<p>We are also using the long version of all flags for educational purposes. Refer to the man pages for the short versions.</p>
+<p>We will be making heavy use of interactive rebasing, which can be triggered with</p>
+<div><pre><code><span>git</span> rebase --interactive <span>&lt;</span>ref<span>&gt;</span></code></pre></div>
+<p>Interactive rebase is incredibly powerful and can be used to perform many different operations. We can use it to avoid having to memorise many other commands that are specifically tailored to doing just one thing.</p>
+<p>It is also usually used differently from regular rebasing, where we move one or several commits onto a different base (hence rebasing). When rebasing interactively we usually want to edit all commits between <code>HEAD</code> and <code>&lt;ref&gt;</code> instead. Thus we need to chose <code>&lt;ref&gt;</code> as the other end of the range we want to edit.</p>
+<p>When you start an interactive rebase, a special file will be opened in <code>$EDITOR</code> with all commits in the rebase range and actions for them. Git will insert a guide below the list describing the available actions. Once we are happy with the actions, we confirm the plan and the actions resolve.<span><label for="sn-3"></label><span>Think board games or <a href="https://mtg.fandom.com/wiki/Stack">card games</a>.</span></span></p>
+<h3 id="rewriting-commit-messages">Rewriting Commit Messages</h3>
+<p>While I encourage the writing of the full commit message directly at commit time, sometimes we can think of additions or changes to earlier commit messages. To change just the commit message of an existing commit, we can use:</p>
+<div><pre><code><span>git</span> commit --fixup:reword=<span>&lt;</span>ref<span>&gt;</span></code></pre></div>
+<p>These commands create additional “fixup commits” which are appended to the end of our history. Each of them is linked to another commit via its title. To actually combine the two (or more), we use:</p>
+<div><pre><code><span>git</span> rebase --interactive --autosquash <span>&lt;</span>ref<span>&gt;</span></code></pre></div>
+<p>This should setup the interactive rebase to do the right thing, so we just confirm the actions proposed by saving and closing the file.</p>
+<h3 id="adding-to-existing-commits">Adding to Existing Commits</h3>
+<p>Let us assume we have written a commit, and then notice a small change necessary that falls within the scope of this commit. Instead of writing a new commit, we want to just fix up the existing commit. This is done simply by running:</p>
+
+<p>If we notice our error only after adding additional commits, and want to retroactively add a change to an earlier commit, this command becomes:</p>
+<div><pre><code><span>git</span> commit --fixup=<span>&lt;</span>ref<span>&gt;</span>
+<span># Could be a SHA, or also e.g. HEAD~2</span></code></pre></div>
+<p>Just as before, this creates fixup commits that can be combined with an interactive rebase and the <code>--autosquash</code> flag.</p>
+<h3 id="combining-commits">Combining Commits</h3>
+<p>If we have two already existing commits in our history that we would like to combine into a single one, we can use an interactive rebase, move the second commit after the first one if required, and select the <code>squash</code> option.</p>
+<p>When resolving the rebase, git will stop at this point and open up a combined commit message for us. We definitely want to edit this one instead of sticking with the default concatenation of the two original messages.</p>
+<h3 id="reordering-commits">Reordering Commits</h3>
+<p>If we want to change the order of commits, you have guessed it, we can do this with an interactive rebase and just changing the order of the commits in the list.</p>
+<h3 id="splitting-a-commit">Splitting A Commit</h3>
+<p>If a commit turns out to contain several independent changes, we can opt to split the commit to isolate those changes. Again we use an interactive rebase, but this time we select the <code>edit</code> action for the commit we want to split. This will cause the rebase to pause when we reach this commit. At this point we want to use</p>
+
+<p>and then start creating the new commits. We can use</p>
+
+<p>to incrementally add sections of our files. This works best when editing existing files, as the patch interface is a bit lacking, but it works.<span><label for="sn-4"></label><span>Emacs users out there will probably be familiar with <a href="https://magit.vc/manual/magit/Staging-and-Unstaging.html">the vastly superior Magit interface</a>, which allows easy staging of individual lines.</span></span> We can then use</p>
+
+<p>to create the new commits. Once we are done creating new commits replacing the old one, we can use</p>
+
+<p>to finish the rebase.</p>
+<h3 id="removing-a-commit">Removing A Commit</h3>
+<p>If we find ourselves with a commit that we decide we just do not need anymore, we can simply remove it from the history. This could be a change that we made but later realised we did not need after all, or something like the GitHub “update branch” merge commit noise.</p>
+<p>The easiest way to do this is just using an interactive rebase and selecting the <code>drop</code> action for the commit in question.</p>
+<h2 id="further-reading">Further reading</h2>
+<p>The git man pages are split by command, so for documentation on <code>git
+rebase</code>, check <code>man git-rebase</code>. The man pages are good, but more of a reference than a usage guide.</p>
+<p><a href="https://ohshitgit.com/">Oh Shit, Git!?!</a> has a memorable domain and provides some information for how to perform self-rescue after a lot of git accidents.</p>
+<p>As a parting note, when rewriting history and pushing frequently <code>--force-with-lease</code> is your friend.</p>
+                </section></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 14:32:43 +0000</pubDate>
+      <source>https://blog.sulami.xyz/posts/cleaning-up-git-history/</source>
+    </item>
+    <item>
+      <title>Revisiting Prechelt’s paper comparing Java, Lisp, C/C++ and scripting languages</title>
+      <link>https://renato.athaydes.com/posts/revisiting-prechelt-paper-comparing-languages.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><h2>Revisiting Prechelt’s paper and follow-ups comparing Java, Lisp, C/C++ and scripting languages</h2>
+
+<p>
+A discussion on programming languages&#39; impact on productivity and program efficiency.
+</p>
+<p>Written on 24 Jul 2021, 02:54 PM  (Last updated on 31 Jul 2021, 04:34 PM)</p><p></p>
+
+<p>In 1999, <a href="https://twitter.com/prechelt">Lutz Prechelt</a> published a seminal article on the COMMUNICATIONS OF THE ACM (October 1999/Vol. 42, No. 10)</p>
+
+<p>In that paper, they analysed data from a study (which was run for another paper, as we’ll see later) where participants
+were asked to solve a problem consisting of encoding phone numbers into a combination of
+digits and words from a dictionary, presumably to make it easier for humans to remember phone numbers they might want
+to recall later (this was in a time before mobile phones were widespread).</p>
+
+<p>The same problem was later used by <a href="https://flownet.com/ron/">Ron Garret</a> (aka Erann Gat) in his short paper,
+<a href="https://flownet.com/ron/papers/lisp-java/lisp-java.pdf">Lisp as an alternative to Java</a>,
+henceforth <em>Lisp VS Java</em>, from the year 2000.</p>
+
+<p>Both papers have been widely cited and continue to be <a href="https://arnuldondata.medium.com/julia-and-the-reincarnation-of-lisp-f60cacd5822c">linked to even today</a>.</p>
+
+<p>In this article, I would like to revisit these papers, analyse their methodology and conclusions, and
+try to find out whether anything has changed in the 21 years since those articles were published by writing my own
+solutions to the problem as if I, myself, had participated in one of the studies.</p>
+
+<p>I wrote a solution in Java without looking into any other solutions in order to find out how my solution (and Java 16)
+would’ve done if it had participated.</p>
+
+<p>After that, I analysed some other solutions and compared them against mine. Based on my findings and some comments by
+Prechelt himself in his paper, I decided to write a second Java program to match a completely different strategy that
+was commonly used in the more dynamic languages. I implemented the same algorithm also in <a href="https://www.rust-lang.org/">Rust</a>
+in order to get an idea of how a very modern systems-language would do.</p>
+
+<p>That should allow us to compare modern languages more directly by using
+the same exact algorithm (to the extent possible), eliminating the potentially big differences that could arise from
+the different algorithms chosen by the programmer.</p>
+
+<h2>Overview of the studies</h2>
+
+<p>All data used in Prechelt’s <em>Java VS C</em>, as well as the Java/C/C++ solutions used in <em>Scripting VS Java/C</em>, come from an
+<a href="https://www.researchgate.net/publication/2802132_A_controlled_experiment_on_the_effects_of_PSP_training_Detailed_description_and_evaluation">earlier study</a>
+on a software development technique called PSP (Personal Software Process). This study actually ran between August 1996
+and October 1998!</p>
+
+<p>That means that some participants were actually using the very first release of the JDK!</p>
+
+<p>The objective of that study had nothing to do with studying the differences between Java and C/C++, it was about investigating
+how effective PSP was (the results indicated that, mostly, PSP practictioners had more predictable, stable performance
+but also worked a bit slower).</p>
+
+<p>55 graduate students participated in that study, 24 of which used Java, 9 used C, 13 used C++, and the other two used
+Modula-2 and something called Sather-K! Most students came from either the PSP course or a Java Advanced Course.</p>
+
+<p>Nevertheless, this was the data the <em>Java VS C</em> paper was based on. It included 24 programs written in
+Java, 11 in C++ and 5 in C.</p>
+
+<p>The instructions given to participants of the study, slightly adapted for the <em>Lisp VS Java</em> article,
+can be found at <a href="https://flownet.com/ron/papers/lisp-java/instructions.html">flownet.com</a>.</p>
+
+<p>Here’s a short description of the problem the participants had to solve:</p>
+<pre>All programs implement the same functionality, namely a conversion of telephone numbers into word strings.
+
+...
+
+The conversion is defined by a fixed mapping of characters to digits as follows:
+
+e j n q r w x d s y f t a m c i v b k u l o p g h z
+0 1 1 1 2 2 2 3 3 3 4 4 5 5 6 6 6 7 7 7 8 8 8 9 9 9
+
+The task of the program is to find a sequence of words such that the sequence of characters
+in these words exactly corresponds to the sequence of digits in the phone number.
+All possible solutions must be found and printed.
+The solutions are created word by word and if no word from the dictionary can be inserted at some point
+during that process, a single digit from the phone number can appear in the result at that position.
+Many phone numbers have no solution at all.
+</pre>
+<blockquote>
+<p>If you would like to “participate” in the study, follow the instructions given in
+<a href="https://flownet.com/ron/papers/lisp-java/instructions.html">this link</a> as closely as possible. You can then
+compare your solution against mine and other’s using <a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding">my GitHub repository</a>
+which has instructions on how to easily add your solution to the current benchmark and run it!</p>
+</blockquote>
+
+<p>This is a nice problem, not too easy, but not very hard either. I found it interesting enough to want to participate
+myself after I randomly stumbled upon it on the internet, 21 years after the study was published!</p>
+
+<p>Apparently, I was not the only one. Ron Garret (who worked at Nasa at the time and later went to work at early Google)
+found it interesting enough to run his own study (the already mentioned <em>Lisp VS Java</em> one), re-using the same
+problem but asking only Lisp programmers to solve it. He got 16 solutions from <em>volunteers recruited from an Internet newsgroup</em>.</p>
+
+<p>Even <a href="https://norvig.com/">Peter Norvig</a>, who I consider a Computer Science celebrity, posted <a href="http://www.norvig.com/java-lisp.html">his own solution</a>
+to the problem, written in <a href="https://common-lisp.net/">Common Lisp</a>, on his website.</p>
+
+<p>What did they all find out?</p>
+
+<p>Well, basically, that Java is slow, uses too much memory and that it takes at least as much effort as C or C++ to write
+something using it. Also, at least in Prechalt’s case, that the difference between programmers is generally greater
+than the difference between languages.</p>
+
+<p>In their own words:</p>
+
+<h3><em>Java VS C</em></h3>
+<pre>As of JDK 1.2, Java programs are typically much slower than programs written in C or C++.
+They also consume much more memory.
+</pre>
+<p>But also:</p>
+<pre>However, even within one language the interpersonal differences between implementations
+of the same program written by different programmers (bad/good ratio) are much larger
+than the average difference between Java and C/C++.
+</pre>
+<h3><em>Scripting VS Java/C</em></h3>
+<pre>... for the given programming problem, “scripting languages” (Perl, Python, Rexx, Tcl)
+are more productive than conventional languages.
+
+In terms of run time and memory consumption, they often turn out better than Java and
+not much worse than C or C++.
+</pre>
+<p>And again:</p>
+<pre>In general, the differences between languages tend to be smaller than the typical differences
+due to different programmers within the same language.
+</pre>
+<h3><em>Lisp VS Java</em></h3>
+<pre>... Lisp’s  performance is comparable to or better than C++ in execution speed ...
+it also has significantly  lower  variability, which translates into reduced project risk.
+
+Furthermore, development time is significantly lower and less variable than either C++ or Java.
+
+Memory consumption is comparable to Java...
+</pre>
+<h2>Analysis of the experiments and their conclusions</h2>
+
+<p>Prechelt describes in detail the setup of his experiments and the profile of participants, as well as the many caveats
+involved in each study. I highly recommend skimming through the <a href="https://www.researchgate.net/publication/2802132_A_controlled_experiment_on_the_effects_of_PSP_training_Detailed_description_and_evaluation">PSP paper</a>
+that kicked off his later publications.</p>
+
+<p>Notice that there were two different groups of students in the original study: PSP students, who had learned how to
+use a technique (PSP) to explicitly increase the quality of their work, and the <em>control group</em>,
+mostly students from a Java course who were obliged to participate in the study. Most of the C/C++ submissions
+originated from the PSP group (17 VS 5), but the Java submissions were more evenly divided (14 VS 10).</p>
+
+<p>It’s important to remember that PSP students had been conditioned to spend more time analysing the problem and attempting
+to prevent defects in their programs, and that the most important requirement of the study was for programs to be
+as reliable as possible.</p>
+
+<p>This implies some difference in the <em>types</em> of students working in Java VS C/C++. In <em>Java VS C</em>, Prechalt even mentions
+that <em>on average, the Java programmers had only half as much programming experience in Java as the C/C++ programmers
+had in C/C++</em>, which is natural given that the study ran when Java had just barely been released for the first time.</p>
+
+<p>Anyway, in both the PSP paper and <em>Java VS C</em>, Prechelt was very sincere about the limitations of the study and
+his conclusions were pretty solid given the data (and the fact they were using Java 1.2, released in 1998).</p>
+
+<p>However, things get murkier with <em>Scripting VS Java/C</em>. Notice that Prechelt uses the same data again for the Java and
+C/C++ programs, but for the group of scripting languages, the participants were basically random people found on
+early internet groups:</p>
+<pre>The Perl, Python, Rexx, and Tcl programs were all submitted in late 1999 by volunteers after I had posted a 
+“Call for Programs” on several Usenet newsgroups (comp.lang.perl.misc, de.comp.lang.perl.misc, comp.lang.rexx, 
+comp.lang.tcl, comp.lang.tcl.announce, comp.lang.python, comp.lang.python.announce) and one mailing list 
+(called “Fun with Perl”, fwp@technofile.org).
+</pre>
+<p>Notice also that the time taken to solve the solutions was self-reported and the script language participants were not
+monitored in any way, quite unlike those who took part in the first study (many of whom had been conditioned to spend
+more time thinking about the problem, as PSP encouraged).</p>
+
+<p>Prechelt mentions that <em>the work times reported by the script programmers may be inaccurate</em>. Well, this is probably the
+biggest understatement in all of his papers.</p>
+
+<p>The paper finds that the scripts’ median time was 3.1 hours, compared to 10.0 hours for the non-script group.</p>
+
+<p>Notice that depending on how you look at the data, you could also have concluded that the participants who self-reported
+their times were 3 times faster than those who were actually monitored.
+More than half of the students in the original PSP study spent more than a working day on the problem, and they were not
+only using Java in that study, but basically whatever language they wanted to use (though Prechelt seems to have only
+used the Java results in his later paper)!</p>
+
+<p>There’s some more interesting findings, though. For example, the fact that scripts were two to three times shorter than
+non-scripts, and that there’s conflicting results regarding differences in the reliability of programs, a finding that
+has been puzzling many other study’s authors, specially in the area of static VS dynamically typed languages (as that
+suggests that using static types do not actually result in more reliable programs).</p>
+
+<p>If Prechelt was mostly forthcoming in pointing out caveats to his findings, Garret was much less so.</p>
+
+<p>It’s unclear how the data was collected for his study as the procedure was not described at all apart from a note saying
+that <em>to the extent possible we duplicated the circumstances of the original study</em>. Given that the participants were
+recruited from internet groups, I doubt that the subjects were monitored in place, which makes me think that the
+<em>Development time</em> data collected should be taken with a giant grain of salt. However, the reported times do seem
+similar to the scripting group self-reported times in Prechelt’s study: 2 to 8.5 hours for Lisp users, 3 to 10 for
+the scripting group in Prechelt’s study.</p>
+
+<p>Prechelt makes an interesting observation regarding that:</p>
+<pre>... an old rule of thumb, which says that programmer productivity measured in
+lines of code per hour (LOC/hour) is roughly independent of the programming language.
+</pre>
+<p>He uses that reasoning to conclude that, if that’s true, the self-reported times should not be far from reality.</p>
+
+<p>Anyway, Garret goes much further and claims in his conclusion:</p>
+<pre>Lisp  is  superior  to  Java  and  comparable  to C++ in runtime, and it is superior
+to both in programming effort and variability of results.
+</pre>
+<p>That’s quite a strong conclusion.</p>
+
+<p>He asks himself in his paper:</p>
+<pre>why, if Lisp is so great, is it not more widely used?
+</pre>
+<p>Based on a small study like Garret’s, I find that the premise that <code>Lisp is so great</code> is unwarranted. Sure, he may
+be using his own experience and perhaps others’ testimonies to take that as a fact, but in a paper like that, you must
+provide your sources when making swiping statements such as this one. Personal feeling is not good enough.</p>
+
+<p>However, the data does suggest that Lisp is about as productive as the scripting languages of the day and has a speed
+comparable to C and C++, which is indeed a remarkable achievement.</p>
+
+<h2>My own experience solving the phone number problem</h2>
+
+<p>I came across Prechelt’s phone number problem when reading an <a href="https://arnuldondata.medium.com/julia-and-the-reincarnation-of-lisp-f60cacd5822c">article about Julia</a>
+in which the author said:</p>
+<pre>My heart was broken because Common Lisp is such a fine fine language
+and it is a joy to work in and hardly anyone uses it in industry.
+The industry has a lot of code in Java even when it takes **much less time** to write code in Lisp.
+What happened to the programmer’s time is more important than the machine’s?
+</pre>
+<p>The <em>source</em> for such statement was Garret’s <em>Lisp VS Java</em>. I was fascinated by the conclusion of that paper when
+I first read it, so I decided to “participate” in the study to see if their conclusions had been realistic and if,
+perhaps, Java 16 (latest version as of writing) improved at least a little bit compared to the greatness
+of Common Lisp.</p>
+
+<p>I read the instructions linked from Garret’s paper and immediately started working on it.</p>
+
+<p>What follows is a brain dump I wrote just as I finished my solution.</p>
+
+<h3>Working on the problem</h3>
+
+<p>I managed to write all the boilerplate code (read input, clean it up, collect and print results, basic tests) in just
+about 1 hour. Meanwhile, I was deciding the best strategy to make the solution efficient and decided to use a
+<a href="https://en.wikipedia.org/wiki/Trie">Trie</a> data structure, which was already familiar to me.</p>
+
+<p>It took me another hour or so to write a basic solution to the problem with a few more tests based on the examples
+given in the instructions… but actually finishing the
+algorithm off, unfortunately, took me some more time (I don’t write algorithms like that every day), specially because
+of a small bug that I couldn’t easily figure out how to fix (I was trying to
+<em>inject</em> a digit when I could not find a word on any position, instead of only at the beginning of a potential word…
+once the reason was found, it was trivial to fix).</p>
+
+<h3>Time</h3>
+
+<p>All in all, I estimate <strong>my total time was around 3.5 hours</strong>. That’s almost twice as much as Norvig, but at least I can take
+some comfort in knowing I managed to do quite well when compared with other participants in the study (again, those who
+were actually monitored, and did not just self-report): <strong>3 to 25 hours for C/C++, 4 to 63 hours for Java</strong>.</p>
+
+<p>The non-monitored participants reported between <strong>2 to 8.5 hours for Lisp</strong>, and <strong>around 1 to 10 hours for the scripting
+languages</strong>.</p>
+
+<h3>Lines of code</h3>
+
+<p>My solution required <strong>167 lines of code</strong> using Java 16, compared with a range of <strong>51 to 182 for Lisp</strong>,
+<strong>107 to 500+ for Java</strong>, <strong>130 to 500+ for C/C++</strong>, <strong>around 50 to 200</strong> for the scripting languages.</p>
+
+<h3>Performance</h3>
+
+<p>To measure performance, I downloaded a few files from <a href="https://flownet.com/ron/papers/lisp-java/">this page</a>, including
+<a href="https://flownet.com/ron/papers/lisp-java/dictionary.txt">dictionary.txt</a>, <a href="https://flownet.com/ron/papers/lisp-java/input.txt">input.txt</a>
+and <a href="https://flownet.com/ron/papers/lisp-java/output.txt">output.txt</a>.</p>
+
+<p>Because computers have come a long way in the last 21 years, the original input file and dictionary were far too small
+to make the programs run for more than a second! So I had to
+<a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/java/util/GeneratePhoneNumbers.java">generate some longer inputs</a>
+in order to get a better sense of how performant my solution was.</p>
+
+<p>Given that none of the studies seem to have published the solutions they collected, I used Peter Norvig’s CL
+implementation as the baseline.</p>
+
+<p>In <em>Lisp VS Java</em>, most Common Lisp solutions had very similar speed and memory usage, so I assume Norvig’s
+implementation would also be close to the others.</p>
+
+<blockquote>
+<p>You can read the full instructions to run the test yourself on this <a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding">GitHub Repository</a>,
+which includes my solution, several others I found around the internet, besides the ports I did of Norvig’s
+solution to Java and Rust.</p>
+</blockquote>
+
+<p>The results of this analysis will be shown in the next section after we discuss the different strategies that can be
+used to solve the problem.</p>
+
+<h2>Comparing solution strategies</h2>
+
+<p>Prechelt noticed that there were basically two main approaches in the solutions he analyzed:</p>
+<pre>Most of the programmers in the script group used the associative arrays provided
+by their language and stored the dictionary words to be retrieved by their number
+encodings.
+
+The search algorithm simply attempts to retrieve from this array, using prefixes
+of increasing length of the remaining rest of the current phone number as the key.
+Any match found leads to a new partial solution to be completed later.
+
+In contrast, essentially all of the non-script programmers chose either of the following
+solutions.
+
+In the simple case, they simply store the whole dictionary in an array, usually in both
+the original character form and the corresponding phone number representation.
+They then select and test one tenth of the whole dictionary for each digit of the phone
+number to be encoded, using only the first digit as a key to constrain the search space.
+This leads to a simple, but inefficient solution.
+
+The more elaborate case uses a 10-ary tree in which each node represents a certain digit,
+nodes at height n representing the n-th character of a word.
+A word is stored at a node if the path from the root to this node represents the number
+encoding of the word.
+
+This is the most efficient solution, but it requires a comparatively large number of
+statements to implement the tree construction.
+</pre>
+<p>This analysis is spot on in my opinion! My solution turned out to be the one he called <em>the most efficient</em> one (he’s describing
+a <a href="https://en.wikipedia.org/wiki/Trie">Trie</a> data structure), Norvig’s solution was exactly the one
+<em>most of the script group</em> came up with, which was easier to implement.</p>
+
+<p>This difference in strategy has obvious consequences to the length of each program, as well as its efficiency. So when
+we compare programs that use widely different strategies, we cannot really extrapolate our conclusions to differences
+in the languages being used. In other words, programs that used the trie strategy (most of the non-scripting ones)
+are going to be longer than the ones that used associative arrays (most of the scripting ones) regardless of the
+language used.</p>
+
+<p>However, it is still quite interesting to note that the language seems to somehow guide programmers to use one or
+another strategy.</p>
+
+<h2>Benchmarks</h2>
+
+<p>To see what would’ve happened if I had chosen Norvig’s strategy instead of using a Trie, I decided to port his CL code
+as closely as possible to Java.</p>
+
+<p>I did the same thing targeting Rust as well in order to get a baseline for how fast the algorithm could go
+(or so I thought).</p>
+
+<p>You can see the source code for each implementation on GitHub:</p>
+
+<ul>
+<li><a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/java/Main.java">Java 1</a> - my original trie-based implementation.</li>
+<li><a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/java/Main2.java">Java 2</a> - port of Norvig’s solution to Java.</li>
+<li><a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/lisp/main.lisp">Lisp</a> - Norvig’s solution written in Common Lisp.</li>
+<li><a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/rust/phone_encoder/src/main.rs">Rust</a> - port of Norvig’s solution to Rust.</li>
+</ul>
+
+<blockquote>
+<p>UPDATE (25th July 2021): I’ve now added solutions in
+<a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/dart/src/dart/phone-encoder/bin/phone_encoder.dart">Dart</a>
+and <a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/julia/src/julia/phone_encoder.jl">Julia</a> as well!
+See the <code>Incl. Dart</code> and <code>Incl. Julia</code> tabs in the results linked just below to see how they performed.</p>
+</blockquote>
+
+<p>The results (<a href="https://docs.google.com/spreadsheets/d/14MFvpFaJ49XIA8K1coFLvsnIkpEQBbkOZbtTYujvatA/edit?usp=sharing">click here</a> to see the full data and more charts):</p>
+
+<p></p>
+
+<p><strong>Notes:</strong></p>
+
+<ul>
+<li><code>Java 1</code> implements a different algorithm (a Trie, not an associative map) than the other implementations.</li>
+<li><code>Rust</code> uses two libraries (<code>num-bigint</code> and <code>lazy_static</code>), the other solutions use none.</li>
+</ul>
+
+<p></p>
+
+<p><strong>Notes:</strong></p>
+
+<ul>
+<li>Java and Lisp allocate memory greedly due to being garbage-collected, unlike Rust.</li>
+<li>Running Java with flags to limit memory usage brings Java results down somewhat, but not much.
+See <code>Third runs</code> on
+<a href="https://docs.google.com/spreadsheets/d/14MFvpFaJ49XIA8K1coFLvsnIkpEQBbkOZbtTYujvatA/edit?usp=sharing">the results spreadsheet</a>
+to see how the Java results change.</li>
+</ul>
+
+<p></p>
+
+<p><strong>Notes:</strong></p>
+
+<ul>
+<li>The Rust solution gets very slow with a higher number of inputs. I asked Rust developers on the Rust Discord Channel
+for help figuring out why it was so slow, but after several suggestions, the results did not improve significantly
+(the result shown above includes some suggestions). I even generated a
+<a href="https://renato.athaydes.com/images/prechelt-study-analysis/flamegraph.svg">flamegraph</a> to profile the Rust code,
+but was unable to find any quick fix.</li>
+</ul>
+
+<blockquote>
+<p>EDIT (2021-07-31): the Rust code I wrote for this benchmark has several issues, which I decided to discuss
+at length in my <a href="https://renato.athaydes.com/posts/how-to-write-slow-rust-code.html">next blog post</a>!</p>
+
+<p>Please consider reading that article once you’re done reading this one :).</p>
+
+<p>If you don’t have time: Rust can run much faster, but so can the other languages, and it turns out that the
+Java implementation might run faster than the Rust fastest implementation, according to the new benchmarks
+I’ve run after many Rust developers came to assist in making Rust faster. Common Lisp may have fallen behind,
+but that’s likely just because it was not nearly as optimised as the Java and Rust implementations were.</p>
+</blockquote>
+
+<p>Quite unexpectedly, Common Lisp was the best language overall, running the fastest with all but the largest input size
+(and even then, it was beaten only by a different algorithm implemented in Java) and consuming very little memory.</p>
+
+<p>Java still appears to consume much more memory than low-level languages (Rust in this case) and, these days, even than
+Common Lisp (see my remarks above about tweaking the JVM memory settings, which don’t really help). On the other hand,
+it can be very fast.</p>
+
+<p>The Rust solution shows how little memory can be necessary to run through any number of inputs (the memory is the same
+for any input size, which is expected as most of the memory is taken up by loading the dictionary), but has some
+unfortunate performance degradation with an increased number of inputs (see notes above).</p>
+
+<p>This seems to indicate that even when speed is of the essence, using Rust may not give automatic wins.</p>
+
+<h2>Language comparison</h2>
+
+<p>The <a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/java/Main2.java">Java port</a> (<code>Java 2</code>)
+has 99 LOC VS 74 LOC for the <a href="https://github.com/renatoathaydes/prechelt-phone-number-encoding/blob/master/src/lisp/main.lisp">original CL</a>.
+Most of the extra lines in Java are actually from a couple of functions I had to implement by hand:</p>
+
+<ul>
+<li><code>&lt;T&gt; List&lt;T&gt; append( List&lt;T&gt; list, T item )</code> - needed in order to recurse under each arm of the Trie without affecting
+the current, partial solution.</li>
+<li><code>char[] removeIfNotLetterOrDigit( char[] chars )</code> - CL has a nice way of doing this by combining existing functions.</li>
+</ul>
+
+<p>These two functions took 19 lines, so if we discount them, the Java LOC goes down to 80 lines, very close to the Lisp
+solution! Notice also that Lisp programmers like to close <em>blocks</em> on the same line. If we did the same in Java, moving
+all <code>}</code> into the previous line, we could remove another 23 lines, bringing the Java solution to 57 LOC.</p>
+
+<p>That’s not surprising when you look at the code (with comments removed):</p>
+
+<ul>
+<li>Lisp</li>
+</ul>
+<pre>(<span>defun</span> <span>print-translations</span> (<span>num</span> <span>digits</span> <span>&amp;optional</span> (<span>start</span> <span>0</span>) (<span>words</span> nil))
+  (<span>if</span> (<span>&gt;=</span> <span>start</span> (<span>length</span> <span>digits</span>))
+      (<span>format</span> t <span>&#34;~a:~{ ~a~}~%&#34;</span> <span>num</span> (<span>reverse</span> <span>words</span>))
+      (<span>let</span> ((<span>found-word</span> nil)
+            (<span>n</span> <span>1</span>)) <span>; leading zero problem</span>
+        (<span>loop</span> <span>for</span> <span>i</span> <span>from</span> <span>start</span> <span>below</span> (<span>length</span> <span>digits</span>) <span>do</span>
+              (<span>setf</span> <span>n</span> (<span>+</span> (<span>*</span> <span>10</span> <span>n</span>) (<span>nth-digit</span> <span>digits</span> <span>i</span>)))
+              (<span>loop</span> <span>for</span> <span>word</span> <span>in</span> (<span>gethash</span> <span>n</span> <span>*dict*</span>) <span>do</span>
+                 (<span>setf</span> <span>found-word</span> t)
+                 (<span>print-translations</span> <span>num</span> <span>digits</span> (<span>+</span> <span>1</span> <span>i</span>) (<span>cons</span> <span>word</span> <span>words</span>))))
+        (<span>when</span> (<span>and</span> (<span>not</span> <span>found-word</span>) (<span>not</span> (<span>numberp</span> (<span>first</span> <span>words</span>))))
+           (<span>print-translations</span> <span>num</span> <span>digits</span> (<span>+</span> <span>start</span> <span>1</span>)
+                               (<span>cons</span> (<span>nth-digit</span> <span>digits</span> <span>start</span>) <span>words</span>))))))
+</pre>
+<ul>
+<li>Java</li>
+</ul>
+<pre><span>private</span> <span>void</span> <span>printTranslations</span><span>(</span> String num<span>,</span> <span>char</span><span>[</span><span>]</span> digits<span>,</span> <span>int</span> start<span>,</span> List<span>&lt;</span>String<span>&gt;</span> words<span>,</span> BiConsumer<span>&lt;</span>String<span>,</span> String<span>&gt;</span> onSolution <span>)</span> <span>{</span>
+    <span>if</span> <span>(</span> start <span>&gt;</span><span>=</span> digits<span>.</span><span>length</span> <span>)</span> <span>{</span>
+        onSolution<span>.</span><span>accept</span><span>(</span> num<span>,</span> String<span>.</span><span>join</span><span>(</span> <span>&#34; &#34;</span><span>,</span> words <span>)</span> <span>)</span><span>;</span>
+        <span>return</span><span>;</span>
+    <span>}</span>
+    var foundWord <span>=</span> <span>false</span><span>;</span>
+    var n <span>=</span> BigInteger<span>.</span><span>ONE</span><span>;</span>
+    <span>for</span> <span>(</span> <span>int</span> i <span>=</span> start<span>;</span> i <span>&lt;</span> digits<span>.</span><span>length</span><span>;</span> i<span>+</span><span>+</span> <span>)</span> <span>{</span>
+        n <span>=</span> n<span>.</span><span>multiply</span><span>(</span> BigInteger<span>.</span><span>TEN</span> <span>)</span><span>.</span><span>add</span><span>(</span> BigInteger<span>.</span><span>valueOf</span><span>(</span> nthDigit<span>(</span> digits<span>,</span> i <span>)</span> <span>)</span> <span>)</span><span>;</span>
+        List<span>&lt;</span>String<span>&gt;</span> foundWords <span>=</span> dict<span>.</span><span>get</span><span>(</span> n <span>)</span><span>;</span>
+        <span>if</span> <span>(</span> foundWords <span>!</span><span>=</span> <span>null</span> <span>)</span> <span>{</span>
+            foundWord <span>=</span> <span>true</span><span>;</span>
+            <span>for</span> <span>(</span> String word <span>:</span> foundWords <span>)</span> <span>{</span>
+                printTranslations<span>(</span> num<span>,</span> digits<span>,</span> i <span>+</span> 1<span>,</span> append<span>(</span> words<span>,</span> word <span>)</span><span>,</span> onSolution <span>)</span><span>;</span>
+            <span>}</span>
+        <span>}</span>
+    <span>}</span>
+    <span>if</span> <span>(</span> <span>!</span>foundWord <span>&amp;</span><span>&amp;</span> <span>!</span>isLastItemDigit<span>(</span> words <span>)</span> <span>)</span> <span>{</span>
+        printTranslations<span>(</span> num<span>,</span> digits<span>,</span> start <span>+</span> 1<span>,</span>
+                append<span>(</span> words<span>,</span> Integer<span>.</span><span>toString</span><span>(</span> nthDigit<span>(</span> digits<span>,</span> start <span>)</span> <span>)</span> <span>)</span><span>,</span> onSolution <span>)</span><span>;</span>
+    <span>}</span>
+<span>}</span>
+</pre>
+<p>Java is definitely more awkward, but not really very different.</p>
+
+<p>I am not mentioning this to make Java look better than it is, but to show how LOC measurements can be misleading and how
+Java has actually come a long way since 1998.</p>
+
+<p>The Rust port required 116 LOC (though it had to use libraries for things the other languages have in their standard libraries),
+which is not bad for a lower level language.</p>
+
+<p>For comparison with the Java and Lisp code shown above, here’s the most important function in the Rust solution:</p>
+<pre><span>fn</span> <span>print_translations</span>(
+    num: <span>&amp;</span><span>str</span>,
+    digits: <span>&amp;</span><span>Vec</span><span>&lt;</span>char<span>&gt;</span>,
+    start: <span>usize</span>,
+    words: <span>Vec</span><span>&lt;</span><span>&amp;</span><span>String</span><span>&gt;</span>,
+    dict: <span>&amp;</span><span>Dictionary</span>,
+) -&gt; <span>io</span>::<span>Result</span><span>&lt;</span>()<span>&gt;</span> {
+    <span>if</span> start <span>&gt;</span><span>=</span> digits.len() {
+        print_solution(num, <span>&amp;</span>words);
+        <span>return</span> <span>Ok</span>(());
+    }
+    <span>let</span> <span>mut</span> n <span>=</span> ONE.clone();
+    <span>let</span> <span>mut</span> found_word <span>=</span> <span>false</span>;
+    <span>for</span> i <span>in</span> start..digits.len() {
+        n <span>=</span> <span>&amp;</span>n <span>*</span> (<span>&amp;</span><span>*</span>TEN) <span>+</span> <span>&amp;</span>nth_digit(digits, i);
+        <span>if</span> <span>let</span> <span>Some</span>(found_words) <span>=</span> dict.get(<span>&amp;</span>n) {
+            <span>for</span> word <span>in</span> found_words {
+                found_word <span>=</span> <span>true</span>;
+                <span>let</span> <span>mut</span> partial_solution <span>=</span> words.clone();
+                partial_solution.push(word);
+                print_translations(num, digits, i <span>+</span> <span>1</span>, partial_solution, dict)<span>?</span>;
+            }
+        }
+    }
+    <span>if</span> <span>!</span>found_word <span>&amp;</span><span>&amp;</span> <span>!</span>words.last().map(<span>|</span>w<span>|</span> is_digit(w)).unwrap_or(<span>false</span>) {
+        <span>let</span> <span>mut</span> partial_solution <span>=</span> words.clone();
+        <span>let</span> digit <span>=</span> nth_digit(digits, start).to_string();
+        partial_solution.push(<span>&amp;</span>digit);
+        print_translations(num, digits, start <span>+</span> <span>1</span>, partial_solution, dict)
+    } <span>else</span> {
+        <span>Ok</span>(())
+    }
+}
+</pre>
+<p>The Rust code is less <em>noisy</em> than Java, mostly due to type inference and operator overloading, but otherwise it’s
+also not very different from either Lisp or Java, discounting unimportant syntax differences.</p>
+
+<p>Interestingly, the CL program runs faster than either Java or Rust and consumes much less memory than Java, and not much
+more than Rust!</p>
+
+<blockquote>
+<p>The Rust solution’s performance seems to scale very badly with the number of inputs. I am not a Rust expert, so
+ unfortunately I could not pinpoint what’s going on there (I did try to improve it without success), but my suspicion
+ is that the <code>num-bigint</code> crate is not implementing <code>BigUint</code> as efficiently as Java and Lisp do.</p>
+</blockquote>
+
+<h2>Conclusion</h2>
+
+<p>Regarding the studies reviewed in this article, I think it’s fair to conclude the following:</p>
+
+<h3><em>Java VS C</em></h3>
+
+<ul>
+<li>it was a great paper in general.</li>
+<li>good discussions about its own weaknesses.</li>
+<li>its conclusions were generally accurate but reflect the state of things in 1999.</li>
+<li><em>Java programs are typically much slower than C and C++</em> seems to not be accurate today, at least if we accept that
+the Rust results would be comparable to C and C++.</li>
+</ul>
+
+<p>Future work should definitely include C and C++ in the comparison, and implement the Trie approach also in those
+languages as perhaps Rust cannot always be used a proxy to C and C++ performance as I had assumed.</p>
+
+<h3><em>Scripting VS Java/C</em></h3>
+
+<ul>
+<li>very weak results due to the different methodology with which the participants were selected and monitored.</li>
+<li>failed to sufficiently compensate for the fact that most of the Java and C/C++ participants were trained in
+a specific software development technique that biased their results.</li>
+<li>interesting observations regarding the LOC/time rate and how it tends to not vary between languages.</li>
+<li>its conclusion that program reliability does not vary significantly by language seems persuasive.</li>
+</ul>
+
+<h3><em>Lisp VS Java</em></h3>
+
+<ul>
+<li>very strong claims that nevertheless appear to generally stand to scrutiny.</li>
+<li>lack of rigour when describing methodology significantly weakens the paper’s standing.</li>
+<li>the conclusion that Common Lisp has speed comparable to C/C++ (assuming Rust to be a good proxy) seems accurate,
+at least for Prechelt’s problem.</li>
+<li>the conclusion that it requires lower effort than Java is not nearly as strong as it was back in the year 2000.</li>
+</ul>
+
+<p>Garret’s paper would probably have benefited from feeling less of a Lisp-chill and being more based on hard evidence,
+of which it did have some.</p>
+
+<h3>Final remarks</h3>
+
+<p>In general, I believe what we can take from this discussion is:</p>
+
+<ul>
+<li>LOC depends a lot on the specific algorithm used, so comparing languages based on all solutions combined is flawed.</li>
+<li>Language choice impacts the algorithms programmers tend to choose (indirectly amplifying language effects on
+program efficiency and effort required).</li>
+<li>The variance in amount of effort between programmers (specially due to their <em>a priori</em> knowledge and ability to choose
+appropriate solutions for a problem) far eclipses variance due to the language chosen.</li>
+</ul>
+
+<p>Given all of the above, I think we have enough evidence to believe that the choice of a programming language has
+less impact than the papers discussed here appear to imply. Still, it does have a significant impact on many factors
+(e.g. Java is fast but requires a lot of memory,
+Rust does not automatically make everything faster but does decrease memory usage by a good margin, Lisp and
+scripting languages guide programmers to make use of higher level algorithms that are easier to implement and, at least
+in some cases, perform as well as lower level languages).</p>
+
+<p>Choosing the appropriate algorithm to solve a problem will generally have much more impact in both efficiency and amount
+of effort required than using a particular language. Care must be taken, however, to avoid language choice guiding
+programmers towards the use of less efficient (or more time-consuming, depending on the priorities of a project)
+algorithms/patterns.</p>
+
+<p>Languages with extensive libraries might help both by providing out-of-the-box algorithm implementations
+(e.g. a ready-to-use <code>Trie</code>) that are highly efficient and require no effort by the programmer to use,
+and by avoiding programmers having to even make decisions about algorithms in the first place (e.g. by providing a solution to a
+higher level problem that might use different algorithms/implementations under the hood, unbeknownst to the programmer
+using it, like sorting functions).</p>
+
+<p>This might actually partially explain why Lisp never became mainstream (it makes libraries less necessary, but that
+backfires in some cases where a library could’ve solved the problem better and faster than what the Lisp programmer
+would’ve come up with), but a language like JavaScript, which has been heavily focused on library sharing, did
+(ignoring the heads-up it has had due to being the only choice in front-end web development for a long time).</p>
+
+<p>Finally, when choosing a language at a larger company where many developers must work on the same code base,
+the factors considered in the discussed papers and in this article may be much less relevant than the factors impacting
+the ability of the language to facilitate large scale code bases.</p>
+
+<p>Therefore, choosing a programming language requires
+taking into consideration not only factors such as its speed, <strong>single</strong> developer effort and its resource usage
+(the factors discussed here) but also things like its type system (which may help reason about code or just make
+everything too hard to change), modularity (separation of concerns), simplicity (code is easier to read when it’s simple),
+expression power (more concise code can be a benefit or a curse) and so on.</p>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 18:19:08 +0000</pubDate>
+      <source>https://renato.athaydes.com/posts/revisiting-prechelt-paper-comparing-languages.html</source>
+    </item>
+    <item>
+      <title>Why WebAssembly is innovative even outside the browser</title>
+      <link>https://www.tetrate.io/blog/wasm-outside-the-browser/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_tetrate_io_blog_wasm-outside-the-browser_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p><span>WebAssembly (Wasm) has many applications in the cloud-native world today – WASI, edge cloud computing, Proxy-Wasm, and cloud-native runtime for serverless functions, to name a few. The question is, why has WebAssembly become so popular? </span><span id="more-33308"></span></p>
+<p><span>To answer this, let’s begin by looking at the basic properties of WebAssembly.</span></p>
+<p><span>WebAssembly is a safe, portable, and low-level binary instruction format. To elaborate on a few of the key properties of WebAssembly, it’s:</span></p>
+<ul>
+<li aria-level="1"><b>Safe: </b><span>It can safely run untrusted codes in a sandbox environment.</span></li>
+<li aria-level="1"><b>Open: </b><span>This means that it is embeddable. It has a customizable interface with external environments. For example, in WASI, WebAssembly can run on abstracted operating system platforms. Another example is Proxy-Wasm: the Wasm module communicates with external proxy applications to manipulate or handle traffic such as HTTP, UDP, or TCP traffic.</span></li>
+<li aria-level="1"><b>Portable:</b><span> It is usable across environments and is architecture-independent.</span></li>
+<li aria-level="1"><b>Polyglot: </b><span>It can be compiled from many programming languages.</span></li>
+</ul>
+<p><span>It’s also fast.</span></p>
+<p></p>
+<p><span>There are clearly other existing solutions to achieve goals similar to what WebAssembly does, but as we will see, each of these solutions has certain limitations:</span></p>
+<ul>
+<li aria-level="1"><b>NaCI</b><span> is Google’s software fault isolation (SFI) solution. It is safe, embeddable, and polyglot. It can run untrusted codes with the application of SFI techniques. However, since NaCl is based on native binary, it is not a portable solution.</span></li>
+<li aria-level="1"><b>eBPF</b><span> is a safe, embeddable, and portable program primarily used for kernels. However, due to its strict limitations, it is hardly polyglot.</span></li>
+<li aria-level="1"><b>Lua</b><span> is a powerful embeddable scripting language, but it’s not polyglot either.</span></li>
+<li aria-level="1"><b>Native Library Formats</b><span> are embeddable. However, they are not safe or portable.</span></li>
+<li aria-level="1"><b>Java</b><span> is a versatile language that runs anywhere. The downside is that isolated entities are not Java’s first-class citizens.</span></li>
+</ul>
+<p><span>Accordingly, none of these alternative solutions demonstrates all the properties embodied in WebAssembly. On the other hand, WebAssembly is as portable as Java, as safe as NaCl or Seccomp, as embeddable as Lua, and as polyglot as Native Library. Compared to existing solutions on the market, WebAssembly is an excellent new solution with a well-rounded design that aims to meet multiple goals simultaneously. While other existing solutions are lacking in some respect, WebAssembly emerges as a successful solution to achieve what the others cannot. To sum up, WebAssembly’s unique strengths help it stand out among the crowd in the cloud-native world.</span></p>
+<h2><strong>Strengthening application extensibility and security with WebAssembly</strong></h2>
+<p><span>Like Executable and Linkable Format (ELF), the object format of the executable file in Linux, WebAssembly is an object format. As Linux defines what APIs an executable file can use, the external Wasm embedded interface defines the functions and symbols imported/exported by a Wasm module. This gives rise to various interface types for WebAssembly.</span></p>
+<p><span>Embedding WebAssembly in applications is important for the following reasons. First, WebAssembly provides secure extensibility mechanisms for applications. Second, application and Wasm modules communicate through bi-directional ABI and API. Lastly, WebAssembly allows users to install extensions securely, portably, and in any language.</span></p>
+<p><span>Two prime examples of a Wasm embedded interface are: WebAssembly for Proxies (Proxy-Wasm), and the WASI executable interface. </span></p>
+<h2><strong>How Envoy’s extensibility evolves with Proxy-Wasm</strong></h2>
+<p><span>For the purpose of this article, let’s focus on the secure extension mechanism of Proxy-Wasm. Powered by WebAssembly, Proxy-Wasm is an extensibility interface for proxy servers. Envoy serves as the reference implementation. Proxy-Wasm provides a secure and portable way to manipulate proxy traffic.</span></p>
+<p><span>Before WebAssembly, Envoy offered the static C++ library as its extension mechanism. No isolation was provided, and C++ was the only language that was supported. Therefore, updating an extension used to always require a rebuild.</span></p>
+<p><span>Ever since its adoption of WebAssembly, Envoy’s extension has been able to run securely in an isolated environment. This approach has the distinct advantage of being language-independent, and there is full support for dynamic loading extensions.</span></p>
+<p><span>WebAssembly brings secure extensibility mechanisms to cloud-native applications. Envoy and Istio provide a secure extensibility mechanism for application meshes powered by Proxy-Wasm. With WebAssembly, you can write your Envoy extensions, such as custom authorization and authentication, as well as logging.</span></p>
+<h2><strong>Recap</strong></h2>
+<p><span>WebAssembly’s unmatched strength of being embeddable, safe, polyglot, and portable all at the same time have led to the development of various Wasm interfaces. As we have seen, a secure extensibility mechanism is typically found in these interfaces. The extensibility mechanism for proxies, Proxy-Wasm, is an excellent example that allows users to extend their application meshes securely. With its unique set of advantages, WebAssembly is sure to continue to bring about new secure extensibility mechanisms to the cloud-native landscape.</span><span><br/>
+</span></p>
+<p><i><span>This article is based on a </span></i><a href="https://www.youtube.com/watch?v=SRXEuJJR0XE&amp;list=PLj6h78yzYM2MDtQzXYpQEzP80Pw4iRMNy&amp;index=15"><i><span>sponsored keynote</span></i></a><i><span> by Takaya Saeki, Tetrate Engineer, for Cloud Native Wasm Day EU 2021.</span></i></p>
+<h2><strong>Resources</strong></h2>
+<ul>
+<li aria-level="1"><a href="https://www.tetrate.io/blog/wasm-modules-and-envoy-extensibility-explained-part-1/"><span>Wasm Modules and Envoy Extensibility Explained – Part 1</span></a></li>
+<li aria-level="1"><a href="https://www.tetrate.io/blog/how-to-get-started-with-envoy-extensions-wasm-and-getenvoy/"><span>How to get started with Envoy extensions: Wasm and GetEnvoy</span></a></li>
+<li aria-level="1"><a href="https://www.tetrate.io/blog/what-can-webassembly-do-for-your-application-security-and-extensibility/"><span>What can WebAssembly do for your Application Security and Extensibility</span></a></li>
+<li aria-level="1"><a href="https://www.youtube.com/watch?v=llf9b_UGQ1k&amp;list=PLj6h78yzYM2MDtQzXYpQEzP80Pw4iRMNy"><span>CNCF Cloud Native Wasm Day EU 2021 playlist</span></a></li>
+<li aria-level="1"><span><a href="https://www.youtube.com/watch?v=JIq8wujlG9s">Istio Weekly Episode 7 on Developing Envoy Wasm Extensions</a> (July 22, 2021)</span></li>
+</ul>
+
+
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 16:30:50 +0000</pubDate>
+      <source>https://www.tetrate.io/blog/wasm-outside-the-browser/</source>
+    </item>
+    <item>
+      <title>What Irony Is Not (2020)</title>
+      <link>https://thereader.mitpress.mit.edu/what-irony-is-not/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___thereader_mitpress_mit_edu_what-irony-is-not_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article><p>A handy guide to distinguishing the notoriously slippery concept from its distant cousins coincidence, satire, parody, and paradox.</p><figure></figure><p>“Irony” is a term that everyone uses and seems to understand. It is also a concept that is notoriously difficult to define. Much like Winona Ryder’s character in the 1994 rom-com “Reality Bites,” whose inability to describe irony costs her a job interview, we know it when we see it, but nonetheless have trouble articulating it. Even worse, it seems as if the same term is used to describe very different things. And following your mother’s advice — to look it up in the dictionary — is liable to leave you even more confused than before.</p><p>Uncertainty about irony can be found almost everywhere. An American president posts a tweet containing the phrase “Isn’t it ironic?” and is derided for misusing the term. A North Korean dictator bans sarcasm directed at him and his regime because he fears that people are only agreeing with him ironically. A song about irony is mocked because its lyrics contain non-ironic examples. The term has been applied to a number of different phenomena over time, and as a label, it has been stretched to accommodate a number of new senses. But exactly how does irony differ from related concepts like coincidence, paradox, satire, and parody? <strong></strong></p><h3><strong>Coincidence</strong></h3><p>In everyday conversation, the term “coincidence” is often used as a synonym for situational irony. For example, someone might rhetorically exclaim, “Isn’t it ironic that the rain stopped just as I was finishing my morning run?” In many such instances, “coincidence” would probably be a better descriptor, particularly when no greater meaning or import connects the two events. Things happen all the time, and sometimes things happen at the same time. But does that make such juxtapositions ironic? And does it truly matter what we call them?</p><p>Referring to coincidences as ironic raises the hackles of prescriptivists, who regard such usage with clear distaste. For them, it represents a form of imprecision that debases the language — an unforced error that one should scrupulously avoid. From a family resemblance perspective, we might say that the concept of coincidence overlaps to some degree with the irony concept, but the number of attributes the two share is low. Coincidences involve juxtaposition and incongruity, but they aren’t counterfactual and don’t involve pretense. They may allude to failed expectations, but they aren’t explicit echoes. Coincidences may involve victims, humor, or criticism, but they are rarely truly humorous or poignant. In short, the family resemblance between coincidence and irony makes them more like cousins than siblings.</p><p>The battle over equating irony and coincidence has been raging for some time. The first edition of “Fowler’s Modern English Usage” (1926) claims that “a protest is needed against the application … of ‘irony’ … to every trivial oddity.” Seventy years later, the third edition admitted that “this weakened use looks as if it has come to stay,” and the fourth edition, published in 2015, refers darkly to “vague, watered down newer meanings” of irony.</p><p>The 2015 edition of The New York Times Manual of Style and Usage states that “the looser use of <em>irony</em> and <em>ironically</em>, to mean an incongruous turn of events, is trite. Not every coincidence, curiosity, oddity and paradox is an irony, even loosely.” It is interesting to note that in the 1999 edition there followed another sentence that has been omitted from the current edition: “And where irony does exist, sophisticated writing counts on the reader to recognize it.” Perhaps the editors of the guide realized they were fighting a losing battle on that point?</p><figure><blockquote><p>Equating irony with coincidence is still viewed — at least in some quarters — as a semantic transgression, although attitudes appear to be softening.</p></blockquote></figure><p>Other disapproving voices have weighed in on this issue. The American Heritage Dictionary provides a usage note for “ironic” that addresses this distinction: “Sometimes, people misapply <em>ironic</em>, <em>irony</em>, and <em>ironically</em> to events and circumstances that might better be described as simply <em>coincidental</em> or <em>improbable</em>, with no particular lessons about human vanity or presumption. Resistance to such uses remain strong.” The usage note is buttressed with data from the dictionary’s usage panel, a group of nearly two hundred journalists, creative writers, and scholars who complete annual surveys on the “acceptability” of word senses and grammatical constructions. The panel has been asked repeatedly to weigh in on the acceptability of a sentence that describes a woman from Ithaca, New York, who moves to California, where she meets and marries a man who is also from upstate New York. The sentence uses the word “ironically” to describe this outcome. In 1978, 78 percent of the panel rejected this usage. A survey from 2016 that contained the same sentence was deemed problematic by 63 percent of the panel, a figure that is lower than the earlier one but still a majority. Clearly, equating irony with coincidence is still viewed — at least in some quarters — as a semantic transgression, although attitudes appear to be softening. However, the shift may also have to do with the changing composition of the <a href="https://www.nytimes.com/2006/12/23/books/23word.html" target="_blank" rel="nofollow">American Heritage’s usage panel</a> over time.</p><p>To explore this debate more fully, let’s consider a larger question: what exactly <em>is</em> a coincidence, anyway? As might be expected, different dictionaries take different approaches, but Merriam-Webster defines it as “the occurrence of events that happen at the same time by accident but seem to have some connection.” Needless to say, this formulation leaves plenty of room for interpretation, since a perception of “some connection” is inherently subjective.</p><p>A good example of this subjectivity can be found in “<a href="https://www.amazon.com/Brain-Droppings-George-Carlin/dp/0786883219" target="_blank" rel="nofollow">Brain Droppings</a>,” by the comedian George Carlin. He argues that the concept of irony has to do with opposites and has “nothing to do with coincidence.” He provides a number of examples to make his point, including the following: “A diabetic, on his way to buy insulin, is killed by a runaway truck. He is the victim of an accident. If the truck was delivering sugar, he is the victim of an oddly poetic coincidence. But if the truck was delivering insulin, ah! Then he is the victim of an irony.” At first blush, Carlin’s argument appears persuasive: A diabetic being hit by a truck delivering insulin does seem more ironic than a truck delivering sugar. It’s likely, however, that many people would characterize the “diabetic–sugar truck” juxtaposition as ironic as well: There clearly exists “some connection” between diabetes and sugar that seems to elevate such a pairing past mere coincidence.</p><p>Other examples, however, appear to be more straightforward. In “The Gift of the Magi” (1905), O. Henry tells the story of Jim and Della, a young couple seeking the perfect Christmas presents for each other (spoiler alert!). Both of them sacrifice prized possessions to be able to afford their gifts. Della has her lustrous tresses shorn so that she can afford a platinum pocket watch fob for Jim. Jim sells his pocket watch to buy ornamental combs for Della. Their actions thus destroy the value of the gifts that they exchange. The story is best described in terms of situational irony, with a dash of dramatic irony as well, since the reader is aware of the poignant outcome before Jim and Della meet to celebrate Christmas. It would be strange to describe the story’s outcome as merely a coincidence; this would seem to undercut the peculiarly symmetrical results of Jim and Della’s sacrifices. But does “The Gift of the Magi” rise to the level of providing “lessons about human vanity or presumption,” as dictated by the American Heritage definition? Perhaps, although it’s difficult to imagine widespread agreement on the necessary and sufficient criteria for vanity and presumption.</p><figure><blockquote><p>It is worth asking oneself, before describing such occurrences, whether a juxtaposition is mundane (that is, coincidental) or more surprising, consequential, or significant — and therefore ironic.</p></blockquote></figure><p>Both situational irony and coincidence are used to refer to states of affairs that may be difficult to classify as clearly belonging to one concept or the other. And attempts to cleanly differentiate between them may be a fool’s errand. The most we can say is that some people care about the distinction a great deal, and it is worth asking oneself, before describing such occurrences, whether a juxtaposition is mundane (that is, coincidental) or more surprising, consequential, or significant — and therefore ironic.</p><h3><strong>Paradox</strong></h3><p>As with coincidence, irony is often conflated with the concept of paradox. Once again, the two concepts overlap to a certain degree, since both irony and paradox can involve juxtaposition, sometimes jarring incongruity, and deviation from expectations. Paradox, however, goes a step further and entails self-contradiction as an essential element.</p><p>Paradox, like irony, has a long tradition in Western thought, but principally in the realm of logic as opposed to rhetoric. In her <a href="https://mitpress.mit.edu/books/paradox" target="_blank">book on paradox</a>, the philosopher Margaret Cuonzo notes three principal uses of the term. The definition most relevant for our purposes is “an argument with seemingly true premises, seemingly good reasoning, and an obviously false or contradictory conclusion.”</p><figure><blockquote><p>Paradox, like irony, has a long tradition in Western thought, but principally in the realm of logic as opposed to rhetoric.</p></blockquote></figure><p>The crucial issue that separates verbal irony from paradox is that the apparent contradiction can, in fact, be resolved. If someone mutters, “What lovely weather we’re having!” as they crouch in a tornado shelter, the statement would appear to stand in stark contrast to the true state of affairs. However, as we saw in the previous chapter, conversational participants implicitly assume that a cooperative principle is always in effect. This seemingly absurd remark, therefore, must make sense in some way. The contradiction leads the listener to make a context-specific inference — an implicature — that can resolve the apparent inconsistency. Someone who hears such a remark can draw on cultural expectations regarding the weather and conclude that the speaker intends some related proposition, such as its exact opposite. So what appears to be a contradiction can be bridged with a little world knowledge.</p><p>As with coincidence, the shared family resemblance between paradox and irony is low. Once again, we see the common element of incongruity, but little else. That is not to say that philosophers and literary critics haven’t muddied the waters with regard to paradox and irony. Friedrich Schlegel, the German poet, philosopher, and literary critic, declared that “irony is the form of paradox. Paradox is what is good and great at the same time.” The meaning of this fragmentary idea, however, is obscure. Cleanth Brooks, the scholar who helped establish the New Criticism movement, wrote in “<a href="https://www.amazon.com/Well-Wrought-Urn-Studies-Structure/dp/0156957051" target="_blank" rel="nofollow">The Well Wrought Urn</a>” that “the language of poetry is the language of paradox.” Brooks meant that the underlying meaning of a poem can be contradictory to its surface form, although he did not use the term “irony” to refer to this contradiction. Finally, Norman Knox proposed a category of paradoxical irony in which “everything is relative. … Author and audience fuse, or oscillate between identification and detachment.” However, this seems to be more of a restatement of romantic irony than a new use of the term.</p><div><figure><a href="https://thereader.mitpress.mit.edu/what-nihilism-is-not/"></a><figcaption><strong>Related</strong>: <a href="https://thereader.mitpress.mit.edu/what-nihilism-is-not/" target="_blank" rel="noreferrer noopener">What Nihilism Is Not</a>: In order to preserve nihilism as a meaningful concept, it’s necessary to distinguish it from pessimism, cynicism, and apathy.</figcaption></figure></div><p>To the degree that nonscholars use the term “paradoxical irony,” it seems to function as a mere intensifier for the concept of irony or coincidence. The phrase is not common: It appears only twice in a 14-billion-word sample of 22 million web pages provided in a searchable corpus known as iWeb. The first appears in a review of Sheryl Crow’s album “Be Myself”:</p><p>It seems the title is a reminder, but there’s paradoxical irony in having to remind yourself to be yourself.</p><p>The second case also occurs in the context of a review, in this case the book “Jacques Derrida’s Aporetic Ethics”:</p><p>The paradoxical irony began with Socrates being the wisest man in Athens because he alone knew he could know nothing.</p><p>One could argue that, in both instances, the word “paradoxical” is doing little of the heavy lifting. And neither example suggests the element of self-contradiction that paradoxes typically involve. As in many instances of situational irony, the phrase “paradoxical irony” could be replaced with “it seems strange that” or “it’s odd that” with no loss of meaning.</p><h3><strong>Satire</strong></h3><p>Satire works best when it hews close to the line between the outlandish and the possible — and as that line continues to grow thinner, the satirist’s task becomes ever more difficult.</p><p>Satire may feel like a relatively new and subversive form of humor, but in reality it has existed for millennia. It appears as early as the fifth century BCE in the Old Comedy of ancient Greece and the plays of Aristophanes. It was fully developed as a genre by Roman authors such as Lucilius, Horace, Persius, and Juvenal. The goal of satire — social criticism by shaming the powerful, the foolish, or the corrupt — can make even ancient examples of the form seem startlingly contemporary.</p><p>To appreciate a particular work as satiric, an audience must keep in mind two distinct mental representations simultaneously: the literal meaning of a message and an awareness of a discrepancy between that message and the intention of its author. Richard Roberts and I have <a href="https://www.tandfonline.com/doi/abs/10.1207/s15327868ms0802_2?journalCode=hmet19" target="_blank" rel="nofollow">argued</a> that this duality gives satire its distinctive character and accounts for satire’s effectiveness as a vehicle for social commentary. The audience has to construct the author’s intentions for themselves by recognizing and accounting for this apparent discrepancy. In this way, satire may represent the ultimate form of the admonition “show, don’t tell.”</p><figure><blockquote><p>The goal of satire — social criticism by shaming the powerful, the foolish, or the corrupt — can make even ancient examples of the form seem startlingly contemporary.</p></blockquote></figure><p>The satirist has many weapons at her disposal, including parody, a form that I discuss separately. She may also employ outlandish exaggeration, blatant falsehoods, and sly innuendo. And virtually all satirists use verbal irony and sarcasm extensively, since these devices are especially well suited to the twin goals of being humorous and critical at the same time.</p><p>An important component of irony is pretense, and it is essential for satire as well. The audience of the satirist needs to recognize the pretense of its creator, or else the satire fails as such. When Jonathan Swift made his “modest proposal” that the poor sell their children as food for the rich, it was so extreme that hardly anyone could have perceived it as a serious suggestion. But satire can be much subtler, and in such cases the pretense becomes less clear. For some, it may become invisible.</p><p>A prime example can be seen in “The Colbert Report,” in which Stephen Colbert played the role of a bloviating conservative pundit, rarely breaking character. Progressive audiences enjoyed his outlandish claims and proposals as a sophisticated rebuke of perceived excesses by pundits of the far right. However, some conservatives also enjoyed the program and believed that Colbert genuinely meant what he was saying. For those viewers, there was no recognition of Colbert’s pretense. A study conducted by Heather LaMarre and her collaborators <a href="https://journals.sagepub.com/doi/abs/10.1177/1940161208330904" target="_blank" rel="nofollow">showed</a> that a viewer’s political ideology predicted whether or not he or she perceived the program as satiric. Both liberals and conservatives thought that Colbert was funny, but only politically liberal members of his audience were in on the joke.</p><figure><blockquote><p>Both liberals and conservatives thought that Colbert was funny, but only politically liberal members of his audience were in on the joke.</p></blockquote></figure><p>Another essential ingredient of both verbal irony and satire is the existence of common ground. Common ground involves a presupposition of knowledge that two parties share. To understand a work as satiric, audience members use this shared knowledge to recognize that something is not quite right. Common ground can be ephemeral, and if enough time has elapsed, a work of satire may no longer even be recognized as such.</p><p>A potential example of this phenomenon is the “Historia Augusta,” which has been the subject of scholarly debate for many years. This Latin manuscript, which purports to be the work of six authors writing in the third century, consists of 30 biographies of Roman emperors, their corulers, and usurpers who reigned from 117 to 285 CE. It also contains nearly 150 extracts from letters, speeches, and Senate proceedings such as decrees and proclamations. It would seem to be a document of considerable historical value, and scholars like Edward Gibbon drew on it when writing their own histories. Over time, however, researchers have found that the manuscript contains a host of inaccuracies and outright falsehoods. As a historical chronicle, there is something seriously wrong with it. This has led to considerable debate about who composed it, when it was written, and, most important, why it was compiled in the first place.</p><p>Scholars today believe that the “Historia Augusta” is the work of a single author. It was probably written several decades after its purported date of composition, given the numerous anachronisms that do not fit with the time period being described. Most, if not all, of the letters, speeches, and Senate extracts are thought to have been fabricated. And as a history of the period, it is peculiar, to say the least. Scholars Justin Stover and Mike Kestemont <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.2041-5370.2016.12043.x" target="_blank" rel="nofollow">note</a> that the manuscript contains “bizarre details and puzzling omissions, as well as [a] lurid focus on emperors’ peccadilloes and personal habits to the detriment of their political accomplishments.” In short, the “Historia Augusta” does not appear to be the factual account it claims to be.</p><p>Opinions about the purpose of the author have run the gamut from political propaganda to a pagan attack on Christianity. Some classicists, such as Ronald Syme, have emphasized its puns and wordplay, suggesting that the work was simply the musings of a “rogue grammarian.” Shawn Daniels, however, has made <a href="https://ufdc.ufl.edu/UFE0045915/00001" target="_blank" rel="nofollow">a convincing case</a> for the “Historia Augusta” as a work of satire. The “Historia Augusta” may have been intended for a contemporary circle of readers who would have immediately recognized the exaggerations, gaps, and outright fabrications as clever social commentary. Because this audience shared common ground with the author, they were able to appreciate an intent now obscured by the passage of time. It is not hard to imagine archaeologists of the future stumbling across a cache of issues of the The Onion and scratching their heads over headlines like “Obama under Fire for Playing T-Ball during Vietnam.”</p><p>Finally, sharing common ground is essential for appreciating the <em>purpose</em> of satire. A satiric critique may be perceived as humorous by members of one community but as offensive or even blasphemous by members of another. The 2015 Al-Qaeda attack on the offices of the French satirical magazine Charlie Hebdo is a tragic example of what can happen when satire is perceived as sacrilege.</p><p>Recognizing pretense and sharing common ground are essential for understanding both verbal irony and satire. As a result, the two terms are sometimes used synonymously. But not all irony is satiric, and not all satire employs irony. To complicate matters further, satire is often confused with parody, our next topic.</p><h3><strong>Parody</strong></h3><p>Satire is a lesson, parody is a game.</p><p>As we have seen, pretense is an essential component of many forms of irony, and this holds true for parody as well. At its heart, a parody is an intentional imitation of something else, although the goals of the parodist vary. At one extreme, the intent may be to gently poke fun at the original work or its creator. At the other extreme, however, it may involve full-throated condemnation. The more aggressive forms of parody liberally use exaggeration, satire, and sarcasm to ridicule the authentic work and, by extension, the person who produced it. The overlap of these figurative forms and genres can lead to confusion and cause them to be mistaken for one another.</p><p>As a literary genre, parody, like satire, dates back to the Old Comedy of ancient Greece. Its first practitioner may have been Hegemon of Thasos, who lived during the fifth century BCE. The form has been popular in Western literature for several centuries. Examples run the gamut from parodies of chivalric romance (Chaucer’s Sir Thopas in “The Canterbury Tales”) and heroic narratives (Pope’s “Rape of the Lock”) to gothic novels (Austen’s “Northanger Abbey”). Parody is also commonly employed in the visual arts and music. And many radio programs, films, and television shows are parodic in nature. Comedy programs like “The Daily Show” and the “Weekend Update” segment of “Saturday Night Live” extensively use the conventions and trappings of network newscasts, such as news anchors’ desks, reports from correspondents “in the field,” and faux interviews. Sitcoms like “The Office” and “Modern Family” are classified as “mockumentaries”: parodies of documentaries.</p><figure><blockquote><p>A parody succeeds as a parody only if the audience is able to recognize the original work being lampooned.</p></blockquote></figure><p>As with satire, the consumer of a parody must maintain two distinct mental representations at once. In this case, however, these are the literal meaning of the work and an awareness of what is being imitated. A parody succeeds as a parody only if the audience is able to recognize the original work being lampooned. Many cartoons on television employ parody, but the imitation is often lost on children because they have not yet encountered the original. Later, as parents, they may watch the same cartoons with their kids and discover a whole new layer of meaning: the clever imitation that went over their heads the first time around during their own childhoods.</p><p>Ironists and parodists share the same occupational hazard: the danger of being taken literally. Those who choose to criticize public figures, however, have legal precedent on their side. In a 1988 Supreme Court ruling (<em>Hustler Magazine v. Falwell</em>), the televangelist sued the publication after being depicted as an incestuous drunkard in a parody of a liquor ad. The Court unanimously overturned a lower court’s verdict and ruled in favor of Hustler. No reasonable person, the Court declared, would have interpreted the magazine’s depiction of Falwell as factual. Therefore satires and parodies of public figures do not entitle such individuals to damages for emotional distress.</p><p>Parodists who choose to imitate well-known artistic works, on the other hand, have to contend with thin-skinned and litigious authors and musicians who may take umbrage at having their creations exploited in this way. In their defense, parodists can invoke the principles of artistic expression and fair use. However, the original creator can claim that the parody infringes on a copyright or trademark. One such case, <em>Campbell v. Acuff-Rose Music Inc.</em>, was argued before the Supreme Court in 1994. At issue was 2 Live Crew’s 1989 song “Pretty Woman,” which was alleged to have “substantial similarities” to “Oh, Pretty Woman,” released by Roy Orbison and William Deese in 1964. In that case, the Court ruled that the parody fell within the scope of fair use. Despite this protection, some parodists, such as “Weird Al” Yankovic, always seek permission from the original artists before lampooning their work.</p><p>A caricature can function as a satire or a parody, but it is perhaps best thought of as a separate entity. The essence of caricature is exaggeration, typically for humorous effect. Political cartoonists, for example, will overemphasize specific features of their victims, such as Richard Nixon’s nose, Jimmy Carter’s teeth, Barack Obama’s ears, or Donald Trump’s coiffure. However, if the caricature is based on a prior representation that is well known, as in the case of Shepard Fairey’s “Hope” poster, then an exaggerated drawing of Obama could be described as both a caricature and a parody.</p><p>The lack of shared context in online communities makes users less likely to recognize nonliteral language as such. Online works of satire, in particular those involving heavy irony, may be mistaken for genuinely held beliefs or attitudes. This problem was recognized in the 1980s, even before the emergence of the web, by users posting to newsgroups on Usenet. In 1983, Jerry Schwarz observed that “a sideways smile, : – ) … has become widely accepted on the net as an indication that ‘I’m only kidding’. If you submit a satiric item without this symbol, no matter how obvious the satire is to you, do not be surprised if people take it seriously.”</p><p>Parody can also be difficult to express online, since it requires an audience to recognize that some prior work is being imitated. This phenomenon was given a name by Nathan Poe, who <a href="https://www.amazon.com/Understanding-Internet-Critical-Thinking-Digital/dp/1978505698" target="_blank" rel="nofollow">lamented</a> that “without a winking smiley or other blatant display of humor, it is utterly impossible to parody a Creationist in such a way that <em>someone</em> won’t mistake for the genuine article.” His observation, now referred to as <a href="https://www.wired.com/2017/06/poes-law-troll-cultures-central-rule/" target="_blank" rel="nofollow">Poe’s Law</a>, refers more generally to any controversial topic that is debated online.</p><p>Neither satire nor parody requires irony to accomplish its particular ends, however. Parody, in particular, can be highly effective when it closely resembles the original. And in some cases, the goal may not be mockery at all. It may simply be a tribute from one artist to another, as when a musician covers another artist’s song. The lines that separate homage, parody, and outright plagiarism are murky at best.</p><hr/><p><em><strong>Roger Kreuz</strong> is Associate Dean and Director of Graduate Studies in the College of Arts and Sciences and Professor of Psychology at the University of Memphis. He is the <em>author of “<a href="https://www.amazon.com/dp/0262538261/" target="_blank" rel="noreferrer noopener nofollow">Irony and Sarcasm</a>,” from which this article is excerpted</em>, and the coauthor (with Richard Roberts) of <a href="https://mitpress.mit.edu/contributors/roger-kreuz" target="_blank" rel="noreferrer noopener">several other books</a> published by the MIT Press.</em></p></article></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 18:20:53 +0000</pubDate>
+      <source>https://thereader.mitpress.mit.edu/what-irony-is-not/</source>
+    </item>
   </channel>
 </rss>
