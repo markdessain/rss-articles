@@ -27772,5 +27772,1550 @@ CygA_selfcal2.image SNR: 539.46</pre>
       <pubDate>Sun, 08 Aug 2021 17:29:28 +0000</pubDate>
       <source>http://www.charlespetzold.com/blog/2021/08/Screw-You-Microsoft-Edge.html</source>
     </item>
+    <item>
+      <title>The macOS Sandbox File Limit</title>
+      <link>https://buckleyisms.com/blog/anecdotes-about-the-macos-sandbox-file-limit/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+  
+  
+  <p><em>As always, this post reflects my own opinions, and not anyone else’s.</em></p>
+<p>There has recently been some <a href="https://twitter.com/sindresorhus/status/1422631677000617985">renewed discussion on Twitter</a> about the limitation that the macOS sandbox places on the number of open files an app can access at once. Apps are still running into problems because of this limitation, and there is not a lot of technical detail available on it outside of Apple, so I’d like to share my understanding of it.</p>
+<p>macOS only allows sandboxed apps to access a limited number of files at a time, but there is no way for an app to query how many files it can open, or if it’s close to the limit. In fact, this limit is dependent on the amount of RAM installed in the computer and the number of files open by other apps. Because this limit only affects apps that can batch process thousands of files, and users that want to do so, many users—and developers—remain unaware of it, despite the fact that it has affected some of Apple’s own apps.</p>
+<p>I first became aware of the limitation in early 2012. I was working on an app that could activate font files, and although most users only used it for a handful of fonts at a time, we very quickly got support requests from users after the limitation was introduced in an update to OS X 10.7. In this case, however, it wasn’t obvious what was causing the issue. Font activation would start failing with a generic error code after the first few hundred activations. The system log reported that the sandbox was denying <code>file-read-data</code> for our app, but our app wasn’t sandboxed, so this appeared to be a bug.</p>
+<p>Although we attempted to fix the problem, both by ourselves and with the help of Apple’s Developer Tech Support, it wasn’t until WWDC 2012, a few months later, that we were able to get answers on why this was happening. At WWDC, I lined up for the labs as soon as I could and was eventually able to talk with an engineer who worked on font activation. After sharing some code with him that demonstrated the problem, he was able to find exactly where in the font daemon the failure was occurring. When attempting to open the font file, the daemon was receiving a generic error that the file could not be opened. However, he wasn’t sure exactly who to talk to about that problem, so he gave be a page of detailed notes, along with suggestions of other engineers to talk to, and which labs they would be in.</p>
+<p>All of the engineers were helpful and wanted to get to the bottom of this mystery, but they all had to suggest other engineers to speak with, until ultimately, I was referred to an engineer in the security lab. It was late in the day, and labs were about to close. I distinctly remember running across the room to the section blocked off for the security lab, laptop under my arm. There, I met an extremely helpful engineer who was able to solve the mystery.</p>
+<p>macOS uses security-scoped bookmarks to grant apps access to files they normally wouldn’t have access to. In order to facilitate this, macOS must keep a mapping of which apps are allowed to access which file paths, and for security reasons, this mapping has to live in kernel memory. Kernel memory is wired: The kernel has no access to virtual memory. A quarter of physical RAM is reserved for the kernel, and within that quarter, the kernel allocates a percentage for the file mapping.</p>
+<p>He never said it outright, but I got the impression that the security team had just learned that this was causing problems for apps recently, and only because they were notified by the iPhotos team, but they were unaware it was causing problems with the font daemon. Our radars, DTS tickets, and emails with our Apple rep had failed to get the problem through to the security team. As an aside, this is why WWDC labs are so important and valuable. It is often impossible to get issues noticed by the proper engineers inside Apple. Even if they can’t fix the issues, engineers in the labs can often provide information and workarounds.</p>
+<p>The engineer stayed late to help me file radars on the issue for both the security team and the fonts team, but cautioned that the underlying problem would probably not get fixed any time soon. It would be up to app developers and other teams within Apple to work around the problems the limitation created. It was foundational to how the macOS app sandbox was designed, and could only be fixed if they found a safe and performant way to store this mapping in userspace, which was unlikely. Apple was not going to throw out the sandbox or compromise its security to remove this limitation. Considering that it remains a problem to this day, he was right.</p>
+<p>From outside of Apple, it appears that very little has changed in the app sandbox since its debut in 2011. Many exception entitlements are still “temporary”. When these temporary exceptions were introduced, Apple encouraged developers to file radars explaining why they needed the exceptions, indicating that Apple would, in the future, expand the sandbox to cover use cases that necessitated these exceptions, then remove the temporary entitlements. As far as I am aware, although security holes have been patched in the sandbox, and new entitlements added, the sandbox has never been expanded to include these use cases, and no temporary exception has ever been removed, making “temporary” somewhat of a misnomer.</p>
+<p>Having never worked at Apple, I will refrain from uneducated guesses as to why this is. Considering that this limitation <a href="https://twitter.com/Schwieb/status/1238538962710323200">still affects high-profile apps like Microsoft Office</a>, I don’t think Apple is unmotivated to fix this, but considering how long it has remained a problem, until Apple announces otherwise, we can’t assume it’s going away any time soon. It’s on app developers to work around it as best as possible.</p>
+<p>There are two ways to deal with the issue. The first is to <strong>relinquish security-scoped bookmarks as quickly as possible</strong>, and the second is to <strong>prompt users to open folders, not files</strong>.</p>
+<p>Security-scoped bookmarks can be relinquished using <code>NSURL</code>&#39;s <a href="https://developer.apple.com/documentation/foundation/nsurl/1413736-stopaccessingsecurityscopedresou"><code>stopAccessingSecurityScopedResource</code></a> method. This method frees the entry for the file in the kernel. If your app only needs to access a few files at a time, you can call this method immediately when you are done with each file.</p>
+<p>In cases where this does not work, you can prompt users to open folders instead of files. When a folder is opened in an <code>NSOpenPanel</code>, only one entry is added in kernel memory, but your app will still be able to access the files within that folder. However, you may need to limit yourself to APIs that access those files using string paths, rather than <code>NSURL</code>s. After opening the folder, your app will need to enumerate the contents of the folder and provide its own file listing for users to select files. Any files opened through <code>NSOpenPanel</code> will consume kernel memory.</p>
+<p>In my case, thanks to the help I received at WWDC 2012, I was able to learn that the font daemon properly relinquished bookmarks when fonts were activated using the CoreText API, as opposed to the newly-deprecated ATS API we were using. We were able to switch over to CoreText, but Carbon apps, which all used ATS, wouldn’t be able to see all of the activated fonts. It appeared that these apps, upon being notified of font activations, would communicate with the font daemon to get the font data using ATS functions, which were still not relinquishing the bookmarks quickly enough. As far as I know, this has never been fixed, but since Carbon was never fully ported to 64-bit, Carbon app usage declined until 32-bit support was removed in macOS 10.15, making the problem moot.</p>
+<p>At the time, however, many popular apps were written using Carbon, or at least contained enough Carbon code to be affected by this issue, including Microsoft Office and parts of the Adobe Creative Suite. We had to add an alert to our app when users attempted to activate a large number of fonts, explaining that not all fonts would be available in these apps. Some users complained bitterly, but we had a compelling demo to prove that the problem was not our app’s fault. If users simply moved all their font files into <code>~/Library/Fonts</code>, they could confirm that the fonts were all available in TextEdit, but not in Word.</p>
+
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 10:59:05 +0000</pubDate>
+      <source>https://buckleyisms.com/blog/anecdotes-about-the-macos-sandbox-file-limit/</source>
+    </item>
+    <item>
+      <title>Summer 2021 has changed our understanding of extreme weather</title>
+      <link>https://theconversation.com/how-summer-2021-has-changed-our-understanding-of-extreme-weather-165268</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div itemprop="articleBody">
+    <p>A succession of <a href="https://www.ft.com/content/c59ca047-082e-48fb-a479-df1b2818a66c">record-breaking natural disasters</a> have swept the globe in recent weeks. There have been serious floods in China and western Europe, heatwaves and drought in North America and wildfires in the sub-Arctic.</p>
+
+<p>An annual <a href="https://rmets.onlinelibrary.wiley.com/doi/10.1002/joc.7285">report</a> on the UK’s weather indicates extreme events are becoming commonplace in the country’s once mild climate. August 2020 saw temperatures hit 34°C on six consecutive days across southern England, including five sticky nights where the mercury stayed above 20°C. In the future, British summers are likely to see temperatures greater than 40°C regularly, even if global warming is limited to 1.5°C.</p>
+
+<p>The Canadian national temperature record was shattered in June 2021 meanwhile, with 49.6°C recorded in Lytton, British Columbia – a town that was all but destroyed by <a href="https://www.bbc.co.uk/news/world-us-canada-57678054">wildfires</a> a few days later. </p>
+
+<p>Many of these events have shocked climate scientists. The Lytton temperature record, for example, was head-and-shoulders above those set during previous heatwaves in the region. Some scientists are beginning to worry they might have underestimated how quickly the climate will change. Or have we just misunderstood extreme weather events and how our warming climate will influence them?</p>
+
+<hr/>
+<p>
+  <em>
+    <strong>
+      Read more:
+      <a href="https://theconversation.com/extreme-heat-waves-in-a-warming-world-dont-just-break-records-they-shatter-them-164919">Extreme heat waves in a warming world don&#39;t just break records – they shatter them</a>
+    </strong>
+  </em>
+</p>
+<hr/>
+
+
+<h2>Everything is connected</h2>
+
+<p>Floods and wildfires are not discrete events: they are the result of numerous interconnections and feedback loops in the climate system. Take the mid-July <a href="https://www.theguardian.com/uk-news/2021/jul/25/thunderstorms-leave-cars-and-buses-stranded-in-london">flash floods in London</a>. These were caused by summer rainstorms, which were in turn driven by warm air rising from the Earth’s surface that built up during the preceding heatwave, stacking the deck for the downpours that were to follow. The wildfires raging in the western US, meanwhile, are a catastrophe whose stage was set by <a href="https://theconversation.com/the-north-american-heatwave-shows-we-need-to-know-how-climate-change-will-change-our-weather-163802">long-term drought</a>.</p>
+
+<p>The Earth’s climate is complex, dynamic and chaotic, involving interactions and energy fluxes between the land, ocean and atmosphere. The idea that scientists can study one part of this system in relative isolation is flawed. But it was not always possible to model or understand all of these complexities, so scientists had to break them into manageable pieces in order to fit them into linear systems and models. These were often split across the scientific disciplines that most of us are still somewhat confined to today, such as atmospheric sciences, hydrology, Earth systems sciences, or engineering. </p>
+
+<p>As a result, we are used to treating each natural hazard independently from another. But it takes more than rain to create a flood, and more than a spark to start a wildfire. All of the elements of our climate system – and the hazards it produces – are connected in one way or another. </p>
+
+<figure>
+            
+            <figcaption>
+              <span>Recent flash floods in London were triggered by the sudden end of a heatwave.</span>
+              <span><a href="https://www.shutterstock.com/image-photo/london-uk-0712-vehicle-driving-on-2007659681">Yau Ming Low/Shutterstock</a></span>
+            </figcaption>
+          </figure>
+
+<p>It’s not that these interactions and combinations are new, it’s just that we haven’t always thought about them in such a joined-up way. It may seem shocking when disaster follows disaster, seemingly in increasingly quick succession. This is because we are trained to think about weather hazards singularly, focused on one type – a drought or flood, for example – at a time. Just about all risk assessments underestimate the risks associated with interconnected events.</p>
+
+<p>But as our climate continues to warm, its baseline is shifting. How these hazards and their causes interact is therefore also changing fast, challenging the very definition of extreme weather events.</p>
+
+<p>The interconnections between extreme weather events have, until recently, been largely overlooked by the science community. But there is now growing <a href="http://damocles.compoundevents.org/">international research</a> tasked with mapping these complex relationships.</p>
+
+<p>Compound events – a term only adopted by the <a href="https://www.ipcc.ch/report/managing-the-risks-of-extreme-events-and-disasters-to-advance-climate-change-adaptation/">IPCC in 2012</a> – describe the outcomes of a combination of causes that ultimately surpass the capacity of an underlying system to cope. These include <a href="https://www.nature.com/articles/s43017-020-0060-z">events</a> where a hazard like a wildfire was made worse by something which had preconditioned the environment, like drought.</p>
+
+<p>Wariness of these compound events should influence the way we live our lives in a warmer world. More research across disciplines is needed, as well as new approaches to disaster risk assessment and climate change adaptation that look across all weather-driven hazards and their complex and changing interactions. Improvements in <a href="https://www.metoffice.gov.uk/about-us/press-office/news/weather-and-climate/2021/hadley-centre-work-program-2021">climate modelling</a> mean we can do more of this type of science – the climate crisis dictates that we must.</p>
+  </div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 04:48:19 +0000</pubDate>
+      <source>https://theconversation.com/how-summer-2021-has-changed-our-understanding-of-extreme-weather-165268</source>
+    </item>
+    <item>
+      <title>Show HN: Yet another Homebrew Video Game Console, this time FPGA-based</title>
+      <link>https://internalregister.github.io/2021/08/08/Another-Homebrew-Console.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="content" role="main">
+<p></p>
+
+<p>Over two years after my first post on a Homebrew Video Game Console, I’m writing another one on a new Homebrew video game console.</p>
+
+<p>I’m horrible on posting updates to my projects, so this is another monstrous post, showing my newest project.</p>
+
+<p>As I’ve done in other posts, I’ll try to explain what made me build another console, the decision process while designing and building it as well as the final result.</p>
+
+<p>Along the way I’ll try explain some concepts (or at least how I understand them) that may be simple or well known to some, but maybe it’ll helpful for others. 
+I will also use my other homemade console as a comparison (link <a href="https://internalregister.github.io/2019/03/14/Homebrew-Console.html">here</a>). 
+There’ll be links on topics that I feel could be worthy of further exploration by the reader.</p>
+
+
+
+<p>I do have a tendency to start many different projects, I’m constantly thinking of other possibilities and ways to improve and change current projects, even before I finish them. 
+And while I was finishing the other console I was already thinking on how I could do better or at least do different.</p>
+
+<p>I really like my first video game console, but is has a few drawbacks:</p>
+
+<ul>
+  <li>Updates the screen at 25 frames per second</li>
+  <li>Has a one frame delay between updating and rendering</li>
+  <li>No color palettes</li>
+  <li>Resolution of 224x192 (a bit less than I was hoping for)</li>
+  <li>It’s a really complex design with a lot of different components</li>
+</ul>
+
+<p>Added to this, a friend of mine told me: “hey, I would really like to own one of those”, and being so complex and huge made it very hard and expensive to replicate.</p>
+
+<p>So, I set off to make a video game console which improves in some aspects, but it’s not necessarily an evolution over the first one.</p>
+
+
+
+<p>Having this in mind, I had some must-haves for the new console, some new and some I brought over from the previous project:</p>
+
+<ul>
+  <li>For the game logic there must be an 8-bit CPU</li>
+  <li>It must have sound</li>
+  <li>Graphics
+    <ul>
+      <li>Resolution of 256x224 pixels, a more standard resolution when comparing to other retro systems</li>
+      <li>Tiled background</li>
+      <li>Multiple sprites on top of the background</li>
+      <li>Possibility of using palettes for the background and sprites</li>
+      <li>Ability to change some graphical configurations mid-frame</li>
+      <li>50 fps (PAL frequency) with no frame delays</li>
+    </ul>
+  </li>
+  <li>It must be able to load programs through an SD Card</li>
+  <li>Have support for two game controllers</li>
+  <li>There must be few components and a small form factor</li>
+  <li>Is cheaper to make and easier to put together than the first one</li>
+  <li>There must be no software emulation and there must be no components too powerful that they would need to be extremely underused or slowed down to keep it retro-styled</li>
+</ul>
+
+
+
+<p>After this I started to research what components I could use so that I ended up with the fewest possible but enough to make everything work, of course. 
+And a constant in these kinds of projects, nothing too overkill, no software emulation, no mini-pc boards, nothing like that.</p>
+
+<p> 
+(the console when in breadboards)</p>
+
+<h3 id="fgpa">FGPA</h3>
+
+<p>This project gave me the opportunity to work with a kind of component I’ve always wanted to work with: <a href="https://wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGAs</a> (Field Programmable Gate Array).
+FPGAs are versatile components that can be configured to behave as different circuits. 
+Most video game consoles back in the day had specific chips for things like video and sound and for most hobbyists building their own <a href="https://wikipedia.org/wiki/ASIC" target="_blank">ASICs</a> is simply not an option, so using FPGAs are a great alternative to this. 
+Besides, all “the cool kids” are using it and I wanted to use it as well.</p>
+
+<p>In my last console I’ve used something similar, a <a href="https://wikipedia.org/wiki/Programmable_logic_device" target="_blank">PLD</a> (Programmable Logic Device) to help with some of the glue logic and save on 7400 series ICs that needed to be used.</p>
+
+<p>FPGAs however have some differences in comparison to PLDs or CPLDs, in most cases:</p>
+<ul>
+  <li>they don’t support 5V logic (most retro systems from the 80s and early 90s are 5V)</li>
+  <li>their configuration is saved in an external component and loaded into the FPGA when powered on (there’s a slight delay when turned on)</li>
+  <li>they generally support greater speeds and more complex circuits configured</li>
+  <li>they have internal RAM usable by the configured circuits</li>
+</ul>
+
+<p>Creating a design for an FPGA usually means using a high level design language such as <a href="https://wikipedia.org/wiki/VHDL" target="_blank">VHDL</a> or <a href="https://wikipedia.org/wiki/Verilog" target="_blank">Verilog</a> (there are others as well) and defining each component, inputs, outputs, behavior, etc.</p>
+
+<p>An FPGA would enabled me to save on the number of components used as I could design many of them inside of it. 
+I didn’t want however an FPGA that was way too powerful for what I was trying to accomplish (again, a personal rule for my “retro” projects: I can use current technology, but I have to make sure it’s not overpowered).</p>
+
+<p>I also knew that I was not going to be able to design a board that would use an FPGA directly as I lack the experience in electronic circuit design to do it, so I had to pick a pre-made FPGA development board to use in the console, something cheap with an FPGA just powerful enough for the project, with a lot of available pins and no extra hardware or connectors (common in FPGA development boards).</p>
+
+<p>I found just the board:</p>
+
+<p></p>
+
+<p>It retails for $12 to $15 and it can be found in several vendors such as AliExpress and Ebay at the time of writing, it has 143 Input/Output pins (not all of them available) and holds an Intel (formerly Altera) <a href="https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/hb/cyc2/cyc2_cii5v1.pdf" target="_blank">Cyclone II EP2C5 FPGA</a>. 
+(right now there are cheaper boards with more recent FGPAs, however when I bought it a few years ago it seemed to be the best and cheapest option)</p>
+
+<p>The Cyclone II series of FPGAs is a now discontinued series although it is still widely available.</p>
+
+<p>This model in particular has:</p>
+<ul>
+  <li>119.808 bits of internal RAM (known as Block RAM)</li>
+  <li>4.608 logic elements</li>
+</ul>
+
+<p>The number of logic elements determines the complexity of the circuit that an FPGA can hold and 4608 is enough for a lot of the console but not amazing, FGPAs can easily have many more logic elements available.</p>
+
+<p>It is not easy to know how many logic elements are needed for a certain circuit design until you’ve actually designed it, it’s hard to predict how a circuit is converted into an FPGA configuration, furthermore depending on the FGPA vendor, logic elements can have different meanings (they can be more or less complex) and even slightly different names making it harder to compare them.</p>
+
+<p>The block RAM was going to be extremely useful, I knew I wanted the FGPA to at least do the video and graphics, and the interface between the CPU and graphics circuit was going to be RAM like in the previous console. 
+And the block RAM can easily be configured as dual-port SRAM, which is a great way to interface two components.</p>
+
+<p>Ultimately the circuit design I ended up with holds:</p>
+<ul>
+  <li>a <a href="https://wikipedia.org/wiki/Zilog_Z80" target="_blank">Z80</a> CPU <a href="https://wikipedia.org/wiki/Soft_core_(synthesis)" target="_blank">soft-core</a> (I used a pre-made core, the <a href="https://opencores.org/projects/t80" target="_blank">T80</a>)</li>
+  <li>a <a href="https://wikipedia.org/wiki/General_Instrument_AY-3-8910" target="_blank">YM2149/AY-3-8910</a> audio chip soft-core (I used a pre-made core by <a href="https://opencores.org/users/mikej/profile" target="_blank">MikeJ</a> from January 2005 originallly used in an FPGA version of Bomb Jack)</li>
+  <li>a custom video and graphics circuit (that I named the named Video Signal Processor and Video Display Processor)</li>
+  <li>a custom <a href="https://wikipedia.org/wiki/Sega_Mega_Drive" target="_blank">Sega Genesis</a>-compatible controller reader circuit</li>
+  <li>custom glue logic</li>
+</ul>
+
+<p>Like I mentioned above, FPGA design is usually done in a high level design language, usually <a href="https://wikipedia.org/wiki/VHDL" target="_blank">VHDL</a> or <a href="https://wikipedia.org/wiki/Verilog" target="_blank">Verilog</a>, I chose VHDL for no particular reason, simply because I found more examples on it and found some pre-made cores in that language that I could use.</p>
+
+<p>For the development of the FPGA design, as mentioned above, I used 2 cores made by someone else, the core for the Z80 CPU and for the sound (YM2149), the rest was designed by me, including the graphics and video processing.</p>
+
+<p>I’m still not very confident in my ability with VHDL, but it is improving. It’s easy to mistakenly start using a design language as a regular programming language, but they’re two very different things with different concepts, also it’s very hard to debug these designs as opposed to regular software, so the design went through several iterations until I was confident enough that it would consistently work in all situations.</p>
+
+
+
+<p>Having 119.808 bits or 14.976 bytes of <a href="https://wikipedia.org/wiki/Random-access_memory" target="_blank">RAM</a> in the FPGA is great but not really enough to store all the data, code and graphics for a program to run in the console. 
+So I added my trusty AS6C1008 memory IC, it has 128KB of SRAM at 55ns and it can work with either 3.3V or 5V voltage levels. 
+This means I could interface it directly with the FPGA board as it interfaces with 3.3V but not 5V.</p>
+
+<p>The usage of the memory available in this IC is split into two. 
+The first 64KB is accessed exclusively by the CPU and it serves to store the code and data for the programs. 
+The second 64KB is what I call the Character RAM (CHRRAM) and it stores graphics, this is accessed by the CPU through the IO port and by the VDP to render frames.</p>
+
+<p></p>
+
+<h3 id="sd-card-reader">SD card reader</h3>
+
+<p>As one of the requirements is the ability to load programs from an SD Card, I needed a way to read them. 
+I could design a circuit in the FGPA for this, but the FPGA ended up pretty much full without this, so I felt I could sneak in my also trusty Atmega microcontroller to do the trick and save on the FGPA “real estate” (the number of logic elements used).</p>
+
+<p>Originally I used an Atmega324 just like in the previous console and also reused most of the code to access the SD Card. Although I thought I could do a little better, so I ended up swapping it for an Atmega328, the same used in the <a href="https://wikipedia.org/wiki/Arduino" target="_blank">Arduino Uno</a>. 
+This one has less pins (it’s smaller) and it’s a lot cheaper. The only drawback is that with the lack of pins, I would only be able to interface with the CPU with an address bus of 6 bits instead of the 8 bits I used in the other console. That meant I had only 64 read and 64 write instructions available, but, it was actually more than enough.</p>
+
+<p></p>
+
+<h3 id="video-encoding">Video encoding</h3>
+
+<p>For video, to minimize the space used in the board I opted for composite video output only, instead of RGB video out. This way it would only need a small video output connector. 
+To do this I needed a video encoder to generate the composite video signal. 
+In the previous console I had used a vintage chip for this which is no longer manufactured, a Sony CXA1645 (???). This time I went for a modern IC, an AD724. 
+It’s package is not very hobbyist friendly, but I managed to solder it to an adapter board and use it just fine.</p>
+
+<p>The FPGA produces 8-bit RGB color signals and a Sync signal and the AD724 converts this to a composite signal.</p>
+
+<p></p>
+
+<h3 id="audio-amplification">Audio amplification</h3>
+
+<p>And for audio I used an LM358 as an audio amplifier, I believe it’s not the best IC for this, but it does the job. 
+This IC amplifies the audio signal output by the FPGA.</p>
+
+<h3 id="final-look">Final look</h3>
+
+<p>This is the console’s final look, the FPGA’s development board is plugged into the console’s board.</p>
+
+<p></p>
+
+
+
+<h3 id="general-architecture">General Architecture</h3>
+
+<p>Here are all the components, physical and in the FPGA design:</p>
+
+<p></p>
+
+<h3 id="cpu-and-ram-and-io-mapping">CPU and RAM and IO mapping</h3>
+
+<p>The soft-core CPU in the FPGA is a Z80 compatible CPU running at 16.66Mhz. 
+As explained in previous posts one of the Z80’s advantages is that it has a 16-bit memory space as well as a 16-bit IO space. 
+Althought they can’t be used in parallel, it enables me to use the full 16-bit of memory for the program and leave acessing other components to the IO space.</p>
+
+<h4 id="memory-space">Memory space</h4>
+
+<p>The code that is first executed when the console is turned on is located in 4KB of RAM inside in the FPGA.</p>
+
+<p>The CPU has access to a full 64KB of RAM, the first 4KB of RAM can be switched between the first 4KB of the 128KB RAM chip and 4KB of RAM (Block RAM) in the FPGA.</p>
+
+<p>A special address IO space can be used to switch between the internal 4KB RAM and external RAM.</p>
+
+<p></p>
+
+<h4 id="io-space">IO space</h4>
+
+<p>Through the IO space it’s possible to:</p>
+<ul>
+  <li>Communicate with the IO IC (Atmega328) which is used to access data from the SD Card</li>
+  <li>Read and write to the VDP RAM which defines the scene to be rendered</li>
+  <li>Send commands to the YM2149/AY-3-8910 soft-core (audio processor)</li>
+  <li>Switch the first 4KB of RAM from internal to external RAM</li>
+  <li>Read game controller status</li>
+  <li>Read and write to Character RAM in two 32KB banks</li>
+</ul>
+
+<p></p>
+
+<h3 id="video-and-graphics">Video and Graphics</h3>
+
+<h4 id="video">Video</h4>
+
+<p>For the video I went for what I’m already used to, a 50Hz <a href="https://wikipedia.org/wiki/PAL" target="_blank">PAL</a> analog video signal, since it’s the standard here in Portugal. 
+The resolution is 256x224 and each pixel has one of 256 colors in the color space RGB 332, the same as in the previous console.</p>
+
+<p>
+(available colors)</p>
+
+<h4 id="graphics">Graphics</h4>
+
+<p>The graphics are located in the Character RAM, which is 64KB of the external RAM.</p>
+
+<p>They are arranged (like with the last console) in 8x8 pixel tiles each in 64 consecutive bytes.</p>
+
+<p></p>
+
+<p>Originally I wanted to only have 4bpp graphics (4 bits per pixel or 16 colors per pixel) and use color palettes to map each of the 16 colors to the final color in RGB332 space. 
+However I found that not using palettes is much easier and palettes are not always necessary.</p>
+
+<p>For this reason I made it possible to choose between using 4bpp with color palettes or 8bpp graphics, both for the background plane and sprites, making the VDP more complex as a consequence, but it works.</p>
+
+<p>This way the number of characteres/tiles available in the 64KB of CHRRAM depends on the use of 4bpp or 8bpp graphics. It can hold up to 1024 8bpp characters or up to 2048 4bpp characters or a combination of both.</p>
+
+<h4 id="video-display-processor-vdp">Video Display Processor (VDP)</h4>
+
+<p>The VDP is capable of combining a background with multiple sprites.</p>
+
+<p>As in the first console and like in many retro consoles of the 80s and early 90s, the background is a virtual screen composed of 8x8 pixel tiles. The virtual screen has 64x64 tiles (in a total of 512x512 pixels) and can be scrolled horizontally and vertically.</p>
+
+<p>The background can also be 8bpp or 4bpp, if it’s 4bpp (16 colors) than it will use any of the available 16 palettes for the colors. 
+It’s possible to use 4 different palettes in the same background at a time, each tile can only use one at a time.</p>
+
+<p>The VDP can render 128 sprites, each one 8x8 or 16x16 pixels in size, they can also be flipped horizontally and/or vertically. 
+Each sprite can also be 8bpp or 4bpp in color. And in case of the latter, one of the 16 palettes can be set for each sprite.</p>
+
+<p></p>
+
+<p>One of the things I wanted this console to have was a second background layer that could sit behind or above sprites, I had to let this go as I was having problems including this in the FPGA because of the amount of logic elements I had available and also because of timing, every horizontal line in a frame has to be rendered in 64 microseconds, the time it takes for the TV to show a horizontal line in PAL.</p>
+
+<p>Because I couldn’t do this, I managed to add another feature. If the background is in 4bpp mode, then it’s possible to set each sprite above or behind the 8 last colors of the palette of the background. 
+It’s not the same but it’s a nice addition and can do the trick for the most part.</p>
+
+<p>In this example, the background is using this palette:
+</p>
+
+<p>And so each individual sprite can be controlled to be “hidden behind” the pixels using any of the last 8 colors of the palette (index &gt;= 7):</p>
+
+<p></p>
+
+<p>Every horizontal line of the frame is rendered independently and the VDP reads the scene configuration from the VDP RAM to know what to render:</p>
+
+<p></p>
+
+<h4 id="hdma">HDMA</h4>
+
+<p>Another feature of the VDP is HDMA (H-Blank Direct Memory Access, I chose this name because the <a href="https://wikipedia.org/wiki/Super_Nintendo_Entertainment_System" target="_blank">Super Nintendo</a> had a similar feature). 
+<a href="https://wikipedia.org/wiki/DMA" target="_blank">DMA</a> (Direct Memory Access) are usually systems that allow access to memory without the CPU’s assistance or interference. 
+In video game consoles they’re usually used to transfer data blocks from the several types of memory (main memory, graphics memory, sound memory, etc) faster than doing it by software, this can happen at the end of a frame or, for example, after rendering to the screen a certain horizontal line of the frame.</p>
+
+<p>In this case I wanted to change the VDP RAM after rendering a horizontal line which could be used for some cool tricks, such has changing the palette of colors (underwater effects, etc), changing the scrolling values (split-screen, parallax effects, etc) and others. 
+So in the VDP RAM there is a section for HDMA, in which you can configure a set of blocks of bytes to be copied to somewhere else in the VDP RAM after a given horizontal line.</p>
+
+<p>
+(In this example the HDMA is changing the palette colors at the end of a frame’s horizontal line, that line is then being changed every frame by the program)</p>
+
+<h3 id="drawing-and-rendering">Drawing and Rendering</h3>
+
+<p>For the Video Display Processor and the Video Signal Processor to work simultaneously I used a line-buffer as opposed to a frame-buffer as in the last console. With this technique I can have both systems work together and there won’t be a 1 frame delay between drawing and showing the frame.</p>
+
+<p></p>
+
+<p>Each frame has 256x224 pixels, so each horizontal line has 256 pixels and since in the end, with or without palettes, the color resolution is always 8bpp (8 bits per pixel or 256 colors), I needed two 256 byte buffers.</p>
+
+<p>As mentioned above, The graphics processor needs to render an entire line of a frame in the time it takes a line to be sent to the TV, which in PAL is 64 microseconds.</p>
+
+<h3 id="sharing-graphics-ram-between-vdp-and-cpu">Sharing Graphics RAM between VDP and CPU</h3>
+
+<p>Unlike in my previous console, the CPU and Graphics processor use the same RAM IC simultaneously and it’s not a dual-port RAM IC, so access to it needs to be managed as only one component can use it at a time.</p>
+
+<p>The easiest way to do this was to disable the CPU when the RAM is being used by the Video Display Processor, which is not always active.</p>
+
+<p>Every frame in progressive PAL has 312 lines, not all of them are visible. 
+The VDP is only active when rendering the visible lines.</p>
+
+<p></p>
+
+<p>The VDP renders each frame in 224 of these lines, in which it needs to access the RAM IC, so when the VSP is sending to the TV the line before, a BUS request is sent to the CPU for it to halt and surrender access to the memory bus. 
+When the 224 lines are rendered, the request ends and the CPU can resume work.</p>
+
+<p>So the CPU only works about 27.8% (87 out of the 312 lines) of the time. 
+Which may not seem like much, but it’s enough.</p>
+
+<p>This strategy of halting the CPU while the graphics processor is using the same RAM IC was used in other systems before, like the <a href="https://wikipedia.org/wiki/ZX_spectrum" target="_blank">ZX Spectrum</a>, for example.</p>
+
+<p>In my previous project, the CPU didn’t have direct access to the Character RAM and had to use the graphics component as an intermediary to move information into this RAM.</p>
+
+<p>In this console the CPU can actually change the graphics in run-time, although it can’t move much data because of its processing power and only running 27.8% of the time.</p>
+
+
+
+<h3 id="programs--games">Programs / Games</h3>
+
+<p>Developing programs for this console is very similar to the last one, even though software is not compatible between them as the graphical and sound capabilities are different and the IO memory mapping is different as well.</p>
+
+<p>Once again the choice can be made between <a href="https://wikipedia.org/wiki/Assembly_language" target="_blank">assembly language</a> and <a href="https://wikipedia.org/wiki/C" target="_blank">C</a>. 
+C provides more productivity, so apart from early testing programs, all the software was written in this language.</p>
+
+<p>For the C programs I reused the same toolchain I already had since the CPU is the same and the way graphics are stored is very similar as well.</p>
+
+<p>For the C programs I still use the <a href="http://sdcc.sourceforge.net/" target="_blank">SDCC</a> compiler. The only quirk about this compiler is that it expects code to be in a ROM and data to be in a separate RAM. 
+This means that in some cases such as initialized global variables it creates unecessary code. 
+The console runs all its code in RAM. So to go around compile all my C files to assembly than run a custom python script to rearrange the assembly code a bit and only then I compile the resulting code together to form the final binary.</p>
+
+<p>Just like in the previous console, in C, like the former console, I changed the crt0 of the programs so that two functions are required:</p>
+<ul>
+  <li>main: where the start code</li>
+  <li>nmi: code that gets executed everyframe, Z80 NMI interrupt</li>
+</ul>
+
+<p>One difference from the first console is that this one doesn’t have any predefined graphics (Character ROM, like I called it), so you always need to provide some graphics with the program or write them dinamically to the Character RAM.</p>
+
+<p>
+(example of the toolchain process to produce a file that can be placed in the SD Card to be read by the console’s program loader, the binary for the program is produced and combined with the graphics binaries to produce the file that is put into the SD Card)</p>
+
+<h3 id="bootloader">Bootloader</h3>
+
+<p>The bootloader is the program that is first executed when the console is turned on.</p>
+
+<p></p>
+
+<p>This program is located in the internal RAM in the FPGA as the console boots up. 
+It takes up a maximum to 4KB of RAM.</p>
+
+<p>The bootloader loads a program from the SD Card into memory, it loads the program in file “program.pr2”.</p>
+
+<p>This function can be accessed by any program as it sits in a specific address of the internal 4KB RAM.</p>
+
+<p>This means that any program can load another program into memory and use the full 64KB of RAM for code and data.</p>
+
+<p>The Bootloader was developed in C but it has a custom crt0 to expose the function described above in a specific address.</p>
+
+<p>Just out of curiosity, the logo in the bootloader (you can see it in the image above) has 14x14 tiles and 5 colors and in order to fit into the 4KB together with the other code, it had to be stored as half its size and using <a href="https://wikipedia.org/wiki/Run-length_encoding" target="_blank">RLE</a> in 666 bytes and it’s decoded on runtime. I decided to make the decoding visible as it serves as a cool effect.</p>
+
+<h3 id="pr2">PR2</h3>
+
+<p>A new console means a new file format for programs to be stored in. 
+In the previous one I had the PRG file format, and this one naturally uses the PR2 file format.</p>
+
+<p>This is structure of the file:</p>
+<ul>
+  <li>“PRG”,2,0</li>
+  <li>Program Name (24 bytes)</li>
+  <li>Author (24 bytes)</li>
+  <li>Icon (256 bytes, 4 8x8 pixel tiles 8bpp)</li>
+  <li>Program size (2 bytes)</li>
+  <li>Characters size (2 bytes)</li>
+  <li>Program</li>
+  <li>Characters</li>
+</ul>
+
+<p>The changes to the format are the introduction of metadata: the name of the program, name of the author and a 16x16 pixel icon.</p>
+
+<h3 id="program-loader">Program Loader</h3>
+
+<p>I decided to make the first program that is loaded by the bootloader the Program Loader.</p>
+
+<p>This program uses the bootloader function to load programs into memory mentioned above.</p>
+
+<p></p>
+
+<h3 id="emulator">Emulator</h3>
+
+<p>Just like I did for the previous console I decided early on to create an emulator to make it easier to develop for this console. 
+Originally it was a separate and standalone emulator, but later I decided to rebuild it merging the emulators for both consoles into a single one.</p>
+
+<p>The emulator was done in C++, using the <a href="https://www.libsdl.org/" target="_blank">SDL</a> and <a href="https://github.com/ocornut/imgui" target="_blank">imGUI</a> libraries.</p>
+
+<p></p>
+
+<h3 id="porting-games-from-other-systems">Porting games from other systems</h3>
+
+<p>Because this console has a larger video resolution (256x224), it’s more viable to port games from other systems, particularly from the <a href="http://uzebox.org/index.php" target="_blank">Uzebox</a> project even though in terms of processing this console is slower that the Uzebox.</p>
+
+<p>No need to change the game logic or graphics, just to code a layer replacing the Uzebox “system calls” to convert them to this console’s graphics, controller, sd card and audio management.</p>
+
+<p>The sound needed some extra work as the sound chip on this console is less powerful and I made a convertion tool with less than perfect results most of the times, but it worked for the most part.</p>
+
+<p><a href="http://uzebox.org/wiki/Donkey_Kong" target="_blank">Donkey Kong</a> ported to this console</p>
+
+<p></p>
+
+<p>and <a href="http://uzebox.org/wiki/Alter_Ego" target="_blank">Alter Ego</a></p>
+
+<p></p>
+
+
+
+<p>I ended up with a compact custom video game console.</p>
+
+<p>
+(The newer console next to my last project)</p>
+
+<p>Final Specs:</p>
+<ul>
+  <li>Z80 compatible CPU running at 16.66MHZ , running about 27% of the time.</li>
+  <li>64KB RAM for CPU memory space</li>
+  <li>AY-3-8910 compatible sound</li>
+  <li>50fps, 256x224 pixel resolution</li>
+  <li>256 colors, colorspace RGB332</li>
+  <li>1 scrollable background layer of 64x64 tiles of 8x8 pixels each, 4bpp or 8bpp</li>
+  <li>128 simultaneous sprites on screen 4bpp or 8bpp, 8x8 or 16x16 pixels, with a maximum of 256 sprite pixels per line</li>
+  <li>16 palettes for 4bpp graphics</li>
+  <li>64KB RAM for graphics (Character RAM)</li>
+  <li>HDMA that can copy up to 16 bytes per line to a location in VDP RAM</li>
+  <li>SD Card reader</li>
+  <li>Access to 2 Mega Drive / Genesis compatible controllers</li>
+  <li>Composite PAL video output</li>
+</ul>
+
+<p>Active Components:</p>
+<ul>
+  <li>Atmega324p microcontroller</li>
+  <li>AS6C1008 128KB RAM</li>
+  <li>AD724 Video encoder</li>
+  <li>EP2C5 FGPA development board</li>
+  <li>LM358 op-amp</li>
+</ul>
+
+<p>Connectors:</p>
+<ul>
+  <li>2 DB9 male connectors for the game controllers</li>
+  <li>3.5mm jack female to output video and audio</li>
+  <li>micro sd card slot</li>
+  <li>micro usb connector for power</li>
+</ul>
+
+
+
+<p>The showcase video features:</p>
+<ul>
+  <li>Donkey Kong port: A port of Donkey Kong, the game was ported from the Uzebox version.</li>
+  <li>Alter Ego port: A port of the game Alter Ego from the Uzebox by Lee Weber.</li>
+  <li>Sprite Test program: A program that shows the 128 sprites moving on top of a background with HDMA producing a palette change effect in the background.</li>
+  <li>Paint program: A program that changes the CHRRAM in runtime, something that couldn’t be achieved in my previous console.</li>
+  <li>Music Player: A music player program I’ve developed to play AY-3-8910 music.</li>
+</ul>
+
+<p>
+<iframe src="https://www.youtube.com/embed/Sr7jLZ1aCbI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</p>
+
+
+
+<p>In a time when you can get cheap and powerful laptops and mini-PCs and other boards such as raspberry PIs where you can have complex games running on them natively or emulate tons of retro systems, why would anyone want to keep building custom underpowered retro-style game consoles?</p>
+
+<p>Well actually I don’t really know the answer to that, although I do ask myself that question from time to time. 
+All I can say is that it’s fun for me.</p>
+
+<p>I enjoy building the whole thing from scratch and then getting to play with homemade software running on homemade hardware, there’s a sense of accomplishment in that. 
+And even though everything is retro and somewhat outdated, I feel there’s still a lot of valuable knowledge to be gained from projects like this.</p>
+
+<p>I haven’t posted the source code and schematics for this project or the last one yet and the reason is because I feel the quality might not be the best, things are developed to a point where they “work” but there’s a lot of room for optimization and making things more presentable. 
+Something I never found the time to do, between my daytime job and other things in my life.</p>
+
+<p>I do hope, though, that someone finds this interesting and useful and even if no one pursues a similar project, I hope it encourages and motivates someone to build their own “ambitious” projects.</p>
+
+<p>I still have one last video game console I would like to build, a 16-bit CPU based console with better sound and graphics, I do have most of the components I need, I’m just not sure I’ll ever get around to do it, but we’ll see.</p>
+
+<p>If you have any questions or comments, you can comment below or reach me on <a href="https://twitter.com/IntRegister" target="_blank">Twitter</a>.</p>
+
+<p>And of course, if you got this far, thank you for reading this post.</p>
+
+
+
+
+
+
+
+
+
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 20:23:03 +0000</pubDate>
+      <source>https://internalregister.github.io/2021/08/08/Another-Homebrew-Console.html</source>
+    </item>
+    <item>
+      <title>Embarrassed by Your Olympic Javelin: Did Cavemen Do It Better?</title>
+      <link>https://www.npr.org/sections/krulwich/2012/07/27/157486108/embarrassed-by-your-olympic-javelin-did-cavemen-do-it-better</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="storytext">
+      <p>Stronger, faster, fiercer, finer. That&#39;s what the Olympics promise us — higher performance, new world records. But not if you throw things.</p>   <p>The javelin throw has been an Olympic event since 1908. Since then, great athletes, mostly Swedes, Norwegians and Germans, kept throwing spears farther and farther until the extraordinary moment in 1984 — not at the Olympics, it was at a track and field meet in Berlin — when German Uwe Hohn threw so high, so far, he not only broke the previous world record, he scared the bejeezus out of the security people. You&#39;ve got to see this.</p>   <div id="res157493180">
+    <p>
+        <iframe src="https://www.youtube.com/embed/g-ko6bAh1H0?rel=0" width="100%" height="100%" frameborder="0" allowfullscreen=""></iframe>
+    </p>
+        <div>
+            <p>Track and field 1984 Javelin World Record - Uwe Hohn DDR. 104.80 Meters</p>
+
+                <p><b>
+                    <b>http://www.youtube.com/user/Staqon</b>
+                    <b>YouTube</b>
+                </b>
+        </p></div>
+</div>
+   <p>Uwe&#39;s throw broke the 100-meter barrier. No one before him had thrown anywhere near that far. Maybe he got a lucky breeze; maybe he was that good. But his spear landed 104.8 meters (343.8 feet) away, and the folks who build track and field stadiums got worried. They could imagine, <a href="http://www.smh.com.au/news/commentary/spear-a-thought-for-freakish-uwe-hohn/2006/03/25/1143084057832.html?page=fullpage">says sportswriter Steve Waldon</a>, &#34;an unsuspecting spectator [with] ... a slender, body-length metal spear between the ribs.&#34; Not a nice thought, especially to liability lawyers.</p>   <p>Also, javelins were increasingly landing flat, instead of poking upright into the turf, making distance-marking difficult, so in 1986 the <a href="http://www.iaaf.org/">I</a><a href="http://www.iaaf.org/">nternational Association of Athletics Federations&#39;</a> technical committee authorized a new javelin design. The center of gravity was moved 1.6 inches forward, the tip was modified to make the javelin <em>less aerodynamic, </em>meaning it would nose down earlier and land sooner, reducing average flight distance by about 10 percent.</p>      <p>In other words, here&#39;s an event that celebrates how far people can throw, and the officials said, &#34;Don&#39;t throw that far. Throw shorter.&#34;</p>   <div id="res157492469">
+            <div data-crop-type="">
+        <picture>
+            <source srcset="https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s400-c85.webp 400w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s600-c85.webp 600w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s800-c85.webp 800w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s900-c85.webp 900w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s1200-c85.webp 1200w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s1600-c85.webp 1600w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s1800-c85.webp 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/webp"/>
+            <source srcset="https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s400-c85.jpg 400w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s600-c85.jpg 600w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s800-c85.jpg 800w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s900-c85.jpg 900w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s1200-c85.jpg 1200w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s1600-c85.jpg 1600w,
+https://media.npr.org/assets/img/2012/07/27/javelins-0d6cd56449a2222555878bb99ea284d6652e5279-s1800-c85.jpg 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/jpeg"/>
+            
+        </picture>
+</div>
+
+   </div>
+   <p><strong>&#34;Eternal&#34; World Record </strong></p>   <p>And that&#39;s what happened. Uwe Hohn&#39;s world record has been frozen. It is now </p>   <p>Actually, it&#39;s worse than that. We all know that javelin throwing is an ancient Olympic event. &#34;It&#39;s one of the few that remains from those times,&#34; says sportswriter Waldon, &#34;with discus, the marathon and sprinting, and has a certain purity because of this. You can&#39;t say the same thing about mountain bikes, for instance.&#34;</p>   <p>And people have been throwing long, skinny sticks for much, much longer. The original Olympics began around 2,700 years ago. But the original spear throwers go back another 400,000 years — that&#39;s 150 times older than the Olympics. Instead of Greeks running naked across a playing field, imagine some forest people, much hairier, probably with slightly protruding skulls, dashing through the forest with sticks that measure, behave and look like modern javelins.</p>   <p>In the mid-1990s, a team of researchers in Germany led by Professor Hartmut Thieme <a href="http://www.nature.com/nature/journal/v385/n6619/abs/385807a0.html">found a bunch of 400,000-year-old spears</a> buried in ancient mud. They were made of spruce, carefully carved, a little shorter than modern javelins, around seven feet instead of eight, but they are clearly meant to be thrown. Whoever made them, kept them wide close to the front for better lift.</p>   <div id="res157492084">
+            <div data-crop-type="">
+        <picture>
+            <source srcset="https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s400-c85.webp 400w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s600-c85.webp 600w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s800-c85.webp 800w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s900-c85.webp 900w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s1200-c85.webp 1200w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s1600-c85.webp 1600w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s1800-c85.webp 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/webp"/>
+            <source srcset="https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s400-c85.jpeg 400w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s600-c85.jpeg 600w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s800-c85.jpeg 800w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s900-c85.jpeg 900w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s1200-c85.jpeg 1200w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s1600-c85.jpeg 1600w,
+https://media.npr.org/assets/img/2012/07/27/speer_schoen-3_vert-863daab7d159053a0273ca298cb2e9c4bbc3583e-s1800-c85.jpeg 1800w" sizes="(min-width: 1300px) 763px, (min-width: 1025px) calc(100vw - 496px), (min-width: 768px) calc(100vw - 171px), calc(100vw - 30px)" type="image/jpeg"/>
+            
+        </picture>
+</div>
+
+   </div>
+   <p>Replicas were made and given to some modern athletes, who threw them for fun and got them to fly for up to 70 meters — a very respectable distance. But the irony is, back in prehistoric days, when forest javelin throwers used them, they often added a little booster in the form of a leather thong, called an <a href="http://www.coloradomesa.edu/shared/facprofiles/documents/EfficacyoftheAnkyleinIncreasingtheDistanceofthe.pdf">ankyle</a>, that would set the javelin spinning, getting it to fly further.</p>      <p>Greek Olympians used this thong too, so their throws, presumably, were also enhanced, leaving me to think — and isn&#39;t this embarrassing? — that if we could invite a caveman or an original Olympian to watch modern men throw modern javelins, they&#39;d stand there, watch, see these sticks fly up, then down, and think ... what&#39;s their problem? We did it better.</p>   <p>That&#39;s a puzzlement. I understand the need for safety, but still — how must it feel to vie for a championship that in your heart of hearts you know won&#39;t measure up to those who&#39;ve gone before you?</p>   <p><strong>Best Ever?</strong></p>   <p>Lots of athletes come to the Olympics hoping to be the Best Ever. But not javelin throwers. They&#39;ve been told to dream smaller dreams (&#34;Best Since 1984!&#34;) and I think that&#39;s a bum deal.</p>   <p>Why not take this event away from crowded arenas, go someplace safe, design the best flying spear possible, throw it as far as you can, and then whoever breaks the record can say to all spear throwers going back over the ages, &#34;Now I&#39;m Number One, in the truest sense — mine flew further than all of yours!</p>   <p>That would be true Gold.</p>      <p><em>Professor Hartmut Thieme&#39;s co-authored paper on ancient throwing spears can be <a href="http://www.nature.com/nature/journal/v385/n6619/abs/385807a0.html">found here</a>.</em></p>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 13:58:09 +0000</pubDate>
+      <source>https://www.npr.org/sections/krulwich/2012/07/27/157486108/embarrassed-by-your-olympic-javelin-did-cavemen-do-it-better</source>
+    </item>
+    <item>
+      <title>Localhost</title>
+      <link>https://transparencyreport.google.com/copyright/domains/localhost</link>
+      <description></description>
+      <pubDate>Mon, 09 Aug 2021 00:06:33 +0000</pubDate>
+      <source>https://transparencyreport.google.com/copyright/domains/localhost</source>
+    </item>
+    <item>
+      <title>Apps Getting Worse</title>
+      <link>https://www.tbray.org/ongoing/When/202x/2021/08/07/Apps-Get-Worse</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="centercontent">
+<p itemprop="description">Too often, a popular consumer app unexpectedly gets worse: Some combination of harder to use, missing
+    features, and slower.  At a time in history where software is significantly eating the world, this is nonsensical. It’s also
+    damaging to the lives of the people who depend on these products.</p>
+
+<p>First, a few examples to clarify the kind of thing I’m talking about.  These are just the ones I’ve had personal experience
+    with.</p>
+
+<p id="p-1"><span>iPain</span> · 
+One super-obvious example is the long, sad story of
+    <a href="https://en.wikipedia.org/wiki/IPhoto">iPhoto</a> and
+    <a href="https://en.wikipedia.org/wiki/IMovie">iMovie</a>.</p>
+
+<p>For years after the introduction of iMovie ’08, you could still get
+    and use the ’06 version and lots of people did, because it was simple, straightforward, and the obvious things you needed to do
+    were always within reach. I was using the program back then and since I’m a tech geek updated to the newest and greatest, then
+    was reduced to inchoate screams of rage by ’08.  I couldn’t figure out how to do lots of obvious things, everything was klunky.
+    There wasn’t a single dimension along which ’08 was better.</p>
+
+<p>As for iPhoto, I never used it much, but my eighty-something mother did, and took lots of great photos with the Sony RX100 I
+    gave her when I gave up on pocket cams. She’s not geeky but has a Bachelor’s in the sciences and is really smart. At some
+    point they broke iPhoto so she couldn’t figure out how to do anything, and when she asked me for help she had tears in her
+    eyes. I tried to get her fixed up, but she doesn’t take pictures much any more. I miss them.</p>
+
+<p id="p-2"><span><cite>Economist</cite> pain</span> · 
+I was still a Developer Advocate in the Android group when <cite>The Economist</cite> shipped their app.  I thought it had
+    one of the best user experiences ever. You started at the beginning of the current issue, swiped down through an
+    article to the bottom, then swapped to bring the next article in from the right. It remembered where you’d got to, which
+    supports <cite>The Economist’s</cite> vision of being a weekly newspaper; one pass through and you’re caught up on the world
+    that week.
+    There was always a gesture to get to the Table of Contents, but I found I usually didn’t need it much, just swiped over the
+    things I didn’t care about.
+    I
+    <a href="https://www.tbray.org/ongoing/When/201x/2011/08/11/Economist-App">praised it to the skies</a> at the time, and (admittedly) since
+    <a href="https://www.tbray.org/ongoing/When/201x/2017/12/27/Columnar-Navigation">criticized its “Back” affordance</a>, but that was a minor gripe.</p>
+
+<p>The most recent version has been fancified and crippled.  First of all, when you open the app, it doesn’t take you to where
+    you were last reading. It insists on starting with “news of the day” (there are lots of other sites for that stuff) and you have
+    to press “week” to get back into the actual publication. When you do that, even though it knows which articles you’ve read 
+    (marking them with a check-mark in the table of contents) it maddeningly doesn’t take you to where you were last.  So you have
+    to hunt through the table of contents to get yourself restarted.</p>
+
+<p>And when you get to the bottom of an article, it doesn’t stop, it drops you into some weird bastardized section-specific
+    table of contents thingie.  All I want is to flip down then flip right until I get to the damn end of the damn
+    magazine. <em>Why?!</em></p>
+
+<p id="p-3"><span>MLB</span> · 
+I’ve used the Roku/MLB combo for years to watch ball games on our big TV.  The app has evolved over the years and mostly gotten better.  I find
+    things on Roku tend to be a little sluggish, but MLB wasn’t too bad; it’d drop you, pretty quickly, into a screen containing a
+    nice picture of a baseball stadium, then overlay a grid of games that were on; pick the one you want and away you go.</p>
+
+<p>Suddenly, it’s become immensely slower, and apparently is spending that time trying to use some AI voodoo to figure out which
+    game I’d like to watch.  After an endless delay, you get live video of the game it thinks you want to watch, with a few other
+    games and menu choices overlaid around the edge. It’s reasonably good at guessing which game I want to watch, but way slower at
+    getting me there than it used to be. When’s it’s (regularly) wrong, there are two (slow) menu transitions to get back to the
+    grid of all the games.</p>
+
+<p>Also, they screwed up the Android Auto app<span> —</span> I find listening to a game a good way to pass the
+    time on the road.  It’s always had a flaw in that it tries to guess which game you want to watch and starts playing
+    that<span> —</span> the guesses are laughably bad and I often end up with something like Miami Marlins in
+    Spanish.  But, you were one tap away from a nice list of everything on offer.</p>
+
+<p>Recently, the startup screen is trying be smarter, thus much slower, in presenting its guess as to what you might want to
+    hear, with a few others (not all) offered as options. So I have to wait forever for this to manifest then hit a teeny little
+    “More…” target to get the actual list of all the games on offer.</p>
+
+<p id="p-4"><span>Why does this happen?</span> · 
+It’s obvious.  Every high-tech company has people called “Product Managers” (PMs) whose job it is to work with customers and
+    management and engineers to define what products should do.  No PM in history has ever said “This seems to be
+    working pretty well, let’s leave it the way it is.” Because that’s not bold. That’s not visionary. That doesn’t get you
+    promoted.</p>
+
+<p>It is the dream of every PM to come up with a bold UX innovation that gets praise, and many believe the gospel that
+    the software is better at figuring out what the customer wants than the customer is. And you get extra points these days for
+    using ML.</p>
+
+<p>Also, any time you make any change to a popular product, you’ve imposed a retraining cost on its users. Unfortunately,
+    in their evaluations, PMs consider the cost of customer retraining time to be zero.</p>
+
+<p>How to fix this?  Well, in my days at Amazon Web Services, I saw exactly zero instances of major service releases that, in
+    the opinion of customers, crippled or broke the product. I’m not going to claim that our UX was generally excellent because it
+    wasn’t; the fact that most users were geeks let us somewhat off the hook.</p>
+
+<p>Why no breakage? Because these were Enterprise products,
+    so the number of customers was orders of magnitude smaller than iAnything, so the PM could go talk to them and bounce
+    improvement ideas off them. Customers are pretty good at spotting UX goofs in the making.</p>
+
+<p>The evidence suggests that for mass-market products used by on the order of 10<sup>7</sup> people, it’s really difficult to
+    predict which changes will be experienced as stupid, broken, and insulting.</p>
+
+<p>Maybe we ought to start promoting PMs who are willing to stand pat for an occasional release or three.  Maybe we ought to
+    fire all the consumer-product PMs.  Maybe we ought to start including realistic customer-retraining-cost estimates in our
+    product planning process.</p>
+
+<p>We need to stop breaking the software people use. Everyone deserves better.</p>
+
+<hr/>
+
+
+<hr/>
+
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 20:32:31 +0000</pubDate>
+      <source>https://www.tbray.org/ongoing/When/202x/2021/08/07/Apps-Get-Worse</source>
+    </item>
+    <item>
+      <title>Official Elasticsearch Python library no longer works with open-source forks</title>
+      <link>https://github.com/elastic/elasticsearch-py/pull/1623</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+  <div id="repo-content-pjax-container">
+
+    
+
+
+    
+      
+      <div data-pjax="">
+  
+        
+
+  
+
+
+  <div>
+    
+
+  <div id="partial-discussion-header" data-channel="eyJjIjoicHVsbF9yZXF1ZXN0OjY3OTI0NzUzNSIsInQiOjE2Mjg0ODk4NjZ9--5bc24bbc547897d23f4f70f125710c477f486ab56709404a92711d5d130a8dd8" data-url="/elastic/elasticsearch-py/pull/1623/show_partial?partial=pull_requests%2Ftitle&amp;sticky=true" data-pull-is-open="false" data-gid="MDExOlB1bGxSZXF1ZXN0Njc5MjQ3NTM1">
+  <div>
+    <div>
+      <div>
+
+
+          
+<details>
+  <summary data-ga-click="Issues, create new issue, view:issue_show location:issue_header style:button logged_in:false">
+    
+    New issue
+  </summary>
+  <details-dialog aria-label="Sign up for GitHub">
+      
+    <div>
+            
+
+<div>
+  <p>
+  <strong>Have a question about this project?</strong> Sign up for a free GitHub account to open an issue and contact its maintainers and the community.
+  </p>
+
+  <!-- '"` --><!-- </textarea></xmp> -->
+  <p>By clicking “Sign up for GitHub”, you agree to our <a href="https://docs.github.com/terms" target="_blank">terms of service</a> and
+  <a href="https://docs.github.com/privacy" target="_blank">privacy statement</a>. We’ll occasionally send you account related emails.</p>
+
+  <p>
+    Already on GitHub?
+    <a data-ga-click="(Logged out) New issue modal, clicked Sign in, text:sign-in" data-hydro-click="{&#34;event_type&#34;:&#34;authentication.click&#34;,&#34;payload&#34;:{&#34;location_in_page&#34;:&#34;new issue modal&#34;,&#34;repository_id&#34;:null,&#34;auth_type&#34;:&#34;LOG_IN&#34;,&#34;originating_url&#34;:&#34;https://github.com/elastic/elasticsearch-py/pull/1623&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="a19875b67baea2f811ae3a9e7035f351f1d3fda36e2d6f230ac7798a21c176b3" href="https://github.com/login?return_to=%2Felastic%2Felasticsearch-py%2Fissues%2Fnew">Sign in</a>
+    to your account
+  </p>
+</div>
+
+</div>
+  </details-dialog>
+</details>
+        
+      </div>
+
+    
+    </div>
+  </div>
+
+  
+
+
+
+    
+    
+</div>
+
+
+
+      
+
+
+
+
+    <h2>Conversation</h2>
+    <div id="discussion_bucket" data-channel="eyJjIjoicHVsbF9yZXF1ZXN0OjY3OTI0NzUzNTp0aW1lbGluZSIsInQiOjE2Mjg0ODk4NjZ9--7359a0565e691dc29297dd9a7cc3cb57bbb8916a993f57891f36c58eecfc716f">
+      
+<div data-view-component="true">
+
+  <div data-view-component="true">    <div data-quote-markdown=".js-comment-body" data-discussion-hovercards-enabled="" data-issue-and-pr-hovercards-enabled="" data-team-hovercards-enabled="">
+      <div>
+
+        
+<div data-gid="MDExOlB1bGxSZXF1ZXN0Njc5MjQ3NTM1" data-url="/_render_node/MDExOlB1bGxSZXF1ZXN0Njc5MjQ3NTM1/pull_requests/body?variables%5BdeferredCommentActions%5D=false" data-channel="eyJjIjoicHVsbF9yZXF1ZXN0OjY3OTI0NzUzNSIsInQiOjE2Mjg0ODk4NjZ9--5bc24bbc547897d23f4f70f125710c477f486ab56709404a92711d5d130a8dd8">
+
+  
+<p><a data-hovercard-type="user" data-hovercard-url="/users/sethmlarson/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/sethmlarson"></a>
+
+</p>
+
+  
+
+</div>
+
+          
+
+  
+
+
+    
+<div data-gid="MDE3OlB1bGxSZXF1ZXN0Q29tbWl0Njc5MjQ3NTM1OjQ3NzUzMGFjZmY2NmYxZDY5YWRiMzQ2N2RiNTNkOTViNWZhMjU5Mzk=">
+  
+      <div>
+  <div>
+      <div>
+        
+        <div>
+          
+
+<div data-channel="eyJjIjoicmVwbzo5ODAxNjQ0OmNvbW1pdDo0Nzc1MzBhY2ZmNjZmMWQ2OWFkYjM0NjdkYjUzZDk1YjVmYTI1OTM5IiwidCI6MTYyODQ4OTg2Nn0=--9213d2d2c335742d6c1795d135e4e9ae746b6c069ef55dd6ae3739c3e4915f95" data-url="/elastic/elasticsearch-py/pull/1623/commits/477530acff66f1d69adb3467db53d95b5fa25939/_render_node/commit/pull_condensed">
+  <div>
+    <div>
+      
+<div>
+  <p><a data-skip-pjax="true" data-hovercard-type="user" data-hovercard-url="/users/sethmlarson/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/sethmlarson">
+          
+</a>  </p>
+</div>
+
+
+      
+
+      
+
+      
+
+      <!-- ml-1 is added to accommodate "clock" icon -->
+      
+    </div>
+  </div>
+</div>
+
+
+        </div>
+      </div>
+  </div>
+</div>
+
+
+</div>
+
+    
+
+
+    
+
+
+    
+<div data-gid="MDIzOkhlYWRSZWZGb3JjZVB1c2hlZEV2ZW50NDk2MDU0ODkyNQ==">
+  
+        
+
+
+  
+
+
+  
+  
+<div id="event-4960692772">
+  
+  <div>
+
+      <p>
+
+      <a data-hovercard-type="user" data-hovercard-url="/users/sethmlarson/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/sethmlarson"></a>
+<a data-hovercard-type="user" data-hovercard-url="/users/sethmlarson/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/sethmlarson">sethmlarson</a>
+
+
+
+
+      merged commit <a href="https://github.com/elastic/elasticsearch-py/commit/801a8390937a6ef909158c87a6a2e0e39300dcfa"><code>801a839</code></a>
+    into
+    <span>
+      <span title="elastic/elasticsearch-py:7.x">
+        <span>7.x</span>
+      </span>
+    </span></p><a href="https://github.com/elastic/elasticsearch-py/pull/1623#event-4960692772"><relative-time datetime="2021-06-30T15:58:05Z">Jun 30, 2021</relative-time></a>
+
+      <p>
+        21 of 22 checks passed
+      </p>
+
+      <div>
+        <p>
+          21 of 22 checks passed
+        </p>
+        <div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div>
+
+              
+
+                <p><a href="https://github.com/apps/github-actions" data-test-selector="creator-icon" aria-label="@github-actions generated this status.">
+                  
+                </a></p><p><strong>
+                  test-3.10.0-beta.2
+                </strong>
+                test-3.10.0-beta.2
+              </p>
+
+                <p><a href="https://github.com/elastic/elasticsearch-py/runs/2953939417">Details</a>
+            </p></div>
+            <div>
+
+              
+
+                <p><a href="https://github.com/apps/github-actions" data-test-selector="creator-icon" aria-label="@github-actions generated this status.">
+                  
+                </a></p><p><strong>
+                  test-3.10.0-beta.2
+                </strong>
+                test-3.10.0-beta.2
+              </p>
+
+                <p><a href="https://github.com/elastic/elasticsearch-py/runs/2953938834">Details</a>
+            </p></div>
+            <div>
+
+              
+
+                <p><a href="https://github.com/elasticmachine" data-test-selector="creator-icon" aria-label="@elasticmachine generated this status.">
+                  
+                </a></p><p><strong>
+                  clients-ci
+                </strong>
+                Build started for merge commit.
+              </p>
+
+                <p><a href="https://clients-ci.elastic.co/job/elastic+elasticsearch-py+pull-request/189/">Details</a>
+            </p></div>
+            <div>
+
+              
+
+                <p><a href="https://github.com/apps/cla-checker-service" data-test-selector="creator-icon" aria-label="@cla-checker-service generated this status.">
+                  
+                </a></p><p><strong>
+                  CLA
+                </strong>
+                All commits passed the check
+              </p>
+
+                <p><a href="https://www.elastic.co/contributor-agreement">Details</a>
+            </p></div>
+            <div>
+
+              
+
+                <p><a href="https://github.com/elasticsearchmachine" data-test-selector="creator-icon" aria-label="@elasticsearchmachine generated this status.">
+                  
+                </a></p><p><strong>
+                  elasticsearch-ci/docs
+                </strong>
+                Build finished. 
+              </p>
+
+                <p><a href="https://elasticsearch-ci.elastic.co/job/elastic+elasticsearch-py+pull-request+build-docs/91/">Details</a>
+            </p></div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+  
+
+
+  
+
+
+
+</div>
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+<!-- Rendered timeline since 2021-08-07 11:34:13 -->
+
+
+
+      </div>
+
+      
+    </div>
+</div>
+
+    
+</div>
+    </div>
+  </div>
+  
+
+
+
+</div>
+
+
+  </div>
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 22:12:40 +0000</pubDate>
+      <source>https://github.com/elastic/elasticsearch-py/pull/1623</source>
+    </item>
+    <item>
+      <title>The first two hours of MTV (1981) [video]</title>
+      <link>https://www.youtube.com/watch?v=PJtiPRDIqtI</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_youtube_com_watch?v=PJtiPRDIqtI/image.jpg" /> 
+]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 11:41:46 +0000</pubDate>
+      <source>https://www.youtube.com/watch?v=PJtiPRDIqtI</source>
+    </item>
+    <item>
+      <title>AU gov asks big tech to introduce detection capabilities in encrypted comm</title>
+      <link>https://www.zdnet.com/article/canberra-asks-big-tech-to-introduce-detection-capabilities-in-encrypted-communication/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_zdnet_com_article_canberra-asks-big-tech-to-introduce-detection-capabilities-in-encrypted-communication_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div data-component="lazyloadImages">
+        
+                
+                                                    
+            <p>The Australian government has prepared a set of draft rules that requires the likes of social media companies to adhere to if they want to provide a service down under. </p><p>While failure to comply with reporting requirements could see the provider slapped with a AU$555,000 fine, the draft rules also build in encryption-busting expectations.</p><p>Australia&#39;s eSafety Commissioner from January will have sweeping new powers afforded to her under the <em>Online Safety Act 2020</em>. Such powers include oversight of new set of Basic Online Safety Expectations (BOSE) that sets out a series of demands for big tech.</p><p>These <a href="https://www.communications.gov.au/file/52396/download?token=g5mtd5WJ" target="_blank" rel="noopener noreferrer nofollow" data-component="externalLink">expectations</a> [PDF] will apply to service providers including social media; &#34;relevant electronic service of any kind&#34;, such as messaging apps and games; and other designated internet services, such as websites.</p><p>Under the proposed<em> Draft Online Safety (Basic Online Safety Expectations) Determination 2021</em>, it is expected the provider would have to take reasonable steps to ensure safe use. This includes the &#34;core&#34; expectation that the provider of the service will take reasonable steps to ensure that end-users are able to use the service in a safe manner.</p><p>The provider is expected to minimise the availability of cyberbullying material targeted at an Australian child, cyber abuse material targeted at an Australian adult, a non-consensual intimate image of a person, class 1 material, material that promotes abhorrent violent conduct, material that incites abhorrent violent conduct, material that instructs in abhorrent violent conduct, and material that depicts abhorrent violent conduct.</p><p>The expectations also boast additional expectations, such as that the provider of the service will take reasonable steps to proactively minimise the extent to which material or activity on the service is or may be unlawful or harmful.</p>
+
+    
+<p>Reasonable steps that could be taken, the document said, could be through the development or implementation of processes to detect, moderate, report, and remove material or activity on the service that is or may be unlawful or harmful.</p><p>In the case of a service or a component of a service, such as an online app or game, that is used by children, the company must ensure the default privacy and safety settings are robust and set to the most restrictive level.</p><p>The draft BOSE also designate that those involved in providing the service, such as employees or contractors, are trained in, and are expected to implement and promote, online safety. The company must also continually improve safety in its tech and ensure that assessments of safety risks and impacts are undertaken, and safety review processes are implemented, throughout the design, development, deployment, and post-deployment stages for the service.</p><p>The rules, however, as currently drafted, mandate that if the service uses encryption, the provider of the service will take reasonable steps to develop and implement processes to detect and address material or activity on the service that is or may be unlawful or harmful.</p><p><strong>See also: <a href="https://www.zdnet.com/article/apple-child-abuse-material-scanning-in-ios-15-draws-fire/">Apple child abuse material scanning in iOS 15 draws fire</a></strong></p><p>The government also wants providers to prevent anonymous accounts from being used to deal with material, or for activity, that is or may be unlawful or harmful.</p><p>It proposes the service could have processes that prevent the same person from repeatedly using anonymous accounts to post material, or to engage in activity, that is unlawful or harmful, and introduce the requirements to verify identity or ownership of accounts.</p><p>Australia&#39;s eSafety Commissioner will have the power to order tech companies to report on how they are responding to these harms and issue fines of up to AU$555,000 for companies and AU$111,000 for individuals if they don&#39;t respond.</p><p>Also provided under the legislative instrument are expectations regarding reports and complaints.</p><p>The provider of the service will be required to have clear and readily identifiable mechanisms that enable end-users to report and make complaints about material provided on the service. The companies will be required to keep records of complaints or reports for five years.</p><p>eSafety will be backed to receive information requests from providers within 30 days around complaints it has received, removal notice compliance, and measures the provider takes to make their space safe.</p><p>The provider would also be required to appoint a designated contact for the purpose of the Act.</p><p>The Bill allows the responsible minister, currently Paul Fletcher, to determine the details of these expectations by legislative instrument. The minister may also determine that the expectations apply to specific services.</p><p>As such, the government has prepared a <a href="https://www.communications.gov.au/file/52336/download?token=S0nlJI7G" target="_blank" rel="noopener noreferrer nofollow" data-component="externalLink">consultation paper</a> [PDF] and is accepting submissions until 15 October 2021.</p><h3>HERE&#39;S MORE</h3><p><strong><a href="https://www.zdnet.com/article/australias-esafety-and-the-uphill-battle-of-regulating-the-ever-changing-online-realm/">Australia&#39;s eSafety and the uphill battle of regulating the ever-changing online realm</a></strong></p><p>The eSafety Commissioner has defended the Online Safety Act, saying it&#39;s about protecting the vulnerable and holding the social media platforms accountable for offering a safe product, much the same way as car manufacturers and food producers are in the offline world.</p><p><strong><a href="https://www.zdnet.com/article/esafety-says-tweeting-her-wont-qualify-as-a-formal-request-under-online-safety-act/">eSafety says tweeting commissioner will not qualify as a formal Online Safety Act request</a></strong></p><p>The Office of the eSafety Commissioner has said the Twitter dispute that the incumbent has found herself in this week is part of the advice the office provides and that tagging the commissioner will not qualify as a formal request under the new Online Safety Act.</p><p><strong><a href="https://www.zdnet.com/article/protecting-women-in-the-cloud-esafety-hopes-the-online-safety-act-will-do-just-that/">Protecting women in the cloud: eSafety hopes the Online Safety Act will do just that</a></strong></p><p>The commissioner said a lot of online abuse is rooted in misogyny and intended to silence women&#39;s voices. She hopes the new Online Safety Act will go some way to prevent such abuse.</p>
+            </div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 04:44:42 +0000</pubDate>
+      <source>https://www.zdnet.com/article/canberra-asks-big-tech-to-introduce-detection-capabilities-in-encrypted-communication/</source>
+    </item>
+    <item>
+      <title>Droidlet, a one-stop shop for modularly building intelligent agents</title>
+      <link>https://ai.facebook.com/blog/droidlet-a-one-stop-shop-for-modularly-building-intelligent-agents/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><div id="u_0_2b_LW"><div id="u_0_2c_wE"><div tabindex="0" id="u_0_2d_05"><video muted="1" height="360" width="640" preload="metadata" data-video-width="640" data-video-height="360" id="u_0_2e_1I"></video><p></p><div><div><p>Something Went Wrong</p><p>We&#39;re having trouble playing this video.</p></div></div></div></div></div><p>The annals of science fiction are brimming with robots that perform tasks independently in the world, communicate fluently with people using natural language, and even improve themselves through these interactions. These machines do much more than follow preprogrammed instructions; they understand and engage with the real world much as people do.</p><p>Robots today can be programmed to vacuum the floor or perform a preset dance, but the gulf is vast between these machines and ones like Wall-E or R2-D2. This is largely because today’s robots don’t understand the world around them at a deep level. They can be programmed to back up when bumping into a chair, but they can’t recognize what a chair is or know that bumping into a spilled soda can will only make a bigger mess.</p><p>To help researchers and even hobbyists to build more intelligent real-world robots, we’ve created and have open-sourced the <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Ffacebookresearch%2Fdroidlet&amp;h=AT2WvRBvRrpxBTtVec64pHx3HHBNa2m01-8s-pTS4ZsidHYs8v09BE_Q_tFLJ_PSMdxiYadoAJ7vzvbyb3Xx-rQT_i8LDBz52bBqoZ8gQ0CEwqVaSMLav_0oe1SQnJf8KKJXLYQwjsgUwCHk" rel="nofollow" target="_blank" data-ms="{&#34;creative&#34;:&#34;link&#34;,&#34;creative_detail&#34;:&#34;link&#34;,&#34;create_type&#34;:&#34;link&#34;,&#34;create_type_detail&#34;:&#34;link&#34;}" data-lynx-mode="hover"><span>droidlet platform</span></a>.</p><p>Droidlet is a modular, heterogeneous embodied agent architecture, and a platform for building embodied agents, that sits at the intersection of natural language processing, computer vision, and robotics. It simplifies integrating a wide range of state-of-the-art machine learning (ML) algorithms in embodied systems and robotics to facilitate rapid prototyping.</p><p>People using droidlet can quickly test out different computer vision algorithms with their robot, for example, or replace one natural language understanding model with another. Droidlet enables researchers to easily build agents that can accomplish complex tasks either in the real world or in simulated environments like <i>Minecraft</i> or <i>Habitat</i>.</p><p>There is much more work to do — both in AI and in hardware engineering — before we will have robots that are even close to what we imagine in books, movies, and TV shows. But with droidlet, robotics researchers can now take advantage of the significant recent progress across the field of AI and build machines that can effectively respond to complex spoken commands like “pick up the blue tube next to the fuzzy chair that Bob is sitting in.” We look forward to seeing how the research community uses droidlet to advance this important field.</p><h2>A family of agents</h2><p>Rather than considering an agent as a monolith, we consider the droidlet agent to be made up of a collection of components, some of which are heuristic and some learned. As more researchers build with droidlet, they will improve its existing components and add new ones, which others in turn can then add to their own robotics projects. We believe this heterogenous design makes scaling tractable because it allows training on large data when large data is available for that component. It can also let programmers use sophisticated heuristics when they are available. The components can be trained with static data when convenient (e.g., a collection of labeled images for a vision component) or with dynamic data when appropriate (e.g., a grasping subroutine).</p><p>The high-level agent design consists of these interfaces between modules: </p><ul><li><p>A memory system acting as a nexus of information for all agent modules </p></li><li><p>A set of perceptual modules (e.g., object detection or pose estimation), that process information from the outside world and store it in memory </p></li><li><p>A set of lower-level tasks, such as “move three feet forward” and “place item in hand at given coordinates,” that can effect changes in the agent’s environment </p></li><li><p>A controller that decides which tasks to execute based on the state of the memory system </p></li></ul><p>Each of these modules can be further broken down into trainable or heuristic components.</p><p></p><p>This architecture also enables researchers to use the same intelligent agent on different robotic hardware by swapping out the tasks and the perceptual modules as needed by each robot&#39;s physical architecture and sensor requirements.</p><h2>Substantially reducing friction in integrating ML models</h2><p>The agent illustrated above demonstrates how to build with droidlet using specified components, but this is not the only way to use the library. The droidlet platform supports researchers building embodied agents more generally by reducing friction in integrating ML models and new capabilities, whether scripted or learned, into <i>their</i> systems, and by providing UX for human-agent interaction and data annotation. </p><p>The modules can all be used independent of the main agent, and the state-of-the-art perceptual modules may be of particular value to other researchers, given that current off-the-shelf models are poor for robotic use cases. In addition to the wrappers for connecting ML models to robots, we have model zoos for the various modules, including several vision models fine-tuned for the robot setting (for RGB and RGBD cameras).</p><p>Droidlet is bolstered by an interactive dashboard that researchers can use as an operational interface when building agents It includes debugging and visualization tools, as well as an interface for correcting agent errors on the fly or for crowdsourced annotation. As with the rest of the agent, the dashboard prioritizes modularity and makes it easy for researchers or hobbyists to add new widgets and tools.</p><h2>A powerful and flexible platform</h2><p>For researchers or hobbyists, droidlet offers <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.python.org%2Fdev%2Fpeps%2Fpep-0206%2F%23id3&amp;h=AT33ELDzFwp5NZNrydP9vHIzlZ4U0d7NYAXkViDgnxazbKFvgWUg65KsTWd4FyUTPktWPy9jHPDU5xj7nskj6Bzd-2z8ZKKLD5owpTGWNz-aMr6HHbBL_MCuKrPqK3bDR2dXzXcWYtJM6KkP" rel="nofollow" target="_blank" data-ms="{&#34;creative&#34;:&#34;link&#34;,&#34;creative_detail&#34;:&#34;link&#34;,&#34;create_type&#34;:&#34;link&#34;,&#34;create_type_detail&#34;:&#34;link&#34;}" data-lynx-mode="hover"><span>batteries-included</span></a> agents that include primitives for visual perception and language, as well as a heuristic memory system and controller. Droidlet users can incorporate these modules into their robots or simulated agents by writing tasks that wrap primitives like “move to coordinate x, y, z.” These agents can perceive their environment via provided pretrained object detection and pose estimation models, and store their observations in the robot’s memory. Using this representation of the world around them, they can respond to language commands (e.g., “go to the red chair”), leveraging a pretrained neural semantic parser that converts natural language to programs.</p><p>Droidlet is also a flexible platform, and the ML modules and dashboards can be used outside the full agent. Over time, droidlet will become even more powerful as we add more tasks, sensory modalities, and hardware setups, and as other researchers and hobbyists build and contribute their own models.</p><p>Building intelligent machines that work in the real world is a fundamental scientific goal in AI. Facebook AI is helping the community by releasing not only droidlet and Habitat, but also other, independent research projects such as <a href="https://ai.facebook.com/blog/near-perfect-point-goal-navigation-from-25-billion-frames-of-experience/" data-ms="{&#34;creative&#34;:&#34;link&#34;,&#34;creative_detail&#34;:&#34;link&#34;,&#34;create_type&#34;:&#34;link&#34;,&#34;create_type_detail&#34;:&#34;link&#34;}"><span>DD-PPO</span></a>, our advanced point-goal navigation algorithm; <a href="https://ai.facebook.com/blog/new-milestones-in-embodied-ai/" data-ms="{&#34;creative&#34;:&#34;link&#34;,&#34;creative_detail&#34;:&#34;link&#34;,&#34;create_type&#34;:&#34;link&#34;,&#34;create_type_detail&#34;:&#34;link&#34;}"><span>SoundSpaces, our audio-visual platform for embodied AI</span></a>; and our simple <a href="https://ai.facebook.com/blog/open-sourcing-pyrobot-to-accelerate-ai-robotics-research/" data-ms="{&#34;creative&#34;:&#34;link&#34;,&#34;creative_detail&#34;:&#34;link&#34;,&#34;create_type&#34;:&#34;link&#34;,&#34;create_type_detail&#34;:&#34;link&#34;}"><span>PyRobot framework.</span></a> The path is long to building robots with capabilities that approach those of people, but we believe that by sharing our research work with the AI community, all of us will get there faster.</p><a role="button" href="https://l.facebook.com/l.php?u=https%3A%2F%2Farxiv.org%2Fpdf%2F2101.10384.pdf&amp;h=AT0m_lMCjIi5Zpwo0qTaJaLoQcYbI-iqcYx-OWS6q1KC8KCDu4RTBg0RbVykzTsECEM9QFCz1rMfieQhmTKDm1i7jF9cERhluGVbROa_UOZbgDdqE-NdD8K1fRXu19PPPwnrhxrK3KNPY06y" target="_blank" rel="nofollow" data-ms="{&#34;creative&#34;:&#34;button&#34;,&#34;creative_detail&#34;:&#34;button&#34;,&#34;create_type&#34;:&#34;button&#34;,&#34;create_type_detail&#34;:&#34;button&#34;}" data-lynx-mode="hover"><p>Read the paper</p></a></div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 08:52:58 +0000</pubDate>
+      <source>https://ai.facebook.com/blog/droidlet-a-one-stop-shop-for-modularly-building-intelligent-agents/</source>
+    </item>
+    <item>
+      <title>Put This In Your Pipe (2013)</title>
+      <link>https://julialang.org/blog/2013/04/put-this-in-your-pipe/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___julialang_org_blog_2013_04_put-this-in-your-pipe_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div> <nav id="main-menu"> <a href="https://julialang.org/">  </a>  <div id="navbarSupportedContent"> <ul> <li> <a href="https://julialang.org/downloads/">Download</a> </li><li> <a href="https://docs.julialang.org">Documentation</a> </li><li> <a href="https://julialang.org/blog/">Blog</a> </li><li> <a href="https://julialang.org/community/">Community</a> </li><li> <a href="https://julialang.org/learning/">Learn</a> </li><li> <a href="https://julialang.org/research/">Research</a> </li><li> <a href="https://julialang.org/jsoc/">JSoC</a> </li></ul> <p><span> <a href="https://github.com/sponsors/julialang" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @julialang on GitHub">Sponsor</a> </span> </p></div> </nav> </div> </div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 19:38:13 +0000</pubDate>
+      <source>https://julialang.org/blog/2013/04/put-this-in-your-pipe/</source>
+    </item>
+    <item>
+      <title>2,400-year-old baskets still filled with fruit found in submerged Egyptian city</title>
+      <link>https://www.smithsonianmag.com/smart-news/archaeologists-uncover-2400-year-old-fruit-baskets-underwater-egyptian-city-180978350/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_smithsonianmag_com_smart-news_archaeologists-uncover-2400-year-old-fruit-baskets-underwater-egyptian-city-180978350_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+      
+        <figure>
+          
+          
+        </figure>
+      
+
+      
+      
+        <h3>
+          <a href="https://www.smithsonianmag.com/smart-news/" title="Smart News">
+            <span>Smart<span>News</span></span>
+            <span>Keeping you current</span>
+          </a>
+        </h3>
+      
+
+      
+        
+        
+        <h2>Wicker vessels recovered from the ruins of Thônis-Heracleion contain doum nuts and grape seeds</h2>
+      
+
+      
+        <figure><span data-picture="" data-alt="Underwater finds"><span data-src="https://thumbs-prod.si-cdn.com/X4iPIYlZV_kvrDpXzA57IqZCbEE=/420x240/https://public-media.si-cdn.com/filer/34/34/34342107-5218-4821-9868-b8a67ce98b28/218821304_179978050830416_4170699948464179505_n.jpeg"></span><span data-src="https://thumbs-prod.si-cdn.com/-3U2yoXYqhwu4jueC4MoYj5bt-o=/720x420/https://public-media.si-cdn.com/filer/34/34/34342107-5218-4821-9868-b8a67ce98b28/218821304_179978050830416_4170699948464179505_n.jpeg" data-media="(min-width: 480px)"></span><span data-src="https://thumbs-prod.si-cdn.com/WANcUFFY6YMdcfIYKueboXiKeX0=/800x600/filters:no_upscale()/https://public-media.si-cdn.com/filer/34/34/34342107-5218-4821-9868-b8a67ce98b28/218821304_179978050830416_4170699948464179505_n.jpeg" data-media="(min-width: 600px)"></span></span><figcaption>
+              Researchers excavating the sunken ruins of Thônis-Heracleion have discovered an array of archaeological treasures.
+              <span>(Christoph Gerigk © Franck Goddio / Hilti Foundation)</span></figcaption></figure>
+      
+
+      
+        <div>
+          <div>
+            
+
+
+            <p><span>
+          
+            smithsonianmag.com
+            <br/>
+          
+                    </span>
+
+              <time itemprop="published" data-pubdate="Aug. 4, 2021, 8:30 a.m.">August 4, 2021</time>
+            </p>
+          </div>
+          
+        </div>
+      
+    </div><div>
+      
+      
+
+
+
+
+  
+
+  <p>Researchers investigating the submerged metropolis of <a href="https://english.ahram.org.eg/NewsContentP/9/417416/Heritage/In-Photos-The-sunken-city-of-Th%C3%83%C2%B4nisHeracleion-in-A.aspx" target="_blank">Thônis-Heracleion</a>, in the Egyptian bay of <a href="https://www.britannica.com/place/Abu-Qir-Bay" target="_blank">Abū Qīr</a>, have discovered wicker fruit baskets dated to the fourth century B.C.E.</p>
+
+
+
+
+  
+
+    
+
+    
+      
+        
+          
+        
+      
+    
+  
+
+  <p>Incredibly, the vessels still contain <a href="https://www.britannica.com/topic/doum-nut">doum nuts</a>—the fruit of an African palm tree considered sacred by the ancient Egyptians—and grape seeds.</p>
+
+
+
+
+  
+
+  <p>“Nothing was disturbed,” marine archaeologist <a href="https://www.franckgoddio.org/" target="_blank">Franck Goddio</a> tells Dalya Alberge of the <em><a href="https://www.theguardian.com/science/2021/aug/02/fruit-baskets-from-fourth-century-bc-found-in-ruins-of-thonis-heracleion">Guardian.</a></em> “It was very striking to see baskets of fruits.”</p>
+
+
+
+
+  
+
+  <p>Goddio and his colleagues at the <a href="https://ieasm.institute/institute.php?lang=en" target="_blank">European Institute for Underwater Archaeology</a> (IEASM) uncovered the containers in collaboration with Egypt’s <a href="https://www.facebook.com/moantiquities/posts/179978074163747">Ministry of Tourism and Antiquities</a>. Researchers have been surveying the ancient Mediterranean port city of Thônis-Heracleion since its rediscovery in 2001, according to <em><a href="https://www.egyptindependent.com/photos-alexandrias-sunken-city-of-heracleion-reveals-new-treasures/" target="_blank">Egypt Independent</a>.</em></p>
+
+
+
+
+  
+
+  <p>The baskets were stored in an underground room and may have been funerary offerings, reports the <em><a href="https://greekcitytimes.com/2021/08/02/ancient-greek-egyptian-thonis/">Greek City Times</a>. </em>Nearby, the researchers found a 197- by 26-foot <a href="https://www.newworldencyclopedia.org/entry/Tumulus">tumulus</a>, or burial mound, and an extravagant array of Greek funerary goods likely left by merchants and mercenaries living in the area.</p>
+
+
+
+
+  
+
+  <p>“Everywhere we found evidence of burned material,” says Goddio in a statement, as quoted by <a href="https://www.cnn.com/travel/article/thonis-heracleion-egypt-scli-intl-scn/index.html">CNN</a>’s Radina Gigova. “Spectacular ceremonies must have taken place there. The place must have been sealed for hundreds of years as we have found no objects from later than the early fourth century B.C.E., even though the city lived on for several hundred years after that.”</p>
+
+
+
+  
+
+  <p>Other objects found on or surrounding the tumulus included ancient pottery, bronze artifacts and figurines depicting the Egyptian god <a href="https://www.britannica.com/topic/Osiris-Egyptian-god">Osiris</a>.</p>
+
+
+
+
+  
+
+  <p>“We found hundreds of deposits made of ceramic,” Goddio tells the <em>Guardian</em>. “One above the other. These are imported ceramic, red on black figures.”</p>
+
+
+
+
+  
+
+  <p>Thônis-Heracleion was founded around the eighth century B.C.E. According to Goddio’s <a href="https://www.franckgoddio.org/projects/sunken-civilizations/heracleion.html" target="_blank">website</a>, the city served as the “obligatory port of entry to Egypt for all ships coming from the Greek world” prior to the establishment of Alexandria around 331 B.C.E.</p>
+
+    
+
+
+  
+
+  <figure><figcaption>
+    An Egyptian-French mission found the 80-foot-long ship beneath roughly 16 feet of hard clay.
+    
+      <span>(Photo: Christoph Gerigk © Franck Goddio / Hilti Foundation)</span></figcaption></figure>
+
+
+
+
+
+  
+
+  <p>The bustling trade hub reached its peak sometime between the sixth and fourth centuries B.C.E. Buildings radiated around a central temple, with a system of canals connecting different parts of the city. Homes and other religious structures stood on islands near the heart of Thônis-Heracleion.</p>
+
+
+
+
+  
+
+  <p>Once an epicenter for maritime commerce, the city <a href="https://www.franckgoddio.org/projects/sunken-civilizations/introduction.html">sank</a> into the Mediterranean in the eighth century C.E. Some historians attribute the metropolis’ downfall to rising sea levels and collapsing, unstable sediment, as Reg Little wrote for <em><a href="https://www.oxfordmail.co.uk/news/11820878.oxford-university-rediscovery-lost-egyptian-city-heracleion/">Oxford Mail</a> </em>in 2015. Others posit that earthquakes and tidal waves caused a 42-square-mile segment of the Nile Delta to collapse into the sea, per CNN.</p>
+
+
+
+
+  
+
+  <p>As the <em><a href="https://www.theartnewspaper.com/news/british-museum-dips-its-toes-into-world-of-underwater-archaeology" target="_blank">Art Newspaper</a></em>’s Emily Sharpe reported in 2016, experts once thought that Heracleion—referenced by Greek historian <a href="https://www.theguardian.com/science/2019/mar/17/nile-shipwreck-herodotus-archaeologists-thonis-heraclion" target="_blank">Herodotus</a> in the fifth century B.C.E.—was a separate city from Thônis, which is actually the site’s Egyptian name. A tablet found by Goddio’s team in 2001 helped researchers conclude that the two locations were one and the same.</p>
+
+
+
+
+  
+
+  <p>Recovering objects from the ruins of Thônis-Heracleion is a grueling task due to the layers of protective sediment covering them.</p>
+
+
+
+
+  
+
+  <p>“The goal is to learn as much as possible from our excavation without being intrusive,” Goddio told the <em>Art Newspaper</em> in 2016.</p>
+
+
+
+
+  
+
+  <p>Previous discoveries at Thônis-Heracleion include more than 700 ancient anchors, gold coins and weights, and dozens of tiny limestone sarcophagi containing the remains of mummified animals, according to <em>Oxford Mail. </em>Last month, archaeologists found a well-preserved, second-century B.C.E. <a href="https://www.smithsonianmag.com/smart-news/divers-find-second-century-military-ship-sunken-egyptian-city-180978244/">military vessel</a> in a different part of the city.</p>
+
+
+
+
+  
+
+  <p>Experts expect to unearth more artifacts at the site in the future. Speaking with the <em>Guardian</em>, Goddio estimates that just 3 percent of the sunken city has been studied in the 20 years since its rediscovery.</p>
+
+      
+    
+
+
+
+
+
+    </div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 05:42:09 +0000</pubDate>
+      <source>https://www.smithsonianmag.com/smart-news/archaeologists-uncover-2400-year-old-fruit-baskets-underwater-egyptian-city-180978350/</source>
+    </item>
+    <item>
+      <title>Mux (YC W16) is hiring full-stack developers to focus on Elixir and TypeScript</title>
+      <link>https://mux.com/jobs?hnj=full-stack</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___mux_com_jobs?hnj=full-stack/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><p>Mux is video for developers. Our mission is to democratize video by solving the hard problems developers face when building video: video encoding and streaming (Mux Video), video monitoring (Mux Data), and more. Video is a huge part of people’s lives, and we want to help make it better.</p><p>We’re committed to building a healthy team that welcomes a diverse range of backgrounds and experiences. We want people who care about our mission, are ready to grow, believe in our values (from Be Human to Turn Customers Into Fans), and want to make the people around them better.</p><p>You’ll be joining a tight-knit team with experience at places like Google, YouTube, Twitch, Zencoder, Fastly, and more. Our founders previously started (and sold) Zencoder, an early leader in cloud video technology, and authored <a href="https://videojs.com">Video.js</a>, the biggest HTML5 video player on the web. We organize <a href="https://demuxed.com/">Demuxed</a>, the premiere conference for video engineers in the world.</p><p>We’re backed by top investors like Coatue, Accel, Andreessen Horowitz, and Y Combinator. You’ll get to work with amazing companies: hundreds of startups, plus Reddit, Vimeo, Robinhood, CBSi, Discovery, PBS, and TED. Customers large and small love working with us and love our team.</p><p>We’re growing quickly and are building something big together. We’d love to hear from you!</p></div></div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 21:00:35 +0000</pubDate>
+      <source>https://mux.com/jobs?hnj=full-stack</source>
+    </item>
+    <item>
+      <title>The Highbrow Neanderthal</title>
+      <link>https://www.growbyginkgo.com/2021/07/29/old-masters/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_growbyginkgo_com_2021_07_29_old-masters_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+					
+<article id="post-3809">
+	
+
+	<div>
+		
+<div><div>
+<div><div>
+<blockquote><p><em>Kindred: Neanderthal Life, Love, Death and Art</em></p></blockquote>
+</div></div>
+</div></div>
+
+
+
+
+
+
+
+<h2>1. <strong>The Oldest Artwork Ever Found</strong></h2>
+
+
+
+<p>In the late Eighties, twelve-year-old Bruno Kowalczewski was out hiking with his dad in Aveyron Valley, a forested region of steep gorges and rocky cliffs in southern France, when they were surprised to feel a faint breeze blowing out of the hillside from under ancient scree.</p>
+
+
+
+<p>Bruno started clearing away the rocks to find out what was on the other side. After three years of digging, in February 1990, the Kowalczewskis and members of the local caving club broke through into a deep passageway that hadn’t been visited for a very long time. Stalactites drooped from the ceiling. Stalagmites clambered from the floor. They crept in, finding old animal bones, traces of bear activity, some pools of still water. And then, 1,102 feet inside the hill, they reached a place nobody like them had ever seen before; the passage opened into a chamber, and at its center there were two huge rings made up of hundreds of stalagmites. They’d been broken up deliberately, sometimes glazed in small fires, and arranged like the sign for infinity: ∞</p>
+
+
+
+<p>The Kowalczewskis knew they’d found something extraordinary, and contacted archaeologist Francois Rouzaud, who, by carbon dating a burnt bear bone, suggested that the site was around 47,600 years old — so old that it was pushing the limits of carbon dating, which is only accurate up to 50,000 years. The rings they had discovered, one writer suggested, may have served as a map to the stars. But this age of revelations ended quickly, for in April 1999, while guiding colleagues through a nearby karstic network, Rouzaud had a heart attack and died. And with that, inquiry into the Bruniquel Cave came to an abrupt halt.</p>
+
+
+
+<p>It wasn’t until recently — when Sophie Verheyden, an employee of the Royal Belgian Institute of Natural Sciences and a lifelong spelunker, happened to learn of the cave from an exhibition display at a nearby castle — that anyone explored the cave’s mysteries further. Verheyden wondered: why hadn’t anyone dated the broken stalagmites? She obtained permission to do so, and in 2013, found herself edging sideways through Bruno Kowalczewski’s tunnel. “I’m not very big,” <a href="https://www.theatlantic.com/science/archive/2016/05/the-astonishing-age-of-a-neanderthal-cave-construction-site/484070/">she recalled</a>, “and I had to put one arm before me and one behind to get through. It’s kind of magical, even without the structures.” Verheyden and colleagues used uranium-series dating to more definitively place the rings at around 176,500 years old — around 130,000 years older than any cave painting yet discovered.</p>
+
+
+
+<p>This meant that the rings couldn’t have been made by us, Homo sapiens, as we only arrived in Europe around 50,000 years ago; and that when we did finally make it there, we may have found its hidden places and shelters filled with aura by artworks already tens of thousands of years old. What Bruno Kowalczewski had discovered in this chamber-gallery under the hill was an early masterpiece by a Neanderthal Richard Serra, or Robert Smithson. A space of expression, or ritual, or both.</p>
+
+
+
+<figure><blockquote><p>Our aesthetic sensibility derives from deep within our lineage.</p></blockquote></figure>
+
+
+
+<p>Describing the cave in her recently published book, <em><a href="https://www.booklistonline.com/Kindred-Neanderthal-Life-Love-Death-and-Art-Rebecca-Wragg-Sykes/pid=9738153?AspxAutoDetectCookieSupport=1">Kindred</a></em>, which synthesizes the latest findings on Neanderthals, Rebecca Wragg Sykes writes, “Monumental in scale and vision, it’s the first great art project, and at the same time truly weird, as in the original meaning of <em>wyrd</em>: destiny-changing power. Hominins might have made nothing like it for another 160,000 years, and the ‘why’ behind those stacked circles of burned stalagmites is lost in darkness.”</p>
+
+
+
+<p>As <em>Kindred</em> shows, Neanderthal culture and ritual has only just begun to reveal itself. Thousands of generations ago, the forests rustled with Neanderthals, with European Homo heidelbergensis and antecessor, Indonesian Homo floresiensis — also known as the “hobbits” — Asian Homo luzonensis, African Homo naledi, rhodesiensis, ergaster, and other now-extinct human predecessors. Because they lived so long ago, and the details of their lives have been lost, we have long thought of these predecessors as primitive. But the Rings of Bruniquel suggest that, as far back as we can see, ancient human cultures have had some kind of desire for transcendence, a wish to leave their mark on the Earth; and that our aesthetic sensibility derives from deep within our lineage.</p>
+
+
+
+<hr/>
+
+
+
+<h2><strong>2. A Tale of Two Skulls</strong></h2>
+
+
+
+<p>Bruniquel is an anomaly. So far, no other structures quite like it have turned up. Luckily, Neanderthals have left behind other far more subtle traces of their culture, offering clues to the sorts of relationships and societies they may have formed.</p>
+
+
+
+<p>The most complete Neanderthal skeleton recovered to date was found in 1908, in Le Moustier, a town 80 miles from Bruniquel. As Wragg Sykes describes, Frenchman Jean Leysalles was digging up a rock shelter one afternoon when he hit a thick lower leg bone. He found more bones over the coming days, and eventually, one rainy evening, a shattered teenage skull: a boy, probably between 11 and 15 years, the same age Bruno Kowalczewski had been while clearing his tunnel. For decades, the Le Moustier 1 skeleton was on display at the Berlin Museum of Ethnography, but during the Second World War, its skull was hidden in a bunker in the Berlin Zoo, and later looted by the Red Army and carted off on a train to Moscow. The rest of the skeleton was left in the museum and blown up in a bombardment, and Le Moustier 1’s scattered parts were only reassembled in 1991, after the fall of the Berlin Wall. But when he was put back together again, something about him became apparent, something that no one had noticed before.</p>
+
+
+
+<p>We know from surviving photographs and diaries that the boy was found in an unusual, disordered configuration: his skull facedown and tilted back, and his lower jaw ajar, slightly detached, in a sort of expression of ecstasy. But modern analysis showed that his whole head was flayed, the flesh torn away, his tongue removed, his jaw cut off and possibly beaten. The flesh from his right femur had also been removed. His body parts, however, had not been scattered. His skull and jaw were found together, with his face pressed directly against a large flat stone, suggesting he may have been buried.</p>
+
+
+
+<p>There’s no clear evidence that Le Moustier 1 was murdered — only that his head was butchered after death, while other body parts that would make a more obvious meal were not. Wragg Sykes suggests that these may have been signposts of a primitive funerary ritual. In <em>Kindred</em>, she compares this to the example of our close relatives, the bonobos, writing about family groups mourning: “In one situation, following a baby’s natural death the group spent an entire morning eating much of the body, before the mother carried away the remnants on her back.”</p>
+
+
+
+<p>She goes on to cover the mysteries of other skeletal discoveries in great depth. The most complete Neanderthal skull, for example, was found at the 130,000-year-old archaeological site of Krapina, in Croatia. It’s marked with a row of 35 short, mostly parallel cuts, running over the forehead, toward the back of the skull. They don’t fit any known butchery pattern, nor have any equivalent patterns been found on other hominin skulls. But shorter sequences have been found at Neanderthal sites elsewhere: seven notches on a raven bone from Zaskalnaya, Crimea, and nine incisions, plus eight tiny dashes, on a hyaena bone from Les Pradelles, in Haute-Loire. These may be forms of primitive artwork, or perhaps an early form of communication. Whatever they signify, these 35 cuts are the longest sequence of Neanderthal code ever found.</p>
+
+
+<div>
+  <p>
+  </p>
+</div>
+
+
+
+<p>Faint traces of symbols have also been revealed on animal remains. At various Neanderthal sites in southern Europe, archaeologists have found cut-off talons that may have been treasured as adornments or charms. Over a century ago, eight talons from white-tailed eagles — the largest eagle in Europe and most of Asia, with an eight-foot wingspan — were found in close proximity at Kaprina. In 2015, it was proposed that they were parts of a necklace. In 2020, a mixed pigment of red and yellow minerals, charcoal, and clay was detected on one of these talons, meaning that it had once been painted. Like the Rings of Bruniquel, this necklace suggests that ancient humans also engaged in symbolic activities, and may have been dressing up and decorating their bodies to express their status or identity.</p>
+
+
+
+<p>White-tailed eagles are awe-inspiring hunters that dominated the skies of ancient Europe, and their talons may have been coveted because they were hard to obtain, or fearsomely beautiful, or perhaps because they were thought to confer certain favors or powers. The discovery that the longest known sequence of Neanderthal markings appears etched into the Kaprina skull likewise implies that skulls were valued, whether for ritualistic reasons or as trophies or memento mori — or for some other reason beyond our imagination. Collectively, these fragments suggest Neanderthal lives, like our own, involved art and ritual, and the maintenance of complex relationships, both personal and sexual, with one another. Unlike modern humans, however, they also would have had the opportunity to meet and interact with other hominins.</p>
+
+
+
+<hr/>
+
+
+
+<h2><strong>3. The Cave at the Edge of the World</strong></h2>
+
+
+
+<p>The story of human evolution may be riddled with mystery, but we do know for sure that different species of humans once roamed the world simultaneously — and that many of these populations crossed paths. The evidence isn’t found in cultural artifacts or sites  — we have yet to find any intra-hominin collaborative art works  —  but rather in the story told by ancient DNA.</p>
+
+
+
+<p>In 2010, Svante Pääbo, director of the Max Planck Institute for Evolutionary Anthropology in Leipzig, led a team that <a href="https://www.mpg.de/13894984/neandertal-genome-project">mapped out</a> the Neanderthal genome using DNA from their bone fragments. He discovered evidence that they must have interbred with Homo sapiens: all non-African populations contain some Neanderthal DNA, up to two or three percent, because after leaving sub-Saharan Africa, our ancestors met and had children with Neanderthals during at least three, and perhaps up to half-a-dozen, distinct periods.</p>
+
+
+
+<p>That same year, Pääbo and his colleagues also <a href="https://www.nature.com/news/2010/100324/full/464472a.html">uncovered</a> something unexpected in a small fragment of toe, recovered from Denisova Cave in Russia’s Altai Mountains, which was known to have been frequented by Neanderthals. In this genome, the researchers found an entirely new “ghost” population of ancient humans: the Denisovans, about whom still very little is known. The Denisovans are thought to have spread across East Asia, and to have had an unusual ability to survive at high altitudes. <a href="https://www.newscientist.com/article/2198349-we-may-have-bred-with-denisovans-much-more-recently-than-we-thought/">Genetic analysis</a> has shown that many Chinese and South-East Asians have a small amount of Denisovan in them, and that up to five percent of Aboriginal Australians and six percent of New Guinean DNA is Denisovan. Before they disappeared, they were having sex with us.</p>
+
+
+
+<p>An even more surprising fragment of bone was collected in the same cave in 2012, and later found to be Neanderthal: a part of a limb of a young teenage girl who lived about 90,000 years ago. In 2018, further <a href="https://www.nature.com/articles/d41586-018-06004-0#:~:text=This%20cave%20lends%20its%20name,were%20also%20home%20to%20Neanderthals.">genetic analysis</a> revealed that while her mitochondrial DNA (mtDNA) came from a Neanderthal mother, her nuclear DNA showed that her father had been a Denisovan. She was nicknamed Denny. Given that only a couple hundred Neanderthals have ever been found, and the entire Denisovan fossil record would fit inside a box of American Spirits, this little girl disproved prior assumptions about our ancestry. Denny’s discovery is so rare, the researchers didn’t initially believe it. “The implications are staggering,” Wragg Sykes writes. “It was assumed that interbreeding was rare, and direct evidence would only ever lurk in the genetic gloom, many generations back from the bones we study. Actually finding the child of a union between different kinds of hominin implies it can’t have been that uncommon.” Furthermore, studies of her Denisovan father’s genes have also turned up shards of Neanderthal DNA. This means that interbreeding had also taken place many generations before her birth, and perhaps in the same cave; such were the telenovela lives of the ancient humans.</p>
+
+
+
+<figure><blockquote><p>This is just one of many examples of how sexual choices made tens or hundreds of thousands of years ago in faraway caves can dramatically affect our lives today.</p></blockquote></figure>
+
+
+
+<p>Denisova cave lies on the eastern boundary of the Neanderthals’ homelands, which reached from North Wales down to the fringes of the Arabian deserts and across to China. These mountains of what is now Russia were the western boundary of the Denisovans’ range. No Neanderthal DNA has ever been found farther east, and no Denisovan farther west. “Perhaps,” Wragg Sykes writes, “this cave was literally at the edge of their two worlds.” They may well have traveled from far away before passing through the same cave, at the same time, by accident or design: Denny’s mother’s mtDNA shows she was more closely related to Neanderthals found thousands of miles away in Croatia than to others found in Denisova, in the very same cave. While we’ll never know in what circumstances children like Denny were conceived, we can tell they were raised and cared for — otherwise they would not have survived into adolescence, and would not have been able to carry on the lines we now trace in our own genomes.</p>
+
+
+
+<p>The genes that we’ve inherited from Neanderthals and Denisovans, and likely other populations besides, have both helped and hindered us. A particular Denisovan gene, for instance, helps Tibetans to cope with low oxygen levels high up in the Himalayas. Every incarnation of the Dalai Llama will have carried a lot of Denisovan DNA. Neanderthal genes have been linked to weight gain and addiction; and while these are no longer desirable traits today, gluttony would once have helped with thermal efficiency and staving off starvation. Last fall, during the pandemic, a new <a href="https://www.nature.com/articles/s41586-020-2818-3">research project</a> led by Svante Pääbo and his colleague Hugo Zeberg identified two Neanderthal “haplotypes,” or sets of DNA variations, that affect our bodies’ response to Covid-19. One, found on the 3rd of our 46 chromosomes, doubles the likelihood of needing intensive care if infected with the coronavirus. It’s thought to encode a protein that helps the Sars-CoV-2 virus hijack cells, and to be involved in the production of cytokine signaling proteins that regulate the immune system. Another Neanderthal haplotype, found on the 12th chromosome, appears to lower the chance of serious illness by a fifth. This is just one of many examples of how sexual choices made tens or hundreds of thousands of years ago in faraway caves can dramatically affect our lives today.</p>
+
+
+
+<hr/>
+
+
+
+<h2>4. <strong>The Valley of Life</strong></h2>
+
+
+
+<p>In the Neandertal (Neander Valley), a limestone region of Germany in North Rhine-Westphalia, in the mid-19th century, a group of unusual hominin fossils was found in a quarry. Soon afterwards, the local natural historian Johann Carl Fuhlrott and the anatomist Hermann Schaaffhausen declared that these bones must have come from a vanished human species. It was 1859, the same year that Charles Darwin and Alfred Wallace announced their theories of natural selection. Darwin himself, the following decade, would hold a Neanderthal skull in his hands. All we know of his response is that he found it “wonderful.” He always preferred to remain reticent on the question of human evolution. But today, 21st-century genetics allow us to peer through time in ways not possible before. Like tribes of Neanderthal artists building rings lit by flames in the caves, we can draw maps of our spiraling helixes and how they’ve evolved over time, in search of what we are, and how we came to be.</p>
+
+
+
+<p>We still have much in common, it seems, with Neanderthals. The Rings of Bruniquel suggest a shared desire for transcendent expression. The skulls from Le Moustier and Kaprina may reveal a wish to be remembered, and perhaps to honor the dead; they could also be read as signs of our enduring cruelty to our fellow man. But it’s clear that we share a drive to explore as much of the world as possible, whether journeying across the vast, harsh landscapes of Pleistocene Europe, or tracking the ghosts in our blood through long sequences of numbers on a screen. That so much of our Neanderthal and Denisovan lineage has been uncovered in less than a decade, and from so few fossils, suggests there was much more interbreeding — and many more hybrid beings — than we may ever know. Imagine what else hides inside of us, just waiting to be discovered.</p>
+	</div><!-- .entry-content -->
+</article><!-- #post-3809 -->
+					
+					</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 15:10:47 +0000</pubDate>
+      <source>https://www.growbyginkgo.com/2021/07/29/old-masters/</source>
+    </item>
+    <item>
+      <title>Stupidity is a specific cognitive failing</title>
+      <link>https://psyche.co/ideas/why-some-of-the-smartest-people-can-be-so-very-stupid</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___psyche_co_ideas_why-some-of-the-smartest-people-can-be-so-very-stupid/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><p><strong>A few years before</strong> he died in exile from Nazism, the Austrian novelist Robert Musil delivered a lecture in Vienna, ‘On Stupidity’ (1937). At its heart was the idea that stupidity was not mere ‘dumbness’, not a brute lack of processing power. Dumbness, for Musil, was ‘straightforward’, indeed almost ‘honourable’. Stupidity was something very different and much more dangerous: dangerous precisely because some of the smartest people, the least dumb, were often the most stupid.</p>
+<p>Musil’s lecture bequeaths us an important set of questions. What exactly is stupidity? How does it relate to morality: can you be morally good and stupid, for example? How does it relate to vice: is stupidity a kind of prejudice, perhaps? And why is it so domain-specific: why are people often stupid in one area and insightful in another? Musil’s own answer, which centred around pretentiousness, is too focused on the dilettantism of interwar Vienna to serve us now. But his questions, and his intuition about stupidity’s danger, are as relevant as ever.</p>
+<p>Stupidity is a very specific cognitive failing. Crudely put, it occurs when you don’t have the right conceptual tools for the job. The result is an inability to make sense of what is happening and a resulting tendency to force phenomena into crude, distorting pigeonholes.</p>
+<p>This is easiest to introduce with a tragic case. British high command during the First World War frequently understood trench warfare using concepts and strategies from the cavalry battles of their youth. As one of Field Marshal Douglas Haig’s subordinates later remarked, they thought of the trenches as ‘mobile operations at the halt’: ie, as fluid battle lines with the simple caveat that nothing in fact budged for years. Unsurprisingly, this did not serve them well in formulating a strategy: they were hampered, beyond the shortage of material resources, by a kind of ‘conceptual obsolescence’, a failure to update their cognitive tools to fit the task in hand.</p>
+<p>In at least some cases, intelligence actively abets stupidity by allowing pernicious rationalisation</p>
+<p>Stupidity will often arise in cases like this, when an outdated conceptual framework is forced into service, mangling the user’s grip on some new phenomenon. It is important to distinguish this from mere <a href="https://aeon.co/essays/our-epistemic-crisis-is-essentially-ethical-and-so-are-its-solutions" target="_blank" rel="noopener">error</a>. We make mistakes for all kinds of reasons. Stupidity is rather one specific and stubborn cause of error. Historically, philosophers have worried a great deal about the irrationality of not taking the available means to my goals: Tom wants to get fit, yet his running shoes are quietly gathering dust. The stock solution to Tom’s quandary is simple willpower. Stupidity is very different from this. It is rather a lack of the necessary means, a lack of the necessary intellectual equipment. Combatting it will typically require not brute willpower but the construction of a new way of seeing our self and our world.</p>
+<p>Such stupidity is perfectly compatible with intelligence: Haig was by any standard a smart man. Indeed, in at least some cases, intelligence actively abets stupidity by allowing pernicious rationalisation: when Harry Houdini, the great illusionist, took Arthur Conan Doyle, the inventor of Sherlock Holmes, through the tricks underlying the seances in which Conan Doyle devoutly believed, the author’s reaction was to concoct a ludicrously elaborate counter-explanation as to why it was precisely the true mediums who would appear to be frauds.</p>
+<p><strong>While I have introduced it</strong> via ‘conceptual obsolescence’, stupidity is also compatible with a kind of misguided innovation. Consider a country that excitedly imports new conceptual tools not from a past time but from a very different place. Global debates over social justice, for example, are now dominated by a set of ideas and terms taken from the United States, a nation marked by an incredibly specific historical and cultural trajectory. Simply transferring that framework to other countries, such as those in which class is less starkly racialised (for example, states reliant on exploiting white migrant labour from eastern Europe), or in which it is racialised in much more complex ways (for example, states such as South Africa) is conceptually and socially risky.</p>
+<p>Stupidity has two features that make it particularly dangerous when compared with other vices. First, unlike character flaws, stupidity is primarily a property of groups or traditions, not individuals: after all, we get most of our concepts, our mental tools, from the society we are raised in. Suppose the problem with Haig had been laziness: there was no shortage of energetic generals to replace him. But if Haig worked himself to the bone within the intellectual prison of the 19th-century military tradition, then solving the difficulty becomes harder: you will need to introduce a new conceptual framework and establish a sense of identity and military pride for it. Once stupidity has taken hold of a group or society, it is thus particularly hard to eradicate – inventing, distributing and normalising new concepts is tough work.</p>
+<p>Dumbness alone is rarely the driving threat: at the head of almost every dumb movement, you will find the stupid in charge</p>
+<p>Second, stupidity begets more stupidity due to a profound ambiguity in its nature. If stupidity is a matter of the wrong tools for the job, whether an action is stupid will depend on what the job is; just as a hammer is perfect for some tasks and wrong for others. Take politics, where stupidity is particularly catching: a stupid slogan chimes with a stupid voter, it mirrors the way they see the world. The result is that stupidity can, ironically, be extremely effective in the right environment: a kind of incapacity is in effect being selected for. It is vital to separate this point from familiar and condescending claims about how dumb or uneducated the ‘other side’ are: stupidity is compatible with high educational achievement, and it is more the property of a political culture than of the individuals in it, needing to be tackled at that level.</p>
+<p>Musil’s indulgent, almost patrician, attitude to ‘honourable’ dumbness was certainly dangerously complacent: consider its role in the anti-vax phenomenon. But dumbness alone is rarely the driving threat: at the head of almost every dumb movement, you will find the stupid in charge.</p>
+<p>We can now explain why stupidity is so domain-specific, why someone can be so smart in one area, and such an idiot in another: the relevant concepts are often domain-specific. Furthermore, we can see that there will be many cases that aren’t fully fledged stupidity but that mimic its effects. Imagine someone who had been blind to all evidence that they were being cheated on finally asking themselves ‘How could you be so stupid?’ Here the problem is not pure stupidity: the concept of a cheat is common enough. What we have here is rather someone ‘acting as if they were stupid’. It’s not just that they failed to apply the concept of betrayal, but that they literally didn’t think of it: it was effectively ‘offline’, due to emotional and other pressures. In this kind of case, agents possess the necessary intellectual tools but unwittingly lock them away. This marks an important contrast with dumbness – we can make ourselves stupid, but we don’t make ourselves dumb.</p>
+<p>So stupidity is tough to fix. This is exacerbated by the way it dovetails with other vices: stubbornness stops me from revisiting my concepts even as they fail me. But once we understand stupidity’s nature, things are a little brighter than they might seem. To view political opponents as primarily cynical transforms them into Machiavellian monsters, leaving no space for anything but a zero-sum battle for domination. To view political opponents as primarily dumb is to suggest an irreparable flaw – one that, in our deeply hierarchical society, we often project on to those without the ‘right’ educational credentials. Both moves also offer a certain false reassurance: with a bit of reflection, we can be fairly sure that we are not cynical and, with the right credentials, we can prove that we are not dumb. But we might well, nevertheless, be caught in the net of stupidity. If history is anything to go by, a few hundred years from now, our ancestors will find at least one part of contemporary morality almost unintelligible – ‘How could decent people ever have believed that?’ If they are not to condemn us as evil, they might well have to conclude that we were stupid.</p></div></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 04:57:53 +0000</pubDate>
+      <source>https://psyche.co/ideas/why-some-of-the-smartest-people-can-be-so-very-stupid</source>
+    </item>
+    <item>
+      <title>Facebook shuts out NYU academics’ research on political ads</title>
+      <link>https://apnews.com/article/technology-business-5d3021ed9f193bf249c3af158b128d18</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___apnews_com_article_technology-business-5d3021ed9f193bf249c3af158b128d18/image.jpg" /> 
+<div id="readability-page-1" class="page"><div data-key="article"><p>Facebook has shut down the personal accounts of a pair of New York University researchers and shuttered their investigation into misinformation spread through political ads on the social network.</p><p>Facebook says the researchers violated its terms of service and were involved in unauthorized data collection from its massive network. The academics, however, say the company is attempting to exert control on research that paints it in a negative light. </p><p>The NYU researchers with the Ad Observatory Project had for several years been looking into Facebook’s Ad Library, where searches can be done on advertisements running across Facebook’s products. </p><p>The access was used to “uncover systemic flaws in the Facebook Ad Library, to identify misinformation in political ads, including many sowing distrust in our election system, and to study Facebook’s apparent amplification of partisan misinformation,” said Laura Edelson, the lead researcher behind NYU Cybersecurity for Democracy, <a href="https://knightcolumbia.org/content/researchers-nyu-knight-institute-condemn-facebooks-effort-to-squelch-independent-research-about-misinformation" target="_blank" rel="noopener noreferrer">in a statement</a><!-- -->. </p><p>Facebook’s action against the NYU project also cut off other researchers and journalists who got access to Facebook data through the project, Edelson said.</p><p>The researchers offered Facebook users a web browser plug-in tool that let them volunteer their data showing how the social network targets political ads. </p><p>But Facebook said the browser extension was programmed to evade its detection systems and vacuum up user data, creating privacy concerns.</p><p>In <a href="https://about.fb.com/news/2021/08/research-cannot-be-the-justification-for-compromising-peoples-privacy/" target="_blank" rel="noopener noreferrer">a blog post</a><!-- --> late Tuesday, Facebook said it takes “unauthorized data scraping seriously, and when we find instances of scraping we investigate and take action to protect our platform.”</p><p>Facebook sent a cease-and-desist letter to Edelson and another researcher, Damon McCoy, in October but didn’t shut down their accounts until Tuesday, hours after Edelson informed the platform that she and McCoy were studying the spread of disinformation on the platform about the Jan. 6 attack on the U.S. Capitol, the researchers said. </p><p>Mike Clark, Facebook product management director, wrote in the blog post that the Menlo Park, California, company welcomes research that holds it accountable but that doesn’t compromise the security of the platform or users’ privacy.</p><p>“While the Ad Observatory project may be well-intentioned, the ongoing and continued violations of protections against scraping cannot be ignored and should be remediated,” he wrote.</p><p>At least two Democratic senators expressed concerns about Facebook’s move. Mark Warner of Virginia said tech platforms should “work with, and better empower, independent researchers” but instead the company has “seemingly done the opposite.” Amy Klobuchar of Minnesota said she was troubled by Facebook cutting off researcher access to political advertising data, “which has shown that the company continues to sell millions of dollars’ worth of political ads without proper disclosures.” </p><p>Facebook says it makes information on political ads available through its Ad Library and provides “privacy-protected data sets” to researchers through other means. </p></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 05:23:35 +0000</pubDate>
+      <source>https://apnews.com/article/technology-business-5d3021ed9f193bf249c3af158b128d18</source>
+    </item>
   </channel>
 </rss>
