@@ -35672,5 +35672,686 @@ CGO scholars and fellows frequently comment on a variety of topics for the popul
       <pubDate>Mon, 09 Aug 2021 18:33:46 +0000</pubDate>
       <source>https://news.berkeley.edu/2021/08/09/how-wildfire-restored-a-yosemite-watershed/</source>
     </item>
+    <item>
+      <title>Done with YC: Age Discrimination</title>
+      <link>https://news.ycombinator.com/item?id=28121086</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>In a recent YC survey one of the questions was about whether or not we would apply to YC again. I answered &#34;no&#34;.<p>I am now 58. I consider myself a highly accomplished multidisciplinary engineer as well as a capable business operator.</p><p>To lend a bit of context, I have hardware orbiting the planet right now. I also helped design hardware going to the moon in the next few years. I self-funded, grew and ran a startup that almost had an exit in the tens of millions of dollars before the 2009 economic implosion took us out. After that I wrote apps for the iPhone, I designed hardware for the motion picture industry, I manufactured custom technical furniture, built data centers and even entered the aerospace industry to help one of the most well-known companies in the segment get people to the International Space Station.</p><p>Throughout this I became very interested in the VC world. I have always self funded, mostly out of a desire to just get going. YC seemed to be above the fray, above some of the nonsense I experienced (I participated in at least one incubator program that ended on an ugly note).</p><p>I signed-up for and graduated from Startup School. We applied for YC and were not accepted. I continued with Startup School for a second term. Applied again. Nothing. We likely applied about three times, if not four. I honestly don&#39;t remember. This included pivots. I wasn&#39;t trying to do the same thing and expect different results.  The only thing that remained constant was me, a solo 50-something founder.</p><p>I, of course, realize YC has to choose from among tens of thousands of applications. I am not here to suggest I was wronged. I am not entitled to anything and YC owes me nothing at all.</p><p>I think age discrimination is an ugly unresolved reality in the world of technology. As I have gone in and out of entrepreneurship I had periods of time during which I said to myself &#34;just get a job for a few years&#34;.</p><p>When I was younger this was easy. I could get a job within days or a couple of weeks. As I got older it became very obviously harder, even through I became a better engineer, with vastly more knowledge and experience spanning a range of disciplines and fields of study.</p><p>My conclusion was reached after looking at YC age data, reading through related threads and, in general terms, watching my own path in and out of various technology sectors over the last decade or so.</p><p>My feeling is that the YC process includes several elements that, when combined, might result in unintentional discrimination against older founders:</p><p>- Asking for your age rather than &#34;Are you 18 or older?&#34;
+ - Asking for a personal video where you see the applicant
+ - An established bias against solo founders
+ - Younger people evaluating the applications
+ - A physical relocation requirement</p><p>I am not suggesting YC evaluators are explicitly biased. There is such a thing as unconscious bias. We know and understand this in the racial domain.</p><p>Completing the survey made me think about whether YC was worth the effort for me. My conclusion was that, while I can deal with rejection just fine (sales will teach you this reality), I am not interested in a scenario where my age becomes a disadvantage --even if not explicitly so. It feels like YC, as a 58 year old solo founder, is an exercise in futility or, perhaps more kindly, an not an optimal path.</p><p>Once again, please take this as constructive criticism and, perhaps, as a reason for introspection rather than an attack on YC. I think YC is a fantastic resource and one that has allowed many who would otherwise not have the opportunity, to create and launch some of the most amazing companies in the world. YC is, in many ways, a gift to the world of technology.  I just don&#39;t think it is for older founders, and, in particular, solo older founders.</p></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 19:15:41 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28121086</source>
+    </item>
+    <item>
+      <title>Novice Programming Mistakes (2016)</title>
+      <link>https://neverworkintheory.org/2016/06/09/novice-programming-mistakes.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+      <main>
+        <article>
+  
+  <p>
+    Reviewed by Greg Wilson / 2016-06-09
+    </p>
+  <p id="Altadmri2015"><a href="https://neverworkintheory.org/bib/#Altadmri2015">Altadmri2015</a>
+  Amjad Altadmri and Neil C.C. Brown:
+  &#34;<a href="https://doi.org/10.1145/2676723.2677258">37 Million Compilations</a>&#34;.
+  <em>Proceedings of the 46th ACM Technical Symposium on Computer Science Education</em>,
+  <a href="https://doi.org/10.1145/2676723.2677258">10.1145/2676723.2677258</a>.
+</p>
+<blockquote>
+  <p>
+    Educators often form opinions on which programming mistakes novices make
+    most often–for example, in Java: &#34;they always confuse equality with
+    assignment&#34;, or &#34;they always call methods with the wrong types&#34;.  These
+    opinions are generally based solely on personal experience.  We report a
+    study to determine if programming educators form a consensus about which
+    Java programming mistakes are the most common.  We used the Blackbox data
+    set to check whether the educators&#39; opinions matched data from over 100,000
+    students–and checked whether this agreement was mediated by educators&#39;
+    experience.  We found that educators formed only a weak consensus about
+    which mistakes are most frequent, that their rankings bore only a moderate
+    correspondence to the students in the Blackbox data, and that educators&#39;
+    experience had no effect on this level of agreement.  These results raise
+    questions about claims educators make regarding which errors students are
+    most likely to commit.
+  </p>
+</blockquote>
+<div>
+<p>
+  So, what&#39;s the most common kind of error novice Java programmers
+  make?  Turns out it isn&#39;t confusing assignment &#34;=&#34; with equality
+  &#34;==&#34;, but rather mis-matched or unbalanced parentheses.  Invoking
+  methods with the wrong argument (e.g., <code>list.get(&#34;abc&#34;)</code>)
+  is the second most common, and control flow being able to reach the
+  end of a non-void method without returning a value is third.  And
+  which errors take the most time to fix?  The answer to that turns
+  out to be:
+</p>
+<ul>
+  <li>
+    Confusing short-circuit logical operators like <code>&amp;&amp;</code> and <code>||</code>
+    with their non-short-circuiting bitwise equivalents <code>&amp;</code> and <code>|</code>.
+  </li>
+  <li>
+    Using <code>==</code> instead of <code>.equals</code> to compare strings.
+  </li>
+  <li>
+    Ignoring the return value from a non-void method.
+  </li>
+</ul>
+<p>
+  As if this data wasn&#39;t enough, the authors also compared this data
+  to a survey of what teachers believe about student errors (see Brown
+  and Altadmri,
+  &#34;<a href="http://www.twistedsquare.com/Educators.pdf">Investigating
+  Novice Programming Mistakes: Educator Beliefs vs Student Data</a>&#34;,
+  ICER&#39;14, http://dx.doi.org/10.1145/2632320.2632343).  Their main
+  finding: &#34;…educators formed only a weak consensus about which
+  mistakes are most frequent, that their rankings bore only a moderate
+  correspondence to the students in the Blackbox data, and that
+  educators&#39; experience had no effect on this level of agreement.&#34;  It
+  may be years before textbooks begin to reflect these insights, and
+  decades before they start to influence language design, but at least
+  we now know that better is possible.
+</p>
+</div>
+
+  
+
+</article>
+
+      </main>
+      
+
+    </div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 12:15:59 +0000</pubDate>
+      <source>https://neverworkintheory.org/2016/06/09/novice-programming-mistakes.html</source>
+    </item>
+    <item>
+      <title>Snaprecovery: Recover old Snaps that have “disappeared” from Snapchat</title>
+      <link>https://github.com/sdushantha/snaprecovery</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-view-component="true">      
+      <div>
+  
+<div>
+  <details id="branch-select-menu">
+    <summary data-hotkey="w" title="Switch branches or tags">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
+</svg>
+      <span data-menu-button="">master</span>
+      <span></span>
+    </summary>
+
+      
+<div>
+  <div>
+    <header>
+      <span>Switch branches/tags</span>
+      
+    </header>
+
+    <input-demux data-action="tab-container-change:input-demux#storeInput tab-container-changed:input-demux#updateInput">
+      <tab-container>
+        
+
+        
+
+        <div role="tabpanel" id="ref-list-branches" data-filter-placeholder="Filter branches/tags" tabindex="">
+          <ref-selector type="branch" data-targets="input-demux.sinks" data-action="
+              input-entered:ref-selector#inputEntered
+              tab-selected:ref-selector#tabSelected
+              focus-list:ref-selector#focusFirstListMember
+            " query-endpoint="/sdushantha/snaprecovery/refs" cache-key="v0:1609602304.0" current-committish="bWFzdGVy" default-branch="bWFzdGVy" name-with-owner="c2R1c2hhbnRoYS9zbmFwcmVjb3Zlcnk=" prefetch-on-mouseover="">
+
+            <template data-target="ref-selector.fetchFailedTemplate">
+              <p>Could not load branches</p>
+            </template>
+
+              <template data-target="ref-selector.noMatchTemplate">
+    <p>Nothing to show</p>
+</template>
+
+
+            <!-- TODO: this max-height is necessary or else the branch list won't scroll.  why? -->
+            <div data-target="ref-selector.listContainer" role="menu" data-pjax="#repo-content-pjax-container">
+              
+            </div>
+
+              <template data-target="ref-selector.itemTemplate">
+  <a href="https://github.com/sdushantha/snaprecovery/tree/{{ urlEncodedRefName }}" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+</svg>
+    <span>{{ refName }}</span>
+    
+  </a>
+</template>
+
+
+              
+          </ref-selector>
+
+        </div>
+
+        
+      </tab-container>
+    </input-demux>
+  </div>
+</div>
+
+  </details>
+
+</div>
+
+
+  <div>
+    <a data-pjax="" href="https://github.com/sdushantha/snaprecovery/branches">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
+</svg>
+          <strong>1</strong>
+          <span>branch</span>
+    </a>
+    <a data-pjax="" href="https://github.com/sdushantha/snaprecovery/tags">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
+</svg>
+        <strong>0</strong>
+        <span>tags</span>
+    </a>
+  </div>
+
+  
+
+  <include-fragment data-test-selector="overview-actions-fragment" src="/sdushantha/snaprecovery/overview_actions/master"></include-fragment>
+
+
+    <p><span>
+
+          
+<get-repo>
+  <details data-action="toggle:get-repo#onDetailsToggle">
+    <summary data-hydro-click="{&#34;event_type&#34;:&#34;repository.click&#34;,&#34;payload&#34;:{&#34;repository_id&#34;:326203706,&#34;target&#34;:&#34;CLONE_OR_DOWNLOAD_BUTTON&#34;,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="4453436a63aceef0609101d51119d8cbd03b159b989c7937a66a80b4cdd674be">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
+</svg>
+      Code
+      <span></span>
+</summary>    <div>
+      <div>
+          <div data-target="get-repo.modal">
+            <div>
+              <a href="https://docs.github.com/articles/which-remote-url-should-i-use" target="_blank" aria-label="Which remote URL should I use?">
+  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zM6.92 6.085c.081-.16.19-.299.34-.398.145-.097.371-.187.74-.187.28 0 .553.087.738.225A.613.613 0 019 6.25c0 .177-.04.264-.077.318a.956.956 0 01-.277.245c-.076.051-.158.1-.258.161l-.007.004a7.728 7.728 0 00-.313.195 2.416 2.416 0 00-.692.661.75.75 0 001.248.832.956.956 0 01.276-.245 6.3 6.3 0 01.26-.16l.006-.004c.093-.057.204-.123.313-.195.222-.149.487-.355.692-.662.214-.32.329-.702.329-1.15 0-.76-.36-1.348-.863-1.725A2.76 2.76 0 008 4c-.631 0-1.155.16-1.572.438-.413.276-.68.638-.849.977a.75.75 0 101.342.67z"></path>
+</svg>
+</a>
+
+<div>
+  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
+</svg><p>
+  Clone
+</p></div>
+
+<tab-container>
+
+  <div>
+    
+  </div>
+
+  <div role="tabpanel">
+    <div>
+  
+</div>
+
+    <p>
+        Use Git or checkout with SVN using the web URL.
+    </p>
+  </div>
+
+
+  
+</tab-container>
+
+            </div>
+            <ul>
+              <li data-platforms="windows,mac">
+                <a data-hydro-click="{&#34;event_type&#34;:&#34;clone_or_download.click&#34;,&#34;payload&#34;:{&#34;feature_clicked&#34;:&#34;OPEN_IN_DESKTOP&#34;,&#34;git_repository_type&#34;:&#34;REPOSITORY&#34;,&#34;repository_id&#34;:326203706,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="3a5925a0c5e9799e12dac6b1096e05e5c554a4dfca02a63ae00c68e591c0e4bb" data-action="click:get-repo#showDownloadMessage" href="https://desktop.github.com">
+                  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path d="M4.927 5.427l2.896 2.896a.25.25 0 00.354 0l2.896-2.896A.25.25 0 0010.896 5H8.75V.75a.75.75 0 10-1.5 0V5H5.104a.25.25 0 00-.177.427z"></path><path d="M1.573 2.573a.25.25 0 00-.073.177v7.5a.25.25 0 00.25.25h12.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-3a.75.75 0 110-1.5h3A1.75 1.75 0 0116 2.75v7.5A1.75 1.75 0 0114.25 12h-3.727c.099 1.041.52 1.872 1.292 2.757A.75.75 0 0111.25 16h-6.5a.75.75 0 01-.565-1.243c.772-.885 1.192-1.716 1.292-2.757H1.75A1.75 1.75 0 010 10.25v-7.5A1.75 1.75 0 011.75 1h3a.75.75 0 010 1.5h-3a.25.25 0 00-.177.073zM6.982 12a5.72 5.72 0 01-.765 2.5h3.566a5.72 5.72 0 01-.765-2.5H6.982z"></path>
+</svg>
+                  Open with GitHub Desktop
+</a>              </li>
+              <li>
+                <a rel="nofollow" data-hydro-click="{&#34;event_type&#34;:&#34;clone_or_download.click&#34;,&#34;payload&#34;:{&#34;feature_clicked&#34;:&#34;DOWNLOAD_ZIP&#34;,&#34;git_repository_type&#34;:&#34;REPOSITORY&#34;,&#34;repository_id&#34;:326203706,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="1ec14b55b84cd0db6e71e9e52519e78975c26f6b9fffaaa0bce5c2aa49c2defd" data-ga-click="Repository, download zip, location:repo overview" data-open-app="link" href="https://github.com/sdushantha/snaprecovery/archive/refs/heads/master.zip">
+                  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path>
+</svg>
+                  Download ZIP
+</a>              </li>
+            </ul>
+          </div>
+
+        
+
+        
+
+        
+
+        
+
+      </div>
+    </div>
+  </details>
+</get-repo>
+
+
+      
+    </span>
+</p></div>
+
+      
+
+
+<div>
+  <div>
+    <h2>Latest commit</h2>
+    <div data-issue-and-pr-hovercards-enabled="">
+      
+  <div>
+    
+<div>
+  <p><a data-skip-pjax="true" data-test-selector="commits-avatar-stack-avatar-link" data-hovercard-type="user" data-hovercard-url="/users/sdushantha/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/sdushantha">
+        
+</a>  </p>
+</div>
+
+  </div>
+  <div>
+    <div>
+      
+      <p><a href="https://github.com/sdushantha/snaprecovery/commits?author=sdushantha" title="View all commits by sdushantha">sdushantha</a>
+
+
+  
+
+        <span>
+          <a data-pjax="true" data-test-selector="commit-tease-commit-message" title="Merge pull request #8 from mirsella/autoserial
+
+SERIAL is auto set if only one device is connected" href="https://github.com/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490">Merge pull request</a> <a data-error-text="Failed to load title" data-id="963481675" data-permission-text="Title is private" data-url="https://github.com/sdushantha/snaprecovery/issues/8" data-hovercard-type="pull_request" data-hovercard-url="/sdushantha/snaprecovery/pull/8/hovercard" href="https://github.com/sdushantha/snaprecovery/pull/8">#8</a> <a data-pjax="true" data-test-selector="commit-tease-commit-message" title="Merge pull request #8 from mirsella/autoserial
+
+SERIAL is auto set if only one device is connected" href="https://github.com/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490">from mirsella/autoserial</a>
+        </span>
+    </p></div>
+    <div>
+        <include-fragment accept="text/fragment+html" src="/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490/rollup?direction=sw"></include-fragment>
+      <p><a href="https://github.com/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490" data-pjax="">
+        df3a922
+      </a></p><a href="https://github.com/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490" data-pjax="">
+        <relative-time datetime="2021-08-09T11:28:59Z">Aug 9, 2021</relative-time>
+      </a>
+    </div>
+  </div>
+  <div>
+      <div>
+        <p><a data-pjax="true" data-test-selector="commit-tease-commit-message" href="https://github.com/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490">Merge pull request</a> <a data-error-text="Failed to load title" data-id="963481675" data-permission-text="Title is private" data-url="https://github.com/sdushantha/snaprecovery/issues/8" data-hovercard-type="pull_request" data-hovercard-url="/sdushantha/snaprecovery/pull/8/hovercard" href="https://github.com/sdushantha/snaprecovery/pull/8">#8</a> <a data-pjax="true" data-test-selector="commit-tease-commit-message" href="https://github.com/sdushantha/snaprecovery/commit/df3a9222462c301c3e0e79e057abf0e772745490">from mirsella/autoserial</a>
+      </p></div>
+      <pre>SERIAL is auto set if only one device is connected</pre>
+    <p><code>df3a922</code>
+    </p>
+  </div>
+      <div>
+        <h2>Git stats</h2>
+        <ul>
+          <li>
+            <a data-pjax="" href="https://github.com/sdushantha/snaprecovery/commits/master">
+              <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path>
+</svg>
+              <span>
+                    <strong>32</strong>
+                    <span aria-label="Commits on master">
+                      commits
+                    </span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <h2 id="files">Files</h2>
+  
+
+
+    <p><a data-hotkey="y" href="https://github.com/sdushantha/snaprecovery/tree/df3a9222462c301c3e0e79e057abf0e772745490">Permalink</a></p><div data-view-component="true">
+  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
+</svg><p>
+  
+    Failed to load latest commit information.
+
+
+  
+</p></div>  <div>
+    <div role="grid" aria-labelledby="files" data-pjax="">
+      <div role="row">
+        <p>Type</p>
+        <p>Name</p>
+        <p>Latest commit message</p>
+        <p>Commit time</p>
+      </div>
+
+        <div role="row">
+          
+
+          <div role="rowheader">
+            <p><span><a title="images" data-pjax="#repo-content-pjax-container" href="https://github.com/sdushantha/snaprecovery/tree/master/images">images</a></span>
+          </p></div>
+
+          <div role="gridcell">
+              <p><span>
+                    <a data-pjax="true" title="added files" href="https://github.com/sdushantha/snaprecovery/commit/7ba6b81dfcdf50b30cd0a7ae43b38bcccca36cc7">added files</a>
+              </span>
+          </p></div>
+
+          <p role="gridcell">
+              <time-ago datetime="2021-01-02T14:47:23Z" data-view-component="true">Jan 2, 2021</time-ago>
+          </p>
+
+        </div>
+        <div role="row">
+          
+
+          <div role="rowheader">
+            <p><span><a title=".gitignore" data-pjax="#repo-content-pjax-container" href="https://github.com/sdushantha/snaprecovery/blob/master/.gitignore">.gitignore</a></span>
+          </p></div>
+
+          <div role="gridcell">
+              <p><span>
+                    <a data-pjax="true" title="SERIAL is auto set if only one device is connected
+close #7" href="https://github.com/sdushantha/snaprecovery/commit/650fa76912913d38652474f8f72362581fdebcf3">SERIAL is auto set if only one device is connected</a>
+              </span>
+          </p></div>
+
+          <p role="gridcell">
+              <time-ago datetime="2021-08-08T17:39:58Z" data-view-component="true">Aug 8, 2021</time-ago>
+          </p>
+
+        </div>
+        <div role="row">
+          
+
+          <div role="rowheader">
+            <p><span><a title="LICENSE" data-pjax="#repo-content-pjax-container" itemprop="license" href="https://github.com/sdushantha/snaprecovery/blob/master/LICENSE">LICENSE</a></span>
+          </p></div>
+
+          <div role="gridcell">
+              <p><span>
+                    <a data-pjax="true" title="Create LICENSE" href="https://github.com/sdushantha/snaprecovery/commit/24d250a4f55c3e6fc7b90ec64f3eab5a719fd68c">Create LICENSE</a>
+              </span>
+          </p></div>
+
+          <p role="gridcell">
+              <time-ago datetime="2021-01-02T15:44:22Z" data-view-component="true">Jan 2, 2021</time-ago>
+          </p>
+
+        </div>
+        <div role="row">
+          
+
+          <div role="rowheader">
+            <p><span><a title="README.md" data-pjax="#repo-content-pjax-container" href="https://github.com/sdushantha/snaprecovery/blob/master/README.md">README.md</a></span>
+          </p></div>
+
+          <div role="gridcell">
+              <p><span>
+                    <a data-pjax="true" title="add ffmpeg dependency to README" href="https://github.com/sdushantha/snaprecovery/commit/c3ca60c543380971c91be50ea7925825c502bb0a">add ffmpeg dependency to README</a>
+              </span>
+          </p></div>
+
+          <p role="gridcell">
+              <time-ago datetime="2021-01-06T18:41:49Z" data-view-component="true">Jan 6, 2021</time-ago>
+          </p>
+
+        </div>
+        <div role="row">
+          
+
+          <div role="rowheader">
+            <p><span><a title="snaprecovery.sh" data-pjax="#repo-content-pjax-container" href="https://github.com/sdushantha/snaprecovery/blob/master/snaprecovery.sh">snaprecovery.sh</a></span>
+          </p></div>
+
+          <div role="gridcell">
+              <p><span>
+                    <a data-pjax="true" title="added back a unintentionally deleted char" href="https://github.com/sdushantha/snaprecovery/commit/802d5b88dd34bbf65f0099829643d567eba20a63">added back a unintentionally deleted char</a>
+              </span>
+          </p></div>
+
+          <p role="gridcell">
+              <time-ago datetime="2021-08-09T10:17:44Z" data-view-component="true">Aug 9, 2021</time-ago>
+          </p>
+
+        </div>
+    </div>
+    
+  </div>
+
+
+
+
+</div>
+
+    <readme-toc>
+
+    <div id="readme">
+
+      <div>
+        <div>
+            <details data-target="readme-toc.trigger" data-menu-hydro-click="{&#34;event_type&#34;:&#34;repository_toc_menu.click&#34;,&#34;payload&#34;:{&#34;target&#34;:&#34;trigger&#34;,&#34;repository_id&#34;:326203706,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-menu-hydro-click-hmac="74fc880e91c3ab673d9eba0cbc846d04c470c6be4176f26f39aaadf385314c3f">
+  <summary aria-haspopup="true" aria-label="Table of Contents">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+    <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+</svg>
+  </summary>
+
+
+  <details-menu role="menu">
+    <div>
+
+
+      <div>
+          <p><a role="menuitem" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&#34;event_type&#34;:&#34;repository_toc_menu.click&#34;,&#34;payload&#34;:{&#34;target&#34;:&#34;entry&#34;,&#34;repository_id&#34;:326203706,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="c30cb123d2f30b7b5240ece261e2eaa62ce523e9468ca45457c2ea3bd643cdfc" href="#snaprecovery">snaprecovery</a>
+          <a role="menuitem" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&#34;event_type&#34;:&#34;repository_toc_menu.click&#34;,&#34;payload&#34;:{&#34;target&#34;:&#34;entry&#34;,&#34;repository_id&#34;:326203706,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="c30cb123d2f30b7b5240ece261e2eaa62ce523e9468ca45457c2ea3bd643cdfc" href="#dependencies">Dependencies</a>
+          <a role="menuitem" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&#34;event_type&#34;:&#34;repository_toc_menu.click&#34;,&#34;payload&#34;:{&#34;target&#34;:&#34;entry&#34;,&#34;repository_id&#34;:326203706,&#34;originating_url&#34;:&#34;https://github.com/sdushantha/snaprecovery&#34;,&#34;user_id&#34;:null}}" data-hydro-click-hmac="c30cb123d2f30b7b5240ece261e2eaa62ce523e9468ca45457c2ea3bd643cdfc" href="#how-the-recovery-works">How the recovery works</a>
+      </p></div>
+    </div>
+  </details-menu>
+</details>
+
+          <h2>
+            <a href="#readme" data-view-component="true">README.md</a>
+          </h2>
+        </div>
+      </div>
+
+        <div data-target="readme-toc.content">
+          <article itemprop="text">
+<p>
+Recover old Snaps that have “disappeared” from Snapchat
+</p>
+</article>
+        </div>
+    </div>
+
+  </readme-toc>
+
+
+</div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 19:36:02 +0000</pubDate>
+      <source>https://github.com/sdushantha/snaprecovery</source>
+    </item>
+    <item>
+      <title>Sigstore – A new standard for signing, verifying and protecting software</title>
+      <link>https://sigstore.dev</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><div><section type="textBanner" showbetacard="true"> </section><section data-header-text="text-white" type="twoColumnBanner" ctabuttons="" ctastyle="transparentCta"><div><div><h2>The problem with open source security</h2> <p>Not knowing where all your software comes from means hard-to-spot risks to the integrity of your services. Without constant identity checks and safety protocols for keys and secrets, open source dependencies can open the door to breaches, exploits and supply chain attacks.</p> <p></p></div> <div><p></p> <p>Not knowing where all your software comes from means hard-to-spot risks to the integrity of your services. Without constant identity checks and safety protocols for keys and secrets, open source dependencies can open the door to breaches, exploits and supply chain attacks.</p></div></div></section><section data-header-text="text-purple-dark" type="twoColumnBannerWithCard"><div><p><h2>Our vision</h2> <!----></p> <div><p><h3>sigstore was started to improve supply chain technology for anyone using open source projects. It&#39;s for open source maintainers, by open source maintainers.</h3> <h3>And it&#39;s a direct response to today’s challenges, a work in progress for a future where the integrity of what we build and use is up to standard.</h3></p></div></div> <div><div><div><h4>What makes sigstore different?</h4> <p>We’ve automated how you digitally sign and check components, for a safer chain of custody tracing software back to the source. We want to remove the effort, time and risk of error this usually comes with. And for anyone whose software depends on open source, future integrations can make it easier to check for authenticity, wherever it’s come from.</p></div> <div><div><p></p><h4>Automatic key management</h4> <p>We use Cosign to generate the key pairs needed to sign and verify artifacts, automating as much as possible so there’s no risk of losing or leaking them.</p></div> <div><p></p><h4>Transparent ledger technology</h4> <p>A transparency log means anyone can find and verify signatures, and check whether someone’s changed the source code, the build platform or the artifact repository.</p></div> <div><p></p><h4>Driven by our community</h4> <p>Everyone involved in sigstore believes in an open, transparent and accountable future for open source software. Everything we do comes from that shared vision.</p></div></div></div></div></section><hr type="sigstoreDivider" showsigstoredivider="true"/><section data-header-text="text-gray-dark" type="twoColumnBannerWithCard"><div><div><h2>How sigstore works</h2> <div><div><p>sigstore is a set of tools developers, software maintainers, package managers and security experts can benefit from. Bringing together free-to-use open source technologies like Fulcio, Cosign and Rekor, it handles digital signing, verification and checks for provenance needed to make it safer to distribute and use open source software.</p>
+<p><strong>A standardized approach</strong></p>
+<p>This means that open source software uploaded for distribution has a stricter, more standardized way of checking who’s been involved, that it hasn’t been tampered with. There’s no risk of key compromise, so third parties can’t hijack a release and slip in something malicious.</p>
+</div> <div><p><strong>Building for future integrations</strong></p>
+<p>With the help of a working partnership that includes Google, the Linux Foundation, Red Hat and Purdue University, we’re in constant collaboration to find new ways to improve the sigstore technology, to make it easy to adopt, integrate and become a long-lasting standard.</p>
+</div></div></div> <div><p></p></div></div> <div><div><p><h4>How can you use it?</h4> <!----></p> <div><div><p></p><h4>Sign code</h4> <p>Easy authentication and smart cryptography work in the background. Just push your code.</p></div> <div><p></p><h4>Verify signatures</h4> <p>A transparency log stores data like who created something and how, so you know it hasn’t been changed.</p></div> <div><p></p><h4>Monitor activity</h4> <p>Logged data is readily auditable, for future monitors and integrations to build into your security workflow.</p></div></div></div></div></section><hr type="sigstoreDivider" showsigstoredivider="true"/><section type="carousel" header="Image Gallery"></section><hr type="sigstoreDivider" showsigstoredivider="true"/><section data-header-text="text-gray-dark" type="newsEvents" isnewsandevents="true"></section><section type="textBanner"> </section></div></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 19:14:22 +0000</pubDate>
+      <source>https://sigstore.dev</source>
+    </item>
+    <item>
+      <title>Why does it take so long to get to Mercury?</title>
+      <link>https://www.esa.int/Science_Exploration/Space_Science/BepiColombo/Why_does_it_take_so_long_to_get_to_Mercury</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_esa_int_Science_Exploration_Space_Science_BepiColombo_Why_does_it_take_so_long_to_get_to_Mercury/image.jpg" /> 
+<div id="readability-page-1" class="page"><article>
+
+<header>
+	<span>Science &amp; Exploration</span>
+	
+	<p><span><span id="viewcount">8055</span><small> views</small></span>
+										<span><span id="ezsr_total_22063320">32</span><small> likes</small></span>
+				
+	</p>
+</header>
+
+
+
+<p>Earth is on average ten times closer to Mercury than Jupiter, but missions to both planets can take a similar amount of time to reach their science orbits. Why is that?</p>
+
+<div>
+				
+		<p>In the 1970s, NASA’s Mariner 10 spacecraft took just 147 days to reach the innermost planet of the Solar System. But more recent missions, NASA’s MESSENGER in the 2000s and the European-Japanese <a href="https://www.esa.int/Science_Exploration/Space_Science/BepiColombo_overview2">BepiColombo</a>, launched in 2018, need years to arrive at Mercury.</p><p>The reason is that they are not making the same journey. While Mariner 10 made three flybys of Mercury while in orbit around the Sun, providing our first up close view of its surface, MESSENGER and BepiColombo were designed to enter orbit around the planet and conduct more detailed scientific investigations over a longer period of time. To enter orbit around Mercury, the spacecraft need to reach the planet travelling slowly enough relative to its velocity to be captured by its gravity. They need to slow down from their original speed, and slowing down in the vacuum of  space is actually quite complicated.</p>
+	</div>
+			
+	<div>
+	<h2>Downhill from there</h2>
+	    
+							
+														
+																								
+
+
+
+				
+				
+								
+						
+								
+					<div>
+		<a href="https://www.esa.int/ESA_Multimedia/Videos/2017/07/Animation_visualising_BepiColombo_s_journey_to_Mercury">
+		<div>
+				
+
+   <p></p>
+   <p>
+
+ 
+		</p></div>
+		</a>
+				<div><p>
+			Animation visualising BepiColombo’s journey to Mercury 
+			</p></div>
+			</div>	
+		<p>If a spacecraft sent from Earth aims for planets of the outer Solar System, such as Jupiter or Saturn, it needs to increase its distance from the Sun. When we send a spacecraft to Mercury, it has to get much closer to the Sun than the Earth is.</p><p>But the laws of physics dictate that the spacecraft’s total orbital energy will stay the same unless we find a way to shed some. Reducing the part of orbital energy related to the <b>distance</b> from the Sun automatically increases the part related to <b>speed</b> by the same amount. Consequently, as the spacecraft gets closer to the Sun, it begins to speed up like a car driving downhill.</p><p>Speeding up is not necessarily a bad thing. According to Kepler’s third law of planetary motion, Mercury whizzes around the Sun on its tight orbit much quicker than Earth. So, our spacecraft heading to Mercury will have to gain some speed to catch up with the tiny planet.</p><p>Unfortunately, without shedding some orbital energy, the spacecraft will pick up <i>too much speed</i> and reach Mercury moving far too quickly to be captured by its gravity and will fly right past.</p>	</div>	
+	<div>
+	<h2>Putting on the brakes</h2>
+	    
+							
+														
+																	
+
+
+
+							
+				
+								
+						
+								
+								<figure>
+					<a href="https://www.esa.int/ESA_Multimedia/Images/2018/10/BepiColombo_journey_to_Mercury">
+				
+			</a>
+				<figcaption>
+							<a href="https://www.esa.int/ESA_Multimedia/Images/2018/10/BepiColombo_journey_to_Mercury">BepiColombo journey to Mercury</a>
+								</figcaption>
+	</figure>	
+		<p>The energy our spacecraft needs to shed is on a completely different scale to using brakes to slow down while driving downhill on Earth. Arriving at Mercury travelling slowly enough to be captured by its gravity is a bit like falling down a cliff millions of kilometres high and landing softly on a moving target half way down!</p><p>To burn off all the necessary orbital energy using only thrusters, our spacecraft would need such a huge amount of fuel, and extra material to hold it, that it would become far too heavy to launch into Earth orbit even with the most powerful rocket.  </p><p>Instead, the spacecraft can use the powerful gravitational pull of other planets it approaches on the way to its destination to offload the excess energy and alter the path of its own orbit. Depending on how the spacecraft approaches the moving planet, it can either increase or decrease its speed relative to the Sun.</p><p>This allows us to give or take some orbital energy <i>to or from the planet </i>and change the spacecraft’s speed without using fuel .</p><p>This manoeuvre, known as a <b>gravity assist manoeuvre</b>, <b>flyby,</b> <b>swing-by</b> or <b>gravitational slingshot</b>, allows us to explore a wide range of objects across the Solar System on a tight fuel budget. If we want to visit the distant outer planets and minor bodies, we can take some extra energy from Mars or Jupiter. If we want to visit Mercury, we can give some away to the inner planets as we pass by.</p>	</div>	
+	<div>
+	<h2>Lining up the shots</h2>
+	    
+							
+														
+										
+
+
+
+							
+				
+								
+						
+								
+								<figure>
+					<a href="https://www.esa.int/ESA_Multimedia/Images/2018/03/BepiColombo_at_Venus">
+				
+			</a>
+				<figcaption>
+							<a href="https://www.esa.int/ESA_Multimedia/Images/2018/03/BepiColombo_at_Venus">BepiColombo performs two flybys at Venus in addition to one at Earth and six at Mercury to place itself into the correct orbit around the innermost planet of the Solar System</a>
+								</figcaption>
+	</figure>	
+		<p>Approaching a planet in the right way to perfectly alter the spacecraft’s orbit requires a lot of maths and careful planning. What’s more, to lose all the energy necessary to enter orbit around Mercury we have to do multiple flybys.</p><p>Like a billiards player carefully lining up their shot to make sure the cue ball ends up in a good position for the next one, mission planners have to design a route for their spacecraft that sees it leave each flyby on the correct trajectory to be in the right place at the right time for the next one.</p><p>Even using some on-board fuel to adjust the spacecraft’s orbit between each flyby, it still takes years to offload the energy as the cosmic billiard balls travel the vast distances through space between encounters.</p><p>As a result, using flybys to help a spacecraft arrive at Mercury slowly enough to enter orbit is great for reducing fuel requirements, but makes reaching the small planet a very long journey.</p>	</div>	
+	<div>
+	<h2>Giuseppe ‘Bepi’ Colombo</h2>
+	    
+							
+														
+																	
+
+
+
+							
+				
+								
+						
+								
+								<figure>
+					<a href="https://www.esa.int/ESA_Multimedia/Images/2017/07/BepiColombo_timeline">
+				
+			</a>
+				<figcaption>
+							<a href="https://www.esa.int/ESA_Multimedia/Images/2017/07/BepiColombo_timeline">BepiColombo timeline</a>
+								</figcaption>
+	</figure>	
+		<p>This method for putting a spacecraft in orbit around Mercury, and solving the mathematics behind it, puzzled scientists and engineers for decades. Even today, there is still no perfect formula for finding the best path for a spacecraft to get to a planet using flybys. Calculating this path requires  expertise and patience on behalf of mission analysts.</p><p>NASA’s Mariner 2 spacecraft performed the first successful planetary flyby ever in 1962 at Venus. This encounter, however, wasn’t designed to alter the spacecraft’s trajectory but to gather data about the second closest planet to the Sun. The use of flybys as a manoeuvre to correct a spacecraft’s path en route to another planet would only start about a decade later.</p><p>In 1970, Italian <a href="https://www.esa.int/About_Us/ESA_history/Giuseppe_Bepi_Colombo_Grandfather_of_the_fly-by">mathematician and engineer Giuseppe ‘Bepi’ Colombo</a> suggested that a flyby of Venus would enable NASA’s Mariner 10 spacecraft to swing past Mercury three times instead of the originally planned single encounter. An analytical study conducted by NASA’s Jet Propulsion Laboratory confirmed Colombo&#39;s idea. The mission went on to fly past Mercury three times while orbiting around the Sun and would achieve further encounters had it not run out of fuel. The manoeuvre at Venus enabled scientists to acquire twice as much scientific data about the then completely unexplored Mercury compared to original expectations.</p><p>A lot of what we know about Mercury today comes from Mariner 10’s encounters during 1974–75, which were inspired by Colombo&#39;s calculations.</p><p>MESSENGER and <a href="https://www.esa.int/Newsroom/Press_Releases/ESA_s_Mercury_mission_named_BepiColombo_in_honour_of_a_space_pioneer">BepiColombo</a>, named after the scientist, take Colombo’s ideas a step further. By passing Mercury multiple times, in addition to other flybys of the inner planets, the spacecraft shed enough energy to enter orbit around the planet, enabling scientific studies that would otherwise be impossible.</p>	</div>	
+    
+						
+    
+						
+    
+						
+    
+						
+    
+						
+    
+					
+
+
+
+</article></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 17:26:24 +0000</pubDate>
+      <source>https://www.esa.int/Science_Exploration/Space_Science/BepiColombo/Why_does_it_take_so_long_to_get_to_Mercury</source>
+    </item>
   </channel>
 </rss>
