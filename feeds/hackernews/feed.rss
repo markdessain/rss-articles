@@ -35048,5 +35048,387 @@ Don’t know much about freight forwarding? Neither do most engineers when they 
       <pubDate>Mon, 09 Aug 2021 16:24:56 +0000</pubDate>
       <source>https://www.comet.ml/site/clipdraw-gallery-ai-art-powered-by-comet-and-gradio/</source>
     </item>
+    <item>
+      <title>Ask HN: What tiny purchases have disproportionately improved your life?</title>
+      <link>https://news.ycombinator.com/item?id=28119393</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><td colspan="2"></td><td>What cheap yet very useful things have made a substantial change and improvement to your life?<p>For me it has always been USB flash drives. I&#39;m scared of getting ransomware&#39;d one day, but I am safe in the knowledge that I&#39;d have to have every thumbdrive I own plugged into my PC for some real damage to happen. They are a lifesaver, and they get cheaper every year too!</p></td></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 17:07:07 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28119393</source>
+    </item>
+    <item>
+      <title>Incident response: “The next 16 minutes are going to get intense”</title>
+      <link>https://bitfieldconsulting.com/blog/got-game-secrets-of-great-incident-management</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><div data-layout-label="Post Body" data-type="item" data-updated-on="1581772516748" id="item-5e47ed7e7beeaf30f5758311"><div><div><div data-block-type="2" id="block-yui_3_17_2_1_1582377996783_1591"><div><p>When his phone wakes him at two in the morning, operations engineer Andy Pearson knows it’s bad news. There’s a major server problem, and hundreds of client websites are down. Automated monitoring checks detected the outage within seconds, and paged the on-call engineer. This time, it’s Pearson in the hot seat.</p><p>Pearson quickly confirms the issue is real and, escalates it to his boss, tech lead Lewis Carey. Within five minutes, Carey has assessed the situation and declared a major incident. A well-rehearsed procedure goes into effect. A conference call begins; the sleep-fuddled incident response team assembles as Carey assigns roles to each of them.</p><p>The next sixteen minutes are going to get intense.</p><h2>Incident Management Roles</h2><p>Carey is the <strong>Incident Commander</strong>, taking overall responsibility for the process. The key thing is to have one person in charge. Downtime is not a democracy. You need a decision maker. Often, this will be the team lead, but over time, you should make sure to give everybody a turn in that chair. One day, the team lead won’t be around, and anyone should be able and confident enough to run an incident.</p><p>Pearson is the <strong>Driver</strong>, operating the keyboard and sharing his screen with the team. Developer Juan Kennaugh is the <strong>Communicator</strong>, in charge of giving status updates to affected clients, project managers, and management.</p><p>A key role in the team is <strong>Records</strong>, who documents everything as it happens, taking detailed notes, capturing screenshots and log entries for later analysis, recording what the team discussed, the things they tried, the results, and the decisions they came to. All of this raw data will later go into a detailed post-incident review, but for now, things are unfolding so rapidly that the designated Records keeper, Elliott Evans, is struggling to record them.</p><p>Meanwhile, systems expert Rich Rawlings is assigned to the <strong>Researcher</strong> role. As questions come up in the troubleshooting process, Rawlings is kept busy hunting down the answers.</p><h2>Drilling the Fundamentals of Incident Management</h2><p>The first thing the team does is run an in-house snapshot tool, created by Rawlings, which captures all the key log files and status information from the ailing machine. “In case the server goes offline altogether, we need to save everything now,” Rawlings explains. “It’s like an aircraft’s black box recorder. When we analyse this data we may find important clues about what went wrong.”</p><blockquote><p><strong><em>It’s like the movie ‘Apollo 13’. We don’t want to make things worse by guessing. Instead, we work the problem, step by step.</em></strong></p></blockquote><p>The team looks at the results and starts running through a troubleshooting checklist, item by item. “Right now we’re just identifying where the problem is,” says Carey. “Is it in our domain—servers, configuration, code? Or is it a third-party outage—networking, cloud hosting, DNS?” It’s looking as though the problem is network-related. Even as Pearson types into a console window, the text stutters and stumbles, seeming to hang for a few seconds and then catch up.</p><p>The team deliberately takes a few extra minutes to verify the suspicion of a network problem. “It’s like the movie ‘Apollo 13′”, Carey explains. “We don’t want to make things worse by guessing. Instead, we work the problem, step by step.” In a high-pressure situation like an outage affecting hundreds of clients, there’s a strong predisposition for action. But the wrong action can be worse than no action at all. “What we don’t want to do is jump the gun and do something that we can’t recover from. If this were a security incident, for example, this server could technically be a crime scene.” The team, under Carey’s leadership, moves with forensic precision.</p><p>“Okay, we’re 95% sure this is network,” Carey observes to the team. “I’m going to suggest we open a support case with the ISP to get that fixed, and in parallel, let’s kick off an automated build for a new server, so we can migrate all the failed sites to it. Everyone happy with that?”</p><p>Decision made, the team acts swiftly. Communications chief Kennaugh updates the company’s management on progress, and alerts the social media and support teams with the latest ETA on a resolution. “We’re aiming to have everything back in 15 minutes, one way or the other. If the ISP can fix the network in that time, great, but we won’t be sitting around waiting for them: we’re already building a replacement server,” says Kennaugh.</p><p>Meanwhile, Evans is contacting the ISP’s support department, Pearson is spinning up a new cloud server, and Rawlings checks the documentation and procedures for migrating websites, getting everything ready to run so that not even a second is wasted. “You can’t eliminate downtime completely,” says Pearson, “but what you can do is make the troubleshooting and resolution as fast as possible. You automate everything that can be automated, and for the parts that can’t, you build a procedure that takes the guesswork out of the process.” The team drills on these procedures regularly, so that when the alert goes off, everybody knows what to do and when to do it.</p><p>Within eight minutes—well within the team’s self-imposed deadline—lights are starting to go green on the team’s monitoring dashboards. One by one, sites are being automatically migrated to the new server, and coming back to life. “Every one of the hundreds of sites we operate has an auto-generated monitoring check,” explains Carey. “Each check verifies, minute by minute, that the site is up, the DNS is correct, the SSL certificates are valid, that clients can log in, and if any of those things stop working, we get alerts within a few seconds.”</p><p>Automated monitoring also records performance and uptime for all sites, which is reported back to clients, along with aggregated data that the firm’s SREs review constantly to check that all is well with the infrastructure.</p><p>As the last red light changes back to green, Carey starts to wrap up the incident. “Okay, Comms, can you let everybody know we’re back up? Records, do you have everything saved? Driver, Research, have we captured all the post-incident actions for later? Great. Good job, everybody. Incident closed at… 2.16. Back to bed and I’ll see you in the morning.”</p><p>But this is no time to go back to bed. In fact, it’s mid-afternoon. And there’s been no downtime; no client sites ever glitched out, even for a moment. For the tech team at leading UK digital agency <a href="https://www.thirtythree.co.uk/uk">ThirtyThree</a>, this has all been just another exercise.</p><p>“We call it ‘Game Day’,” explains Carey. “It’s basically an incident management drill, but we do everything exactly as we would for real. The monitoring is real, the alerts are real, the actions are real. Only the problem is fake.”</p><p>“It’s a lot of pressure,” Pearson comments afterwards. “Everybody’s looking at you, there’s a lot of noise and confusion, a dozen things happening at once… really simple things suddenly become a challenge. That’s why we practise all the time; so it becomes second nature.” In the heat of incident management, with hundreds of clients and potentially millions in revenue at stake, and all attention focused on them, Carey’s well-drilled team hasn’t missed a beat.</p><h2>Red vs Blue: Incident Management Teams on Their Process</h2><p>Each developer takes their turn on the Red Team, designing and executing a realistic outage scenario, which isn’t revealed to the others until after the incident is over. “You never know what it’s going to be,” says Evans. “Last week it was a jammed-up database. Another time it was a DNS poisoning attack. We have to be ready for anything.” The team has even handled a full-blown security incident, where simulated malware was uploaded to a specially quarantined server.</p><p>For this exercise, the ‘Red Team’—played by Rawlings—has simulated a networking issue, by deliberately injecting extra latency into the server’s network stack. As packets are randomly dropped or timed out, it plays havoc with connections to the machine, triggering the automatic site monitoring to raise the alarm, and begin the simulated incident.</p><p>“Game day exercises are incredibly valuable,” Carey explains. “First, it brings everybody together as a team. When you’ve been through the fire of a major incident with someone, you develop new respect for them. Second, we’re learning new things every time we do this. We have a detailed debrief afterwards where we look at what worked, what didn’t work, and what we could do better next time.”</p><p>Often the team learns lessons which can help prevent real downtime. “Game day exercises are a way to test your systems and procedures in a safe environment. It’s like testing to destruction, only without the destruction. You can screw up, and no one dies. But when you screw up, you can figure out what you did wrong, and do better next time. Oh, the procedure says dump the database, but if you do that, it actually crashes? Great. We can fix the procedure, or figure out another way to dump the database. Good thing we found that out before it happened during a real incident.”</p><p>Simulated downtime saves real downtime. “Figuring out game day scenarios is useful in itself,” points out Pearson. “We look at the system and say, okay, what happens if this breaks? What could we do about it? Sometimes the answer is, it turns out we really couldn’t fix this quickly enough during an incident. So instead, we do some engineering ahead of time to make sure it doesn’t happen, or design a procedure for getting to a faster resolution. Every game day we run now prevents a dozen real incidents in the future.”</p><h2>Overcoming the Pressure of Incident Management</h2><p>Game days give ThirtyThree a genuine edge in a crowded marketplace. “It’s not just the technical stuff,” says Carey. “Cutting-edge infrastructure is no good without the right people to run it. We’re constantly training ourselves to work together as a team, to think on our feet, to lead, to make decisions, and to communicate well under pressure. Game day is a big part of that.”</p><p>The more reliable your systems, the less frequently real incidents happen, so the more you need to practice them. “Sometimes months can go by without serious issues, so when they actually happen, nobody remembers what to do.”</p><p>“Automation is a fantastic thing, but the more automation you have, the less you need to know about how the system works, down among the details.” Airline pilots know this, and even though modern aircraft can essentially fly themselves, the pilots still make regular manual landings and take-offs, and practice emergency procedures in the simulator. This is the best way to keep your skills sharp and your knowledge up to date.</p><h2>Planning Your Incident Management Game Day</h2><p>Keep it short and simple the first time round. Put together a basic plan for what you’re going to do: this is the first draft of your incident handling procedure. If you already have such a procedure, this may be the first time you’ve ever actually run it as a team.</p><p>As the team gets more practiced, assign roles to other members, like Communicator, Driver, and Researcher. For long incidents, you’ll need to rotate these roles every hour or two, so that people can take breaks, and you can get a fresh pair of eyes. But for your first incident, an hour is plenty. In fact, plan to give the team the rest of the day off. Do the debrief the next morning, when the adrenalin has burned off and everybody’s had time to reflect.</p><p>It’s hard to convey how stressful an incident is until you’re in one, and even a game day simulation puts real pressure on everybody. In some ways, this is the true value of the game day exercise. “Once you’ve done a few game days, it’s all a lot easier,” says Carey. “The last thing any team needs in a crisis is extra stress. We get all our stressing out of the way beforehand, so when the real incident happens, we can calmly focus on doing what we need to do.”</p><p>If you’re not already running regular incident management exercises with your team, maybe it’s time to start. Or the next time your phone sounds at 2am, it could be for real.</p></div></div></div></div></div></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 16:38:28 +0000</pubDate>
+      <source>https://bitfieldconsulting.com/blog/got-game-secrets-of-great-incident-management</source>
+    </item>
+    <item>
+      <title>A Thorough Introduction to Bpftrace</title>
+      <link>https://www.brendangregg.com/blog/2019-08-19/bpftrace.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+<p><i>Originally posted at https:/opensource.com/article/19/8/introduction-bpftrace.</i></p>
+
+<p>bpftrace is a new open source tracer for Linux for analyzing production performance problems and troubleshooting software. It is used by and has had contributions from many companies including Netfilx, Facebook, Red Hat, Shopify, and others. It was created by Alastair Robertson, a talented UK-based developer who has previously won various coding competitions.</p>
+
+<p>Linux already has many performance tools, but these are often counter-based and have limited visibility. For example, iostat(1), or a monitoring agent, may tell you your average disk latency, but not the distribution of this latency. Distributions can reveal multiple modes, or outliers, either of which may be the real cause of your performance problems. bpftrace is suited for this kind of analysis: decomposing metrics into distributions or per-event logs, and creating new metrics for visibility into blind spots.</p>
+
+<p>You can use bpftrace via one-liners or scripts, and it ships with many prewritten tools. Here is an example screenshot: tracing the distribution of read latency for PID 181, and showing it as a power-of-two histogram:</p>
+
+<pre># <b>bpftrace -e &#39;kprobe:vfs_read /pid == 30153/ { @start[tid] = nsecs; }
+kretprobe:vfs_read /@start[tid]/ { @ns = hist(nsecs - @start[tid]); delete(@start[tid]); }&#39;</b>
+Attaching 2 probes...
+^C
+
+@ns:
+[256, 512)         10900 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                      |
+[512, 1k)          18291 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
+[1k, 2k)            4998 |@@@@@@@@@@@@@@                                      |
+[2k, 4k)              57 |                                                    |
+[4k, 8k)             117 |                                                    |
+[8k, 16k)             48 |                                                    |
+[16k, 32k)           109 |                                                    |
+[32k, 64k)             3 |                                                    |
+</pre>
+
+<p>This example instrumented one of many thousands of available events. If you have some weird performance problem, there&#39;s probably some bpftrace one-liner that can shed light on it. For large environments, this ability can help you save millions. For smaller environments, it can be of more use helping eliminate latency outliers.</p>
+
+<p>I <a href="http://www.brendangregg.com/blog/2018-10-08/dtrace-for-linux-2018.html">previously</a> wrote about bpftrace vs other tracers, including <a href="https://github.com/iovisor/bcc">BCC</a> (BPF Compiler Collection). BCC is great for canned complex tools and agents. bpftrace is best for short scripts and ad hoc investigations. In this post I&#39;ll summarize the bpftrace language, variable types, probes, and tools.</p>
+
+<p>bpftrace uses BPF (Berkeley Packet Filter), an in-kernel execution engine that processes a virtual instruction set. BPF has been extended (aka eBPF) in recent years for providing a safe way to extend kernel functionality, and has become a hot topic in systems engineering, with at least 24 talks on BPF at the last Linux Plumber&#39;s conference. BPF is in the Linux kernel, and bpftrace is the best way to get started using BPF for observability.</p>
+
+<p>See the bpftrace <a href="https://github.com/iovisor/bpftrace/blob/master/INSTALL.md">INSTALL</a> guide for how to install it, and get the latest version: <a href="https://github.com/iovisor/bpftrace/releases/tag/v0.9.1">0.9.1</a> was just released. For Kubernetes clusters, there is also <a href="https://github.com/iovisor/kubectl-trace">kubectl-trace</a> for running it.</p>
+
+<h2>Syntax</h2>
+
+<pre>probe[,probe,...] /filter/ { action }</pre>
+
+<p>The probe specifies what events to instrument, the filter is optional and can filter down the events based on a boolean expression, and the action is the mini program that runs.</p>
+
+<p>Here&#39;s hello world:</p>
+
+<pre># <b>bpftrace -e &#39;BEGIN { printf(&#34;Hello eBPF!\n&#34;); }&#39;</b>
+</pre>
+
+<p>The probe is <tt>BEGIN</tt>, a special probe that runs at the beginning of the program (like awk). There&#39;s no filter. The action is a <tt>printf()</tt> statement.</p>
+
+<p>Now a real example:</p>
+
+<pre># <b>bpftrace -e &#39;kretprobe:sys_read /pid == 181/ { @bytes = hist(retval); }&#39;</b>
+</pre>
+
+<p>This uses a kretprobe to instrument the return of the sys_read() kernel function. If the PID is 181, a special map variable <tt>@bytes</tt> is populated with a log2 histogram function with the return value <tt>retval</tt> of sys_read(). This produces a histogram of the returned read size for PID 181. Is your app doing lots of 1 byte reads? Maybe that can be optimized.</p>
+
+<h2>Probe Types</h2>
+
+<p>These are libraries of probes which are related. The currently supported types are (more will be added):</p>
+
+<ul><table>
+<tbody><tr><th>Type</th><th>Description</th></tr>
+<tr><td>tracepoint</td><td>Kernel static instrumentation points</td></tr>
+<tr><td>usdt</td><td>User-level statically defined tracing</td></tr>
+<tr><td>kprobe</td><td>Kernel dynamic function instrumentation</td></tr>
+<tr><td>kretprobe</td><td>Kernel dynamic function return instrumentation</td></tr>
+<tr><td>uprobe</td><td>User-level dynamic function instrumentation</td></tr>
+<tr><td>uretprobe</td><td>User-level dynamic function return instrumentation</td></tr>
+<tr><td>software</td><td>Kernel software-based events</td></tr>
+<tr><td>hardware</td><td>Hardware counter-based instrumentation</td></tr>
+<tr><td>watchpoint</td><td>Memory watchpoint events (in development)</td></tr>
+<tr><td>profile</td><td>Timed sampling across all CPUs</td></tr>
+<tr><td>interval</td><td>Timed reporting (from one CPU)</td></tr>
+<tr><td>BEGIN</td><td>Start of bpftrace</td></tr>
+<tr><td>END</td><td>End of bpftrace</td></tr>
+</tbody></table></ul>
+
+<p>If you&#39;re new to this terminology: dynamic instrumentation (aka dynamic tracing) is the superpower that lets you trace any software function in a running binary without restarting it. This lets you get to the bottom of just about any problem. However, the functions it exposes are not considered a stable API, as they can change from one software version to another. Hence static instrumentation, where event points are hard-coded and become a stable API. When you write bpftrace programs, try to use the static types first, before the dynamic ones, so that your programs are more stable.</p>
+
+<h2>Variable Types</h2>
+
+<ul><table>
+<tbody><tr><th>Variable</th><th>Description</th></tr>
+<tr><td><tt>@name</tt></td><td>global</td></tr>
+<tr><td><tt>@name[key]</tt></td><td>hash</td></tr>
+<tr><td><tt>@name[tid]</tt></td><td>thread-local</td></tr>
+<tr><td><tt>$name</tt></td><td>scratch</td></tr>
+</tbody></table></ul>
+
+<p>Variables with a &#39;@&#39; prefix use BPF maps, which can behave like associative arrays. They can be populated in one of two ways:</p>
+
+<ul>
+<li>variable assignment: <tt>@name = x;</tt></li>
+<li>function assignment: <tt>@name = hist(x);</tt></li>
+</ul>
+
+<p>There are various map-populating functions as builtins that provide quick ways to summarize data.</p>
+
+<h2>Builtins Variables and Functions</h2>
+
+<p>I&#39;ll mention some here to help introduce bpftrace, but there are many more.</p>
+
+<p>Builtin variables include:</p>
+
+<ul><table>
+<tbody><tr><th>Variable</th><th>Description</th></tr>
+<tr><td><tt>pid</tt></td><td>process ID</td></tr>
+<tr><td><tt>comm</tt></td><td>Process or command name</td></tr>
+<tr><td><tt>nsecs</tt></td><td>Current time in nanoseconds</td></tr>
+<tr><td><tt>kstack</tt></td><td>Kernel stack trace</td></tr>
+<tr><td><tt>ustack</tt></td><td>User-level stack trace</td></tr>
+<tr><td><tt>arg0...argN</tt></td><td>Function arguments</td></tr>
+<tr><td><tt>args</tt></td><td>Tracepoint arguments</td></tr>
+<tr><td><tt>retval</tt></td><td>Function return value</td></tr>
+<tr><td><tt>name</tt></td><td>Full probe name</td></tr>
+</tbody></table></ul>
+
+<p>Builtin functions include:</p>
+
+<ul><table>
+<tbody><tr><th>Function</th><th>Description</th></tr>
+<tr><td><tt>printf(&#34;...&#34;)</tt></td><td>Print formatted string</td></tr>
+<tr><td><tt>time(&#34;...&#34;)</tt></td><td>Print formatted time</td></tr>
+<tr><td><tt>system(&#34;...&#34;)</tt></td><td>Run shell command</td></tr>
+<tr><td><tt>@ = count()</tt></td><td>Count events</td></tr>
+<tr><td><tt>@ = hist(x)</tt></td><td>Power-of-2 histogram for x</td></tr>
+<tr><td><tt>@ = lhist(x, min, max, step)</tt></td><td>Linear histogram for x</td></tr>
+</tbody></table></ul>
+
+<p>See the <a href="https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md">reference guide</a> for everything.</p>
+
+<h2>One-Liners Tutorial</h2>
+
+<p>A great way to learn bpftrace is via one-liners, which I turned into the <a href="https://github.com/iovisor/bpftrace/blob/master/docs/tutorial_one_liners.md">one-liners tutorial</a>. That tutorial covers the following one-liners:</p>
+
+<pre>1. Listing probes
+<b>bpftrace -l &#39;tracepoint:syscalls:sys_enter_*&#39;</b>
+
+2. Hello world
+<b>bpftrace -e &#39;BEGIN { printf(&#34;hello world\n&#34;) }&#39;</b>
+
+3. File opens
+<b>bpftrace -e &#39;tracepoint:syscalls:sys_enter_open { printf(&#34;%s %s\n&#34;, comm, str(args-&gt;filename)) }&#39;</b>
+
+4. Syscall counts by process
+<b>bpftrace -e &#39;tracepoint:raw_syscalls:sys_enter { @[comm] = count() }&#39;</b>
+
+5. Distribution of read() bytes
+<b>bpftrace -e &#39;tracepoint:syscalls:sys_exit_read /pid == 18644/ { @bytes = hist(args-&gt;retval) }&#39;</b>
+
+6. Kernel dynamic tracing of read() bytes
+<b>bpftrace -e &#39;kretprobe:vfs_read { @bytes = lhist(retval, 0, 2000, 200) }&#39;</b>
+
+7. Timing read()s
+<b>bpftrace -e &#39;kprobe:vfs_read { @start[tid] = nsecs }
+    kretprobe:vfs_read /@start[tid]/ { @ns[comm] = hist(nsecs - @start[tid]); delete(@start[tid]) }&#39;</b>
+
+8. Count process-level events
+<b>bpftrace -e &#39;tracepoint:sched:sched* { @[name] = count() } interval:s:5 { exit() }&#39;</b>
+
+9. Profile on-CPU kernel stacks
+<b>bpftrace -e &#39;profile:hz:99 { @[stack] = count() }&#39;</b>
+
+10. Scheduler tracing
+<b>bpftrace -e &#39;tracepoint:sched:sched_switch { @[stack] = count() }&#39;</b>
+
+11. Block I/O tracing
+<b>bpftrace -e &#39;tracepoint:block:block_rq_complete { @ = hist(args-&gt;nr_sector * 512) }&#39;</b>
+</pre>
+
+<p>See the tutorial for an explanation of each of these.</p>
+
+<h2>Provided Tools</h2>
+
+<p>Apart from one-liners, bpftrace programs can be multi-line scripts. bpftrace ships with 28 of these as tools:</p>
+
+<center></center>
+
+<p>These tools can be found in the /tools directory:</p>
+
+<pre>tools# <b>ls *.bt</b>
+bashreadline.bt  dcsnoop.bt         oomkill.bt    syncsnoop.bt   vfscount.bt
+biolatency.bt    execsnoop.bt       opensnoop.bt  syscount.bt    vfsstat.bt
+biosnoop.bt      gethostlatency.bt  pidpersec.bt  tcpaccept.bt   writeback.bt
+bitesize.bt      killsnoop.bt       runqlat.bt    tcpconnect.bt  xfsdist.bt
+capable.bt       loads.bt           runqlen.bt    tcpdrop.bt
+cpuwalk.bt       mdflush.bt         statsnoop.bt  tcpretrans.bt
+</pre>
+
+<p>Apart from their use with diagnosing performance issues and general troubleshooting, they also provide another way to learn bpftrace: by example.</p>
+
+<h3>Source</h3>
+
+<p>Here&#39;s the code to biolatency.bt:</p>
+
+<pre>tools# <b>cat -n biolatency.bt</b>
+     1  /*
+     2   * biolatency.bt    Block I/O latency as a histogram.
+     3   *                  For Linux, uses bpftrace, eBPF.
+     4   *
+     5   * This is a bpftrace version of the bcc tool of the same name.
+     6   *
+     7   * Copyright 2018 Netflix, Inc.
+     8   * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;)
+     9   *
+    10   * 13-Sep-2018  Brendan Gregg   Created this.
+    11   */
+    12
+    13  BEGIN
+    14  {
+    15      printf(&#34;Tracing block device I/O... Hit Ctrl-C to end.\n&#34;);
+    16  }
+    17
+    18  kprobe:blk_account_io_start
+    19  {
+    20      @start[arg0] = nsecs;
+    21  }
+    22
+    23  kprobe:blk_account_io_done
+    24  /@start[arg0]/
+    25
+    26  {
+    27      @usecs = hist((nsecs - @start[arg0]) / 1000);
+    28      delete(@start[arg0]);
+    29  }
+    30  
+    31  END
+    32  {
+    33      clear(@start);
+    34  }
+</pre>
+
+<p>It&#39;s straightforward and easy to read, and short enough to include on a slide. This version is using kernel dynamic tracing to instrument the blk_account_io_start() and blk_account_io_done() functions, and passes a timestamp between them keyed on arg0 to each. arg0 on kprobe is the first argument to that function, which for these is the struct request *, and its memory address is used as a unique identifier.</p>
+
+<h3>Examples</h3>
+
+<p>Screenshots from these tools is also provided in *_example.txt files, where I explain exactly what we are seeing. For example:</p>
+
+<pre>tools# <b>more biolatency_example.txt</b>
+Demonstrations of biolatency, the Linux BPF/bpftrace version.
+
+
+This traces block I/O, and shows latency as a power-of-2 histogram. For example:
+
+# biolatency.bt
+Attaching 3 probes...
+Tracing block device I/O... Hit Ctrl-C to end.
+^C
+
+@usecs:
+[256, 512)             2 |                                                    |
+[512, 1K)             10 |@                                                   |
+[1K, 2K)             426 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
+[2K, 4K)             230 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@                        |
+[4K, 8K)               9 |@                                                   |
+[8K, 16K)            128 |@@@@@@@@@@@@@@@                                     |
+[16K, 32K)            68 |@@@@@@@@                                            |
+[32K, 64K)             0 |                                                    |
+[64K, 128K)            0 |                                                    |
+[128K, 256K)          10 |@                                                   |
+
+While tracing, this shows that 426 block I/O had a latency of between 1K and 2K
+usecs (1024 and 2048 microseconds), which is between 1 and 2 milliseconds.
+There are also two modes visible, one between 1 and 2 milliseconds, and another
+between 8 and 16 milliseconds: this sounds like cache hits and cache misses.
+There were also 10 I/O with latency 128 to 256 ms: outliers. Other tools and
+instrumentation, like biosnoop.bt, can shed more light on those outliers.
+[...]
+</pre>
+
+<p>Sometimes it can be most effective to switch straight to the example file when trying to understand these tools, since the output may be self evident (by design!).</p>
+
+<h3>Man pages</h3>
+
+<p>There are also man pages for every tool, under /man/man8. They include sections on the output fields, and expected overhead of the tool.</p>
+
+<pre># <b>nroff -man man/man8/biolatency.8</b>
+biolatency(8)               System Manager&#39;s Manual              biolatency(8)
+
+
+
+NAME
+       biolatency.bt - Block I/O latency as a histogram. Uses bpftrace/eBPF.
+
+SYNOPSIS
+       biolatency.bt
+
+DESCRIPTION
+       This  tool  summarizes  time  (latency) spent in block device I/O (disk
+       I/O) as a power-of-2 histogram. This  allows  the  distribution  to  be
+       studied,  including  modes and outliers. There are often two modes, one
+       for device cache hits and one for cache misses, which can be  shown  by
+       this tool. Latency outliers will also be shown.
+[...]
+</pre>
+
+<p>Writing all these man pages was the least fun part of developing these tools, and in some cases tool longer to write than the tool took to develop, but it&#39;s nice to see the final result.</p>
+
+<h2>bpftrace vs BCC</h2>
+
+<p>Since eBPF has been merging in the kernel, most effort has been on the <a href="https://github.com/iovisor/bcc">BCC</a> front-end, which provides a BPF library and Python, C++, and lua interfaces for writing programs. I&#39;ve developed a lot of <a href="https://github.com/iovisor/bcc#tools">tools</a> in BCC/python, and it works great, although coding in BCC is verbose. If you&#39;re hacking away at a performance issue, bpftrace is better for all the one-off custom queries you have. If you&#39;re writing a tool with many command line options, or an agent that uses Python libraries, you&#39;ll want to consider using BCC.</p>
+
+<p>Here&#39;s how these will be used at Netflix: on the performance team, I use both: BCC for developing canned tools that others can easily use, and for developing agents; and bpftrace for ad hoc analysis. On, say, the network engineering team, they have been using BCC to develop an agent for their needs. The security team are most interested in bpftrace for quick ad hoc instrumentation for detecting zero day vulnerabilities. And for the developer teams: I expect they&#39;ll use both without knowing it via the self-service GUIs we are building (Vector), and occasionally may ssh onto an instance and run a canned tool or ad hoc bpftrace one-liner.</p>
+
+<h2>More bpftrace reading</h2>
+
+<ul>
+<li>The <a href="https://github.com/iovisor/bpftrace">bpftrace</a> repository on github</li>
+<li>The bpftrace <a href="https://github.com/iovisor/bpftrace/blob/master/docs/tutorial_one_liners.md">one-liners tutorial</a></li>
+<li>The bpftrace <a href="https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md">reference guide</a></li>
+<li>The <a href="https://github.com/iovisor/bcc">BCC</a> repository for more complex BPF-based tools</li>
+</ul>
+
+<p>I also have a book coming out this year that covers bpftrace: <a href="http://www.brendangregg.com/blog/2019-07-15/bpf-performance-tools-book.html">BPF Performance Tools: Linux System and Application Observability</a>, to be published by Addison Wesley, and which contains many new bpftrace tools.</p>
+
+<p><em>Thanks to Alastair Robertson for creating bpftrace, and the bpftrace, BCC, and BPF communities for all the work over the past five years.</em></p>
+
+</div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 05:33:28 +0000</pubDate>
+      <source>https://www.brendangregg.com/blog/2019-08-19/bpftrace.html</source>
+    </item>
+    <item>
+      <title>Bring back hydrogen lifting gas</title>
+      <link>https://www.thecgo.org/news/bring-back-hydrogen-lifting-gas/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_thecgo_org_news_bring-back-hydrogen-lifting-gas_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<article id="post-16662">
+<section>
+<p>
+</p>
+
+<div>
+<p><span>According to </span><a href="https://www.rd.com/article/why-you-dont-see-blimps-anymore/"><span>one estimate</span></a><span>, there are only 25 blimps still operating in the world. It is unclear whether this estimate refers only to proper non-rigid blimps or if it includes, for example, the three Goodyear “Blimps,” which are not blimps at all but semi-rigid airships. Either way, airships are an endangered species.</span></p>
+<p><span>What will it take to bring back these majestic beasts of the sky? Hydrogen.</span></p>
+<p><span>You may recall hydrogen from its most iconic contribution to popular media, as the lifting gas that erupted in flames in the Hindenburg disaster. The accident killed 35 of the 97 souls on board, plus one ground crewman at Lakehurst, New Jersey. Although air transport fatalities </span><a href="https://en.wikipedia.org/wiki/List_of_accidents_and_incidents_involving_commercial_aircraft"><span>weren’t rare</span></a><span> in the 1930s, the incident was seared into public consciousness by newsreel footage of the biggest aircraft ever built bursting into flames, paired with Herbert Morrison’s unforgettable simultaneous eyewitness lamentation: “oh, the humanity.” The haunting image marked the end of the airship era.</span></p>
+<p><span>But even before the Hindenburg explosion in 1937, there were special interests lining up against hydrogen: the helium lobby. When helium was discovered co-mingled with natural gas in the early 1900s, the Bureau of Mines saw an opportunity to create a little empire for itself. In a demonstration before Congress in 1922, a Bureau representative set fire to two party balloons—one filled with helium, and one filled with hydrogen. The helium balloon gently deflated, but the hydrogen balloon exploded. Members of Congress were startled. How could they ask airmen to fly on airships filled with such an evidently unsafe lifting gas?</span></p>
+<p><span>Fun fact: pure hydrogen doesn’t burn. It needs an oxidizer—like the oxygen in air. A mixture of hydrogen and air with 4% to 75% hydrogen will burn. More or less hydrogen than that, and it won’t. In </span><a href="https://www.amazon.com/Helium-Child-Clifford-W-Seibel/dp/B00005W0DB"><span>a 1969 book</span></a><span> recounting the early days of the helium industry, Mines employee Clifford W. Seibel all but admits to having added air to the hydrogen balloon in the demonstration before Congress—that is, to having intentionally misled Congress to secure greater authority for his agency.</span></p>
+<p><span>The ruse worked. Congress banned the use of hydrogen as a lifting gas in the U.S. military airship fleet. The </span><a href="https://govtrackus.s3.amazonaws.com/legislink/pdf/stat/43/STATUTE-43-Pg1110.pdf"><span>Helium Act of 1925</span></a><span> banned exports of helium—now a material of strategic importance—and gave the Bureau of Mines broad authority to control helium production, effectively creating the National Helium Reserve that is only just winding down operations.</span></p>
+<p><span>Aside from flammability, hydrogen and helium have some other differences. At 0ºC and standard atmosphere, hydrogen has a density of 0.0899 kg/m</span><span>3</span><span>, while helium’s is 0.1785 kg/m</span><span>3</span><span>. Under the same conditions, air has a density of 1.293 kg/m</span><span>3</span><span>. This means that at sea level on a 0ºC day, hydrogen provides enough buoyancy to lift 1.2031 kg per cubic meter, while helium can only lift 1.1145 kg per cubic meter of gas. Hydrogen, then, provides about 8% more gross lift than helium does.</span></p>
+<p><span>This difference in gross lift is non-trivial for airship performance, but by far the bigger effect of helium on airship economics is cost. Hydrogen prices vary widely by production method and location, but conventional hydrogen </span><a href="https://www.spglobal.com/platts/en/market-insights/videos/market-movers-europe/080221-uk-hydrogen-eu-gas-storage-winter-oil-results-carbon-prices"><span>can be had</span></a><span> in some locations for $1.25/kg, which works out to about $0.112 per cubic meter. Helium prices have been wildly fluctuating since Congress instructed the Department of Interior to sell off the contents of the National Helium Reserve, but last year, the </span><a href="https://pubs.usgs.gov/periodicals/mcs2021/mcs2021-helium.pdf"><span>private sector price</span></a><span> was $7.57 per cubic meter. Helium, in other words, is around 67 times more expensive than hydrogen.</span></p>
+<p><span>When Congress mandated that the military airship fleet switch over to helium in the 1920s, both the greater expense and the worse performance of helium was fatal. Because helium was in short supply, the military couldn’t afford to vent lifting gas. On the </span><i><span>USS Shenandoah</span></i><span>, they capped the safety valves. In the wee hours of September 3, 1925, the airship was caught in a violent updraft over Ohio that carried it beyond the pressure limits of its gas cells. With the safety valves capped, the ship was torn apart. 14 crew members lost their lives. </span></p>
+<p><span>Helium also appears to have caused the crash of the </span><i><span>USS Akron</span></i><span>, the most deadly airship accident in history. On April 4, 1933, the lower-performing lifting gas did not give the ship enough altitude in a rough storm off the New Jersey coast, and a vertical plunge from a pressure change caused the ship’s aft end to drag in the water. It never recovered. An investigation did not get far as only 3 of </span><i><span>Akron</span></i><span>’s 76 crew members survived.</span></p>
+<p><span>Today, although the issue doesn’t come up much, the Federal Aviation Administration (FAA) seems disinclined to approve a civil airship that uses hydrogen as a lifting gas. An </span><a href="https://rgl.faa.gov/Regulatory_and_Guidance_Library/rgAdvisoryCircular.nsf/0/60879F32651B1FD1862569A5005F7A35?OpenDocument"><span>advisory circular</span></a><span> issued in 1992 states succinctly, “Hydrogen is not an acceptable lifting gas for use in airships.” Other guidance from 1995 </span><a href="https://www.faa.gov/aircraft/air_cert/design_approvals/airships/airships_regs/media/aceAirshipDesignCriteria.pdf"><span>says</span></a><span> “the lifting gas must be non-flammable.” Dutch and German airship standards that the FAA says they will accept as airworthiness requirements </span><a href="https://www.faa.gov/aircraft/air_cert/design_approvals/airships/airships_regs/media/aceAirshipTARIssue1.pdf"><span>likewise say</span></a><span>: “The lifting gas must be non-flammable, non-toxic and non-irritant.”</span></p>
+<p><span>Let’s pause here to ponder the absurdity of this position. Flight operates using four forces: lift and weight on the vertical axis, thrust and drag on the horizontal. What the FAA is saying is that you can use a flammable material to generate thrust, but you cannot use that material to generate aerostatic lift. The agency would happily approve a hydrogen-based propulsion system for an airship. Using fuel cell propulsion, depending on the design range, a fully hydrogen-based airship would have to carry about the same mass of H</span><span>2</span><span> on board as fuel and as lifting gas. It is roughly the same amount of flammable material, and for thrust it’s okay, but for lift it is not.</span></p>
+<p><span>Still, hydrogen can’t burn without an oxidizer, a fact that gives rise to continued debate about the Hindenburg disaster. If hydrogen was responsible for the initial fire, it must have been due to an uncontrolled gas leak that allowed hydrogen to mix with air. Two eyewitnesses reported seeing the fabric cover on the upper port side fluttering as if gas was escaping before the fire started. The mixture of hydrogen and air may have been the initial source of fuel for the blaze, but it seems to have spread quickly because the outer fabric hull was treated with a highly flammable compound chemically similar to </span><a href="https://en.wikipedia.org/wiki/Thermite"><span>thermite</span></a><span>.</span></p>
+<p><span>Assuming the fire was caused by leaking hydrogen, then it is only fair to acknowledge that similar leaks of fuel lines have caused disasters on airplanes. What has improved aviation safety is not the removal of flammable fuels, but increased rigor in design, manufacturing, monitoring, and maintenance. There were many airship accidents in the first third of the 20th century, and few of them had anything to do with hydrogen. The airplane safety record of the period was not much better. All sorts of mistakes were made because both technologies were early in their development. With modern engineering standards, there is no doubt that hydrogen could be made a safe lifting gas.</span></p>
+<p><span>Why does this matter if there are only 25 blimps in service today? Because it is still possible that, under more suitable rules, there is a market for thousands of airships. The Hindenburg disaster marked the end of passenger airship travel, but it was not due to safety alone. The </span><a href="https://en.wikipedia.org/wiki/Douglas_DC-3"><span>DC-3</span></a><span> was introduced in 1936, the year before the accident at Lakehurst. It could take passengers cross-country in 18 hours with only 3 refueling stops. After the war came the </span><a href="https://en.wikipedia.org/wiki/Lockheed_Constellation"><span>Constellation</span></a><span>, with its 5,400-mile range and pressurized cabin that allowed it to fly above the weather. These iconic airplanes made airships entirely impractical for passenger travel.</span></p>
+<p><span>If airships were to make a major comeback, it would be in cargo service. Airships are too slow for human travel, but cargo containers don’t get fatigued on long flights. In fact, they spend weeks or months on large container ships today, stopping at every port along their way. Point-to-point airship service for cargo could get containers anywhere in the world in a few days, rather than in weeks or months, at a cost much lower than putting them on a 747 freighter. It’s a sweet spot in freight service that could attract a lot of demand in the middle category of value-to-weight ratio: cargo like machinery, equipment, and parts.</span></p>
+<p><span>Cargo airships would need to be big—bigger than the Hindenburg. Airships are blessed and cursed with a square-cube law: the drag of the airship, which is proportional to its cross-sectional area, scales with length squared, but the volume of lifting gas, and thus the gross lift, scales with length to the third power. Therefore, the lift-to-drag ratio, a critical parameter in aircraft performance, gets better as the airship gets bigger.</span></p>
+<p><span>Ginormous airships require a lot of lifting gas—perhaps a million cubic meters. Given the excellent economics of airships this big, the demand could be high–thousands of airships would be needed to carry only a small percentage of today’s container volume. This means the airship industry would require billions of cubic meters of lifting gas to meet demand. Helium is the second most abundant element in the universe, but it is relatively rare on Earth. If we were to try to meet this airship demand with helium, it would require on the order of total </span><a href="https://pubs.usgs.gov/periodicals/mcs2021/mcs2021-helium.pdf"><span>known helium reserves</span></a><span>.</span></p>
+<p><span>Helium, of course, has other critical uses besides airships. Among other applications, it is used to cool magnets in MRI machines, to create a safe environment for arc welding, to maintain purity in semiconductor manufacturing, and to pressurize propellant tanks for rocket engines. Attempting to use helium also for a large fleet of cargo airships would be expensive, as it would significantly bid up the price of the gas, and it would disrupt these other industries that are heavy helium users. It’s better to use hydrogen for airships instead.</span></p>
+<p><span>The FAA’s prohibition on hydrogen as a lifting gas is only guidance, and in any case, the agency has wide leeway to change its mind. Virtually every aircraft certification program has waivers and special conditions negotiated with and agreed to by the FAA—essentially new rules based on a study that shows the negotiated condition provides for an adequate level of safety. It’s possible that an airship program targeting cargo operations—particularly if it were uncrewed—could get approval for hydrogen as a lifting gas.</span></p>
+<p><span>But with decades of guidance to the contrary, the FAA has discouraged the return of the airship in the use case that makes the most sense. The only way to get an answer to the hydrogen question is to invest millions of dollars in starting an airship program and engaging the FAA on a certification basis. In turn, investors shy away from regulatory risk, especially when it falls outside their area of expertise.</span></p>
+<p><span>This, sadly, is how innovation dies. This is what we have to overcome if we want to recover the airship and watch thousands of them dancing across the sky.</span></p>
+</div>
+<p>
+CGO scholars and fellows frequently comment on a variety of topics for the popular press. The views expressed therein are those of the authors and do not necessarily reflect the views of the Center for Growth and Opportunity or the views of Utah State University.
+</p>
+</section>
+</article>
+</div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 17:50:13 +0000</pubDate>
+      <source>https://www.thecgo.org/news/bring-back-hydrogen-lifting-gas/</source>
+    </item>
   </channel>
 </rss>
