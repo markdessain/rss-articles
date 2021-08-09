@@ -34180,5 +34180,517 @@ I would not draw any far reaching conclusions other than stating that Zig is at 
       <pubDate>Mon, 09 Aug 2021 13:57:57 +0000</pubDate>
       <source>https://www.joshwcomeau.com/css/transforms/</source>
     </item>
+    <item>
+      <title>Phishing Sites Targeting Scammers and Thieves</title>
+      <link>https://krebsonsecurity.com/2021/08/phishing-sites-targeting-scammers-and-thieves/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___krebsonsecurity_com_2021_08_phishing-sites-targeting-scammers-and-thieves_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+												<p>I was preparing to knock off work for the week on a recent Friday evening when a curious and annoying email came in via <a href="https://krebsonsecurity.com/about/" rel="noopener" target="_blank">the contact form</a> on this site:</p>
+<p>“Hello I go by the username Nuclear27 on your site <strong>Briansclub[.]com</strong>,” wrote “<strong>Mitch</strong>,” confusing me with the proprietor of perhaps the underground’s largest bazaar for stolen credit and identity data. “I made a deposit to my wallet on the site but nothing has shown up yet and I would like to know why.”</p>
+<div id="attachment_56523"><p></p><p id="caption-attachment-56523">The real BriansClub login page.</p></div>
+<p>Several things stood out in Mitch’s message. For starters, that is not the actual domain for BriansClub. And it’s easy to see why Mitch got snookered: The real BriansClub site is currently not at the top of search results when one queries that shop name at Google.</p>
+<p>Also, this greenhorn criminal clearly had bought into BriansClub’s advertising, which uses my name and likeness in a series of ads that run on all the top cybercrime forums. In those ads, a crab with my head on it zigs and zags on the sand. This is all meant to be a big joke: Krebs means “crab” or “cancer” in German, but a “crab” is sometimes used in Russian hacker slang to refer to a “carder,” or a person who regularly engages in street-level credit card fraud. Like Mitch.</p>
+<p>In late 2019, BriansClub changed its homepage to include doctored images of my Social Security and passport cards, credit report and mobile phone bill information. That was right after KrebsOnSecurity broke the news that someone had <a href="https://krebsonsecurity.com/2019/10/briansclub-hack-rescues-26m-stolen-cards/" target="_blank" rel="noopener">hacked BriansClub and siphoned information on 26 million stolen debit and credit accounts</a>. The hacked BriansClub database had <a href="https://krebsonsecurity.com/2019/10/takeaways-from-the-566m-briansclub-breach/" rel="noopener" target="_blank">an estimated collective street value of $566 million</a>, and that data was subsequently shared with thousands of financial institutions. </p>
+<p>Mitch said he’d just made a deposit of $240 worth of bitcoin at BriansClub[.]com, and was wondering when the funds would be reflected in the balance of his account on the shop.</p>
+<p>Playing along, I said I was sorry to hear about his ordeal, and asked Mitch if there were any stolen cards issued by a particular bank or to a specific region that he was seeking.</p>
+<p>Mitch didn’t bite, but neither would he be dissuaded that I was at fault for his wayward funds. He shared a picture showing funds he’d sent to the bitcoin address instructed by BriansClub[.]com — <a href="https://www.blockchain.com/btc/address/1PLALmM5rrmLTGGVRHHTnB6VnZd3FFwh1Z" target="_blank" rel="noopener">1PLALmM5rrmLTGGVRHHTnB6VnZd3FFwh1Z</a> — <a href="https://krebsonsecurity.com/wp-content/uploads/2021/08/mitch.png" target="_blank" rel="noopener">using a Bitcoin ATM in Canada</a>.</p>
+<p>The real BriansClub uses a dodgy virtual currency exchange service based in St. Petersburg, Russia called <strong>PinPays</strong>. The company’s website has long featured little more than a brand icon and an instant messenger address to reach the proprietor, and that same address is active on several top Russian cybercrime forums. The fake BriansClub told Mitch the Bitcoin address he was asked to pay was a PinPays address that would change with each transaction.</p>
+<div id="attachment_56518"><p></p><p id="caption-attachment-56518">The payment message displayed by the carding site phishing domain BriansClub[.]com.</p></div>
+<p>However, upon registering at the phishing site and clicking to fund my account, I was presented with the exact same Bitcoin address that Mitch said he paid. Also, the site wasn’t using PinPays; it was just claiming to do so to further mimic the real BriansClub.</p>
+<p>According to the Blockchain, that Bitcoin address Mitch paid has received more than a thousand payments over the past five months totaling more than USD $40,000 worth of Bitcoin. Most are relatively small payments like Mitch’s.</p>
+<div id="attachment_56520"><p></p><p id="caption-attachment-56520">The screenshot Mitch sent of his deposit.</p></div>
+<p>Unwary scammers like Mitch are a dime a dozen, as are phishing sites that spoof criminal services online. Shortly after it came online as a phishing site last year, BriansClub[.]com was hosted at a company in Moscow with just a handful of other domains phishing popular cybercrime stores, including Jstashbazar[.]com, vclub[.]cards, vclubb[.]com and vclub[.]credit.</p>
+<p>Whoever’s behind these sites is making a decent income fleecing clueless crooks. A review of <a href="https://www.blockchain.com/btc/address/16c3rDKaySmnk5cdnm6xBvSPqs9aZweEG3?page=1" target="_blank" rel="noopener">the Bitcoin wallet</a> listed as the payment address for <strong>BriansClub[.]org</strong>, for example, shows a similar haul: 704 transactions totaling $38,000 in Bitcoin over the past 10 months.</p>
+<p>“Wow, thanks for ripping me off,” Mitch wrote, after I’d dozed off for the evening without responding to his increasingly strident emails. “Should have spent the last money on my bills I’m trying to pay off. Should have known you were nothing but a thief.”</p>
+<p>Deciding the ruse had gone too far, I confessed to Mitch that I wasn’t really the administrator of BriansClub, and that the person he’d reached out to was an independent journalist who writes about cybercrime. I told him not to feel bad, as more than a thousand people had been similarly duped by the carding shop.</p>
+<p>But Mitch did not appear to accept my confession.</p>
+<p>“If that’s the case then why is your name all over it including in the window that opens up when you go to make a deposit?,” Mitch demanded, referring to the phishing site.</p>
+<p>Clearly, nothing I said was going to deter Mitch at this point. He asked in a follow-up email if a link he included in the message was indeed the “legitimate” BriansClub address. My only reply was that he should maybe consider another line of work before he got ripped off yet again, or the Royal Canadian Mounted Police showed up at his doorstep.<span id="more-56513"></span></p>
+<p>Scammers who fall for fake carding sites can expect to have their accounts taken over at the real shop, which usually means someone spends your balance on stolen cards. But mostly, these imposter carding sites are asking new members to fund their accounts by making deposits in virtual currency like Bitcoin.</p>
+<p>In 2018, KrebsOnSecurity examined a huge network of phishing sites masquerading as the top carding stores which <a href="https://krebsonsecurity.com/2018/05/will-the-real-jokers-stash-come-forward/" target="_blank" rel="noopener">all traced back to a web development group in Pakistan that’s apparently been stealing from thieves for years</a>.</p>
+<p>As I noted in that piece, creating a network of fake carding sites is the perfect cybercrime. After all, nobody who gets phished or scammed is going to report the crime to the authorities. Nor will anyone help the poor sucker who gets snookered by one of these fake carding sites. Caveat Emptor!</p>
+<p>The most one can hope for is that the occasional enterprising phisher is brought to justice. While it may be hard to believe that authorities would go after crooks stealing from one another, in 2017 a Connecticut man <a href="https://www.cyberscoop.com/hacker-pleads-guilty-to-phishing-dark-net-market-crooks-for-over-365000/" target="_blank" rel="noopener">pleaded guilty to charges of phishing several criminal dark web markets</a> in a scheme that eventually netted over $365,000 and more than 10,000 stolen user credentials.</p>
+<p>And what about the provenance of the phishing domain briansclub[.]com? Looking closer at the original WHOIS registration records for briansclub[.]com via <a href="https://www.domaintools.com" target="_blank" rel="noopener">DomainTools</a> (an advertiser on this site), we can see it was registered in November 2015 — several months after the real BriansClub came online. It was registered to a “<strong>Brian Billionaire</strong>,” a.k.a. <a href="https://www.linkedin.com/in/newhotmusic/" target="_blank" rel="noopener">Brian O’Connor</a>, an apparently accomplished music deejay, rapper and rap music producer in Florida.</p>
+<div id="attachment_56524"><p></p><p id="caption-attachment-56524">Brian Billionaire.</p></div>
+<p>For several years after it came online, BriansClub[.]com and other domains apparently registered to Mr. Billionaire redirected to his main site — <strong>newhotmusic.com</strong>, which predates the carding shop BriansClub and also has a members-only section of the site called Brian’s Club.</p>
+<p>Mr. Billionaire did not respond to multiple requests for comment, but it looks like his only crime is <a href="https://www.facebook.com/newhotmusic/posts/4146495798749182" target="_blank" rel="noopener">being a somewhat cringeworthy DJ</a>. DomainTools’ <a href="https://krebsonsecurity.com/wp-content/uploads/2021/08/briansclubhostinghistory.png" target="_blank" rel="noopener">record for briansclub[.]com</a> says the domain was abandoned or dormant for a period in 2019, only to be scooped up again by someone in May 2020 when it became a phishing site spoofing the real BriansClub.</p>
+											</div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 15:32:01 +0000</pubDate>
+      <source>https://krebsonsecurity.com/2021/08/phishing-sites-targeting-scammers-and-thieves/</source>
+    </item>
+    <item>
+      <title>Happy Birthday, OpenStreetMap</title>
+      <link>https://www.tomtom.com/blog/maps/tomtom-openstreetmaps-mapmetrics-map-editing/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_tomtom_com_blog_maps_tomtom-openstreetmaps-mapmetrics-map-editing_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="app"><div><div><div data-component-name="BlogPost" data-component-id="tcm:366-138769"><div><div><div><div><div><p></p></div></div></div></div><div><p>Today is OpenStreetMap’s 17th birthday. In 2004 the project began and with it a revolution in mapping that has inspired millions of people to use and contribute to the free and open map of the world.</p></div><div><div><p>At TomTom we’ve watched with amazement as the project has grown from a blank canvas to an intricate work of art. We’ve been waiting for the right time to get involved: How can we leverage the best of open-source mapping with the best of TomTom?</p> </div></div></div></div><div data-component-name="ArticleItem" data-component-id="tcm:366-138771"><div><div><div><div><div><div><p></p></div></div></div></div><div><div><div><div><p>The OSM map overlaid with billions of GPS signal traces. The areas in red represent potential map errors.</p> </div></div></div></div></div></div></div><div data-component-name="ArticleItem" data-component-id="tcm:366-138772"><div><div><div><div><div><div><p></p></div></div></div></div><div><div><div><div><p>A close up of a red area. The red are indicates that people are driving in this area, but there isn&#39;t a mapped route.</p> </div></div></div></div></div></div></div><div data-component-name="ArticleItem" data-component-id="tcm:366-138773"><div><div><div><div><div><div><p></p></div></div></div></div><div><div><div><div><p>A satellite image confirms that there is a road where the red map tiles indicated an error. This can be drawn and added to the map, increasing its freshness and accuracy.</p> </div></div></div></div></div></div></div><div data-component-name="ArticleItem" data-component-id="tcm:366-138805"><div><div><div><div><div><div><p>If you have any questions about the tool, contact us <a href="mailto:innovationteam@groups.tomtom.com">here</a>. For all other questions, you can reach out to us <a href="mailto:tomtom.pr@tomtom.com">here</a>.</p></div></div></div></div></div></div></div><div data-component-name="ArticleItem" data-component-id="tcm:366-138808"><div><div><div><div><div><div><p>Steve Coast is the founder of OpenStreetMap and is now a Vice President of Community at TomTom.</p></div></div></div></div></div></div></div><div data-component-name="ArticleItem" data-component-id="tcm:366-110179"><div><div><div><div><div><div><p></p></div></div></div></div><div><div><div><p>Get the latest from the TomTom Blog in your inbox.</p></div></div></div></div></div></div></div></div></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 15:02:18 +0000</pubDate>
+      <source>https://www.tomtom.com/blog/maps/tomtom-openstreetmaps-mapmetrics-map-editing/</source>
+    </item>
+    <item>
+      <title>The Rocks and Minerals of Minecraft</title>
+      <link>https://www.mindat.org/a/minecraft</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_mindat_org_a_minecraft/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="mainwrap">
+
+<div id="aboutmenu">
+<p><a href="https://www.mindat.org/">Home Page</a><a href="https://www.mindat.org/a/about">About Mindat</a><a href="https://www.mindat.org/a/mindatmanual">The Mindat Manual</a><a href="https://www.mindat.org/a/history">History of Mindat</a><a href="https://www.mindat.org/copyrights.php">Copyright Status</a><a href="https://www.mindat.org/a/whoweare">Who We Are</a><a href="https://www.mindat.org/contact.php">Contact Us</a><a href="https://www.mindat.org/directory_upgrade.php">Advertise on Mindat</a> </p></div>
+<div id="supportmenu">
+<p><a href="https://www.mindat.org/donate.php">Donate to Mindat</a><a href="https://www.mindat.org/a/corporate_sponsorship">Corporate Sponsorship</a><a href="https://www.mindat.org/article.php/308/Sponsorship">Sponsor a Page</a><a href="https://www.mindat.org/sponsored.php">Sponsored Pages</a><a href="https://www.mindat.org/advertisers.php">Mindat Advertisers</a><a href="https://www.mindat.org/directory_upgrade.php">Advertise on Mindat</a> </p></div>
+<div id="learnmenu">
+<p><a href="https://www.mindat.org/a/learn">Learning Center</a><a href="https://www.mindat.org/a/what_is_a_mineral">What is a mineral?</a><a href="https://www.mindat.org/a/common_minerals">The most common minerals on earth</a><a href="https://www.mindat.org/a/educators">Information for Educators</a><a href="https://www.mindat.org/articlelist.php">Mindat Articles</a><a href="https://www.mindat.org/elements.php">The Elements</a><a href="https://www.mindat.org/mindat_books.php">Books &amp; Magazines</a> </p></div>
+<div id="searchmenu">
+<p><a href="https://www.mindat.org/fullsearch.php">Minerals by Properties</a><a href="https://www.mindat.org/chemsearch.php">Minerals by Chemistry</a><a href="https://www.mindat.org/advlocsearch.php">Advanced Locality Search</a><a href="https://www.mindat.org/randommin.php">Random Mineral</a><a href="https://www.mindat.org/random_locality.php">Random Locality</a><a href="https://www.mindat.org/minid.php">Search by minID</a><a href="https://www.mindat.org/nearestlocs.php">Localities Near Me</a><a href="https://www.mindat.org/articlelist.php">Search Articles</a><a href="https://www.mindat.org/glossary.php">Search Glossary</a><a href="https://www.mindat.org/searchmenu.php">More Search Options</a></p><div id="searchmenuform">
+
+<form method="get" action="/newsearch.php">
+<p><b>Search For:</b>
+
+</p>
+<p><b>Mineral Name:</b>
+
+</p>
+<p><b>Locality Name:</b>
+
+</p>
+<p><b>Keyword(s):</b>
+
+</p>
+
+</form>
+</div>
+
+</div>
+<div id="addeditmenu">
+<p><a href="https://www.mindat.org/a/mindatmanual">The Mindat Manual</a><a href="https://www.mindat.org/photoupload.php">Add a New Photo</a><a href="https://www.mindat.org/revpicssel.php">Rate Photos</a><a href="https://www.mindat.org/lsearchrec.php">Locality Edit Report</a><a href="https://www.mindat.org/coordinateleague.php">Coordinate Completion Report</a><a href="https://www.mindat.org/glossedit.php">Add Glossary Item</a> </p></div>
+<div id="moremenu">
+<p><a href="https://www.mindat.org/mining_companies/">Mining Companies</a><a href="https://www.mindat.org/stats.php">Statistics</a><a href="https://www.mindat.org/listusers.php">Users</a><a href="https://www.mindat.org/museums/">Mineral Museums</a><a href="https://www.mindat.org/eventlist.php">Mineral Shows &amp; Events</a><a href="https://www.mindat.org/directory.php">The Mindat Directory</a><a href="https://www.mindat.org/device_settings.php">Device Settings</a><a href="https://www.mindat.org/minquiz.php">The Mineral Quiz</a> </p></div>
+<div id="photomenu">
+<p><a href="https://www.mindat.org/photoscroll.php">Photo Search</a><a href="https://www.mindat.org/gallery_list.php">Photo Galleries</a><a target="blank" href="https://www.mindat.org/colorwheel.php">Search by Color</a><a href="https://www.mindat.org/gallery.php?d=today">New Photos Today</a><a href="https://www.mindat.org/gallery.php?d=yesterday">New Photos Yesterday</a><a href="https://www.mindat.org/picusers.php">Members&#39; Photo Galleries</a><a href="https://www.mindat.org/gallery.php?potd=1">Past Photo of the Day Gallery</a><a href="https://www.mindat.org/photography.php">Mineral Photography</a> </p></div>
+<div>
+<div id="ADwrap"></div> 
+
+
+ <div id="fpblogbox">
+<div>
+<div id="actual"><p><b>By Jolyon Ralph, special thanks to Erin Delventhal!</b></p></div>
+</div>
+</div><div><p><b>Quick Nav</b><a href="#autoanchor0">Stone!</a><a href="#autoanchor1">Granite!</a><a href="#autoanchor2">Diorite!</a><a href="#autoanchor3">Lava and Magma</a><a href="#autoanchor4">Andesite!</a><a href="#autoanchor5">Basalt</a><a href="#autoanchor6">Dirt!</a><a href="#autoanchor7">Podzol?!?</a><a href="#autoanchor8">Cobblestone</a><a href="#autoanchor9">Blackstone</a><a href="#autoanchor10">Bedrock</a><a href="#autoanchor11">Diamond and Diamond ore</a><a href="#autoanchor12">Coal</a><a href="#autoanchor13">Clay</a><a href="#autoanchor14">Sand and Gravel</a><a href="#autoanchor15">Flint</a><a href="#autoanchor16">Gold!</a><a href="#autoanchor17">Gilded Blackstone!</a><a href="#autoanchor18">Iron</a><a href="#autoanchor19">Lodestone</a><a href="#autoanchor20">Lapis Lazuli</a><a href="#autoanchor21">Sandstone</a><a href="#autoanchor22">Red Sandstone</a><a href="#autoanchor23">Moss Stone</a><a href="#autoanchor24">Obsidian</a><a href="#autoanchor25">Crying Obsidian</a><a href="#autoanchor26">Redstone?</a><a href="#autoanchor27">Ice and Snow</a><a href="#autoanchor28">Netherrack</a><a href="#autoanchor29">Soul Sand</a><a href="#autoanchor30">End Stone</a><a href="#autoanchor31">Glowstone</a><a href="#autoanchor32">Emerald</a><a href="#autoanchor33">Nether Quartz</a><a href="#autoanchor34">Daylight Sensor</a><a href="#autoanchor35">And finally, Prismarine</a><a href="#autoanchor36">Mining</a><a href="#autoanchor37">The End</a></p></div>
+
+
+
+
+
+
+<video id="backdropvid"></video>
+
+</div>
+<div id="bformblock">
+<p>
+</p><form method="get" action="/nsearch.php">
+Mineral 
+and/or Locality  
+</form>
+</div>
+<div id="socialmedia"><p><a target="_blank" href="https://www.mindat.org/discuss.php"></a>
+<a target="_blank" href="https://www.facebook.com/mindat.org/"></a>
+<a target="_blank" href="https://www.instagram.com/mindatorg/"></a>
+<a target="_blank" href="https://discord.gg/tpe2rVG"></a>
+</p></div>
+<div id="footertext"><p>
+Mindat.org is an outreach project of the <a href="https://www.mindat.org/a/hudsoninstituteofmineralogy">Hudson Institute of Mineralogy</a>, a 501(c)(3) not-for-profit organization. Public Relations by <a href="https://www.blytheweigh.com">Blythe<i>weigh</i></a>.</p></div>
+</div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 13:50:36 +0000</pubDate>
+      <source>https://www.mindat.org/a/minecraft</source>
+    </item>
+    <item>
+      <title>Apple’s Mistake</title>
+      <link>https://stratechery.com/2021/apples-mistake/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___stratechery_com_2021_apples-mistake_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article id="post-7420">
+	<!-- .entry-header -->
+
+	<div>
+		<p>It was in August 2009, two months after the release of the iPhone 3GS, that the barbarians crashed the gates; from <a href="https://theonlinephotographer.typepad.com/the_online_photographer/2009/08/iphone-ties-most-popular-camera-on-flickr.html">The Online Photographer</a>:</p>
+<blockquote><p>
+  The leading photo sharing site, flickr.com, charts the popularity of the cameras used by its membership. Recently the Apple iPhone has jumped into a virtual tie for first place with the Canon XTi. Furthermore, flickr states on its “Camera Finder” page that it can only detect the camera used about 2/3rds of the time, and that, therefore, cameraphones are under-represented on the graphs. Yikes.</p>
+<p>  <a href="https://theonlinephotographer.typepad.com/the_online_photographer/2009/08/iphone-ties-most-popular-camera-on-flickr.html"></a>
+</p></blockquote>
+<p>The iPhone would go on to not only be the number one camera on Flickr, but in a far more compelling measure of its impact, create the conditions for Instagram, the photo-sharing network that eclipsed Flickr like Google once eclipsed Yahoo (Yahoo, of course, owned Flickr). Instagram itself was soon acquired by Facebook, which itself had benefited tremendously from the iPhone camera; having a good and ever-improving camera with you everywhere, paired with constant connectivity, transformed photos from memorials for special occasions to, in <a href="https://www.latimes.com/business/technology/la-fi-tn-evan-spiegel-snapchat-future-20170302-story.html">the words of Snap CEO Evan Spiegel</a>, “part of the communication fabric of our daily lives.”</p>
+<p>How is it, then, that a company like Facebook, which is mostly used on mobile — i.e. Android or iOS — made 20.3 million reports of Child Sexual Abuse Material (CSAM) <a href="https://www.missingkids.org/content/dam/missingkids/gethelp/2020-reports-by-esp.pdf">in 2020</a>, while Apple made only 265?<sup id="rf1-7420"><a href="#fn1-7420" title="Google made 547k" rel="footnote">1</a></sup> After all, there are almost certainly more photos on smartphones than there are on social networks — the former is in large part a superset of the latter.</p>
+<h4>18 USC § 2258A</h4>
+<p>U.S. Code Title 18 Part 1 Chapter 110 Section 2258A lays out how companies must handle CSAM (complete text <a href="https://www.law.cornell.edu/uscode/text/18/2258A">here</a>):</p>
+<blockquote><p>
+  <strong>(a)Duty To Report.—</strong></p>
+<blockquote><p>
+    <strong>(1)In general.—</strong></p>
+<blockquote><p>
+      <strong>(A)</strong> Duty.—In order to reduce the proliferation of online child sexual exploitation and to prevent the online sexual exploitation of children, a provider—</p>
+<blockquote><p>
+        <strong>(i)</strong> shall, as soon as reasonably possible after obtaining actual knowledge of any [CSAM], take the actions described in subparagraph (B); and</p></blockquote>
+<p>      <strong>(B)I</strong> Actions described.—The actions described in this subparagraph are—</p>
+<blockquote><p>
+        <strong>(i)</strong> providing to the CyberTipline of NCMEC [<em>National Center for Missing &amp; Exploited Children</em>], or any successor to the CyberTipline operated by NCMEC, the mailing address, telephone number, facsimile number, electronic mailing address of, and individual point of contact for, such provider; and</p></blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>There is no escaping this responsibility when and if CSAM is discovered:</p>
+<blockquote><p>
+  <strong>(e)Failure To Report.—</strong>A provider that knowingly and willfully fails to make a report required under subsection (a)(1) shall be fined—</p>
+<blockquote><p>
+    <strong>(1)</strong> in the case of an initial knowing and willful failure to make a report, not more than $150,000; and</p></blockquote>
+</blockquote>
+<p>What is <em>not</em> required is that companies actively seek out CSAM on their services:</p>
+<blockquote><p>
+  <strong>(f)Protection of Privacy.—</strong>Nothing in this section shall be construed to require a provider to—</p>
+<blockquote><p>
+    <strong>(1)</strong> monitor any user, subscriber, or customer of that provider;</p></blockquote>
+</blockquote>
+<p>These two provisions get at why Facebook and Apple’s reported numbers have historically been so different: it’s not because there is somehow more CSAM on Facebook than exists on Apple devices, but rather that Facebook is scanning all of the images sent to and over its service, while Apple is not looking at what is in your phone, or on their cloud. From there the numbers make much more sense: Facebook is reporting what it finds, while Apple is, as the title of Section (3) suggests, protecting privacy and simply not looking at images at all.</p>
+<h4>Apple Protects Children</h4>
+<p>Last week Apple put up a special page on their website entitled <a href="https://www.apple.com/child-safety/">Expanded Protections for Children</a>:</p>
+<blockquote><p>
+  At Apple, our goal is to create technology that empowers people and enriches their lives — while helping them stay safe. We want to help protect children from predators who use communication tools to recruit and exploit them, and limit the spread of Child Sexual Abuse Material (CSAM).</p>
+<p>  Apple is introducing new child safety features in three areas, developed in collaboration with child safety experts. First, new communication tools will enable parents to play a more informed role in helping their children navigate communication online. The Messages app will use on-device machine learning to warn about sensitive content, while keeping private communications unreadable by Apple.</p>
+<p>  Next, iOS and iPadOS will use new applications of cryptography to help limit the spread of CSAM online, while designing for user privacy. CSAM detection will help Apple provide valuable information to law enforcement on collections of CSAM in iCloud Photos.</p>
+<p>  Finally, updates to Siri and Search provide parents and children expanded information and help if they encounter unsafe situations. Siri and Search will also intervene when users try to search for CSAM-related topics.
+</p></blockquote>
+<p>John Gruber at <a href="https://daringfireball.net/2021/08/apple_child_safety_initiatives_slippery_slope">Daring Fireball</a> has a good overview of what are in fact three very different initiatives; what unites, them, though, and continues to differentiate Apple’s approach from Facebook’s, is that Apple is scanning content on your device, while Facebook is doing it in the cloud. Apple emphasized repeatedly that this ensured that Apple does not get access to your content. From the “Communications Safety in Messages” section:</p>
+<blockquote><p>
+  Messages uses on-device machine learning to analyze image attachments and determine if a photo is sexually explicit. The feature is designed so that Apple does not get access to the messages.
+</p></blockquote>
+<p>From the “CSAM Detection” section:</p>
+<blockquote><p>
+  Apple’s method of detecting known CSAM is designed with user privacy in mind. Instead of scanning images in the cloud, the system performs on-device matching using a database of known CSAM image hashes provided by NCMEC and other child safety organizations…This innovative new technology allows Apple to provide valuable and actionable information to NCMEC and law enforcement regarding the proliferation of known CSAM. And it does so while providing significant privacy benefits over existing techniques since Apple only learns about users’ photos if they have a collection of known CSAM in their iCloud Photos account. Even in these cases, Apple only learns about images that match known CSAM.
+</p></blockquote>
+<p>There are three ways to think about Apple’s approach, both in isolation and relative to a service like Facebook:<sup id="rf2-7420"><a href="#fn2-7420" title="Beyond the fact that &lt;a href=&#34;https://www.hackerfactor.com/blog/index.php?/archives/929-One-Bad-Apple.html&#34;&gt;it may be illegal&lt;/a&gt; " rel="footnote">2</a></sup> the idealized outcome, the worst case outcome, and the likely driver.</p>
+<h4>Capability Versus Policy</h4>
+<p>Apple’s idealized outcome solves a lot of seemingly intractable problems. On one hand, CSAM is horrific and Apple hasn’t been doing anything about it; on the other hand, the company has a longstanding commitment to ever increasing amounts of encryption, ideally end-to-end. Apple’s system, if it works precisely as designed, preserves both goals: the company can not only keep end-to-end encryption in Messages, but also add it to iCloud Photos (which is not currently encrypted end-to-end), secure in the knowledge that it is doing its part to not only report CSAM but also help parents look after their children. And, from a business perspective, it means that Apple can continue to not make the massive investments that companies like Facebook have in trust-and-safety teams; the algorithm will take care of it.</p>
+<p>That, of course, is the rub: Apple controls the algorithm, both in terms of what it looks for, what bugs it may or may not have, and also the inputs, which in the case of CSAM scanning is the database from NCMEC. Apple has certainly worked hard to be a company that users trust, but we already know that that trust doesn’t extend everywhere: Apple has, under Chinese government pressure, <a href="https://www.nytimes.com/2021/05/17/technology/apple-china-censorship-data.html">put Chinese user iCloud data on state-owned enterprise servers</a>, along with the encryption keys necessary to access it. What happens when China announces its version of the NCMEC, which not only includes the horrific imagery Apple’s system is meant to capture, but also images and memes the government deems illegal?</p>
+<p>The fundamental issue — and the first reason why I think Apple made a mistake here — is that there is a meaningful difference between <em>capability</em> and <em>policy</em>. One of the most powerful arguments in Apple’s favor in the <a href="https://stratechery.com/2016/apple-the-fbi-and-security/">2016 San Bernardino case</a> is that the company didn’t even have the means to break into the iPhone in question, and that to build the capability would open the company up to a multitude of requests that were far less pressing in nature, and weaken the company’s ability to stand up to foreign governments. In this case, though, Apple is building the capability, and the only thing holding the company back is policy.</p>
+<p>Then again, Apple’s policy isn’t the only one that matters: both the <a href="https://www.gov.uk/government/publications/draft-online-safety-bill">UK</a> and the <a href="https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/12726-Fighting-child-sexual-abuse-detection-removal-and-reporting-of-illegal-content-online_en">EU</a> are moving forward on bills that mandate online service companies proactively look for and report CSAM. Indeed, I wouldn’t be surprised if this were the most important factor behind Apple’s move: the company doesn’t want to give up on end-to-end encryption — and likely wants to expand it — which leaves on-device scanning as the only way to satisfy governments not (just) in China but also the West.</p>
+<h4>Cloud Versus Device</h4>
+<p>I think that there is another solution to Apple’s conundrum; what is frustrating from my perspective is that I think the company is already mostly there. Consider the status quo: back in 2020 <a href="https://www.reuters.com/article/us-apple-fbi-icloud-exclusive-idUSKBN1ZK1CT">Reuters reported</a> that Apple decided to not encrypt iCloud backups at the FBI’s request:</p>
+<blockquote><p>
+  Apple Inc. dropped plans to let iPhone users fully encrypt backups of their devices in the company’s iCloud service after the FBI complained that the move would harm investigations, six sources familiar with the matter told Reuters. The tech giant’s reversal, about two years ago, has not previously been reported. It shows how much Apple has been willing to help U.S. law enforcement and intelligence agencies, despite taking a harder line in high-profile legal disputes with the government and casting itself as a defender of its customers’ information.
+</p></blockquote>
+<p>This has a number of significant implications on Apple’s security claims, and is why <a href="https://stratechery.com/2021/the-whatsapp-kerfuffle-comparing-messaging-services-network-effects/">earlier this year</a> I ranked iMessage as being less secure than Signal, WhatsApp, Telegram, and Facebook Messenger:</p>
+<blockquote><p>
+  iMessage encrypts messages end-to-end by default; however, if you have iCloud backup turned on, your messages can be accessed by Apple (who has the keys for iCloud backups) and, by extension, law enforcement with a warrant. Unlike WhatsApp, though, this is both on by default and cannot be turned off on a granular basis.
+</p></blockquote>
+<p>This caveat applies to almost everything on your iPhone: if you give in to the never-ending prompts to sign-in to iCloud and its on-by-default backup solution, your data is accessible to Apple and, by extension, law enforcement with a warrant. I actually think this is reasonable! I wrote this <a href="https://stratechery.com/2020/icloud-backups-and-encryption-facts-principles-and-concerns-determining-defaults/">when that Reuters report came out</a>:</p>
+<blockquote><p>
+  Go back to what I said above: determined actors will have access to encryption and facial recognition. Anyone trying to argue whether or not these technologies should exist is not living in reality. It follows then, that we should take care to ensure that good actors have access to these technologies too. That means not making them illegal.</p>
+<p>  Second, though, legitimate societal concerns about the needs of law enforcement and the radicalizing nature of the Internet should be taken seriously. That means we should think very carefully about making encryption the default…This also splits the difference when it comes to principles: users have agency — they can ensure that everything they do is encrypted — while total privacy is available but not given by default.</p>
+<p>  I actually think that Apple does an excellent job of striking that balance today. When it comes to the iPhone itself, Apple is the only entity that can make it truly secure; no individual can build their own secure enclave that sits at the root of iPhone security. Therefore, they are right to do so: everyone has access to encryption.</p>
+<p>  From there it is possible to build a fully secure environment: use only encrypted communications, use encrypted backups to a computer secured by its own hardware-based authentication scheme, etc. Taking the slightly easier route, though — iCloud backups, Facebook messaging, etc. — means some degree of vulnerability that, let’s not forget, is sometimes justifiably leveraged. Law enforcement can get a warrant for those backups or chat logs, just as they can install a wire tap.</p>
+<p>  Again, this isn’t going to stop determined bad actors, but as I noted, nothing is. The question is what of the rest, those that get swept up by the worst sort of communities, and who commit legitimate crimes: what should their defaults be?
+</p></blockquote>
+<p>I made <a href="https://stratechery.com/2019/child-sexual-abuse-material-online-the-problem-with-community-towards-more-friction/">a similar argument about Facebook’s plans to encrypt-by-default Facebook Messenger conversations</a>, which I opposed, even as I supported encryption-by-choice: I am not anti-encryption, and am in fact very much against mandated backdoors. Every user should have the capability to lock down their devices and their communications; bad actors surely will. At the same time, it’s fair to argue about defaults and the easiest path for users: I think the iPhone being fundamentally secure and iCloud backups being subject to the law is a reasonable compromise.</p>
+<p>Apple’s choices in this case, though, go in the opposite direction: instead of adding CSAM-scanning to iCloud Photos in the cloud that they own-and-operate, Apple is compromising the phone that you and I own-and-operate, without any of us having a say in the matter. Yes, you can turn off iCloud Photos to disable Apple’s scanning, but that is a <em>policy</em> decision; the <em>capability</em> to reach into a user’s phone now exists, and there is nothing an iPhone user can do to get rid of it.</p>
+<p>A far better solution to the “Flickr problem” I started with is to recognize that the proper point of comparison is not the iPhone and Facebook, but rather Facebook and iCloud. One’s device ought be one’s property, with all of the expectations of ownership and privacy that entails; cloud services, meanwhile, are the property of their owners as well, with all of the expectations of societal responsibility and law-abiding which that entails. It’s truly disappointing that Apple got so hung up on its particular vision of privacy that it ended up betraying the fulcrum of user control: being able to trust that your device is truly yours.</p>
+
+	</div><!-- .entry-content -->
+</article></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 15:47:22 +0000</pubDate>
+      <source>https://stratechery.com/2021/apples-mistake/</source>
+    </item>
+    <item>
+      <title>Supine Computing (2019)</title>
+      <link>https://mgsloan.com/posts/supine-computing/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___mgsloan_com_posts_supine-computing_/image.jpg" /> 
+<div id="readability-page-1" class="page"><article id="content" itemscope=""><header><hr/></header><p><span>A few months ago,</span> I pulled a muscle in my lower back, by rock climbing after doing lots of back-bends and handstand practice. I quickly went from feeling fairly nimble to hobbling around with limited mobility and an inability to sit at a desk. Argh!</p><p>Happily, I was prepared with some very comfortable and ergonomic<a href="#fn1" id="fnref1" role="doc-noteref"><sup>1</sup></a> ways to use the computer while laying down (<a href="https://en.wikipedia.org/wiki/Supine_position">supine</a>). After about a week of doing this and phasing in some exercise, I could finally stand up straight again!</p><p>This post describes variations on supine computing – what&#39;s worked best for me so far.</p><h2 id="hammock-computing"><a href="#hammock-computing"></a>Hammock Computing!</h2><p>The best variety of supine computing is in a hammock! Here is a photo from summer of 2018:</p><p></p><p>This is highly ergonomic – most joints are in quite neutral positions. In particular, your neck can be fully relaxed because the screen is above your head.</p><p>In the photo above, the laptop is suspended via <a href="https://smile.amazon.com/Releasable-cable-inch-50LBS-100pcs/dp/B00ANAWGM2?tag=mgsloan06-20">releasable zip ties</a><sup><a href="#affiliate-note">$</a></sup> threaded through a nice strap that came with some gymnastic rings. Ratchet straps are even better for this purpose, as they have a builtin way to tension them. In the photo below, a ratchet strap is tensioned from one end of the hammock stand to the other:</p><p></p><p>In this case, zip ties are attaching to little wire loops wrapped around the laptop&#39;s hinges. Loops like this, or carabiners, are not necessary but they are a bit more convenient. With most ThinkPad laptops, and likely many other brands, its possible to thread the zip ties through between the body and screen or at the hinges. Here&#39;s a more recent picture showing this:</p><p></p><p>I find that ThinkPads are more than sturdy enough to be suspended by their hinges. Sometimes I&#39;ll have the full weight on one hinge, while attaching the other. Please use your best judgment about what your laptop can handle<a href="#fn2" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p><h2 id="not-just-for-hammocks"><a href="#not-just-for-hammocks"></a>Not just for hammocks</h2><p>This is probably obvious, but supine computing is not just for hammocks! It&#39;s great for computing anywhere you can lay down. Since I also want to encourage computing outdoors and hammocking, all of the photos below will involve a <a href="https://smile.amazon.com/Flowerhouse-FlyingSaucer-Hanging-Lounge-FHFSSVR-SET/dp/B07DB5LGNQ?tag=mgsloan06-20">&#34;flying saucer&#34; hammock</a><sup><a href="#affiliate-note">$</a></sup>.</p><h2 id="laziest-approach-pillows-but-poor-ergonomics"><a href="#laziest-approach-pillows-but-poor-ergonomics"></a>Laziest approach: pillows (but poor ergonomics)</h2><p>This approach can be quite convenient for short sessions:</p><p></p><p>Using a <a href="https://smile.amazon.com/Kinesis-Advantage2-Ergonomic-Keyboard-KB600/dp/B07K1SMRGS?tag=mgsloan06-20">Kinesis Advantage 2</a><sup><a href="#affiliate-note">$</a></sup> keyboard works quite well in this posture, since there is a good amount of space between your hands. This might not be viable with other types of keyboards, but certainly worth a try.</p><p>The neck ergonomics are not ideal, though – doing extended sessions like this can cause neck soreness. So, please try to avoid that!</p><h2 id="much-better-screen-above-head--split-keyboard"><a href="#much-better-screen-above-head--split-keyboard"></a>Much better: screen above head + split keyboard</h2><p>Ideally, the screen would be above your head. Here, it&#39;s suspended via the same zip tie approach as above:</p><p></p><p>Another improvement in this picture is using a split keyboard. In this case it&#39;s a <a href="https://keyboard.io">keyboard.io</a>, but other split keyboards like the <a href="https://ergodox-ez.com">ErgoDox</a> can work great too. By placing the keyboard halves to either side, your arms can be in a more relaxed position.</p><p>This is much better than the prior supine posture. It doesn&#39;t seem to put much strain anywhere, and so is quite viable for extended computing sessions. It&#39;s also quite simple – split keyboard to either side, and screen above your head.</p><h2 id="other-suspension-methods"><a href="#other-suspension-methods"></a>Other suspension methods</h2><p>There are a huge variety of other ways to suspend a horizontal display above you. Pretty much any well anchored rope or strap will support the zip-ties-around-hinges approach. Here are a few more suspension ideas:</p><ul><li><p>Simply screw hooks into a strut in the ceiling.</p></li><li><p><a href="https://smile.amazon.com/gp/product/B007VL3CB0/ref=ppx_yo_dt_b_asin_title_o00_s00?tag=mgsloan06-20">Suction cups</a><sup><a href="#affiliate-note">$</a></sup> worked surprisingly well when I tried them, but only on smooth ceilings.</p></li><li><p><a href="https://smile.amazon.com/s?tag=mgsloan06-20">3M Command Hooks</a><sup><a href="#affiliate-note">$</a></sup> work well on walls and slanted ceilings, but not well on flat ceilings, as they are not very strong perpendicular to the surface. It might be sufficient for lightweight laptops / tablets.</p></li><li><p>There are also a <a href="https://smile.amazon.com/s?tag=mgsloan06-20">variety of laptop stands</a><sup><a href="#affiliate-note">$</a></sup> intended for bed use. The only one I&#39;ve personally used is the <a href="https://smile.amazon.com/MagicHold-Rotating-Adjusting-Compatible-13-15-6/dp/B07NXZNC88/ref=sr_1_7?tag=mgsloan06-20">MagicHold Laptop stand</a><sup><a href="#affiliate-note">$</a></sup>, which I mostly use for <a href="https://mgsloan.com/posts/deck-desk">reclined computing</a>. Like nearly all of these stands, their intended use does not involve the screen being entirely horizontal. For the MagicHold stand, the usual zip tie configuration can be used. I suspect for many of the stands, more direct attachment of the laptop could allow them to be used for fully horizontal supine computing.</p></li></ul><h2 id="other-supine-approaches"><a href="#other-supine-approaches"></a>Other supine approaches</h2><ul><li><p>I have a vague recollection from around ten years ago of <a href="https://timothy.hobbs.cz/">Timothy Hobbs</a> sharing a photo of supine computing on some freenode <abbr>IRC</abbr> channel, with a <a href="https://en.wikipedia.org/wiki/DataHand">DataHand split keyboard</a> and a screen suspended above his head via a cardboard box. I googled for &#34;timthelion data hands&#34; and came across <a href="http://xirdalium.net/2008/02/10/laid-back/">a post from 2008</a> which ends with a more evolved version of his supine computing setup, which appears to be using a desk to support the monitor. It looks like more recently he&#39;s also had some interesting <a href="https://timothy.hobbs.cz/wearable-computing/adventures.html">adventures in outdoor wearable computing</a>.</p></li><li><p>After deciding to call this post &#34;Supine Computing&#34;, I googled that phrase and came across a post by Justin Craig-Kuhn, titled <a href="https://medium.com/@jcraigk/healthy-hacking-diy-supine-workstation-cbaadcbbc2aa">&#34;<abbr>DIY</abbr> Supine Workstation&#34;</a>. He kindly gave me permission to reuse his photo here:</p><p></p><p>Cool stuff!! A couple notes on this:</p><ul><li><p>He&#39;s using an ipad as a screen along with a gooseneck tablet mount. This has nice adjustability, and is more elegant than putting a full laptop there. However, as he points out, using an IPad as a display adds some lag, about 20ms.</p></li><li><p>The keyboard position may well be better than mine, because each half is oriented vertically. This allows forearm rotation to be in the middle of its range rather than near its limit. I don&#39;t feel strain there, though, so I don&#39;t feel the need to do this.</p></li></ul></li><li><p>There are a variety of expensive solutions for reclined / supine computing workstations. For example, the offerings from <a href="https://altwork.com/">AltWork</a> and <a href="http://www.ergoquest.com/">ErgoQuest</a> are quite visually dramatic:</p><p></p><p>While I find these workstations quite cool, right now I can&#39;t justify the expense and non-portability. I prefer approaches which are inexpensive, portable, and use commonly found materials, such that they are more easily shared.</p></li></ul><h2 id="getting-weird-upside-down-belay-glasses"><a href="#getting-weird-upside-down-belay-glasses"></a>Getting weird: upside down belay glasses</h2><p>Alternatively, belay glasses can be used to allow your neck to be in a neutral position:</p><p></p><p>Specifically, these are <a href="https://smile.amazon.com/gp/product/B01N1EYI37?tag=mgsloan06-20">clip on belay glasses</a><sup><a href="#affiliate-note">$</a></sup>, which can be used while belaying someone rock climbing, to allow you to watch the climber without craning your neck. In this case, they are flipped upside down such that your vision is downwards. This actually works fairly well, but certainly looks quite strange.</p><p>I haven&#39;t found myself doing this much, likely due to the following reasons:</p><ul><li><p>It can be a little finicky, though possible, to get the prisms oriented such that the screen is visible for both eyes. It&#39;s unpleasant for parts of the screen to be occluded for one eye.</p></li><li><p>When used outside, glare from the sky above can be more of a problem.</p></li><li><p>They induce some <a href="https://en.wikipedia.org/wiki/Chromatic_aberration">chromatic aberration</a>, which can make text harder to read. This might be avoided by using a prism material with a lower refractive index.</p></li></ul><h2 id="downsides-of-supine-computing"><a href="#downsides-of-supine-computing"></a>Downsides of supine computing</h2><ul><li><p>Can be way too comfortable and relaxing, causing drowsiness. The best way to deal with this is to do a bit of exercise. A really good cycle is switching between a treadmill desk, standing, and supine computing.</p></li><li><p>You may find yourself using your computer in bed more frequently. I&#39;ve read in a number of reputable places that it&#39;s good sleep hygiene to only use your bed for sleep and sex. So, if possible, please try to make your supine computing habit somewhere other than where you sleep.</p></li></ul><h2 id="upsides-of-supine-computing"><a href="#upsides-of-supine-computing"></a>Upsides of supine computing</h2><ul><li><p>Can allow you to comfortably use the computer when an injury might otherwise prevent it.</p></li><li><p>Is a great posture to include in a rotation of postures<a href="#fn3" id="fnref3" role="doc-noteref"><sup>3</sup></a>. For example, I don&#39;t find it practical to stand or walk (on a treadmill desk) for the entire day. Mixing in some supine computing makes it entirely viable to avoid all sitting.</p></li><li><p>It&#39;s a great way to do some physical resting while still getting things done. Sometimes it&#39;s better to take a proper nap, but other times I find that I&#39;m physically tired but mentally active – this is a great posture for those times.</p></li></ul><h2 id="thanks-for-reading"><a href="#thanks-for-reading"></a>Thanks for reading!</h2><p>Thanks for reading this post, I hope some of you are inspired to try out supine computing, perhaps even outside! If you&#39;re dealing with back pain – argh – that sucks :( ! But I hope this approach helps you manage some of that, or at least work around it.</p><p>If you do experiment with this stuff, I&#39;d be curious to see what you come up with! My email address is this site&#39;s hostname at gmail.com</p><p>Also, I&#39;m working on more posts exploring other approaches, which I hope to publish in the next few weeks. See also my prior posts on <a href="https://mgsloan.com/posts/deck-desk">reclined computing</a> and <a href="https://mgsloan.com/posts/comfortable-airplane-computing/">airplane computing</a>. If you&#39;re interested in this stuff, please check back in a while, or perhaps subscribe to my <a href="https://mgsloan.com/feed.xml">atom feed</a>.</p><h2>Footnotes</h2><ul><li id="affiliate-note"><p>Some links are amazon affiliate links, which sometimes send me a bit of money when you make purchases after clicking them. The purpose of this blog is sharing information and ideas, not making money. But I figure I may as well add them, and I appreciate usage of them! If you do feel inclined to show your appreciation for these posts directly in monetary form, feel free to <a href="https://buymeacoffee.com/mgsloan">buy me a coffee</a>.</p></li></ul></article></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 15:49:05 +0000</pubDate>
+      <source>https://mgsloan.com/posts/supine-computing/</source>
+    </item>
+    <item>
+      <title>Apple wants to redefine what it means to violate your privacy. We mustn’t let it</title>
+      <link>https://ar.al/2021/08/08/apple-is-trying-to-redefine-what-it-means-to-violate-your-privacy-we-must-not-let-it/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___ar_al_2021_08_08_apple-is-trying-to-redefine-what-it-means-to-violate-your-privacy-we-must-not-let-it_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+      
+      <time datetime="2021-08-08T16:36:02+0100">08 Aug 2021</time>
+      <figure>
+     <figcaption>
+            <p>Screeching for freedom. Illustration by Jérémie Fontana.</p>
+        </figcaption>
+</figure>
+
+<p><a href="https://ar.al/831/">I was there when Steve Jobs unveiled the original iPhone</a> (ironically, I gave a talk on Flash there right after his keynote). I <a href="https://ar.al/2401/">started</a> <a href="https://ar.al/3074/">making</a> <a href="https://better.fyi">apps</a> for iOS from day one, learned Swift while it was still in alpha and updated my code with every new version. My work has been featured by Apple on its App Store and our app, <a href="https://better.fyi">Better Blocker</a>, has maintained glowing reviews and <a href="https://apps.apple.com/us/app/better-blocker/id1080964978">a 4.7 star rating</a> there for years.</p>
+<p>If Apple goes ahead with <a href="https://www.apple.com/child-safety/">its plans</a> to have your devices violate your trust and work against your interests, I will not write another line of code for their platforms ever again.</p>
+<h2 id="redefining-what-privacy-means">Redefining what privacy means</h2>
+<blockquote>
+<p>Privacy is the fundamental human right to choose what you share with others and what you keep to yourself.</p>
+</blockquote>
+<p>What Apple is doing with its plans to scan content on your own devices and notify third parties is an attempt to redefine what it means to violate your privacy.</p>
+<p>It doesn’t matter where your privacy gets violated (on your own device or in the cloud). It matters that your privacy is being violated. <strong>The violation of privacy isn’t in the scanning of the content, it is in the notification of a third-party based on the scan.</strong></p>
+<p>Even if a third party isn’t notified, if the insight gleaned from the scan is used in the interests of a third party instead of in your interests and according to your wishes, this is also a violation of your privacy.<sup id="fnref:1"><a href="#fn:1" role="doc-noteref">1</a></sup></p>
+<p><strong>Violation of privacy by proxy is still violation of privacy.</strong></p>
+<h2 id="apple-are-we-the-baddies">Apple: are we the baddies?</h2>
+<blockquote>
+<p>Without privacy we don’t have civil liberties. If we make public the default, then anything we want to keep private has an association of guilt attached.</p>
+</blockquote>
+<p>If you were to ask me who is a bigger threat to our human rights today, Google or Apple with these new plans, it’s Apple, without a doubt.</p>
+<p>If you know anything about me or <a href="https://small-tech.org">my work in the past decade</a> you will understand exactly what that means.</p>
+<p><a href="https://ar.al/notes/apple-vs-google-on-privacy-a-tale-of-absolute-competitive-advantage/">I’m as shocked as you are.</a></p>
+<p>I do not say this lightly or take any pleasure whatsoever in saying it.</p>
+<p>I cannot stress enough how important it is that this line does not get crossed.</p>
+<h2 id="slippery-slope-try-cliff-edge">Slippery slope? Try cliff edge.</h2>
+<p>If Apple crosses this line, there’s no going back. It will set a dire precedent and shift the borders of personhood irrevocably.</p>
+<p>Google will follow suit.</p>
+<p>Soon any system that doesn’t implement on-device scanning/reporting will be deemed illegal (or carry an association of guilt).</p>
+<p>It won’t be limited to phones and tablets. Your Mac is next. General computing as we know it could cease to exist.</p>
+<p>It won’t be limited to the initial content either. Erdoğan, Putin, Bolsanaro and their brethren will decide the scope.</p>
+<p>Just last week <a href="https://www.inkl.com/news/hungary-orders-shops-to-cover-up-lgbt-themed-children-s-books?share=WobmByfygzy">Hungary ordered shops to cover up LGBT-themed children’s books</a>. What’s betting Orban adores Apple’s new plans? What happens when Márk receives a racy photo from Mátyás? (Oh, and did I mention, in Hungary they will eventually make Apple set the reporting age on iMessage photos so it applies to all under 18s.)</p>
+<p><strong>Mark my words: Apple’s plans to have teenagers’ phones snitch to their parents will result in honour killings in places like Turkey. Women will get murdered because of this. Tim Cook, you will have the blood of queer people on your hands. I truly hope you reconsider starting down this dangerous path.</strong></p>
+<p>This is not a slippery slope. <a href="https://twitter.com/SarahJamieLewis/status/1423403656733290496">It’s a cliff edge.</a></p>
+<h2 id="beyond-sorry">Beyond sorry</h2>
+<p>Apple backing down on this won’t be enough.<sup id="fnref:2"><a href="#fn:2" role="doc-noteref">2</a></sup> To maintain trust, it must make a contractual commitment that the data on your device is yours and yours alone and that Apple’s algorithms can only analyse it as permitted by you and only in your interests.</p>
+<p>This is a greater struggle <a href="https://ar.al/2020/01/01/in-2020-and-beyond-the-battle-to-save-personhood-and-democracy-requires-a-radical-overhaul-of-mainstream-technology/">to protect personhood in the digital network age.</a></p>
+<p><a href="https://ar.al/2019/05/02/slavery-2.0-and-how-to-avoid-it-a-practical-guide-for-cyborgs/">Today, we extend ourselves with technology.</a> Not owning and controlling these aspects of ourselves is a violation of our personhood.</p>
+<h2 id="protecting-personhood-in-the-digital-network-age">Protecting personhood in the digital network age</h2>
+<p>When I wrote <a href="https://cyborgrights.eu/">The Universal Declaration of Cyborg Rights</a>, I wanted to get people thinking about the kind of constitutional protections we would need to protect personhood in the digital network age.</p>
+<p>I didn’t think we’d need them so soon. I thought we had more time.</p>
+<p>But where do you even begin to get legislators to understand and act on such a thing in the here and now?</p>
+<p><a href="https://ar.al/2019/11/29/the-future-of-internet-regulation-at-the-european-parliament/">It’s not like I haven’t tried.</a></p>
+<h2 id="the-screeching-voices-of-the-minority">The screeching voices of the minority</h2>
+<p>Almost 5,000 people – security and privacy experts, cryptographers, researchers, professors, legal experts and Apple customers – have signed <a href="https://appleprivacyletter.com/">an open letter asking Apple to halt deployment of its content monitoring technology immediately and to issue a statement reaffirming their commitment to end-to-end encryption and privacy as a fundamental human right.</a></p>
+<p>Although Apple hasn’t responded to us yet, it did circulate a memo internally calling us <a href="https://9to5mac.com/2021/08/06/apple-internal-memo-icloud-photo-scanning-concerns/">“the screeching voices of the minority.”</a></p>
+<p>I urge you to <a href="https://appleprivacyletter.com/">join us.</a></p>
+<p>We have a lot to screech about.</p>
+
+
+      
+
+    </div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 15:55:32 +0000</pubDate>
+      <source>https://ar.al/2021/08/08/apple-is-trying-to-redefine-what-it-means-to-violate-your-privacy-we-must-not-let-it/</source>
+    </item>
+    <item>
+      <title>`Constexpr` Is a Platform (2020)</title>
+      <link>https://foonathan.net/2020/10/constexpr-platform/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___foonathan_net_2020_10_constexpr-platform_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="content">
+
+
+
+
+
+<article>
+    <header>
+        
+        <section>
+            
+            
+        </section>
+    </header>
+<a id="content"></a>
+    <p>Let me share a useful insight with you: <code>constexpr</code> is a platform.</p>
+<p>Just like you write code that targets Windows or a microcontroller,
+you write code that targets compile-time execution.
+In both cases you restrict yourself to the subset of C++ that works on your target platform,
+use conditional compilation if your code needs to be portable,
+and execute it on the desired target platform.
+You can thus view <code>constexpr</code> as another platform you can target;
+it just so happens to be run by your compiler.</p>
+<p>This insight can answer a lot of design questions surrounding <code>constexpr</code>.</p>
+    <a id="more"></a>
+    
+    
+<h2 id="what-shouldnt-be-constexpr">What should(n’t) be <code>constexpr</code>?</h2>
+<p>The capabilities of compile-time programming are expanding with every version of C++
+and more and more functions of the standard library are marked <code>constexpr</code>.
+This raises the question: what shouldn’t be <code>constexpr</code>?</p>
+<p>Let’s treat <code>constexpr</code> as a platform and compare it with a microcontroller.
+What C++ functions can be ported to it?
+The answer here is a lot more straightforward.
+For starters, everything that is portable C++ which doesn’t interface the OS just works.
+And even some OS functionality can be implemented:
+printing to <code>stdout</code> can be some sort of debug output, we can have networking APIs if the chip has the appropriate hardware, etc.
+Other APIs can’t be done or don’t make sense, like threading on single-core processors or window creation on systems without a display.
+So on a platform we can use portable C++ code and everything that can be built on top of the APIs the system provides us.</p>
+<p>The same should apply to <code>constexpr</code>:
+everything that is portable, standard C++ should be usable at compile-time,
+as well as every functionality built on top of the system APIs.
+The “system” here is the compiler, which can provide interfaces for issuing diagnostics,
+reflection of the source code, and potentially debug output.
+One big difference between the <code>constexpr</code> platform and traditional ones is that <code>constexpr</code> functions can’t interact with global (runtime) state in any way.</p>
+<p>So if we’re using a (post C++17/20) C++ library it would be reasonable to expect that all functions without side effects or OS interaction are <code>constexpr.</code></p>
+<blockquote>
+<p>The library also needs to be header-only or use modules for that assumption to apply.</p>
+</blockquote>
+<p>Of course, whether the library author deemed it necessary to actually make it <code>constexpr</code> is a different question.
+After all, compile-time programming is currently limited to either simple things or more esoteric libraries, so there is not a lot of demand.</p>
+<h2 id="should-it-be-necessary-to-mark-functions-as-constexpr">Should it be necessary to mark functions as <code>constexpr</code>?</h2>
+<p>Currently, you need to explicitly mark a function <code>constexpr</code> if it should be a <code>constexpr</code> function.
+However, we could imagine a future version of C++ where this isn’t required:
+if we’re calling a function at compile-time, the compiler tries to execute it at compile-time.
+If it works, good, otherwise, it issues a diagnostic.
+That way, we don’t need to manually mark everything as <code>constexpr</code>, which is just unnecessary boilerplate.</p>
+<p>Or is it?</p>
+<p>Let’s imagine <code>constexpr</code> isn’t needed on functions, and we’re having a library providing a function <code>get_the_answer()</code>:</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>int</span> <span>get_the_answer</span><span>()</span>
+<span>{</span>
+    <span>int</span> <span>result</span><span>;</span>
+    <span>/* expensive computation */</span><span>;</span>
+    <span>return</span> <span>result</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>It just so happens that <code>expensive computation</code> is <code>constexpr</code>, so a user uses it at compile-time.</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>constexpr</span> <span>int</span> <span>the_answer</span> <span>=</span> <span>lib</span><span>::</span><span>get_the_answer</span><span>();</span>
+</code></pre></div><p>The library author then wants to optimize <code>get_the_answer()</code> by caching <code>expensive computation</code>:</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>int</span> <span>get_the_answer_impl</span><span>()</span> <span>{</span> <span>/* as before */</span> <span>}</span>
+
+<span>int</span> <span>get_the_answer</span><span>()</span>
+<span>{</span>
+    <span>// Lazily compute once.
+</span><span></span>    <span>static</span> <span>int</span> <span>result</span> <span>=</span> <span>get_the_answer_impl</span><span>();</span>
+    <span>return</span> <span>result</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>This is a breaking change: a <code>constexpr</code> function cannot contain <code>static</code> variables!
+The user’s code is broken.
+This is why we need to explicitly mark <code>constexpr</code> functions with <code>constexpr</code>.
+By doing so, we document which functions can be used at compile-time and promise it to our users.</p>
+<p>But let’s compare <code>constexpr</code> with another platform.
+Now we’re having a user who uses the initial version of the library on Linux.
+This works fine, as <code>expensive computation</code> is regular, standard C++ code that is cross-platform.</p>
+<p>Again the library author wants to optimize <code>get_the_answer()</code>.
+This time, they opt to use the built-in Windows support for getting answers:</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>int</span> <span>get_the_answer</span><span>()</span>
+<span>{</span>
+    <span>int</span> <span>result</span><span>;</span>
+    <span>GetTheAnswerEx2</span><span>(</span><span>&amp;</span><span>result</span><span>,</span> <span>NULL</span><span>,</span> <span>NULL</span><span>);</span> <span>// Windows only
+</span><span></span>    <span>return</span> <span>result</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>This is also a breaking change: a function calling WinAPIs does not compile on Linux.
+The user’s code is broken.
+As such, a library author should explicitly mark functions as <code>linux</code> if they should be available on Linux.
+By doing so, we document which functions can be used on Linux and promise it to our users.</p>
+<p>Except we don’t?</p>
+<p>We don’t explicitly mark which functions are available on which platforms using a mandatory keyword in the source code.
+Instead, library code is assumed to be cross-platform unless explicitly documented otherwise.
+If a library update breaks code on certain platforms, affecting users file an issue to fix the breaking change.</p>
+<p>In our case, the library author changes <code>get_the_answer()</code>.</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>int</span> <span>get_the_answer</span><span>()</span>
+<span>{</span>
+    <span>int</span> <span>result</span><span>;</span>
+<span>#ifdef WIN32
+</span><span></span>    <span>GetTheAnswerEx2</span><span>(</span><span>&amp;</span><span>result</span><span>,</span> <span>NULL</span><span>,</span> <span>NULL</span><span>);</span> <span>// Windows only
+</span><span></span><span>#else
+</span><span></span>    <span>/* expensive computation */</span>
+<span>#endif
+</span><span></span>    <span>return</span> <span>result</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>So if we don’t have an “OS marker”, why should we keep the annoying <code>constexpr</code> marker?</p>
+<p>We could just expect that everything is <code>constexpr</code> that follows the conditions stated in the previous section,
+unless the library explicitly documents otherwise.
+If we use something at compile-time that then breaks in a library update, we react the same way as a library that breaks under an OS:
+we file an issue and the library author fixes it with conditional compilation, in our case using <a href="https://en.cppreference.com/w/cpp/types/is_constant_evaluated"><code>std::is_constant_evaluated()</code></a>:</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>int</span> <span>get_the_answer_impl</span><span>()</span> <span>{</span> <span>/* as before */</span> <span>}</span>
+
+<span>int</span> <span>get_the_answer</span><span>()</span>
+<span>{</span>
+    <span>if</span> <span>(</span><span>std</span><span>::</span><span>is_constant_evaluated</span><span>())</span> <span>// compile-time platform
+</span><span></span>    <span>{</span>
+        <span>return</span> <span>get_the_answer_impl</span><span>();</span>
+    <span>}</span>
+    <span>else</span> <span>// other platform
+</span><span></span>    <span>{</span>
+        <span>// Lazily compute once.
+</span><span></span>        <span>static</span> <span>int</span> <span>result</span> <span>=</span> <span>get_the_answer_impl</span><span>();</span>
+        <span>return</span> <span>result</span><span>;</span>
+    <span>}</span>
+<span>}</span>
+</code></pre></div><p>Marking functions as <code>constexpr</code> for documentation purposes is as necessary as marking functions as <code>linux</code> or <code>windows</code>.</p>
+<h2 id="how-to-verify-that-a--constexpr-function-can-be-run-at-compile-time">How to verify that a  <code>constexpr</code> function can be run at compile-time?</h2>
+<p>You might say that another benefit of marking functions <code>constexpr</code> is that the compiler can go ahead and verify that it actually works at compile-time.
+However, this is only partly true; the following code compiles.</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>constexpr</span> <span>int</span> <span>f</span><span>(</span><span>int</span> <span>i</span><span>)</span>
+<span>{</span>
+    <span>if</span> <span>(</span><span>i</span> <span>==</span> <span>0</span><span>)</span>
+      <span>return</span> <span>0</span><span>;</span>
+
+    <span>return</span> <span>std</span><span>::</span><span>getchar</span><span>();</span>
+<span>}</span>
+</code></pre></div><p>The function is marked <code>constexpr</code> even though it is only <code>constexpr</code> if <code>i</code> is <code>0</code>; otherwise, it does I/O which obviously can’t work at compile-time.
+But this is totally fine: a function can be marked <code>constexpr</code> if there is one possible combination of arguments that work at compile-time.
+This is the case here.</p>
+<p>And note that even if there is no combination of arguments that work at compile-time, the compiler isn’t even required to issue a diagnostic!</p>
+<p>So how do we check that our function works at compile-time?</p>
+<p>Well, we do it the same way we check that our function works under Linux:
+we write a test that covers all relevant arguments.</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>constexpr</span> <span>auto</span> <span>result_constexpr</span> <span>=</span> <span>foo</span><span>(</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>);</span>
+<span>CHECK</span><span>(</span><span>result_constexpr</span> <span>==</span> <span>42</span><span>);</span>
+
+<span>auto</span> <span>a</span> <span>=</span> <span>1</span><span>;</span>
+<span>auto</span> <span>result_runtime</span> <span>=</span> <span>foo</span><span>(</span><span>a</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>);</span>
+<span>CHECK</span><span>(</span><span>result_runtime</span> <span>==</span> <span>42</span><span>);</span>
+</code></pre></div><blockquote>
+<p>Note that we use a local variable to prevent the compiler from invoking the second <code>foo</code> at compile-time as well.</p>
+</blockquote>
+<p>If our function to test doesn’t use <code>std::is_constant_evaluated()</code> to change the implementation depending on the platform it’s running on,
+the runtime test isn’t necessary as it will execute the same code, just at runtime.
+It only tests whether the <code>constexpr</code> implementation of the compiler matches your processor,
+which should be done by compiler writers and not you.</p>
+<p>Writing tests where all the results are computed at compile-time and just the verification happens at runtime has some additional benefits:</p>
+<ul>
+<li>Your tests run really quickly as all they do is do a couple of equality checks of pre-computed results.</li>
+<li>It is really trivial to debug the failing test case: just remove the <code>constexpr</code> from the single result that is wrong and use the debugger.
+As everything else is computed at compile-time, you only have one invocation of the function that you need to debug and don’t need to step over all the other invocations that work.</li>
+<li>There is no UB at compile-time; the compiler is required to issue a diagnostic whenever it encounters one.
+With sufficient coverage, you can thus verify that your functions don’t contain UB.</li>
+</ul>
+<h2 id="is-stdis_constant_evaluated-a-bad-idea">Is <code>std::is_constant_evaluated()</code> a bad idea?</h2>
+<p>When <code>std::is_constant_evaluated()</code> was added to C++20 as a way to query whether a function invocations happens at compile-time,
+some people argued that it was a bad idea.
+Now it is possible to write code like this, which behaves completely different at compile-time and at runtime:</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>constexpr</span> <span>int</span> <span>f</span><span>()</span>
+<span>{</span>
+    <span>if</span> <span>(</span><span>std</span><span>::</span><span>is_constant_evaluated</span><span>())</span>
+        <span>return</span> <span>42</span><span>;</span>
+    <span>else</span>
+        <span>return</span> <span>11</span><span>;</span>
+<span>}</span>
+</code></pre></div><p>Obviously, writing code like this is bad, so we should make it impossible to do it.</p>
+<p>However, it is already possible to write something like this:</p>
+<div><pre tabindex="0"><code data-lang="cpp"><span>constexpr</span> <span>int</span> <span>f</span><span>()</span>
+<span>{</span>
+<span>#ifdef WIN32
+</span><span></span>        <span>return</span> <span>42</span><span>;</span>
+<span>#else
+</span><span></span>        <span>return</span> <span>11</span><span>;</span>
+<span>#endif
+</span><span></span><span>}</span>
+</code></pre></div><p>While this particular implementation of <code>f()</code> is bad, conditional compilation is <em>essential</em> for writing cross-platform code.
+The same applies to <code>std::is_constant_evaluated()</code> and <code>constexpr</code> code.
+To leverage platform specific APIs, we need a way to query the platform we’re running on and decide accordingly.</p>
+<p>Prime examples are the <a href="https://en.cppreference.com/w/cpp/numeric#Bit_manipulation_.28since_C.2B.2B20.29">bit functions</a> added in C++20, like <code>std::countl_zero(x)</code>.
+At runtime, you want to use the specialized assembly instructions which aren’t available at compile-time.
+So you use <code>std::is_constant_evaluated()</code> to switch implementations.</p>
+<p>And just like with cross-platform code you need to test both versions to ensure that both work.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p><code>constexpr</code> is a platform.</p>
+<p>Writing <code>constexpr</code> functions is just like writing portable functions:
+most code should be <code>constexpr</code>, just like most code is cross-platform;
+a <code>constexpr</code> marker should be unnecessary, just like a hypothetical <code>linux</code> marker;
+you need to test <code>constexpr</code> functions at compile-time and runtime, just like you need to do for cross-platform code;
+and you need a way to perform conditional compilation to pick the best APIs, just like all other portable code.</p>
+
+    <blockquote>
+        <p>If you&#39;ve liked this blog post, consider <a href="https://paypal.me/foonathan">donating</a> or otherwise <a href="https://jonathanmueller.dev/support-me/" target="_blank">supporting me</a>.</p>
+    </blockquote>
+    
+
+</article>
+
+
+    </div></div>]]></content:encoded>
+      <pubDate>Sun, 08 Aug 2021 17:53:54 +0000</pubDate>
+      <source>https://foonathan.net/2020/10/constexpr-platform/</source>
+    </item>
   </channel>
 </rss>

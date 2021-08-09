@@ -353,5 +353,34 @@
       <pubDate>Fri, 06 Aug 2021 04:00:00 +0000</pubDate>
       <source>https://xkcd.com/2499/</source>
     </item>
+    <item>
+      <title>Global Temperature Over My Lifetime</title>
+      <link>https://xkcd.com/2500/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/xkcd/https___xkcd_com_2500_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="middleContainer">
+
+<p>Global Temperature Over My Lifetime</p>
+<ul>
+<li><a href="https://xkcd.com/1/">|&lt;</a></li>
+<li><a rel="prev" href="https://xkcd.com/2499/" accesskey="p">&lt; Prev</a></li>
+<li><a href="https://c.xkcd.com/random/comic/">Random</a></li>
+<li><a rel="next" href="#" accesskey="n">Next &gt;</a></li>
+<li><a href="https://xkcd.com/">&gt;|</a></li>
+</ul>
+<p><a href="https://www.documentcloud.org/documents/2805576-1982-Exxon-Memo-to-Management-About-CO2"></a>
+</p>
+<ul>
+<li><a href="https://xkcd.com/1/">|&lt;</a></li>
+<li><a rel="prev" href="https://xkcd.com/2499/" accesskey="p">&lt; Prev</a></li>
+<li><a href="https://c.xkcd.com/random/comic/">Random</a></li>
+<li><a rel="next" href="#" accesskey="n">Next &gt;</a></li>
+<li><a href="https://xkcd.com/">&gt;|</a></li>
+</ul>
+</div></div>]]></content:encoded>
+      <guid>https://xkcd.com/2500/</guid>
+      <pubDate>Mon, 09 Aug 2021 04:00:00 +0000</pubDate>
+      <source>https://xkcd.com/2500/</source>
+    </item>
   </channel>
 </rss>
