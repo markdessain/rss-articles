@@ -32254,5 +32254,979 @@ program.</p></a></div>]]></content:encoded>
       <pubDate>Sun, 08 Aug 2021 05:55:44 +0000</pubDate>
       <source>https://thereader.mitpress.mit.edu/the-eldritch-roots-of-dungeons-dragons/</source>
     </item>
+    <item>
+      <title>echo &#39;I wrote a Bash book&#39; &amp;gt;&amp;gt; /dev/world</title>
+      <link>https://paperless.blog/newline-guide-to-bash-scripting</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+      <div>
+        <article itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  
+
+  <div itemprop="articleBody">
+    <p>I wrote a book — <a href="https://www.newline.co/courses/newline-guide-to-bash-scripting">The newline Guide to Bash Scripting</a>! I’ll let the intro speak for itself:</p>
+
+<blockquote>
+  <p>It’s aimed at developers who want to get the job done right the first time, and make sure maintenance is a breeze. Topics include:</p>
+
+  <ul>
+    <li>how to find help on arbitrary commands</li>
+    <li>how to structure a robust and maintainable script</li>
+    <li>editing commands and interacting with the terminal efficiently</li>
+    <li>tools for dealing with version control, JSON, XML, text encodings, images and compressed files</li>
+    <li>quality assurance</li>
+    <li>… and much more</li>
+  </ul>
+
+  <p>[…]</p>
+
+  <p>Bash is <em>the</em> Linux glue language, so this book is aimed at software developers mainly working in some other language. We assume that you have working knowledge of programming concepts like variable assignments, loops and files, and at least a passing familiarity with interactive shells.</p>
+
+  <p>[…]</p>
+
+  <p>This book was written using Bash 4.2 and 5.0 on Linux. The majority of the contents should be applicable to versions long before and after those, and to other Unix–like operating systems. However, since <em>everything</em> on Linux is configurable, absolute statements such as “$PATH will not be defined in a crontab” should be treated as a pragmatic shorthand for providing a virtual machine with the configuration I used when writing. It is not even theoretically possible to write a piece of software which will behave the same no matter how and where it is run. So the only way to <em>know</em> what some command will actually do is to run it, and no statement in this book should be treated as absolute truth. In the same vein, the code in this book is written to make a best effort at doing the right thing in a reasonable set of circumstances.</p>
+</blockquote>
+
+<p>I’m very proud to have written this book. I would’ve been super happy if it sold five copies, so I was very pleasantly surprised to find it sold over 100 copies in the first week. Allow me to finish with the acknowledgements:</p>
+
+<blockquote>
+  <p>Thank you to Nate Murray, my publisher, for his advice and endless patience, Gillian Merchant for her excellent review of later revisions, my partner for discussions about form and content, all my encouraging friends, family, colleagues at Catalyst and Toitū Te Whenua, and Andrew Maguire and John Billings for reviewing an early draft of the book. Special thanks to all the Bash community contributors on Stack Overflow, Unix &amp; Linux Stack Exchange and Greg’s Wiki, which are treasure troves of information about all things Bash.</p>
+</blockquote>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </div></div>]]></content:encoded>
+      <pubDate>Sat, 07 Aug 2021 10:04:47 +0000</pubDate>
+      <source>https://paperless.blog/newline-guide-to-bash-scripting</source>
+    </item>
+    <item>
+      <title>Open source database QuestDB is hiring front end/back end engineers</title>
+      <link>https://questdb.io/careers/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><section><div><div><p>We help developers handle explosive amounts of data while getting them started in just a few minutes with the simplest and most accessible time series database.</p></div><p></p></div><div><p></p><div><h2>Working at QuestDB</h2><p>We hire talented and passionate people who share our mission to empower developers to solve their problems with data. We are building breakthrough technology to power the infrastructure of tomorrow.</p><ul><li>We are a company with thousands of users; our mission is to empower them.</li><li>We invest in a culture that promotes ownership, autonomy and independent thinking.</li><li>We have transparent leadership and value employees’ strategic inputs.</li><li>Our team is ambitious and tackles the most difficult problems at the deepest data infrastructure layer.</li></ul></div></div><div><div><h2>Current openings</h2><p>We are always interested in hiring new talent, so if you are looking for a role that is not listed, you can contact us anyway! Send your CV with any relevant links (GitHub, LinkedIn, personal website, etc.) to <a href="mailto:careers@questdb.io">careers@questdb.io</a>, we will review your application and be in touch.</p></div></div><div><p></p><div><h2>About QuestDB</h2><p>We have built the fastest open source time series database from the ground up to offer breakthrough performance for real-time analytics using SQL.</p><p>We bring experience and technical approaches from low-latency trading to leverage real-time data processing in various use cases and industries.</p><p>Our users deploy QuestDB to make time series analysis fast, efficient, and convenient in financial services, IoT, application monitoring, and machine learning. We are a remote-first company based in London and backed by leading venture capital firms and Y Combinator.</p></div></div></section></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 12:00:35 +0000</pubDate>
+      <source>https://questdb.io/careers/</source>
+    </item>
+    <item>
+      <title>Why I Wrote PGP (1999)</title>
+      <link>http://www.philzimmermann.com/EN/essays/WhyIWrotePGP.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div width="99%">
+
+<tbody><tr>
+	<!-- horizontal spacer cell creates left margin by main body -->
+	<td></td>
+
+	<!-- main content -->
+	<td> 
+	
+
+
+<h2>Why I Wrote PGP</h2>
+
+<p><i>Part of the Original 1991 PGP User&#39;s Guide (updated in
+1999)<br/>
+</i></p>
+
+<p><i>&#34;Whatever you do will be insignificant, but it is very important
+that you do it.&#34;</i></p>
+
+<p>It&#39;s personal. It&#39;s private. And it&#39;s no one&#39;s business but
+yours. You may be planning a political campaign, discussing your
+taxes, or having a secret romance. Or you may be communicating with
+a political dissident in a repressive country. Whatever it is, you
+don&#39;t want your private electronic mail (email) or confidential
+documents read by anyone else. There&#39;s nothing wrong with asserting
+your privacy. Privacy is as apple-pie as the Constitution.</p>
+
+<p>The right to privacy is spread implicitly throughout the Bill of
+Rights. But when the United States Constitution was framed, the
+Founding Fathers saw no need to explicitly spell out the right to a
+private conversation. That would have been silly. Two hundred years
+ago, all conversations were private. If someone else was within
+earshot, you could just go out behind the barn and have your
+conversation there. No one could listen in without your knowledge.
+The right to a private conversation was a natural right, not just
+in a philosophical sense, but in a law-of-physics sense, given the
+technology of the time.</p>
+
+<p>But with the coming of the information age, starting with the
+invention of the telephone, all that has changed. Now most of our
+conversations are conducted electronically. This allows our most
+intimate conversations to be exposed without our knowledge.
+Cellular phone calls may be monitored by anyone with a radio.
+Electronic mail, sent across the Internet, is no more secure than
+cellular phone calls. Email is rapidly replacing postal mail,
+becoming the norm for everyone, not the novelty it was in the
+past.</p>
+
+<p>Until recently, if the government wanted to violate the privacy
+of ordinary citizens, they had to expend a certain amount of
+expense and labor to intercept and steam open and read paper mail.
+Or they had to listen to and possibly transcribe spoken telephone
+conversation, at least before automatic voice recognition
+technology became available. This kind of labor-intensive
+monitoring was not practical on a large scale. It was only done in
+important cases when it seemed worthwhile. This is like catching
+one fish at a time, with a hook and line. Today, email can be
+routinely and automatically scanned for interesting keywords, on a
+vast scale, without detection. This is like driftnet fishing. And
+exponential growth in computer power is making the same thing
+possible with voice traffic.</p>
+
+<p>Perhaps you think your email is legitimate enough that
+encryption is unwarranted. If you really are a law-abiding citizen
+with nothing to hide, then why don&#39;t you always send your paper
+mail on postcards? Why not submit to drug testing on demand? Why
+require a warrant for police searches of your house? Are you trying
+to hide something? If you hide your mail inside envelopes, does
+that mean you must be a subversive or a drug dealer, or maybe a
+paranoid nut? Do law-abiding citizens have any need to encrypt
+their email?</p>
+
+<p>What if everyone believed that law-abiding citizens should use
+postcards for their mail? If a nonconformist tried to assert his
+privacy by using an envelope for his mail, it would draw suspicion.
+Perhaps the authorities would open his mail to see what he&#39;s
+hiding. Fortunately, we don&#39;t live in that kind of world, because
+everyone protects most of their mail with envelopes. So no one
+draws suspicion by asserting their privacy with an envelope.
+There&#39;s safety in numbers. Analogously, it would be nice if
+everyone routinely used encryption for all their email, innocent or
+not, so that no one drew suspicion by asserting their email privacy
+with encryption. Think of it as a form of solidarity.</p>
+
+<p>Senate Bill 266, a 1991 omnibus anticrime bill, had an
+unsettling measure buried in it. If this non-binding resolution had
+become real law, it would have forced manufacturers of secure
+communications equipment to insert special &#34;trap doors&#34; in their
+products, so that the government could read anyone&#39;s encrypted
+messages. It reads, &#34;It is the sense of Congress that providers of
+electronic communications services and manufacturers of electronic
+communications service equipment shall ensure that communications
+systems permit the government to obtain the plain text contents of
+voice, data, and other communications when appropriately authorized
+by law.&#34; It was this bill that led me to publish PGP electronically
+for free that year, shortly before the measure was defeated after
+vigorous protest by civil libertarians and industry groups.</p>
+
+<p>The 1994 Communications Assistance for Law Enforcement Act
+(CALEA) mandated that phone companies install remote wiretapping
+ports into their central office digital switches, creating a new
+technology infrastructure for &#34;point-and-click&#34; wiretapping, so
+that federal agents no longer have to go out and attach alligator
+clips to phone lines. Now they will be able to sit in their
+headquarters in Washington and listen in on your phone calls. Of
+course, the law still requires a court order for a wiretap. But
+while technology infrastructures can persist for generations, laws
+and policies can change overnight. Once a communications
+infrastructure optimized for surveillance becomes entrenched, a
+shift in political conditions may lead to abuse of this new-found
+power. Political conditions may shift with the election of a new
+government, or perhaps more abruptly from the bombing of a federal
+building.</p>
+
+<p>A year after the CALEA passed, the FBI disclosed plans to
+require the phone companies to build into their infrastructure the
+capacity to simultaneously wiretap 1 percent of all phone calls in
+all major U.S. cities. This would represent more than a
+thousandfold increase over previous levels in the number of phones
+that could be wiretapped. In previous years, there were only about
+a thousand court-ordered wiretaps in the United States per year, at
+the federal, state, and local levels combined. It&#39;s hard to see how
+the government could even employ enough judges to sign enough
+wiretap orders to wiretap 1 percent of all our phone calls, much
+less hire enough federal agents to sit and listen to all that
+traffic in real time. The only plausible way of processing that
+amount of traffic is a massive Orwellian application of automated
+voice recognition technology to sift through it all, searching for
+interesting keywords or searching for a particular speaker&#39;s voice.
+If the government doesn&#39;t find the target in the first 1 percent
+sample, the wiretaps can be shifted over to a different 1 percent
+until the target is found, or until everyone&#39;s phone line has been
+checked for subversive traffic. The FBI said they need this
+capacity to plan for the future. This plan sparked such outrage
+that it was defeated in Congress. But the mere fact that the FBI
+even asked for these broad powers is revealing of their agenda.</p>
+
+<p>Advances in technology will not permit the maintenance of the
+status quo, as far as privacy is concerned. The status quo is
+unstable. If we do nothing, new technologies will give the
+government new automatic surveillance capabilities that Stalin
+could never have dreamed of. The only way to hold the line on
+privacy in the information age is strong cryptography.</p>
+
+<p>You don&#39;t have to distrust the government to want to use
+cryptography. Your business can be wiretapped by business rivals,
+organized crime, or foreign governments. Several foreign
+governments, for example, admit to using their signals intelligence
+against companies from other countries to give their own
+corporations a competitive edge. Ironically, the United States
+government&#39;s restrictions on cryptography in the 1990&#39;s have
+weakened U.S. corporate defenses against foreign intelligence and
+organized crime.</p>
+
+<p>The government knows what a pivotal role cryptography is
+destined to play in the power relationship with its people. In
+April 1993, the Clinton administration unveiled a bold new
+encryption policy initiative, which had been under development at
+the National Security Agency (NSA) since the start of the Bush
+administration. The centerpiece of this initiative was a
+government-built encryption device, called the Clipper chip,
+containing a new classified NSA encryption algorithm. The
+government tried to encourage private industry to design it into
+all their secure communication products, such as secure phones,
+secure faxes, and so on. AT&amp;T put Clipper into its secure voice
+products. The catch: At the time of manufacture, each Clipper chip
+is loaded with its own unique key, and the government gets to keep
+a copy, placed in escrow. Not to worry, though–the government
+promises that they will use these keys to read your traffic only
+&#34;when duly authorized by law.&#34; Of course, to make Clipper
+completely effective, the next logical step would be to outlaw
+other forms of cryptography.</p>
+
+<p>The government initially claimed that using Clipper would be
+voluntary, that no one would be forced to use it instead of other
+types of cryptography. But the public reaction against the Clipper
+chip was strong, stronger than the government anticipated. The
+computer industry monolithically proclaimed its opposition to using
+Clipper. FBI director Louis Freeh responded to a question in a
+press conference in 1994 by saying that if Clipper failed to gain
+public support, and FBI wiretaps were shut out by
+non-government-controlled cryptography, his office would have no
+choice but to seek legislative relief. Later, in the aftermath of
+the Oklahoma City tragedy, Mr. Freeh testified before the Senate
+Judiciary Committee that public availability of strong cryptography
+must be curtailed by the government (although no one had suggested
+that cryptography was used by the bombers).</p>
+
+<p>The government has a track record that does not inspire
+confidence that they will never abuse our civil liberties. The
+FBI&#39;s COINTELPRO program targeted groups that opposed government
+policies. They spied on the antiwar movement and the civil rights
+movement. They wiretapped the phone of Martin Luther King. Nixon
+had his enemies list. Then there was the Watergate mess. More
+recently, Congress has either attempted to or succeeded in passing
+laws curtailing our civil liberties on the Internet. Some elements
+of the Clinton White House collected confidential FBI files on
+Republican civil servants, conceivably for political exploitation.
+And some overzealous prosecutors have shown a willingness to go to
+the ends of the Earth in pursuit of exposing sexual indiscretions
+of political enemies. At no time in the past century has public
+distrust of the government been so broadly distributed across the
+political spectrum, as it is today.</p>
+
+<p>Throughout the 1990s, I figured that if we want to resist this
+unsettling trend in the government to outlaw cryptography, one
+measure we can apply is to use cryptography as much as we can now
+while it&#39;s still legal. When use of strong cryptography becomes
+popular, it&#39;s harder for the government to criminalize it.
+Therefore, using PGP is good for preserving democracy. If privacy
+is outlawed, only outlaws will have privacy.</p>
+
+<p>It appears that the deployment of PGP must have worked, along
+with years of steady public outcry and industry pressure to relax
+the export controls. In the closing months of 1999, the Clinton
+administration announced a radical shift in export policy for
+crypto technology. They essentially threw out the whole export
+control regime. Now, we are finally able to export strong
+cryptography, with no upper limits on strength. It has been a long
+struggle, but we have finally won, at least on the export control
+front in the US. Now we must continue our efforts to deploy strong
+crypto, to blunt the effects increasing surveillance efforts on the
+Internet by various governments. And we still need to entrench our
+right to use it domestically over the objections of the FBI.</p>
+
+<p>PGP empowers people to take their privacy into their own hands.
+There has been a growing social need for it. That&#39;s why I wrote
+it.</p>
+
+<p><b>Philip R. Zimmermann</b></p>
+</td>
+</tr>
+</tbody></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 11:34:14 +0000</pubDate>
+      <source>http://www.philzimmermann.com/EN/essays/WhyIWrotePGP.html</source>
+    </item>
+    <item>
+      <title>Crystal arrangement results in 1,000x more power from ferroelectric solar cells</title>
+      <link>https://www.pv-magazine.com/2021/08/04/crystal-arrangement-results-in-1000x-more-power-from-ferroelectric-solar-cells/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_pv-magazine_com_2021_08_04_crystal-arrangement-results-in-1000x-more-power-from-ferroelectric-solar-cells_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>German researchers developed a lattice arrangement of three different layers of ferroelectric crystals that created a powerful photovoltaic effect.</p> <p><time datetime="2021-08-04T07:14:26+02:00" itemprop="datePublished" title="Wednesday, August 4, 2021, 7:14 am">August 4, 2021</time> </p></div><div><p><span data-contrast="auto">Combining ultra-thin layers of different materials can raise the photovoltaic effect of solar cells by a factor of 1,000, <a href="https://advances.sciencemag.org/content/7/23/eabe4206">according to researchers</a> at Martin Luther University Halle-Wittenberg (MLU) in Germany.</span></p><p><span data-contrast="auto">Their findings, published in the journal “Science Advances,” described a lattice arrangement of three different layers of ferroelectric crystals (in this case, of barium titanate, strontium titanate, and calcium titanate) that created a powerful solar energy producing effect.</span></p><p><span data-contrast="auto">Ferroelectric means that the material has spatially separated positive and negative charges. The charge separation leads to an asymmetric structure that enables electricity to be generated from light.</span></p><p><span data-contrast="auto">Ferroelectric crystals differ from conventional silicon cells in that they do not require a p-n junction to create the PV effect. In other words, there is no need to create positively and negatively doped layers within the cell. The researchers said that change could make solar panels easier to produce.</span></p><p><span data-contrast="auto">MLU researchers have been experimenting with barium titanate to take advantage of these properties. However, pure barium titanate does not absorb much sunlight; as a result, it generates a relatively low photocurrent. The research showed that combining ultra-thin layers of different materials can significantly increase a cell’s yield.</span></p><p><span data-contrast="auto">Researchers added a thin paraelectric layer to the cell. Although this layer does not have separated charges, it can become ferroelectric under certain conditions; for example, in low temperatures or when the chemical structure is slightly modified.</span></p><p><span data-contrast="auto">MLU physicist Dr. Akash Bhatnagar and his team discovered that a much stronger photovoltaic effect occurs when the ferroelectric layer alternates with not one, but two different paraelectric layers.</span></p><p><span data-contrast="auto">The team embedded barium titanate between strontium titanate and calcium titanate. This was achieved by vaporizing the crystals with a high-powered laser, redepositing them on carrier substrates. The result was a material made of 500 layers that was only about 200 nanometers thick.</span></p><p><span data-contrast="auto">The MLU team irradiated the cell with laser light to test the new material, and the results surprised them. Compared to pure barium titanate of a similar thickness, the current flow was up to 1,000 times stronger, despite the proportion of barium titanate having been reduced by almost two-thirds.</span></p><p><span data-contrast="auto">“The interaction between the lattice layers appears to lead to a much higher permittivity – in other words, the electrons are able to flow much more easily due to the excitation by the light photons,” Bhatnagar said.</span></p><p><span data-contrast="auto">The studies show the effect is also resilient as it remained nearly constant over a six-month test period. </span><span data-contrast="auto">Further research is underway to understand what exactly causes this photovoltaic effect.</span></p><p>This content is protected by copyright and may not be reused. If you want to cooperate with us and would like to reuse some of our content, please contact: <a href="mailto:editors@pv-magazine.com">editors@pv-magazine.com</a>.</p></div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 10:56:09 +0000</pubDate>
+      <source>https://www.pv-magazine.com/2021/08/04/crystal-arrangement-results-in-1000x-more-power-from-ferroelectric-solar-cells/</source>
+    </item>
+    <item>
+      <title>Chatcontrol 2.0: The End of the Privacy of Digital Correspondence in the EU</title>
+      <link>https://www.patrick-breyer.de/en/posts/message-screening/?lang=en</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_patrick-breyer_de_en_posts_message-screening_?lang=en/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+
+    <div>
+	
+	<div id="blog-wrap">
+		<div id="primary" role="main">
+		    <article id="post-594160" class="page" itemscope="" itemtype="http://schema.org/WebPage">
+	
+	<div itemprop="text">
+		<h2>The End of the Privacy of Digital Correspondence</h2>
+
+<h3>How did we get here?</h3>
+<p>In 2020 the European Commission <a href="https://www.europarl.europa.eu/RegData/docs_autres_institutions/commission_europeenne/com/2020/0568/COM_COM(2020)0568_EN.pdf">proposed “temporary” legislation</a> aimed at allowing the search of all private chats, messages, and emails for illegal depictions of minors and attempted initiation of contacts with minors. This is to allow the providers of Facebook Messenger, Gmail, et al, to scan every message for suspicious text and images. This takes place in a fully automated process and using error-prone “artificial intelligence”. If an algorithm considers a message suspicious, its content and meta-data are disclosed automatically and without human verification to a private US-based organization and from there to national police authorities worldwide. The reported users are not notified.</p>
+<p>Some U.S. providers of services such as Gmail and Outlook.com are already performing such automated messaging and chat controls. Through a second piece of legislation, the EU Commission intends to oblige all providers of chat, messaging and e-mail services to deploy this mass surveillance technology. <strong><a href="https://www.patrick-breyer.de/en/poll-72-of-citizens-oppose-eu-plans-to-search-all-private-messages-for-allegedly-illegal-material-and-report-to-the-police/">At the same time, a representative survey conducted in March 2021 clearly shows that a majority of Europeans oppose the use of chat control </a></strong><a href="https://www.patrick-breyer.de/en/poll-72-of-citizens-oppose-eu-plans-to-search-all-private-messages-for-allegedly-illegal-material-and-report-to-the-police/"> (</a><a href="https://nextcloud.pp-eu.eu/index.php/s/5bkdRGyxnAciNBz">Detailed poll results here)</a><strong><a href="https://nextcloud.pp-eu.eu/index.php/s/5bkdRGyxnAciNBz">.</a></strong></p>
+<p><strong>More videos on Chatcontrol are available in <a href="https://peertube.european-pirates.eu/videos/watch/playlist/2a8dc2ce-2dec-4250-bb0e-a6a7340f0f4c">this playlist</a></strong></p>
+<h2>How does this affect you?</h2>
+<ul>
+<li><strong>All of your chat conversations and emails</strong> will be automatically searched for suspicious content. Nothing remains confidential or secret. There is no requirement of a court order or an initial suspicion for searching your messages. It occurs always and automatically.</li>
+<li>If an algorithms classifies the content of a message as suspicious, <strong>your private or intimate photos</strong> may be viewed by staff and contractors of international corporations and police authorities. Also your private nude photos may be looked at by people not known to you, in whose hands your photos are not safe.</li>
+<li><strong>Flirts and sexting may be read</strong> by staff and contractors of international corporations and police authorities, because text recognition filters looking for “child grooming” frequently falsely flag intimate chats.</li>
+<li><strong>You can falsely be reported and investigated </strong>for allegedly disseminating child sexual exploitation material. Messaging and chat control algorithms are known to flag completely legal vacation photos of children on a beach, for example. According to Swiss federal police authorities, 86% of all machine-generated reports turn out to be without merit. 40% of all criminal investigation procedures initiated in Germany for “child pornography” target minors.</li>
+<li>On your next <strong>trip overseas,</strong> you can expect big problems. Machine-generated reports on your communications may have been passed on to other countries, such as the USA, where there is no data privacy – with incalculable results.</li>
+<li><strong>Intelligence services and hackers may be able to spy on your private chats and emails. </strong>The door will be open for anyone with the technical means to read your messages if secure encryption is removed in order to be able to screen messages.</li>
+<li><strong>This is only the beginning</strong>. Once the technology for messaging and chat control has been established, it becomes very easy to use them for other purposes. And who guarantees that these incrimination machines will not be used in the future on our smart phones and laptops?</li>
+</ul>
+<p><a href="#AdditionalInformation">Click here for further arguments against messaging and chat control</a></p>
+<p><a href="#WhatYouCanDo">Click here to find out what you can do to stop messaging and chat control</a></p>
+<h3>Timeline</h3>
+<p>Voluntary chat control has been approved! <a href="https://www.patrick-breyer.de/en/chatcontrol-european-parliament-approves-mass-surveillance-of-private-communications/">Here is my press release on the outcome of the vote</a>.</p>
+<p>In autumn 2021 the EU Commission <a href="https://www.europarl.europa.eu/RegData/docs_autres_institutions/commission_europeenne/com/2020/0568/COM_COM(2020)0568_EN.pdf">intends</a> to make a second legislative proposal, which is to compel all providers of email, messaging and chat services to search all private messages in the absence of any suspicion.</p>
+<p>According to the <a href="http://curia.europa.eu/juris/document/document.jsf?text=&amp;docid=232084&amp;pageIndex=0&amp;doclang=EN&amp;mode=req&amp;dir=&amp;occ=first&amp;part=1">case-law of the European Court of Justice</a> the permanent and comprehensive automated analysis of private communications <strong>violates fundamental rights and is prohibited </strong>(paragraph 177). For this reason, Member of the European Parliament Patrick Breyer has filed a complaint against U.S. companies Facebook and Google with the data protection authorities for violating the General Data Protection Regulation. Former judge of the European Court of Justice Prof. Dr. Ninon Colneric has extensively analysed the plans and <strong>concludes in a <a href="https://www.patrick-breyer.de/wp-content/uploads/2021/03/Legal-Opinion-Screening-for-child-pornography-2021-03-04.pdf" data-type="URL" data-id="https://www.patrick-breyer.de/wp-content/uploads/2021/03/Legal-Opinion-Screening-for-child-pornography-2021-03-04_incl_Logos.pdf">legal assessment</a> that the EU legislative plans on chat control are not in line with the case law of the European Court of Justice and violate the fundamental rights of all EU citizens</strong> to respect for privacy, to data protection and to freedom of expression.</p>
+<h3><strong>Upcoming dates<br/>
+</strong></h3>
+<ul>
+<li><del>14 January 2021: Internal technical negotiations of the European Parliament</del></li>
+<li><del>15 January 2021: Technical negotiations between Council, Commission and Parliament (Technical Trilogue)</del></li>
+<li><del>18 January 2021: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>19 January 2021: Internal technical negotiations of the European Parliament</del></li>
+<li><del>20 January 2021: Technical negotiations between Council, Commission and Parliament (Technical Trilogue)</del></li>
+<li><del>25 January Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>01 February 2021: Internal technical negotiations of the European Parliament</del></li>
+<li><del>05 February 2021: Internal technical negotiations of the European Parliament</del></li>
+<li><del>22 February 2021: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>23 February 2021: Second Political Trilogue negotiations between Council, Commission and Parliament</del></li>
+<li><del>26 February 2021: Internal technical negotiations of the European Parliament</del></li>
+<li><del>1 March 2021: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>2 March 2021: Internal technical negotiations of the European Parliament</del></li>
+<li><del>8 March 2021: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>9 March 2021: Third Political Trilogue negotiations between Council, Commission and Parliament</del></li>
+<li><del>23 March 2021: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>25 March 2021: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>19 April: Internal technical negotiations of the European Parliament, Commission and Council</del></li>
+<li><del>28 April: Shadow rapporteur meeting of the negotiators of the European Parliament</del></li>
+<li><del>29 April: Fifth Political Trilogue negotiations between Council, Commission and Parliament</del></li>
+<li><del>26 May: Committee Vote on  <a href="https://www.patrick-breyer.de/en/chatcontrol-trilogue-agreement-on-indiscriminate-analysis-of-all-private-communications-contents/">Trilogue Agreement </a></del></li>
+<li><del><strong>6 July 2021: Plenary Vote</strong></del></li>
+</ul>
+
+<ul>
+<li><strong>Expected for <del>Summer</del> Autumn 2021: Commission proposal on mandatory messaging and chat controls for online service providers</strong></li>
+</ul>
+<h3 id="WhatYouCanDo"><a id="WhatYouCanDo"></a>What you can do</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<ul>
+<li>Talk about it! Inform others about the dangers of chat control. <strong><a href="https://nextcloud.pp-eu.eu/index.php/s/qLreyoZRE3B9W3T">Here, you can find tweet templates, share pics and videos</a></strong>. Of course, you can also create your own images and videos.</li>
+</ul>
+</td>
+<td><strong><a href="https://nextcloud.pp-eu.eu/index.php/s/qLreyoZRE3B9W3T"></a></strong></td>
+</tr>
+<tr>
+<td>
+<ul>
+<li>Generate attention on social media! Use the hashtags <strong>#chatcontrol</strong> and <strong>#secrecyofcorrespondence</strong></li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>
+<ul>
+<li><strong>Reach out to your <a href="https://www.patrick-breyer.de/en/indiscriminate-messaging-and-chatcontrol-last-chance-to-protest/">representatives in Parliament!</a></strong> If you want, you can use <a href="https://nextcloud.pp-eu.eu/index.php/s/o6aRFH8y5e4sXrN"><strong>pre-worded message</strong></a> <strong>for this purpose</strong>. However, experience has shown that individually worded messages are more effective.</li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2">
+<ul>
+<li><strong>Generate media attention! </strong>So far very few media have covered the messaging and chat control plans of the EU. Get in touch with newspapers and ask them to cover the subject – online and offline.</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<ul>
+<li><strong>Ask your e-mail, messaging and chat service providers!</strong> Avoid Gmail, Facebook Messenger, outlook.com and the chat function of X-Box, where indiscriminate chat control is already taking place. Ask your email, messaging and chat providers if they generally monitor private messages for suspicious content, or if they plan to do so.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>All citizens are placed under suspicion, without cause, of possibly having committed a crime. </strong>Text and photo filters monitor all messages, without exception. <strong>No judge is required to order to such monitoring – contrary to the analog world which guarantees the privacy of correspondence and the confidentiality of written communications. </strong>According to a judgment by the European Court of Justice, the permanent and general automatic analysis of private communications violates fundamental rights (case C-511/18, Paragraph 192). Nevertheless, the EU now intends to adopt such legislation. For the court to annul it can take years. Therefore we need to prevent the adoption of the legislation in the first place.</li>
+<li><strong>The confidentiality of private electronic correspondence is being sacrificed. </strong>Users of messenger, chat and e-mail services risk having their private messages read and analyzed. Sensitive photos and text content could be forwarded to unknown entities worldwide and can fall into the wrong hands. NSA staff have <a href="https://www.nytimes.com/2014/07/21/us/politics/edward-snowden-at-nsa-sexually-explicit-photos-often-shared.html?_r=0">reportedly</a> circulated nude photos of female and male citizens in the past. A Google engineer has been <a href="https://gawker.com/5637234/gcreep-google-engineer-stalked-teens-spied-on-chats">reported</a> to stalk minors.</li>
+<li><strong>Indiscriminate messaging and chat control wrongfully incriminates hundreds of users every day.</strong> According the Swiss Federal Police, 90% of machine-reported content is not illegal, for example harmless holiday photos showing nude children playing at a beach.</li>
+<li><strong>Securely encrypted communication is at risk. </strong>Up to now, encrypted messages cannot be searched by the algorithms. To change that back doors would need to be built in to messaging software. As soon as that happens, this security loophole can be exploited by anyone with the technical means needed, for example by foreign intelligence services and criminals. Private communications, business secrets and sensitive government information would be exposed. Secure encryption is needed to protect minorities, LGBTQI people, democratic activists, journalists, etc.</li>
+<li><strong>Criminal justice is being privatized. </strong>In the future the algorithms of corporations such as Facebook, Google, and Microsoft will decide which user is a suspect and which is not. The proposed legislation contains no transparency requirements for the algorithms used. Under the rule of law the investigation of criminal offences belongs in the hands of independent judges and civil servants under court supervision.</li>
+<li><strong>Indiscriminate messaging and chat control creates a precedent and opens the floodgates</strong>. Deploying technology for automatically monitoring all online communications is dangerous: It can very easily be used for other purposes in the future, for example copyright violations, drug abuse, or “harmful content”. In authoritarian states such technology is to identify and arrest government opponents and democracy activists. Once the technology is deployed comprehensively, there is no going back.</li>
+<li><strong>The temporary legislation on the table is ineffective. </strong>Contrary to its intent, it will not allow Facebook et al to continue the mass monitoring of private correspondence. It does limit the ePrivacy directive. The chat control, however, will continue to violate the General Data Protection Regulation (DSGVO) because it lacks a legal basis and violates the principle of proportionality. A complaint filed by Patrick Breyer is being examined by the Irish Data Protection Agency.<strong><br/>
+</strong></li>
+</ul>
+<h2><strong><a id="ineffective"></a>Why messaging and chat control harms children and abuse victims<br/>
+</strong></h2>
+<p>Proponents claim indiscriminate messaging and chat control facilitates the prosecution of child sexual exploitation. However, this argument is controversial, even among victims of child sexual abuse. In fact messaging and chat control can hurt victims and potential victims of sexual exploitation:</p>
+<ol>
+<li><strong>Safe spaces are destroyed. </strong>Victims of sexual violence are especially in need of the ability to communicate safely and confidentially to seek counseling and support, for example to safely exchange among each other, with their therapists or attorneys. The introduction of real-time monitoring takes these safe rooms away from them. This can discourage victims from seeking help and support.</li>
+<li><strong>Self-recorded nude photos of minors (sexting) end up in the hands of company employees</strong> and police where they do not belong and are not safe.</li>
+<li><strong>Minors are being criminalized. </strong>Especially young people often share intimate recordings with each other (sexting). With messaging and chat control in place, their photos and videos may end up in the hands of criminal investigators. German crime statistics demonstrate that 40% of all investigations for child pornography target minors.</li>
+<li><strong>Indiscriminate messaging and chat control does not contain the circulation of illegal material but </strong><strong>actually makes it more difficult to prosecute child sexual exploitation. </strong>It encourages offenders to go underground and use private encrypted servers which can be impossible to detect and intercept. Even on open channels, indiscriminate messaging and chat control does not contain the volume of material circulated, as evidenced by the constantly rising number of machine reports.</li>
+</ol>
+<h2>Alternatives: How to protect children effectively</h2>
+<p>The right way to address the problem is police work and strengthening law enforcement capacities, including (online) undercover investigations, with enough resources and expertise to infiltrate the networks where child sexual abuse material is distributed. We need better staffed and more specialized police and judicial authorities, strengthening of resources for investigation and prosecution, prevention, support, training and funding support services for victims. For example:</p>
+<ol>
+<li>The 2011 <strong>EU directive on combating the sexual abuse and sexual exploitation of children and child pornography needs to be fully implemented</strong> in the areas of prevention (in particular prevention programmes for offenders and for people who fear that they might offend), criminal law (especially the definition of offences and level of penalties), and assistance, support and protection measures for child victims.</li>
+<li><strong>Undercover police work</strong> needs to be intensified to identify the producers of child sexual exploitation material.</li>
+<li>To <strong>support law enforcement</strong>, the following is needed: Sufficient hardware and software for data preparation and evaluation, technical possibilities for automated selection and reduction of data (AI), systematic internal police use of hash databases, sufficient IT capacities to process seized data storage media, carefully evaluate confiscated data carriers in order to detect new material and to identify victims, centralisation of data processing and evaluation of seized image and video material, standards/guidelines for the processing of sexual abuse cases for the police, centralised controlling (monitoring) of the number of investigations, their status, and personnel capacity; specialised training, if necessary also obligatory; special psycho-social support for investigators if needed.</li>
+<li><strong>Children need to be educated</strong> about online safety.</li>
+<li>An <strong>EU center for preventing child sexual abuse</strong> could support Member States in putting in place usable evaluated and effective multi-disciplinary prevention measures to decrease the prevalence of child sexual abuse in the EU; serve as a hub for connecting, developing and disseminating research and expertise, and for facilitating the communication and exchange of best practices between practitioners and researchers; help develop state-of-the-art research and knowledge, including better prevention-related data; support the exchange of best practices on protection measures for victims; carry out research and serve as a hub of expertise on assistance to victims of child sexual abuse; support evidence-based policy on assistance and support to victims.</li>
+</ol>
+<h2>Documents on the legislative procedure</h2>
+<ul>
+<li><strong><a href="https://www.europarl.europa.eu/RegData/docs_autres_institutions/commission_europeenne/com/2020/0568/COM_COM(2020)0568_EN.pdf">Legislative Proposal by the Commission</a></strong> (10 September 2020)</li>
+<li><strong><a href="https://www.politico.eu/wp-content/uploads/2020/09/SKM_C45820090717470-1_new.pdf">Technical solutions to screen end to end encrypted communications</a></strong> (September 2020)</li>
+<li><a href="https://www.europarl.europa.eu/doceo/document/A-9-2020-0258_EN.pdf"><strong>Report of the Committee for Civil Liberties, Justice and Home Affairs</strong></a> (11 December 2020)</li>
+<li><strong><a href="https://www.euractiv.com/wp-content/uploads/sites/2/2021/01/EP-questions-9-October-final.pdf">Answers given by the Commission</a></strong> to questions of the Members of Parliament (28 September 2020)</li>
+<li><strong><a href="https://www.euractiv.com/wp-content/uploads/sites/2/2021/01/EP-questions-9-October-final.pdf">Answers given by the Commission</a></strong> to questions of the Members of Parliament (27 October 2020)</li>
+<li><strong><a href="https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662598/EPRS_STU(2021)662598_EN.pdf">Impact Assessment by the European Parliamentary Research Service</a></strong> (5 February 2021)</li>
+<li><strong><a href="http://bit.ly/200258EC">Leaked 4 column document reflecting the state of negotiations</a></strong> (englisch) (5 March 2021)</li>
+<li><strong><a href="https://www.patrick-breyer.de/wp-content/uploads/2021/03/Legal-Opinion-Screening-for-child-pornography-2021-03-04.pdf">Legal Opinion on the Compatibility of Chatcontrol with the case law of the ECJ</a></strong> (March 2021)</li>
+<li><strong><a href="https://www.patrick-breyer.de/wp-content/uploads/2021/06/2021-02-23-MEP-Breyer_CSEM-reports_EUROPOL_reply.pdf">Answers by Europol on statistics regarding the prosecution of child sexual abuse material online</a> </strong>(28 April 2021)</li>
+<li><strong><a href="https://www.patrick-breyer.de/wp-content/uploads/2021/05/202105_Chatcontrol_Trilogue_Agreement.pdf">Consolidated Compromise Text of the Draft Regulation</a></strong> (Trilogue Agreement) (21 May 2021)</li>
+</ul>
+<h2>Critical commentary and further reading</h2>
+<ul>
+<li><strong>Prostasia Foundation:</strong> “<a href="http://www.circleid.com/posts/20200819-how-the-war-against-child-abuse-material-was-lost/">How the War against Child Abuse Material was lost</a>” (19 August 2020)</li>
+</ul>
+<ul>
+<li><strong>European Digital Rights (EDRi)</strong>: “<a href="https://edri.org/our-work/is-surveilling-children-really-protecting-them-our-concerns-on-the-interim-csam-regulation/">Is surveilling children really protecting them? Our concerns on the interim CSAM regulation</a>” (24 September 2020)</li>
+</ul>
+<ul>
+<li><strong>Civil Society Organizations</strong>: “<a href="https://edri.org/wp-content/uploads/2020/10/20201020-EDRi-Open-letter-CSAM-and-encryption-FINAL.pdf">Open Letter: Civil society views on defending privacy while preventing criminal acts</a>” (27 Oktober 2020)</li>
+</ul>
+<blockquote>
+<p>“we suggest that the Commission prioritise this non-technical work, and more rapid take-down of offending websites, over client-side filtering […]”</p>
+</blockquote>
+<ul>
+<li><strong>European Data Protection Supervisor</strong>: “<a href="https://edps.europa.eu/data-protection/our-work/publications/opinions/opinion-proposal-temporary-derogations-directive_en">Opinion on the proposal for temporary derogations from Directive 2002/58/EC for the purpose of combatting child sexual abuse online</a>” (10. November 2020)</li>
+</ul>
+<blockquote>
+<p>“Due to the absence of an impact assessment accompanying the Proposal, the Commission has yet to demonstrate that the measures envisaged by the Proposal are strictly necessary, effective and proportionate for achieving their intended objective.”</p>
+</blockquote>
+<ul>
+<li><strong>Alexander Hanff</strong> (victim of child abuse and privacy professional): “<a href="https://www.linkedin.com/pulse/why-i-dont-support-privacy-invasive-measures-tackle-child-hanff">Why I don’t support privacy invasive measures to tackle child abuse.</a>” (11 November 2020)</li>
+</ul>
+<blockquote>
+<p>“As an abuse survivor, I (and millions of other survivors across the world) rely on confidential communications to both find support and report the crimes against us – to remove our rights to privacy and confidentiality is to subject us to further injury and frankly, we have suffered enough. […] it doesn’t matter what steps we take to find abusers, it doesn’t matter how many freedoms or constitutional rights we destroy in order to meet that agenda – it WILL NOT stop children from being abused, it will simply push the abuse further underground, make it more and more difficult to detect and ultimately lead to more children being abused as the end result.”</p>
+</blockquote>
+<ul>
+<li><strong>AccessNow</strong>: “<a href="https://www.euractiv.com/section/digital/opinion/the-fundamental-rights-concerns-at-the-heart-of-new-eu-online-content-rules/">The fundamental rights concerns at the heart of new EU online content rules</a>” (19 November 2020)</li>
+</ul>
+<blockquote>
+<p>“In practice this means that they would put private companies in charge of a matter that public authorities should handle”</p>
+</blockquote>
+<ul>
+<li><strong>Federal Bar Association (BRAK)</strong> (in German): “<a href="https://www.patrick-breyer.de/wp-content/uploads/2021/01/202011_Stellungnahme_BRAK_ePrivacy_Derogation.pdf">Stellungnahme zur Übergangsverordnung gegen Kindesmissbrauch im Internet</a>” (24 November 2020)</li>
+</ul>
+<blockquote>
+<p>„the assessment of child abuse-related facts is part of the legal profession’s area of responsibility. Accordingly, the communication exchanged between lawyers and clients will often contain relevant keywords. […] According to the Commission’s proposals, it is to be feared that in all of the aforementioned constellations there will regularly be a breach of confidentiality due to the unavoidable use of relevant terms.”</p>
+</blockquote>
+<ul>
+<li><strong>Alexander Hanff</strong> (Victim of Child Abuse and Privacy Activist): “<a href="https://www.linkedin.com/pulse/eu-parliament-pass-derogation-which-result-total-over-alexander-hanff/?published=t">EU Parliament are about to pass a derogation which will result in the total surveillance of over 500M Europeans</a>” (4 Dezember 2020)</li>
+</ul>
+<blockquote>
+<p>“I didn’t have confidential communications tools when I was raped; all my communications were monitored by my abusers – there was nothing I could do, there was no confidence. […] I can’t help but wonder how much different my life would have been had I had access to these modern technologies. [The planned vote on the e-Privacy Derogation] will drive abuse underground making it far more difficult to detect; it will inhibit support groups from being able to help abuse victims – IT WILL DESTROY LIVES.”</p>
+</blockquote>
+<ul>
+<li><strong>German Data Protection Supervisor</strong> (in German): „<a href="https://www.bfdi.bund.de/DE/Infothek/Pressemitteilungen/2020/30_Umsetzung-EU-Richtlinie.html">BfDI kritisiert versäumte Umsetzung von EU Richtlinie</a>“ (17 Dezember 2020)</li>
+</ul>
+<blockquote>
+<p>“A blanket and unprovoked monitoring of digital communication channels is neither proportionate nor necessary to detect online child abuse. The fight against sexualised violence against children must be tackled with targeted and specific measures. The investigative work is the task of the law enforcement authorities and must not be outsourced to private operators of messenger services.”</p>
+</blockquote>
+<ul>
+<li><strong>European Digital Rights (EDRi): <a href="https://edri.org/our-work/children-private-communications-csam-fundamental-rights-issues/">Wiretapping children’s private communications: Four sets of fundamental rights problems for children</a> (and everyone else) </strong>(10 February 2021)</li>
+</ul>
+<blockquote><p>“As with other types of content scanning (whether on platforms like YouTube or in private communications) scanning everything from everyone all the time creates huge risks of leading to mass surveillance by failing the necessity and proportionality test. Furthermore, it creates a slippery slope where we start scanning for less harmful cases (copyright) and then we move on to harder issues (child sexual abuse, terrorism) and before you realise what happened scanning everything all the time becomes the new normal.”</p></blockquote>
+<ul>
+<li><strong>German Bar Association (DAV):</strong> <a href="https://anwaltverein.de/de/newsroom/sn-25-21-anlassloses-inhalte-scannen-ist-unverh%C3%A4ltnism%C3%A4%C3%9Fig?file=files/anwaltverein.de/downloads/newsroom/stellungnahmen/2021/dav-position-paper-25-2021.pdf">“Indiscriminate communications scanning is disproportionate”</a> (9 March 2021)</li>
+</ul>
+<blockquote><p>“The DAV is explicitly in favour of combating the preparation and commission of child sexual abuse and its dissemination via the internet through effective measures at EU-level. However, the Interim Regulation proposed by the Commission would allow blatantly disproportionate infringements on the fundamental rights of users of internet-based communication services. Furthermore, the proposed Interim Regulation lacks sufficient procedural safeguards for those affected. This is why the legislative proposal should be rejected as a whole.”</p></blockquote>
+<ul>
+<li><a href="https://www.patrick-breyer.de/wp-content/uploads/2021/03/Praesidentenschreiben-BRAK-DAV_Trilog-Uebergangs-VO.pdf"><strong>Letter from the President of the German Bar Association (DAV) and the President of the Federal Bar Association (BRAK)</strong></a> (in German) (8 March 2021)</li>
+</ul>
+<blockquote>
+<p>“Positive hits with subsequent disclosure to governmental and non-governmental agencies would be feared not only by accused persons but above all by victims of child sexual abuse. In this context, the absolute confidentiality of legal counselling is indispensable in the interest of the victims, especially in these matters which are often fraught with shame. In these cases in particular, the client must retain the authority to decide which contents of the mandate may be disclosed to whom. Otherwise, it is to be feared that victims of child sexual abuse will not seek legal advice.”</p>
+</blockquote>
+<ul>
+<li><strong><a href="https://tutanota.com/blog/posts/european-autonomy-in-danger/">Strategic autonomy in danger: European Tech companies warn of lowering data protection levels in the EU</a></strong> (15 April 2021)</li>
+</ul>
+<blockquote><p>“In the course of the initiative “Fighting child sexual abuse: detection, removal, and reporting of illegal content”, the European Union plans to abolish the digital privacy of correspondence. In order to automatically detect illegal content, all private chat messages are to be screened in the future. This should also apply to content that has so far been protected with strong end-to-end encryption. If this initiative is implemented according to the current plan it would enormously damage our European ideals and the indisputable foundations of our democracy, namely freedom of expression and the protection of privacy […]. The initiative would also severely harm Europe’s strategic autonomy and thus EU-based companies.”</p></blockquote>
+<h2>Learn more</h2>
+<p></p>
+        
+        
+            <div data-options="{&#34;id&#34;:&#34;594461&#34;,&#34;lazy_load&#34;:&#34;yes&#34;,&#34;masonry_enable&#34;:&#34;no&#34;,&#34;view_type&#34;:&#34;grid&#34;}" id="post-grid-594461">
+                <div>
+            
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    01-07-2021            
+    </p>
+        
+        <p>
+        The date for the vote on the chat control regulation has been set: On 6 July, all Members of the        <a target="_blank" href="https://www.patrick-breyer.de/en/indiscriminate-messaging-and-chatcontrol-last-chance-to-protest/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    27-05-2021            
+    </p>
+        
+        <p>
+        On 26 May, the European Parliament&#39;s Committee on Civil Liberties, Justice and Home Affairs (LIBE) approved a regulation that will        <a target="_blank" href="https://www.patrick-breyer.de/en/chat-control-home-affairs-committee-approves-regulation-on-indiscriminate-searching-of-private-communications/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    25-05-2021            
+    </p>
+        
+        <p>
+        Tomorrow, the European Parliament&#39;s Committee on Civil Liberties, Justice and Home Affairs (LIBE) will vote on a legislative proposal that        <a target="_blank" href="https://www.patrick-breyer.de/en/chat-control-civil-liberties-committee-to-vote-on-searching-all-private-messages-for-allegedly-illegal-material/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    29-04-2021            
+    </p>
+        
+        <p>
+        EU Council and Parliament agreed tonight to allow providers to automatically search all personal electronic mail and messages of each        <a target="_blank" href="https://www.patrick-breyer.de/en/chatcontrol-trilogue-agreement-on-indiscriminate-analysis-of-all-private-communications-contents/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    28-04-2021            
+    </p>
+        
+        <p>
+        A great majority of EU citizens oppose the EU‘s plans for blanket messaging and chat control. This is the result        <a target="_blank" href="https://www.patrick-breyer.de/en/poll-72-of-citizens-oppose-eu-plans-to-search-all-private-messages-for-allegedly-illegal-material-and-report-to-the-police/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    08-04-2021            
+    </p>
+        
+        <p>
+        The EU Commission is drafting permanent legislation on the automatic searching of all online activities, including personal electronic mail and        <a target="_blank" href="https://www.patrick-breyer.de/en/have-your-say-public-consultation-on-chatcontrol-open-until-15-april/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    26-03-2021            
+    </p>
+        
+        <p>
+        In search of &#34;child pornography&#34;, the EU wants to have all private digital communications automatically analysed and, in case of        <a target="_blank" href="https://www.patrick-breyer.de/en/former-ecj-judge-eu-plans-for-indiscriminate-screening-of-private-messages-chat-control-violate-fundamental-rights/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    25-02-2021            
+    </p>
+        
+        <p>
+        Member of the European Parliament Patrick Breyer (Pirate Party) accuses Google of misleading the public in a recent communication[1] on        <a target="_blank" href="https://www.patrick-breyer.de/en/google-whitewashing-error-prone-incrimination-machines/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    23-02-2021            
+    </p>
+        
+        <p>
+        The second trilogue negotiation between Parliament, Commission and Council on the planned e-privacy derogation, which would allow providers of e-mail,        <a target="_blank" href="https://www.patrick-breyer.de/en/controversial-eu-plans-for-blanket-message-and-chat-control-second-trilogue-takes-place-today/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    12-02-2021            
+    </p>
+        
+        <p>
+        An expert assessment published on February 8 by the European Parliamentary Research Service found that the automated screening of private        <a target="_blank" href="https://www.neweurope.eu/article/eu-plans-for-blanket-message-and-chat-controls-violate-fundamental-rights/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    09-02-2021            
+    </p>
+        
+        <p>
+        The indiscriminate and error-prone automated screening of private emails and messages in search of child pornography and grooming by US        <a target="_blank" href="https://www.patrick-breyer.de/en/european-parliament-research-service-eu-plans-for-blanket-message-and-chat-control-violate-fundamental-rights/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    27-01-2021            
+    </p>
+        
+        <p>
+        The EU wants private e-mail, messaging and chat conversations to be screened for suspicious content generally and indiscriminately. On the        <a target="_blank" href="https://www.patrick-breyer.de/en/act-now-unprecedented-eu-plans-to-indiscriminately-screen-private-correspondence-online/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    22-01-2021            
+    </p>
+        
+        <p>
+        The number of EU Facebook users reported to the police for allegedly sharing illegal depictions of minors declined by 46%        <a target="_blank" href="https://www.patrick-breyer.de/en/chat-control-suspension-of-facebooks-incrimination-machine-protects-the-innocent-and-supports-law-enforcement/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    04-01-2021            
+    </p>
+        
+        <p>
+        Member of the European Parliament Patrick Breyer (Pirate Party) welcomes the decision by Facebook to suspend the error-prone mass screening        <a target="_blank" href="https://www.patrick-breyer.de/en/mass-screening-of-electronic-mail-facebook-suspends-controversial-incrimination-machine/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    07-12-2020            
+    </p>
+        
+        <p>
+        Today the European Parliament&#39;s Civil liberties Committee voted to restrict the ePrivacy Directive which aims at protecting private communications. The        <a target="_blank" href="https://www.patrick-breyer.de/en/denunciation-machine-eu-parliament-supports-mass-surveillance-of-e-mail-messengers-and-chats/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    25-11-2020            
+    </p>
+        
+        <p>
+        The EU Commission wants to legalise the mass screening and surveillance of all private electronic communications in search of possible        <a target="_blank" href="https://www.patrick-breyer.de/en/mass-surveillance-to-protect-children-opposition-to-new-eu-private-messaging-upload-filter-plans/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    28-10-2020            
+    </p>
+        
+        <p>
+        Patrick Breyer (Pirate Party), Member of the European Parliament, has filed a complaint with the data protection authority of Schleswig-Holstein        <a target="_blank" href="https://www.patrick-breyer.de/en/data-protection-supervisor-to-assess-legality-of-blanket-analysis-of-private-communications-in-search-for-illegal-content/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    17-09-2020            
+    </p>
+        
+        <p>
+        The European Parliament today debated a draft legislation by the EU Commission that would allow the screening without suspicion of        <a target="_blank" href="https://www.patrick-breyer.de/en/child-protection-through-scanning-of-private-messages-investigation-instead-of-monitoring/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    10-09-2020            
+    </p>
+        
+        <p>
+        The EU Commission is proposing to screen and monitor all private electronic communications without suspicion in order to search for        <a target="_blank" href="https://www.patrick-breyer.de/en/protect-children-without-spying-on-citizens-patrick-breyer-warns-against-eu-proposal-on-filtering-of-all-private-online-communications/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+    
+    <div>
+                <div>
+                
+        <div>
+            <p>
+                    08-09-2020            
+    </p>
+        
+        <p>
+        The EU Commission wants all private electronic communications to be screened for possible child pornography, in the absence of any        <a target="_blank" href="https://www.patrick-breyer.de/en/effective-child-protection-instead-of-indiscriminate-interception-patrick-breyer-warns-about-the-eu-commissions-communications-censorship-plans/"></a>
+
+    </p>
+        </div>
+            </div>
+    </div>
+            </div>
+            
+        
+    
+            
+        
+        
+        </div>
+    
+	</div>
+		    </article>
+		</div><!-- end #primary -->
+            
+<!-- .sidebar-page -->
+	</div>
+    </div>
+
+    </div></div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 11:26:12 +0000</pubDate>
+      <source>https://www.patrick-breyer.de/en/posts/message-screening/?lang=en</source>
+    </item>
+    <item>
+      <title>IPCC: Sixth Assessment Report</title>
+      <link>https://www.ipcc.ch/assessment-report/ar6/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+<header id="main-header">
+<nav id="nav-secondary">
+<a id="nav-overlay-trigger" href="#"><span>Menu</span></a>
+
+
+ </nav>
+<nav id="nav-primary">
+<a id="nav-primary-logo" href="https://www.ipcc.ch"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 82 50" xml:space="preserve">
+<path d="M7.8,4.6C7.8,6.4,6.2,8,4.4,8C2.5,8,1,6.4,1,4.6c0-1.9,1.5-3.4,3.4-3.4C6.2,1.2,7.8,2.7,7.8,4.6z M1.6,42.7h5.6V10.7H1.6
+	V42.7z M29.3,13c2,1.8,2.9,4.1,2.9,7.2v13.4c0,3.1-1,5.5-2.9,7.2c-2,1.8-4,2.7-6.3,2.7c-2,0-3.7-0.5-5-1.5v6.8h-5.6V20.2
+	c0-3.1,1-5.5,2.9-7.2c2-1.8,4.3-2.7,7-2.7C25,10.2,27.4,11.1,29.3,13z M26.7,20.2c0-3.7-1.9-5.3-4.3-5.3c-2.4,0-4.3,1.6-4.3,5.3
+	v13.4c0,3.7,1.9,5.2,4.3,5.2c2.4,0,4.3-1.7,4.3-5.3V20.2z M46.8,10.2c-2.7,0-5,0.9-7,2.7c-2,1.8-2.9,4.1-2.9,7.2v13.4
+	c0,3.1,1,5.5,2.9,7.2c2,1.8,4.3,2.7,7,2.7c2.7,0,5-0.9,7-2.7c2-1.8,2.9-4.1,2.9-7.2v-3.2h-5.6v3.2c0,3.6-1.9,5.3-4.3,5.3
+	c-2.4,0-4.3-1.6-4.3-5.2V20.2c0-3.7,1.9-5.3,4.3-5.3c2.4,0,4.3,1.6,4.3,5.3v0.6h5.6v-0.6c0-3.1-1-5.5-2.9-7.2
+	C51.8,11.1,49.5,10.2,46.8,10.2z M81,20.8v-0.6c0-3.1-1-5.5-2.9-7.2c-2-1.8-4.3-2.7-7-2.7c-2.7,0-5,0.9-7,2.7
+	c-2,1.8-2.9,4.1-2.9,7.2v13.4c0,3.1,1,5.5,2.9,7.2c2,1.8,4.3,2.7,7,2.7c2.7,0,5-0.9,7-2.7c2-1.8,2.9-4.1,2.9-7.2v-3.2h-5.6v3.2
+	c0,3.6-1.9,5.3-4.3,5.3c-2.4,0-4.3-1.6-4.3-5.2V20.2c0-3.7,1.9-5.3,4.3-5.3c2.4,0,4.3,1.6,4.3,5.3v0.6H81z"></path>
+</svg>
+</a>
+
+
+
+</nav>
+
+
+</header>
+<div>
+<section id="ar6-splash-1">
+
+</section>
+<section id="ar6-text-1">
+<div>
+
+<div>
+<p>The IPCC is now in its sixth assessment cycle, in which the IPCC is producing the Sixth Assessment Report (AR6) with contributions by its three Working Groups and a Synthesis Report, three Special Reports, and a refinement to its latest Methodology Report. The Synthesis Report will be the last of the AR6 products, currently due for release in 2022. More information on the Sixth Assessment cycle is available <a href="https://www.ipcc.ch/site/assets/uploads/2020/05/2020-AC6_en.pdf" target="_blank" rel="noopener">here. </a> More information on the Sixth Assessment Report is available <a href="https://www.ipcc.ch/site/assets/uploads/2021/06/Fact_sheet_AR6.pdf" target="_blank" rel="noopener">here</a>.</p>
+<p>The Working Group I contribution will be considered during the <a href="https://www.ipcc.ch/meeting-doc/ipcc-wgi-14-and-ipcc-54/">14th Session of Working Group I and 54th Session of the IPCC</a> scheduled for 26 July to 6 August 2021.  The report will be released, subject to approval and acceptance by the Panel, on 9 August.</p>
+<h3>Resources:</h3>
+<ul>
+<li><a href="https://adobe.ly/3zvke9Q">Essential information for media </a></li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/06/Fact_sheet_AR6.pdf">Sixth Assessment Report factsheet </a></li>
+</ul>
+<p><iframe title="What is IPCC&#39;s Sixth Assessment Report?" src="https://player.vimeo.com/video/582875636?dnt=1&amp;app_id=122963" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe></p>
+<p><iframe title="The Sixth Assessment Report - The numbers behind the science" src="https://player.vimeo.com/video/574811872?dnt=1&amp;app_id=122963" width="500" height="500" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe></p>
+<h4>IPCC Factsheets</h4>
+<ul>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_What_is_IPCC.pdf">What is the IPCC</a>?</li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_select.pdf">How does the IPCC select its authors</a>?</li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_assess_literature.pdf">What literature does the IPCC assess</a>?</li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_review_process.pdf">How does the IPCC review process work</a>?</li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_approve.pdf">How does the IPCC approve reports</a>?</li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_dealing_with_errors.pdf">How does the IPCC deal with alleged errors</a>?</li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2021/07/AR6_FS_timeline.pdf">Timeline</a></li>
+<li><a href="https://www.ipcc.ch/site/assets/uploads/2020/12/WhatisanExpertReviewer.pdf">What is an Expert Reviewer of IPCC?</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+</div>
+
+
+<nav id="nav-overlay">
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>]]></content:encoded>
+      <pubDate>Mon, 09 Aug 2021 08:15:01 +0000</pubDate>
+      <source>https://www.ipcc.ch/assessment-report/ar6/</source>
+    </item>
   </channel>
 </rss>
