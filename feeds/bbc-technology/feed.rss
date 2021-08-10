@@ -3,8 +3,8 @@
     <title>BBC News - Technology</title>
     <link>https://www.bbc.co.uk/news/</link>
     <description>BBC News - Technology</description>
-    <pubDate>Tue, 10 Aug 2021 17:17:05 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Aug 2021 17:17:05 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Aug 2021 18:12:49 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Aug 2021 18:12:49 +0000</lastBuildDate>
     <image>
       <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
       <title>BBC News - Technology</title>
@@ -527,6 +527,16 @@
       <guid>https://www.bbc.co.uk/news/technology-58159723</guid>
       <pubDate>Tue, 10 Aug 2021 16:17:48 +0000</pubDate>
       <source>https://www.bbc.co.uk/news/technology-58159723</source>
+    </item>
+    <item>
+      <title>Chameleon-like camouflage made for soft robot</title>
+      <link>https://www.bbc.co.uk/news/technology-58159730</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/bbc-technology/https___www_bbc_co_uk_news_technology-58159730/image.jpg" /> 
+<div id="readability-page-1" class="page"><div width="compact"><article><header></header><div data-component="text-block"><p><b>A soft-bodied robot that can change its colour to match its background like a chameleon has been built.</b></p></div><div data-component="text-block"><p>Professor Seung Hwan Ko of Seoul National University told the BBC the eventual applications of the technology would probably be as camouflage.</p></div><div data-component="text-block"><p>But he said it could also be used for &#34;cosmetic&#34; purposes to let clothes or buildings respond to their surroundings.</p></div><div data-component="text-block"><p>The research is <a href="https://www.nature.com/articles/s41467-021-24916-w">published</a> in Nature Communications.</p></div><div data-component="text-block"><p>To make the colour-changing skin of the robot, the researchers used &#34;thermochromic liquid crystal ink&#34; which changes colour with temperature, in combination with &#34;silver nanowire heaters&#34;.</p></div><div data-component="text-block"><p>The resulting colour changes were fast enough to be &#34;comparable to the physiological colour change found in animals&#34; the researchers said.</p></div><figure><div><div data-component="social-embed-block"><p><iframe width="200" height="113" src="https://www.youtube.com/embed/yh4P68BHodo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p></div></div><figcaption><span>figure caption</span>Warning: Third party content may contain adverts</figcaption></figure><div data-component="text-block"><p>The robot has colour sensors underneath, and while it can respond to the surface it crosses, it can&#39;t mimic the patterns of complex backgrounds, Instead it has a range of pre-programmed patterns which help it to blend in.</p></div><div data-component="text-block"><div><p>But because the colour change is caused by heating and cooling the &#34;skin&#34;, some experts have wondered about the effect that ambient <a href="https://www.smithsonianmag.com/science-nature/scientists-design-robotic-chameleon-crawls-and-changes-color-180978402/">temperature may have on its chameleon-like abilities</a>.</p></div></div><div data-component="text-block"><p>Professor Ko said that while in the future this type of technology could be used to make military camouflage that matched its background, other applications could include active clothing worn simply for aesthetic reasons.</p></div><div data-component="text-block"><p>&#34;You may imagine a cloth that changes its colour and patterns according to your taste or environment&#34;, he said. </p></div><div data-component="text-block"><p>The BBC is not responsible for the content of external websites </p></div><section data-component="tag-list"></section><section data-component="see-alsos"><ul role="list" spacing="responsive"><li></li><li></li></ul></section></article></div></div>]]></content:encoded>
+      <guid>https://www.bbc.co.uk/news/technology-58159730</guid>
+      <pubDate>Tue, 10 Aug 2021 17:55:55 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/technology-58159730</source>
     </item>
   </channel>
 </rss>
