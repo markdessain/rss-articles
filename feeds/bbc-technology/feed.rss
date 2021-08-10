@@ -3,8 +3,8 @@
     <title>BBC News - Technology</title>
     <link>https://www.bbc.co.uk/news/</link>
     <description>BBC News - Technology</description>
-    <pubDate>Tue, 10 Aug 2021 10:10:04 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Aug 2021 10:10:04 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Aug 2021 11:08:07 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Aug 2021 11:08:07 +0000</lastBuildDate>
     <image>
       <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
       <title>BBC News - Technology</title>
@@ -486,6 +486,16 @@
       <guid>https://www.bbc.co.uk/news/business-58155103</guid>
       <pubDate>Tue, 10 Aug 2021 08:48:17 +0000</pubDate>
       <source>https://www.bbc.co.uk/news/business-58155103</source>
+    </item>
+    <item>
+      <title>Classic Bentleys and Rolls-Royce adapted to fully electric</title>
+      <link>https://www.bbc.co.uk/news/technology-57901893</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/bbc-technology/https___www_bbc_co_uk_news_technology-57901893/image.jpg" /> 
+<div id="readability-page-1" class="page"><div aria-live="polite"><div><p>Vintage petrol-powered Bentleys and Rolls-Royce cars are being re-engineered to fully electric vehicles by a company based at Silverstone, the home of UK motorsport.</p><p>In a world-first, Lunaz adapts the cars in a process which takes about 26 weeks and starts at £350,000 ($478,000, 405,000 euros).</p><p>BBC Click’s Jen Copestake finds out more.</p><p><b>See more at </b><a href="http://www.bbc.co.uk/programmes/n13xtmd5">Click&#39;s website</a><b> and </b><a href="https://twitter.com/bbcclick">@BBCClick</a></p></div></div></div>]]></content:encoded>
+      <guid>https://www.bbc.co.uk/news/technology-57901893</guid>
+      <pubDate>Tue, 10 Aug 2021 09:58:38 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/technology-57901893</source>
     </item>
   </channel>
 </rss>
