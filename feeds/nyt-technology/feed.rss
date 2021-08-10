@@ -3,8 +3,8 @@
     <title>NYT &gt; Technology</title>
     <link>https://www.nytimes.com/section/technology</link>
     <description></description>
-    <pubDate>Tue, 10 Aug 2021 14:04:24 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Aug 2021 14:10:38 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Aug 2021 15:05:21 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Aug 2021 15:11:24 +0000</lastBuildDate>
     <image>
       <url>https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png</url>
       <title>NYT &gt; Technology</title>
@@ -795,6 +795,17 @@ THIS IS A GENERATED TEMPLATE FILE. DO NOT EDIT.
       <guid>https://www.nytimes.com/2021/08/10/technology/twitter-suspends-marjorie-taylor-greene.html</guid>
       <pubDate>Tue, 10 Aug 2021 14:04:24 +0000</pubDate>
       <source>https://www.nytimes.com/2021/08/10/technology/twitter-suspends-marjorie-taylor-greene.html</source>
+    </item>
+    <item>
+      <title>Google will add privacy steps for teenagers on its search engine and YouTube.</title>
+      <link>https://www.nytimes.com/2021/08/10/business/google-youtube-teenagers-privacy.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/nyt-technology/https___www_nytimes_com_2021_08_10_business_google-youtube-teenagers-privacy_html/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="site-content"><div><div id="in-story-masthead"><div><p><span><a href="https://www.nytimes.com/section/business">Business</a></span><span>|</span><span>Google will add privacy steps for teenagers on its search engine and YouTube.</span></p><div><p><span>https://www.nytimes.com/2021/08/10/business/google-youtube-teenagers-privacy.html</span></p></div></div></div><article id="story"><div><div><div><p><a href="https://www.nytimes.com/by/daisuke-wakabayashi"></a></p></div><ul><li><time datetime="2021-08-10T11:11:32-04:00"><span>Aug. 10, 2021</span><span>Updated <span>11:11 a.m. ET</span></span></time></li></ul></div></div><section name="articleBody"><div><div><p>Google says it plans additional privacy measures to protect teenage users on YouTube and its search engine, becoming the latest technology giant to adopt tougher standards in the face of criticism that companies are not doing enough to protect children.</p><p>In a <a href="https://blog.google/technology/families/giving-kids-and-teens-safer-experience-online/" title="" rel="noopener noreferrer" target="_blank">blog post</a> on Tuesday, Google announced that videos uploaded to YouTube by users 13 to 17 years old would be private by default, allowing the content to be seen only by the users and people they designates.</p><p>Google also will start to allow anyone under 18 years old, or a parent or guardian, to request the removal of that minor’s images from Google Image search results, the company said. It is unclear whether this process will be easy and responsive, considering Google’s historical reluctance to remove items from search results.</p><p>In addition, Google said it would turn off location history for all users younger than 18 and eliminate the option for them to turn it back on.</p></div></div><div><div><p>The company plans to roll out the changes in the “coming weeks,” it said.</p><p>There is growing bipartisan support in Washington to press technology companies to do more to protect children. In the last few months, two pieces of legislation, one in the House and one in the Senate, seek to update the Children’s Online Privacy Protection Act. The 1998 law, known as COPPA, restricts the tracking and targeting of children under 13 years old, and the bills would extend those protections to teenagers.</p><p>Google has <a href="https://www.nytimes.com/2018/09/20/business/media/google-youtube-children-data.html" title="">repeatedly faced scrutiny</a> over its handling of data related to children. In 2019, it agreed to <a href="https://www.nytimes.com/2019/09/04/technology/google-youtube-fine-ftc.html" title="">pay a $170 million fine</a> for violating COPPA by collecting children’s data without parental consent.</p><p>Google’s announcement comes on the heels of <a href="https://www.nytimes.com/2021/07/27/technology/instagram-teenagers-privacy.html" title="">changes unveiled last month by Facebook</a> to protect teenage users on Instagram. Among the advertising and privacy policy changes, one will make accounts created by children under 16 private by default, Instagram said.</p><p>Both Facebook and Google said they were limiting the ability of marketers to target teenagers with advertising, but in slightly different ways. Facebook said advertisers would be able to target people under 18 based only on their age, gender and location — and not on their interests or their activity on other apps and websites.</p><p>Google said it would block personalized ads that were based on age, gender or interests to people under 18. It will still allow ads based on context, such as a person’s search requests.</p></div></div></section></article></div></div></div>]]></content:encoded>
+      <author>Daisuke Wakabayashi</author>
+      <guid>https://www.nytimes.com/2021/08/10/business/google-youtube-teenagers-privacy.html</guid>
+      <pubDate>Tue, 10 Aug 2021 13:00:07 +0000</pubDate>
+      <source>https://www.nytimes.com/2021/08/10/business/google-youtube-teenagers-privacy.html</source>
     </item>
   </channel>
 </rss>
