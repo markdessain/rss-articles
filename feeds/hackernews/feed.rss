@@ -3128,5 +3128,2688 @@ end</code></pre>
       <pubDate>Wed, 11 Aug 2021 12:40:25 +0000</pubDate>
       <source>https://dockyard.com/blog/2021/08/10/what-if-coboltoelixir</source>
     </item>
+    <item>
+      <title>AllStar: Continuous Security Policy Enforcement for GitHub Projects</title>
+      <link>https://security.googleblog.com/2021/08/allstar-continuous-security-policy.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+<div>
+<div id="header"><div data-version="1" id="Header1">
+<div>
+<div>
+<p><a href="https://security.googleblog.com/">
+
+</a></p><a href="https://security.googleblog.com/">
+<h2>
+            Security Blog
+          </h2>
+</a>
+</div>
+<p>
+The latest news and insights from Google on security and safety on the Internet
+</p>
+</div>
+</div></div>
+</div>
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 13:04:00 +0000</pubDate>
+      <source>https://security.googleblog.com/2021/08/allstar-continuous-security-policy.html</source>
+    </item>
+    <item>
+      <title>Show HN: Lona – Framework for responsive web apps in full Python without JS</title>
+      <link>http://lona-web.org</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+
+   
+  <div>
+    
+    <nav data-toggle="wy-nav-shift">
+      
+    </nav>
+
+    <section data-toggle="wy-nav-shift">
+
+      
+      <nav aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top"></i>
+          <a href="http://lona-web.org/">Lona</a>
+        
+      </nav>
+
+
+      <div>
+        
+        <div>
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div role="main" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+
+<ul>
+    
+        <li>    <a href="#what-is-lona">What is Lona?</a></li>
+    
+        <li>    <a href="#how-does-it-work">How does it work?</a></li>
+    
+</ul>
+
+<div id="what-is-lona">
+<h2>What is Lona?</h2>
+<p>Lona is a web application framework, designed to write responsive web apps in
+<strong>full</strong> Python.</p>
+<p>Web is a solved problem in Python since ages, but traditionally Python handles
+only the server side. If you want to have client side interaction like
+click events or you want update content live, you have to write an additional
+Javascript application.</p>
+<p>Lona handles the server side and the client side, and provides a simple,
+pythonic API to write self contained views.</p>
+<div>
+  <div><pre><span></span><span>from</span> <span>lona.html</span> <span>import</span> <span>HTML</span><span>,</span> <span>Button</span><span>,</span> <span>Div</span><span>,</span> <span>H1</span>
+<span>from</span> <span>lona.view</span> <span>import</span> <span>LonaView</span>
+
+
+<span>class</span> <span>MyView</span><span>(</span><span>LonaView</span><span>):</span>
+    <span>def</span> <span>handle_request</span><span>(</span><span>self</span><span>,</span> <span>request</span><span>):</span>
+        <span>message</span> <span>=</span> <span>Div</span><span>(</span><span>&#39;Button not clicked&#39;</span><span>)</span>
+        <span>button</span> <span>=</span> <span>Button</span><span>(</span><span>&#39;Click me!&#39;</span><span>)</span>
+
+        <span>html</span> <span>=</span> <span>HTML</span><span>(</span>
+            <span>H1</span><span>(</span><span>&#39;Click the button!&#39;</span><span>),</span>
+            <span>message</span><span>,</span>
+            <span>button</span><span>,</span>
+        <span>)</span>
+
+        <span>self</span><span>.</span><span>show</span><span>(</span><span>html</span><span>)</span>
+
+        <span># this call blocks until the button was clicked</span>
+        <span>input_event</span> <span>=</span> <span>self</span><span>.</span><span>await_click</span><span>(</span><span>button</span><span>)</span>
+
+        <span>if</span> <span>input_event</span><span>.</span><span>node</span> <span>==</span> <span>button</span><span>:</span>
+            <span>message</span><span>.</span><span>set_text</span><span>(</span><span>&#39;Button clicked&#39;</span><span>)</span>
+
+        <span>return</span> <span>html</span>
+</pre></div>
+
+  
+</div></div>
+<div id="how-does-it-work">
+<h2>How does it work?</h2>
+<p>Lona comes with a Javascript based browser library that speaks a specialized
+protocol with the backend.
+This protocol specifies messages like &#34;hey frontend, please show $HTML&#34; and
+&#34;hey backend, someone clicked on node XY&#34;
+<a href="http://lona-web.org/end-user-documentation/basic-concept.html">read more</a></p>
+</div>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+
+
+           </div>
+           
+          </div>
+          <hr/><p>
+Built with <a href="http://www.flamingo-web.org">Flamingo</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> by <a href="https://readthedocs.org">Read the Docs</a>.
+        </p></div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  
+
+  
+  
+    
+   
+
+
+</div>]]></content:encoded>
+      <pubDate>Tue, 10 Aug 2021 13:19:45 +0000</pubDate>
+      <source>http://lona-web.org</source>
+    </item>
+    <item>
+      <title>Unstablecoins: Regulators should treat stablecoins like banks</title>
+      <link>https://www.economist.com/leaders/2021/08/07/why-regulators-should-treat-stablecoins-like-banks</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_economist_com_leaders_2021_08_07_why-regulators-should-treat-stablecoins-like-banks/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><header><h2 data-test-id="Article Description" itemprop="description">Cryptocurrencies are not yet a threat to the financial system, but the dangers are growing</h2></header><div data-test-id="Lead Image"><div itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://www.economist.com/img/b/1280/720/90/sites/default/files/images/2021/08/articles/main/20210807_ldd010.jpg"/><p></p></div></div><hr/></div><div itemprop="text"><p data-caps="initial"><span data-caps="initial">T</span><small>WELVE YEARS</small> after bitcoin was born, governments are still struggling to cope with cryptocurrencies. Britain has banned Binance, a crypto exchange and the European Union’s regulators want transactions to be more traceable. On August 3rd Gary Gensler, the head of America’s Securities and Exchange Commission, said cryptocurrency markets were “rife with fraud, scams and abuse” and called on Congress to give his agency new regulatory powers. The price of bitcoin, the biggest cryptocurrency, gyrates with regulators’ every word.</p><div><figure><figcaption>Listen to this story</figcaption><audio controls="" id="audio-player" preload="none" src="https://www.economist.com/media-assets/audio/008%20Leaders%20-%20Regulating%20cryptocurrencies-f37ea4863833581743d0dfb7b28880e4.mp3" title="Why regulators should treat stablecoins like banks" controlslist="nodownload"><p>Your browser does not support the &lt;audio&gt; element.</p></audio></figure><p>Enjoy more audio and podcasts on<!-- --> <a id="audio-ios-cta" href="https://apps.apple.com/app/apple-store/id1239397626?pt=344884&amp;ct=article%20audio%20player&amp;mt=8" target="_blank" rel="noreferrer">iOS</a> <!-- -->or<!-- --> <a id="audio-android-cta" href="https://play.google.com/store/apps/details?id=com.economist.lamarr&amp;referrer=utm_source%3Darticle%2520audio%2520player" target="_blank" rel="noreferrer">Android</a>.</p></div><p>Governments have an obligation to fight the deception, tax evasion and money laundering that plagues the crypto world. Police seizures of bitcoin suggest that they are becoming more zealous. The harder issue they must grapple with is whether cryptocurrencies threaten the financial system. Were bitcoin to collapse, <a href="https://www.economist.com/finance-and-economics/2021/08/02/what-if-bitcoin-went-to-zero">our crypto “stress test” suggests</a> that its holders would lose hundreds of billions of dollars but that the fallout would be manageable. Yet there is another danger posed by “stablecoins”, a special type of cryptocurrency that pegs its value to conventional money.</p><p>Pledges of stability often lead to financial crises. Because banks offer deposits that are redeemable on demand and superficially riskless, but which are backed by longer-term, less liquid and riskier assets, they are vulnerable to runs. Stablecoins are similar. The biggest, Tether, has issued $62bn-worth of tokens which it says are redeemable for a dollar apiece. But of the assets backing the tokens in March only about 5% were cash or Treasury bills, according to Tether’s public disclosures. It says it will update the figures soon and that it is “fully backed by reserves”.</p><div><figure><div itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject" data-slim="1"><meta itemprop="url" content="https://www.economist.com/img/b/608/468/90/sites/default/files/images/print-edition/20210807_LDC140.png"/><p></p></div></figure><p>Most of the assets were riskier—about half of them commercial paper. Stablecoins’ growth from a value of $14bn in August 2020 to over $100bn today has given them a big financial footprint. Extrapolating Tether’s disclosures implies that it owns over $30bn-worth of commercial paper, which probably makes it the asset class’s seventh-largest investor, not far off funds run by Vanguard and BlackRock, according to JPMorgan Chase. With estimated leverage of 383-to-1, Tether would be unable to honour all its tokens after losses of just 0.26%—a safety cushion that regulators would never allow at a bank.</p><p>Few stablecoins say much about their balance-sheets. Tether’s disclosures of the breakdown of its assets are puny and fall far below the standards expected of a bank. In February Tether was among the defendants who agreed to an $18.5m fine with New York’s attorney-general, which said that in 2017 Tether had misled the market about its <small>US</small> dollar backing and that it had not accurately disclosed the transfer of $625m of its assets to Bitfinex, an online trading platform. Tether says the funds were repaid and that it has a “total commitment to transparency”.</p><p>No wonder Mr Gensler calls cryptocurrencies a Wild West. Some policymakers have compared stablecoins to the period of “free banking”, when privately issued banknotes of uncertain backing and worth circulated in America’s economy in the 19th century. A more useful comparison is with money-market funds, which were created in the 1970s to circumvent rules limiting the interest banks could pay depositors. After promising to maintain the value of their shares at a dollar, money-market funds blew up in 2008 in the global financial crisis. American taxpayers stepped in to forestall a fire sale of their assets and a crash in the market for commercial paper, on which the real economy depends. A collapse of stablecoins could look similar.</p><p>Regulators must act quickly to subject stablecoins to bank-like rules for transparency, liquidity and capital. Those failing to comply should be cut off from the financial system, to stop people drifting into an unregulated crypto-ecosystem. Policymakers are right to sound the alarm, but if stablecoins continue to grow, governments will need to move faster to contain the risks.</p></div><p>It may be tempting to ban stablecoins, especially if central banks launch their own digital currencies—much as private banknotes were replaced with government monopolies on physical cash. Yet it is possible that regulated private-sector stablecoins will eventually bring benefits, such as making cross-border payments easier, or allowing self-executing “smart contracts”. Regulators should allow experiments whose goal is not merely to evade financial rules. But first they must prevent the repackaging of risks with which the world is all too familiar. <span data-ornament="ufinish">■</span></p><p data-test-id="Footnote">This article appeared in the Leaders section of the print edition under the headline &#34;Unstablecoins&#34;</p></div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 15:02:34 +0000</pubDate>
+      <source>https://www.economist.com/leaders/2021/08/07/why-regulators-should-treat-stablecoins-like-banks</source>
+    </item>
+    <item>
+      <title>The Raspberry Pi as a Stratum-1 NTP Server</title>
+      <link>https://www.satsignal.eu/ntp/Raspberry-Pi-NTP.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div width="100%"><tbody><tr><td>
+
+
+
+</td><td></td><!--msnavigation--><td>
+
+<p><SPAN size="2">As an experiment, I purchased one of the low-cost
+credit-card-size <a href="http://www.raspberrypi.org/" target="_blank">Raspberry
+Pi</a> computers, and have configured it to run NTP (Network Time Protocol). 
+I have also used this board with a GPS receiver with pulse per second (PPS) output to make a
+stratum-1 NTP server, but as I know little of Linux, it has taken some time to
+achieve this aim!  There are some helpful Linux commands scattered throughout
+this page.  These notes are almost as much for my own records for
+the next time I need to visit this project, but I hope they may be helpful to
+others.</SPAN></p>
+
+<p><SPAN size="2">If you want to get started quickly, with the best results for
+minimum fuss, please see my <a href="https://www.satsignal.eu/ntp/Raspberry-Pi-quickstart.html">Raspberry Pi NTP
+quick-starter</a> page.  Please also see <a href="https://www.satsignal.eu/ntp/Raspberry-Pi-quickstart.html">that
+page</a> for issues with the Jessie release of Linux, and with the newer
+Raspberry Pi model 3.</SPAN></p>
+
+<p><SPAN size="2">I start by describing how to get the Raspberry Pi running with
+just a LAN connection - no display, keyboard or mouse - a so-called <i>headless</i>
+operation.  I then describe how to configure NTP for your environment, and
+adding a GPS/PPS receiver to convert your box into a stratum-1 NTP server
+including the operating system updates needed.  Next, I note a couple of
+problems I had with the first GPS receiver I tried, and how I cured those with a
+different GPS receiver to produce a stratum-1 NTP server consuming about 4
+watts.  The easiest approach with good performance is described <a href="#user-mode">here</a>.  </SPAN></p>
+
+<p><SPAN size="2">Since starting this page there have been two developments
+which make the process somewhat easier - a program has been developed which
+allows the use of an unmodified operating system by working in <a href="#user-mode">user-mode</a>
+rather than kernel-mode PPS, and a module is now available which plugs directly
+onto the 26-pin GPIO header of the Raspberry Pi, so <a href="#no-soldering">no
+soldering is involved</a>.  My thanks to Folkert van Heusden and Anthony
+Stirk for these developments.</SPAN></p>
+
+<ul>
+  <li><SPAN size="2">No soldering required - <a href="http://ava.upuaut.net/store/index.php?route=product/product&amp;path=59_60&amp;product_id=95">NTPI
+    Raspberry Pi GPS addon board</a> - uses GPIO 18</SPAN></li>
+  <li><SPAN size="2">rpi_gpio_ntp (no longer available, was: http://vanheusden.com/time/rpi_gpio_ntp/)
+    - user-mode PPS support (if Kernel-mode PPS support unavailable, e.g. early
+    Raspbian)</SPAN></li>
+</ul>
+
+<p><SPAN size="2"> Note that the Adafruit GPS Hat uses GPIO 4, physical pin 7,
+so you would need to change the commands given in this document.  Later additions have included remote <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#ntp">monitoring
+of the NTP server</a> performance, and more general monitoring of the Raspberry
+Pi using the standard <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#snmp">SNMP functions</a>, with an additional
+<a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#cpu-temp">CPU
+temperature</a> monitoring add-on.  My main <a href="https://www.satsignal.eu/raspberry-pi/index.html">Raspberry
+Pi page</a> may also be of interest.</SPAN></p>
+
+<p><SPAN size="2">Note that good performance is dependant on the GPS unit having
+a clear view of the sky, particularly the southern part of the sky if you are in
+the northern hemisphere.  With older GPS receivers this required an outdoor
+antenna, but more modern units such as those mentioned here may well work
+indoors providing that some sky is visible, perhaps on the top floor of the
+building (as I am).  If you have an &#34;RF-proof&#34; roof (lead-lined,
+perhaps?!) or certain windows with a lining to stop incoming heat, or wall construction
+including metal, you may still need an outdoor antenna, and almost certainly if
+you live in a basement!  Whilst weather will normally have only a small
+effect in the signal - e.g. heavy rain - it&#39;s possible that a layer of snow
+could attenuate the signal enough to stop the GPS receiving enough signal. 
+Monitoring performance may help you spot these problems. (Thanks to Joe,
+HB9DRT for the information on snow - I&#39;ve only seen that problem once here
+during an exceptionally cold winter).</SPAN></p>
+
+<p><SPAN size="2">If changes in ambient temperature are reducing the precision
+you expected, look at <a href="https://www.satsignal.eu/ntp/Raspberry-Pi-ntpheat.html">ntp-heat</a>.</SPAN></p>
+
+<h2>Introduction</h2>
+
+<p><SPAN size="2">The Raspberry Pi is a credit-card size computer,
+available from distributors across the world.  I bought an attractive blue
+case and 5 V, 2 A power-supply from <a href="https://www.modmypi.com/" target="_blank">ModMyPi</a>. 
+You can see the Ethernet lead on the left, and the 4 GB SD card with the
+operating system on the right, together with the micro-USB power lead. 
+There is a model-B (shown and used below), and a lower-spec model-A which may
+become available at some time in the future.  I&#39;m using the 512 MB model-B,
+introduced in Autumn 2012.</SPAN></p>
+
+<p></p>
+
+<h2><a name="results">What results can I expect?</a></h2>
+
+<p><SPAN size="2">Shown below are the offset results with the Raspberry Pi in
+three configurations: with WAN-only connections syncing to the Internet (as you
+might find it a typical home situation), with
+LAN connections to a local stratum-1 server, and acting as a
+stratum-1 server itself with two different small GPS/PPS receivers as the reference clock.  Any
+glitches in the live data are likely to be the result of me rebooting, making configuration
+changes, or the GPS signal being less than normal.  The normal NTP configuration is listed <a href="#ntp-conf" target="_blank">here</a>. 
+As expected, syncing from the LAN produces better results than from the Internet
+(WAN), and making the device into a stratum-1 server results in even lower
+offsets.</SPAN></p>
+
+<p><SPAN size="2">Zero offset corresponds to the middle line of the graph, as the
+utility I use is incapable of plotting negative values.  I therefore add
+half the Y-axis range to the actual values before plotting.  <i>Note: </i>these
+graphs are <i> not</i> all to the same vertical scale!</SPAN></p>
+
+<h4>Offset using Internet servers alone - millisecond scale</h4>
+
+<p><SPAN size="2"> The resulting performance is good, but it will depend on both the loading of the link between me and
+the ISP, and the general load on the ISP&#39;s network and the general Internet. 
+Offsets are reported to be with about +/-5 milliseconds (and therefore off-scale
+once on the graph below).  The four-line </SPAN><SPAN face="Courier New" size="2">ntp.conf</SPAN><SPAN size="2">
+in use at the time is shown below the graph.</SPAN></p>
+
+<table>
+  <tbody><tr>
+    <td></td>
+    <td><SPAN size="2">
+      Raspberry Pi #1</SPAN></td>
+  </tr>
+</tbody></table>
+
+<blockquote>
+
+<pre># Drift file to remember clock rate across restarts
+driftfile /var/lib/ntp/ntp.drift
+# Servers
+pool uk.pool.ntp.org iburst</pre>
+
+</blockquote>
+
+<h4> </h4>
+
+<p><SPAN size="2">Changing to a tight coupling to a local stratum-1 server on the LAN produces much better
+results, with timekeeping in the order of 30 microseconds.  I&#39;ve added a
+second graph with a +/- 500 microsecond scale to show any larger excursions.</SPAN></p>
+
+<table>
+  <tbody><tr>
+    <td></td>
+    <td><SPAN size="2">Raspberry Pi #1</SPAN></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><SPAN size="2">Same data but on a</SPAN></td>
+  </tr>
+</tbody></table>
+
+
+<blockquote>
+
+
+<pre># Drift file to remember clock rate across restarts
+driftfile /var/lib/ntp/ntp.drift
+# Servers
+server 192.168.0.3 minpoll 5 maxpoll 5 iburst prefer
+server 192.168.0.2 minpoll 5 maxpoll 5 iburst
+server 192.168.0.7 minpoll 5 maxpoll 5 iburst
+pool uk.pool.ntp.org minpoll 10 iburst</pre>
+
+</blockquote>
+
+
+<h4> </h4>
+
+<p><SPAN size="2">Much better results are obtained using a Trimble Resolution SMT
+GPS module, with its PPS pin connected to the GPIO 24 pin for a kernel-mode
+&#34;ATOM&#34; ref-clock.  This unit is a &#34;timing&#34; GPS, with 15
+ns specified accuracy for the PPS signal.  Each second pulse on the GPIO
+pin causes an interrupt in which the CPU clock is noted, and then used by NTP to
+make fine adjustments to the software clock speed.  The
+transients of a few microseconds amplitude lasting for about an hour may be due to sudden
+ambient temperature changes affecting the crystal used by the card&#39;s clock
+generator.  Not shown on the graph, but the offset due to a CPU-heavy task (recompiling NTP from source,
+taking about 25 minutes) resulted in a 20 �s positive excursion,
+followed by a 10 �s negative excursion as temperatures cooled and NTP
+recovered.</SPAN></p>
+
+<table>
+  <tbody><tr>
+    <td></td>
+    <td><SPAN size="2">Raspberry Pi #1</SPAN></td>
+  </tr>
+</tbody></table>
+
+
+<h4> </h4>
+
+<p><SPAN size="2">When using a u-blox MEO-6M GPS
+module, with its PPS pin connected to the GPIO 24 pin for a kernel-mode
+&#34;ATOM&#34; ref-clock, similar results are obtained.  The transient in the middle of the graph is
+when a second device was connected to the 5 V line from the USB.  This unit
+is a &#34;navigation&#34; GPS, where the PPS is specified about 100 ns, rather
+than a &#34;timing&#34; GPS - but
+the difference between the two units is most-often masked by the other variations in the
+system.</SPAN></p>
+
+<table>
+  <tbody><tr>
+    <td></td>
+    <td><SPAN size="2">Raspberry Pi #1</SPAN><p><SPAN size="2">
+      Kernel PPS sync</SPAN></p>
+    </td>
+  </tr>
+</tbody></table>
+
+
+<p><SPAN size="2">Later, it was noticed that the offset was varying
+periodically, and this is an unexpected result.  Below is a sample from 2012 Dec 19-21, with the less stable
+period staring at the end of 2012-Dec-19 and finishing at the end of Dec 20. 
+More detailed examination of the loopstats data shows an actual period of just over 100
+seconds, and it&#39;s being aliased by the 5-minute sampling of MRTG.</SPAN></p>
+
+<table>
+  <tbody><tr>
+    <td></td>
+    <td><SPAN size="2">Raspberry Pi #1</SPAN>
+      <p><SPAN size="2">
+      Kernel PPS sync</SPAN></p>
+    </td>
+  </tr>
+</tbody></table>
+
+
+<p><SPAN size="2">To test, I had changed the GPS receiver from U-blox 6M to Adafruit MTK3339
+navigation GPS module, and later changed again from the navigation module to
+a timing GPS module based on the <a href="http://www.u-blox.com/de/lea-6t.html">U-blox
+LEA-6T</a>, to see whether the oscillation was affected.  These changes
+made no difference to either the magnitude and the period of the oscillation,
+and the amplitude of the oscillation was considerably greater than what would be
+expected even from a &#34;navigation&#34; GPS receiver.  So my earlier
+theories about navigation versus timing GPS modules, USB loading, and serial I/O
+loading were incorrect.  This problem was eventually cured by a firmware
+update on Raspberry Pi #1, from version 337601 to version 346337.</SPAN></p>
+
+
+<h4>
+<a name="current">
+Current performance - click a graph to get to the performance page for each computer</a></h4>
+
+<p><SPAN size="2">I added a second Raspberry Pi computer and now have both
+connected to the two different GPS/PPS receivers mentioned above, but with the
+antennas for those receivers in a similar indoor location.  Below is a
+comparison of the performance.  Raspberry Pi #1 is located in an unheated
+room with a north-facing wall.  Raspberry Pi #3 is also in the office, but situated
+a little nearer to a radiator, providing the daily transients.  In mid-November
+2013 I moved to a new kernel which was locally compiled with an option to
+improve NTP performance.</SPAN></p>
+
+<table>
+  <tbody><tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_raspi-1.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #1</SPAN></td>
+  </tr>
+<!--
+  <tr>
+    <td valign="middle" align="center"><a href="../mrtg/performance_raspi-2.php"></a></td>
+    <td valign="middle" align="center"><font size="2">Raspberry Pi #2<br>
+ 512 MB, Linux/3.6.11<br>
+      <br>
+      Kernel-mode PPS sync<br>
+      <a href="http://www.adafruit.com/products/746">
+      Adafruit MTK3339</a><br>
+      navigation GPS receiver<br>
+      in office environment</font></td>
+  </tr>
+-->
+  <tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_raspi-3.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #3</SPAN></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_raspi-4.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #4</SPAN></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_raspi-5.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #5</SPAN></td>
+  </tr>
+</tbody></table>
+
+
+<SPAN size="2"><a href="https://www.satsignal.eu/mrtg/performance_raspi-1.php"><br/>
+</a>and here&#39;s a slightly different way of looking at the value of the offset,
+plotting the absolute value of the offset, red for positive offsets and blue for
+negative offsets.  Transient events such as restarts have been removed.<br/>
+</SPAN>
+
+<table>
+  <tbody><tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_ntp-pn.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #1</SPAN></td>
+  </tr>
+<!--
+  <tr>
+    <td valign="middle" align="center"><a href="../mrtg/performance_ntp-pn.php"></a></td>
+    <td valign="middle" align="center"><font size="2">Raspberry Pi #2<br>
+ 512 MB,
+      Linux/3.2.27+<br>
+      <br>
+      Kernel-mode PPS sync<br>
+      <a href="http://www.adafruit.com/products/746">
+      Adafruit MTK3339
+      navigation</a><br>
+      GPS receiver
+      in office environment</font></td>
+  </tr>
+-->
+  <tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_ntp-pn.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #3</SPAN></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_ntp-pn.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #4</SPAN></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.satsignal.eu/mrtg/performance_ntp-pn.php"></a></td>
+    <td><SPAN size="2">Raspberry Pi #5</SPAN></td>
+  </tr>
+</tbody></table>
+
+
+
+<h2>Creating an SD card with the OS</h2>
+<p><SPAN size="2">You can buy an SD card with the Linux OS installed and ready
+to go.  As I knew I would need to make modifications to the OS I did buy a
+ready-programmed SD card just in case, but I made my own by
+following the steps here: <a href="http://www.raspberrypi.org/downloads" target="_blank">http://www.raspberrypi.org/downloads</a></SPAN></p>
+<ol>
+  <li><SPAN size="2">Download an OS image for the SD card - <a href="http://downloads.raspberrypi.org/images/raspbian/2012-09-18-wheezy-raspbian/2012-09-18-wheezy-raspbian.zip" target="_blank">2012-09-18-wheezy-raspbian.zip<br/>
+    </a> </SPAN></li>
+  <li><SPAN size="2">Unzip the contents of the Zip archive to a .IMG file</SPAN></li>
+  <li><SPAN size="2">Download the SD card writer program: <a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager<br/>
+    </a> </SPAN></li>
+  <li><SPAN size="2">Use the Disk Imager to write the OS image to the SD card</SPAN></li>
+</ol>
+<p><SPAN size="2">I then plugged in the SD card to the Raspberry Pi, connected
+it to the network, and applied power...</SPAN></p>
+
+<h2><a name="no-soldering">The no-soldering way</a></h2>
+<p><SPAN size="2">Many folk have asked about adding a GPS to
+the Raspberry Pi without needing soldering, and now that has become a reality thanks to the <a href="http://ava.upuaut.net/store/index.php?route=product/product&amp;path=59_60&amp;product_id=95" target="_blank">NTPI
+GPS Addon Board</a> produced by Nevis Computers Ltd in the UK.  I used the <a href="http://vanheusden.com/time/rpi_gpio_ntp/" target="_blank">rpi_gpio_ntp
+program</a> was developed by Folkert van Heusden and <a href="http://www.febo.com/pipermail/time-nuts/2013-June/077484.html">announced</a>
+in the Time-Nuts mailing list, which allows user-mode working with the PPS
+signal, thus not requiring a special version of the operating system. 
+Current versions of Raspbian no longer need this.</SPAN></p>
+<p><SPAN size="2">This is what you get in the box for the NTPI Raspberry Pi GPS
+Addon Board (with the puck antenna option):</SPAN></p>
+<ul>
+  <li><SPAN size="2">A card with the timing quality GPS device and SMA connector
+    which plugs into the 26-pin GPIO connector on the Pi.</SPAN></li>
+  <li><SPAN size="2">An <i> optional</i> magnetic puck GPS antenna, or you can use your own
+    antenna with an SMA connector.</SPAN></li>
+  <li><SPAN size="2">You may also need: A CR2032 battery for backup, which fits on to the underside
+    of the card.</SPAN></li>
+</ul>
+<p></p>
+<p><SPAN size="2">To get this working with a Raspberry Pi, these are the steps I
+took.  I&#39;ve included the steps to add MRTG monitoring and remote file
+access from Windows systems, but you may omit those if you don&#39;t need them.</SPAN></p>
+<ul>
+  <li><SPAN size="2">Set up my router to reserve an IP address for the Raspberry
+    Pi</SPAN></li>
+  <li><SPAN size="2">Altered the name of the device - <a href="http://simonthepiman.com/how_to_rename_my_raspberry_pi.php">how
+    to</a>.</SPAN></li>
+  <li><SPAN size="2">Configured NTP to use the <a href="#pool">pool directive</a>,
+    allow <a href="#remote-monitoring">remote monitoring</a>, and <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#ntp">log
+    statistics</a>.</SPAN></li>
+  <li><SPAN size="2"><a href="#compile-ntp">Updated NTP</a> to the current development
+    version (I used an FTP copy from another Pi).</SPAN></li>
+  <li><SPAN size="2"><a href="#serial" target="_blank">Setup serial I/O</a> on the
+    Raspberry Pi.</SPAN></li>
+  <li><SPAN size="2">Installed and configured gpsd and its utilities.</SPAN></li>
+  <li><SPAN size="2">Configured NTP to use the shared memory for coarse time
+    (driver type 28.0).</SPAN></li>
+  <li><SPAN size="2">Installed the PPS tools (sudo apt-get install pps-tools)</SPAN></li>
+  <li><SPAN size="2">Installed the rpi_gpio_ntp
+    program from Folkert van Heusden (only for very early Raspbian
+    versions).</SPAN></li>
+  <li><SPAN size="2">Configured NTP to use the <a href="#user-mode">shared
+    memory for PPS</a> (driver type 28.1).</SPAN></li>
+  <li><SPAN size="2">Installed <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#snmp">SNMP</a> and configured
+    various MRTG data collectors (optional).</SPAN></li>
+  <li><SPAN size="2">Configured SNMP to monitor the <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#cpu-temp" target="_blank"> CPU
+    temperature</a> (optional).</SPAN></li>
+  <li><SPAN size="2">Installed <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#samba">SAMBA</a>, so that I could
+    access the NTP statistics from the PC (optional).</SPAN></li>
+  <li><SPAN size="2">Set the PC for wireless networking
+    Wi-Fi USB dongle (optional).</SPAN></li>
+</ul>
+<table>
+  <tbody><tr>
+    <td><SPAN size="2">Installed onto the Raspberry Pi</SPAN>
+      <p><SPAN size="2">Note that this board uses </SPAN></p>
+    </td>
+    <td><SPAN size="2"></SPAN></td>
+  </tr>
+</tbody></table>
+<p><SPAN size="2">How well does this user-mode work, you may ask.  Well
+it&#39;s pretty good, although not <i>quite</i> as good as kernel-mode, but more
+than adequate for the precision offered by the Raspberry Pi.  Perhaps the
+best that the Pi could do otherwise would be syncing over a LAN connection to a
+stratum-1 NTP server.  The offset plot comparison below shows the Pi synced
+to a stratum-1 server but over Wi-Fi, and then the performance after installing
+the NTPI GPS Addon board.  An ideal plot would be a straight line at the
+500 microsecond level on this graph (I have to add an offset as MRTG can&#39;t plot
+negative numbers).  The 6-hour averaged jitter reported by NTP dropped from
+100-150 microseconds to under 4 microseconds.  The improvement in going
+from Wi-Fi sync to PPS sync is obvious!</SPAN></p>
+<blockquote>
+  <p><SPAN size="2"></SPAN></p>
+</blockquote>
+<h2><a name="easy">The easy way for kernel-mode PPS</a></h2>
+<h3>Updating to the latest Raspbian Linux</h3>
+<p>The version of Linux you are running is displayed when you log in, but you
+can also use the command:</p>
+<p><SPAN color="#000066" face="Courier New">  $ uname -a</SPAN></p>
+<p>to show what version is running.  I started with:</p>
+<p>To update my software, I ran the commands:</p>
+<p><SPAN color="#000066" face="Courier New">  $	sudo apt-get update</SPAN></p>
+<p>and after rebooting I ended with:</p>
+<h3>Configuring Linux for PPS on the GPIO port</h3>
+<p>Thanks to e-mails from Olav Andrarde and Timo Kokkonen I have discovered that
+PPS support has now been added to the Linux available for the Raspberry Pi,
+although you do need to add a couple of lines to the configuration to enable it. 
+As Raspbian in continually evolving, the exact method for making these changes
+also evolves, so depending on when you downloaded Raspbian you should follow
+either the <a href="#2014-11">November 2014</a> or the <a href="#2015-02">February
+2015</a> sections below.  I&#39;ve put the more recent information first,
+although I normally prefer things to be listed in chronological order like in a
+diary!</p>
+<h4> <a name="2015-02"> Raspbian versions around February 2015</a></h4>
+<p>After updating another Raspberry Pi to the most recent Raspbian - for a new
+Raspberry Pi 2 which I had purchased - I discovered that things had changed once
+again.  These details from my <a href="https://www.satsignal.eu/ntp/Raspberry-Pi-quickstart.html">quick-start
+page</a>.  Linux versions: 3.18.6+  3.18.7-v7</p>
+<p><SPAN color="#000066" face="Courier New">  $ sudo nano /boot/config.txt
+- Add </SPAN><SPAN color="#400000" face="Courier New">dtoverlay=pps-gpio,gpiopin=18</SPAN>
+on a new line.</p>
+<p><SPAN face="Courier New"><SPAN color="#000066">  $ sudo nano
+/etc/modules</SPAN> </SPAN>� Add <SPAN color="#000066" face="Courier New">pps-gpio</SPAN>
+on a new line.</p>
+<p>Now proceed to <a href="#pps-check">check that PPS is working</a>.</p>
+<h4> <a name="2014-11"> Raspbian versions around November 2014</a></h4>
+<p>There are two steps required to enable PPS on the GPIO port, one to tell the
+kernel to include the support, and one to actually cause the support module to
+be loaded.  First, tell the kernel that GPIO pin 18 is to be used. 
+This enables the PPS-GPIO support in the kernel.  Add this text to the
+/boot/cmdline.txt file:</p>
+<p><SPAN color="#000066" face="Courier New">  $ sudo nano /boot/cmdline.txt</SPAN></p>
+<p>Next, you need to tell the kernel to load the module which provides this
+support.  Quite why this can&#39;t be automatic I don&#39;t know!  Add the
+module name to the end of the file /etc/modules.</p>
+<p><SPAN color="#000066" face="Courier New">  $ sudo nano /etc/modules</SPAN></p>
+<h3><a name="pps-check">Checking that PPS is working</a></h3>
+<p>To check that the module is loaded, you can use the lsmod command, for
+example:</p>
+<p><SPAN color="#000066" face="Courier New">  $ lsmod | grep pps</SPAN></p>
+<p>The output should be similar to:</p>
+<p>  pps_gpio 2529 1</p>
+<p>You should now be able to run the ppstest command and see the transitions
+once per second, for example:</p>
+<p><SPAN color="#000066" face="Courier New">$ sudo ppstest /dev/pps0</SPAN> # press Ctrl-C to cancel.. </p>
+<p>Note that there is no value given for the &#34;clear&#34; time.  Gary
+E Miller reports that the pps-gpio driver only looks for one edge, the positive
+going edge.  If you are using a different GPS device from those mentioned
+here you may need to a 3.3 volt output inverter in the PPS line from the GPS.</p>
+<h3> Hauke Lampe&#39;s approach</h3>
+<p><SPAN size="2">Historical information only: Since I first wrote this page, Hauke Lampe has made
+available a pre-configured Raspberry Pi OS image <a href="http://ntpi.openchaos.org/downloads/">here</a>. 
+His <a href="http://ntpi.openchaos.org/pps_pi/">write-up</a> is based on his version of a serial GPS as I describe here, but you need do
+none of the building and configuration work I mention here.  My Raspberry
+Pi #3 is running from this OS image, and I&#39;m developing the GPS installation at
+the moment.  The comments and changes so far:</SPAN></p>
+<ul>
+  <li><SPAN size="2">Altered the IP address for the Ethernet port to a fixed
+    (static) address - <a href="http://www.raspberryshake.com/raspberry-pistatic-ip-address/">how
+    to</a>.</SPAN><SPAN face="Courier New" size="2">192.168.0.51 
+    raspberry-pi-1</SPAN><SPAN size="2"><SPAN face="Courier New"> </SPAN>
+    to the file (with the address and name of your RPi, of course).  On
+    Windows-8, note that Windows Defender may try and replace an edited hosts
+    file with the default one, thus removing your changes!  On Windows, the
+    file to be edited is \Windows\system32\drivers\etc\hosts, and you may need
+    Administrator level access to edit that file.</SPAN></li>
+  <li><SPAN size="2">Altered the name of the device - <a href="http://simonthepiman.com/how_to_rename_my_raspberry_pi.php">how
+    to</a>.</SPAN></li>
+  <li><SPAN size="2">Configured NTP to use the <a href="#pool">pool directive</a>,
+    allow <a href="#remote-monitoring">remote monitoring</a>, and <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#ntp">log
+    statistics</a>.</SPAN></li>
+  <li><SPAN size="2">Installed <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#snmp">SNMP</a> and configured
+    various MRTG data collectors.</SPAN></li>
+  <li><SPAN size="2">Installed <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#samba">SAMBA</a>, so that I could
+    access the NTP statistics from the PC.</SPAN></li>
+  <li><SPAN size="2">Set the PC for wireless networking with an old NetGear
+    Wi-Fi USB dongle (later replaced with an Edimax unit).</SPAN></li>
+</ul>
+<p><SPAN size="2">Quite a few of the &#34;standard&#34; Raspberry Pi utilities
+are not present in this OS image, and will need to be downloaded separately with
+apt-get.  Here&#39;s what it looks like at the moment.  The patch antenna
+is attached to the white <a href="https://www.modmypi.com/" target="_blank">ModMyPi</a>
+case with double-sided sticky tape, and the receiver board with a single nut and
+bolt.  The leads were also from ModMyPi, and the 150 mm length is not
+required here!  The Wi-Fi dongle is on the left.  Performance graphs
+are <a href="https://www.satsignal.eu/mrtg/performance_raspi-3.php">here</a>.</SPAN></p>
+<p><a name="neo-6m"></a></p>
+
+<h2><a name="headless">Running the Raspberry Pi as a headless system</a></h2>
+<p><SPAN size="2">As my trial application is for an NTP server, I don&#39;t need a
+display on the Raspberry Pi, or for that matter a keyboard and mouse permanently connected.  All my
+interaction will be via a terminal, and even that will be emulated via program
+running on a remote PC, with connectivity through the Ethernet port on the
+Raspberry Pi.  Such operation is commonly called a <i>headless server</i>. 
+A power supply and case were the only items I added to the as-supplied Raspberry
+Pi.  There is some advice on running headless here: <a href="http://glynrob.com/hardware/raspberry-pi-headless/" target="_blank">http://glynrob.com/hardware/raspberry-pi-headless/</a></SPAN></p>
+<p><SPAN size="2">You need a terminal program which will work in SSH mode - I
+used <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank">PuTTY</a>
+on a Windows XP PC.</SPAN></p>
+<p><SPAN size="2">I watched on my router which runs DD-WRT to see the IP address
+which had been assigned to the Pi, and I then used that address to run
+PUTTY in SSH mode.  I got a connection right away with the default user
+name and password.  You can save the settings for the Pi from within PUTTY
+(I called mine &#34;RaspberryPi&#34;), and make a Windows shortcut to connect
+to your Pi with values such as:</SPAN></p>
+<blockquote>
+  <pre>Target:   C:\Tools\PuTTY\PUTTY.EXE -load RaspberryPi
+Start in: C:\Tools\PuTTY</pre>
+</blockquote>
+<p><SPAN size="2">Your path and saved settings name will be different.</SPAN></p>
+<p><SPAN size="2">Linux command to disconnect and logout:</SPAN><SPAN face="Courier New">
+<SPAN size="2">logout</SPAN></SPAN></p>
+<p><SPAN size="2">By the way, by adding an X-windows server
+program such as <a href="http://sourceforge.net/projects/xming/" target="_blank"> Xming</a> to your PC you can see the graphics from the Raspberry Pi
+as well, should you wish, but that&#39;s <i> not</i> required for the operations described
+here - you can do everything directly from the command-line.</SPAN></p>
+<h2>Updating the OS</h2>
+<p><SPAN size="2">I followed the advice <a href="http://glynrob.com/hardware/raspberry-pi-headless/" target="_blank">here</a>
+to update the OS, although I don&#39;t think that it was really necessary as the OS
+downloaded was only a month old.  To run the commands requires privileged
+access, achieved here by prefixing the command with <SPAN face="Courier New">sudo</SPAN>. 
+These commands take considerable time to run, and require Internet access from
+your Pi.  Allow 30 - 45 minutes.</SPAN></p>
+<ol>
+  <li>
+    <pre>$ sudo apt-get update</pre>
+  </li>
+  <li>
+    <pre>$ sudo apt-get dist-upgrade</pre>
+  </li>
+</ol>
+<p><SPAN size="2">You are likely to need to restart the OS after making these changes:</SPAN></p>
+<ol>
+  <li>
+    <pre>$ sudo reboot</pre>
+  </li>
+</ol>
+<p><SPAN size="2">If you want to determine what upgrades are pending, try:</SPAN></p>
+<ol>
+  <li><pre>$ sudo apt-get --just-print upgrade</pre>
+  </li>
+</ol>
+<p><SPAN size="2">and redirect the output to a text file.  Thanks to Graham
+in County Durham, UK, for that tip.</SPAN></p>
+<h2>Setting the time zone</h2>
+<p><SPAN size="2">You may want to check that the Raspberry Pi is configured to
+give you the time in your local time zone:  Use the command:</SPAN></p>
+<blockquote>
+<pre>$ sudo dpkg-reconfigure tzdata</pre>
+</blockquote>
+<p><SPAN size="2">and select the appropriate region and town.  For the UK,
+I selected Europe/London.  The procedure will reflect the timezone data and
+current date and time in both the local time and UTC when it completes.</SPAN></p>
+<h2><a name="Wi-Fi">Configuring Wi-Fi</a></h2>
+<p><SPAN size="2">Although there is a graphical interface with which to
+configure the Wi-Fi, it didn&#39;t seem to work for me.  In any case, if you
+are operating headless, you may not even have access to the GUI.  The
+network adapter I used was the tiny <a target="_blank" href="http://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/wireless_adapters_n150/ew-7811un"> Edimax EW-7811UN 150Mbps</a> Wireless Nano USB Adapter
+unit, which I got from Amazon (fair price and good delivery).</SPAN></p>
+<p><SPAN size="2">There appear to be three steps:</SPAN></p>
+<ol>
+  <li><SPAN size="2">Convert the Wi-Fi password into a hex string (this may be
+    optional):</SPAN></li>
+  <li><SPAN size="2">Edit the /etc/wpa_supplicant/wpa_supplicant.conf file</SPAN></li>
+  <li><SPAN size="2">Edit the /etc/network/interfaces file </SPAN></li>
+</ol>
+<p><SPAN size="2">You can then use the <SPAN face="Courier New">$ sudo ifdown
+wlan0</SPAN> and <SPAN face="Courier New">$ sudo ifup wlan0</SPAN> commands to
+restart the wireless networking.  I would also advise a reboot to ensure
+that everything has gone as expected.</SPAN></p>
+<h2>How to edit the NTP configuration</h2>
+<p><SPAN size="2">The NTP configuration file lives in the /etc directory, so you
+can change to that directory to edit the file.  Because the file is a
+system file, you need to <i> sudo</i> command to allow to save the edited version of the
+file, but first, I made a copy (<i>cp</i>) of the supplied file just in case I messed
+up and had to revert to the working NTP configuration.  I used the <i> vi</i>
+editor which is supplied with the OS, and there are instructions for vi <a href="http://www.cs.colostate.edu/helpdocs/vi.html" target="_blank">here</a>,
+and also <a href="https://www.guru99.com/the-vi-editor.html" target="_blank">at
+Guru99.com</a> as part of a <a href="https://www.guru99.com/unix-linux-tutorial.html" target="_blank">Linux/Unix
+tutorial for beginners</a>. 
+The <i> nano</i> editor which I discovered later, and which is supplied with the Raspberry Pi, is a much better choice - much
+easier to use!</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ cd /etc</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ sudo cp ntp.conf ntp-original.conf</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ sudo nano ntp.conf
+ </SPAN></pre>
+  </li>
+</ol>
+<h2>Configuring NTP to allow for <a name="remote-monitoring"> remote monitoring</a></h2>
+<p><SPAN size="2">I wanted to be able to monitor NTP from another PC on my LAN,
+rather than adding the MRTG monitoring program to the Pi, however there are
+lines which restrict access to the NTP running on the Pi in its default
+installation.  These lines in the ntp.conf file start with the keyword
+&#34;restrict&#34;.  I removed these restrictions by commenting out these
+lines - which is achieved by adding a hash character at the start of the
+line.  For example:</SPAN></p>
+<blockquote>
+  <pre>Replace:
+    restrict -4 default kod notrap nomodify nopeer noquery
+
+With:
+    # restrict -4 default kod notrap nomodify nopeer noquery</pre>
+</blockquote>
+<p><SPAN size="2">After changing ntp.conf, you need to restart the ntp daemon:</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ sudo /etc/init.d/ntp restart</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">If you were concerned about security on your LAN you might
+wish to be more selective in making changes to the restrictions.</SPAN></p>
+<h2><a name="pool">Configuring NTP for best results from the local LAN</a></h2>
+<p><SPAN size="2">While the default ntp.conf contents will work correctly for
+most purposes, they do not take advantage of the new NTP POOL directive to
+specify pool servers.  I also altered the generic &#34;debian&#34; pool
+to the more local &#34;UK&#34; pool.  I therefore changed the server
+pool. lines to a single pool directive:</SPAN></p>
+<blockquote>
+  <pre>Replace:
+    server 0.debian.pool.ntp.org iburst
+    server 1.debian.pool.ntp.org iburst
+    server 2.debian.pool.ntp.org iburst
+    server 3.debian.pool.ntp.org iburst</pre>
+  <pre>With:
+    pool uk.pool.ntp.org iburst</pre>
+</blockquote>
+<p><SPAN size="2">My own LAN has three stratum-1 NTP servers, one on FreeBSD and
+two running Windows, so I added those
+before the pool servers.  Of course, this is specific to my LAN.  For
+the minimum offset, I made NTP poll the local servers at 32 (2^^5) second
+intervals, and did not allow that to drift upwards towards the 1024 seconds
+maximum interval that NTP would reach left to its own devices.  I did this
+with the minpoll and maxpoll qualifiers.  However, I did not want to force
+the Internet servers to be interrogated that often (it is considered at best
+impolite, and at worst could get you blocked from a server), so I therefore made
+the minimum polling interval for the Internet servers 1024 seconds
+(2^^10).  I removed things which had been commented out to simplify the file,
+and make it easier to understand.  Hence my ntp.conf ended up as follows:</SPAN></p>
+<blockquote>
+  <pre># /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+
+# Drift file to remember clock rate across restarts
+driftfile /var/lib/ntp/ntp.drift
+
+# Servers
+server 192.168.0.3 minpoll 5 maxpoll 5 iburst prefer
+server 192.168.0.2 minpoll 5 maxpoll 5 iburst
+server 192.168.0.7 minpoll 5 maxpoll 5 iburst
+pool uk.pool.ntp.org minpoll 10 iburst</pre>
+</blockquote>
+<p><SPAN size="2">Remember to restart NTP after making the changes.  From a
+Windows monitoring PC with <a href="https://www.satsignal.eu/ntp/setup.html" target="_blank">NTP installed</a>
+I now see:</SPAN></p>
+<blockquote>
+<pre>C:\&gt;ntpq -p raspi
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*pixie           .PPS.            1 u   26   32  377    0.467   -0.010   0.023
++feenix          .PPS.            1 u    4   32  377    0.603   -0.226   0.039
++stamsund        .PPS.            1 u   31   32  377    0.586    0.004   0.040
+-dns0.rmplc.co.u 193.62.22.74     2 u  707 1024  377   21.915    3.490   2.295
+-dns1.rmplc.co.u 193.62.22.74     2 u  177 1024  377   23.736    4.609   3.621
+-dawn.rt.uk.eu.o 193.79.237.14    2 u  277 1024  377   20.508    3.150   3.065
+-lyla.preshweb.c 129.215.42.240   3 u  544 1024  377   28.082    5.937   3.944
+
+C:\&gt;ntpq -c rv raspi
+associd=0 status=0615 leap_none, sync_ntp, 1 event, clock_sync,
+version=&#34;ntpd 4.2.6p5@1.2349-o Fri May 18 20:30:57 UTC 2012 (1)&#34;,
+processor=&#34;armv6l&#34;, system=&#34;Linux/3.2.27+&#34;, leap=00, stratum=2,
+precision=-20, rootdelay=0.467, rootdisp=2.387, refid=192.168.0.3,
+reftime=d4365966.98133154  Sat, Oct 27 2012 14:00:22.594,
+clock=d4365984.f4e4138b  Sat, Oct 27 2012 14:00:52.956, peer=49569, tc=5,
+mintc=3, offset=-0.010, frequency=-43.888, sys_jitter=0.023,
+clk_jitter=0.015, clk_wander=0.008</pre>
+</blockquote>
+
+<h2><a name="trimble">Configuring for a serial over USB GPS device</a></h2>
+<p><SPAN size="2">One approach towards getting NTP to see
+the serial part of the GPS receiver output stream (for the coarse part of the
+time, the seconds) is to install
+the gpsd driver, and this does allow some checking of the basic
+connectivity.  The GPS I started using was a Trimble Resolution SMT,
+for which I managed to get both an evaluation board and an <a href="http://partiallystapled.com/"> interface board</a> which
+converted the serial output into both RS-232 and USB.  I used the serial
+over USB rather than the RS-232 for the Raspberry Pi.</SPAN></p>
+<table>
+  <tbody><tr>
+    <td></td>
+    <td><SPAN size="2">This is the GPS I used.  It
+      is an evaluation board for a timing GPS surface-mount receiver, the
+      Trimble Resolution SMT.  This is slightly unusual in having a TSIP-format
+      output rather than the standard NMEA format, but the Linux gpsd can
+      recognise and accept that format.  The output is on an 8-pin header with a non-standard
+      pin spacing!  It&#39;s sensitive enough that I could use a magnetic mount
+      GPS puck in my upper floor computer room.</SPAN></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><SPAN size="2">Just as I acquired the board,
+      there was an offer on the time-nuts mailing list for a <a href="http://partiallystapled.com/">
+      ready-made interface</a>.  This has a matching 8-pin connector, and
+      provides a PPS output, serial output at RS-232 levels (not used here), and has a built-in serial to USB converter!  Ideal!</SPAN>
+      <p><SPAN size="2">Do be careful in using other GPS units that you don&#39;t
+      exceed +3.3 V on the PPS signal fed to the Raspberry Pi, as a 5 V signal
+      level will <b> damage</b> the device.  I used a resistive divider
+      (not shown) to reduce the level to a nominal 3.2 V.</SPAN></p>
+      <p><SPAN size="2">I soldered a 3k9 * + 6k8 resistive divider to the PPS
+      header, and then soldered a twin lead fed to a 0.1-inch header I happened to have lying around. 
+      This I connected to pins
+      GND and GPIO-24 on the 26-pin <a href="http://elinux.org/RPi_Low-level_peripherals"> Raspberry Pi GPIO
+      header</a>.</SPAN></p>
+    </td>
+  </tr>
+</tbody></table>
+<p><SPAN size="2">First, I connected the device to the lower USB port, and then
+checked what was seen on the USB ports.</SPAN></p>
+<ol>
+  <li>
+    <pre>$ sudo lsusb
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 002: ID 0424:9512 Standard Microsystems Corp.
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.
+Bus 001 Device 005: ID 04d8:00df Microchip Technology, Inc.</pre>
+  </li>
+</ol>
+<p><SPAN size="2">It seems that my GPS is appearing as 005 in that list, but
+what will it be named?  To check this, you need to look through one of the
+Linux log files:</SPAN></p>
+<ol>
+  <li>
+    <pre>$ more /var/log/syslog</pre>
+  </li>
+</ol>
+<p><SPAN size="2">and in my case about the time I plugged in the device there
+was a reference to: <SPAN face="Courier New">ttyACM0:</SPAN>, and I recognised
+tty as a serial port (TeleType from long ago!).  If you are using a real
+serial device it will appear as ttyAMA0.</SPAN></p>
+<p><SPAN size="2"> The next steps are to
+install the gpsd software, and start the gpsd service pointing to the device
+name just discovered:</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ sudo apt-get install gpsd gpsd-clients python-gps</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN face="Courier New" size="2">From one report I had received, if you get errors with the above step you may need to run an update to apt-get:
+$ sudo apt-get update
+and possibly then:
+$ sudo apt-get upgrade
+which may upgrade the entire OS to the current version.</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ sudo gpsd /dev/ttyACM0 -n -F /var/run/gpsd.sock</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">At this point, you should be able to see a text-mode output
+from your GPS receiver by running the command &#34;<SPAN face="Courier New">cgps
+-s</SPAN>&#34;, something like the following.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN face="Courier New" size="2">$ cgps -s</SPAN></pre>
+  </li>
+</ol>
+<p></p>
+<p><SPAN size="2">Note that as this is a timing-mode GPS, it will prefer
+satellites which have a higher elevation, as these are less likely to have
+multi-path effects or reflections.  However, for the level of accuracy for
+which we are aiming (microseconds, not nanoseconds), this refinement is not
+essential, and I could see no significant difference between a
+&#34;timing&#34; GPS and a &#34;position&#34; GPS on the microsecond level. 
+Note that you will need to make <i>gpsd</i> start automatically at boot time,
+and to tell the configuration tool what device to use, and add the &#34;-n&#34;
+option for working with NTP. See the note <a href="#autostart">later in this
+document</a>.</SPAN></p>
+<h2>Telling NTP the seconds from the GPS</h2>
+<p><SPAN size="2">Now that gpsd is working, we can edit the NTP configuration to
+add a type 28 reference clock which will make NTP look at the shared memory
+created by gpsd.  This can be done for both the coarse time (seconds) and
+the fine time (PPS edge) with a 28.0 and a 28.1 driver, although I only use the
+28.0 driver here as the Raspberry Pi supports PPS via a kernel-mode driver (more
+later).  The first step is
+to get the seconds alone, and be aware that this will <i>not</i> be better than
+Internet time alone due to the offset of the serial/USB data from the true
+second, and because of the variability and drift in this offset.  We will
+need to add a connection later between the PPS signal and one of the Raspberry Pi&#39;s I/O
+pins to generate a PPS interrupt.  Here is my modified ntp.conf file. 
+I&#39;ve used 0.000 for the time1 modifier to start with, so that we can determine
+an approximate value for the delay of the serial data from the GPS after ntp is
+up and running.  I changed the refid for the type 28 driver to &#34;SHM&#34;
+to indicate more clearly that the data is coming from the SHared Memory provided
+by gpsd.</SPAN></p>
+<p><SPAN size="2">Note that I have marked more than one server as
+&#34;prefer&#34;.  This is because if the first preferred server goes
+offline, it appears that NTP will no longer accept the PPS data as valid (is
+that wise?), so a second preferred server is configured to cover that
+possibility.  In my case, it happens because 192.168.0.3 sometimes has an
+NTP update, causing its NTP to go offline for some seconds, and hence causes a
+glitch in the connected servers.  Having more than one preferred server
+should prevent that.</SPAN></p>
+<blockquote>
+  <pre># /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+ 
+# Drift file to remember clock rate across restarts
+driftfile /var/lib/ntp/ntp.drift</pre>
+  <pre># Server from shared memory provided by gpsd
+server 127.127.28.0 minpoll 4 maxpoll 4 prefer
+fudge 127.127.28.0 time1 0.000 refid SHM stratum 15</pre>
+  <pre># Local LAN servers
+server 192.168.0.3 minpoll 5 maxpoll 5 iburst prefer
+server 192.168.0.2 minpoll 5 maxpoll 5 iburst prefer
+server 192.168.0.7 minpoll 5 maxpoll 5 iburst prefer</pre>
+  <pre># UK pool servers
+pool uk.pool.ntp.org minpoll 10 iburst</pre>
+</blockquote>
+<p><SPAN size="2">Note that when using a PPS source you <i>must</i> have one
+other server marked &#34;prefer&#34;.  In the example above I have added
+prefer to the shared memory driver (type 28) so that the combination of PPS and
+GPSD would provide the correct time even with no Internet servers.  Looking at the output from ntpq -p after some time we might
+see:</SPAN></p>
+<blockquote>
+  <pre>C:\&gt;ntpq -p raspi
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+xSHM(0)          .SHM.           15 l   15   16  377    0.000  -353.23   1.277
+*pixie           .PPS.            1 u   25   32  377    0.484   -0.016   0.105
++feenix          .PPS.            1 u   31   32  377    0.592   -0.120   0.044
++stamsund        .PPS.            1 u   16   32  377    0.546   -0.037   0.083
+xns0.luns.net.uk 157.44.176.4     2 u 1656 1024  156   31.904    3.702   5.455
+xtime.videxio.ne 131.188.3.223    2 u  45m 1024   74   31.765    8.590   2.796
+xlyla.preshweb.c 129.215.42.240   3 u  510 1024  377   25.568    4.793   5.990
+-dawn.rt.uk.eu.o 193.67.79.202    2 u  492 1024  367   20.308    2.408   2.903</pre>
+</blockquote>
+<p><SPAN size="2">and while the SHM driver is present and connected (reach =
+377), it has been rejected by NTP (the &#34;x&#34; in the first column),
+perhaps because its offset was consistently too great compared to the other
+servers.  That&#39;s the purpose of the time1 modifier in the &#34;fudge&#34;
+command.  We can see that the SHM output is some 350 milliseconds later, so
+we can use that value for time1 to bring the GPS output approximately into line
+with UTC, as shown in the edited /etc/ntp.conf below.  (The time values in
+the ntpq -p display are all in milliseconds).</SPAN></p>
+<p><SPAN size="2"><i>Hint:</i> if at this point the reach field for the SHM
+device stays at zero, likely the gpsd wasn&#39;t started with the &#34;-n&#34;
+option.  You can make the gpsd always start at system boot time with that -n
+option as described <a href="#autostart">later in this note</a>.</SPAN></p>
+<blockquote>
+  <pre># /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+ 
+# Drift file to remember clock rate across restarts
+driftfile /var/lib/ntp/ntp.drift</pre>
+  <pre># Server from shared memory provided by gpsd
+server 127.127.28.0 minpoll 4 maxpoll 4
+fudge 127.127.28.0 time1 +0.350 refid SHM stratum 15</pre>
+  <pre># Local LAN servers
+server 192.168.0.3 minpoll 5 maxpoll 5 iburst prefer
+server 192.168.0.2 minpoll 5 maxpoll 5 iburst
+server 192.168.0.7 minpoll 5 maxpoll 5 iburst</pre>
+  <pre># UK pool servers
+pool uk.pool.ntp.org minpoll 10 iburst</pre>
+</blockquote>
+<p><SPAN size="2">The output from ntpq -p then shows the offset for the SHM
+driver to be much nearer to zero, and this /might/ be good enough for you if you
+are out in the field with no other reference.  But we can do better, and
+the next step is to use the precise PPS signal from the GPS to improve the
+accuracy down to the microsecond level.</SPAN></p>
+<blockquote>
+  <pre>C:\&gt;ntpq -p raspi
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+-SHM(0)          .SHM.           15 l    1   16   17    0.000    1.766   0.943
+*pixie           .PPS.            1 u   13   32    3    0.421   -0.325   0.194
++feenix          .PPS.            1 u   13   32    3    0.528   -0.644   0.969
++stamsund        .PPS.            1 u   11   32    3    0.409   -0.336   0.145
+-dns0.rmplc.co.u 195.66.241.2     2 u   35 1024    1   22.872    3.604   5.037
+-mail1.itdojo.or 10.10.120.2      2 u   34 1024    1   38.472    3.324   7.084
+ ntp.fundamental 193.62.22.82     2 u   33 1024    1   30.980    2.450   3.837
+ 82.113.154.206  193.62.22.82     2 u   32 1024    1   19.219    0.683   5.880</pre>
+</blockquote>
+  <p>Note: if you are working stand-alone, without any Internet servers, you may
+  need an extra &#34;flag1 1&#34; in the fudge for the type 28
+  ref-clock.  Please see the notes <a href="https://www.satsignal.eu/ntp/Raspberry-Pi-quickstart.html#stand-alone">here</a>
+  for further information.  Thanks to Whitham D. Reeve Anchorage, Alaska USA
+  for the testing.
+ </p>
+<h4><a name="GPS-time">But my time is 16 seconds out!</a></h4>
+<p><SPAN size="2">I did notice with the GPS unit that I have that it doesn&#39;t
+have battery backup, so when it first starts it has to download quite a lot of data
+from the GPS satellites before it has full lock.  While the PPS signal
+is acquired quite quickly, it takes a few minutes for the receiver to determine
+the number of seconds offset between GPS-time GPST) and the usual UTC.  As I
+write, that GPST-UTC offset is 16 seconds - the offset is because recent
+leap-seconds are not applied to GPS time - <a href="http://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping_and_leap_seconds">more
+information</a>.  The implications of this are different
+depending on what other servers you have configured in your ntp.conf file</SPAN></p>
+<ul>
+  <li><SPAN size="2">If you have some Internet or LAN servers, ntp is clever
+    enough to ignore the obvious &#34;bad chimer&#34;, and may simply display a
+    large offset for the GPS in the <SPAN face="Courier New"> ntpq -p</SPAN> output when starting
+    up.  After
+    a few minutes, the offset will revert to the correct value.  The delay
+    is not a problem in this case.</SPAN></li>
+  <li><SPAN size="2">If you have no other source than the GPS, then you should
+    probably wait a few minutes before assuming that even the coarse seconds
+    part of the time is correct.  I haven&#39;t checked how long it will take
+    NTP to step the clock by the 16 seconds needed after the GPS starts sending
+    UTC rather than GPS time.  If your GPS does this, consider adding some
+    sort of battery backup so that the GPS-UTC offset is stored while the unit
+    is down.</SPAN></li>
+</ul>
+<p><SPAN size="2">Quite why I saw this issue while using <SPAN face="Courier New">gpsd</SPAN>
+is uncertain.  Since writing the above I have been in contact with the
+author of <SPAN face="Courier New">gpsd</SPAN> who tells me that protection is
+incorporated into the <SPAN face="Courier New">gpsd</SPAN> software whereby it
+will not pass on the time to its shared memory until the output from the GPS
+receiver has a (GPST-UTC) value in excess of 10 seconds.  So I should never
+have seen the 16 seconds faster value at all.</SPAN></p>
+<p><SPAN size="2">Please note that this problem is likely peculiar to my
+particular GPS receiver - an
+evaluation board with no battery backup.  Just be aware of this problem in
+case it bites you!  It doesn&#39;t happen with the u-blox pure serial GPS
+receiver I describe <a href="#serial">later</a>, as this board has battery
+backup.  &#34;Your mileage may vary&#34;, as they say!</SPAN></p>
+<h2><a name="pps">PPS - Pulse Per Second for improved precision</a></h2>
+<p><SPAN size="2">The next step was to get the PPS working.  This requires
+updating the Linux kernel for the Raspberry Pi, and while you can do that
+yourself, there is a ready-made kernel image and support modules available on
+the Web.  Much of the information below is based on David K&#39;s Web page:</SPAN></p>
+<p><SPAN size="2">  </SPAN><a href="https://github.com/davidk/adafruit-raspberrypi-linux-pps"><SPAN size="2">https://github.com/davidk/adafruit-raspberrypi-linux-pps</SPAN></a></p>
+<p><SPAN size="2">You can check the version of the kernel you are running at the moment by:</SPAN></p>
+<ol>
+  <li>
+<pre><SPAN size="2" face="Courier New">$ uname -a
+Linux raspberrypi 3.2.27+ #250 PREEMPT Thu Oct 18 19:03:02 BST 2012 armv6l GNU/Linux</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">First you need to get the updated kernel image and
+modules.  At the time of writing, these were available for the current
+version of the OS from chrisprt as mentioned <a href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=41&amp;t=1970&amp;start=125">here</a>:</SPAN></p>
+<p><SPAN size="2">Kernel image: <a href="https://docs.google.com/open?id=0BznvtPCGqrd3ZElKZHEtUDRpUEU">https://docs.google.com/open?id=0BznvtPCGqrd3ZElKZHEtUDRpUEU</a></SPAN></p>
+<p><SPAN size="2">These come down as Zip files and, as I wasn&#39;t sure about
+downloading these from Google Docs directly on the Raspberry Pi, I downloaded
+them to a local Windows FTP server first, and then installed an FTP client on the
+Raspberry Pi to drag the Zip files across in FTP image mode - i.e. binary files.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New"># Installing an FTP client:
+$ sudo apt-get install ftp</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">I could then use standard FTP command to drag the files from
+my local FTP server to the Raspberry Pi.  I created a directory named pps
+below the home user directory for the files, and then unzipped the archives I
+had copied:</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ mkdir pps</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ cd pps</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New"># FTP get 3.2.27-pps-g965b922-dirty.zip in binary (image) mode.
+# FTP get kernel-pps-gpio24.zip in binary (image) mode
+(substitute your own commands here).</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ unzip kernel-pps-gpio24.zip</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ unzip 3.2.27-pps-g965b922-dirty.zip</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">In the pps/kernel-pps-gpio24 directory you will find a file
+kernel-pps-gpio24.img.  This must be renamed and moved to the /boot/ directory, while we first
+take a safety copy of the original kernel image.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo mv /boot/kernel.img /boot/kernel.img.orig</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo cp kernel-pps-gpio24.img /boot/kernel.img</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">Now we need to move the module files into the area where the
+new kernel expects to find them.  I found the command on the Web page
+either confusing or wrong, as I ended up with the wrong structure to start
+with.  What it appears to need is:</SPAN></p>
+<blockquote>
+  <pre>/lib/modules/3.2.27+
+/lib/modules/3.2.27+/kernel
+/lib/modules/3.2.27+/modules.*</pre>
+  <pre>/lib/modules/3.2.27-cutdown+
+/lib/modules/3.2.27-cutdown+/kernel
+/lib/modules/3.2.27-cutdown+/modules.*</pre>
+  <pre>/lib/modules/3.2.27-pps-g965b922-dirty
+/lib/modules/3.2.27-pps-g965b922-dirty/kernel/
+/lib/modules/3.2.27-pps-g965b922-dirty/modules.*</pre>
+</blockquote>
+<p><SPAN size="2">You will find both the kernel directory and the modules files
+in the unzipped 3.2.27-pps-g965b922-dirty directory, so the following command
+may work correctly for you.  I made a mess of this having followed the Web
+page verbatim, and not having made allowances for the differences in the file
+name.  Assuming you are now in the pps directory, move the required files to
+the /lib/modules directory, and add the pps-gpio module to the module list:</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo mv 3.2.27-pps-g965b922-dirty /lib/modules/3.2.27-pps-g965b922-dirty</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2"><SPAN face="Courier New">$ echo &#34;pps-gpio&#34; | sudo tee -a /etc/modules
+</SPAN>(<SPAN face="Courier New">Command corrected, thanks Matthew Huxtable!  Alternatively edit 
+ /etc/modules using the nano editor to add the pps-gpio at the end.
+$ sudo nano /etc/modules</SPAN></SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo reboot  </SPAN></pre>
+  </li>
+</ol>
+    <p><SPAN size="2">You will see the changed kernel name at the next login,
+    and you can check with the uname -a command as before:</SPAN>
+  </p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ uname -a
+Linux raspberrypi 3.2.27-pps-g965b922-dirty #1 PREEMPT Sat Sep 22 16:30:50 EDT 2012 armv6l GNU/Linux
+</SPAN> </pre>
+  </li>
+</ol>
+<h4>An aside - what is a module in Linux?
+
+ </h4>
+<p><SPAN size="2">You may be used to the idea of device drivers for Windows -
+those .SYS files - but what are &#34;modules&#34; in Linux and how do they
+relate to device drivers?  I asked that question on the time-nuts list, and
+got this reply from Michael Tharp:</SPAN>
+
+ </p>
+<blockquote>
+  <p><SPAN size="2">&#34;Linux modules are the same, although Linux modules almost always need to be
+  compiled against the specific kernel version while Windows drivers are typically only bound to which release you&#39;re running. 
+  That is the reason you have to compile the kernel, rather than just plop down a driver
+  downloaded from the internet. </SPAN>
+
+ </p>
+  <p><SPAN size="2">&#34;That said, the reason your PPS driver is a module is that it makes it easier to tweak options. 
+  Almost all modules that are part of the main kernel source (which PPS is, for a year or so)
+  can be compiled in rather than as a separate module, but you can pass options to a module as you load it while you cannot do that with a
+  built-in.  It also makes it possible to tweak the source, recompile just that module, and test it on the fly rather than recompiling the entire
+  kernel and rebooting.&#34;</SPAN>
+
+ </p>
+</blockquote>
+<p><SPAN size="2">Many thanks, Michael.</SPAN></p>
+<h2>Checking the PPS is working</h2>
+<p><SPAN size="2">To check that you are running the new kernel and that the <SPAN face="Courier New">pps-gpio</SPAN>
+module is loaded, then install the <SPAN face="Courier New">pps-tools</SPAN> and
+run it to see the changes on pin 24 (assuming you have a 3.3 V PPS signal
+connected.  <b>Warning:</b> do <i>not</i> connect a 5 V signal to the GPIO pins!</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ uname -a
+Linux raspberrypi 3.2.27-pps-g965b922-dirty #1 PREEMPT Sat Sep 22 16:30:50 EDT 2012 armv6l GNU/Linux</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ dmesg | grep pps
+[ 0.000000] Linux version 3.2.27-pps-g965b922-dirty (root@bt) (gcc version 4.
+6.2 (Ubuntu/Linaro 4.6.2-14ubuntu2~ppa1) ) #1 PREEMPT Sat Sep 22 16:30:50 EDT 20
+12
+[ 1.866364] usb usb1: Manufacturer: Linux 3.2.27-pps-g965b922-dirty dwc_otg_h
+cd
+[ 12.797224] pps_core: LinuxPPS API ver. 1 registered
+[ 12.803850] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giome
+tti &lt;giometti@linux.it&gt;
+[ 12.824858] pps pps0: new PPS source pps-gpio.-1
+[ 12.832182] pps pps0: Registered IRQ 194 as PPS source
+[ 133.043038] pps_ldisc: PPS line discipline registered
+[ 133.044841] pps pps1: new PPS source acm0
+[ 133.044879] pps pps1: source &#34;/dev/ttyACM0&#34; added</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo aptitude install pps-tools # may take some time</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo ppstest /dev/pps0 # press Ctrl-C to cancel.. 
+trying PPS source &#34;/dev/pps0&#34; 
+found PPS source &#34;/dev/pps0&#34; 
+ok, found 1 source(s), now start fetching data... 
+source 0 - assert 1351501153.999956346, sequence: 47481 - clear 0.000000000, sequence: 0 
+source 0 - assert 1351501154.999954601, sequence: 47482 - clear 0.000000000, sequence: 0 
+source 0 - assert 1351501155.999951856, sequence: 47483 - clear 0.000000000, sequence: 0 
+^C</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">The &#34;clear&#34; entries showing as zero is correct for
+this driver implementation.  Note that if you don&#39;t have a PPS signal
+connected to GPIO pin 24 the last three lines from the dmesg output may be
+missing.  In the output above, the PPS source was only registered some 133
+seconds after startup, possibly the length of time it took the GPS to
+lock.  On a second system with no PPS connected the last three lines were
+missing.</SPAN></p>
+<h2><a name="compile-ntp">Getting an NTP with PPS (&#34;ATOM&#34;) support</a></h2>
+<p><SPAN size="2">Unfortunately, the version of NTP supplied with the Raspberry
+Pi Linux does not support PPS.  Likely it has been compiled to minimise its
+memory and disk footprint.  These are the steps to download, compile and
+install NTP (with help from <a href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=41&amp;t=1970&amp;start=25">jbeal&#39;s
+posting</a>).  You can choose between a release and a development version
+as shown in step 4 below. You could also use a copy of the development tarball on
+your own local FTP server.  So from logging in, here are the steps. 
+The lines below are shown for development version ntp-dev-4.2.7p397, but you
+will need to alter the version number to suit the version you wish to compile. 
+The two time-consuming steps (configure and make) appear to be CPU limited
+rather than SD-card I/O access limited. 
+You can see which version I am currently running <a href="https://www.satsignal.eu/mrtg/performance_ntp.php#versions">here</a>.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ mkdir ntp                  # make a convenient working directory, if you don&#39;t already have one</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ cd ntp                     # enter that directory</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo apt-get install libcap-dev	# once-off, required to prevent later file not found error
+$ sudo apt-get install libssl-dev	# once-off, you may not need this, but reports suggest you might to build keygen</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New"># Get the desired tarball, current or development - use one of the following:
+$ wget http://archive.ntp.org/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz					# release
+$ wget http://archive.ntp.org/ntp4/ntp-dev/ntp-dev-4.2.7p397.tar.gz			# development
+ 
+(May redirect to:  https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ tar xvfz ntp-4.2.8p10.tar.gz</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ cd ntp-dev-4.2.8p10</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ ./configure --enable-linuxcaps	# takes 11-15 minutes
+
+# If your PPS doesn&#39;t work and you get a &#34;clock type 22 invalid&#34; message, be sure to install pps-tools
+# first, and clear out the directory:  cd ~/ntp, rm -r ntp-dev-4.2.7p397, and start again from step 5.
+
+# It seems that the --enable-linuxcaps flag may not be required on other Linux variants,
+# or on the RPi with later versions of Linux with PPS and pps-tools installed.
+# It is required for the more recent Raspbian Jessie (later 2015).</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ make					# takes 18-25 minutes
+(use &#34;make -j5&#34; for faster execution on the four-core Raspberry Pi 2/3.)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New"># This removes the original NTP and installs the new.
+# Step may not be needed - see below.
+# Recommend: omit this step.
+$ sudo apt-get remove ntp    # get rid of previously existing install of ntpd</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo make install          # puts ntp* in /usr/local/bin/ntp*, takes 30-60 seconds</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">It is not entirely clear to me whether step 9 above is
+required.  It does not appear to be when updating from 4.2.7p304 to
+4.2.7p321, for example.  I am <i>not</i> using step 9.</SPAN></p>
+<p><SPAN size="2"> Once you have a new set of NTP
+binaries, you first need to stop NTP, use super-user mode to copy the binaries
+to their final directory, and then restart NTP.  Once restarted, a simple
+check that it&#39;s working correctly.  I recommend these steps,
+although there are alternatives.  See the note below about step 2.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo /etc/init.d/ntp stop</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo cp /usr/local/bin/ntp* /usr/bin/  &amp;&amp; sudo cp /usr/local/sbin/ntp* /usr/sbin/</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo /etc/init.d/ntp start</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ ntpq -crv -pn		# optional step to check for version and basic function</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2"><i>Note:</i>  on some more recent versions of Raspbian steps 1
+and 3 may require:</SPAN>
+ </p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo service ntp stop</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo cp /usr/local/bin/ntp* /usr/bin/  &amp;&amp; sudo cp /usr/local/sbin/ntp* /usr/sbin/</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo service ntp start</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2"><i>Note:</i> that on some systems the binary ntp* files will
+be written to a mixture of <SPAN face="Courier New">/usr/local/bin</SPAN> and <SPAN face="Courier New">/usr/local/sbin</SPAN>,
+according to the paths defined in sntp/loc.  I have been told that the
+&#34;sbin&#34; is for system files (i.e. ones not usually run by users such as
+servers and daemons, and the &#34;bin&#34; is for files usually executed by
+users).  For Debian, for just the ntp* files, this is:</SPAN>
+ </p>
+<blockquote>
+  <pre># Debian installations and man page suffixes
+MDOC
+ntp-keygen,sbin,8
+ntp-wait,sbin,8
+ntpd,sbin,8
+ntpdate,sbin,8
+ntpdc,bin,1
+ntpdsim,sbin,8
+ntpq,bin,1
+ntpsnmpd,sbin,8
+ntptime,sbin,8
+ntptrace,bin,1</pre>
+</blockquote>
+<p><SPAN size="2">so you may need to check both directories to get the most
+recent files.  Check with &#34;ls -l&#34; which shows the file date.</SPAN>
+ </p>
+<p><SPAN size="2">A confession: I did alter one system to
+point the NTP start-up to the directory I preferred, rather than leaving it
+pointing to an old version.  I suspect that in my own personal use, only
+the ntpd and ntpq executables matter. </SPAN></p>
+    <h3>Updating multiple Raspberry Pi cards
+ </h3>
+<p><SPAN size="2">If, like me, you have multiple Raspberry Pi cards, you will
+not want to waste almost an hour compiling and updating NTP on each card. 
+Fortunately, my experience so far using the development versions of NTP
+(4.2.7p...) suggests that simply copying the binaries from one Pi to another
+works as expected.  This may be luck, or it may be because the OS
+differences between Linux/3.2.27+ and Linux/3.6.11+ are not that great.  If
+you have access to an FTP server (I used a Windows PC running IIS) you may be
+able to use commands such as those below to save a compiled version from one Pi
+and load it onto another.  You may need to use  <SPAN face="Courier New">sudo
+apt-get install ftp</SPAN>  if FTP is not already available.  Step 5 is required once.  Step
+7 is required for each new version you save. 
+Replace &#34;368&#34; in the steps below with the version number you have just
+compiled.</SPAN>
+ </p>
+<h4>To save the newly compiled versions:
+ </h4>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ ftp &lt;server-address-or IP&gt;</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(Login as Anonymous or known user)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">bin  (forces binary mode)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">mkdir RaspberryPi  (step only needed once)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">cd RaspberryPi</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">mkdir 397-safe  (step needed once per new version)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">cd 397-safe</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">prompt   (may disable prompting for steps 10 and 13)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">lcd /usr/local/bin</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">mput ntp*</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(respond Y to the prompt for all the files)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">lcd /usr/local/sbin</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">mput ntp*</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">ls -l  (to check that all eight files are there and have the date you expect)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">quit</SPAN>
+ </pre>
+  </li>
+</ol>
+<h4>To load a new version onto another Raspberry Pi:
+ </h4>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ cd /usr/local/bin</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo ftp &lt;server-address-or IP&gt;	# sudo allows writing to system directories</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(Login as Anonymous or known user)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">bin  (forces binary mode)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">cd RaspberryPi/397-safe</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">ls -l  (to check that the files there are correct and have the date you expect)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">mget ntp*</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(respond Y to the prompt for all the files)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">quit</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo /etc/init.d/ntp stop</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo cp /usr/local/bin/ntp* /usr/sbin/  &amp;&amp;  sudo cp /usr/local/bin/ntp* /usr/bin/</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo /etc/init.d/ntp start</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ ntpq -crv -pn  # to check the NTP version, and that it is still working</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">See the discussion above about the combined commands in
+    step 11.  An alternative to steps 1 to 9 might be, if you are brave:</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">sudo wget -P /usr/local/bin -N ftp://&lt;ftp-server-address&gt;/RaspberryPi/397-safe/ntp*
+</SPAN> </pre>
+  </li>
+</ol>
+    <h4>Making updating other cards even easier - use a fixed directory name:</h4>
+<p><SPAN size="2">After storing the working version on your FTP server, copy it
+on the FTP server to a directory with a fixed name such as:</SPAN></p>
+<blockquote>
+  <pre>/RaspberryPi/ntp/</pre>
+</blockquote>
+<p><SPAN size="2">You can then write a script for updating other Raspberry Pi
+cards something like this:</SPAN></p>
+<blockquote>
+  <pre>$ nano update-ntp</pre>
+</blockquote>
+<p><SPAN size="2">with the following contents:</SPAN></p>
+<blockquote>
+    <pre>sudo wget --no-passive-ftp -P /usr/local/bin -N ftp://&lt;ftp-server&gt;/RaspberryPi/ntp/ntp*
+sudo /etc/init.d/ntp stop
+sleep 1
+sudo cp /usr/local/bin/ntp* /usr/sbin/  &amp;&amp;  sudo cp /usr/local/bin/ntp* /usr/bin/
+sleep 1
+sudo /etc/init.d/ntp start
+sleep 4
+ntpq -crv -pn</pre>
+</blockquote>
+    <p><SPAN size="2">replacing &lt;ftp-server&gt; with the name or IP address
+    of your own FTP server.  With a Microsoft FTP server, I found that I
+    needed to add --no-passive-ftp  after the wget command, as shown above.  Remember to make the script executable:</SPAN></p>
+<blockquote>
+    <pre>$ chmod +x update-ntp</pre>
+</blockquote>
+    <p><SPAN size="2">and run it from your local directory:</SPAN></p>
+<blockquote>
+    <pre>$ ./update-ntp</pre>
+</blockquote>
+<p>You can tell another Raspberry Pi to run the update by using the SSH command
+thus:</p>
+<blockquote>
+  <pre>$ ssh pi@the-other-raspi &#34;./update-ntp&#34;</pre>
+</blockquote>
+<p>You will need to enter the password for the user &#34;pi&#34;, although
+this can be avoided (I am told) by using public key based authentication, if that fits with your security model. 
+Once you have managed to copy your key	to the second machine (man ssh-copy-id) you need no password either. 
+I&#39;m afraid I don&#39;t know how to do that, though.</p>
+<h2><a name="ntp-conf">Updating to the final NTP configuration file</a></h2>
+<p><SPAN size="2">To get NTP to use the PPS data which is now available to it,
+the timestamps of the transitions on the GPIO pin, we need to add another
+refclock (server) line to the ntp.conf file.  The server we use is a type
+22 server called the ATOM refclock, and we can give it a reference ID of
+&#34;PPS&#34;.  I also changed the reference ID of the serial data to
+&#34;GPS&#34;.  Note that with a type 22 clock you <i>must</i> have one
+other server marked as &#34;prefer&#34;.</SPAN></p>
+<blockquote>
+  <pre># /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+
+# Drift file to remember clock rate across restarts
+driftfile /var/lib/ntp/ntp.drift
+
+# coarse time ref-clock, not really needed here as we have LAN &amp; WAN servers
+server 127.127.28.0  minpoll 4 maxpoll 4
+fudge 127.127.28.0 time1 +0.350 refid GPS  stratum 15
+
+# Kernel-mode PPS ref-clock for the precise seconds
+server 127.127.22.0 minpoll 4 maxpoll 4
+fudge 127.127.22.0  refid PPS
+
+# LAN servers
+server 192.168.0.3  minpoll 5 maxpoll 5 iburst prefer
+server 192.168.0.2  minpoll 5 maxpoll 5 iburst
+server 192.168.0.7  minpoll 5 maxpoll 5 iburst
+
+# WAN servers, &#34;pool&#34; will expand the number of servers to suit
+pool uk.pool.ntp.org  minpoll 10  iburst</pre>
+</blockquote>
+<p><i>Note:</i> when using the ATOM (type 22) refclock, one of the other servers
+<i>must</i> be marked as prefer.  This is because the type 22 clock only
+supplies the timing <i>within</i> the second, and another server is required to
+determine the <i>current</i> second.
+ </p>
+    <h2>Checking that NTP is seeing the PPS data</h2>
+    <p><SPAN size="2">When you have restarted NTP with the new binaries, you
+    should see a new line in the output from an ntpq -p command, and the word
+    &#34;kern&#34; should be present in the output of an ntpq -c rv command:</SPAN></p>
+<blockquote>
+    <pre>C:\&gt;ntpq -p raspi
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+ SHM(0)          .GPS.           15 l   13   16  377    0.000   33.837   3.510
+<b>o</b>PPS(0)          .PPS.            0 l   12   16  377    0.000    0.002   0.002
+*pixie           .PPS.            1 u   18   32  377    0.498   -0.030   0.025
++feenix          .PPS.            1 u    5   32  377    0.619   -0.078   0.035
++stamsund        .PPS.            1 u   29   32  377    0.614   -0.017   0.051
+ uk.pool.ntp.org .POOL.          16 p    - 1024    0    0.000    0.000   0.002
+-ntp.uk.syrahost 192.93.2.20      2 u  405 1024  377   30.031    8.487   0.274
+-ntp2.exa-networ 195.66.241.10    2 u  217 1024  377   26.263    3.167   1.277
+-resntp-a-vip.lo 182.7.208.171    3 u   49 1024  377   17.854    2.828   1.460
+-time.shf.uk.as4 91.208.177.20    3 u   75 1024  377   18.825    0.680   1.974
+
+C:\&gt;ntpq -c rv raspi
+associd=0 status=011d leap_none, sync_pps, 1 event, <b>kern</b>,
+version=&#34;ntpd 4.2.7p314@1.2483 Mon Oct 29 15:30:42 UTC 2012 (3)&#34;,
+processor=&#34;armv6l&#34;, system=&#34;Linux/3.2.27-pps-g965b922-dirty&#34;, leap=00,
+stratum=1, precision=-19, rootdelay=0.000, rootdisp=1.180, refid=PPS,
+reftime=d439fe8b.16dba50f  Tue, Oct 30 2012  7:21:47.089,
+clock=d439fe97.4d7ac44d  Tue, Oct 30 2012  7:21:59.302, peer=63905, tc=4,
+mintc=3, offset=0.001547, frequency=-45.081, sys_jitter=0.001907,
+clk_jitter=0.000, clk_wander=0.000
+</pre>
+</blockquote>
+<h2><a name="nohz">Enhanced PPS performance</a></h2>
+<p>You may find that by adding the directive &#34;nohz=off&#34; to the end of
+your /boot/cmdline.txt that jitter is decreased by up to 50%.  Try it and
+see for yourself.  Some systems it helps, and others it does not,
+depending, I suspect, on which OS and firmware versions you have.  As 
+guide, you may get to average jitter in the range:</p>
+<blockquote>
+  <table>
+    <tbody><tr>
+      <th><SPAN size="2">Model</SPAN></th>
+      <th><SPAN size="2">Averaged jitter</SPAN></th>
+    </tr>
+    <tr>
+      <td><SPAN size="2">Raspberry Pi B </SPAN></td>
+      <td><SPAN size="2">3.9 us, but may be better</SPAN></td>
+    </tr>
+    <tr>
+      <td><SPAN size="2">Raspberry Pi B+</SPAN></td>
+      <td><SPAN size="2">4.2 �s</SPAN></td>
+    </tr>
+    <tr>
+      <td><SPAN size="2">Raspberry Pi 2 B</SPAN></td>
+      <td><SPAN size="2">2 �s</SPAN></td>
+    </tr>
+    <tr>
+      <td><SPAN size="2">Raspberry Pi 3 B    </SPAN></td>
+      <td><SPAN size="2">1 �s</SPAN></td>
+    </tr>
+  </tbody></table>
+</blockquote>
+<p>Thanks to the folks <a href="https://github.com/raspberrypi/linux/issues/750#issuecomment-239135234">here</a>
+for their help.</p>
+<h2><a name="autostart">
+Getting it all to auto-start</a></h2>
+<p><SPAN size="2">With the replaced version of NTP we lose the automatic running
+of <SPAN face="Courier New">ntpd</SPAN> at startup which was present in the
+original install.  We also need to start <SPAN face="Courier New">gpsd</SPAN>
+so that the coarse time is available to NTP.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New"># To configure gpsd to auto-start, try: 
+$ sudo dpkg-reconfigure gpsd</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">This seems to work as expected, and allows the <SPAN face="Courier New">gpsd</SPAN>
+to automatically start up.  To check that, I rebooted, and logged in, and
+could run <SPAN face="Courier New">cgps -s</SPAN> right away.  However, NTP
+won&#39;t see the time from the GPS until <i>after</i>  <SPAN face="Courier New"> cgps -s</SPAN> is run. 
+This is fixed as follows (thanks to A Carver):  by default, <SPAN face="Courier New">gpsd</SPAN>
+won&#39;t connect to the GPS receiver until there is client software such as <SPAN face="Courier New">cgps</SPAN>
+with requires it.  This allows for some power-saving in the GPS
+receiver.  To circumvent this, the gpsd needs to be started with the
+&#34;-n&#34; option.  These options are set in the directory
+/etc/default, so you need to edit the file /etc/default/gpsd to change the
+line: GPSD_OPTIONS=&#34;&#34; to GPSD_OPTIONS=&#34;-n&#34;.  Method A
+is to do this through dpkg-reconfigure gpsd, method B is to edit the file
+directly.</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo nano /etc/default/gpsd</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">NTP will auto-start after a reboot with either Method A or
+Method B above.</SPAN></p>
+<p><SPAN size="2">There is a cut-out area in the ModMyPi case which will allow
+connections to the GPIO connector such as ribbon cable which you can easily
+break out and file down to a neat edge.  The sharp-eyed amongst you will
+notice that three wires are shown - this is because the surplus header had three
+wires connected, but I only used two - ground (blue) and GPIO 24 (red). 
+The black lead would be GPIO 23 but it is unused and not connected.</SPAN></p>
+<p></p>
+<h2>GPS Receiver Issues</h2>
+<p><SPAN size="2">There are two issues which are now becoming apparent with the
+particular GPS receiver I have and the Raspberry Pi.</SPAN></p>
+<ol>
+  <li><SPAN size="2">It seems that after a power-down reboot, the GPS receiver
+    isn&#39;t correctly detected, and need a disconnect/reconnect of its USB
+    connector before it is seen by <SPAN face="Courier New">gpsd</SPAN>. 
+    The pulse-per-second signal still comes<SPAN face="Courier New"> </SPAN>through,
+    though, so the precise seconds are working, but the coarse seconds are
+    not.  This is clearly unacceptable as you would not get the correct
+    time unless you also had an Internet NTP server available.</SPAN></li>
+  <li><SPAN size="2">During the booting of the GPS receiver (if it does not have
+    a battery) it <i>may</i> output GPS time (which is 16 seconds adrift from
+    UTC at the time of writing).  Although <SPAN face="Courier New">gpsd </SPAN>is
+    supposed to catch this situation, it could mean that the Raspberry Pi will
+    not know what the correct time is for some time after booting, and even then
+    it could take 10-20 minutes to be sure that the correct time was actually
+    being sent by the GPS and for NTP to make the 16 seconds step correction
+    required.</SPAN></li>
+</ol>
+<p><SPAN size="2">If your receiver has this 16-second ambiguity, be sure you have a source
+of coarse time available such as an Internet NTP server.</SPAN></p>
+<h2><a name="serial">Adding a 3.3 V Serial GPS receiver instead</a></h2>
+<p><SPAN size="2">Because of the problem (1) above, I bought a serial GPS
+receiver from China.  By following the instructions <a href="http://www.irrational.net/2012/04/19/using-the-raspberry-pis-serial-port/">here</a>
+I was able to make the serial port available on the Raspberry Pi independent of
+its use as a login or boot-up terminal port. </SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(make a safety coppy of the file we are about to edit)
+$ sudo cp /boot/cmdline.txt /boot/cmdline_backup.txt</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo nano /boot/cmdline.txt
+(remove the parameter including the string &#34;ttyAMA0&#34;:
+console=ttyAMA0,115200
+In Raspbian Wheezy there are two parameters:
+ console=ttyAMA0,115200 kgdboc=ttyAMA0,115200)</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo nano /etc/inittab
+(Comment out the line like &#34;2:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100&#34;
+ by putting a hash (#) at the start of the line.  Note that the line was not 
+ 2:23 on my version of Linux, so be sure to look for the actual line with ttyAMA0.
+ It was the last line of the file, as it happens).</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(You need to reboot to bring these changes into effect)
+$ sudo reboot</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(Minicom then works - to exit minicom, Ctrl-A, release, Q or X.)
+$ minicom -b 9600 -o -D /dev/ttyAMA0</SPAN></pre>
+  </li>
+  <li>
+    <pre><SPAN size="2" face="Courier New">(If minicom gives command not found, you need to install it:)
+$ sudo apt-get install minicom</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">Note that the Raspberry Pi requires 3.3 V signals on the serial
+pins - <b><i>not</i></b> RS-232 level which will damage the device.  You
+should now be able to configure gpsd to talk to ttyAMA0 (using <SPAN face="Courier New">sudo
+dpkg-reconfigure gpsd</SPAN>), and the <SPAN face="Courier New">cgps -s</SPAN>
+command should work as above.</SPAN></p>
+<h3><a name="adafruit"></a><a name="u-blox">3.3 V GPS receiver</a></h3>
+<p><SPAN size="2">I found a 3.3 V I/O very compact GPS receiver board <a href="http://cgi.ebay.co.uk/ws/eBayISAPI.dll?ViewItem&amp;item=251164946899">here</a>
+described as: &#34;GPS Receiver u-blox NEO-6M Module with Antenna USART TTL &amp; IIC Interface&#34;. 
+It includes the patch antenna and cost less than �20.  Such modules seem to be a
+standard for flight control for model aircraft and similar applications.  It does require one minor modification, which is to solder a wire
+to pin 3 of the NEO-6M module to extract the PPS signal.  This unit
+was later replaced by a <a href="http://www.adafruit.com/products/746" target="_blank">Adafruit
+    Ultimate GPS Breakout</a> which requires no additional soldering, and has a
+built-in antenna.</SPAN></p>
+
+<p><SPAN size="2">One the left is the receiver undergoing initial tests.  You can
+see the patch antenna on the left raised on a block of foam so that it can
+&#34;see&#34; past the clutter of the receiver, the receiver itself on the blue PCB mounted vertically in the
+breadboard, and you might just see the orange-pink wire at the top-right corner
+of the receiver which has been carefully soldered to pin 3 of the NEO-6M to get
+the PPS signal.  The wire is anchored in the top-right mounting hole for
+strain relief.  You don&#39;t need surface-mount tools to make this connection,
+but you <i>do</i> need a very fine soldering tip and considerable care! 
+Like the TX/RX signals from this module, the PPS signal is at 3.3 V level and
+therefore ideal for feeding the Raspberry Pi.  The board will accept either
+3.3 V or 5 V power while retaining 3.3V I/O levels, and I&#39;m using 5 V to power the
+board to reduce the load on the 3.3 V regulator on the Raspberry Pi board. 
+The U-blox device is specified at less than 50 mA supply current.</SPAN></p>
+<p><SPAN size="2">For the final installation, the Adafruit module was used as
+its single package was more convenient.  Not all the leads are connected as
+there is only one place to connect ground on the module (so the blue is left
+open), and for simplicity the green Pi Tx =&gt; GPS Rx was not connected. 
+Judge the size of the Raspberry Pi by the Ethernet connector on the left!</SPAN></p>
+<p><SPAN size="2">The next step was to set up the Raspberry Pi to talk to the new module, use serial
+GPS data via <SPAN face="Courier New"> gpsd</SPAN> for the coarse time,
+and to use its PPS
+line to provide precise time just as described <a href="#pps">above</a>.  To preset the serial line
+speed to 9600 at Linux start-up, edit the file <SPAN face="Courier New"> /boot/config.txt</SPAN>
+to include the line:</SPAN></p>
+<pre>    init_uart_baud=9600</pre>
+<p><SPAN size="2">as it says in: <a href="http://elinux.org/RPi_config.txt">http://elinux.org/RPi_config.txt</a>. 
+You can check using the command:</SPAN></p>
+<blockquote>
+  <pre>stty -F /dev/ttyAMA0</pre>
+</blockquote>
+<p><SPAN size="2">I found that the speed was already set to 9600 on a recent
+Raspberry Pi installed from the NOOBS software.  I gather that on a typical Linux system you might use the
+command: stty -F /dev/ttyAMA0 9600.</SPAN></p>
+<h3><a name="GPIO">Raspberry Pi GPIO multi-pin connector</a></h3>
+<p><SPAN size="2">This time , not only were PPS and ground connections required,
+but also the serial port and the +5 V line, so I used a piece of 6-way ribbon cable to connect between
+the Raspberry Pi and my serial GPS device.  I happened to have a 10-pin
+header which fitted the GPIO connector, so these are the connections I chose to
+make:</SPAN></p>
+<table>
+  <tbody><tr>
+    <th><SPAN size="2">My</SPAN></th>
+    <th><SPAN size="2">Raspberry Pi</SPAN></th>
+    <th><SPAN size="2">Comment</SPAN></th>
+    <th><SPAN size="2">GPS module</SPAN></th>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Red</SPAN></td>
+    <td><SPAN size="2">+5V</SPAN></td>
+    <td><SPAN size="2">My unit takes less than 50 mA</SPAN></td>
+    <td><SPAN size="2">1 +5V</SPAN></td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td><SPAN size="2">+5V</SPAN></td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Blue</SPAN></td>
+    <td><SPAN size="2">Ground</SPAN></td>
+    <td><SPAN size="2">One of two ground connections</SPAN></td>
+    <td><SPAN size="2">2 GND</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Green</SPAN></td>
+    <td><SPAN size="2">TXD</SPAN></td>
+    <td><SPAN size="2">Not connected, see below</SPAN></td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Yellow</SPAN></td>
+    <td><SPAN size="2">RXD</SPAN></td>
+    <td><SPAN size="2">Receives serial data sent from the GPS</SPAN></td>
+    <td><SPAN size="2">3 TXD</SPAN></td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td><SPAN size="2">GPIO 18</SPAN></td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td><SPAN size="2"> Ground</SPAN></td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td><SPAN size="2">GPIO 23</SPAN></td>
+    <td> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">White</SPAN></td>
+    <td><SPAN size="2">GPIO 24</SPAN></td>
+    <td><SPAN size="2">Receives the PPS sent from the GPS</SPAN></td>
+    <td><SPAN size="2">PPS pin on u-blox device</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Black</SPAN></td>
+    <td><SPAN size="2">Gnd</SPAN></td>
+    <td><SPAN size="2">One of two ground connections</SPAN></td>
+    <td><SPAN size="2">6 GND</SPAN></td>
+  </tr>
+</tbody></table>
+<p><SPAN size="2">I actually didn&#39;t connect the TXD lead to the GPS module in the first instance,
+as the GPS receiver powers up sending data in the correct format, so there is
+nothing which the computer <i>needs</i> to control.  There is a description
+of the GPIO pin header <a href="http://elinux.org/RPi_Low-level_peripherals#General_Purpose_Input.2FOutput_.28GPIO.29" target="_blank">here</a>. 
+Again, please note that 3.3 V signals are required, <i> not</i> the 5 V level, and
+definitely <i> not</i> the RS-232 level!</SPAN></p>
+<h3>Converting from USB to native serial - software changes</h3>
+<p><SPAN size="2">We need to tell gpsd to look for input from a different
+source: ttyAMA0 instead of ttyACM0</SPAN></p>
+<ol>
+  <li>
+    <pre><SPAN size="2" face="Courier New">$ sudo nano /etc/default/gpsd</SPAN></pre>
+  </li>
+</ol>
+<p><SPAN size="2">and change the DEVICES= to point to
+&#34;/dev/ttyAMA0&#34;.  You could use &#34;<SPAN face="Courier New">sudo
+dpkg-reconfigure
+gpsd</SPAN>&#34; instead.  You may also find that the delay between PPS and TXD
+on the serial line is different from that over USB, so you may wish to edit your
+</SPAN><SPAN face="Courier New">ntp.conf</SPAN><SPAN size="2"> accordingly - it makes the output look nicer at least and may make
+prediction of the nearest second more accurate during the initial acquisition. 
+In my case I needed to change the 0.35 second offset seen in the earlier device
+to the 0.13 second offset seen with the U-blox device, hence the following
+change in </SPAN><SPAN face="Courier New">ntp.conf</SPAN><SPAN size="2">, from</SPAN></p>
+<blockquote>
+  <pre>fudge 127.127.28.0 time1 +0.350 refid SHM stratum 15</pre>
+</blockquote>
+<p><SPAN size="2">to:</SPAN></p>
+<blockquote>
+  <pre>fudge 127.127.28.0 time1 +0.130 refid SHM stratum 15</pre>
+</blockquote>
+  <p><SPAN size="2">This configuration has been running since
+  Friday, November 09, 2012.  </SPAN>
+ </p>
+<p><SPAN size="2">On reflection, I am unsure why I chose to make the stratum 15
+in the example above,  Possible stratum 2 or 3 might be better, otherwise
+NTP may think that the source is of very poor quality and fail to sync to it.</SPAN>
+ </p>
+<p><SPAN size="2">Robin Scwab notes that you could try using the value of
+&#34;Time offset&#34; displayed in cgps -s as the starting value for the time1
+parameter.  This sounds to be a gooo idea, except that on one system here I
+happened to check Time Offset was about 0.640 seconds, but the best value for
+time1 (i.e. the value resulting in the smallest average offset) was 0.130
+seconds.  Where did the extra 0.5 seconds come from?</SPAN>
+ </p>
+<h3>Number of NTP clients which can be handled
+ </h3>
+<p><SPAN size="2">Someone asked: &#34;How many NTP clients can it
+handle?&#34;  Well, I have not done any extensive testing on how many clients this
+NTP server can handle (as it will easily be enough for use on a LAN, and it&#39;s
+not fit for public use in its present security date).  I did manage to
+locate one NTP stress-testing program <a href="http://www.atomic-clock.galleon.eu.com/ntp-server-tool.htm">here</a>,
+but the maximum rate I could get it to produce on my PC was about 75 packets per
+second, and the Raspberry Pi can handle that rate with ease.  With NTP
+client PCs polling at 64 second intervals (the fastest normally used), that&#39;s
+4800 clients, so easily enough for a small organisation.  If you were using
+this for a small organisation, I would recommend using two or three stratum-1
+servers so that you are covered in the event of failure - perhaps mark one of the
+servers &#34;prefer&#34; on the client PCs to avoid NTP from
+&#34;clock-hopping&#34;.  If you have better
+stress-test data, as Kasper Pedersen did, please let me know and I can publish it here.</SPAN>
+ </p>
+<p><SPAN size="2"><i>Kasper Pedersen notes:</i></SPAN>
+ </p>
+<p><SPAN size="2">I did one a few years ago that goes a bit faster (Linux):</SPAN>
+ </p>
+<p><SPAN size="2"><a href="http://n1.taur.dk/permanent/ntpload.c" target="_blank">http://n1.taur.dk/permanent/ntpload.c</a></SPAN>
+ </p>
+<p><SPAN size="2">To test a Raspberry Pi you need 4 instances running, at which point the
+Pi runs out of CPU, and settles on 3520/s.  That ought to be enough for most small homes.. :-)</SPAN>
+ </p>
+<h2><a name="user-mode">An alternative user-mode approach - no kernel changes
+required</a>
+ </h2>
+<p><SPAN size="2">These are brief notes only, on an alternative approach which
+does not require a modified kernel with PPS support in the OS, nor does it
+require a recompiled NTP, but which produces
+slightly less accurate timekeeping.  It may, however, be quite good enough
+for most purposes.  The program was developed by Folkert van Heusden, see: <a href="http://vanheusden.com/time/rpi_gpio_ntp/">http://vanheusden.com/time/rpi_gpio_ntp/</a> 
+and <a href="http://www.febo.com/pipermail/time-nuts/2013-June/077484.html">announced</a>
+in the Time-Nuts mailing list.</SPAN>
+ </p>
+<h4>Base installation - check you meet these requirements
+ </h4>
+<p><SPAN size="2">You can start here assuming that you have your Raspberry Pi
+basically working with GPSD and NTP, meaning that:</SPAN>
+ </p>
+<ul>
+  <li><SPAN size="2">You have installed the current operating system and any
+    updates.</SPAN></li>
+  <li><SPAN size="2">You have made any optional IP address or computer name
+    changes.</SPAN></li>
+  <li><SPAN size="2">You have got NTP working, preferably connected to your
+    country&#39;s pool servers.</SPAN></li>
+  <li><SPAN size="2">You have <a href="#compile-ntp" target="_blank">recompiled
+    and installed NTP</a> to get a full version (is a re-compile required?).</SPAN></li>
+  <li><SPAN size="2">You have the PPS signal from the GPS receiver connected to
+    the GPIO, e.g. GPIO-8 (pin 24), or GPIO 18 for the <a href="#no-soldering">no-soldering
+    board</a>.</SPAN></li>
+  <li><SPAN size="2">You have <a href="#trimble" target="_blank"> installed and configured the <i>gpsd</i> software
+    and utilities</a>, and made <i>gpsd</i> auto-start.</SPAN></li>
+  <li><SPAN size="2">You have a GPS device connected either via a serial or a
+    USB connection.</SPAN></li>
+  <li><SPAN size="2">The <i>cgps -s</i> command produces a correct display.</SPAN></li>
+  <li><SPAN size="2">You have configured NTP to talk to the type 28.0 shared
+    memory driver, and can see the GPSD output in <i>ntpq -pn</i>.</SPAN></li>
+</ul>
+<h4>Optional first step - to determine the offset of your GPS serial data from
+the exact second
+ </h4>
+<p><SPAN size="2">The objective is to determine the offset between the PPS
+signal from your GPS and the serial data which typically follows some hundred or
+more milliseconds later.  NTP can use that offset either to make a better
+sync when using just a GPS receiver with no PPS, or to present a slightly less
+confusing <i>ntpq -p</i> output when using PPS.  To measure what offset
+should be specified for the time1 factor when using a GPS receiver (type 28
+reference clock driver), we can use NTP as a measuring tool by making it sync to
+existing servers and have it monitor the
+shared memory #0 written by <i> gpsd.  </i>I.e. NTP will not use server
+28.0 for timekeeping, but it <i>will</i> display the offset in the <i>ntpq
+-p </i> command.  To do this, you add these
+lines to your ntp.conf (if they are not already there):</SPAN>
+ </p>
+<blockquote>
+  <pre># Server to be monitored only, not selected for syncing
+server 127.127.28.0 minpoll 4 maxpoll 4 noselect
+fudge 127.127.28.0 time1 0.000 refid GPSD</pre>
+</blockquote>
+<p><SPAN size="2">Watch the results from  </SPAN><SPAN face="Courier New">ntpq
+-pn</SPAN><SPAN size="2">, and look at the offset for the server with the refid GPSD.  On one of my RPi cards it varied between -322 and -336 (units are
+ms in the ntpq report). 
+Take an average of those values, and replace the 0.000 after time1 with that average.  In this case, the average was -329 ms, so try:</SPAN>
+ </p>
+<blockquote>
+  <pre>server 127.127.28.0 minpoll 4 maxpoll 4 noselect
+fudge 127.127.28.0 time1 0.329 refid GPSD</pre>
+</blockquote>
+<p><SPAN size="2">i.e. if the reported offset is negative, you need to make
+time1 a positive value.  Now you should see much smaller offsets for the GPSD server. 
+It&#39;s not
+essential to do this, but it gives you confidence that things are working as
+expected, it may help NTP in the early startup, and it produces a less
+confusing <i> ntpq</i> display.  Don&#39;t forget to remove the <i>noselect</i>
+when you have the best value for the offset, and set the flags to include <i>preferred
+</i>so that NTP knows it can use that source as a seconds provider!  There
+must be at least one <i>prefer</i> for PPS to work.  This now has the NTP daemon seeing the GPSD device, and
+the next step is to
+add in some PPS support.</SPAN>
+ </p>
+<blockquote>
+  <pre>server 127.127.28.0 minpoll 4 maxpoll 4 prefer
+fudge 127.127.28.0 time1 0.329 refid GPSD
+ </pre>
+</blockquote>
+<h4><a name="average">Getting the average value for time1 automatically</a>
+ </h4>
+<p><i>Angelo Mileto writes:</i> What I did to get a good sample of data for the <i> time1</i> value was let the ntpq -p command run for a period of time and capture the results. 
+Then, using awk, calculate the average/mean of the values collected.  If you look at the static ntpq -p output, you will see something like this:
+ </p>
+<pre>     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+ SHM(0)          .GPSD.           2 l   13   16  377    0.000   33.837   3.510
+oPPS(0)          .PPS.            2 l   12   32  377    0.000    0.002   0.002</pre>
+<p>along with other pool/server entries.  As noted above, you need to ensure you have a good preferred source for the comparison to work. 
+To capture your data, execute the following at the command line from your user&#39;s home directory:
+ </p>
+<blockquote>
+<pre>watch -n0.5 &#34;ntpq -pn | grep &#39;.GPSD. 2 1 1&#39; | tee --append GPSD_Offset.txt&#34;</pre>
+</blockquote>
+<p>Pay attention to the single and double quotes in that command.  If you notice, the grep is looking for the exact line from the ntpq -p output that contains your GPSD
+refid.  So if you named it something different, that would replace the .GPSD. in the command. 
+Also, notice the &#34;2 1 1&#34;, that is the stratum, t and when fields.  The stratum is whatever you set it to in the ntp.conf; the t should always be a 1 and the when is going to capture the output
+<i>only</i> when the timer reaches 1 meaning that it just updated the value. 
+There is no sense in capturing data every .5 seconds for data that doesn&#39;t
+change!  So the easiest way to get the value to grep for is to manually run the ntpq -p and copy from your refid through the when fields and that&#39;s what will be grepped for.
+ </p>
+<p>Let that run for a good while - probably not really needed - but that&#39;s the point of getting a good sample size. 
+This will capture the output from the ntpq command filtering to just your SHM/GPSD. 
+This will all be saved to a file GPSD_Offset.txt in the current directory - that&#39;s what the &#34;tee --append GPSD_Offset.txt&#34; does. 
+You can tail -f that file if you want while the watch command is running to see what is going into that file. 
+NOTE: If you need to restart the process because you changed some setting and want to start over, delete any existing GPSD_Offset.txt file first.
+ </p>
+<p>Once you have a sufficient sample size, you can then use the following command to get the actual value for the average/mean:
+ </p>
+<blockquote>
+<pre>awk &#39;{total=total+$9; count=count+1} END {print &#34;Total:&#34;total; print &#34;Count:&#34;count; print &#34; Avg:&#34;total/count}&#39; GPSD_Offset.txt</pre>
+</blockquote>
+<p>This steps through every line of the GPSD_Offset.txt file and totals up all of the offset values. 
+It will also count how many lines/values are there.  Finally it just prints the information: Total, count and average. 
+The average value is what you would put into the <i> time1</i> value as noted above. 
+Don&#39;t forget to change the noselect to prefer when you are in there to add the time1 value.</p>
+<p>DJT: This is somewhat beyond my Linux, so my thanks to Angelo for the scripts and the
+detailed explanation.  Angelo can be contacted <a href="mailto:angelomileto@comcast.net">here</a>.<br/>
+ </p>
+<h4>Downloading and compiling Folkert van Heusden&#39;s program
+ </h4>
+<p><SPAN size="2">As of 2013-Jun-18, rpi_gpio_ntp-0.3 was the current version,
+but thanks to Thomas Erthner I know that version 1.5 is now available, so I&#39;ve
+updated the lines below.  However, I&#39;ve only tested version 0.3, not
+version 1.5.  For more details, please see Folkert&#39;s
+page.</SPAN>
+ </p>
+<blockquote>
+  <pre>$ wget http:<wbr/>
+//vanheusden.<wbr/>
+com/time/rpi_gpio_ntp/rpi_gpio<wbr/>
+_ntp-1.5.<wbr/>
+tgz<wbr/>
+
+$ tar xvfz rpi_gpio_ntp-1.5.tgz
+$ cd rpi_gpio_ntp-1.5
+$ sudo make install</pre>
+</blockquote>
+<p><SPAN size="2">This places the resulting binary in </SPAN><SPAN face="Courier New">/usr/local/bin/. 
+</SPAN>You don&#39;t need this for current Raspbian versions.
+ </p>
+<h4>To test you are receiving a PPS signal, from GPIO pin 8:
+ </h4>
+<blockquote>
+  <pre>$ sudo rpi_gpio_ntp -g 8 -d
+rpi_gpio_ntp v0.2, (C) 2013 by folkert@vanheusden.com
+
+NTP unit: 0
+GPIO pin: 8
+Fudge : 0.000000
+&#34;Fork into the background&#34; disabled because of debug mode.
+1371475664.752146325] poll() GPIO 8 interrupt occurred
+1371475665.000148935] poll() GPIO 8 interrupt occurred
+1371475666.000147203] poll() GPIO 8 interrupt occurred
+1371475667.000160470] poll() GPIO 8 interrupt occurred
+1371475668.000159739] poll() GPIO 8 interrupt occurred
+(Ctrl-C pressed)
+$</pre>
+</blockquote>
+<h4>Running the program
+ </h4>
+<p><SPAN size="2">To make NTP read the PPS timings on the GPSD shared memory, we need to use
+this command to start the program, assuming the PPS signal is being sent to
+GPIO-8 (physical pin 24 - see <a href="http://elinux.org/RPi_Low-level_peripherals#General_Purpose_Input.2FOutput_.28GPIO.29">here</a>). 
+Use pin 18 is you are using the <a href="#no-soldering">no-soldering board</a>.</SPAN>
+ </p>
+<blockquote>
+  <pre>$ sudo rpi_gpio_ntp -N 1 -g 8</pre>
+</blockquote>
+<p><SPAN size="2">and to edit the ntp.conf file, to include the shared memory driver, on section 1
+of the GPSD shared memory, replacing the earlier type 22 driver.  Add:</SPAN>
+ </p>
+<blockquote>
+  <pre>server 127.127.28.1 minpoll 4 prefer
+fudge 127.127.28.1 refid UPPS</pre>
+</blockquote>
+<p><SPAN size="2">I suggest &#34;UPPS&#34; to show it&#39;s user-mode PPS (and not
+the more accurate Kernel mode).  If you want to see the output pulse from the program, you can add the &#34;-p 7&#34;
+parameter:</SPAN>
+ </p>
+<blockquote>
+  <pre>sudo rpi_gpio_ntp -N 1 -g 8 -p 7</pre>
+</blockquote>
+<p><SPAN size="2">and you can then use an oscilloscope to compare the time of
+the PPS rising edge with the toggling line from GPIO pin 7 (connector pin
+26).  On my system, there was a variable delay of between 270 and 390
+microseconds between PPS and program response.</SPAN>
+ </p>
+<h4>Auto-start
+ </h4>
+<p><SPAN size="2">More information to follow, for now, this from Folkert: 
+edit  <SPAN face="Courier New">/etc/rc.local</SPAN>  and add the
+following (BEFORE the exit 0 statement and AFTER the #!/bin/sh line):</SPAN>
+ </p>
+<blockquote>
+  <pre>/usr/local/bin/rpi_gpio_ntp -N 1 -g 8</pre>
+</blockquote>
+<p><SPAN size="2">Replace &#39;8&#39; by the gpio pin you are using, e.g. 18 for the <a href="#no-soldering">no-soldering
+board</a>.</SPAN>
+ </p>
+<h3>Performance
+ </h3>
+<p><SPAN size="2">The original documentation suggested using minpoll=1, however on testing using 
+<SPAN face="Courier New">ntpq -pn</SPAN>  it appeared that NTP will automatically accept 3 as the minimum value.  As
+the previous testing with kernel-mode PPS had been with minpoll=4, it seemed
+only fair to test with that value.  You can see the change from minpoll=1
+to minpoll=4 just after 18:00 UTC.  Recall that 1 was replaced internally
+by 3, the lowest value NTP will accept.  With minpoll=4,
+both the reported offset and the averaged jitter were reduced.  First, what it looks like in MRTG for comparison with the results
+above:</SPAN>
+ </p>
+<p>
+ </p>
+<p><SPAN size="2">Don&#39;t get confused: the MRTG plot above covers rather more
+than one day, whereas the plots below cover just under half a day.  On the
+plot MRTG plot, you can see that the RPi was changed from kernel-mode PPS at
+13:00 UTC and run for a short while with Internet servers alone, visible as the
+larger excursions on the plot above around 13:00).  </SPAN>
+ </p>
+<p><SPAN size="2">From my <a href="https://www.satsignal.eu/software/net.htm#NTPplotter" target="_blank">NTPplotter
+program</a> graphs below, you can see more clearly that at 13:30
+the user-mode PPS was started, and the just after 18:00 the minpoll was changed
+from 1 (actually 3) to 4, resulting in a slight drop of RMS offset from around 5
+microseconds to 4 microseconds:</SPAN>
+ </p>
+<p>
+ </p>
+<p><SPAN size="2">The jitter graph shows a drop in averaged jitter (green line) from just below 7 to just
+above 5 microseconds after 18:00, when the minpoll was changed from 3 to 4. 
+The initial higher value of averaged jitter is the tail resulting from
+Internet-only sync.</SPAN>
+ </p>
+<p>
+ </p>
+<p><SPAN size="2"><a name="5S">On another Raspberry Pi</a> you can see the dramatic difference between NTP sync
+over the network and that achieved with the user-mode PPS software.  In
+this case, network sync was to a local NTP stratum-1 server over a Wi-Fi
+connection, and the PPS sync was with a U-blox 5S module.  User-mode PPS
+was started just after 11:00 UTC in the middle of the graphs below.  RMS
+offset dropped from a rather variable 48-80 microseconds to around 2 microseconds,
+and jitter averaged over 6 hours dropped from around 80 microseconds to under
+2.5 microseconds.</SPAN>
+ </p>
+<p>
+ </p>
+<p><SPAN size="2">To monitor NTP you can edit the ntp.conf file to turn on the generation
+of more detailed statistics data.  Note that this data maybe a megabyte or more per day, so think about keeping only a few days
+worth, and only enabling statistics collection when needed as the number of
+writes to the SD card flash memory is limited.  The detailed information
+can now be found <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#ntp">here</a> and I
+offer a program to plot the statistics data and produce offset and jitter graphs
+such as those above <a href="https://www.satsignal.eu/software/net.htm#NTPplotter" target="_blank">here</a>.</SPAN>
+</p>
+<h2>Transients
+ </h2>
+<p><SPAN size="2">I may have been unfortunate in locating one Raspberry Pi with an Adafruit
+module in a position where it was not getting as good a view of the sky as
+others, or it may be that other devices connected to that RPi or software
+installed is an issue.  I have been seeing transient poor time-keeping
+(loss of GPS PPS signal) at intermittent times.  I did discover that
+disconnections a lead to a USB hub connected to that RPi seemed to improve
+things.</SPAN>
+ </p>
+<p> <SPAN size="2">If the problem was caused purely by unfortunate GPS satellite
+position, I might have expected it to repeat in a near 24-hour pattern, which
+does appear to be the case.  Thanks to John Ryan for correcting me about the GPS
+orbital period, I was originally thinking sidereal time and 4 minute earlier
+each day.  However, on the Time-Nuts mailing list, in connection with
+another topic, Bob Camp <a href="https://www.febo.com/pipermail/time-nuts/2014-October/087270.html">commented</a>:</SPAN>
+ </p>
+<blockquote>
+  <p><SPAN size="2">&#34;The GPS constellation repeats roughly once a day. 
+  It is not at all uncommon to have a �worst case� satellite geometry for a given antenna location. 
+  If you have one, it will repeat once a day and show up as a bump in the timing out of your GPS module....&#34;</SPAN>
+ </p>
+</blockquote>
+<p><SPAN size="2">Although the GPS satellites repeat position in just less than
+12 hours, there is also the rotation of the earth to take into account, so the
+position repeats at your location every 24 hours (well, ~23 h 56 m).</SPAN>
+ </p>
+<p> <SPAN size="2"> On reflection, 2014 February 09, this is the only Raspberry
+Pi with certain radio software installed, and the problem only seems to occur
+some days after a reboot, so I think I will stop recording the problem
+here.  I am editing out the transients as they affect the P/N timekeeping
+graphs, but I leave the raw-graphs as-is.</SPAN>
+ </p>
+<table>
+  <tbody><tr>
+    <th><SPAN size="2">Date</SPAN></th>
+    <th><SPAN size="2">Transient</SPAN></th>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Dec 31</SPAN></td>
+    <td><SPAN size="2">20:00-20:45, 23:10-24:00</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-01</SPAN></td>
+    <td><SPAN size="2">20:14-20:37, 23:17-23:28</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-02</SPAN></td>
+    <td><SPAN size="2">01:29 02:45, 19:57..20:13, 20:14..20:29, 20:31, 23:13, 23:24 23:30..23:54</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-03</SPAN></td>
+    <td><SPAN size="2">02:39, 03:44, 20:12..20:22, 23:24..23:52</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-04</SPAN></td>
+    <td><SPAN size="2">02:37, 20:03..20:28, 23:06, 23:41..23:45</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-05</SPAN></td>
+    <td><SPAN size="2">02:31</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2"> </SPAN></td>
+    <td><SPAN size="2">Removed USB extension cable from RasPi-2</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-06</SPAN></td>
+    <td><SPAN size="2">19:33..1940, 19:54, 22:49..22:55</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-10</SPAN></td>
+    <td><SPAN size="2">20:30 22:07-22:17 22:37-22:45 23:03</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-11</SPAN></td>
+    <td><SPAN size="2">21:57-23:18</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-12</SPAN></td>
+    <td><SPAN size="2">22:01-22:54</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-13</SPAN></td>
+    <td><SPAN size="2">19:17-19:37 22:37-22:54</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-14</SPAN></td>
+    <td><SPAN size="2">01:46-01:47 19:30 19:40 22:46-22:51</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan 15</SPAN></td>
+    <td><SPAN size="2">01:47 19:16-19:35 22:42-22:46 23:06</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-16</SPAN></td>
+    <td><SPAN size="2">19:05-19:32 22:24-22:41</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-17</SPAN></td>
+    <td><SPAN size="2">19:07-19:19 22:04-22:34</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-18</SPAN></td>
+    <td><SPAN size="2">19:11-19:16 21:55-21:57</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-19</SPAN></td>
+    <td><SPAN size="2">02:38-02:39</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-20</SPAN></td>
+    <td><SPAN size="2">19:04-20:06</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-21</SPAN></td>
+    <td><SPAN size="2">02:55-03:03 03:17 19:00 19:46 20:15 22:06</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-22</SPAN></td>
+    <td><SPAN size="2">02:56-03:05</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-23</SPAN></td>
+    <td><SPAN size="2">10:46 12:48</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-24</SPAN></td>
+    <td><SPAN size="2">02:48-02:53 07:21 07:44 12:46-12:48 17:11 19:20-19:36</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-25</SPAN></td>
+    <td><SPAN size="2">07:13 07:18 07:52-07:53 13:02-13:11</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-26</SPAN></td>
+    <td><SPAN size="2">02:50 03:26 18:06 18:31-18:36 21:59</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-27</SPAN></td>
+    <td><SPAN size="2">02:42 02:57-03:37 07:09 (reboot at 17:23)</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Jan-31</SPAN></td>
+    <td><SPAN size="2">21:19-21:21</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Feb-05</SPAN></td>
+    <td><SPAN size="2">20:59 23:12 (is this something which starts days after boot?)</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Feb-07</SPAN></td>
+    <td><SPAN size="2">	18:03 18:41 20:52</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Feb-08</SPAN></td>
+    <td><SPAN size="2">15:09 15:42 18:37 20:33 20:46 21:24</SPAN></td>
+  </tr>
+  <tr>
+    <td><SPAN size="2">Feb-09</SPAN></td>
+    <td><SPAN size="2">00:13 00:37-00:43 01:37</SPAN></td>
+  </tr>
+</tbody></table>
+<h2><a name="leap-seconds">Leap-seconds</a>
+ </h2>
+<p><SPAN size="2">If you are operating completely alone, with no internet
+connection and just the GPS, your NTP may need to be told about leap-seconds
+which change the offset between GPS time and wall-clock time every so
+often.  Some GPS receivers provide this information automatically, but this
+can also be done by providing a file with the times of changes (in a standard format) and telling ntpd where to
+find that file.  On my own
+systems I have set up a Samba share on the NTP servers so that I can update the
+leap-seconds file from a central location.  To do this, add a new writeable share named &#34;ntp-leapseconds&#34;
+by adding lines to the end of smb.conf, and then restart Samba:</SPAN>
+ </p>
+<blockquote>
+<pre>sudo nano /etc/samba/smb.conf</pre>
+<pre>[ntp-leapseconds]
+comment = NTP leapsecond.file
+path = /home/pi/ntp
+writeable = yes
+guest ok = yes
+
+sudo /etc/init.d/samba restart</pre>
+</blockquote>
+<p><SPAN size="2">I chose to put my leap-seconds file in the default user&#39;s
+&#34;ntp&#34; home directory, but you may prefer some where more secure! 
+To tell ntpd where to find the file,	add one line to the end of ntp.conf with
+nano, and restart NTP:</SPAN>
+ </p>
+<blockquote>
+  <pre>sudo nano /etc/ntp.conf</pre>
+  <pre>leapfile /home/pi/ntp/leap-seconds.file</pre>
+  <pre>sudo /etc/init.d/ntp restart</pre>
+</blockquote>
+<p><SPAN size="2">You can get the leap-seconds file from a variety of locations,
+including:</SPAN>
+ </p>
+<p><SPAN size="2">    <a href="ftp://utcnist.colorado.edu/pub/">ftp://utcnist.colorado.edu/pub/<br/>
+</a>    <a href="ftp://tycho.usno.navy.mil/pub/ntp/">ftp://tycho.usno.navy.mil/pub/ntp/</a></SPAN>
+ </p>
+<p><SPAN size="2">and it will be named  <SPAN face="Courier New">leap-seconds.3582403200</SPAN> 
+with a different serial number as the information is updated (this file was found in December 2013).  I
+copy the file to a constant name:  <SPAN face="Courier New">leap-seconds.file</SPAN> 
+so that I don&#39;t need to alter NTP each time.  I then have a small Windows
+command file to update all my systems - Windows, FreeBSD and Raspberry Pi
+cards.  Here&#39;s an extract:</SPAN>
+ </p>
+<blockquote>
+  <pre>XCOPY /D /Y  leap-seconds.file  \\Alta\ntp\etc\
+XCOPY /D /Y  leap-seconds.file  \\Stamsund\ntp\etc\
+XCOPY /D /Y  leap-seconds.file  \\Pixie-II\ntp-leapseconds\
+XCOPY /D /Y  leap-seconds.file  \\RasPi-1\ntp-leapseconds\
+XCOPY /D /Y  leap-seconds.file  \\RasPi-2\ntp-leapseconds\
+PAUSE</pre>
+</blockquote>
+<p><SPAN size="2">You can check whether NTP is using the file, and whether your
+file is stale, with the:  <SPAN face="Courier New">ntpq -crv </SPAN>
+command:</SPAN>
+ </p>
+<blockquote>
+  <pre>associd=0 status=01fd leap_none, sync_pps, 15 events, kern,
+version=&#34;ntpd 4.2.7p408@1.2483 Sun Dec 29 14:36:43 UTC 2013 (1)&#34;,
+processor=&#34;armv6l&#34;, system=&#34;Linux/3.6.11&#34;, leap=00, stratum=1,
+precision=-19, rootdelay=0.000, rootdisp=1.180, refid=PPS,
+reftime=d66b96d3.01b61b26  Mon, Dec 30 2013  6:53:07.006,
+clock=d66b96df.3df17b24  Mon, Dec 30 2013  6:53:19.241, peer=61352, tc=4,
+mintc=3, offset=0.000281, frequency=-34.180, sys_jitter=0.001907,
+clk_jitter=0.001, clk_wander=0.003, tai=35, leapsec=201207010000,
+expire=201406010000</pre>
+</blockquote>
+<p><SPAN size="2">Look at the two final lines.  leapsec shows the latest
+leap second (here is was on 2012 Jul 01), and when the leap-second file expires
+(here: 2014-Jun-01).  There will also be a warning if the file is stale.</SPAN>
+ </p>
+<p><SPAN size="2">Update the file from time-to-time - say every six months - in
+May and November as leap-second changes usually happen at the end of June or
+December.  There is more information <a href="http://support.ntp.org/bin/view/Support/ConfiguringNTP#Section_6.14.">here</a>.</SPAN>
+ </p>
+<h2><a name="DHCP">DHCP</a> Causing <a name="router">problems</a>
+ </h2>
+<p>If you keep getting a different ntp.conf from that which you edited, your
+router may be the cause. It seems some routers give out NTP information in DHCP which the Pi by default uses over
+/etc/ntp.conf.
+ </p>
+<p>The fix I think is:
+ </p>
+<blockquote>
+<pre>rm /etc/dhcp/dhclient-exit-hooks.d/ntp</pre>
+</blockquote>
+<p>and if you have the following file, remove it as well:
+ </p>
+<blockquote>
+<pre>rm /var/lib/ntp/ntp.conf.dhcp</pre>
+</blockquote>
+<p>Then reboot.<br/>
+ </p>
+<h2><a name="monitoring">Monitoring</a> NTP remotely
+ </h2>
+<p><SPAN size="2">You can produce real-time graphs like those below using MRTG
+and a simple script which can get the statistics from NTP remotely.  There
+is more information <a href="https://www.satsignal.eu/ntp/NTPandMRTG.html">here</a>.  I happen to run
+MRTG and the collection scripts on a Windows PC.</SPAN>
+ </p>
+<blockquote>
+  <p><SPAN size="1">RasPi-2</SPAN></p>
+  <p><SPAN size="1">RasPi-4</SPAN></p>
+</blockquote>
+<h2><a name="snmp">Adding SNMP support for general remote monitoring</a>
+ </h2>
+<p><SPAN size="2">Information on general SNMP monitoring may now be found <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#snmp">here</a>. 
+This allows monitoring of the network I/O on the card, and a number of other
+parameters which are exposed for measurement by the OS.  An example graph
+follows:</SPAN>
+ </p>
+<blockquote>
+  <p><SPAN size="1">RasPi-3</SPAN></p>
+</blockquote>
+<h2><a name="cpu-temp">Adding SNMP support for CPU temperature monitoring</a>
+ </h2>
+<p><SPAN size="2">As NTP tries to keep the clock on the card at a constant
+frequency, it is often compensating for the effects of temperature changes which
+cause frequency changes.  It is therefore worthwhile monitoring the CPU temperature
+monitoring as described <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#cpu-temp">here</a>,
+although with a PPS signal and when used as a stratum-1 server, temperature
+effects may be less obvious.  Example graphs are shown below:</SPAN>
+ </p>
+<blockquote>
+<p><SPAN size="1">RasPi-4</SPAN></p>
+<p><a href="https://www.satsignal.eu/mrtg/performance_raspi-4.php"></a>
+ </p>
+</blockquote>
+<p><SPAN size="2">The MRTG monitoring scripts (which I actually run on a Windows PC
+covering several Raspberry Pi cards) are in <a href="https://www.satsignal.eu/ntp/MRTG-scripts.zip">this Zip
+archive</a>.</SPAN>
+ </p>
+<h2><a name="ambient">Monitoring Ambient Temperature</a>
+ </h2>
+<p><SPAN size="2">I extended the SNMP pass function to allow monitoring of
+ambient temperature using the DS18B20 &#34;single-wire&#34; device.  This
+is well written up for use with the Raspberry Pi <a href="http://webshed.org/wiki/RaspberryPI_DS1820">here</a>,
+and the detailed description is now <a href="https://www.satsignal.eu/raspberry-pi/monitoring.html#ambient">here</a>. 
+Sample results:</SPAN>
+ </p>
+<blockquote>
+  <table>
+    <tbody><tr>
+      <td><SPAN size="1">RasPi-4</SPAN></td>
+      <td><SPAN size="2">Indoor temperature °C</SPAN></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.satsignal.eu/mrtg/raspi4-ds2-temp.html"></a></td>
+      <td><SPAN size="2">Outdoor temperature °F</SPAN></td>
+    </tr>
+  </tbody></table>
+</blockquote>
+<h4>Thanks!
+ </h4>
+<p><SPAN size="2">My thanks to <a href="http://webshed.org">Webshed</a> for
+uploading the information about using the DS18B20.</SPAN>
+ </p>
+<h2>Running a publicly accessible NTP server
+ </h2>
+<p><SPAN size="2">If you are running a server which is accessible from the
+public Internet - perhaps you are contributing to the <a href="http://www.pool.ntp.org/en/">NTP
+Pool</a> project - there are some simple precautions you should take to ensure
+that your server is not used as the source of an attack on other PCs.  Note
+that this doesn&#39;t apply to most end-user clients sitting on your local PC, you
+would need to have specially opened a port in your firewall or router to allow
+public incoming unsolicited UDP port 123 packets into your local network. 
+If you are using a development version (4.2.7p26 or later) you are already
+protected.  The following notice explains more:</SPAN>
+ </p>
+<div><SPAN size="2"><i>NTP users are strongly urged to take immediate action to ensure that their NTP daemon is not susceptible to use in a reflected denial-of-service
+      (DRDoS) attack. Please see the
+      <a href="http://support.ntp.org/bin/view/Main/SecurityNotice#DRDoS_Amplification_Attack_using" target="_blank"> NTP Security Notice</a> for vulnerability and mitigation details, and the
+      <a href="http://networktimefoundation.org/ntp-winter-2013-network-drdos-attacks/" target="_blank">Network
+      Time Foundation Blog</a> for more information. (January 2014)</i></SPAN></div>
+<blockquote>
+
+</blockquote>
+<h2><a name="extras">Extras</a>
+ </h2>
+<ul>
+  <li><SPAN size="2"><a href="https://www.satsignal.eu/raspberry-pi/RaspberryPi-extra.html">When GPSD loses connection
+    to the GPS device...</a></SPAN></li>
+  <li><SPAN size="2"><a href="https://www.satsignal.eu/ntp/RaspberryPi-notes.html#EthernetLatency">Reducing
+    the Ethernet latency...</a></SPAN></li>
+  <li><SPAN size="2"><a href="https://www.satsignal.eu/ntp/RaspberryPi-notes.html#JorgeAmaralThoughts">Some thoughts
+    on NTP from Jorge Amaral Portugal...</a></SPAN></li>
+  <li><SPAN size="2"><a href="https://www.satsignal.eu/raspberry-pi/kernel-recompile.html">Recompiling
+    the kernel...</a></SPAN></li>
+  <li><SPAN size="2"><a href="https://www.satsignal.eu/ntp/RaspberryPi-notes.html#KernelChanges">NTP bug
+    report 2314...
+    </a></SPAN></li>
+  <li><SPAN size="2"><a href="http://aardvarklabs.wordpress.com/2013/12/29/ntp-server-using-raspberry-pi-and-vp-oncore-gps-module-part-1/" target="_blank">NTP Server using Raspberry Pi and VP Oncore GPS Module</a>
+    (from: Gavin Andrews)<a href="https://www.satsignal.eu/ntp/RaspberryPi-notes.html#KernelChanges"><br/>
+    </a> </SPAN></li>
+</ul>
+<h2>
+<a name="GPS-devices">GPS Devices used or considered - in alphabetical order!</a>
+ </h2>
+<ul>
+  <li><SPAN size="2"><a href="https://buy.garmin.com/shop/shop.do?pID=27594&amp;pvID=14555" target="_blank">Garmin
+    GPS 18x LVC</a> - used on <a href="https://www.satsignal.eu/ntp/FreeBSD-GPS-PPS.htm" target="_blank">previous projects</a></SPAN></li>
+  <li><SPAN size="2"><a href="http://www.mediatek.com/en/News/news_content.php?sn=78" target="_blank">MTK3339
+    chipset</a> - source <a href="http://www.adafruit.com/products/746" target="_blank">Adafruit
+    Ultimate GPS Breakout (US)</a>, <a href="http://proto-pic.co.uk/ultimate-gps-breakout-66-channel-w-10-hz-updates-mtk3339-chipset/" target="_blank">UK
+    supplier</a></SPAN></li>
+  <li><SPAN size="2"><a href="http://www.sureelectronics.net/goods.php?id=99" target="_blank">Sure
+    Electronics GPS evaluation board</a> - used on <a href="https://www.satsignal.eu/ntp/Sure-GPS.htm" target="_blank">previous
+    projects</a></SPAN></li>
+  <li><SPAN size="2"><a href="http://www.trimble.com/timing/resolution-smt.aspx" target="_blank">Trimble
+    Resolution SMT</a> - source eBay
+    (no longer available)</SPAN></li>
+  <li><SPAN size="2">U-blox module and board with Raspberry Pi header - <a href="http://ava.upuaut.net/store/index.php?route=product/product&amp;path=59_60&amp;product_id=95" target="_blank">source
+    HAB Supplies</a>, <a target="_blank" href="http://ava.upuaut.net/?p=600">blog
+    and photos</a>
+     </SPAN></li>
+  <li><SPAN size="2"><a href="http://www.u-blox.com/de/lea-6t.html" target="_blank">U-blox
+    LEA-6T</a> - source <a href="http://www.synergy-gps.com" target="_blank">Synergy
+    (US)</a></SPAN></li>
+  <li><SPAN size="2"><a href="http://www.u-blox.com/en/download/documents-a-resources/u-blox-6-gps-modules-resources.html" target="_blank">U-blox
+    NEO 6M</a> - source eBay (similar items available)</SPAN></li>
+</ul>
+  <h2><a name="dimensions">Dimensions</a>
+ </h2>
+<ul>
+  <li><SPAN size="2">Raspberry Pi: 86 x 56 x 21 mm</SPAN></li>
+  <li><SPAN size="2">Raspberry Pi in its box: 91 x 62 x 29 mm</SPAN></li>
+  <li><SPAN size="2">Trimble evaluation board: 66 x 32 x 8 mm</SPAN></li>
+  <li><SPAN size="2">Trimble evaluation board with interface: 66 x 32 x 24 mm</SPAN></li>
+  <li><SPAN size="2">U-blox interface card: 39 x 22 x 6 mm (excluding connection
+    pins)</SPAN></li>
+  <li><SPAN size="2">Patch antenna supplied with interface card: 25 x 25 x 7 mm</SPAN></li>
+</ul>
+<h2>What else have I done with the Raspberry Pi?</h2>
+<ul>
+  <li><SPAN size="2">Receiving ADS-B signals on
+1.09 GHz with a cheap TV dongle and feeding the results to <a href="http://www.coaa.co.uk/planeplotter.htm" target="_blank">Plane
+Plotter</a> over a Wi-Fi link.  This allows you to put the receiver right
+up close to the antenna, avoiding an expensive (or lossy) piece of cable, and
+avoiding the need for a cable run at all.  Details are <a href="https://www.satsignal.eu/raspberry-pi/dump1090.html">here</a>. 
+It&#39;s not much more than following someone else&#39;s instructions, but at least I
+can vouch for every command on that page, and perhaps you will find something
+useful there.</SPAN></li>
+  <li><SPAN size="2">A <a href="https://www.satsignal.eu/raspberry-pi/DigitalClock.html">Digital Wall clock</a>
+    using the Raspberry Pi - synchronised with NTP, of course!</SPAN></li>
+</ul>
+<h2>Acknowledgments</h2>
+<ul>
+  <li><SPAN size="2">To Michael Tharp at <a href="http://partiallystapled.com/">partially
+    stapled productions</a> for making the interface board available</SPAN></li>
+  <li><SPAN size="2"> <a href="http://m3php.com/"> Peter Goodhall</a> (2E0SQL) for discovering the restrictions in
+the as-supplied NTP configuration file</SPAN></li>
+  <li><SPAN size="2">Peter Mount for writing about his
+experiences of <a href="http://blog.retep.org/2012/06/18/getting-gps-to-work-on-a-raspberry-pi/">getting
+GPS to work on the Raspberry Pi</a></SPAN></li>
+  <li><SPAN size="2">DavidK for the <a href="https://github.com/davidk/adafruit-raspberrypi-linux-pps">PPS
+    information</a></SPAN></li>
+  <li><SPAN size="2">jbeal for the <a href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=41&amp;t=1970&amp;start=25">recompiling
+    NTP details</a>, and <a href="https://www.satsignal.eu/raspberry-pi/kernel-recompile.html">my own
+    notes</a></SPAN></li>
+  <li><SPAN size="2"><a href="http://www.irrational.net/2012/04/19/using-the-raspberry-pis-serial-port/">Clayton
+    Smith</a> for the serial port software commands</SPAN></li>
+  <li><SPAN size="2"><a href="http://www.uhf-satcom.com/">UHF-Satcom</a> for
+    help and encouragement</SPAN></li>
+  <li><SPAN size="2">More detailed information about rebuilding the Raspberry Pi
+    kernel and some hardware based on my project may be found on <a href="http://bd.hauke-lampe.de/raspberry-pi/raspberry-pi-stratum-1-ntp-server-with-pps-accurate-timekeeping-at-low-cost.html">Hauke
+    Lampe&#39;s Web page</a>.</SPAN></li>
+  <li><SPAN size="2">If you prefer a Fedora Remix variant of Linux, take a look
+    at Adam Dosch&#39;s <a href="http://doschman.blogspot.co.uk/2013/01/1pps-support-with-gpio-for-raspberry-pi.html">Dosch-man&#39;s
+    blog</a> entry.  He uses the <a href="http://www.coolcomponents.co.uk/catalog/em408-module-p-44.html">EM408
+    GPS module</a> and his own PPS source.</SPAN></li>
+  <li><SPAN size="2">and to the folk in the comp.protocols.time.ntp Usenet newsgroup
+    (<a href="https://groups.google.com/forum/#!forum/comp.protocols.time.ntp">or
+    on Google</a>) and <a href="http://leapsecond.com/time-nuts.htm">time-nuts
+    mailing list</a> who
+    were enormously helpful and patient with someone whose Linux knowledge is
+    sparse!</SPAN></li>
+</ul>
+<h2>I would like to support NTP</h2>
+
+ <!--msnavigation--></td></tr><!--msnavigation--></tbody></div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 14:54:58 +0000</pubDate>
+      <source>https://www.satsignal.eu/ntp/Raspberry-Pi-NTP.html</source>
+    </item>
+    <item>
+      <title>Practical introduction to algebraic datatypes (ADTs) in TypeScript</title>
+      <link>https://medium.com/@el3ng/practical-introduction-to-algebraic-datatypes-adts-in-typescript-1cb6952e4c6d</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___medium_com_@el3ng_practical-introduction-to-algebraic-datatypes-adts-in-typescript-1cb6952e4c6d/image.jpg" /> 
+<div id="readability-page-1" class="page"><section><div><div><p id="9ffc">Product types are essentially containers for other types, a <em>thing</em> that has <em>fields. </em><strong>Tuple</strong> and <strong>Record</strong> are the most common product types. They are both types that contain <em>fields</em> that contain some other types. All values of a specific product type contain the same set of fields.</p><p id="807d">TypeScript supports <strong>tuples</strong> that one might also think of as fixed length, typed arrays. They are also type safe so you get compile errors if accessing the third item of a 2-tuple or trying to set a string to a number field etc.</p><figure><p></p><figcaption>A “2-tuple of [number, number]” has two fields that are always both numbers.</figcaption></figure><p id="78cc">Records in TS is a bit of a stretch perhaps but you can certainly make structures that behave very close to a record. The rough idea is that a tuple has it’s fields numbered and a record has named fields. So you can just use an object literal, and as with tuples, the type system has got your back:</p><figure><div><div><div><p></p><p></p></div></div></div><figcaption>Record { a: number, b: string } has two fields a and b that are always a number and a string. Everything else is a compile error.</figcaption></figure><p id="a3e5">So why are these called Product types? This takes us to type theory, category theory, mathematics: “<em>the set of all possible values of a product type is the set-theoretic product, i.e., the </em><a href="https://en.wikipedia.org/wiki/Cartesian_product" rel="noopener"><em>Cartesian product</em></a><em>, of the sets of all possible values of its field types”. </em>Maybe we can stick with tuples and records for now.</p><p id="e356">TypeScript kind of does not really have Sum types although the <a href="https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html" rel="noopener">union type</a> comes very close. If a Product type was a container of fields, then a Sum type is like a container of possibilities. A <em>thing </em>that is either <em>this</em> or <em>that</em> but not both. In TypeScript a union type that has type string or number ensures that any value of that type is either a string or a number:</p><pre><span id="c840">type Thing = string | number // string or number</span></pre><p id="275a">To see a bit more powerful version of the Sum type, we need to change our language. Let’s look at a code sample from ReasonML (or ReScript nowadays) in the context of our original problem:</p><figure><div role="button" tabindex="0"><div><div><div><p></p><p></p></div></div></div></div><figcaption>“response” is a Sum type that is either Loading, Error or Data. “api” is of type response (inferred automatically).</figcaption></figure><p id="1e51">There are several new concepts here so bear with me. The “response” type is our Sum type, known as “variant type” in ReasonML/ReScript. It’s similar to the TS union type with the difference that we need to package the possible types into type constructors like “Loading” or “Error”.</p><figure><div role="button" tabindex="0"><div><div><div><p></p><p></p></div></div></div></div><figcaption>Type inference can calculate the function’s signature.</figcaption></figure><p id="3d73">The “render” function takes an argument called “api” that is actually of type response. This is inferred automatically by the type system.</p><p id="48d8">The cool thing is that we can use <a href="https://en.wikipedia.org/wiki/Pattern_matching" rel="noopener">pattern matching</a> to investigate the contents of the response by using the switch statement. If the response is Loading then it will match the first branch and the output will be “Still loading”, if it’s Error then we can print “Error! {s}“. We know the s is a string because response type has Error(string). The type system can also figure out if we are not handling all the possibilities that our Sum type has:</p><figure><div><div><div><p></p><p></p></div></div></div><figcaption>Oops! You didn’t check if foo doesn’t have a value!</figcaption></figure><p id="0386">So why is this called a Sum type? Again, a bit theoretical, but here we go: <em>“The set of all possible values of a sum type is the set-theoretic sum, i.e., the </em><a href="https://en.wikipedia.org/wiki/Disjoint_union" rel="noopener"><em>disjoint union</em></a><em>, of the sets of all possible values of its variants.”. </em>So instead of the Cartesian product of it’s fields like in Product type, this time it’s a sum of the possibilities. If this doesn’t make any sense, don’t worry. For the purposes if this article, understanding the theoretical aspects is not necessary.</p><p id="30af">So no we have learned the basic ADTs and it’s time to apply them to our original problem and see if we can get rid of that nasty if-else mess.</p><figure><div role="button" tabindex="0"><div><div><div><p></p><p></p></div></div></div></div><figcaption>Much cleaner and safer than the original.</figcaption></figure><p id="78ee">“APIResponse” is a union type of different records. While not a completely proper ADT, it simulates a Sum type well enough for our use case.</p><p id="996e">“render” uses a regular switch case to simulate pattern matching a Sum type. We use the special field “t” to provide a <a href="https://en.wikipedia.org/wiki/Tagged_union" rel="noopener">tagged union</a>.</p><p id="cd92">TypeScript is actually smart enough here to figure out several things at compile time:</p><ul><li id="b57a"><strong>The switch-case has to handle all of the tags</strong>, <em>if you add a new tag then the compiler will tell you</em>.</li><li id="e127"><strong>Branches in the switch-case are able to identify which record should be used. </strong><em>For example, “.foo” is only available in the case ‘Data’ branch while “.error” is only available in the case ‘Error’ branch.</em></li><li id="991e"><strong>Render must return a string so all return statements are checked normally. </strong><em>As is expected.</em></li></ul><p id="bd99">We have now introduced the ADTs: Product and Sum type via a practical example. With a couple basic building blocks we were able to refactor a complex if-else scenario into a beautiful pattern matching over a tagged union (a certain type of Sum type, if you will) in TypeScript. The outcome is clear, safe and tolerates changes like adding/removing cases very well.</p></div></div></section></div>]]></content:encoded>
+      <pubDate>Tue, 10 Aug 2021 12:10:19 +0000</pubDate>
+      <source>https://medium.com/@el3ng/practical-introduction-to-algebraic-datatypes-adts-in-typescript-1cb6952e4c6d</source>
+    </item>
   </channel>
 </rss>
