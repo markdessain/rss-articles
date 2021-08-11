@@ -2640,5 +2640,493 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
       <pubDate>Mon, 09 Aug 2021 18:46:51 +0000</pubDate>
       <source>https://www.padka.com/</source>
     </item>
+    <item>
+      <title>Kind: A Modern Proof Language</title>
+      <link>https://github.com/uwu-tech/kind</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text">
+<p>A minimal, efficient and practical proof and programming language. Under the hoods, it is basically Haskell, except purer and with dependent types. That means it can handle mathematical theorems just like Coq, Idris, Lean and Agda. On the surface, it aims to be more practical and looks more like TypeScript. Compared to other proof assistants, Kind has:</p>
+<ol>
+<li>
+<p>The smallest core. Check <a href="https://github.com/moonad/FormCoreJS/blob/master/FormCore.js">FormCore.js</a> or <a href="https://github.com/uwu-tech/Kind/blob/master/base/Kind/Core.kind">Core.kind</a>. Both are <code>&lt; 1000-LOC</code> complete implementations!</p>
+</li>
+<li>
+<p>Novel type-level features. Check <a href="https://github.com/uwu-tech/Kind/blob/master/blog/1-beyond-inductive-datatypes.md">this article</a> on super-inductive datatypes.</p>
+</li>
+<li>
+<p>An accessible syntax that makes it less scary. Check <a href="https://github.com/uwu-tech/Kind/blob/master/SYNTAX.md">SYNTAX.md</a>.</p>
+</li>
+<li>
+<p>A complete bootstrap: the language is implemented in itself. Check it <a href="https://github.com/uwu-tech/Kind/tree/master/base/Kind">here</a>.</p>
+</li>
+<li>
+<p>Efficient real-world compilers. Check <a href="http://uwu.tech" rel="nofollow">http://uwu.tech/</a> for a list of apps. (WIP)</p>
+</li>
+</ol>
+<h2><a id="user-content-usage" aria-hidden="true" href="#usage"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Usage</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/433259f5afbee51bef67116aff867390e273626cd2b96334b32fe372452b8934/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f6b696e642d6c616e67"></a>  <a href="https://t.me/formality_lang" rel="nofollow"></a></p>
+<ol start="0">
+<li>
+<p>Choose a release. We&#39;ll use JavaScript here but ChezScheme is also <a href="https://github.com/uwu-tech/Kind/blob/master/INSTALL.md">available</a>.</p>
+</li>
+<li>
+<p>Install Kind using <code>npm</code>:</p>
+</li>
+</ol>
+
+<ol start="2">
+<li>Save the file below as <code>Main.kind</code>:</li>
+</ol>
+<div data-snippet-clipboard-copy-content="Main: IO(Unit)
+  IO {
+    IO.print(&#34;Hello, world!&#34;)
+  }
+"><pre><code>Main: IO(Unit)
+  IO {
+    IO.print(&#34;Hello, world!&#34;)
+  }
+</code></pre></div>
+<ol start="3">
+<li>Type-check it:</li>
+</ol>
+
+<ol start="4">
+<li>Run it:</li>
+</ol>
+
+<ol start="5">
+<li>Have fun!</li>
+</ol>
+<h2><a id="user-content-things-you-can-do-with-kind" aria-hidden="true" href="#things-you-can-do-with-kind"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Things you can do with Kind:</h2>
+<h3><a id="user-content-compile-programs-and-modules-to-several-targets" aria-hidden="true" href="#compile-programs-and-modules-to-several-targets"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Compile programs and modules to several targets.</h3>
+<p>Kind has an universal compiler that targets several back-ends. Just find what you need on Kind, and compile it with <code>kind Main --lang</code>. For example, to generate a QuickSort function in JavaScript, just type <code>kind List.quicksort --js</code>. You may never write code in any other language! Available targets: <code>--js</code>, <code>--scm</code>. Several more will be available this month.</p>
+<h3><a id="user-content-create-live-applications" aria-hidden="true" href="#create-live-applications"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Create live applications.</h3>
+<p>Kind has an interconnected back-end that allows you to create rich, interactive applications without ever touching databases, TCP packets or messing with apis. Just add a file to <code>base/App</code> and it will be available on <a href="http://uwu.tech" rel="nofollow">http://uwu.tech/</a>. You can fork entire applications - not just the front-end, but all of it, back-end, database, and networking - in seconds.</p>
+<h3><a id="user-content-prove-theorems" aria-hidden="true" href="#prove-theorems"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Prove theorems.</h3>
+<p>No, theorems are not scary things mathematicians do. For programmers, they&#39;re more like unit tests, except they can involve symbols, allowing you to cover infinitely many test cases. If you like unit tests, you&#39;ll love theorems. To learn more, check <a href="https://github.com/uwu-tech/Kind/blob/master/THEOREMS.md">THEOREMS.md</a>.</p>
+<h3><a id="user-content-deploy-smart-contracts" aria-hidden="true" href="#deploy-smart-contracts"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Deploy Smart-Contracts.</h3>
+<p>(TODO) <em>Ethereum: we&#39;re coming for you.</em></p>
+<h2><a id="user-content-examples" aria-hidden="true" href="#examples"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Examples</h2>
+<h3><a id="user-content-some-programs" aria-hidden="true" href="#some-programs"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Some programs</h3>
+<div data-snippet-clipboard-copy-content="// A &#39;Hello, world!&#34;
+Main: IO(Unit)
+  IO {
+    IO.print(&#34;Hello, world!&#34;)
+  }
+"><pre><span>// A &#39;Hello, world!&#34;</span>
+Main: <span>IO</span><span>(</span><span>Unit</span><span>)</span>
+  <span>IO</span><span></span> <span>{</span>
+    <span>IO</span><span>.</span><span>print</span><span>(</span><span>&#34;Hello, world!&#34;</span><span>)</span>
+  <span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// Quicksort (using recursion)
+quicksort(list: List&lt;Nat&gt;): List&lt;Nat&gt;
+  case list {
+    nil:
+      []
+    cons:
+      fst = list.head
+      min = filter!((x) x &lt;? list.head, list.tail)
+      max = filter!((x) x &gt;? list.head, list.tail)
+      quicksort(min) ++ [fst] ++ quicksort(max)
+  }
+"><pre><span>// Quicksort (using recursion)</span>
+<span>quicksort</span><span>(</span><span>list</span>: <span>List</span><span>&lt;</span><span>Nat</span><span>&gt;</span><span>)</span>: <span>List</span><span>&lt;</span><span>Nat</span><span>&gt;</span>
+  <span>case</span> <span>list</span> <span>{</span>
+    <span>nil</span>:
+      <span>[</span><span>]</span>
+    <span>cons</span>:
+      <span>fst</span> <span>=</span> <span>list</span><span>.</span><span>head</span>
+      <span>min</span> <span>=</span> <span>filter</span><span>!</span><span>(</span><span>(</span><span>x</span><span>)</span> <span>x</span> <span>&lt;</span>? <span>list</span><span>.</span><span>head</span><span>,</span> <span>list</span><span>.</span><span>tail</span><span>)</span>
+      <span>max</span> <span>=</span> <span>filter</span><span>!</span><span>(</span><span>(</span><span>x</span><span>)</span> <span>x</span> <span>&gt;</span>? <span>list</span><span>.</span><span>head</span><span>,</span> <span>list</span><span>.</span><span>tail</span><span>)</span>
+      <span>quicksort</span><span>(</span><span>min</span><span>)</span> <span>++</span> <span>[</span><span>fst</span><span>]</span> <span>++</span> <span>quicksort</span><span>(</span><span>max</span><span>)</span>
+  <span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// List iteration (using folds)
+some_text: String
+  List.foldl!!(&#34;&#34;,
+    (str, result) 
+      str = String.to_upper(str)
+      str = String.reverse(str)
+      result | str,
+    [&#34;cba&#34;,&#34;fed&#34;,&#34;ihg&#34;])
+"><pre><span>// List iteration (using folds)</span>
+some_text: <span>String</span>
+  <span>List</span><span>.</span><span>foldl</span><span></span><span>!</span><span>!</span><span>(</span><span>&#34;&#34;</span><span>,</span>
+    <span>(</span><span>str</span><span>,</span> <span>result</span><span>)</span> 
+      <span>str</span> <span>=</span> <span>String</span><span>.</span><span>to_upper</span><span>(</span><span>str</span><span>)</span>
+      <span>str</span> <span>=</span> <span>String</span><span>.</span><span>reverse</span><span>(</span><span>str</span><span>)</span>
+      <span>result</span> <span>|</span> <span>str</span><span>,</span>
+    <span>[</span><span>&#34;cba&#34;</span><span>,</span><span>&#34;fed&#34;</span><span>,</span><span>&#34;ihg&#34;</span><span>]</span><span>)</span></pre></div>
+<div data-snippet-clipboard-copy-content="// List iteration (using fors)
+some_text: String
+  result = &#34;&#34;
+  for str in [&#34;cba&#34;,&#34;fed&#34;,&#34;ihg&#34;] with result:
+    str = String.to_upper(str)
+    str = String.reverse(str)
+    result | str
+  result
+"><pre><span>// List iteration (using fors)</span>
+some_text: <span>String</span>
+  <span>result</span> <span>=</span> <span>&#34;&#34;</span>
+  <span>for</span> <span>str</span> <span>in</span> <span>[</span><span>&#34;cba&#34;</span><span>,</span><span>&#34;fed&#34;</span><span>,</span><span>&#34;ihg&#34;</span><span>]</span> <span>with</span> <span>result</span>:
+    <span>str</span> <span>=</span> <span>String</span><span>.</span><span>to_upper</span><span>(</span><span>str</span><span>)</span>
+    <span>str</span> <span>=</span> <span>String</span><span>.</span><span>reverse</span><span>(</span><span>str</span><span>)</span>
+    <span>result</span> <span>|</span> <span>str</span>
+  <span>result</span></pre></div>
+<div data-snippet-clipboard-copy-content="// Map, Maybe, String and Nat sugars
+sugars: Nat
+  key  = &#34;toe&#34;
+  map  = {&#34;tic&#34;: 1, &#34;tac&#34;: 2, key: 3} // Map.from_list!([{&#34;tic&#34;,1}, ...])
+  map  = map{&#34;tic&#34;} &lt;- 100            // Map.set!(&#34;tic&#34;, 100, map)
+  map  = map{&#34;tac&#34;} &lt;- 200            // Map.set!(&#34;tac&#34;, 200, map)
+  map  = map{ key } &lt;- 300            // Map.set!(key, 300, map)
+  val0 = map{&#34;tic&#34;} &lt;&gt; 0              // Maybe.default!(Map.get!(&#34;tic&#34;,map), 0)
+  val1 = map{&#34;tac&#34;} &lt;&gt; 0              // Maybe.default!(Map.get!(&#34;tac&#34;,map), 0)
+  val2 = map{ key } &lt;&gt; 0              // Maybe.default!(Map.get!(key, map), 0)
+  val0 + val1 + val2                  // Nat.add(val0, Nat.add(val1, val2))
+"><pre><span><span>//</span> Map, Maybe, String and Nat sugars</span>
+sugars: Nat
+  key  = <span><span>&#34;</span>toe<span>&#34;</span></span>
+  map  = {<span><span>&#34;</span>tic<span>&#34;</span></span>: <span>1</span>, <span><span>&#34;</span>tac<span>&#34;</span></span>: <span>2</span>, key: <span>3</span>} <span><span>//</span> Map.from_list!([{&#34;tic&#34;,1}, ...])</span>
+  map  = map{<span><span>&#34;</span>tic<span>&#34;</span></span>} &lt;- <span>100</span>            <span><span>//</span> Map.set!(&#34;tic&#34;, 100, map)</span>
+  map  = map{<span><span>&#34;</span>tac<span>&#34;</span></span>} &lt;- <span>200</span>            <span><span>//</span> Map.set!(&#34;tac&#34;, 200, map)</span>
+  map  = map{ key } &lt;- <span>300</span>            <span><span>//</span> Map.set!(key, 300, map)</span>
+  val0 = map{<span><span>&#34;</span>tic<span>&#34;</span></span>} &lt;&gt; <span>0</span>              <span><span>//</span> Maybe.default!(Map.get!(&#34;tic&#34;,map), 0)</span>
+  val1 = map{<span><span>&#34;</span>tac<span>&#34;</span></span>} &lt;&gt; <span>0</span>              <span><span>//</span> Maybe.default!(Map.get!(&#34;tac&#34;,map), 0)</span>
+  val2 = map{ key } &lt;&gt; <span>0</span>              <span><span>//</span> Maybe.default!(Map.get!(key, map), 0)</span>
+  val0 + val1 + val2                  <span><span>//</span> Nat.add(val0, Nat.add(val1, val2))</span></pre></div>
+<div data-snippet-clipboard-copy-content="// List monadic block: returns [{1,4},{1,5},{1,6},{2,4},...,{3,6}]
+my_list: List&lt;Pair&lt;Nat,Nat&gt;&gt;
+  List {
+    get x = [1, 2, 3]
+    get y = [4, 5, 6]
+    return {x, y}
+  }
+"><pre><span><span>//</span> List monadic block: returns [{1,4},{1,5},{1,6},{2,4},...,{3,6}]</span>
+my_list: List&lt;Pair&lt;Nat,Nat&gt;&gt;
+  List {
+    get x = [<span>1</span>, <span>2</span>, <span>3</span>]
+    get y = [<span>4</span>, <span>5</span>, <span>6</span>]
+    <span>return</span> {x, y}
+  }</pre></div>
+<p>Check many List algorithms on <a href="https://github.com/uwu-tech/Kind/tree/master/base/List">base/List</a>!</p>
+<h3><a id="user-content-some-types" aria-hidden="true" href="#some-types"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Some types</h3>
+<div data-snippet-clipboard-copy-content="// A boolean
+type Bool {
+  true
+  false
+}
+"><pre><span>// A boolean</span>
+<span>type</span> <span>Bool</span> <span>{</span>
+  <span>true</span>
+  <span>false</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A natural number
+type Nat {
+  zero
+  succ(pred: Nat)
+}
+"><pre><span>// A natural number</span>
+<span>type</span> <span>Nat</span> <span>{</span>
+  <span>zero</span>
+  <span>succ</span><span>(</span><span>pred</span>: <span>Nat</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A polymorphic list
+type List &lt;A: Type&gt; {
+  nil
+  cons(head: A, tail: List&lt;A&gt;)
+}
+"><pre><span>// A polymorphic list</span>
+<span>type</span> <span>List</span> <span>&lt;</span><span>A</span>: <span>Type</span><span>&gt;</span> <span>{</span>
+  <span>nil</span>
+  <span>cons</span><span>(</span><span>head</span>: <span>A</span><span>,</span> <span>tail</span>: <span>List</span><span>&lt;</span><span>A</span><span>&gt;</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A polymorphic pair
+type Pair &lt;A: Type, B: Type&gt; {
+  new(fst: A, snd: B)
+}
+"><pre><span>// A polymorphic pair</span>
+<span>type</span> <span>Pair</span> <span>&lt;</span><span>A</span>: <span>Type</span><span>,</span> <span>B</span>: <span>Type</span><span>&gt;</span> <span>{</span>
+  <span>new</span><span>(</span><span>fst</span>: <span>A</span><span>,</span> <span>snd</span>: <span>B</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A polymorphic dependent pair
+type Sigma &lt;A: Type, B: A -&gt; Type&gt; {
+  new(fst: A, snd: B(fst))
+}
+"><pre><span>// A polymorphic dependent pair</span>
+<span>type</span> <span>Sigma</span> <span>&lt;</span><span>A</span>: <span>Type</span><span>,</span> <span>B</span>: <span>A</span> <span>-</span><span>&gt;</span> <span>Type</span><span>&gt;</span> <span>{</span>
+  <span>new</span><span>(</span><span>fst</span>: <span>A</span><span>,</span> <span>snd</span>: <span>B</span><span>(</span><span>fst</span><span>)</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A polymorphic list with a statically known size
+type Vector &lt;A: Type&gt; ~ (size: Nat) {
+  nil                                              ~ (size = 0) 
+  cons(size: Nat, head: Nat, tail: Vector&lt;A,size&gt;) ~ (size = 1 + size)
+}
+"><pre><span>// A polymorphic list with a statically known size</span>
+<span>type</span> <span>Vector</span> <span>&lt;</span><span>A</span>: <span>Type</span><span>&gt;</span> <span>~</span> <span>(</span><span>size</span>: <span>Nat</span><span>)</span><span></span> <span>{</span>
+  <span>nil</span>                                              <span>~</span> <span>(</span><span>size</span> <span>=</span> <span>0</span><span>)</span> 
+  <span>cons</span><span>(</span><span>size</span>: <span>Nat</span><span>,</span> <span>head</span>: <span>Nat</span><span>,</span> <span>tail</span>: <span>Vector</span><span>&lt;</span><span>A</span><span>,</span><span>size</span><span>&gt;</span><span>)</span> <span>~</span> <span>(</span><span>size</span> <span>=</span> <span>1</span> <span>+</span> <span>size</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A bounded natural number
+type Fin ~ &lt;lim: Nat&gt; {
+  zero&lt;N: Nat&gt;               ~ (lim = Nat.succ(N))
+  succ&lt;N: Nat&gt;(pred: Fin&lt;N&gt;) ~ (lim = Nat.succ(N))
+}
+"><pre><span>// A bounded natural number</span>
+<span>type</span> <span>Fin</span> <span>~</span> <span>&lt;</span><span>lim</span>: <span>Nat</span><span>&gt;</span> <span>{</span>
+  <span>zero</span><span>&lt;</span><span>N</span>: <span>Nat</span><span>&gt;</span>               <span>~</span> <span>(</span><span>lim</span> <span>=</span> <span>Nat</span><span>.</span><span>succ</span><span>(</span><span>N</span><span>)</span><span>)</span>
+  <span>succ</span><span>&lt;</span><span>N</span>: <span>Nat</span><span>&gt;</span><span>(</span><span>pred</span>: <span>Fin</span><span>&lt;</span><span>N</span><span>&gt;</span><span>)</span> <span>~</span> <span>(</span><span>lim</span> <span>=</span> <span>Nat</span><span>.</span><span>succ</span><span>(</span><span>N</span><span>)</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// The type used in equality proofs
+type Equal &lt;A: Type, a: A&gt; ~ (b: A) {
+  refl ~ (b = a)
+}
+"><pre><span>// The type used in equality proofs</span>
+<span>type</span> <span>Equal</span> <span>&lt;</span><span>A</span>: <span>Type</span><span>,</span> <span>a</span>: <span>A</span><span>&gt;</span> <span>~</span> <span>(</span><span>b</span>: <span>A</span><span>)</span> <span>{</span>
+  <span>refl</span> <span>~</span> <span>(</span><span>b</span> <span>=</span> <span>a</span><span>)</span>
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// A burrito
+type Monad &lt;M: Type -&gt; Type&gt; {
+  new(
+    bind: &lt;A: Type, B: Type&gt; M&lt;A&gt; -&gt; (A -&gt; M&lt;B&gt;) -&gt; M&lt;B&gt;
+    pure: &lt;A: Type&gt; A -&gt; M&lt;A&gt;
+  )
+}
+"><pre><span>// A burrito</span>
+<span>type</span> <span>Monad</span> <span>&lt;</span><span>M</span>: <span>Type</span> <span>-</span><span>&gt;</span> <span>Type</span><span>&gt;</span> <span>{</span>
+  <span>new</span><span>(</span>
+    <span>bind</span>: <span>&lt;</span><span>A</span>: <span>Type</span><span>,</span> <span>B</span>: <span>Type</span><span>&gt;</span> M<span>&lt;</span><span>A</span><span>&gt;</span> -<span>&gt;</span> <span>(</span><span>A</span> <span>-</span><span>&gt;</span> <span>M</span><span>&lt;</span><span>B</span><span>&gt;</span>) -<span>&gt;</span> <span>M</span><span>&lt;</span><span>B</span><span>&gt;</span>
+    pure: <span>&lt;</span><span>A</span>: <span>Type</span><span>&gt;</span> A -<span>&gt;</span> <span>M</span><span>&lt;</span><span>A</span><span>&gt;</span>
+  )
+<span>}</span></pre></div>
+<div data-snippet-clipboard-copy-content="// Some game entity
+type Entity {
+  player(
+    name: String
+    pos: V3
+    health: Nat
+    items: List&lt;Item&gt;
+    sprite: Image
+  )
+  wall(
+    hitbox: Pair&lt;V3, V3&gt;
+    collision: Entity -&gt; Entity
+    sprite: Image
+  )
+}
+"><pre><span>// Some game entity</span>
+<span>type</span> <span>Entity</span> <span>{</span>
+  <span>player</span><span>(</span>
+    <span>name</span>: <span>String</span>
+    <span>pos</span>: <span>V3</span>
+    health: <span>Nat</span>
+    <span>items</span>: <span>List</span><span>&lt;</span><span>Item</span><span>&gt;</span>
+    <span>sprite</span>: <span>Image</span>
+  <span>)</span>
+  <span>wall</span><span>(</span>
+    <span>hitbox</span>: <span>Pair</span><span>&lt;</span><span>V3</span><span>,</span> <span>V3</span><span>&gt;</span>
+    <span>collision</span>: <span>Entity</span> <span>-</span><span>&gt;</span> <span>Entity</span>
+    <span>sprite</span>: <span>Image</span>
+  <span>)</span>
+<span>}</span></pre></div>
+<p>Check all core types on <a href="https://github.com/uwu-tech/Kind/tree/master/base">base</a>!</p>
+<h3><a id="user-content-some-proofs" aria-hidden="true" href="#some-proofs"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Some proofs</h3>
+<div data-snippet-clipboard-copy-content="// Proof that `a == a + 0`
+Nat.add.zero(a: Nat): a == Nat.add(a, 0)
+  case a {
+    zero: refl
+    succ: apply(Nat.succ, Nat.add.zero(a.pred))
+  }!
+"><pre><span>// Proof that `a == a + 0`</span>
+<span>Nat</span><span>.</span><span>add</span><span>.</span><span>zero</span><span>(</span><span>a</span>: <span>Nat</span><span>)</span>: <span>a</span> <span>==</span> <span>Nat</span><span>.</span><span>add</span><span>(</span><span>a</span><span>,</span> <span>0</span><span>)</span>
+  <span>case</span> <span>a</span> <span>{</span>
+    zero: <span>refl</span>
+    succ: <span>apply</span><span>(</span><span>Nat</span><span>.</span><span>succ</span><span>,</span> <span>Nat</span><span>.</span><span>add</span><span>.</span><span>zero</span><span>(</span><span>a</span><span>.</span><span>pred</span><span>)</span><span>)</span>
+  <span>}</span><span>!</span></pre></div>
+<div data-snippet-clipboard-copy-content="// Proof that `1 + (a + b) == a + (1 + b)`
+Nat.add.succ(a: Nat, b: Nat): Nat.succ(a + b) == (a + Nat.succ(b))
+  case a {
+    zero: refl
+    succ: apply(Nat.succ, Nat.add.succ(a.pred, b))
+  }!
+"><pre><span>// Proof that `1 + (a + b) == a + (1 + b)`</span>
+<span>Nat</span><span>.</span><span>add</span><span>.</span><span>succ</span><span>(</span><span>a</span>: <span>Nat</span><span>,</span> <span>b</span>: <span>Nat</span><span>)</span>: <span>Nat</span><span>.</span><span>succ</span><span>(</span><span>a</span> <span>+</span> <span>b</span><span>)</span> <span>==</span> <span>(</span><span>a</span> <span>+</span> <span>Nat</span><span>.</span><span>succ</span><span>(</span><span>b</span><span>)</span><span>)</span>
+  <span>case</span> <span>a</span> <span>{</span>
+    zero: <span>refl</span>
+    succ: <span>apply</span><span>(</span><span>Nat</span><span>.</span><span>succ</span><span>,</span> <span>Nat</span><span>.</span><span>add</span><span>.</span><span>succ</span><span>(</span><span>a</span><span>.</span><span>pred</span><span>,</span> <span>b</span><span>)</span><span>)</span>
+  <span>}</span><span>!</span></pre></div>
+<div data-snippet-clipboard-copy-content="// Proof that addition is commutative
+Nat.add.comm(a: Nat, b: Nat): (a + b) == (b + a)
+  case a {
+    zero:
+      Nat.add.zero(b)
+    succ: 
+      p0 = Nat.add.succ(b, a.pred)
+      p1 = Nat.add.comm(b, a.pred)
+      p0 :: rewrite X in Nat.succ(X) == _ with p1
+  }!
+"><pre><span>// Proof that addition is commutative</span>
+<span>Nat</span><span>.</span><span>add</span><span>.</span><span>comm</span><span>(</span><span>a</span>: <span>Nat</span><span>,</span> <span>b</span>: <span>Nat</span><span>)</span>: <span>(</span><span>a</span> <span>+</span> <span>b</span><span>)</span> <span>==</span> <span>(</span><span>b</span> <span>+</span> <span>a</span><span>)</span>
+  <span>case</span> <span>a</span> <span>{</span>
+    zero:
+      <span>Nat</span><span>.</span><span>add</span><span>.</span><span>zero</span><span>(</span><span>b</span><span>)</span>
+    succ: 
+      <span>p0</span> <span>=</span> <span>Nat</span><span>.</span><span>add</span><span>.</span><span>succ</span><span>(</span><span>b</span><span>,</span> <span>a</span><span>.</span><span>pred</span><span>)</span>
+      <span>p1</span> <span>=</span> <span>Nat</span><span>.</span><span>add</span><span>.</span><span>comm</span><span>(</span><span>b</span><span>,</span> <span>a</span><span>.</span><span>pred</span><span>)</span>
+      p0 :: <span>rewrite</span> <span>X</span> <span>in</span> <span>Nat</span><span>.</span><span>succ</span><span>(</span><span>X</span><span>)</span> <span>==</span> <span>_</span> <span>with</span> <span>p1</span>
+  <span>}</span><span>!</span></pre></div>
+<p>Check some Nat proofs on <a href="https://github.com/uwu-tech/Kind/tree/master/base/Nat/add">base/Nat/add</a>!</p>
+<h3><a id="user-content-a-web-app" aria-hidden="true" href="#a-web-app"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>A web app</h3>
+<div data-snippet-clipboard-copy-content="// Render function
+App.Hello.draw: App.Draw&lt;App.Hello.State&gt;
+  (state)
+  &lt;div style={&#34;border&#34;: &#34;1px solid black&#34;}&gt;
+    &lt;div style={&#34;font-weight&#34;: &#34;bold&#34;}&gt;&#34;Hello, world!&#34;&lt;/div&gt;
+    &lt;div&gt;&#34;Clicks: &#34; | Nat.show(state@local)&lt;/div&gt;
+    &lt;div&gt;&#34;Visits: &#34; | Nat.show(state@global)&lt;/div&gt;
+  &lt;/div&gt;
+
+// Event handler
+App.Hello.when: App.When&lt;App.Hello.State&gt;
+  (event, state)
+  case event {
+    init: IO {
+      App.watch!(App.room_zero)
+      App.new_post!(App.room_zero, App.empty_post)
+    }
+    mouse_down: IO {
+      App.set_local!(state@local + 1)
+    }
+  } default App.pass!
+"><pre><span>// Render function</span>
+<span>App</span><span>.</span><span>Hello</span><span>.</span><span>draw</span>: <span>App</span><span>.</span><span>Draw</span><span>&lt;</span><span>App</span><span>.</span><span>Hello</span><span>.</span><span>State</span><span>&gt;</span>
+  <span>(</span><span>state</span><span>)</span>
+  <span>&lt;</span><span>div</span> <span>style</span><span>=</span><span>{</span><span>&#34;border&#34;</span>: <span>&#34;1px solid black&#34;</span><span>}</span><span>&gt;</span>
+    <span>&lt;</span><span>div</span> <span>style</span><span>=</span><span>{</span><span>&#34;font-weight&#34;</span>: <span>&#34;bold&#34;</span><span>}</span><span>&gt;</span>&#34;Hello, world!&#34;<span>&lt;</span><span>/</span><span>div</span><span>&gt;</span>
+    <span>&lt;</span><span>div</span><span>&gt;</span><span>&#34;Clicks: &#34;</span> <span>|</span> <span>Nat</span><span>.</span><span>show</span><span>(</span><span>state</span>@<span>local</span><span>)</span><span>&lt;</span><span>/</span>div&gt;
+    <span>&lt;</span><span>div</span><span>&gt;</span>&#34;Visits: &#34; | Nat.show(state@global)<span>&lt;</span><span>/</span><span>div</span><span>&gt;</span>
+  <span>&lt;</span><span>/</span>div&gt;
+
+<span>// Event handler</span>
+<span>App</span><span>.</span><span>Hello</span><span>.</span><span>when</span>: <span>App</span><span>.</span><span>When</span><span>&lt;</span><span>App</span><span>.</span><span>Hello</span><span>.</span><span>State</span><span>&gt;</span>
+  <span>(</span><span>event</span><span>,</span> <span>state</span><span>)</span>
+  <span>case</span> <span>event</span> <span>{</span>
+    init: <span>IO</span> <span>{</span>
+      <span>App</span><span>.</span><span>watch</span><span>!</span><span>(</span><span>App</span><span>.</span><span>room_zero</span><span>)</span>
+      <span>App</span><span>.</span><span>new_post</span><span>!</span><span>(</span><span>App</span><span>.</span><span>room_zero</span><span>,</span> <span>App</span><span>.</span><span>empty_post</span><span>)</span>
+    <span>}</span>
+    mouse_down: <span>IO</span> <span>{</span>
+      <span>App</span><span>.</span><span>set_local</span><span>!</span><span>(</span><span>state</span>@<span>local</span> <span>+</span> <span>1</span><span>)</span>
+    <span>}</span>
+  <span>}</span> <span>default</span> <span>App</span><span>.</span><span>pass</span><span>!</span></pre></div>
+<p>Source: <a href="https://github.com/uwu-tech/Kind/blob/master/base/App/Hello.kind">base/App/Hello.kind</a></p>
+<p>Live: <a href="http://uwu.tech/App.Hello" rel="nofollow">http://uwu.tech/App.Hello</a></p>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 12:47:34 +0000</pubDate>
+      <source>https://github.com/uwu-tech/kind</source>
+    </item>
+    <item>
+      <title>Instagram launches hate-speech &#39;limits&#39; to hide abuse</title>
+      <link>https://www.bbc.co.uk/news/technology-58173921</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_bbc_co_uk_news_technology-58173921/image.jpg" /> 
+<div id="readability-page-1" class="page"><div width="compact"><article><header></header><div data-component="text-block"><p><b>Instagram has announced new features designed to restrict hate speech during &#34;sudden spikes&#34; of abuse.</b></p></div><div data-component="text-block"><p>Its new &#34;limits&#34; feature automatically hides comments and messages from people who do not follow - or just started following - users who switch it on.</p></div><div data-component="text-block"><p>It was designed to stop abuse from large numbers of people &#34;who simply pile on in the moment&#34;, Instagram said.</p></div><div data-component="text-block"><p>The company specifically referenced the racist abuse following the men&#39;s Euro 2020 football final as one example.  </p></div><div data-component="text-block"><p>In the wake of England&#39;s defeat in a penalty shootout, black players found themselves subjected to a torrent of racist abuse, including on social-media platforms. </p></div><p data-component="crosshead-block"><h2>Sudden spikes</h2></p><div data-component="text-block"><p>Instagram said its new features were designed to protect people from &#34;a sudden rush&#34; of negative attention. </p></div><div data-component="text-block"><p>&#34;Creators and public figures sometimes experience sudden spikes of comments and DM [direct-message] requests from people they don&#39;t know,&#34; <a href="https://about.instagram.com/blog/announcements/introducing-new-ways-to-protect-our-community-from-abuse">it said in in its announcement</a>. </p></div><div data-component="text-block"><p>&#34;In many cases, this is an outpouring of support - like if they go viral after winning an Olympic medal. </p></div><div data-component="text-block"><p>&#34;But sometimes, it can also mean an influx of unwanted comments or messages.&#34; </p></div><div data-component="text-block"><p>Instead of requiring well known users to completely disable all comments and messages, the new tool will let anyone effectively mute those who have not been &#34;long-standing followers&#34;. </p></div><div data-component="text-block"><p>And it could be switched on or off at any time, Instagram said. </p></div><div data-component="text-block"><p>The company also announced it was rolling out its previously announced Hidden Words system for everyone worldwide.</p></div><div data-component="text-block"><p>Instagram said it had also &#34;expanded&#34; the blocklist of words, hashtags and emojis the system automatically blocked to filter out abusive messages, which individual users can also customise, </p></div><div data-component="text-block"><p>And it had strengthened the language of pop-ups when users try to post &#34;a potentially offensive comment&#34;, warning their accounts could be deleted for repeat offences.  </p></div><div data-component="unordered-list-block"><div><div><ul role="list"><li>it had deleted more than 2,000 tweets targeting England&#39;s footballers in the wake of the Euro 2020 final</li><li>the UK was the country of origin of by far the largest proportion of the racist abuse </li><li>of the accounts it had permanently suspended, &#34;99% of their owners were identifiable&#34;</li><li>it was testing a tool that &#34;temporarily autoblocks accounts using harmful language&#34;</li></ul></div></div></div><section data-component="tag-list"></section><section data-component="see-alsos"><ul role="list" spacing="responsive"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></section></article></div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 13:11:46 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/technology-58173921</source>
+    </item>
+    <item>
+      <title>What if we could transpile COBOL into Elixir</title>
+      <link>https://dockyard.com/blog/2021/08/10/what-if-coboltoelixir</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___dockyard_com_blog_2021_08_10_what-if-coboltoelixir/image.jpg" /> 
+<div id="readability-page-1" class="page"><section>
+    <div>
+      <div id="ember23250850"><!---->
+<p>Marvel Television has been on fire this past year with WandaVision, Falcon and the Winter Soldier, and most recently, Loki. Tomorrow, the next series called “What If?” premieres, and I am really looking forward to it. The show will explore what the Marvel Cinematic Universe (MCU) would look like if pivotal moments from throughout the MCU were different. </p>
+<p>For example, the first episode explores what would happen if Peggy Carter had taken the Super Soldier Serum instead of Steve Rogers to become Captain America. These “what if” ideas are retrospective in nature, exploring “what would have happened if”. While interesting to consider, this type of thinking is less useful in the real world. In reality, future-oriented “what if” questions–that explore what possibilities might lay ahead–are far more impactful.</p>
+<p>I’m happy to say the exploration of future-oriented “what if” questions is core to the Elixir programming community. We exist in large part due to one big “what if”: what if there was a new programming language that could use modern syntax, but still deliver the reliability of a 30-year old, rock-solid virtual machine? </p>
+<p>Other “what ifs” followed: </p>
+<ul>
+<li>What if we built a blazing fast web framework in Elixir?;
+</li>
+<li>What if we put Elixir on embedded devices?;
+</li>
+<li>What if you could do Machine Learning on the GPU with Elixir?; and many more.
+</li>
+</ul>
+<p>Along the way, there have also been plenty of “what ifs” that didn’t work out, such as “What if Elixir was Object Oriented?” or “What if Elixir had an explicit type system?”. </p>
+<p>Today, I am sharing something I’ve been working on related to COBOL—all stemming from a “what if?” discussion that came up here at DockYard.</p>
+<p>Like me just a few months ago, you may have heard about COBOL in your computer history class but have never seen or written a line of it. The <a href="​​https://americanhistory.si.edu/cobol/introduction">Smithsonian Institute COBOL History page</a> states:</p>
+<blockquote><p>Fifty years ago, each computer maker used its own programming languages to tell a computer what to do. In 1959, a group of programmers devised COBOL, a COmmon, Business-Oriented Language. Programs written in COBOL could run on more than one manufacturer’s computer. In a 1960 test, the same COBOL programs ran successfully on two computers built by different manufacturers.</p>
+</blockquote>
+<p>But a language created in 1959 can’t possibly still be in use today, right? Wrong. According to <a href="http://fingfx.thomsonreuters.com/gfx/rngs/USA-BANKS-COBOL/010040KH18J/index.html">Reuters</a>:</p>
+<ul>
+<li>43% of banking systems are built on COBOL;
+</li>
+<li>80% of in-person transactions use COBOL;
+</li>
+<li>95% of ATM swipes rely on COBOL code; and 
+</li>
+<li>220 billion lines of COBOL are in use today.
+</li>
+</ul>
+<p>That same article notes:</p>
+<blockquote><p>An aging programming language known as COBOL underpins much of the U.S. financial industry, but it has fallen out of favor among coders. This sets up a problem when systems run into glitches or need updates, and companies no longer have COBOL experts on hand.</p>
+</blockquote>
+<p>With a renewed focus on “infrastructure” in the recent political landscape, and the very real potential that these COBOL systems could be revisited, the question arose in a DockYard discussion: “What if we could transpile COBOL into Elixir?”</p>
+<p>I have been looking for a larger Elixir project to start or support, so I figured, why not see what it would take? While I knew it was a long shot–and there are any number of ways it might fail–I thought it was worth a look. A few hours, an “all you need to know about COBOL” YouTube video, and a code spike later, and I hadn’t run into any complete roadblocks. Furthermore, what I remembered about the properties of the COBOL language that might lend themselves to this idea all seemed to be accurate.</p>
+<p>Fast forward a few months to today. CobolToElixir has come a long way. It has support for many of the basic building blocks of COBOL and plans for tackling some of the larger language constructs. Most importantly, it has a framework for testing that will run COBOL code, convert the code to Elixir and run it, and then compare the two outputs to ensure they are the same. I have not yet run into any major roadblocks that I’ve been unable to work around, but there is still plenty to do that could uncover them.</p>
+<p>The source code is available at <a href="https://github.com/TheFirstAvenger/cobol_to_elixir">https://github.com/TheFirstAvenger/cobol_to_elixir</a>, and there is a Livebook that you can run to try it out for yourself. Below is an example basic COBOL program and what the transpiled Elixir code looks like:</p>
+<p>COBOL:</p>
+<pre><code>       &gt;&gt;SOURCE FORMAT FREE
+IDENTIFICATION DIVISION.
+PROGRAM-ID. Test1.
+AUTHOR. Mike Binns.
+DATE-WRITTEN. July 25th 2021
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 Name     PIC X(4) VALUE &#34;Mike&#34;.
+PROCEDURE DIVISION.
+
+DISPLAY &#34;Hello &#34; Name
+
+STOP RUN.</code></pre>
+<p>Elixir:</p>
+<pre><code>defmodule ElixirFromCobol.Test1 do
+  @moduledoc &#34;&#34;&#34;
+  author: Mike Binns
+  date written: July 25th 2021
+  &#34;&#34;&#34;
+
+  def main do
+    try do
+      do_main()
+    catch
+      :stop_run -&gt; :stop_run
+    end
+  end 
+
+  def do_main do
+    # pic: XXXX
+    var_Name = &#34;Mike&#34;
+    pics = %{&#34;Name&#34; =&gt; {:str, &#34;XXXX&#34;, 4}}
+    IO.puts &#34;Hello &#34; &lt;&gt; var_Name
+    throw :stop_run
+  end
+end</code></pre>
+<p>COBOL is different from Elixir in a number of ways. For example, above you can see that COBOL has a <code>STOP RUN</code> command which can happen anywhere in the code, completely ending the program. In the transpiled Elixir, we handle this with throw and catch. Additionally, all variables have a <code>PIC</code> (“Picture”) clause that defines the data type and shape. For example, the <code>name</code> variable above has a <code>PIC</code> of <code>X(4)</code>, or <code>XXXX</code>, which means it is a string exactly four characters long.</p>
+<p>Another difference, which has been addressed (though not shown in the above example), is the difference between COBOL group items and their near-counterpart in Elixir, Maps. One difference that hasn’t yet been addressed, but has a planned solution, is the immutability in Elixir vs. global variables in COBOL.</p>
+<p>The goal of CobolToElixir is not to provide a one button accurate transpiling of a large codebase perfectly into Elixir. The idea would be that we transpile the code, test the accuracy with the built in tools, and possibly iterate on CobolToElixir to improve the transpiling of the specific codebase. Once CobolToElixir has done what it can, focus would move to iterating on the transpiled code to resolve differences in output and bring the code more in line with idiomatic Elixir. The CobolToElixir framework would be able to assist via the testing framework through this entire process.</p>
+<p>If you are interested in following this project, star the repo and follow me on Twitter (<a href="https://twitter.com/1stAvenger">@1stavenger</a>). I would love input from anyone else who is interested in helping out on this project. Please reach out to me on the <a href="https://elixir-slackin.herokuapp.com/">Elixir Slack channel</a> (TheFirstAvenger).</p>
+<p>And finally, what is your “What If?”. As mentioned above, the Elixir community is built on these “What If?” questions. If you don’t have one yet, keep thinking about it, and when one comes to you, pursue it.</p>
+<p><em><a href="https://dockyard.com/">DockYard</a> is a digital product consultancy specializing in user-centered web application design and development. Our collaborative team of product strategists help clients to better understand the people they serve. We use future-forward technology and design thinking to transform those insights into impactful, inclusive, and reliable web experiences. DockYard provides professional services in strategy, user experience, design, and full-stack engineering using Ember.js, React.js, Ruby, and Elixir. From idea to impact, we empower ambitious product teams to build for the future.</em></p>
+
+</div>
+    </div>
+  </section></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 12:40:25 +0000</pubDate>
+      <source>https://dockyard.com/blog/2021/08/10/what-if-coboltoelixir</source>
+    </item>
   </channel>
 </rss>
