@@ -11593,5 +11593,591 @@ other formats resize depending on device." alt="Info"/></td></tr></tbody></table
       <pubDate>Thu, 12 Aug 2021 14:17:05 +0000</pubDate>
       <source>https://arstechnica.com/tech-policy/2021/08/facebook-may-be-forced-to-sell-giphy-one-year-after-buying-it/</source>
     </item>
+    <item>
+      <title>On Storage Engines</title>
+      <link>http://smalldatum.blogspot.com/2021/08/on-storage-engines.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="post-body-3004309892721429977" itemprop="description articleBody">
+<p><span><span>I wish it were easier to implement new storage engines for MySQL, Postgres and MongoDB and other OSS databases. There is so much innovation that we miss out on - <a href="https://github.com/microsoft/FASTER">FASTER</a> is one example. All (MySQL, MongoDB, Postgres) have storage engine APIs but there are not many OSS implementations of them. </span></span></p><p><span>MyRocks, MySQL Aurora and MySQL HeatWave are examples of the benefits. But they also show that it helps to have the backing of a well-funded company because this is a huge undertaking.
+</span></p><p><span>The API for Postgres is the most recent and perhaps that will be the most popular. The API for MySQL is the oldest and has become harder as more requirements (like partitioning) are pushed into it. The MongoDB API is friendlier than the MySQL API, but MongoRocks was deprecated when the API was enhanced to support transactions and RocksDB wasn&#39;t able to support user-provided commit timestamps.</span></p><p><span>One problem is naming. MongoDB and WiredTiger are databases, but WiredTiger is also a component of MongoDB. To avoid confusion I will use </span><i><b>storage engine</b></i><span> for things like WiredTiger, RocksDB and InnoDB and </span><i><b>database</b></i><span> for the systems that provide query languages, replication and more.</span></p><p><span>I have been involved in three such engines -- MyRocks, MongoRocks and a read-only MySQL engine used long-ago at Google. MyRocks benefited from a large team and Sergey Petrunya at MariaDB and MongoRocks benefited from amazing support from MongoDB the company.</span></p><p><span>Two interesting things are:
+</span></p><ul><li><span>The impact of database design decisions on the storage engine API. See what is needed for transactions in the MongoDB API.</span></li><li><span>The impact of the original storage engine on the storage engine API.</span></li><ul><li><span>MongoDB doesn&#39;t take advantage of clustered indexes in WiredTiger or RocksDB. An <a href="http://smalldatum.blogspot.com/2015/07/linkbench-for-mysql-mongodb-with-cached.html">extra (hidden) index</a> must be used to map between DiskLoc and the PK index. See <a href="https://jira.mongodb.org/browse/SERVER-14569">SERVER-14569</a>.</span></li><li><span>I have more research to do before I understand the impact of vacuum and 32-bit transactions IDs on the Postgres API.</span></li></ul></ul><p><span>I also wonder whether the RocksDB API could be the universal storage engine API. In theory any storage engine implementing that would be able to replace RocksDB in MyRocks or MongoRocks. The goal is then to implement the RocksDB API glue once per database and then be able to use a variety of storage engines based on that. Of course, XKCD has a great <a href="https://xkcd.com/927/">take on standards</a> and this might just be naive and wishful thinking on my part.</span></p>
+
+</div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 16:10:21 +0000</pubDate>
+      <source>http://smalldatum.blogspot.com/2021/08/on-storage-engines.html</source>
+    </item>
+    <item>
+      <title>CoinTracker (YC W18) is hiring to make cryptocurrency accessible</title>
+      <link>https://www.cointracker.io/about</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+<div>
+<p>
+</p>
+<p>
+Connect your cryptocurrency wallets and exchanges. Get your crypto and bitcoin taxes done in minutes.
+</p>
+</div>
+
+
+
+<div>
+<p>Mobile</p>
+<p><a href="https://itunes.apple.com/us/app/cointracker-crypto-portfolio/id1401499763?mt=8" target="_blank" rel="noopener noreferrer">
+
+</a></p>
+<p><a href="https://play.google.com/store/apps/details?id=io.cointracker.android" target="_blank" rel="noopener noreferrer">
+
+</a></p>
+</div>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 17:00:30 +0000</pubDate>
+      <source>https://www.cointracker.io/about</source>
+    </item>
+    <item>
+      <title>China releases a five-year regulation blueprint for broader crackdown</title>
+      <link>https://www.bloombergquint.com/global-economics/china-signals-regulatory-crackdown-will-deepen-in-long-push</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><section><div><div><p><time>Aug 11 2021, 6:27 PM</time><time>Aug 12 2021, 8:49 PM</time><time>August 11 2021, 6:27 PM</time><time>August 12 2021, 8:49 PM</time></p></div><div id="piano-content-controller"><div id="card-a71dbb36-6292-4b2e-88c9-d776cd3852ec"><div><p><span>(Bloomberg) --</span> China released a five-year blueprint calling for greater regulation of vast parts of the economy, providing a sweeping framework for the broader crackdown on key industries that has left investors reeling.</p></div><div><p>The <a href="http://www.xinhuanet.com/2021-08/11/c_1127752490.htm">document</a>, jointly issued late Wednesday by the State Council and the Communist Party’s Central Committee, said authorities would “actively” work on legislation in areas including national security, technology and monopolies. Law enforcement will be strengthened in sectors ranging from food and drugs to big data and artificial intelligence, the document said.</p></div><div><p>“The people’s growing need for a better life has put forward new and higher requirements for the construction of a government under the rule of law,” it said. “It must be based on the overall situation, take a long-term view, make up for shortcomings, forge ahead, and promote the construction of a government under the rule of law to a new level in the new era.”</p></div><div><figure data-testid="null-storyImageViewer"><span data-testid="expand-icon"></span></figure></div><div><p>Investors have been seeking to make sense of a regulatory onslaught in recent weeks that has roiled markets, particularly after authorities banned profits in the $100 billion after-school tutoring sector. Over the past year Chinese authorities have launched anti-monopoly probes into some of the nation’s largest tech companies such as Alibaba Group Holding Ltd., while also mandating cybersecurity reviews for foreign listings -- a measure that has created problems for Didi Global Inc.</p></div><div><p>“We can’t draw too much insight about enforcement and the potential shape of crackdowns from one document or another,” said Graham Webster, who leads the DigiChina project at the Stanford University Cyber Policy Center. “Much depends on what bureaucrats and their higher-ups land on in terms of priorities month after month.”</p></div><div><p>The outline released Wednesday is an update of an earlier plan that ended in 2020. In an explanatory Q&amp;A, officials responsible for the document highlighted the need to modernize national governance, build digital governance and increase the public’s overall level of satisfaction.</p></div><div><div><ul><li>“Actively promote legislation” in areas such as national security, technological innovation, public health, culture and education, ethnic religion, biosecurity, ecological civilization, risk prevention, anti-monopoly, and foreign-related issues</li><li>“Intensify law enforcement in key areas related to the vital interests of the people” including food and medicine, public health, natural resources, ecological environment, safety production, labor security, urban management, transportation, financial services, education and training.</li><li>Ensure “healthy development of new business forms” with “good laws and good governance” related to digital economy, Internet finance, artificial intelligence, big data, cloud computing and other related legal systems</li><li>Strengthen the execution of administrative decision-making: “Once a major administrative decision has been made, it shall not be arbitrarily changed or suspended without legal procedures.”</li><li>Use the internet and big data in law enforcement: “Strengthen the construction of the national ‘Internet + supervision’ system, and realize the integration and aggregation of data from supervision platforms by the end of 2022.”</li><li>Promote openness in government affairs: “Adhere to openness as the normal, non-openness as the exception, and have the government become more open and transparent to win more understanding.”</li></ul></div></div><div><p>While many of the sectors named have been mentioned in previous announcements, the addition of food and drugs was new and could make investors nervous until new regulations are defined, according to Gary Dugan, chief executive officer at the Global CIO Office.</p></div><div><p><h3>‘Long Time for Investors to Fret’</h3></p></div><div><p>“A five-year term to the crackdown at least gives definition to the time extent of the regulatory reset,” he said. “However, it will be a long time for investors to fret about pending changes.”</p></div><div><p>Investors have been dumping shares of sectors that receive criticism in state media, from digital gaming and e-cigarettes to property and baby formula. Alcohol-related stocks were the latest to take a hit on Tuesday, falling after the Communist Party’s anti-graft watchdog called for a reduction of business drinking after a sexual assault case involving Alibaba employees.</p></div><div><p>China’s banking and insurance watchdog ordered companies and local agencies to curb improper marketing and pricing practices, and step up user privacy protection, according to a notice seen by Bloomberg News. It encouraged companies to address these issues voluntarily and said those that failed to comply would face “severe punishment.”</p></div><div><p>ZhongAn Online P&amp;C Insurance Co. fell as much as 14% to its lowest since Jan. 18, while the sector bellwether Ping An Insurance declined 1.9%. The CSI 300 Health Care Index dropped 1.5% while a gauge for consumer staples stocks fell 2.6%. The benchmark equity gauges in Hong Kong and China saw small declines compared to their recent wild swings.</p></div><div><p>Some analysts welcomed the blueprint as an attempt by Chinese authorities to help investors understand the motives behind the regulatory push.</p></div><div><p>“The State Council’s statement provides a guiding context to interpret current regulatory thrusts,” said Michael Norris, an analyst with Shanghai-based consultancy AgencyChina. “In our view, investor concerns are driven less by proposed regulations’ substance, and more by cadence and communication. We view this announcement as doing a better job telegraphing future regulatory hotspots.”</p></div></div></div></div></section></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 15:42:31 +0000</pubDate>
+      <source>https://www.bloombergquint.com/global-economics/china-signals-regulatory-crackdown-will-deepen-in-long-push</source>
+    </item>
+    <item>
+      <title>Pigiron, a MIDI Routing Utility with OSC</title>
+      <link>https://github.com/plewto/Pigiron</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text">
+<p>(c) 2021 Steven Jones</p>
+<p>Pigiron is a fully configurable MIDI routing utility written in Go.  It
+includes a MIDI file player and has a comprehensive OSC interface.</p>
+<p>The primary Pigiron object is called an <strong>Operator</strong>.  Each Operator has
+zero or more MIDI inputs and zero or more MIDI outputs.   When an Operator
+receives a MIDI message, it determines if the message should be forwarded
+to it&#39;s outputs.  An Operator may also modify the message prior to
+re-sending it.</p>
+<h2><a id="user-content-operator-types" aria-hidden="true" href="#operator-types"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Operator Types</h2>
+<p>The following Operators are currently available:</p>
+<ul>
+<li>ChannelFilter - filter events by MIDI channel.</li>
+<li>Distributor - transmit events over several MIDI channels.</li>
+<li>MIDIInput - wrapper for MIDI input device.</li>
+<li>MIDIOutput - wrapper for MIDI output device.</li>
+<li>MIDIPlayer - MIDI file player.</li>
+<li>Monitor - print incoming MIDI messages.</li>
+<li>Transposer - manipulate MIDI data bytes.</li>
+<li>Delay - Repeat notes with optional key mapping (experimental &amp; unstable).</li>
+</ul>
+<p>There are three distinct ways to interact with Pigiron.</p>
+<ol>
+<li>Remotely via OSC messages.</li>
+<li>Manually enter commands at terminal prompt.</li>
+<li>Load a batch file of commands.</li>
+</ol>
+<p>The command syntax for these modes are nearly identical.  The only real
+difference is that the command &#39;foo&#39; at the terminal prompt and in a batch
+file is entered directly, while as an OSC message it is prefixed with the
+application OSC id (by default /pig/).</p>
+<div data-snippet-clipboard-copy-content="foo        command at terminal or in batch file.
+/pig/foo   as OSC message.
+"><pre><code>foo        command at terminal or in batch file.
+/pig/foo   as OSC message.
+</code></pre></div>
+<h2><a id="user-content-getting-help" aria-hidden="true" href="#getting-help"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Getting help</h2>
+<p>On startup Pigiron displays a command prompt (by default /pig: ).   For a
+list of help topics enter</p>
+
+<p>For a list of commands enter</p>
+
+<p>For details on how OSC messages are handled, enter</p>
+
+<p>In general commands which begin with &#39;q-&#39; (for query) returns some
+information.</p>
+<p>The resources/batch directory contains the batch file &#39;example&#39;
+which illustrates several commands to set up a basic MIDI process.
+It is heavily annotated.</p>
+<h2><a id="user-content-dependencies" aria-hidden="true" href="#dependencies"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Dependencies</h2>
+<div data-snippet-clipboard-copy-content="go 1.16
+github.com/pelletier/go-toml
+github.com/rakyll/portmidi
+github.com/hypebeast/go-osc
+"><pre><code>go 1.16
+github.com/pelletier/go-toml
+github.com/rakyll/portmidi
+github.com/hypebeast/go-osc
+</code></pre></div>
+<h2><a id="user-content-installation" aria-hidden="true" href="#installation"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Installation</h2>
+<p><strong>Build Pigiron</strong></p>
+<p>In a terminal navigate into the pigiron directory and enter</p>
+
+<p><strong>Install</strong></p>
+<p>Either copy the pigiron executable to a location included on $HOME/$PATH, typical
+locations would be ~/.local/bin or ~.bin</p>
+<p>Alternately you may install with the go command.</p>
+
+<p><strong>Configuration Directory</strong></p>
+<ul>
+<li>Linux   : ~/.config/pigiron/</li>
+<li>Windows : To be determined.</li>
+<li>OSX     : To be determined.</li>
+</ul>
+<p>The structure within the .config/pigiron/ directory is:</p>
+<div data-snippet-clipboard-copy-content=" ~/.config/
+     |
+	 +--pigiron/
+          |
+          +-- config.toml
+          +-- log
+          |
+          +-- batch/
+          |
+          +-- resources/
+                |
+                +-- help/
+                +-- testFiles/
+"><pre><code> ~/.config/
+     |
+	 +--pigiron/
+          |
+          +-- config.toml
+          +-- log
+          |
+          +-- batch/
+          |
+          +-- resources/
+                |
+                +-- help/
+                +-- testFiles/
+</code></pre></div>
+<p>Within .config/pigiron/ create the batch directory and either simlink or
+copy the resources directory from the Pigiron project.   Pigiron can
+operate without the resources directory but help will not be available and
+some unit test will fail.</p>
+<h2><a id="user-content-command-line-options" aria-hidden="true" href="#command-line-options"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Command Line Options</h2>
+<p>Pigiron has the following command line options:</p>
+<div data-snippet-clipboard-copy-content="--config filename    # Use alternate configuration file.
+--batch filename     # Load named batch file.
+"><pre><code>--config filename    # Use alternate configuration file.
+--batch filename     # Load named batch file.
+</code></pre></div>
+<p>In general filenames within Pigiron may be prefixed with one of two special
+characters.</p>
+<div data-snippet-clipboard-copy-content="&#39;~/foo&#39; names the file foo relative to the user&#39;s home directory.
+&#39;!/foo&#39; names a file relative to the configuration directory.
+"><pre><code>&#39;~/foo&#39; names the file foo relative to the user&#39;s home directory.
+&#39;!/foo&#39; names a file relative to the configuration directory.
+</code></pre></div>
+<h2><a id="user-content-gui" aria-hidden="true" href="#gui"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>GUI?</h2>
+<p>Pigiron is strictly a terminal based, however due to it&#39;s OSC
+interface it should be relatively easy to write a GUI client app.</p>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 16:44:04 +0000</pubDate>
+      <source>https://github.com/plewto/Pigiron</source>
+    </item>
+    <item>
+      <title>There’s a crack in the iPhone foundation and it could get a lot worse</title>
+      <link>https://www.macworld.com/article/353003/apples-new-csam-feature-is-a-crack-in-the-wall.html/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="link_wrapped_content">
+<section></section><p>Apple’s out-of-the-blue announcement last week that it was adding a bunch of features to iOS involving child sexual abuse materials (CSAM) generated an entirely predictable reaction. Or, more accurately, reactions. Those on the law-enforcement side of the spectrum praised Apple for its work, and those on the civil-liberties side accused Apple of turning iPhones into surveillance devices.</p>
+
+
+
+<p>It’s not surprising at all that Apple’s announcement would be met with scrutiny. If anything is surprising about this whole story, it’s that Apple doesn’t seem to have anticipated all the pushback its announcement received. The company had to post <a href="https://apple.sjv.io/c/321564/435031/7613?u=https://www.apple.com/child-safety/pdf/Expanded_Protections_for_Children_Frequently_Asked_Questions.pdf&amp;subid1=1-1-353003-1-0-0" rel="nofollow">a Frequently-Asked Questions file</a> in response. If Q’s are being FA’d in the wake of your announcement, you probably botched your announcement.</p>
+
+
+
+<p>Such an announcement <em>deserves</em> scrutiny. The problem for those seeking to drop their hot takes about this issue is that it’s extremely complicated and there are no easy answers. That doesn’t mean that Apple’s approach is fundamentally right or wrong, but it does mean that Apple has made some choices that are worth exploring and debating.</p>
+
+
+
+<h2 id="apples-compromise">Apple’s compromise</h2>
+
+
+
+<p>I’m not sure quite why Apple chose this moment to roll out this technology. Apple’s Head of Privacy implies that it’s <a href="https://go.redirectingat.com/?id=111346X1569486&amp;url=https://techcrunch.com/2021/08/10/interview-apples-head-of-privacy-details-child-abuse-detection-and-messages-safety-features/&amp;xcust=1-1-353003-1-0-0&amp;sref=https://www.macworld.com/article/353003/apples-new-csam-feature-is-a-crack-in-the-wall.html" rel="nofollow">because it was ready</a>, but that’s a bit of a dodge—Apple has to choose what technologies to prioritize, and it prioritized this one. Apple may be anticipating legal requirements for it to scan for CSAM. It’s possible that Apple is working on increased iCloud security features that necessitate this approach. It’s also possible that Apple just decided it needed to do more to stop the distribution of CSAM.</p>
+
+		
+			
+			
+
+
+<p>The biggest clue about Apple’s motivations is the very specific way this feature has been implemented. I’ll spare you the <a href="https://www.macworld.com/article/352875/apple-csam-scanning-icloud-photos-messages-siri-search-faq.html">long explanation</a>, but in short: Apple is comparing images against a <em>hash</em> of illegal images compiled by the <a href="https://go.redirectingat.com/?id=111346X1569486&amp;url=https://www.missingkids.org/&amp;xcust=1-1-353003-1-0-0&amp;sref=https://www.macworld.com/article/353003/apples-new-csam-feature-is-a-crack-in-the-wall.html" rel="nofollow">National Center for Missing and Exploited Children</a>. It’s scanning new images that are going to be synced with iCloud Photos. It’s not scanning all the photos on your device, and Apple isn’t scanning all the photos it’s storing on its iCloud servers.</p>
+
+
+
+<p>In short, Apple has built a CSAM detector that sits at the doorway between your device and iCloud. If you don’t sync photos with iCloud, the detector never runs.</p>
+
+
+
+<div><figure><figcaption><p>CSAM checks occur with images uploaded to iCloud, not on your iPhone’s photo library.</p></figcaption></figure><p>IDG</p></div>
+
+
+
+<p>This all leads me to believe that there’s another shoe to drop here, one that will allow Apple to make its cloud services <em>more</em> secure and private. If this scanning system is essentially the trade-off that allows Apple to provide more privacy for its users while not abdicating its moral duty to prevent the spread of CSAM, great. But there’s no way to know until Apple makes such an announcement. In the meantime, all those potential privacy gains are theoretical.</p>
+
+
+
+<h2 id="where-is-the-spy">Where is the spy?</h2>
+
+
+
+<p>In recent years, Apple has made it clear that it considers the analysis of user data that occurs on our devices to be fundamentally more private than the analysis that runs in the cloud. In the cloud, your data must be decrypted to be analyzed, opening it up to pretty much any form of analysis. Any employee with the right level of access could also just flip through your data. But if all that analysis happens on your device—this is why Apple’s modern chips have a powerful Neural Engine component to do the job—that data never leaves home.</p>
+
+
+
+<p>Apple’s approach here calls all of that into question, and I suspect that’s the source of some of the greatest criticism of this announcement. Apple is making decisions that it thinks will enhance privacy. Nobody at Apple is scanning your photos, and nobody at Apple can even look at the potential CSAM images until a threshold has passed that reduces the chance of false positives. Only your device sees your data. Which is great, because our devices are sacred and they belong to us.</p>
+
+
+
+<p>Except… that there’s now going to be an algorithm running on our devices that’s designed to observe our data, and if it finds something that it doesn’t like, it will then connect to the internet and report that data back to Apple. While today it has been purpose-built for CSAM, and it can be deactivated simply by shutting off iCloud Photo Library syncing, it still feels like a line has been crossed. Our devices won’t just be working for us, but will also be watching us for signs of illegal activity and alerting the authorities.</p>
+
+
+
+<p>The risk for Apple here is huge. It has invested an awful lot of time in equating on-device actions with privacy, and it risks poisoning all of that work with the perception that our phones are no longer our castles.</p>
+
+
+
+
+
+
+
+<p>In many ways, this is yet another facet of the greatest challenge the technology industry faces in this era. Technology has become so important and powerful that every new development has enormous, society-wide implications.</p>
+
+
+
+<p>With its on-device CSAM scanner, Apple has built a tool carefully calibrated to protect user privacy. If building this tool enabled Apple to finally offer broader encryption of iCloud data, it might even be a net increase in user privacy.</p>
+
+
+
+<p>But tools are neither good nor evil. Apple has built this tool for a good purpose, but every time a new tool is built, all of us need to imagine how it might be misused. Apple seems to have very carefully designed this feature to make it more difficult to subvert, but that’s not always enough.</p>
+
+
+
+<p>Imagine a case where a law enforcement agency in a foreign country comes to Apple and says that it has compiled a database of illegal images and wants it added to Apple’s scanner. Apple has said, bluntly, that it will refuse all such requests. That’s encouraging, and I have little doubt that Apple would abandon most countries if they tried to pull that maneuver.</p>
+
+
+
+<p>But would it be able to say no to China? Would it be able to say no to the U.S. government if the images in question would implicate members of terrorist organizations? And in a decade or two, will policies like this be so commonplace that when the moment comes that a government asks Apple or its equivalents to began scanning for illegal or subversive material, will anyone notice? The first implementation of this technology is to stop CSAM, and nobody will argue against trying to stop the exploitation of children. But will there be a second implementation? A third?</p>
+
+
+
+<div><figure><figcaption>Would Apple be able to say no to China if it made demands to add images to Apple’s scanner?</figcaption></figure><p><a href="https://go.redirectingat.com/?id=111346X1569486&amp;url=https://unsplash.com/photos/DoWZMPZ-M9s&amp;xcust=1-1-353003-1-0-0&amp;sref=https://www.macworld.com/article/353003/apples-new-csam-feature-is-a-crack-in-the-wall.html" target="_blank" rel="nofollow">Franck/Unsplash</a></p></div>
+
+
+
+<p>Apple has tried its best to find a compromise between violating user privacy and stopping the distribution of CSAM. The very specific way this feature is implemented proves that. (Anyone who tries to sell you a simplified story about how Apple just wants to spy on you is, quite frankly, someone who is not worth listening to.)</p>
+
+
+
+<p>But just because Apple has done its due diligence and made some careful choices in order to implement a tool to stop the spread of heinous material doesn’t mean that it’s off the hook. By making our phones run an algorithm that isn’t meant to serve us, but surveils us, it has crossed a line. Perhaps it was inevitable that the line would be crossed. Perhaps it’s inevitable that technology is leading us to a world where everything we say, do and see is being scanned by a machine-learning algorithm that will be as benevolent or malevolent as the society that implemented it.</p>
+
+
+
+<p>Even if Apple’s heart is in the right place, my confidence that its philosophy will be able to withstand the future desires of law enforcement agencies and authoritarian governments is not as high as I want it to be. We can all be against CSAM and admire the clever way Apple has tried to balance these two conflicting needs, while still being worried about what it means for the future.</p>
+</div><p><em>Note: When you purchase something after clicking links in our articles, we may earn a small commission. Read our</em> <a href="https://www.macworld.com/about/affiliate-link-policy" target="_blank"><em>affiliate link policy</em></a> <em>for more details.</em></p><p>
+				Jason was lead editor at Macworld for more than a decade and now writes about Apple at <a href="https://sixcolors.com">Six Colors</a> and podcasts at <a href="http://www.relay.fm">Relay FM</a> and <a href="https://www.theincomparable.com">The Incomparable</a>.			</p></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 16:28:34 +0000</pubDate>
+      <source>https://www.macworld.com/article/353003/apples-new-csam-feature-is-a-crack-in-the-wall.html/</source>
+    </item>
+    <item>
+      <title>Packaging Con 2021: a conference for package management devs and communities</title>
+      <link>https://packaging-con.org/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+      <div>
+        <div>
+        <div>
+          <div>
+            
+            <h3 id="register-for-packaging-con">Register for packaging-con</h3>
+
+<p>Pre-register now to receive updates for packaging-con 2021. We will keep you in the loop on all things packaging-con!</p>
+
+
+
+
+
+<p>Software complexity is on the rise, but thanks to package managers, reusing software is
+easier than it’s ever been. In 2021, nearly every operating system, language ecosystem,
+and framework has a package manager or several. Package managers take over where your
+compiler left off; integrating different versions of packages and ensuring they can be
+installed safely, reliably, and in a compatible configuration on your system. Where
+compilers integrate large applications, package managers integrate software ecosystems.</p>
+
+<p>Despite their success, package managers are something of a black art. Working on a
+package manager requires a broad range of expertise–from language runtimes, to OS
+deployment policy, distribution management, dependency solving and developer workflows,
+package managers bridge the gap between developers and last mile software deployment.</p>
+
+<p>We want to understand what brings package management communities together and what sets
+them apart. What makes communities work together on a particular software ecosystem? Are
+the differences mainly in the implementation language, or are there other key
+distinctions to software management methodology? How can we get better interoperability
+and/or cooperation among package manager teams, and what’s missing/required to enable
+that? Is dependency solving fundamentally the same problem across systems, or does each
+package manager do it differently?</p>
+
+<p>If any of these questions interest you, we want to hear from you! Packaging Con is a a
+conference for developers of software package management software, as well as software
+packagers and communities! Anyone is welcome to participate. Our mission is to bring
+different software ecosystems together: from Python’s <code>pip</code> to Rust’s <code>cargo</code> to Julia’s <code>Pkg</code>, from
+Debian <code>apt</code> over to <code>Nix</code> to <code>conda</code> and <code>mamba</code>, and from <code>vcpkg</code> to <code>spack</code>, and even
+to <code>npm</code>, we hope to have many different approaches to package management at the
+conference.</p>
+
+<p>See details on submissions below.</p>
+
+<h3 id="organizing-committee">Organizing Committee:</h3>
+
+<p>Are you interested in helping out with the organization of PackagingCon 2021? We would love to hear from you: <a href="mailto:info@packaging-con.org">send us an email</a>.</p>
+
+<ul>
+  <li>Wolf Vollprecht (QuantStack, mamba)</li>
+  <li>Todd Gamblin (LLNL, Spack)</li>
+  <li>Rok Garbas (Tweag I/O, Nix)</li>
+  <li>CJ Wright (Citadel, conda-forge)</li>
+  <li>Cheng H. Lee (Anaconda, Inc., conda)</li>
+  <li>Logan Kilpatrick (Julia)</li>
+</ul>
+
+<h3 id="important-dates">Important Dates</h3>
+
+<ul>
+  <li>Submissions open:    20 July 2021</li>
+  <li>Submissions close:   31 August 2021</li>
+  <li>Notifications:       13 September 2021</li>
+  <li>Conference date:     9 &amp; 10 November 2021</li>
+</ul>
+
+<p>Submissions are due at 23:59 ``anywhere on Earth’’ on the specified date. Specifically,
+this is 23:59 IDLW, i.e., UTC–12:00. You can use this converter to figure out the
+deadline for your time zone.</p>
+
+<h3 id="topics">Topics</h3>
+
+<p>We encourage submissions in a wide range of areas related to package management,
+including but not limited to:</p>
+
+<ul>
+  <li>Deep dives on particular packaging systems.</li>
+  <li>Package management vs dependency management</li>
+  <li>Issues between distro-provided and developer/language-specific package managers</li>
+  <li>Software supply chains, pipelines, and vulnerabilities</li>
+  <li>CI for package managers and how to scale it</li>
+  <li>Modeling software ecosystems in package managers</li>
+  <li>Modeling compatibility (semver, API/ABI analysis, etc.)</li>
+  <li>Versioning</li>
+  <li>Software release methodology: rolling / LTS / others</li>
+  <li>Monorepos and package management</li>
+  <li>Reproducibility in package managers</li>
+  <li>Functional package management, how it relates to other systems</li>
+  <li>Reliability/robustness of software ecosystems</li>
+  <li>Dependency solving: modeling, methods, and scalability</li>
+  <li>Intersection of containers, registries, and packaging</li>
+</ul>
+
+<p>This list is by no means exhaustive – any topic related to package management is
+welcome to attend.</p>
+
+<h3 id="how-to-submit">How to submit</h3>
+
+<p>The presentation length is 20 minutes with 10 minutes for Q&amp;A right after the talk. <strong>All talks will be held live via video chat</strong> and are recorded (speakers can opt-out of the recording). We will have lightning talk sessions with lightning of max 2 minutes. There is no deadline for the submission of lightning talks. Submissions are handled by “pretalx” and will be reviewed by volunteers from the community.</p>
+
+
+
+<h3 id="code-of-conduct">Code of Conduct</h3>
+
+<p>In the interest of fostering an open and welcoming environment, pledge to make
+participation in Packaging Con a harassment-free experience for everyone, regardless of
+age, body size, disability, ethnicity, gender identity and expression, level of
+experience, nationality, personal appearance, race, religion, or sexual identity and
+orientation.</p>
+
+<p>By participating in the conference you agree to abide to the NumFOCUS <a href="https://numfocus.org/code-of-conduct">Code of Conduct</a>.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 15:46:07 +0000</pubDate>
+      <source>https://packaging-con.org/</source>
+    </item>
+    <item>
+      <title>Show HN: Absurd-SQL – Use sqlite3 on the web with storage in IndexedDB</title>
+      <link>https://github.com/jlongster/absurd-sql</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text"><p>This is an absurd project.</p>
+<p>It implements a backend for <a href="https://github.com/sql-js/sql.js/">sql.js</a> (sqlite3 compiled for the web) that treats IndexedDB like a disk and stores data in blocks there. That means your sqlite3 database is persisted. And not in the terrible way of reading and writing the whole image at once -- it reads and writes your db in small chunks.</p>
+<p>It basically stores a whole database into another database. Which is absurd.</p>
+<p><a href="https://priceless-keller-d097e5.netlify.app/" rel="nofollow">See the demo</a>. You can also view an entire app using this <a href="https://app-next.actualbudget.com/" rel="nofollow">here</a>.</p>
+<p>You should also read <a href="https://jlongster.com/future-sql-web" rel="nofollow">this blog post</a> which explains the project in great detail.</p>
+<h2><a id="user-content-how-do-i-use-it" aria-hidden="true" href="#how-do-i-use-it"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>How do I use it?</h2>
+<p>You can check out the <a href="https://github.com/jlongster/absurd-example-project">example project</a> to get started. Or follow the steps below:</p>
+<p>First you install the packages:</p>
+<div data-snippet-clipboard-copy-content="yarn add @jlongster/sql.js absurd-sql.js-backend
+"><pre><code>yarn add @jlongster/sql.js absurd-sql.js-backend
+</code></pre></div>
+<p>Right now you need to use my fork of <code>sql.js</code>, but I&#39;m going to open a PR and hopefully get it merged. The changes are minimal.</p>
+<p>absurd-sql <strong>must</strong> run in a worker. This is fine because you really shouldn&#39;t be blocking the main thread anyway. So on the main thread, do this:</p>
+<div data-snippet-clipboard-copy-content="import { initBackend } from &#39;absurd-sql/dist/indexeddb-main-thread&#39;;
+
+function init() {
+  let worker = new Worker(new URL(&#39;./index.worker.js&#39;, import.meta.url));
+  // This is only required because Safari doesn&#39;t support nested
+  // workers. This installs a handler that will proxy creating web
+  // workers through the main thread
+  initBackend(worker);
+}
+
+init();
+"><pre><span>import</span> <span>{</span> <span>initBackend</span> <span>}</span> <span>from</span> <span>&#39;absurd-sql/dist/indexeddb-main-thread&#39;</span><span>;</span>
+
+<span>function</span> <span>init</span><span>(</span><span>)</span> <span>{</span>
+  <span>let</span> <span>worker</span> <span>=</span> <span>new</span> <span>Worker</span><span>(</span><span>new</span> <span>URL</span><span>(</span><span>&#39;./index.worker.js&#39;</span><span>,</span> <span>import</span><span>.</span><span>meta</span><span>.</span><span>url</span><span>)</span><span>)</span><span>;</span>
+  <span>// This is only required because Safari doesn&#39;t support nested</span>
+  <span>// workers. This installs a handler that will proxy creating web</span>
+  <span>// workers through the main thread</span>
+  <span>initBackend</span><span>(</span><span>worker</span><span>)</span><span>;</span>
+<span>}</span>
+
+<span>init</span><span>(</span><span>)</span><span>;</span></pre></div>
+<p>Then in <code>index.worker.js</code> do this:</p>
+<div data-snippet-clipboard-copy-content="import initSqlJs from &#39;@jlongster/sql.js&#39;;
+import { SQLiteFS } from &#39;absurd-sql&#39;;
+import IndexedDBBackend from &#39;absurd-sql/dist/indexeddb-backend&#39;;
+
+async function run() {
+  let SQL = await initSqlJs({ locateFile: file =&gt; file });
+  let sqlFS = new SQLiteFS(SQL.FS, new IndexedDBBackend());
+  SQL.register_for_idb(sqlFS);
+
+  SQL.FS.mkdir(&#39;/sql&#39;);
+  SQL.FS.mount(sqlFS, {}, &#39;/sql&#39;);
+
+  let db = new SQL.Database(&#39;/sql/db.sqlite&#39;, { filename: true });
+  // You might want to try `PRAGMA page_size=8192;` too!
+  db.exec(`
+    PRAGMA journal_mode=MEMORY;
+  `);
+
+   // Your code
+}
+"><pre><span>import</span> <span>initSqlJs</span> <span>from</span> <span>&#39;@jlongster/sql.js&#39;</span><span>;</span>
+<span>import</span> <span>{</span> <span>SQLiteFS</span> <span>}</span> <span>from</span> <span>&#39;absurd-sql&#39;</span><span>;</span>
+<span>import</span> <span>IndexedDBBackend</span> <span>from</span> <span>&#39;absurd-sql/dist/indexeddb-backend&#39;</span><span>;</span>
+
+<span>async</span> <span>function</span> <span>run</span><span>(</span><span>)</span> <span>{</span>
+  <span>let</span> <span>SQL</span> <span>=</span> <span>await</span> <span>initSqlJs</span><span>(</span><span>{</span> <span>locateFile</span>: <span>file</span> <span>=&gt;</span> <span>file</span> <span>}</span><span>)</span><span>;</span>
+  <span>let</span> <span>sqlFS</span> <span>=</span> <span>new</span> <span>SQLiteFS</span><span>(</span><span>SQL</span><span>.</span><span>FS</span><span>,</span> <span>new</span> <span>IndexedDBBackend</span><span>(</span><span>)</span><span>)</span><span>;</span>
+  <span>SQL</span><span>.</span><span>register_for_idb</span><span>(</span><span>sqlFS</span><span>)</span><span>;</span>
+
+  <span>SQL</span><span>.</span><span>FS</span><span>.</span><span>mkdir</span><span>(</span><span>&#39;/sql&#39;</span><span>)</span><span>;</span>
+  <span>SQL</span><span>.</span><span>FS</span><span>.</span><span>mount</span><span>(</span><span>sqlFS</span><span>,</span> <span>{</span><span>}</span><span>,</span> <span>&#39;/sql&#39;</span><span>)</span><span>;</span>
+
+  <span>let</span> <span>db</span> <span>=</span> <span>new</span> <span>SQL</span><span>.</span><span>Database</span><span>(</span><span>&#39;/sql/db.sqlite&#39;</span><span>,</span> <span>{</span> <span>filename</span>: <span>true</span> <span>}</span><span>)</span><span>;</span>
+  <span>// You might want to try `PRAGMA page_size=8192;` too!</span>
+  <span>db</span><span>.</span><span>exec</span><span>(</span><span>`</span>
+<span>    PRAGMA journal_mode=MEMORY;</span>
+<span>  `</span><span>)</span><span>;</span>
+
+   <span>// Your code</span>
+<span>}</span></pre></div>
+<h2><a id="user-content-requirements" aria-hidden="true" href="#requirements"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Requirements</h2>
+<p>Because this uses <code>SharedArrayBuffer</code> and the <code>Atomics</code> API, there are some requirement for code to run.</p>
+<ul>
+<li>It must be run in a worker thread (you shouldn&#39;t block the main thread with queries anyway)</li>
+<li>Your server must respond with the following headers:</li>
+</ul>
+<div data-snippet-clipboard-copy-content="Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+"><pre><code>Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+</code></pre></div>
+<p>Those headers are required because browsers only enable <code>SharedArrayBuffer</code> if you tell it to isolate the process. There are potential security problems if <code>SharedArrayBuffer</code> was available everywhere.</p>
+<h2><a id="user-content-fallback-mode" aria-hidden="true" href="#fallback-mode"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Fallback mode</h2>
+<p>We do support browsers without <code>SharedArrayBuffer</code> (only Safari). Read more about it here: <a href="https://jlongster.com/future-sql-web#fallback-mode-without-sharedarraybuffer" rel="nofollow">https://jlongster.com/future-sql-web#fallback-mode-without-sharedarraybuffer</a></p>
+<p>There are some limitations in this mode: only one tab can be writing the database at a time. The database will never be corrupted; if multiple tabs try to write it will just throw an error (in the future it should call a handler that you provide so you can notify the user).</p>
+<h2><a id="user-content-performance" aria-hidden="true" href="#performance"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Performance</h2>
+<p>It consistently beats IndexedDB performance up to 10x:</p>
+<p>Read performance: doing something like <code>SELECT SUM(value) FROM kv</code>:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/17031/129102253-8adf163a-76b6-4af8-a1cf-8e2e39012ab0.png"></a></p>
+<p>Write performance: doing a bulk insert:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/17031/129102454-b4c362b3-1b0a-4625-ac96-72fc276497f3.png"></a></p>
+<p>These are all on a 2015 macbook pro. Benchmark code is in <code>src/examples/bench</code>.</p>
+<h2><a id="user-content-how-does-it-work" aria-hidden="true" href="#how-does-it-work"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>How does it work?</h2>
+<p>Read <a href="https://jlongster.com/future-sql-web" rel="nofollow">this blog post</a> for more details.</p>
+<h2><a id="user-content-where-you-can-help" aria-hidden="true" href="#where-you-can-help"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Where you can help</h2>
+<p>There are several things that could be done:</p>
+<ul>
+<li>Add a bunch more tests</li>
+<li>Implement a <code>webkitFileSystem</code> backend
+<ul>
+<li>I already started it <a href="https://gist.github.com/jlongster/ec00ddbb47b4b29897ab5939b8e32fbe">here</a>, but initial results showed that it was way slower?</li>
+</ul>
+</li>
+<li>Bug fixes</li>
+</ul>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 15:02:12 +0000</pubDate>
+      <source>https://github.com/jlongster/absurd-sql</source>
+    </item>
+    <item>
+      <title>Overthinking</title>
+      <link>https://kerkour.com/blog/overthinking/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___kerkour_com_blog_overthinking_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+    <p>I used to be a pathological overthinker. Everything had to be carefully planned, from the words I would say to the baker to order a baguette to all the insignificant details of any of the projects I worked on. Is it better to tweet at 18:00 or 18:05? Rust or Go? Functional or imperative? Federated or peer-to-peer? <code>FROM scratch</code> or <code>FROM alpine</code>? Open source or free software? Blue or green?</p>
+<p>Is even thinking about overthinking, overthinking? 🤯</p>
+<p>Then I realized that there is another expression to describe this situation: <strong>analysis paralysis</strong>.</p>
+<p>We all know that <em>“The perfect is the enemy of the good.&#34;</em>, still we lose countless hours trying to make the perfect design, the presentation, the perfect specification document, the perfect data model, chose the perfect technology or framework.</p>
+<p>The result? Projects never materialize or are months behind schedule, and everybody is frustrated.</p>
+<p>I’ve tracked down the sources of this problem to 3 causes. 3 poisons from where all the pain originates. These 3 poisons are:</p>
+<ul>
+<li>Education</li>
+<li>Marketing</li>
+<li>Ego</li>
+</ul>
+<h2 id="1st-poison-education">1st poison: Education</h2>
+<!-- Educational programs are designed to teach us the "one truth". THE right answer. But in life, there is no single truth, there is only approximations and negotiations. -->
+<p>Education is rarely about <strong>doing</strong>. It’s more about <strong>thinking</strong>. Thus we learn how to think, and we end up with whole countries filled with people who think, think, think but never start doing anything. The result is a lot of debates, whether it be online or on the TV, and stupid rules and bureaucracies coming from people in need to justify all the time they are paid to think, think, think.</p>
+<p>In the tech world, this is flagrant when reading some blogs about software architecture. The terms used are so far from the reality of the field that it’s close to absurd. My take on the matter is that the architect of any project needs to be one of the developers, one of the <em>doers</em>.</p>
+<h2 id="2nd-poison-marketing">2nd Poison: Marketing</h2>
+<p>The second poison is marketing pushed by Business to Developers (B2D) companies.</p>
+<p>These companies, while solving real problems (often something among the lines of scalability or data processing), have great interests to make us believe that we have the problems they are solving and that they are our best hope to solve those problems (that we don’t have).</p>
+<p>So now, when designing our systems, we no longer consider only the simplest solution, but a myriad of alternatives in order to solve our future, imaginary, problems. SQL or NoSQL? Containers or Functions? Java or Kotlin?</p>
+<p>Let’s be honest, most of the time (I won’t invent some made state here, but I suspect it’s over 90%), we only need <a href="https://www.postgresql.org/">PostgreSQL</a> for the database, Go, PHP (Laravel) or Node.js for the backend, and React or Vue.js for the frontend, and pick according to the tastes of the team.</p>
+<h2 id="3rd-poison-ego">3rd Poison: Ego</h2>
+<p>We all fear being judged by our work. When it’s your first or second launch, it really hurts when some random ass on internet forums start pointing out this little, irrelevant thing that you spent 10 minutes on, among the hundreds to thousands of hours on your project, and start making some drama about how bad you are as a developer, blogger or person.</p>
+<p>Thus, to anticipate critics, we start spending time polishing the details. More and more time. One day we realize that all this time flew polishing details while the important points, those bringing real value, are not even started.</p>
+<p>We fear making mistakes and then being publicly pointed and shamed for those mistakes. By shipping and publicly sharing multiple projects, I’ve experienced that the people worth impressing will never call you on small mistakes. They understand that we are all humans: fallible, inexperienced, imperfect. All the nitpicks are never interested in my projects, they are here only to tell the world how they are smarter and greater than us. It’s almost never worth our time and attention.</p>
+<p>I’ve noticed that, up to a certain point, the smarter a person is, the more it has to be apparent in their work. Every algorithm needs to be perfect, every function needs to be side-effects free, every data structure needs to be the fastest, and every best practice needs to be followed. It’s not bad per se, but when it prevents doing the real stuff, this busy work should be avoided.</p>
+<p>This is one of the reasons I find Go to be an excellent language. Everything is egoless, everything is an <code>array</code> or a <code>map</code>. Simple. Basic. You can read more about this in the excellent article: <a href="https://bitfieldconsulting.com/golang/tao-of-go">The Tao of Go</a>.</p>
+<p><em>“Our life is frittered away by detail. Simplify, simplify!&#34;</em> - Thoreau</p>
+<h2 id="solution">Solution</h2>
+<p>Now what, should we stop all our design processes and start building frenetically?</p>
+<p>No, I’m not saying that we should turn off our brains today. I’m simply arguing that the things which will bring you most of the results may not be the things you are thinking about. Stop evaluating if each and every AWS service fit your problem, you will end up inventing yourself problems you don’t have to justify the use of these shiny technologies (I’ve done too many times in the past).</p>
+<p>If you are going from 0 to 1, there are too many things that you don’t know and are out of your control. Whether you are working on a software project or a blog post, you will be able to update it and fix it later in time. So relax and ship.</p>
+<p><strong>Stop trying to connect all the dots ahead of time. Embrace uncertainty and start doing</strong>.</p>
+<p><em>“You can’t connect the dots looking forward; you can only connect them looking backwards. So you have to trust that the dots will somehow connect in your future. You have to trust in something — your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life.&#34;</em> - <a href="https://www.youtube.com/watch?v=UF8uR6Z6KLc">Steve Jobs</a></p>
+
+  </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 16:37:46 +0000</pubDate>
+      <source>https://kerkour.com/blog/overthinking/</source>
+    </item>
+    <item>
+      <title>Balena Etcher Pro – Fast write to multiple cards or USB disks at once</title>
+      <link>https://www.balena.io/etcher/pro/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_balena_io_etcher_pro_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>Solution</p><div font-weight="normal"><p>Write to multiple cards or usb disks at </p></div><p>Etcher is already the best and fastest way for writing to disk images, in fact it’s currently writing almost 2 million SD Cards &amp; USB Drives per month! Now, we are working on a way for you to write to more devices, with the same ease of use and streamlined interface you have come to expect from Etcher, and completely independent from your computer.</p><p>EtcherPro is a stand-alone hardware device that allows you to write to multiple cards or usb disks at once, at extreme speeds. Compared to a traditional Disk Duplicator, EtcherPro is faster and less expensive, while at the same time easier to use and packed with features, so that you can do much more than just copy SD Cards.</p></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 16:11:38 +0000</pubDate>
+      <source>https://www.balena.io/etcher/pro/</source>
+    </item>
   </channel>
 </rss>
