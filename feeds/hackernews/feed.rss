@@ -11047,5 +11047,349 @@ and democratic societies depend on encryption as much as they depend on free spe
       <pubDate>Thu, 12 Aug 2021 13:33:24 +0000</pubDate>
       <source>https://www.cnet.com/news/twitters-new-font-chirp-is-apparently-giving-some-users-headaches/</source>
     </item>
+    <item>
+      <title>What I Learned About Productivity by Writing About Productivity</title>
+      <link>https://www.bloomberg.com/news/articles/2021-06-29/tips-about-productivity-teamwork-and-collaboration-from-high-achievers</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+    <header>
+        
+        <a href="https://www.bloomberg.com/feedback">Need help? Contact us</a>
+    </header>
+    <section>
+        <h2>We&#39;ve detected unusual activity from your computer network</h2>
+        <p>To continue, please click the box below to let us know you&#39;re not a robot.</p>
+        
+    </section>
+    <section>
+        <section>
+            <h3>Why did this happen?</h3>
+            <p>Please make sure your browser supports JavaScript and cookies and that you are not blocking them from loading. For more information you can review our <a href="https://www.bloomberg.com/notices/tos">Terms of Service</a> and <a href="https://www.bloomberg.com/notices/tos">Cookie Policy</a>.</p>
+        </section>
+        <section>
+            <h3>Need Help?</h3>
+            <p>For inquiries related to this message please <a href="https://www.bloomberg.com/feedback">contact our support team</a> and provide the reference ID below.</p>
+            <p>Block reference ID: </p>
+        </section>
+    </section>
+    
+    <!-- Google Tag Manager -->
+    
+    <!-- End Google Tag Manager -->
+
+
+</div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 12:08:57 +0000</pubDate>
+      <source>https://www.bloomberg.com/news/articles/2021-06-29/tips-about-productivity-teamwork-and-collaboration-from-high-achievers</source>
+    </item>
+    <item>
+      <title>Ask HN: It&#39;s 2021 and QuickTime still doesn&#39;t export MP4. What is going on?</title>
+      <link>https://news.ycombinator.com/item?id=28156678</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><td colspan="2"></td><td>Every time I do a screen recording, I have to go trough the hassle of converting the video to MP4 on my Apple computer.<p>Even my iPhone can export to MP4 so I there is no reason for it not to work on my computer.</p><p>Come on Apple, please fix this super annoying business crap from the past when you tried to increase QuickTime installs on Microsoft machines by enforcing this now ancient format.</p><p>Just get over it.</p></td></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 14:18:54 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28156678</source>
+    </item>
+    <item>
+      <title>A Future for SQL on the Web</title>
+      <link>https://jlongster.com/future-sql-web</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+
+
+<p>I discovered something absurd recently and I’m very excited to tell you about it.</p>
+<p>The end result is <a href="https://github.com/jlongster/absurd-sql">absurd-sql</a>, and it’s a persistent backend for SQLite on the web. That means it doesn’t have to load the whole db into memory, and writes persist. In this post I will explain the absurdities of the web’s storage APIs (mainly IndexedDB), show how SQLite provides a 10x perf improvement, explain all the cool tricks that make it work, and explain the locking/transactional semantics that make it robust.</p>
+<center>
+—
+</center>
+<p>If you are writing a web app today, you’ll probably choose <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</a> to store data. It’s the only option for something database-like that works across all browsers.</p>
+<p>As you attempt to build a local app, you will quickly find that it’s a poor database to build an entire app around. Sure, it might be fine for small bits of functionality. But if we really want webapps to be impressive (I do), we need a more powerful way to work with data.</p>
+<p>IndexedDB is slow. What’s even worse, in my testing Chrome, which is by the far the major browser, has the slowest implementation. Simple operations against the database take ~10ms (and I’m being charitable!), while it’s common for me to be profiling SQLite at ~.01ms. This makes a massive difference for what kinds of apps you can write against it.</p>
+<p>You’re on your own if you want to query data in IndexedDB. The only function it provides is <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/count"><code>count</code></a>, and the rest of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore">APIs</a> just return a range of items. You’ll have to construct your own query functionality by wiring up indexes and structuring your data in specific ways.</p>
+<p>Heck, you can’t even add a new “object store”, which is sort of like a table, at any point in time. You can only do it when <em>opening the database</em>, and doing so forces all other tabs to kill their database connection!</p>
+<p>Maybe IDB was supposed to be low-level and you’re supposed to reach for a library to help provide better support for these features. Every library I looked at was messy and made performance even worse (one of the most popular “fast” ones I looked at took ~45ms to just get one item!?).</p>
+<p>I say abstract away the whole thing. I have something for you that you should reach for next time instead of all those other libraries. And it’s going to <em>massively</em> improve your life as a developer.</p>
+<h2 id="introducing-absurd-sql">Introducing absurd-sql</h2>
+<p>SQL is a great way to build apps. <em>Especially</em> small local web apps. Key/value stores may have their place in large distributed systems, but <em>wow</em> wouldn’t it be great if we could use <a href="https://www.sqlite.org/index.html">SQLite</a> on the web?</p>
+<div>
+<svg height="300px" width="300px" fill="#6D28D9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 90 90" enable-background="new 0 0 90 90" xml:space="preserve">
+<path d="M48.958,11.021l9.077,19.246l20.712,3.139c5.688,0.861,6.032,3.424,1.969,7.574L66.029,55.969l3.36,20.438  c1.099,6.678-0.901,8.287-5.489,5.766L45.119,71.877L26.337,82.182c-4.589,2.523-6.589,0.918-5.489-5.764l3.359-20.438L9.521,40.99  c-4.063-4.146-3.72-6.709,1.968-7.572l20.713-3.141l9.078-19.271C43.952,5.344,46.682,6.188,48.958,11.021z"></path>
+</svg><p>
+I’m excited to announce <a href="https://github.com/jlongster/absurd-sql">absurd-sql</a> which makes this possible. absurd-sql is a filesystem backend for <a href="https://github.com/sql-js/sql.js/">sql.js</a> that <strong>allows SQLite to read/write from IndexedDB in small blocks, just like it would a disk</strong>. I ported my app to use and you can try it <a href="https://app-next.actualbudget.com">here</a>. </p><svg height="300px" width="300px" fill="#6D28D9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 90 90" enable-background="new 0 0 90 90" xml:space="preserve"><path d="M48.958,11.021l9.077,19.246l20.712,3.139c5.688,0.861,6.032,3.424,1.969,7.574L66.029,55.969l3.36,20.438  c1.099,6.678-0.901,8.287-5.489,5.766L45.119,71.877L26.337,82.182c-4.589,2.523-6.589,0.918-5.489-5.764l3.359-20.438L9.521,40.99  c-4.063-4.146-3.72-6.709,1.968-7.572l20.713-3.141l9.078-19.271C43.952,5.344,46.682,6.188,48.958,11.021z"></path></svg>
+</div>
+<p>This whole situation, and how well this project ended up working out, really is absurd. Why? In all browsers except Chrome, <em>IndexedDB is implemented using SQLite</em>. Anyway…</p>
+<p>A huge thanks to phiresky writing the article <a href="https://phiresky.github.io/blog/2021/hosting-sqlite-databases-on-github-pages/">Hosting SQLite databases on Github Pages</a> which inspired me to do this. It’s a very clever technique and it gave me the idea to research this.</p>
+<p>sql.js is already a great project for using SQLite on the web. It compiles SQLite to WebAssembly, and lets you read databases and run queries. The major problem is that <strong>you can’t persist any writes</strong>. It loads the entire db into memory, and only changes the in-memory data. Once you refresh the page, all your changes are lost.</p>
+<p>While in-memory databases have their uses, it kneecaps SQLite into something far less useful. To build any kind of app with it, we need the ability to write and persist.</p>
+<p><strong>absurd-sql solves this</strong>, and it works by intercepting read/write requests from SQLite and fetching and persisting them into IndexedDB (or any other persistent backend). I wrote a whole filesystem layer that is aware of how SQLite reads and writes blocks, and it efficiently performs the operations correctly.</p>
+<p>What this means is <strong>it never loads the database into memory</strong> because it only loads whatever SQLite asks for, and <strong>writes always persist</strong>.</p>
+<p>We use sql.js because it already has a large community and is by far the most common way to use SQL on the web. Now, all you have to do is install absurd-sql and add some lines of code to hook it up. It looks like this:</p>
+
+<details>
+<summary>A few notes: this currently requires <a href="https://github.com/jlongster/sql.js">my fork</a> of sql.js but hopefully these changes will be merged in…</summary> This API is likely to change. The reason for <code>register_for_idb</code> is because Emscripten doesn’t properly hook up the file locking API, so we need to manually forward SQLite’s lock requests. Lastly, this code must run in a web worker. The APIs we need are only available there, but that’s fine because you shouldn’t be blocking the main thread.
+</details>
+<p>Use <code>db</code> like you would normally, except now it efficiently reads and persists writes to IndexedDB! See the <a href="https://github.com/jlongster/absurd-sql">README</a> for more information, and look at the <a href="https://sql.js.org/">sql.js docs</a> for the database API. You can also use this <a href="https://github.com/jlongster/absurd-example-project">example project</a> to get started quickly.</p>
+
+<p>We’re bring <a href="https://www.w3.org/TR/webdatabase/">WebSQL</a> back, baby!</p>
+<p>While I wouldn’t recommend this for production quite yet, <strong>I ported my app <a href="https://app-next.actualbudget.com/">Actual</a></strong> to use it and it works! Click “try demo” to see it in action, and look at your IndexedDB storage.</p>
+<h2 id="more-than-just-another-database">More than just another database</h2>
+<p>I talk a lot about IndexedDB in this post because it’s the only persistent storage that works across all browsers today. The problem is it couples two needs into one: databases and persistent storage.</p>
+<p>What happens when you’ve built your entire app around IndexedDB, and then a <a href="https://web.dev/storage-foundation/">brand new super fast storage layer</a> comes to the web? You’ve locked yourself in.</p>
+<p>Using sql.js + absurd-sql, we’ve abstracted away the storage layer. I’ll talk about how much faster absurd-sql is than IndexedDB below, but don’t be fooled: we are still <em>far</em> away from native performance. We are about 50-100x slower than native SQLite because we have no way to make faster writes. (but don’t let that scare you; it’s still fast enough for many use cases and SQLite’s caching helps a ton)</p>
+<p>IndexedDB is just one backend for absurd-sql. I’ve already experimented with <a href="https://gist.github.com/jlongster/ec00ddbb47b4b29897ab5939b8e32fbe">a webkitFileSystem backend</a>, but I haven’t been able to match IDB’s performance yet. I must be missing how to do bulk reads and writes, because it’s terribly slow.</p>
+<p>There is a new proposal called <a href="https://web.dev/storage-foundation/">Storage Foundation API</a> which is built exactly for this use case. I’m talking with the authors and I will experiment with a backend using that. (It’s missing some critical things like locking, but hopefully solvable)</p>
+<p>There is potential for another 1 or 2 orders of magnitude increase in performance in the future. When that happens, all you’ll have to do is switch a couple lines of code!</p>
+<h3 id="a-note-about-indexeddb-durability">A note about IndexedDB durability</h3>
+<p>Let’s hope a new storage API comes along because it’s worth mentioning that it’s not guaranteed that your IndexedDB data will live forever. Supposedly browsers <em>may</em> delete your IndexedDB database under certain conditions.</p>
+<p>While this very rarely happens (I haven’t seen it yet), the fact that it’s possible puts a major downer on using it for persistent storage. For now, you can use it for anything that is also backed up in the cloud — but I wouldn’t use it for something that only lives locally and it meant to last for the rest of your life. Hopefully we’ll get a better storage API for that.</p>
+<p>Ok — off to the fun stuff!</p>
+<h2 id="tradeoffs-what-tradeoffs">Tradeoffs? What tradeoffs?</h2>
+<p>SQLite, even though it’s implemented on top of IndexedDB, easily beats out IndexedDB in every single performance metric. The absurdity!</p>
+<p>I wrote a bechmarking app to test many different scenarios: <a href="https://priceless-keller-d097e5.netlify.app">https://priceless-keller-d097e5.netlify.app</a>. It runs a couple different queries, and lets you configure SQLite in various ways, and also lets you run them against a raw IndexedDB implementation.</p>
+<p>All data is in <a href="https://docs.google.com/spreadsheets/d/1Cpb9r3cZlbZgp1RoSTmh22wOPCRMqINzMUelUTIDo8Y/edit?usp=sharing">this spreadsheet</a>, and the benchmark code is <a href="https://github.com/jlongster/absurd-sql/tree/master/src/examples/bench">here</a>.</p>
+<h3 id="reads">Reads</h3>
+<p>These are the results of a query like <code>SELECT SUM(*) FROM kv</code> which forces the db to read all items (2015 macbook pro). For IndexedDB, it <a href="https://github.com/jlongster/absurd-sql/blob/master/src/examples/bench/queries-raw-idb.js#L46">was implemented</a> by opening a cursor and summing each item.</p>
+<p></p>
+<details>
+<summary>Expand to see Firefox’s data, which looks similar but their IDB is twice as fast (look at the Y axis). For the same of simplicity, I’ll focus on Chrome.</summary> 
+</details>
+<h3 id="writes">Writes</h3>
+<p>Here is the results of doing a bunch of inserts like <code>INSERT INTO kv (key, value) VALUES (&#34;large-uuid-string-0001&#34;, 53234.22)</code>, and using a bulk <code>put</code> (we only wait for transaction success) with the same data with IndexedDB:</p>
+<p></p>
+<p>I realize that writes are difficult to measure; I tried to do a fair comparison. I am doing a bulk insert in IndexedDB, and should be as fast as it can be. I’m also not doing anything tricky like making SQLite not wait for the disk to be flushed or something like that. They both use the exact same flow.</p>
+<details>
+<summary>Again, expand to see Firefox’s data, which is over twice as fast</summary> 
+</details>
+<p>My original target was 1,000,000 items, and absurd-sql handles that just fine. It’s a little slow, writing takes 4-6s and reading takes 2-3 seconds. But I wasn’t even patient enough to wait for IndexedDB to finish. It eventually did, but writes was the order of 2 or 3 minutes and reads was somewhere in the 1 minute range I think.</p>
+<p>IndexedDB seems get worse the more items you throw at it; it’s not exactly linear, and there’s a point where it’s just not feasible to use anymore.</p>
+<h3 id="whats-the-catch">What’s the catch?</h3>
+<p>Surely there’s a catch somewhere. Where are we paying the cost of those wins?</p>
+<p>There is <em>one</em> downside: you need to download a 1MB WebAssembly file. But <em>that’s it</em>. That’s the only catch. Everything else is an upside, and with WASM streaming compilation, the cost of parsing/compiling is relatively low. For real apps it’s a no-brainer, especially since it’s so cacheable (it never changes).</p>
+<p>Not only do you get fantastic performance, you also get <em>all the features</em> of a great database:</p>
+<ul>
+<li>Transactions! (that don’t suck and try to auto-commit)</li>
+<li>A whole query system!</li>
+<li>Views!</li>
+<li>Common Table Expressions!</li>
+<li>Triggers!</li>
+<li>Full-text search!</li>
+<li>Caching (more major speedups)!</li>
+<li>So much more!</li>
+</ul>
+<p><a href="https://vigilant-visvesvaraya-4f8ee5.netlify.app/">Here’s a demo of full text search</a>. Click “load data” to load some data in, and then start typing in the input. If you refresh the page the data will still be there.</p>
+<h2 id="no-really-how-is-this-possible">No really — how is this possible?</h2>
+<p>Whenever something looks too good to be true, I like to sit back and make sure I’m not missing something. Is there some catch I’m missing?</p>
+<p>How can we beat IndexedDB so easily anyway? If this works, why don’t we do the same thing with native SQLite and chop up a SQLite db into SQLite?</p>
+<p>The reason it works is because IndexedDB is <em>so slow</em>. The simple act of batching read/writes provides such drastic performance benefits, that no amount of CPU processing is going to close the gap. Because that’s the thing — we <em>are</em> doing a lot more CPU work! Shouldn’t that count for something negative?</p>
+<p>No — because we save <em>so much time</em> avoiding IndexedDB reads/writes that the CPU hit is negligable. You don’t even see unless you look real close. Gaining that time gives us a lot of time to do everything SQLite does, and <em>still</em> be 5x (or much more) faster.</p>
+<p>I’m really hoping for a better storage API like <a href="https://web.dev/storage-foundation/">this one</a>. Let’s hope it happens.</p>
+<h2 id="not-fast-enough-caching-to-the-rescue">Not fast enough? Caching to the rescue!</h2>
+<p>As I mentioned earlier in the post, while these results are extremely promising, a look at native SQLite performance is sobering. It’s an order of magnitude or 2 faster.</p>
+<p>If you are doing a lot of reads, the current performance is not sufficient to support a real-world app. But there’s a very easy fix for it: use SQLite caching!</p>
+<p>SQLite automatically uses a 2MB page cache, so you might not even notice any perf problems. It will cache the results of any read requests, and evict it whenever a write happens. For the usual use case of an app where there are many reads and sometimes writes, this works very well.</p>
+<p>If you are working with larger data, you can try to bump the page cache up. Even something like 10MB would be fine. We’re basically lazily loading a lot of the db into memory, but we let SQLite manage it so it knows when to evict.</p>
+<p>Increasing the page size is another way to reduce reads, which I explain below.</p>
+<h3 id="page-sizes">Page sizes</h3>
+<p>If you loaded data in the demo, open your developer tools and look at your IndexedDB data (in Chrome, it’s under the “Application” tab). You’ll see something like this:</p>
+<p></p>
+<p>Note how it stores data in blocks of 4096 bytes, which is the default page size of SQLite. The smaller page size, the more reads it has to do, and originally I thought this would be way too small to work. However, with the below optimizations it works fine!</p>
+<p>However, you are free to bump up the page size. It must be a power two, so you can try 8192. Doing this cuts reads in half, and will increase performance. It’s not magical though; larger block sizes means it might read or wrote a lot of data that it doesn’t need. Profile and see what works for you. <strong>All of the perf benchmarks use a page size of 4096</strong>, meaning it uses a less performant config to try to be fair. It can run even faster though!</p>
+<p>How do you change page size? Just use SQLite:</p>
+
+<p>You must <code>VACUUM</code> for it to take effect; SQLite must restructure the whole db to change the page size. If you do this, we automatically change how we store data:</p>
+<p></p>
+<p>Note how it’s blocks of 8192 now. We read the required page size directly from the bytes of the file and respect it.</p>
+<p>In my app Actual (<a href="https://app-next.actualbudget.com/subscribe">try the demo</a>), it uses a 4096 block size. Eventually I’ll make it larger, but the same file is shared across platforms and I don’t want to effect mobile/desktop.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>There are several tricks required to get this level of performance. Because IndexedDB is so slow, if we don’t do things right we could actually be much slower than a raw IndexedDB because we’re recreating transactions or something like that.</p>
+<p>The goal is to do whatever you would expect would happen: if SQLite it making a bunch of sequential reads, it should open a cursor and iterate through the data. It should not open a new transaction for every read. This is difficult to do because we only have a single <code>read</code> function that takes an offset and length. However, with some tricks we’re able to make it work.</p>
+<p>Another goal is to <strong>maintain as little state as possible</strong>. We shouldn’t be tracking lock state, our own change counter, or page size. We read directly from the SQLite file when needed, and leverage IndexedDB’s transaction semantics for locking. The only state we store is the size of the file, and that’s fine. This makes it far more reliable.</p>
+<h3 id="the-big-problem-sync-apis">The big problem: sync APIs</h3>
+<p>The biggest problem is when sqlite does a read or write, the API is totally synchronous because it’s based on the C API. Accessing IndexedDB is always async, so how do we get around that?</p>
+<p>We spawn a worker process and give it a <code>SharedArrayBuffer</code> and then use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics"><code>Atomics</code></a> API to communicate via the buffer. For example, our backend writes a read request into the shared buffer, and the worker reads it, performs the read async, and then writes the result back.</p>
+<p>I wrote a small <a href="https://github.com/jlongster/absurd-sql/blob/master/src/indexeddb/shared-channel.js">channel abstraction</a> to send different types of data across a SharedArrayBuffer.</p>
+<p>The real magic is the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/wait"><code>Atomics.wait</code></a> API. It’s a beautiful thing. When you call it, it completely blocks JS until the condition is met. You use it to wait on some data in the <code>SharedArrayBuffer</code>, and this is what enables us to turn the async read/write into a sync one. The backend calls it to wait on the result from the worker and blocks until it’s done.</p>
+<p>Another option would be to use <a href="https://emscripten.org/docs/porting/asyncify.html">Asyncify</a>, an Emscripten technique for turning sync C calls into async ones. However, there’s no way I’m going to touch that. It works by transforming the entire code to unwind/rewind stacks, causing a massive perf hit and bloating the binary size. It’s just too invasive and would force SQLite to have an async API.</p>
+<p><code>Atomics.wait</code> unlocks some key performance improvements anyway. It’s good.</p>
+<h3 id="long-lived-indexeddb-transactions">Long-lived IndexedDB transactions</h3>
+<p>IndexedDB has an awful behavior where it auto-commits transactions once the event loop is done processing. This makes it impossible to use a transaction over time, and requires you to create a new one if you are doing many reads over time. Creating a transaction is <em>super</em> slow and this is a massive perf hit.</p>
+<p>However, <code>Atomics.wait</code> is so great. We <em>also</em> use it in the worker to block the process which keeps transactions alive. We open a transaction, and then block the whole thread so the system can’t take it away from me. I love it!</p>
+<p>That means while processing requests from SQLite, we can reuse a transaction for all of them. If 1000 reads come through, we will use the same <code>readonly</code> transaction for all of them, which is a massive speedup.</p>
+<details>
+<summary>This glossing over details; we only keep the transaction open for the scope of a lock…</summary> SQLite always locks files when reading and writing, and we open a single transaction for the scope of the lock
+</details>
+<h3 id="iterating-with-cursors">Iterating with cursors</h3>
+<p>It’s faster to iterate over data with <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/openCursor">cursors</a>. We only get separate <code>read</code> requests though; how can we use cursors?</p>
+<p>Because we keep a single transaction open for reads over time, we can detect when sequential reads are happening and open a cursor. There’s a lot of interesting tradeoffs here because opening a cursor is actually super slow in some browsers, but iterating is a lot faster than many <code>get</code> requests. This backend will intelligently detect when several sequential reads happen and automatically switch to using a cursor.</p>
+<p>Interestingly, in Firefox (and I think Safari) using a cursor is a <em>massive</em> speedup. In Chrome it’s only slightly faster.</p>
+<h3 id="file-locking-and-transactional-semantics">File locking and transactional semantics</h3>
+<p>This one is for the database nerds. This is probably the most important thing to get right because if not your database will get corrupted. Performance doesn’t matter with a corrupted database.</p>
+<p>How do we make sure we’re always applying writes correctly? Unsurprisingly, it’s complicated! But I believe the algorihm implemented is robust.</p>
+<h4 id="atomic-commits">Atomic commits</h4>
+<p>The first thing to understand is the assumptions that SQLite makes. We need to meet these assumptions 100% or otherwise risk database corruption.</p>
+<p><a href="https://www.sqlite.org/atomiccommit.html">Atomic Commit In SQLite</a> is a great description of how writes work. I also studied the source code a lot to understand any other requirements. It comes down to this:</p>
+<ul>
+<li>SQLite uses a journal and makes writes twice, first in the journal and then to the normal file.</li>
+<li>You can’t avoid something like a power outage which shuts down your computer in the middle of flushing out writes. Because SQLite makes writes twice, if this happens it always has at least one file in tact. If the db file is partially written, it has a “hot journal” and just re-applies the journal. If the journal is partially written, that’s no big deal and it just ignores it. That allows an atomic commit (all or nothing).</li>
+<li>It all rides on <code>fsync</code> working properly. After it calls <code>fsync</code>, it assumes that all writes have successfully made it to disk. If this is not true, it’s possible for <em>both</em> files to be partially written.</li>
+</ul>
+<p>The first requirement we must meet is to provide an <code>fsync</code> method that flushes out writes atomically.</p>
+<p>Here’s the thing: if we’re using IndexedDB, we don’t have to worry about any of this. IDB already provides transactional sematics; if we open a transaction and do a bunch of writes, they either all succeed or not. That takes the weight off of us and we can rely on that.</p>
+<p>We don’t really even need a journal file. We could tell SQLite to avoid using one with <code>journal_mode=OFF</code>, however it still needs to journal for rolling back transactions (<code>ROLLBACK</code>). So you should use <code>journal_mode=MEMORY</code> which keeps the journal in memory — that’s much faster than writing it to disk.</p>
+<p>There’s also <a href="https://sqlite.org/wal.html">write-ahead logging</a>, or “WAL mode”. This can be more efficient if working with a real disk. However, to achieve its performance it requires things like shared memory using <code>mmap</code> and things like that. I don’t think we can reliably map those semantics onto IndexedDB, and I don’t even see the point. WAL potentially <em>adds</em> more overhead if we’re just writing them all to IDB anyway. The structure of the writes isn’t as important to us.</p>
+<h4 id="file-locking">File locking</h4>
+<p>SQLite uses <a href="https://www.sqlite.org/lockingv3.html">advisory locks</a> to coordinate between db connections. How locks are used is described in detail on <a href="https://www.sqlite.org/atomiccommit.html">Atomic Commit In SQLite</a>.</p>
+<p>It’s super important that we get this write. We need to lock our data in the same way the SQLite expect, otherwise connections could write over each other. Even though we depend on IndexedDB transactions, that doesn’t mean they are ordered correctly.</p>
+<p>We can leverage transactions, however. We just need to do some extra work. IndexedDB <code>readonly</code> transactions can run in parallel, while <code>readwrite</code> transactions with only run one at a time. We can use this to implement locking — once a <code>readwrite</code> transaction is running, the file is effectively locked.</p>
+<p><a href="https://github.com/jlongster/absurd-sql/blob/master/src/indexeddb/worker.js#L423">Here’s our method</a> that implements locking, and the comment above it is helpful.</p>
+<p>When a <code>SHARED</code> lock is requested, we open a readonly transaction. It’s fine if many <code>SHARED</code> locks exist at once, and that works with parallel <code>readonly</code> transactions. However when a write lock is requested, we open a <code>readwrite</code> transaction. Once that transaction is running, we know we control the database because of IDB semantics.</p>
+<p>The only problem is that another thread might have written data down between the time that we requested a <code>readwrite</code> lock and got it. <a href="https://github.com/sqlite/sqlite/blob/master/src/pager.c#L93-L96">SQLite already gives us this information</a>! Once we’ve grabbed a readwrite transaction, we can read some bytes from the file which represent SQLite’s “change counter”. If that counter is the same as what we had when we requested a write, it’s safe to write!</p>
+<p>(If you’re familiar with how SQLite upgrades/downgrades locks, we implement the same flow and you can view the source for upgrading <a href="https://github.com/jlongster/absurd-sql/blob/master/src/indexeddb/worker.js#L95">here</a>)</p>
+<p>SQLite locks a file for writing whenever a transaction starts, like <code>BEGIN TRANSACTION</code>, and then unlocks it when the transaction ends. In a way we’re mapping SQLite transactions onto IndexedDB <code>readwrite</code> transactions, but I wouldn’t think of it that way because we don’t translate <code>ROLLBACK</code> to <code>abort()</code> in IndexedDB. We’re leveraging IDB transactions to ensure safe atomic writes, and we write down whatever SQLite tells us to.</p>
+<p>This is only possible because we have long-lived IDB transactions, since we can open a <code>readwrite</code> transaction once and make sure we have it over the course of the write lock. If we had to reopen it, it would destroy our ability to safely write to the db and it would get easily corrupted.</p>
+
+<p>While most browsers support <code>SharedArrayBuffer</code>, Safari has not enabled it yet. I’m not too worried about it because it will in the future, however we need to provide some kind of support for it today.</p>
+<p>absurd-sql provides a <a href="https://github.com/jlongster/absurd-sql/blob/master/src/indexeddb/file-ops-fallback.js">fallback mode</a> if <code>SharedArrayBuffer</code> is not available. The way it works is it reads all the data in at the beginning so reads happen sync.</p>
+<p>Writes are more difficult: it assumes that writes are always successful, but actually queues them up to run in the background. We implement the same transactional semantics as before (only write when it’s safe), but they happen in the background.</p>
+<p>The major problem with this is when a write is <em>not</em> successful, the whole database is stale. We can never write to the file again. We could potentially restart the db and read the entire file again but that feels to complicated.</p>
+<p>The end result is that if you have two tabs open in Safari, only one of them can actually perform writes. If both of them try to, one of them is going to detect that something has changed from underneath it and never write to to the db. It will continue to work in memory, but when you refresh changes will be lost. The app should notify the user when this happens so they don’t lose data.</p>
+<h2 id="come-help">Come help!</h2>
+<p>I would love your help in testing this and improving it! Come over to <a href="https://github.com/jlongster/absurd-sql">the repo</a>, and I hope you have fun SQLing.</p>
+<p>- James</p>
+
+
+
+
+</div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 14:33:42 +0000</pubDate>
+      <source>https://jlongster.com/future-sql-web</source>
+    </item>
+    <item>
+      <title>“Your 4th annual reminder of Uber missing this goal.” – Emil Michael</title>
+      <link>https://twitter.com/emilmichael/status/1425122075161899011</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="ScriptLoadFailure"><form action="" method="GET"><div dir="auto"><p><span>Something went wrong, but don’t fret — let’s give it another shot.</span></p></div></form></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 14:19:18 +0000</pubDate>
+      <source>https://twitter.com/emilmichael/status/1425122075161899011</source>
+    </item>
+    <item>
+      <title>Reddit Is Valued at More Than $10B in Latest Funding Round</title>
+      <link>https://www.nytimes.com/2021/08/12/technology/reddit-new-funding.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_nytimes_com_2021_08_12_technology_reddit-new-funding_html/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="site-content"><div><div id="in-story-masthead"><div><p><span><a href="https://www.nytimes.com/section/technology">Technology</a></span><span>|</span><span>Reddit is valued at more than $10 billion in latest funding round.</span></p><div><p><span>https://www.nytimes.com/2021/08/12/technology/reddit-new-funding.html</span></p></div></div></div><article id="story"><div><div data-testid="photoviewer-wrapper"><div data-testid="photoviewer-children"><figure aria-label="media" role="group"><div><picture><source media="(max-width: 599px) and (min-device-pixel-ratio: 3),(max-width: 599px) and (-webkit-min-device-pixel-ratio: 3),(max-width: 599px) and (min-resolution: 3dppx),(max-width: 599px) and (min-resolution: 288dpi)" srcset="https://static01.nyt.com/images/2021/08/12/business/12reddit/merlin_97354015_2f4228f2-2987-44e0-a791-a930b3568188-mobileMasterAt3x.jpg?quality=75&amp;auto=webp&amp;disable=upscale&amp;width=600"/><source media="(max-width: 599px) and (min-device-pixel-ratio: 2),(max-width: 599px) and (-webkit-min-device-pixel-ratio: 2),(max-width: 599px) and (min-resolution: 2dppx),(max-width: 599px) and (min-resolution: 192dpi)" srcset="https://static01.nyt.com/images/2021/08/12/business/12reddit/merlin_97354015_2f4228f2-2987-44e0-a791-a930b3568188-mobileMasterAt3x.jpg?quality=75&amp;auto=webp&amp;disable=upscale&amp;width=1200"/><source media="(max-width: 599px) and (min-device-pixel-ratio: 1),(max-width: 599px) and (-webkit-min-device-pixel-ratio: 1),(max-width: 599px) and (min-resolution: 1dppx),(max-width: 599px) and (min-resolution: 96dpi)" srcset="https://static01.nyt.com/images/2021/08/12/business/12reddit/merlin_97354015_2f4228f2-2987-44e0-a791-a930b3568188-mobileMasterAt3x.jpg?quality=75&amp;auto=webp&amp;disable=upscale&amp;width=1800"/></picture></div><figcaption><span aria-hidden="true">Steve Huffman, a co-founder and the chief executive of Reddit.</span><span><span>Credit...</span><span><span>Jason Henry for The New York Times</span></span></span></figcaption></figure></div></div><div><div><p><a href="https://www.nytimes.com/by/mike-isaac"></a></p></div><ul><li><time datetime="2021-08-12T11:13:40-04:00"><span>Aug. 12, 2021</span><span>Updated <span>11:13 a.m. ET</span></span></time></li></ul></div></div><section name="articleBody"><div><div><p>Reddit, the virtual town square of the consumer internet, has raised a fresh $410 million in funding, valuing it at more than $10 billion, the company said on Thursday.</p><p>The financing, which was led by Fidelity Investments, increases Reddit’s valuation from the $6 billion it achieved six months ago, <a href="https://www.nytimes.com/2021/02/08/technology/reddit-raises-250-million.html" title="">when it raised $250 million</a>. Reddit said it expected existing investors to participate in the latest financing as well, so the round is likely to grow and close out at around $700 million.</p><p>The latest funding wasn’t planned, but “Fidelity made us an offer that we couldn’t refuse,” Steve Huffman, Reddit’s co-founder and chief executive, said in an interview.</p><p>The company then decided the capital would give it more time to decide on when — and how — <a href="https://www.nytimes.com/2021/03/05/technology/reddit-chief-financial-officer-ipo.html" title="">to go public</a>. “We are still planning on going public, but we don’t have a firm timeline there yet,” Mr. Huffman said. “All good companies should go public when they can.”</p></div></div><div><div><p>The move gives Reddit more of a war chest to build its business and attract new users. The company makes most of its money selling advertising, which appears in the feeds of users who browse the many “subreddits,” or topic-focused forums, across the site.</p><p>But Reddit must compete against digital advertising giants like Google, Facebook and Amazon, as well as other ad-based social networking sites, including Twitter, Snap and Pinterest.</p><p>“We’ve grown up in the shadow of Facebook and Google, and pretty much every dollar we make we’ve had to fight for,” Mr. Huffman said.</p><p>Still, he said, the company’s advertising products have begun to work better. Reddit surpassed $100 million in revenue in a single quarter for the first time this year, up 192 percent over the same period in 2020.</p><p>More than 50 million people now visit Reddit daily, and the site has more than 100,000 active subreddits. While it previously had a laissez-faire approach to free speech, regardless of toxicity, Mr. Huffman has spent the past few years overhauling Reddit’s policies and <a href="https://www.nytimes.com/2020/06/30/us/politics/reddit-bans-steve-huffman.html" title="">making it more difficult for trolls</a> to overrun the forums.</p></div></div><div><div><p>The company will use the new funds to improve product features, focusing on how to make it easier for newcomers to explore and quickly understand the site, Mr. Huffman said. Reddit is also enhancing its video products with an eye toward more advertising. And the company is building its self-service advertising system, which could help appeal to small and medium-size business marketers.</p><p>Reddit is also focused on expanding internationally. Most of the site is U.S.-centric, Mr. Huffman said — something he hopes to change.</p><p>“The first priority on the product is just making Reddit awesome,” he said. “We want to build what is best for new users, because over time it will be best for everyone.”</p></div></div></section></article></div></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 14:54:32 +0000</pubDate>
+      <source>https://www.nytimes.com/2021/08/12/technology/reddit-new-funding.html</source>
+    </item>
+    <item>
+      <title>Tesla Valve</title>
+      <link>https://en.wikipedia.org/wiki/Tesla_valve</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___en_wikipedia_org_wiki_Tesla_valve/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="mw-content-text" lang="en" dir="ltr"><div>
+<div><div><p><a href="https://en.wikipedia.org/wiki/File:Tesla_valve_cross-section.png"></a></p><div><p>Cross-section of a Tesla valve, displaying its cavity design, from the original patent application.</p></div></div></div>
+<div><div><p><a href="https://en.wikipedia.org/wiki/File:Nguyen_Tesla_flow_visualization.webp"></a></p><div><p>Streakline flow visualization at Re=200 using dye injected upstream: </p></div></div></div>
+<p>A <b>Tesla valve</b>, called a <b>valvular conduit</b> by its inventor, is a fixed-geometry passive <a href="https://en.wikipedia.org/wiki/Check_valve" title="Check valve">check valve</a>. It allows a <a href="https://en.wikipedia.org/wiki/Fluid" title="Fluid">fluid</a> to flow preferentially in one direction, without moving parts. The device is named after <a href="https://en.wikipedia.org/wiki/Nikola_Tesla" title="Nikola Tesla">Nikola Tesla</a>, who was awarded <span><a rel="nofollow" href="https://patents.google.com/patent/US1329559">U.S. Patent 1,329,559</a></span> in 1920 for its invention. The patent application describes the invention as follows:<sup id="cite_ref-Patent_1-0"><a href="#cite_note-Patent-1">[1]</a></sup>
+</p>
+<blockquote>
+<p>The interior of the conduit is provided with enlargements, recesses, projections, baffles, or buckets which, while offering virtually no resistance to the passage of the fluid in one direction, other than surface friction, constitute an almost impassable barrier to its flow in the opposite direction.
+</p>
+</blockquote>
+<p>Tesla illustrated this with the drawing, showing one possible construction with a series of eleven flow-control segments, although any other number of such segments could be used as desired to increase or decrease the flow regulation effect.
+</p><p>With no moving parts, Tesla valves are much more resistant to wear and fatigue, especially in applications with frequent pressure reversal such as a <a href="https://en.wikipedia.org/wiki/Pulsejet" title="Pulsejet">pulsejet</a>.<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>
+</p>
+<div><div><p><a href="https://en.wikipedia.org/wiki/File:A_rotated_scanning_electron_microscope_photograph_of_a_Tesla_valve_by_Forster_et_al._J_anona-2020-0014_fig_001.jpg"></a></p><div><p>A micrograph of a Tesla valve in a fixed-valve micro-pump, with flow from right to left restricted<sup id="cite_ref-3"><a href="#cite_note-3">[3]</a></sup></p></div></div></div>
+<p>The Tesla valve is used in <a href="https://en.wikipedia.org/wiki/Microfluidic" title="Microfluidic">microfluidic</a> applications<sup id="cite_ref-microvalves_4-0"><a href="#cite_note-microvalves-4">[4]</a></sup> and offers advantages such as scalability, durability, and ease of fabrication in a variety of materials.<sup id="cite_ref-Micropump_5-0"><a href="#cite_note-Micropump-5">[5]</a></sup> It is also used in macrofluidic applications.<sup id="cite_ref-macrovalves_6-0"><a href="#cite_note-macrovalves-6">[6]</a></sup>
+</p>
+<div><div><p><a href="https://en.wikipedia.org/wiki/File:Tesla_valve_principle.svg"></a></p><div><p>Principle of operation of a Tesla valve: </p></div></div></div>
+<p>One <a href="https://en.wikipedia.org/wiki/Computational_fluid_dynamics" title="Computational fluid dynamics">computational fluid dynamics</a> simulation of Tesla valves with two and four segments showed that the flow resistance in the blocking (or reverse) direction was about 15 and 40 times greater, respectively, than the unimpeded (or forward) direction.<sup id="cite_ref-CFD_7-0"><a href="#cite_note-CFD-7">[7]</a></sup> This lends support to Tesla&#39;s patent assertion that in the valvular conduit in his diagram, a pressure ratio &#34;approximating 200 can be obtained so that the device acts as a slightly leaking valve&#34;.<sup id="cite_ref-Patent_1-1"><a href="#cite_note-Patent-1">[1]</a></sup>
+</p><p>Steady flow experiments, including with the original design, however, show smaller ratios of the two resistances in the range of 2 to 4.<sup id="cite_ref-macrovalves_6-1"><a href="#cite_note-macrovalves-6">[6]</a></sup> It has also been shown that the device works better with pulsatile flows.<sup id="cite_ref-macrovalves_6-2"><a href="#cite_note-macrovalves-6">[6]</a></sup>
+</p>
+
+
+<h2><span id="Diodicity">Diodicity</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Tesla_valve&amp;action=edit&amp;section=1" title="Edit section: Diodicity">edit</a><span>]</span></span></h2>
+<p>The valves are structures that have a higher pressure drop for the flow in one direction (reverse) than the other (forward). This difference in flow resistance causes a net directional flow rate in the forward direction in oscillating flows. The efficiency is often expressed in diodicity <span></span>, being the ratio of directional resistances.
+</p><p>The flow resistance is defined, analogously to <a href="https://en.wikipedia.org/wiki/Ohm%27s_law" title="Ohm&#39;s law">Ohm&#39;s law</a> for electrical resistance,<sup id="cite_ref-electronic-hydraulic_8-0"><a href="#cite_note-electronic-hydraulic-8">[8]</a></sup> as the ratio of applied pressure drop and resulted flow rate:
+</p><p><span></span> where <span></span> is the applied pressure difference between two ends of the conduit, and <span></span> the flow rate.
+</p><p>The diodicity is then:
+<span></span>. If <span></span>, the conduit in question has diodic behavior.
+</p><p>Thus diodicity is also ratio of pressure drops for identical flow rates:<sup id="cite_ref-diodicity_9-0"><a href="#cite_note-diodicity-9">[9]</a></sup>
+</p>
+<dl><dd><span></span></dd></dl>
+<p>where <span></span> is the reverse flow pressure drop, and <span></span> the forward flow pressure drop for flow rate <span></span>.
+</p><p>Equivalently, diodicity could also be defined as ratio of dimensionless <a href="https://en.wikipedia.org/wiki/Hagen_number" title="Hagen number">Hagen number</a> or <a href="https://en.wikipedia.org/wiki/Darcy_friction_factor" title="Darcy friction factor">Darcy friction factor</a> at the same Reynolds number.<sup id="cite_ref-macrovalves_6-3"><a href="#cite_note-macrovalves-6">[6]</a></sup>
+</p>
+<h2><span id="See_also">See also</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Tesla_valve&amp;action=edit&amp;section=2" title="Edit section: See also">edit</a><span>]</span></span></h2>
+<ul><li><a href="https://en.wikipedia.org/wiki/Coand%C4%83_effect" title="Coandă effect">Coandă effect</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Diode" title="Diode">Diode</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Labyrinth_seal" title="Labyrinth seal">Labyrinth seal</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Static_mixer" title="Static mixer">Static mixer</a></li></ul>
+<h2><span id="References">References</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Tesla_valve&amp;action=edit&amp;section=3" title="Edit section: References">edit</a><span>]</span></span></h2>
+<div>
+<div><ol>
+<li id="cite_note-Patent-1"><span>^ <a href="#cite_ref-Patent_1-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Patent_1-1"><sup><i><b>b</b></i></sup></a></span> <span><cite><a rel="nofollow" href="http://pdfpiw.uspto.gov/.piw?PageNum=0&amp;docid=01329559&amp;IDKey=BD3AA70D843B%0D%0A&amp;HomeUrl=http%3A%2F%2Fpatft.uspto.gov%2Fnetacgi%2Fnph-Parser%3FSect1%3DPTO1%2526Sect2%3DHITOFF%2526d%3DPALL%2526p%3D1%2526u%3D%25252Fnetahtml%25252FPTO%25252Fsrchnum.htm%2526r%3D1%2526f%3DG%2526l%3D50%2526s1%3D1329559.PN.%2526OS%3DPN%2F1329559%2526RS%3DPN%2F1329559">&#34;Patent #: US001329559&#34;</a>. <i>United States Patent and Trademark Office</i>. Office of the Chief Communications Officer. <a rel="nofollow" href="https://web.archive.org/web/20170103095151/http://pdfpiw.uspto.gov/.piw?PageNum=0&amp;docid=01329559&amp;IDKey=BD3AA70D843B%0D%0A&amp;HomeUrl=http%3A%2F%2Fpatft.uspto.gov%2Fnetacgi%2Fnph-Parser%3FSect1%3DPTO1%26Sect2%3DHITOFF%26d%3DPALL%26p%3D1%26u%3D%252Fnetahtml%252FPTO%252Fsrchnum.htm%26r%3D1%26f%3DG%26l%3D50%26s1%3D1329559.PN.%26OS%3DPN%2F1329559%26RS%3DPN%2F1329559">Archived</a> from the original on 3 January 2017<span>. Retrieved <span>2 January</span> 2017</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=United+States+Patent+and+Trademark+Office&amp;rft.atitle=Patent+%23%3A+US001329559&amp;rft_id=http%3A%2F%2Fpdfpiw.uspto.gov%2F.piw%3FPageNum%3D0%26docid%3D01329559%26IDKey%3DBD3AA70D843B%250D%250A%26HomeUrl%3Dhttp%253A%252F%252Fpatft.uspto.gov%252Fnetacgi%252Fnph-Parser%253FSect1%253DPTO1%252526Sect2%253DHITOFF%252526d%253DPALL%252526p%253D1%252526u%253D%2525252Fnetahtml%2525252FPTO%2525252Fsrchnum.htm%252526r%253D1%252526f%253DG%252526l%253D50%252526s1%253D1329559.PN.%252526OS%253DPN%252F1329559%252526RS%253DPN%252F1329559&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+<li id="cite_note-2"><span><b><a href="#cite_ref-2">^</a></b></span> <span><cite><a rel="nofollow" href="http://link.springer.com/article/10.1007/s12213-013-0069-1">&#34;Archived copy&#34;</a>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1007%2Fs12213-013-0069-1">10.1007/s12213-013-0069-1</a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)">S2CID</a> <a rel="nofollow" href="https://api.semanticscholar.org/CorpusID:109638783">109638783</a>. <a rel="nofollow" href="https://web.archive.org/web/20210423211730/https://link.springer.com/article/10.1007/s12213-013-0069-1">Archived</a> from the original on 2021-04-23<span>. Retrieved <span>2021-05-12</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Archived+copy&amp;rft_id=info%3Adoi%2F10.1007%2Fs12213-013-0069-1&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A109638783%23id-name%3DS2CID&amp;rft_id=http%3A%2F%2Flink.springer.com%2Farticle%2F10.1007%2Fs12213-013-0069-1&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span> <span>CS1 maint: archived copy as title (<a href="https://en.wikipedia.org/wiki/Category:CS1_maint:_archived_copy_as_title" title="Category:CS1 maint: archived copy as title">link</a>)</span></span>
+</li>
+<li id="cite_note-3"><span><b><a href="#cite_ref-3">^</a></b></span> <span><a rel="nofollow" href="https://researchgate.net/profile/Fred-Forster/publication/245883107_Design_fabrication_and_testing_of_fixed-valve_micro-pumps/links/53f611b30cf22be01c403707/Design-fabrication-and-testing-of-fixed-valve-micro-pumps.pdf">http://researchgate.net/profile/Fred-Forster/publication/245883107_Design_fabrication_and_testing_of_fixed-valve_micro-pumps/links/53f611b30cf22be01c403707/Design-fabrication-and-testing-of-fixed-valve-micro-pumps.pdf</a></span>
+</li>
+<li id="cite_note-microvalves-4"><span><b><a href="#cite_ref-microvalves_4-0">^</a></b></span> <span><cite id="CITEREFDengLiuZhang2010">Deng, Yongbo; Liu, Zhenyu; Zhang, Ping (28 Jan 2010). <a rel="nofollow" href="https://www.researchgate.net/publication/224129251">&#34;Optimization of no-moving part fluidic resistance microvalves with low reynolds number&#34;</a>. <i>Micro Electro Mechanical Systems (MEMS), 2010 IEEE 23rd International Conference on</i>: 67–70. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1109%2FMEMSYS.2010.5442565">10.1109/MEMSYS.2010.5442565</a>. <a href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)">ISBN</a> <a href="https://en.wikipedia.org/wiki/Special:BookSources/978-1-4244-5761-8" title="Special:BookSources/978-1-4244-5761-8"><bdi>978-1-4244-5761-8</bdi></a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)">S2CID</a> <a rel="nofollow" href="https://api.semanticscholar.org/CorpusID:22740698">22740698</a>. <a rel="nofollow" href="https://web.archive.org/web/20210512154220/https://www.researchgate.net/publication/224129251_Optimization_of_no-moving_part_fluidic_resistance_microvalves_with_low_Reynolds_number">Archived</a> from the original on 12 May 2021<span>. Retrieved <span>12 May</span> 2021</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Micro+Electro+Mechanical+Systems+%28MEMS%29%2C+2010+IEEE+23rd+International+Conference+on&amp;rft.atitle=Optimization+of+no-moving+part+fluidic+resistance+microvalves+with+low+reynolds+number&amp;rft.pages=67-70&amp;rft.date=2010-01-28&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A22740698%23id-name%3DS2CID&amp;rft_id=info%3Adoi%2F10.1109%2FMEMSYS.2010.5442565&amp;rft.isbn=978-1-4244-5761-8&amp;rft.aulast=Deng&amp;rft.aufirst=Yongbo&amp;rft.au=Liu%2C+Zhenyu&amp;rft.au=Zhang%2C+Ping&amp;rft_id=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F224129251&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+<li id="cite_note-Micropump-5"><span><b><a href="#cite_ref-Micropump_5-0">^</a></b></span> <span><cite id="CITEREFGamboaMorrisForster2005">Gamboa, Adrian R.; Morris, Christopher J.; Forster, Fred K. (2005). <a rel="nofollow" href="https://semanticscholar.org/paper/23bd022760ed9acf2cc2d2f12ba60115624940d1">&#34;Improvements in Fixed-Valve Micropump Performance Through Shape Optimization of Valves&#34;</a>. <i>Journal of Fluids Engineering</i>. <b>127</b> (2): 339. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1115%2F1.1891151">10.1115/1.1891151</a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)">S2CID</a> <a rel="nofollow" href="https://api.semanticscholar.org/CorpusID:55961879">55961879</a>. <a rel="nofollow" href="https://web.archive.org/web/20210512154248/https://www.semanticscholar.org/paper/Improvements-in-Fixed-Valve-Micropump-Performance-Gamboa-Morris/23bd022760ed9acf2cc2d2f12ba60115624940d1">Archived</a> from the original on 2021-05-12<span>. Retrieved <span>2021-05-12</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Journal+of+Fluids+Engineering&amp;rft.atitle=Improvements+in+Fixed-Valve+Micropump+Performance+Through+Shape+Optimization+of+Valves&amp;rft.volume=127&amp;rft.issue=2&amp;rft.pages=339&amp;rft.date=2005&amp;rft_id=info%3Adoi%2F10.1115%2F1.1891151&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A55961879%23id-name%3DS2CID&amp;rft.aulast=Gamboa&amp;rft.aufirst=Adrian+R.&amp;rft.au=Morris%2C+Christopher+J.&amp;rft.au=Forster%2C+Fred+K.&amp;rft_id=https%3A%2F%2Fsemanticscholar.org%2Fpaper%2F23bd022760ed9acf2cc2d2f12ba60115624940d1&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+<li id="cite_note-macrovalves-6"><span>^ <a href="#cite_ref-macrovalves_6-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-macrovalves_6-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-macrovalves_6-2"><sup><i><b>c</b></i></sup></a> <a href="#cite_ref-macrovalves_6-3"><sup><i><b>d</b></i></sup></a></span> <span><cite id="CITEREFNguyenAbouezziRistroph2021">Nguyen, Quynh M.; Abouezzi, Joanna; Ristroph, Leif (17 May  2021). <a rel="nofollow" href="https://doi.org/10.1038/s41467-021-23009-y">&#34;Early turbulence and pulsatile flows enhance diodicity of Tesla&#39;s macrofluidic valve&#34;</a>. <i>Nature Communications</i> (12): 2884. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<span title="Freely accessible"><a rel="nofollow" href="https://doi.org/10.1038%2Fs41467-021-23009-y">10.1038/s41467-021-23009-y</a></span><span>. Retrieved <span>21 May</span> 2021</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Nature+Communications&amp;rft.atitle=Early+turbulence+and+pulsatile+flows+enhance+diodicity+of+Tesla%27s+macrofluidic+valve&amp;rft.issue=12&amp;rft.pages=2884&amp;rft.date=2021-05-17&amp;rft_id=info%3Adoi%2F10.1038%2Fs41467-021-23009-y&amp;rft.aulast=Nguyen&amp;rft.aufirst=Quynh+M.&amp;rft.au=Abouezzi%2C+Joanna&amp;rft.au=Ristroph%2C+Leif&amp;rft_id=https%3A%2F%2Fdoi.org%2F10.1038%2Fs41467-021-23009-y&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+<li id="cite_note-CFD-7"><span><b><a href="#cite_ref-CFD_7-0">^</a></b></span> <span><cite><a rel="nofollow" href="https://web.archive.org/web/20170113033316/https://fluidpowerjournal.com/2013/10/teslas-conduit/">&#34;Tesla&#39;s Valvular Conduit - Fluid Power Journal&#34;</a>. <i>Fluid Power Journal</i>. 2013-10-23. Archived from <a rel="nofollow" href="https://fluidpowerjournal.com/2013/10/teslas-conduit/">the original</a> on 2017-01-13<span>. Retrieved <span>2017-01-13</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Fluid+Power+Journal&amp;rft.atitle=Tesla%27s+Valvular+Conduit+-+Fluid+Power+Journal&amp;rft.date=2013-10-23&amp;rft_id=https%3A%2F%2Ffluidpowerjournal.com%2F2013%2F10%2Fteslas-conduit%2F&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+<li id="cite_note-electronic-hydraulic-8"><span><b><a href="#cite_ref-electronic-hydraulic_8-0">^</a></b></span> <span><cite id="CITEREFNguyenHuangDeanRomanelli2020">Nguyen, Quynh M.; Huang, Dean; Dean, Evan; Romanelli, Genievieve; Meyer, Charlotte; Ristroph, Leif (Oct  2020). <a rel="nofollow" href="https://arxiv.org/pdf/2103.14813.pdf">&#34;Tesla&#39;s fluidic diode and the electronic-hydraulic analogy&#34;</a> <span>(PDF)</span>. <i>American Journal of Physics</i>. <b>89</b>: 393. <a href="https://en.wikipedia.org/wiki/ArXiv_(identifier)" title="ArXiv (identifier)">arXiv</a>:<span title="Freely accessible"><a rel="nofollow" href="https://arxiv.org/abs/2103.14813">2103.14813</a></span>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1119%2F10.0003395">10.1119/10.0003395</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=American+Journal+of+Physics&amp;rft.atitle=Tesla%27s+fluidic+diode+and+the+electronic-hydraulic+analogy&amp;rft.volume=89&amp;rft.pages=393&amp;rft.date=2020-10&amp;rft_id=info%3Aarxiv%2F2103.14813&amp;rft_id=info%3Adoi%2F10.1119%2F10.0003395&amp;rft.aulast=Nguyen&amp;rft.aufirst=Quynh+M.&amp;rft.au=Huang%2C+Dean&amp;rft.au=Dean%2C+Evan&amp;rft.au=Romanelli%2C+Genievieve&amp;rft.au=Meyer%2C+Charlotte&amp;rft.au=Ristroph%2C+Leif&amp;rft_id=https%3A%2F%2Farxiv.org%2Fpdf%2F2103.14813.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+<li id="cite_note-diodicity-9"><span><b><a href="#cite_ref-diodicity_9-0">^</a></b></span> <span><cite id="CITEREFde_VriesFloreaHomburgFrijns2017">de Vries; Florea; Homburg; Frijns (2017). <a rel="nofollow" href="https://doi.org/10.1016%2Fj.ijheatmasstransfer.2016.09.062">&#34;Design and operation of a tesla-type valve for pulsating heat pipes&#34;</a>. <i>International Journal of Heat and Mass Transfer</i>. <b>105</b>: 1–11. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<span title="Freely accessible"><a rel="nofollow" href="https://doi.org/10.1016%2Fj.ijheatmasstransfer.2016.09.062">10.1016/j.ijheatmasstransfer.2016.09.062</a></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=International+Journal+of+Heat+and+Mass+Transfer&amp;rft.atitle=Design+and+operation+of+a+tesla-type+valve+for+pulsating+heat+pipes&amp;rft.volume=105&amp;rft.pages=1-11&amp;rft.date=2017&amp;rft_id=info%3Adoi%2F10.1016%2Fj.ijheatmasstransfer.2016.09.062&amp;rft.au=de+Vries&amp;rft.au=Florea&amp;rft.au=Homburg&amp;rft.au=Frijns&amp;rft_id=%2F%2Fdoi.org%2F10.1016%252Fj.ijheatmasstransfer.2016.09.062&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ATesla+valve"></span></span>
+</li>
+</ol></div></div>
+<h2><span id="External_links">External links</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Tesla_valve&amp;action=edit&amp;section=4" title="Edit section: External links">edit</a><span>]</span></span></h2>
+<ul><li><a rel="nofollow" href="https://www.youtube.com/watch?v=tcV1EYSUQME"><span>Tesla Valve Explained With Fire</span></a> on <a href="https://en.wikipedia.org/wiki/YouTube" title="YouTube">YouTube</a></li>
+<li><a rel="nofollow" href="https://www.youtube.com/watch?v=suIAo0EYwOE"><span>Tesla Valve | The complete physics</span></a> on <a href="https://en.wikipedia.org/wiki/YouTube" title="YouTube">YouTube</a></li></ul>
+
+<!-- 
+NewPP limit report
+Parsed by mw2313
+Cached time: 20210729021135
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: [vary‐revision‐sha1]
+CPU time usage: 0.398 seconds
+Real time usage: 0.774 seconds
+Preprocessor visited node count: 1440/1000000
+Post‐expand include size: 40008/2097152 bytes
+Template argument size: 2001/2097152 bytes
+Highest expansion depth: 17/40
+Expensive parser function count: 0/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 34028/5000000 bytes
+Lua time usage: 0.141/10.000 seconds
+Lua memory usage: 4761550/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  425.177      1 -total
+ 55.05%  234.073      1 Template:Reflist
+ 18.78%   79.830      1 Template:Short_description
+ 18.68%   79.416      1 Template:ISBN
+ 17.34%   73.740      2 Template:Cite_web
+ 11.89%   50.568      1 Template:Pagetype
+ 11.43%   48.604      2 Template:Youtube
+ 11.34%   48.235      1 Template:Catalog_lookup_link
+  8.64%   36.746      4 Template:Replace
+  7.36%   31.284      5 Template:Cite_journal
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:24697292-0!canonical!math=5 and timestamp 20210729021134 and revision id 1034491358. Serialized with JSON.
+ -->
+</div>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 14:01:46 +0000</pubDate>
+      <source>https://en.wikipedia.org/wiki/Tesla_valve</source>
+    </item>
   </channel>
 </rss>
