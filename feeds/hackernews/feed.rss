@@ -8731,5 +8731,275 @@ administrators, on currently available CPUs.
       <pubDate>Thu, 12 Aug 2021 03:25:52 +0000</pubDate>
       <source>https://stackoverflow.blog/2021/08/11/the-strange-domain-names-that-developers-bought/</source>
     </item>
+    <item>
+      <title>Mailchimp Is Exploring a Sale at $10B-Plus Valuation</title>
+      <link>https://www.bloomberg.com/news/articles/2021-08-11/mailchimp-is-said-to-explore-sale-at-10-billion-plus-valuation</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+    <header>
+        
+        <a href="https://www.bloomberg.com/feedback">Need help? Contact us</a>
+    </header>
+    <section>
+        <h2>We&#39;ve detected unusual activity from your computer network</h2>
+        <p>To continue, please click the box below to let us know you&#39;re not a robot.</p>
+        
+    </section>
+    <section>
+        <section>
+            <h3>Why did this happen?</h3>
+            <p>Please make sure your browser supports JavaScript and cookies and that you are not blocking them from loading. For more information you can review our <a href="https://www.bloomberg.com/notices/tos">Terms of Service</a> and <a href="https://www.bloomberg.com/notices/tos">Cookie Policy</a>.</p>
+        </section>
+        <section>
+            <h3>Need Help?</h3>
+            <p>For inquiries related to this message please <a href="https://www.bloomberg.com/feedback">contact our support team</a> and provide the reference ID below.</p>
+            <p>Block reference ID: </p>
+        </section>
+    </section>
+    
+    <!-- Google Tag Manager -->
+    
+    <!-- End Google Tag Manager -->
+
+
+</div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 09:02:27 +0000</pubDate>
+      <source>https://www.bloomberg.com/news/articles/2021-08-11/mailchimp-is-said-to-explore-sale-at-10-billion-plus-valuation</source>
+    </item>
+    <item>
+      <title>Assembler CSS, a modern utility-first framework</title>
+      <link>https://asmcss.com/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___asmcss_com_/image.jpg" /> 
+<div id="readability-page-1" class="page">
+<section x-style="gradient:-90deg,@indigo-500,@blue-500;">
+  
+  <div x-apply="container" x-style="mt:-80px">
+    <article x-style="pt:7rem; xl|pt:0; xl|flex; xl|align-items:center; xl|h:100vh;">
+      <div x-style="sm|text-align:center; xl|text-align:left;flex:1;">
+        
+        <p x-style="m:0; font-size:1.125rem; font-weight:300; md|font-size:1.375rem; line-height:@line-height-relaxed; color:@gray-100;">
+          Quickly prototype and build astonishing websites and UI components without installing and
+          maintaining complicated software stacks.
+        </p>
+        
+      </div>
+      <p>
+      </p>
+    </article>
+  </div>
+</section>
+<section x-style="pt:3rem; bg-color:white; color:@gray-700">
+  <div x-apply="container">
+    <section x-style="mb:3rem; lg|text-align:center;">
+      <h2 x-style="mb:0.5rem; mt:0; text:4xl; mt:0; mb:1rem;color:@gray-900">Modern utility-first framework</h2>
+      <p x-style="my:0; text:xl; font-weight:300; lg|mx:auto; lg|max-w:40rem; xl|max-w:60rem">
+        Static CSS frameworks are shipped bundled with tons of classes you never use, resulting in higher load times.
+        Assembler&#39;s critical mission is to improve the performance of your website by
+        generating only the minimum amount of CSS each webpage needs.
+      </p>
+    </section>
+    <section x-style="flex; flex-direction:column; lg|flex-direction:row-reverse; align-items:center;">
+      <div x-style="lg|w:50%">
+        <h3 x-style="text:2xl; mt:0; mb:1rem;color:@gray-900">Reusability for the win</h3>
+        <p x-style="text:lg; font-weight:300; mt:0; mb:1rem;">
+          Stop wasting your time by being redundant and create reusable mixins directly inside your CSS code. Apply them to your UI
+          components and experience a better way of making web pages: no hassle, no preprocessing,
+          no software to install.
+        </p>
+      </div>
+      <p>
+      </p>
+    </section>
+  </div>
+</section>
+<section x-style="py:3rem; bg-color:white; color:@gray-700">
+  <div x-apply="container">
+    <section x-style="flex; flex-col; lg|flex-row; align-items:center;">
+      <div x-style="lg|w:50%">
+        <h3 x-style="text:2xl; mt:0; mb:1rem;color:@gray-900">New dog, old tricks</h3>
+        <p x-style="text:lg; font-weight:300; mt:0; mb:1rem;">
+          If you ever wrote CSS code, then you are already an expert with Assembler CSS. We didn&#39;t reinvent
+          the wheel, we made it better, so you can focus on what you do best: awesome web pages and amazing
+          UI components.
+        </p>
+      </div>
+      <p>
+      </p>
+    </section>
+  </div>
+</section>
+<section x-style="py:3rem; bg-color:@gray-50">
+  <div x-apply="container">
+    <section x-style="text-align:center;">
+      <h2 x-style="mb:0.5rem; mt:0; font-size:@font-size-4xl;">Explore an amazing new Universe!</h2>
+      <p x-style="my:0; font-size:@font-size-xl; font-weight:300; max-w:40rem; mx:auto;">
+        Assembler CSS comes bundled with tons of great features that make designing complex web pages a walk in the park.
+      </p>
+    </section>
+    <section x-style="mt:2.5rem; grid; lg|grid-cols:2; gap:32px;">
+      <div x-style="color:@gray-900; flex;">
+        <section>
+          
+        </section>
+        <section x-style="ml:1rem;">
+          <h3 x-style="font-size:@font-size-xl; font-weight:700; mt:0; mb:0.5rem;">
+            Lightweight
+          </h3>
+          <p x-style="my:0; color:@gray-600;">
+            You don’t have to worry anymore about the size of your CSS files since the framework is only ~8kB in size
+            (gzip), and everything else is generated just-in-time.
+          </p>
+        </section>
+      </div>
+      <div x-style="color:@gray-900; flex;">
+        <section>
+          
+        </section>
+        <section x-style="ml:1rem;">
+          <h3 x-style="font-size:@font-size-xl; font-weight:700; mt:0; mb:0.5rem;">
+            Blazing fast
+          </h3>
+          <p x-style="my:0; color:@gray-600;">
+            We took advantage of existing modern web technologies and built something that is truly high-performant.
+            You can load thousands of UI components, and your page will still render smoothly.
+          </p>
+        </section>
+      </div>
+      <div x-style="color:@gray-900; flex;">
+        <section>
+          
+        </section>
+        <section x-style="ml:1rem;">
+          <h3 x-style="font-size:@font-size-xl; font-weight:700; mt:0; mb:0.5rem;">
+            Easy to learn
+          </h3>
+          <p x-style="my:0; color:@gray-600;">
+            We designed Assembler CSS to resemble existing technologies and to help users become pro-efficient
+            in using the framework as quickly as humanly possible.
+          </p>
+        </section>
+      </div>
+      <div x-style="color:@gray-900; flex;">
+        <section>
+          
+        </section>
+        <section x-style="ml:1rem;">
+          <h3 x-style="font-size:@font-size-xl; font-weight:700; mt:0; mb:0.5rem;">
+            Flexible and extensible
+          </h3>
+          <p x-style="my:0; color:@gray-600;">
+            Focus on the important stuff and create reusable mixins and scopes,
+            complex grid templates, or use Assembler CSS to augment your favorite CSS framework.
+          </p>
+        </section>
+      </div>
+    </section>
+  </div>
+</section>
+<section x-style="gradient:45deg,@indigo-500,@blue-500; py:5rem; color:white;">
+  <div x-apply="container" x-style="md|max-w:80%; lg|max-w:70%; xl|max-w:40%;">
+    <article x-style="flex; align-items:center;">
+      <div x-style="text-align:center;">
+        
+        <p x-style="m:0; font-size:1.125rem; md|text:xl; line-height:@line-height-relaxed; color:@gray-100;
+                    font-style:italic; before!content:&#39;&#34;&#39;; after!content:&#39;&#34;&#39;;">
+          We&#39;ve decided to develop Assembler CSS as a reaction to the current state of the ecosystem,
+          not just as a solution to our company&#39;s needs. Designing web pages should be an enjoyable creative process,
+          but the magic is lost when you force designers to use complex software to produce CSS
+        </p>
+        <div x-style="flex; justify-content:center; mt:2rem;">
+          <section x-style="flex; flex-col; sm|flex-row; align-items:center; pl:16px;">
+            
+            <span x-style="text:xl; font-weight:600; ml:0.875rem;">Marius Sarca</span>
+            <span x-style="text:lg; font-weight:300; ml:0.5rem; sm|before!content:@breadcrumb-divider; before!pr:8px;">
+              CEO, Software architect
+            </span>
+          </section>
+        </div>
+      </div>
+    </article>
+    
+  </div>
+</section>
+
+
+
+</div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 08:01:46 +0000</pubDate>
+      <source>https://asmcss.com/</source>
+    </item>
+    <item>
+      <title>Tiny tools and the ephemeral nature of digital art</title>
+      <link>http://www.nathalielawhead.com/candybox/tiny-tools-and-the-ephemeral-nature-of-digital-art</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/http___www_nathalielawhead_com_candybox_tiny-tools-and-the-ephemeral-nature-of-digital-art/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+					<div>	
+						<p>It has been a hot minute since I wrote about tools. I’ve got a ton of emails to answer, too much to do, and a lot of work on the <a href="https://alienmelon.itch.io/electric-zine-maker" rel="noopener" target="_blank">Electric Zine Maker</a> that needs doing but… I’ll just make a moment to finally talk about tools and digital art again!</p>
+<p>Before I begin, here is some recommended reading:</p>
+<p></p>
+<blockquote data-width="550" data-dnt="true">
+<p lang="en" dir="ltr">My Procreate Curl Brushes Are HERE!! I made over 50+ different coil, curl, kinky, and wavy texture brushes!  I also made more outline braid brushes, and lashes, edges. </p>
+<p>Check them out in my bio! ? <a href="https://t.co/znaXWJBT0C">pic.twitter.com/znaXWJBT0C</a></p>
+<p>— Brushes in Bio!! • Vegalia (@byvegalia) <a href="https://twitter.com/byvegalia/status/1406009115026001927?ref_src=twsrc%5Etfw">June 18, 2021</a></p></blockquote>
+
+<p>And please check out <a href="https://byvegalia.com/" rel="noopener" target="_blank">these brushes by By. Vegalia</a>, and then give the <a href="http://afrohairlibrary.org/artists/" rel="noopener" target="_blank">Open Source Afro Hair Library</a> <a href="https://twitter.com/afrohairlibrary/" rel="noopener" target="_blank">a follow</a>, because that’s all meaningfully important work.</p>
+<p></p>
+<p>As the title suggests… I’ve been thinking a lot about the ephemeral nature of digital art.</p>
+<p>I think it’s fascinating how certain art will outlive the tools it was made in, or some tools will outlive the art… with formats once supported in that tool just dying out and no longer being something you can even see.</p>
+<p>Games occupy a fragile place in all this. I often bring that up. Games made by smaller developers just five years ago, even the ones that had some kind of impact and were generously talked about in their time, fade into obscurity. The many updates to Unity since, make accessing the source code an impossible nightmare. They take too much work to maintain. Slowly the game files themselves just vanish…</p>
+<p>Either way, digital art is ephemeral. It does not last. Maybe it can’t because it’s so tied to the capitalist mentalities of technology (iterate, deprecate, force them to update, etc)…</p>
+<p>I love reflecting on all that tho, because of how it can have an influence on your work. Even as a narrative, or the fictional world you build, that type of interpretation of “nostalgia” over what is lost is interesting. I enjoy seeing what we choose to remember. I also wonder how this era of computer, internet, and game culture, is going to be creatively interpreted when its gone.</p>
+<p>So I mean, that’s on my mind lately… What I do appreciate about all this is the small tools that occupy this space. The one-off creative things that let people output something tiny and strange, that they forget about after saving it to their drive.</p>
+<p><em>For example…</em></p>
+<p></p>
+<p><a href="http://pixelverse.org/experiments/natsukashii/" rel="noopener" target="_blank">Natsukashii v1.2</a> is a delightful example of this. It’s a browser tool that lets you draw with ASCII like characters, and has this retro CRT effect applied to whatever art you make in it. The art is super specific to it. It has a unique look inspired by the creative direction of the person that made it. I saw people on Twitter really getting into it. Anything done in it is uniquely a product of it.</p>
+<p></p>
+<p><a href="https://noisedeck.app/" rel="noopener" target="_blank">Noisedesk</a> is a virtual console for mixing visual noise. It generates interesting and strange glitchy art. You’re given a lot of sliders, options, tabs, and drop down menus to manipulate values… the thing you create is moving next to the generous UI. The art made in Noisedesk is as equally unique to it, as it is to our current conceptions of glitch art.</p>
+<p>Similar to Noisedesk is <a href="https://photomosh.com/" rel="noopener" target="_blank">Photomosh</a>, a tool that lets you glitch images, videos, or your webcam… and then output as images, gif, or video.</p>
+<p>A fun older find is <a href="https://www.pakin.org/random-art/" rel="noopener" target="_blank">Scott Pakin’s Random Art Generator</a> that lets you make generated images, with an option to make those tile-able… Since, you know, you might want that as a tile-ing background for your pre-web2.0 website.</p>
+<p><a href="https://www.travesssmalley.com/Painting_Software/" rel="noopener" target="_blank">Painting Software by Travess Smalley</a> is fun too. It’s like a browser based MS Paint with weird extras specific to whatever the developer felt was interesting.</p>
+<p></p>
+<p><a href="https://flow.constraint.systems/" rel="noopener" target="_blank">Flow</a> is another one that I REALLY love as an example to all this. It’s as niche as it is unique. It’s an “image editor” that lets you distort pixels in any direction that you set. The image shifts and moves based on what area you select, and what direction you want it to shift.</p>
+<p>It’s kind of iconic to this type of tools. Not “big” enough to be maintained by a major corporation, but just small enough to be some one-off thing that takes up meaningful space before disappearing.</p>
+<blockquote data-width="550" data-dnt="true">
+<p lang="en" dir="ltr">Check out a cool new app for painting in VR:<a href="https://t.co/fXKk3WwC8M">https://t.co/fXKk3WwC8M</a><a href="https://twitter.com/hashtag/vr?src=hash&amp;ref_src=twsrc%5Etfw">#vr</a> <a href="https://twitter.com/hashtag/oculus?src=hash&amp;ref_src=twsrc%5Etfw">#oculus</a> <a href="https://twitter.com/hashtag/virtualreality?src=hash&amp;ref_src=twsrc%5Etfw">#virtualreality</a> <a href="https://twitter.com/hashtag/design?src=hash&amp;ref_src=twsrc%5Etfw">#design</a> <a href="https://twitter.com/hashtag/art?src=hash&amp;ref_src=twsrc%5Etfw">#art</a> <a href="https://twitter.com/hashtag/painting?src=hash&amp;ref_src=twsrc%5Etfw">#painting</a> <a href="https://twitter.com/hashtag/digitalart?src=hash&amp;ref_src=twsrc%5Etfw">#digitalart</a> <a href="https://t.co/KdMv0RLiwr">pic.twitter.com/KdMv0RLiwr</a></p>
+<p>— 80 LEVEL (@80Level) <a href="https://twitter.com/80Level/status/1393115585391824896?ref_src=twsrc%5Etfw">May 14, 2021</a></p></blockquote>
+
+<p>See also <a href="http://www.stripegenerator.com/" rel="noopener" target="_blank">Sripegenerator</a> and <a href="http://www.tartanmaker.com/" rel="noopener" target="_blank">Tartanmaker</a> for very old art that was a trend in web design once. In this case the trend is gone but these generators still exist, slowly deteriorating, forgotten in their corner of the internet.</p>
+<p>…Or <a href="https://maxbittker.github.io/broider/" rel="noopener" target="_blank">Max Bittker’s Broider</a> a generator for making 9-patch borders. It outputs code that you copy/paste for use in your CSS.</p>
+<p>Ok, so… That’s most of my hoarded links. I feel like, in their own way, they illustrate how easily these tools are lost. I see so many of them on Twitter or itch.io that it’s hard to keep track of them.</p>
+<p>I feel like THAT is what it’s all about. Letting people make strange things that mean something to them, that kind of offer a way of remembering that moment in time.</p>
+<p></p>
+<p><a href="https://kidpix.app/" rel="noopener" target="_blank">Kidpix was recently ported to the browser, as a browser app</a>.</p>
+<p>What I think is most fascinating about it is that this version is slightly less true to the original. Porting it to the browser means that you have to make it work inside the browser. Small compromises made here and there, and it’s slightly more removed from what it once was… then it even preforms differently across different browsers.</p>
+<p>I recently came across <a href="https://www.bbcbasic.co.uk/bbcsdl/" rel="noopener" target="_blank">BBC BASIC for SDL 2.0</a></p>
+<blockquote><p>“BBC BASIC for SDL 2.0 (BBCSDL) is an entirely free advanced cross-platform implementation of BBC BASIC for Linux (x86 CPU only), MacOS, Raspberry Pi (Pi OS), Windows, Android, iOS or for running in a browser.”</p></blockquote>
+<p>Which I think is also interesting, and I really want to work it into this post, so here you have it!</p>
+<p>Emulation is fascinating for how it fits into all this too. The games or software aren’t necessarily rebuilt from the ground up to be shoehorned into a new format (web, mobile, modern desktops)… but, instead, the old stuff runs in some box that roughly simulates an era.</p>
+<p></p>
+<p>My last example, one in a million in terms of an example like this, is <a href="https://www.bbcmicrobot.com/" rel="noopener" target="_blank">the BBC Micro Bot</a>. </p>
+<blockquote><p>“BBC Micro bot runs your tweet on an 8-bit computer emulator. Tweet-sized programs are written in BBC BASIC – a language created by Sophie Wilson in 1981 for the BBC Micro.”</p></blockquote>
+<p>…When tools, or art generation, grow to exist specifically in symbiosis with social media platforms like Twitter.</p>
+<p>It’s an interesting microcosm in digital art. A change to desktop computers wipes out an entire history of software, but people have an easier time preserving that history. There are still ways of keeping those older programs running.</p>
+<p>I’m both stressed by how easy it is to lose this stuff (<a href="http://tetrageddon.com" rel="noopener" target="_blank">it’s so much work to maintain!</a>), but also appreciate the fact that people make it despite knowing how impermanent it is.</p>
+<p>So… these have been my most recent finds. Please check them out and share what you made in it. You might end up seeing it again years from now, and fondly remember the time you shared with that tiny tool.</p>
+<p></p>
+<p>Also, <a href="https://rogueengine.io/" rel="noopener" target="_blank">Rogue Engine</a> was recently released. It’s an editor and environment for making web games and apps using three.js. It’s new and looks interesting. If you’re looking for something else to make games in, maybe go check that out too!</p>
+<p>More on tools…</p>
+<p><a href="https://emreed.net/CC_Class.html" rel="noopener" target="_blank">https://emreed.net/CC_Class.html</a></p>
+<p>More of my writing on tools…</p>
+
+
+
+
+
+																
+					</div><!--/.entry-->
+				</div></div>]]></content:encoded>
+      <pubDate>Wed, 11 Aug 2021 10:29:46 +0000</pubDate>
+      <source>http://www.nathalielawhead.com/candybox/tiny-tools-and-the-ephemeral-nature-of-digital-art</source>
+    </item>
   </channel>
 </rss>
