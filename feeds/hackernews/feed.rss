@@ -12551,5 +12551,1498 @@ In a prepared emailed statement, the Wikimedia Foundation said that a global Wik
       <pubDate>Thu, 12 Aug 2021 16:52:16 +0000</pubDate>
       <source>https://undark.org/2021/08/12/wikipedia-has-a-language-problem-heres-how-to-fix-it/</source>
     </item>
+    <item>
+      <title>US Forces Being “Rushed” to Kabul Airport as Embassy Evacuation Underway</title>
+      <link>https://twitter.com/AdityaRajKaul/status/1425880902756757511</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="ScriptLoadFailure"><form action="" method="GET"><div dir="auto"><p><span>Something went wrong, but don’t fret — let’s give it another shot.</span></p></div></form></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 18:35:04 +0000</pubDate>
+      <source>https://twitter.com/AdityaRajKaul/status/1425880902756757511</source>
+    </item>
+    <item>
+      <title>Police Misuse of Facial Recognition – Three Wrongful Arrests and Counting</title>
+      <link>https://www.skynettoday.com/briefs/wrongful-arrests</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_skynettoday_com_briefs_wrongful-arrests/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+      <h2 id="summary">Summary</h2>
+
+<p>In the wake of massive leaps in performance, facial recognition systems are being adopted more and more in the US,particularly by police departments. 
+However, facial recognition systems are known to be biased and flawed, and several documented incidents in which people--all of whom are African American--have been wrongly targeted by the police due to facial recognition have already happened.
+Given these incidents and the known limitations of facial recognition systems, we should think carefully about how to mitigate the negative effects of these systems’ inevitable mistakes.</p>
+
+<h2 id="background">Background</h2>
+
+<p>Facial recognition, or the task of matching images of faces to the
+identity of the person in the picture, is one of the oldest problems
+studied in Computer Vision and AI more broadly. As the name might
+suggest, facial recognition is a way to identify a person using their
+face. The study of this problem began in the 1960s when Woody Bledsoe
+developed measurements that would help classify photos of human faces,
+though this was dependent on human annotation and so not fully
+algorithm-based
+(<a href="https://www.nytimes.com/wirecutter/blog/how-facial-recognition-works/">NYT</a>).</p>
+
+<figure>
+ 
+ <figcaption>
+    Woody Bledsoe, via <a href="https://www.wired.com/story/secret-history-facial-recognition/">Wired</a>
+ </figcaption>
+</figure>
+
+<p>As facial recognition systems improved in the proceeding decades, it was only a matter of time they would be deployed outside the research lab for law enforcement purposes. 
+An early instance of this occurred when Tampa, Florida used a facial recognition surveillance system as it hosted Super Bowl XXXV in 2001 (<a href="https://www.nytimes.com/2019/05/15/business/facial-recognition-software-controversy.html#:~:text=The%202001%20Super%20Bowl,the%20American%20Civil%20Liberties%20Union.">NYT</a>).
+An ABC <a href="https://abcnews.go.com/Technology/story?id=98871&amp;page=1">piece</a> on the Super Bowl incident states that as “fans stepped through the turnstiles at Super BowlXXXV, a camera snapped their image and matched it against a computerized police lineup of known criminals.” and that it “highlighted a debate about the balance between individual privacy and public safety.”</p>
+
+<figure>
+ 
+ <figcaption>
+    History of Facial Recognition, via <a href="https://www.mdpi.com/2079-9292/9/8/1188/htm">MDPI</a>
+ </figcaption>
+</figure>
+
+<p>Since that incident, the technologies underlying facial recognition have improved substantially. 
+The “<a href="https://en.wikipedia.org/wiki/ImageNet#Significance_for_deep_learning">ImageNet moment</a>”
+and rise of <a href="https://en.wikipedia.org/wiki/Deep_learning">deep learning</a> enabled immensely more powerful algorithms that could be used for visual tasks like facial recognition. 
+However, the performance of these algorithms is tied closely with the amount and kinds of data they are fed--if they
+see more faces, they can better figure out what aspects of faces are useful for identifying people. 
+Companies like Facebook have `<a href="https://www.technologyreview.com/2021/02/05/1017388/ai-deep-learning-facial-recognition-data-history/">created</a> massive datasets of user photos--without those users’ knowledge--to
+train powerful computer vision algorithms. 
+Jessamyn West, a librarian in rural Vermont, was
+<a href="https://www.cnn.com/2019/04/19/tech/ai-facial-recognition/index.html">understandably</a> unhappy when she found a photo she uploaded to Flickr had been used in a facial recognition dataset: “I think if anybody had asked at all, I would have had a different feeling.” 
+When these datasets are not collected carefully, they can also cause bias in the algorithms they are used to train (in the sense that these algorithms unintentionally perform worse for some demographic groups) because they might over-represent a particular demographic group. 
+As a result, the benefits of these performance improvements didn’t accrue equally to everyone.</p>
+
+<figure>
+ 
+ <figcaption>
+    Faces from the dataset for NVIDIA&#39;s StyleGAN, via <a href="https://www.cnn.com/2019/04/19/tech/ai-facial-recognition/index.html">CNN</a>
+ </figcaption>
+</figure>
+
+<p>A year after the 2014 Snowden <a href="https://www.bbc.com/news/world-us-canada-23123964">revelations</a> again brought <a href="https://www.nytimes.com/2014/06/01/us/nsa-collecting-millions-of-faces-from-web-images.html">facial recognition</a> and data privacy to the fore, Google’s Photos app came under fire for a sign of racial bias in its algorithm: it sometimes labeled black people as “gorillas” (Google’s unimaginative <a href="https://www.theverge.com/2018/1/12/16882408/google-racist-gorillas-photo-recognition-algorithm-ai">solution</a> was to block the image categories “gorilla,” “chimp,” “chimpanzee,” and “monkey.”). 
+While the Photos incident concerns an image classification algorithm and not facial recognition, this incident helped reveal that machine learning algorithms are only as good as the data used to train them.</p>
+
+<figure>
+ 
+ <figcaption>
+    The Google Photos incident, via <a href="https://www.bbc.com/news/technology-33347866">BBC</a>
+ </figcaption>
+</figure>
+
+<h2 id="people-harmed-by-facial-recognition">People Harmed by Facial Recognition</h2>
+
+<p>Unfortunately, a few mishaps in the Photos app wouldn’t be the worst outcome of biased training data. 
+Facial recognition systems are now used not only to tag faces in apps, but also to identify criminal suspects.
+Clearview AI, likely one of the most controversial companies in recent memory, developed a powerful facial recognition system to be used by law enforcement. 
+The company drew ire and legal complaints for <a href="https://www.nytimes.com/2020/01/18/technology/clearview-privacy-facial-recognition.html">developing</a> its system by scraping over three billion images from Facebook, YouTube, Venmo, and millions of other sites. 
+You, the reader of this article, are more likely than not in Clearview’s database. 
+Even if you have been in the background of someone else’s photo, that photo might show up in a search for you on their app. And, as <em>Buzzfeed News</em> <a href="https://www.buzzfeednews.com/article/ryanmac/clearview-ai-local-police-facial-recognition">reported</a> earlier this year, “more than 7,000 individuals from nearly 2,000 public
+agencies nationwide have used Clearview AI to search through millions of Americans’ faces.”</p>
+
+<p>While Clearview’s CEO Hoan Ton-That claims that facial recognition-enabled apps allow police officers to perform their jobs far more effectively, a *New York Times *article notes that federal and state law enforcement operators knew little about how Clearview works or who was behind it. The defects in facial recognition systems like Clearview’s have already caused a number of known harms.</p>
+
+<p>The <em>Detroit Free Press</em> <a href="https://www.freep.com/story/news/local/michigan/detroit/2020/07/10/facial-recognition-detroit-michael-oliver-robert-williams/5392166002/">learned</a> that in 2019, 25-year-old Michael Oliver was wrongly accused of a felony in a police investigation that used facial recognition. 
+Oliver was <a href="https://www.vice.com/en/article/bv8k8a/faulty-facial-recognition-led-to-his-arrestnow-hes-suing">arrested</a> and charged with a felony count of larceny for supposedly reaching into a teacher’s vehicle, grabbing a cellphone from his hands, and breaking it. A facial recognition system identified Oliver as the culprit, and the police included him in a photo lineup that was shown to the teacher, who identified Oliver as the person responsible. 
+A brief look at photos of Oliver and the culprit reveal a clear difference:</p>
+
+<blockquote>
+  <p>&#34;Oliver—who has an oval-shaped face and a tattoo above his left eyebrow—only vaguely resembles the actual suspect, who has no visible tattoos, a rounder face and darker skin, according to photo evidence.</p>
+</blockquote>
+
+<figure>
+ 
+ <figcaption>
+    Michael Oliver, via <a href="https://www.freep.com/story/news/local/michigan/detroit/2020/07/10/facial-recognition-detroit-michael-oliver-robert-williams/5392166002/">Detroit Free Press</a>
+ </figcaption>
+</figure>
+
+<p>Fortunately, there was evidence to support Oliver’s claim that he was not involved in the incident. 
+His court case was dismissed immediately once his lawyer presented his concerns and photos to the Wayne County Assistant Prosecutor--but his case also demonstrates that innocent citizens can be drawn into criminal cases if an algorithm determines they look like someone else. 
+Oliver told Motherboard:</p>
+
+<blockquote>
+  <p>It was wrong. I lost my job and my car; my whole life had to be put on hold… That technology shouldn’t be used by police.</p>
+</blockquote>
+
+<p>Oliver was not the only victim of the inaccuracy of facial recognition systems on non-white demographics. 
+In June 2020, the <em>New York Times</em> <a href="https://www.nytimes.com/2020/06/24/technology/facial-recognition-arrest.html">reported</a>on another case in which Robert Williams, an African American man, was arrested by the Detroit police because a facial recognition algorithm misidentified him as a shoplifter from a video. 
+The police officers in the case used the result of the algorithm as their main justification for the arrest, despite the report stating that “This document is not a positive identification, … it is an investigative lead only and is not probable cause for arrest.” 
+Despite the case being dismissed two weeks later, the arrest caused Mr. Williams and his family understandable distress:</p>
+
+<blockquote>
+  <p>when he pulled into his driveway in a quiet subdivision in Farmington Hills, Mich., a police car pulled up behind, blocking him in. Two officers got out and handcuffed Mr. Williams on his front lawn, in front of his wife and two young daughters, who were distraught. The police drove Mr. Williams to a detention center. He had his mug shot, fingerprints and DNA taken, and was held overnight. … 30 hours after being arrested, [he was] released on a $1,000 personal bond. He waited outside in the rain for 30 minutes until his wife could pick him up. When he got home at 10 p.m., his five-year-old daughter was still awake. She said she was waiting for him because he had said, while being arrested, that he’d be right back.</p>
+</blockquote>
+
+<figure>
+ 
+ <figcaption>
+    Robert Williams, via <a href="https://www.washingtonpost.com/technology/2021/04/13/facial-recognition-false-arrest-lawsuit/">Washington Post</a>
+ </figcaption>
+</figure>
+
+<p>At the end of 2020, Nijeer Parks became the third known Black man to be affected by a bad facial recognition match. 
+After a shoplifter was confronted by police, he gave them a fake driver’s license and escaped the scene. 
+The photo in that license was sent to state agencies, and Nijeer Parks was found to be a facial recognition match with the photo.
+After a detective compared Parks’s state ID with the driver’s license and agreed it was the same person, and a Hertz employee confirmed the license photo was of the shoplifter, a warrant for Parks’s arrest was issued. 
+As the <em>New York Times</em> <a href="https://www.nytimes.com/2020/12/29/technology/facial-recognition-misidentify-jail.html">reported</a>, Parks spent 10 days in jail and paid about $5000 to defend himself. 
+Several months later, his case was dismissed for lack of evidence. 
+As in Mr. Williams’ case, that does not mean no harm was caused:</p>
+
+<blockquote>
+  <p>I sat down with my family and discussed it … I was afraid to go to trial. I knew I would get 10 years if I lost… I was locked up for no reason. I’ve seen it happen to other people. I’ve seen it on the news. I just never thought it would happen to me. It was a very scary ordeal.</p>
+</blockquote>
+
+<p>Both Parks and Oliver before him sued for their wrongful arrests. 
+The <em>New York Times</em> <a href="https://www.nytimes.com/2020/12/29/technology/facial-recognition-misidentify-jail.html">reported</a>that Parks sued the police, prosecutor, and City of Woodbridge for wrongful arrest, false imprisonment, and violation of his civil rights.
+<a href="https://www.vice.com/en/article/bv8k8a/faulty-facial-recognition-led-to-his-arrestnow-hes-suing">According</a> to <em>Vice</em>, Oliver sued the city of Detroit and the detective who botched the case. 
+Parks’ lawsuit did not ask for damages, while Oliver’s sued for at least $12 million. 
+Both cases make the point that the fault for the wrongful arrests lay not only with the facial recognition algorithms, but also with the detectives in charge for not doing enough due diligence.</p>
+
+<p>In yet another case of what some might call AI-enabled racial profiling, a facial recognition algorithm barred Lamya Robinson onto the premises of a Detroit skating rink. <em>The Verge</em> <a href="https://www.theverge.com/2021/7/15/22578801/black-teen-skating-rink-inaccurate-facial-recognition">reported</a> in July this year that after the algorithm incorrectly matched Robinson with someone else, the rink removed her from the premises. 
+Robinson had never been to the skating rink in question. 
+Her mother was quoted as saying “to me, it’s basically racial profiling … you’re just saying every young Black, brown girl with glasses fits the profile and that’s not right.” 
+Civil rights nonprofit Fight for the Future has been fighting for the ban of facial recognition in retail stores. 
+Following this incident Caitlin Seeley George, the director of campaign and operations at Fight for the Future, stated in a press release:</p>
+
+<blockquote>
+  <p>This is exactly why we think facial recognition should be banned in public places … It’s also not hard to imagine what could have happened if police were called to the scene and how they might have acted on this false information.</p>
+</blockquote>
+
+<h2 id="facial-recognition-should-be-used-with-care">Facial Recognition Should be Used with Care</h2>
+
+<p>It is well-known that facial recognition systems do not work well for everyone. The 2018 <a href="http://gendershades.org/">Gender Shades</a> project, spearheaded by researchers Joy Buolamwini and Timnit Gebru, evaluated the accuracy of AI gender classification products. 
+In their evaluation of commercial systems from IBM, Microsoft, and Face++, they found that all companies’ systems more accurately identified gender for male subjects than for female subjects. 
+The disparity widened when they compared accuracy for whiter males (near 100% in all cases) and darker females (IBM’s and Face++’s systems had roughly 65% accuracy and Microsoft’s had 79.2%).</p>
+
+<figure>
+ 
+ <figcaption>
+    Gender Shades, via <a href="https://ars.electronica.art/outofthebox/en/gender-shades/">Ars Electronica</a>
+ </figcaption>
+</figure>
+
+<p>A 2019 <a href="https://www.nist.gov/news-events/news/2019/12/nist-study-evaluates-effects-race-age-sex-face-recognition-software">study</a> from the National Institute of Standards and Technology (NIST) further buttressed Gender Shades’ arguments, finding empirical evidence for demographic disparities in the facial recognition systems they looked at. 
+They found that false positives--where the algorithm incorrectly identified photos of two different people to be the same person--for African Americans and Asians were higher than those for Caucasians by factors of 10 to 100. Interestingly, some algorithms developed in Asian countries, which may have used more diverse datasets, did not show a dramatic difference in false positives.</p>
+
+<p>Given the Gender Shades study and a litany of other research, it seems inevitable that algorithms will display some biases and defects. 
+We should strive to make them better, but also consider how to use them given their faults. 
+The case of Robert Williams demonstrates a striking failing in the use of an algorithm: the police who arrested Williams may have placed too much trust in the algorithm’s identification, and there were no processes in place to mitigate the impacts of that over-reliance.</p>
+
+<p>According to the Detroit police report, investigators did not arrest Williams immediately, but included his photo in a “6-pack photo lineup” they showed to Katherine Johnston, an investigator who reviewed the surveillance footage that was shared with the police.
+Johnston then identified Williams as the suspect. 
+On face, it seems as though *some *due diligence was performed on the part of the police, because humans were involved in the process that led to Williams’ arrest.</p>
+
+<p>But this line-up story demonstrates both an over-reliance on the facial recognition algorithm and a process that left much to be desired:</p>
+
+<blockquote>
+  <p>Mr. [Brendan] Klare, of Rank One, found fault with Ms. Johnston’s role in the process. “I am not sure if this qualifies them as an eyewitness, or gives their experience any more weight than other persons who may have viewed that same video after the fact,” he said. John Wise, a spokesman for NEC, [a facial recognition provider,] said: “A match using facial recognition alone is not a means for positive identification.”</p>
+</blockquote>
+
+<p>The fact that Johnston only watched surveillance footage of the incident and was asked to identify a suspect from the photo lineup months later introduces serious questions about the credibility of her identification. 
+And, her choice might also reflect that he simply looked the <em>most *similar to the shoplifter among the 6 images. Furthermore, as the *New York Times</em> <a href="https://www.nytimes.com/2020/06/24/technology/facial-recognition-arrest.html">article</a> points out, the police did not perform the full due diligence required to establish Williams as a probable suspect; they simply included his face in a lineup, rather than searching for other evidence that might have linked him to the shoplifting incident. Had they done so, this incident might never have occurred.</p>
+
+<figure>
+ 
+ <figcaption>
+    Mugshots of Nijeer Parks, taken after his arrest, via <a href="https://www.nj.com/middlesex/2020/12/he-spent-10-days-in-jail-after-facial-recognition-software-led-to-the-arrest-of-the-wrong-man-lawsuit-says.html">Nj.com</a>
+ </figcaption>
+</figure>
+
+<p>Similar flaws in procedure are apparent in the investigations that led to Oliver’s and Parks&#39; arrests. Parks was 30 miles away from the scene of the incident for which he was arrested, which he was able to prove, and while he resembled the photo of the suspect there are some clear differences that should have led to more questioning of the algorithm.
+In Oliver’s case, a quick look at a photo of the culprit would have shown that he and Oliver were not the same person: Oliver had faded sleeve tattoos on both his arms, unlike the phone thief. 
+David Robinson, Oliver’s lawyer says the detective in their case blew it: “He certainly was in possession of a photograph of the real crook but for some reason wasn’t able to distinguish the difference between them.”</p>
+
+<figure>
+ 
+ <figcaption>
+    The culprit in Michael Oliver&#39;s case (left), and Michael Oliver (right), via <a href="https://www.freep.com/story/news/local/michigan/detroit/2020/07/10/facial-recognition-detroit-michael-oliver-robert-williams/5392166002/">Detroit Free Press</a>
+ </figcaption>
+</figure>
+
+<p>Oliver’s law-suit further states:</p>
+
+<blockquote>
+  <p>[Police relied] on failed facial recognition technology knowing the science of facial recognition has a substantial error rate among black and brown persons of ethnicity which would lead to the wrongful arrest and incarceration of persons in that ethnic demographic</p>
+</blockquote>
+
+<p>Amidst <a href="https://www.banfacialrecognition.com/">calls</a> for bans on facial recognition around the country, steps forward have been made. 
+After police investigated Oliver’s case, a new policy governing the use of facial recognition software was put into place, which includes stricter rules on police <a href="https://www.freep.com/story/news/local/michigan/detroit/2020/07/10/facial-recognition-detroit-michael-oliver-robert-williams/5392166002/">use</a>: 
+“The technology is now only used as a tool to help solve violent felonies, Detroit police have said.”</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Among the different AI technologies adopted in our daily lives, facial recognition algorithms are one of the most controversial and potentially one of the most impactful. 
+Given the potential impacts of their use, it is vital that those developing and using facial recognition systems think very carefully about the limitations of those systems and how their use will affect people. 
+There is an important ongoing debate about whether facial recognition systems should be allowed in the first place; there is a good argument that they can provide some social good, but many claim that they are still too dangerous to be used at all.
+Regardless of this debate, facial recognition systems are already being used every day, and their misuse has already harmed multiple innocent people. 
+As adoption of this technology continues many more cases of this sort of harm are likely to happen, and so the shortcomings of these systems must be made clear to their users, and proper procedures must be put in place to mitigate potential for their misuse.</p>
+
+    </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 17:50:14 +0000</pubDate>
+      <source>https://www.skynettoday.com/briefs/wrongful-arrests</source>
+    </item>
+    <item>
+      <title>Original source code of various Commodore computers and peripherals</title>
+      <link>https://github.com/mist64/cbmsrc</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text">
+<p>This repository collects the <em>original</em> source code of various Commodore Business Machines (CBM) computers converted to a modern encoding (ASCII, LF, indentation).</p>
+<p>Using <a href="https://github.com/mist64/kernalemu">kernalemu</a> and <a href="https://github.com/mist64/cbm6502asm">cbm6502asm</a>, almost all source in this repo can be built from the UNIX command line. To build everything, run <code>build.sh</code> from the Unix command line, on a case-insensitive filesystem.</p>
+<h2><a id="user-content-kim-1aim-65" aria-hidden="true" href="#kim-1aim-65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KIM-1/AIM-65</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/MONITOR_KIM">MONITOR_KIM</a></td>
+<td>1975</td>
+<td>KIM-1 ROM (6530-002, 6530-003)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/MONITOR_AIM65">MONITOR_AIM65</a></td>
+<td>1978</td>
+<td>AIM-65 monitor</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/TIM">TIM</a></td>
+<td>1976</td>
+<td>TIM ROM (6530-004)</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-pet" aria-hidden="true" href="#pet"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>PET</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V1_REC">BASIC_PET_V1_REC</a></td>
+<td>1977</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V1R_REC">BASIC_PET_V1R_REC</a></td>
+<td>1977</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V2_MICROSOFT">BASIC_PET_V2_MICROSOFT</a></td>
+<td>1978</td>
+<td>Microsoft BASIC V2 (MACRO-11)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V2_REC">BASIC_PET_V2_REC</a></td>
+<td>1978</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V4_1979-07-23">BASIC_PET_V4_1979-07-23</a></td>
+<td>1979</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V4_REC">BASIC_PET_V4_REC</a></td>
+<td>1980</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_PET_V4R_REC">BASIC_PET_V4R_REC</a></td>
+<td>1980</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_PET_1.0_REC">KERNAL_PET_1.0_REC</a></td>
+<td>1977</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_PET_2.0_REC">KERNAL_PET_2.0_REC</a></td>
+<td>1978</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_PET_4.0_1979-10-23">KERNAL_PET_4.0_1979-10-23</a></td>
+<td>1979</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_PET_4.0_REC">KERNAL_PET_4.0_REC</a></td>
+<td>1980</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDITOR_PET_EURO">EDITOR_PET_EURO</a></td>
+<td>1981</td>
+<td>European editor for CBM 8032</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-cbm2" aria-hidden="true" href="#cbm2"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CBM2</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_CBM2_1982-11-19">BASIC_CBM2_1982-11-19</a></td>
+<td>1982</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_CBM2_1983-05-31">BASIC_CBM2_1983-05-31</a></td>
+<td>1983</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_CBM2_1984-01-04">BASIC_CBM2_1984-01-04</a></td>
+<td>1984</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDITOR_CBM2_1982-11-19">EDITOR_CBM2_1982-11-19</a></td>
+<td>1982</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDITOR_CBM2_1983-05-31">EDITOR_CBM2_1983-05-31</a></td>
+<td>1983</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_CBM2_1982-11-19">KERNAL_CBM2_1982-11-19</a></td>
+<td>1982</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_CBM2_1983-05-31">KERNAL_CBM2_1983-05-31</a></td>
+<td>1983</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_CBM2_1983-07-07">KERNAL_CBM2_1983-07-07</a></td>
+<td>1983</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-vic-20" aria-hidden="true" href="#vic-20"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>VIC-20</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_VIC">BASIC_VIC</a></td>
+<td>1980</td>
+<td>901486-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_VIC_04">KERNAL_VIC_04</a></td>
+<td>1980</td>
+<td>901486-04</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-c64" aria-hidden="true" href="#c64"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>C64</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C64">BASIC_C64</a></td>
+<td>1982</td>
+<td>901226-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C64_BSO">BASIC_C64_BSO</a></td>
+<td>1982</td>
+<td>901226-01, BSO syntax</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C64GS">BASIC_C64GS</a></td>
+<td>1990</td>
+<td>390852-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C64_01">KERNAL_C64_01</a></td>
+<td>1982</td>
+<td>901227-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C64_02">KERNAL_C64_02</a></td>
+<td>1982</td>
+<td>901227-02</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C64_03">KERNAL_C64_03</a></td>
+<td>1983</td>
+<td>901227-03</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C64_03_BSO">KERNAL_C64_03_BSO</a></td>
+<td>1983</td>
+<td>901227-03, BSO syntax</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C64GS">KERNAL_C64GS</a></td>
+<td>1990</td>
+<td>390852-01</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-ultimax" aria-hidden="true" href="#ultimax"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Ultimax</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_MAX_REC">BASIC_MAX_REC</a></td>
+<td>1982</td>
+<td>901230-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_MAX_REC">KERNAL_MAX_REC</a></td>
+<td>1982</td>
+<td>901231-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_MAX_MINI_REC">BASIC_MAX_MINI_REC</a></td>
+<td>1982</td>
+<td>901233-01 (MAX3101)</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-ted-c16-c116-plus4" aria-hidden="true" href="#ted-c16-c116-plus4"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TED (C16, C116, Plus/4)</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_TED">BASIC_TED</a></td>
+<td>1984</td>
+<td>318006-01</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_TED_04">KERNAL_TED_04</a></td>
+<td>1984</td>
+<td>318004-04 (PAL), 318005-04 (NTSC)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_TED_05">KERNAL_TED_05</a></td>
+<td>1984</td>
+<td>318004-05 (PAL), 318005-05 (NTSC)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/CHARSET_TED">CHARSET_TED</a></td>
+<td>1984</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-c128" aria-hidden="true" href="#c128"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>C128</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C128_03">BASIC_C128_03</a></td>
+<td>1985</td>
+<td>318018-03, 318019-03</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C128_04">BASIC_C128_04</a></td>
+<td>1986</td>
+<td>318018-04, 318019-04</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDITOR_C128">EDITOR_C128</a></td>
+<td>1985</td>
+<td>318020-05</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDITOR_C128_DIN">EDITOR_C128_DIN</a></td>
+<td>1985</td>
+<td>315078-03, German</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDITOR_C128_NATIONAL">EDITOR_C128_NATIONAL</a></td>
+<td>1987</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C128_03">KERNAL_C128_03</a></td>
+<td>1985</td>
+<td>318020-03</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C128_05">KERNAL_C128_05</a></td>
+<td>1985</td>
+<td>318020-05</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C128_06">KERNAL_C128_06</a></td>
+<td>1988</td>
+<td>318020-06</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/MONITOR_C128">MONITOR_C128</a></td>
+<td>1985</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/CHARSET_C128_NATIONAL">CHARSET_C128_NATIONAL</a></td>
+<td>1985</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-c65" aria-hidden="true" href="#c65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>C65</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C65">BASIC_C65</a></td>
+<td>1991</td>
+<td>C65 BASIC (911115)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/GRAPHICS_C65">GRAPHICS_C65</a></td>
+<td>1991</td>
+<td>C65 BASIC Graphics lib (911119)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C65">KERNAL_C65</a></td>
+<td>1991</td>
+<td>C65 KERNAL, EDITOR, MONITOR (911119)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_C65">DOS_C65</a></td>
+<td>1991</td>
+<td>C65 DOS (911119)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/BASIC_C64_C65">BASIC_C64_C65</a></td>
+<td>1991</td>
+<td>C64 mode BASIC V2 (900531)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KERNAL_C64_C65">KERNAL_C64_C65</a></td>
+<td>1991</td>
+<td>C64 mode KERNAL (910117)</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-disk-drives" aria-hidden="true" href="#disk-drives"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Disk Drives</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_4040">DOS_4040</a></td>
+<td>1980</td>
+<td>DOS V2.0; IEEE-488; 2x SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_8060_REC">DOS_8060_REC</a></td>
+<td>1980</td>
+<td>DOS V7.0; IEEE-488; 2x SS/DS DD 8&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_8070">DOS_8070</a></td>
+<td>1980</td>
+<td>DOS V3.0; IEEE-488; SS/DS DD 8&#34; + HD</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_8250">DOS_8250</a></td>
+<td>1981</td>
+<td>DOS V2.7; IEEE-488; 2x SS/DS QD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_8280">DOS_8280</a></td>
+<td>1981</td>
+<td>DOS V3.0; IEEE-488; 2x DS QD 8&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_D9065">DOS_D9065</a></td>
+<td>1981</td>
+<td>DOS V3.0; IEEE-488; HD</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1540">DOS_1540</a></td>
+<td>1981</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541_01_REC">DOS_1541_01_REC</a></td>
+<td>1982</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541_02_REC">DOS_1541_02_REC</a></td>
+<td>198?</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541_03_REC">DOS_1541_03_REC</a></td>
+<td>198?</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541_05">DOS_1541_05</a></td>
+<td>1984</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541_05_REC">DOS_1541_05_REC</a></td>
+<td>198?</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541_06_REC">DOS_1541_06_REC</a></td>
+<td>198?</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541C_01_REC">DOS_1541C_01_REC</a></td>
+<td>198?</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541C_02">DOS_1541C_02</a></td>
+<td>1985</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541C_02_REC">DOS_1541C_02_REC</a></td>
+<td>1985</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541C_03">DOS_1541C_03</a></td>
+<td>1987</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1541C_03_REC">DOS_1541C_03_REC</a></td>
+<td>1987</td>
+<td>DOS V2.6; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1551">DOS_1551</a></td>
+<td>1984</td>
+<td>DOS V2.6; TCBM; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1570">DOS_1570</a></td>
+<td>1985</td>
+<td>DOS V3.0; Serial; SS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1571_03">DOS_1571_03</a></td>
+<td>1986</td>
+<td>DOS V3.0; Serial; DS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1571_05">DOS_1571_05</a></td>
+<td>1986</td>
+<td>DOS V3.0; Serial; DS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1571CR">DOS_1571CR</a></td>
+<td>1986</td>
+<td>DOS V3.1; Serial; DS DD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1581">DOS_1581</a></td>
+<td>1987</td>
+<td>DOS V10; Serial; DS DD 3.5&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1581_1987-03-12">DOS_1581_1987-03-12</a></td>
+<td>1987</td>
+<td>DOS V10; Serial; DS DD 3.5&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_1581_1987-03-19">DOS_1581_1987-03-19</a></td>
+<td>1987</td>
+<td>DOS V10; Serial; DS DD 3.5&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/RAMDOS">RAMDOS</a></td>
+<td>1986</td>
+<td>REU 1764/1750 RAM disk</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/CONTROLLER_1001">CONTROLLER_1001</a></td>
+<td>1983</td>
+<td>Controller; DS QD 5.25&#34;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/CONTROLLER_8250">CONTROLLER_8250</a></td>
+<td>1981</td>
+<td>Controller; 2x DS QD 5.25&#34;</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-printer-rom" aria-hidden="true" href="#printer-rom"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Printer ROM</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/PRINTER_8023P">PRINTER_8023P</a></td>
+<td>1980</td>
+<td>IEEE-488; based on Brother M82</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-software" aria-hidden="true" href="#software"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Software</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KIMATH">KIMATH</a></td>
+<td>1976</td>
+<td>KIM-1 Math Package</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/MATHPACK">MATHPACK</a></td>
+<td>1979</td>
+<td>CBM2 Math Package</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/MONITOR_PET_ADDON">MONITOR_PET_ADDON</a></td>
+<td>1981</td>
+<td>RAM-based monitor for PET 8x92</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/MONITOR_C64">MONITOR_C64</a></td>
+<td>1982</td>
+<td>RAM-based monitor for C64</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DISK_MONITOR">DISK_MONITOR</a></td>
+<td>1980</td>
+<td>Monitor extension for PET</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/DOS_SHELL">DOS_SHELL</a></td>
+<td>1985</td>
+<td>DOS SHELL tool (1571 Test/Demo disk)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/FIG">FIG</a></td>
+<td>1980</td>
+<td>fig-FORTH</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-software-resident-assembler--hcd65" aria-hidden="true" href="#software-resident-assembler--hcd65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Software: Resident Assembler &amp; HCD65</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_AIM65_REC">ASSEMBLER_AIM65_REC</a></td>
+<td>1978</td>
+<td>4 KB, heavily optimized</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_REC">ASSEMBLER_PET_REC</a></td>
+<td>197?</td>
+<td>ROM 2 only (undated)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_V112779_REC">ASSEMBLER_PET_V112779_REC</a></td>
+<td>1979</td>
+<td>ROM 2 only, adds mul/div, error messages</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_V121579_REC">ASSEMBLER_PET_V121579_REC</a></td>
+<td>1979</td>
+<td>ROM 2/4, adds <code>.IFN</code>/<code>.IFE</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_V090580_A_REC">ASSEMBLER_PET_V090580_A_REC</a></td>
+<td>1980</td>
+<td>adds XREF support</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_V090580_B_REC">ASSEMBLER_PET_V090580_B_REC</a></td>
+<td>1980</td>
+<td>optimizations</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_V102780_REC">ASSEMBLER_PET_V102780_REC</a></td>
+<td>1980</td>
+<td>bugfixes, ROM auto-detect</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_PET_V26MAR82RR_REC">ASSEMBLER_PET_V26MAR82RR_REC</a></td>
+<td>1982</td>
+<td>based on V090580_B, LST output changes, non-mainline</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_C64_REC">ASSEMBLER_C64_REC</a></td>
+<td>1982</td>
+<td>&#34;C64 Macro Assembler&#34;, adds <code>.MAC</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_TED">ASSEMBLER_TED</a></td>
+<td>1984</td>
+<td>TED version, adds <code>.OPT LON</code>, <code>.OPT MLI</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/ASSEMBLER_C128">ASSEMBLER_C128</a></td>
+<td>1986</td>
+<td>C128 version, heavily commented</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/HCD65_3.5">HCD65_3.5</a></td>
+<td>1986</td>
+<td>BSO-compatible rewrite</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/HCD65_65CE02_0.1">HCD65_65CE02_0.1</a></td>
+<td>1988</td>
+<td>65CE02/4510 opcode support</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/HCD65_65CE02_0.2">HCD65_65CE02_0.2</a></td>
+<td>1990</td>
+<td>update</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/EDT_C128">EDT_C128</a></td>
+<td>1986</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/LOADER_PET">LOADER_PET</a></td>
+<td>1979</td>
+<td>OBJ Loader</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/LOADER_C64">LOADER_C64</a></td>
+<td>1986</td>
+<td>OBJ Loader</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/LOADER_C128">LOADER_C128</a></td>
+<td>1986</td>
+<td>rewrite</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/LOADER_C65">LOADER_C65</a></td>
+<td>1990</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/LOADER_C65_RS232">LOADER_C65_RS232</a></td>
+<td>1990</td>
+<td>RS-232</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-software-games" aria-hidden="true" href="#software-games"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Software: Games</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/KICKMAN">KICKMAN</a></td>
+<td>1982</td>
+<td>Kickman Ultimax Game</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/OMEGA">OMEGA</a></td>
+<td>1982</td>
+<td>Omega Race Ultimax Game</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/WIZARD">WIZARD</a></td>
+<td>1982</td>
+<td>Wizard of Wor Ultimax Game</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-other" aria-hidden="true" href="#other"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Other</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/A2232">A2232</a></td>
+<td>1991</td>
+<td>Amiga A2232 Serial Port Card</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-cross-platform" aria-hidden="true" href="#cross-platform"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Cross-Platform</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Year</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mist64/cbmsrc/blob/master/6502ASM">6502ASM</a></td>
+<td>1989</td>
+<td>VAX/MS-DOS C 65CE02 cross assembler</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="user-content-descriptions" aria-hidden="true" href="#descriptions"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Descriptions</h2>
+<h3><a id="user-content-basic_pet_-kernal_pet_" aria-hidden="true" href="#basic_pet_-kernal_pet_"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_PET_*, KERNAL_PET_*</h3>
+<p>The PET BASIC and KERNAL sources in different versions (197-1980). Reconstructed by Martin Hoffmann-Vetter.</p>
+<ul>
+<li>BASIC_PET_V4_1979-07-23 and KERNAL_PET_4.0_1979-10-23 were OCRed and reconstructed from the <a href="https://www.retro-commodore.eu/pet-tech/" rel="nofollow">LST printouts</a> of a pre-V4 version.</li>
+<li>The other versions were reconstructed from this to match the corresponding binaries:
+<ul>
+<li>BASIC_PET_V1_REC: 901439-01, 901439-05, 901439-02, 901439-06, 901439-03</li>
+<li>BASIC_PET_V1R_REC: 901439-09, 901439-05, 901439-02, 901439-06, 901439-03</li>
+<li>BASIC_PET_V2_REC: 901465-01, 901465-02, 901447-24</li>
+<li>BASIC_PET_V4_REC: 901465-19, 901465-20, 901465-21</li>
+<li>BASIC_PET_V4R_REC: 901465-23, 901465-20, 901465-21</li>
+<li>KERNAL_PET_1.0_REC: 901439-03, 901439-04, 901439-07</li>
+<li>KERNAL_PET_2.0_REC: 901447-24, 901465-03</li>
+<li>KERNAL_PET_4.0_REC: 901465-21, 901447-29, 901465-22</li>
+</ul>
+</li>
+</ul>
+<p>Note that BASIC V1, V1R and V2 were built by Microsoft (see BASIC_PET_V2_MICROSOFT), and the binary was sent to Commodore. After that, Commodore moved BASIC development in-house and converted Microsoft&#39;s V2 source into MDT650 Resident Assembler format. These reconstructed versions of V1 and V1R in &#34;Resident Assembler&#34; format therefore never existed and have only been produced to allow for comparisons against BASIC V2, V4 and V4R (which were built by Commodore with the Resident Assembler).</p>
+<h3><a id="user-content-basic_vic" aria-hidden="true" href="#basic_vic"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_VIC</h3>
+<p>The Commodore VIC-20 BASIC source (901486-01). Extracted from basic.src from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/vic20/vic_src.tar.gz" rel="nofollow">vic_src.tar.gz</a> and formatted the same as the C64 BASIC source.</p>
+<h3><a id="user-content-kernal_vic_04" aria-hidden="true" href="#kernal_vic_04"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KERNAL_VIC_04</h3>
+<p>The Commodore VIC-20 KERNAL source, unreleased version (901486-04). Extracted from kernal.src from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/vic20/vic_src.tar.gz" rel="nofollow">vic_src.tar.gz</a> and formatted the same as the C64 KERNAL source.</p>
+<h3><a id="user-content-basic_c64" aria-hidden="true" href="#basic_c64"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_C64</h3>
+<p>The Commodore 64 BASIC source (901226-01). Extracted from c64-basic.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<p>The source contains the ranges</p>
+<ul>
+<li>$A000-$BF52</li>
+<li>$BF71-$BFFF</li>
+<li>$E000-$E4AB</li>
+</ul>
+<p>The checksum byte at $BF52 is 0 and will have to be calculated in a later step.</p>
+<h3><a id="user-content-basic_max_rec-kernal_max_rec" aria-hidden="true" href="#basic_max_rec-kernal_max_rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_MAX_REC, KERNAL_MAX_REC</h3>
+<p>The Ultimax BASIC cartridge (MAX3102, 901230-01/901231-01). Contains an adapted version of the C64 KERNAL (-01) and a slightly patched version of BASIC. Reconstructed from BASIC_C64 and KERNAL_C64_01.</p>
+<h3><a id="user-content-basic_max_mini_rec" aria-hidden="true" href="#basic_max_mini_rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_MAX_MINI_REC</h3>
+<p>The Ultimax MINI BASIC cartridge (MAX3101, 901233-01). Contains a stripped-down version of the C64 BASIC (no arrays, no trigonometry etc.) and a tiny 1.5 KB KERNAL-like OS. Reconstructed from BASIC_C64 and KERNAL_C64_01.</p>
+<h3><a id="user-content-kernal_c64_01" aria-hidden="true" href="#kernal_c64_01"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KERNAL_C64_01</h3>
+<p>The Commodore 64 KERNAL source, original version (901227-01). Extracted from c64kernal.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<p>The source contains the ranges</p>
+<ul>
+<li>$E500-$FF5A: code</li>
+<li>$FF81-$FFF5: jump table</li>
+<li>$FFFA-$FFFF: vectors</li>
+</ul>
+<p>It does not contain the version byte at $FF80 (which is $AA in the binary) or the &#34;RRBY&#34; signature at $FFF6.</p>
+<h3><a id="user-content-kernal_c64_02" aria-hidden="true" href="#kernal_c64_02"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KERNAL_C64_02</h3>
+<p>The Commodore 64 KERNAL source, universal (PAL/NTSC) version (901227-02).</p>
+<p>It contains the version byte (0) at $FF80, but it does not contain the &#34;RRBY&#34; signature at $FFF6.</p>
+<h3><a id="user-content-kernal_c64_03" aria-hidden="true" href="#kernal_c64_03"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KERNAL_C64_03</h3>
+<p>The Commodore 64 KERNAL source, final version (901227-03). Based on KERNAL_C64_02 and manually patched using</p>
+<ul>
+<li>the <a href="http://pagetable.com/docs/C64_KERNAL_03_LST.pdf" rel="nofollow">LST printout of the -03 KERNAL</a></li>
+<li>the <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">BSO-format SRC from 1987</a></li>
+</ul>
+<p>There are two differences though:</p>
+<ul>
+<li>In both sources, the added patch function <code>PIOKEY</code> ends with <code>JMP CLKHI</code> ($EE85), but the -03 binary contains $EE8E, which is <code>JMP CLKLO</code>. The change was probably done in the binary and not added back to the source. The version in this repository contains the correct <code>JMP CLKLO</code> though.</li>
+<li>The printout LST contains a version byte ($FF80) of 0, the BSO SRC contains the correct version byte of 3. The version in this repository contains a 3.</li>
+</ul>
+<p>The sources have been verified to build the correct -03 KERNAL binary.</p>
+<p>It contains the version byte (3) at $FF80, but it does not contain the &#34;RRBY&#34; signature at $FFF6.</p>
+<h3><a id="user-content-basic_c64_bso-kernal_c64_bso" aria-hidden="true" href="#basic_c64_bso-kernal_c64_bso"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_C64_BSO, KERNAL_C64_BSO</h3>
+<p>This is the C64 BASIC and KERNAL source, converted from PET Resident Assembler syntax to the BSO CR6502/11 assembler by Fred Bowen in 1987, and with updated comments. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">c64_kernal_bas_src.tar.gz</a>.</p>
+<p>This produces the same binaries as BASIC_C64 and KERNAL_C64_03, except for the pre-03 <code>PIOKEY</code> patch (see above).</p>
+<h3><a id="user-content-basic_c64gs-kernal_c64gs" aria-hidden="true" href="#basic_c64gs-kernal_c64gs"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_C64GS, KERNAL_C64GS</h3>
+<p>The Commodore 64GS BASIC and KERNAL (390852-01) source (1990). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">c64_kernal_bas_src.tar.gz</a>.</p>
+<p>The source files are in BSO assembler format and derived from BASIC_C64_BSO and KERNAL_C64_BSO.</p>
+<ul>
+<li>BASIC_C64GS: The source has updated comments, and the binary is identical with the regular C64 BASIC, except for:
+<ul>
+<li>The BASIC vector table is initialized with a literal $F72E as the main loop address. This causes BASIC to jump to the C64GS power-on message in the KERNAL.</li>
+<li>The checksum is hardcoded with $EC.</li>
+</ul>
+</li>
+<li>KERNAL_C64GS: The source has updated comments, and contains the following changes:
+<ul>
+<li>Tape support has been replaced by the power-on message code.</li>
+<li>Memory test has been sped up by only testing one byte per block.</li>
+<li>The <code>PIOKEY</code> patch has been fixed in the source.</li>
+</ul>
+</li>
+</ul>
+<p>The KERNAL source contains the version byte (3) at $FF80 as well as the &#34;RRBY&#34; signature at $FFF6.</p>
+<h3><a id="user-content-basic_ted-kernal_ted_045" aria-hidden="true" href="#basic_ted-kernal_ted_045"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_TED, KERNAL_TED_0{4|5}</h3>
+<p>The Commodore Plus/4, C16 and C116 BASIC 3.5 and KERNAL source (1984). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/plus4/index.html" rel="nofollow">ted_kernal_basic_src.tar.gz</a></p>
+<ul>
+<li>KERNAL_TED_04 is 318004-04 (PAL) and 318005-04 (NTSC). $FF80 = $84/$04. (It was reconstructed from kernal/kernal.xrf in the dump.)</li>
+<li>KERNAL_TED_05 is 318004-05 (PAL) and 318005-05 (NTSC). $FF80 = $85/$05. (The sources were missing a patch, which was reconstructed from kernal/kernal.lst in the dump.)</li>
+</ul>
+<h3><a id="user-content-basic_c128_034-kernal_c128_0356-editor_c128_din-monitor_c128" aria-hidden="true" href="#basic_c128_034-kernal_c128_0356-editor_c128_din-monitor_c128"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_C128_0{3|4}, KERNAL_C128_0{3|5|6}, EDITOR_C128[_DIN], MONITOR_C128</h3>
+<p>The Commodore 128 BASIC 7.0, KERNAL, EDITOR and MONITOR sources (1985/1986). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c128/index.html" rel="nofollow">c128_dev_pack.tar.gz</a></p>
+<ul>
+<li>BASIC_C128_03 is 318018-03/318019-03.</li>
+<li>BASIC_C128_04 is 318018-04/318019-04.</li>
+<li>KERNAL_C128_03 is 318020-03, $FF80 = 0. (It was reconstructed from listings/first_release/kernal.lis in the dump.)</li>
+<li>KERNAL_C128_05 is 318020-05, $FF80 = 1.</li>
+<li>KERNAL_C128_06 is 318020-06, $FF80 = 2. This version seems to have been unreleased.</li>
+<li>EDITOR_C128 is the US version (318020-05)</li>
+<li>EDITOR_C128_DIN is the German version (315078-03). The code is the same as in EDITOR_C128_NATIONAL, but the comments are slightly different.</li>
+<li>EDITOR_C128_NATIONAL contains Denmark (325174-03), Finland/Sweden (325180-03), France/Belgium (325166-03), Germany/Austria (315078-03), Italy (325168-03), Norway (325177-03), Spain (325170-03), Swiss (325172-03).</li>
+</ul>
+<h3><a id="user-content-basic_pet_v2_microsoft" aria-hidden="true" href="#basic_pet_v2_microsoft"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_PET_V2_MICROSOFT</h3>
+<p>The PET BASIC V2 source (1978) as built by Microsoft.</p>
+<ul>
+<li>This is Microsoft&#39;s original source that can also build BASIC for other systems, like OSI and Apple.</li>
+<li>Microsoft built all versions up this one with its own tools and sent the binary (together with the LST) to Commodore.</li>
+<li>On the PET, this was called BASIC V2, Microsoft called it V1.1.</li>
+<li>It includes the &#34;WAIT6502,1&#34; easter egg (symbol <code>ZSTORDO</code>).</li>
+</ul>
+<h3><a id="user-content-basic_c65" aria-hidden="true" href="#basic_c65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_C65</h3>
+<p>The final version of C65 BASIC V10 (911115, 1991-11-15). Source: folder system/9 in <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a></p>
+<h3><a id="user-content-graphics_c65" aria-hidden="true" href="#graphics_c65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>GRAPHICS_C65</h3>
+<p>The final version of the C65 GRAPHICS BASIC (911119, 1991-11-19), the graphics library that is part of BASIC 10. Source: folder system/9 in <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a></p>
+<h3><a id="user-content-kernal_c65" aria-hidden="true" href="#kernal_c65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KERNAL_C65</h3>
+<p>The final version of the C65 KERNAL (called &#34;KERNEL&#34;; 911119, 1991-11-19). Source: folder system/9 in <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a></p>
+<h3><a id="user-content-dos_c65" aria-hidden="true" href="#dos_c65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_C65</h3>
+<p>The final version of the C65 CBDOS (Computer-Based DOS; 911119, 1991-11-19). Source: folder system/9 in <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a></p>
+<h3><a id="user-content-basic_cbm2_-kernal_cbm2_-editor_cbm2_" aria-hidden="true" href="#basic_cbm2_-kernal_cbm2_-editor_cbm2_"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>BASIC_CBM2_*, KERNAL_CBM2_*, EDITOR_CBM2_*</h3>
+<p>The CBM2 BASIC, EDITOR and KERNAL sources in different versions (1982-1984).</p>
+<ul>
+<li>The *_1982-11-19 version is from <a href="http://www.pagetable.com/docs/CBM2_Sources.zip" rel="nofollow">Ruud Baltissen&#39;s ICPUG disks</a>.</li>
+<li>The *_1983-05-31 version is from <a href="https://www.davidviner.com/cbm9.html" rel="nofollow">David Viner</a>.</li>
+<li>KERNAL_1983-07-07 and BASIC_1984-01-04 are from disks 67/68 of the <a href="http://www.zimmers.net/anonftp/pub/cbm/b/CBUG/" rel="nofollow">CBUG</a> library.</li>
+</ul>
+<p>The files have been converted to LF line breaks and LST-style indenting.</p>
+<h3><a id="user-content-editor_pet_euro" aria-hidden="true" href="#editor_pet_euro"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>EDITOR_PET_EURO</h3>
+<p>The &#34;CBM 8032 EURO SCREEN EDITOR 4V2E (E-901474-03)&#34; ROM. Extracted from UNKN008.D80 from <a href="http://www.pagetable.com/docs/CBM2_Sources.zip" rel="nofollow">Ruud Baltissen&#39;s ICPUG disks</a> and converted to LF line breaks and LST-style indenting.</p>
+<h3><a id="user-content-charset_ted" aria-hidden="true" href="#charset_ted"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CHARSET_TED</h3>
+<p>The Character ROM for the TED series (Plus/4, C16 and C116; 1984). Extracted from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/plus4/ted_kernal_basic_src.tar.gz" rel="nofollow">ted_kernal_basic_src.tar.gz</a>.</p>
+<h3><a id="user-content-charset_c128_national" aria-hidden="true" href="#charset_c128_national"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CHARSET_C128_NATIONAL</h3>
+<p>The set of national Character ROMs for the C128 (1985): Denmark (325175-01), Finland/Sweden (325181-01), France/Belgium/Italy (325167-01), Germany/Belgium (315079-01), Norway (325178-01), Spain (325171-01), Switzerland (325173-01).</p>
+<h3><a id="user-content-monitor_pet_addon" aria-hidden="true" href="#monitor_pet_addon"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>MONITOR_PET_ADDON</h3>
+<p>The PET 8096/80196 memory expansion addon monitor (1981). Corrected and fixed-up from the <a href="http://www.zimmers.net/anonftp/pub/cbm/src/pet/ADD-ON-MON.txt" rel="nofollow">OCRed version</a>, which is based on the LST printout</p>
+<h3><a id="user-content-monitor_c64" aria-hidden="true" href="#monitor_c64"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>MONITOR_C64</h3>
+<p>The C64 monitor program. Extracted from ml-monitor-source.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting. The symbol <code>WALKON</code> in the file <code>micii4</code> was changed from <code>1</code> to <code>0</code> so the source builds.</p>
+<h3><a id="user-content-dos_4040" aria-hidden="true" href="#dos_4040"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_4040</h3>
+<p>The CBM 4040/2040 DOS V2.1 source (1980). Extracted from 4040-source.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks.</p>
+<ul>
+<li>Comments say this is for the 2040. The 2040 and the 4040 have identical hardware, the 4040 is just a 2040 with DOS V2.</li>
+</ul>
+<h3><a id="user-content-dos_8250" aria-hidden="true" href="#dos_8250"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_8250</h3>
+<p>The CBM 8250/8050/1001/4040 DOS V2.7 source (1981). Extracted from old-dos-sources.d81 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<ul>
+<li>The same ROM binary will work on the 8250 (DS/QD), the 8050 (SS/QD), the SFD-1001 (DS/QD, single drive) and the 4040 (SS/DD), the differences will be handled at runtime (symbols &#34;NSIDES&#34;, &#34;DOS&#34;).</li>
+<li>Comments in the source call this &#34;SUPER DOS&#34;.</li>
+<li>This only contains the DOS and IEEE code. The controller is in CONTROLLER_8250/CONTROLLER_1001.</li>
+</ul>
+<h3><a id="user-content-dos_8280" aria-hidden="true" href="#dos_8280"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_8280</h3>
+<p>The CBM 8280 V3.1 source (1981). Extracted from <a href="http://www.pagetable.com/docs/CBM2_Sources.zip" rel="nofollow">Ruud Baltissen&#39;s ICPUG disks</a> and converted to LF line breaks and LST-style indenting.</p>
+<h3><a id="user-content-dos_8060_rec" aria-hidden="true" href="#dos_8060_rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_8060_REC</h3>
+<p>The reconstructed source for the CBM 8061/8062 (1980). The source is based on DOS_8070 and modified by Martin Hoffmann-Vetter to build into the DOS portion of the 901488-01/-02 ROMs.</p>
+<p>The CBM 8061 (single side) and 8062 (dual side) are a pair of dual 8&#34; disk drives. They were announced, but only a few were made and never sold publicly, but instead used internally at Commodore.</p>
+<ul>
+<li>The source only contains the bus controller portion of the ROM ($CC78-$FFFF), not the disk controller part.</li>
+<li>The power-on message says &#34;CBM DOS V7.0 8060&#34;.</li>
+</ul>
+<h3><a id="user-content-dos_8070" aria-hidden="true" href="#dos_8070"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_8070</h3>
+<p>The CBM 8070 DOS V3.0 source (1981). Extracted from old-dos-sources.d81 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<p>The CBM 8070 is an unreleased device with one 8&#34; hard drive (#0) and one 8&#34; double-sided floppy drive (#1). It is derived from the dual 8&#34; drive CBM 8061/8062 (1980).</p>
+<ul>
+<li>The source only contains the bus controller portion of the ROM ($CE50-$FFFF), not the disk controller part.</li>
+<li>The power-on message says &#34;CBM DOS V3.0 8070&#34;.</li>
+<li>The file copy code is stored on the hard disk and loaded on demand (&#34;ldcopy&#34;).</li>
+</ul>
+<h3><a id="user-content-dos_d9065" aria-hidden="true" href="#dos_d9065"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_D9065</h3>
+<p>The CBM D9065 DOS V3.0 source (1981). Extracted from old-dos-sources.d81 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<ul>
+<li>The D9065 is an unreleased 7.5 MB hard drive, probably very similar to the D9060/D9090.</li>
+</ul>
+<h3><a id="user-content-dos_1540" aria-hidden="true" href="#dos_1540"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1540</h3>
+<p>The Commodore 1540 DOS V2.6 source (1980), 325302-01/325303-01. Extracted from 1541-2031-copy-1-original-side1.d64/1541-2031-num1.d64 and 1541-2031-source-disk-copy-num2-side1.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<ul>
+<li>The source contains both the IEEE-488 and the IEC serial interface code, so it represents both the CBM 2031 and the Commodore 1540. Different <code>master</code> source files build different configurations.</li>
+<li>The power-on message always says &#34;<code>CBM DOS V2.6 V170</code>&#34; though, which corresponds to the 1540.</li>
+</ul>
+<h3><a id="user-content-dos_1541c_012356_rec" aria-hidden="true" href="#dos_1541c_012356_rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1541[C]_0{1|2|3|5|6}[_REC]</h3>
+<p>The Commodore 1541/1541C/1541-II DOS V2.6 source.</p>
+<ul>
+<li>Directories ending in &#34;<code>_REC</code>&#34; have been reconstructed from DOS_1540 and DOS_1571 to match the ROM images. They all match in case and spacing, so they can be used for comparing versions against each other.</li>
+<li>Directories not ending in &#34;<code>_REC</code>&#34; contain original source from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/drives/all_new_dos.tar.gz" rel="nofollow">all_new_dos.tar.gz</a> and are lower case.</li>
+</ul>
+<p>These are the respective directories:</p>
+<ul>
+<li>DOS_1541_01_REC is 325302-01/901229-01 (1981).</li>
+<li>DOS_1541_02_REC is 325302-01/901229-02.</li>
+<li>DOS_1541_03_REC is 325302-01/901229-03.</li>
+<li>DOS_1541_05[_REC] is 325302-01/901229-05 (1983, shipped with the short board 1541).</li>
+<li>DOS_1541_06_REC is 325302-01/901229-06.</li>
+<li>DOS_1541C_01[_REC] is 251968-01 (1984, shipped with the 1541C)</li>
+<li>DOS_1541C_02[_REC] is 251968-02 (1986, <a href="http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1541C.251968-02.txt" rel="nofollow">release notes</a>)</li>
+<li>DOS_1541C_03[_REC] is 251968-03 (shipped with the 1541-II)</li>
+</ul>
+<p>(Commodore used the PET Resident Assembler to build the 1541 DOS until &#34;_03&#34;, and switched to the BSO assembler afterwards. All original source that has been preserved is in BSO format. To allow for better comparisons, all &#34;_REC&#34; source has been formatted in the PET Resident Assembler format. So note that the &#34;_REC&#34; source after &#34;_03&#34; never existed in this format.)</p>
+<h3><a id="user-content-dos_1551" aria-hidden="true" href="#dos_1551"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1551</h3>
+<p>The Commodore 1551 DOS 2.6 TDISK source (1984), 318008-01. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/drives/all_new_dos.tar.gz" rel="nofollow">all_new_dos.tar.gz</a></p>
+<h3><a id="user-content-dos_1570" aria-hidden="true" href="#dos_1570"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1570</h3>
+<p>The Commodore 1570 DOS 3.0 source (1985), 315090-01. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/drives/all_new_dos.tar.gz" rel="nofollow">all_new_dos.tar.gz</a></p>
+<h3><a id="user-content-dos_1571_03_05cr" aria-hidden="true" href="#dos_1571_03_05cr"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1571{_03|_05|CR}</h3>
+<p>The Commodore 1571 DOS sources:</p>
+<ul>
+<li>DOS_1571_03 is DOS 3.0 (1985), original version (310654-03).</li>
+<li>DOS_1571_05 is DOS 3.0 (1986), updated version (310654-05).</li>
+<li>DOS_1571CR is DOS 3.1 (1986) of the cost-reduced 1571 (318047-01).</li>
+</ul>
+<p>Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/drives/all_new_dos.tar.gz" rel="nofollow">all_new_dos.tar.gz</a>; the -03 version was reconstructed from 1571/310654_03/serlib.lst in the dump.</p>
+<h3><a id="user-content-dos_1581" aria-hidden="true" href="#dos_1581"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1581</h3>
+<h3><a id="user-content-dos_1581_1987-03-12" aria-hidden="true" href="#dos_1581_1987-03-12"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_1581_1987-03-12</h3>
+<ul>
+<li>DOS_1581: The Commodore 1581 DOS source (10.0, 1987-03-20), original version (318045-01). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/drives/all_new_dos.tar.gz" rel="nofollow">all_new_dos.tar.gz</a></li>
+<li>DOS_1581_1987-03-19: work revision, serlib_977e.lst from same archive.</li>
+<li>DOS_1581_1987-03-12: work revision, serlib_a9f5.lst from same archive; &#34;.subttl&#34; typo fixed in sieee.src.</li>
+</ul>
+<h3><a id="user-content-ramdos" aria-hidden="true" href="#ramdos"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>RAMDOS</h3>
+<p>The C64/C128 RAMDISK DOS V4.3 source (1987). Extracted from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/drives/ramdos.zip" rel="nofollow">ramdos.zip</a>. This is a version of Commodore DOS running on the C64/C128 for using a REU (RAM Expansion Unit) as a RAM disk.</p>
+<h3><a id="user-content-controller_8250" aria-hidden="true" href="#controller_8250"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CONTROLLER_8250</h3>
+<p>The CBM 8250/8050/4040 controller source (1981). Extracted from 4040-8050-8250-controller-code-tandon.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<ul>
+<li>This only contains the controller. The DOS and IEEE code is in DOS_8250.</li>
+</ul>
+<h3><a id="user-content-controller_1001" aria-hidden="true" href="#controller_1001"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CONTROLLER_1001</h3>
+<p>The SFD-1001 controller source (1981). Extracted from old-dos-sources.d81 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting.</p>
+<ul>
+<li>This only contains the controller. The DOS and IEEE code is in DOS_8250.</li>
+</ul>
+<h3><a id="user-content-printer_8023p" aria-hidden="true" href="#printer_8023p"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>PRINTER_8023P</h3>
+<p>The CBM 8023P printer source code (1980). Extracted from 8023p-printer-source.d64 from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a> and converted to LF line breaks and LST-style indenting. The <code>.NOLIST</code> directive was commented out in <code>us.ptr.src</code>, so building would create a useful LST file.</p>
+<p>The <a href="http://www.zimmers.net/anonftp/pub/cbm/firmware/printers/8023P-MPP1361/index.html" rel="nofollow">CBM 8023P</a> is a dot matrix printer with an IEEE-488 connection, a 6502/6532/6522-based controller, and a Brother M82 mechanism. The source contains references to Epson Model 3110/3210 mechanisms which seem to have been used in earlier printers.</p>
+<p>The source contains a 90 degree rotated 6x8 pixel variant of the PETSCII character/graphics set.</p>
+<h3><a id="user-content-disk_monitor" aria-hidden="true" href="#disk_monitor"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DISK_MONITOR</h3>
+<p>&#34;DISK MONITOR 2040 V1.0&#34;, an extension to the PET monitor for disk commands (see mon.cmd). Extracted from UNKN008.D80 from <a href="http://www.pagetable.com/docs/CBM2_Sources.zip" rel="nofollow">Ruud Baltissen&#39;s ICPUG disks</a> and converted to LF line breaks and LST-style indenting.</p>
+<h3><a id="user-content-dos_shell" aria-hidden="true" href="#dos_shell"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>DOS_SHELL</h3>
+<p>The DOS Shell tool from the 1571 Test/Demo disk, autoboot for C128. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c128/index.html" rel="nofollow">c128_dev_pack.tar.gz</a></p>
+<h3><a id="user-content-mathpack" aria-hidden="true" href="#mathpack"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>MATHPACK</h3>
+<p>A variant of the &#34;BCD Math Package&#34; printed in the <a href="http://www.zimmers.net/anonftp/pub/cbm/programming/b/Commodore_700_Reference_Manual.pdf" rel="nofollow">Commodore 700 Reference Manual</a>. Extracted from UNKN008.D80 from <a href="http://www.pagetable.com/docs/CBM2_Sources.zip" rel="nofollow">Ruud Baltissen&#39;s ICPUG disks</a> and converted to LF line breaks and LST-style indenting.</p>
+<h3><a id="user-content-assembler_aim65_rec" aria-hidden="true" href="#assembler_aim65_rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ASSEMBLER_AIM65_REC</h3>
+<p>The AIM-65 version of the Resident Assembler (ROM R3224; 1978). Reconstructed from ASSEMBLER_TED.</p>
+<p>This is a reconstruction of the oldest known version of the Resident Assembler. It&#39;s a 4 KB ROM that interfaces with the AIM-65 monitor. It is heavily optimized and outputs to RAM instead of OBJ files. It is probably based on the (lost) 6 KB KIM-1 resident assembler (&#34;KIM-5&#34;). The later PET versions are not based on this (optimizations did not carry over), but the original (also lost) MDT650 version.</p>
+<h3><a id="user-content-assembler_pet__rec" aria-hidden="true" href="#assembler_pet__rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ASSEMBLER_PET_*_REC</h3>
+<p>Different versions of the PET Resident Assembler. Reconstructed from ASSEMBLER_TED, based on work by Martin Hoffmann-Vetter.</p>
+<ul>
+<li>ASSEMBLER_PET_REC (undated, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_Vxxxxxx_pet.prg" rel="nofollow">6696 bytes</a>); for BASIC 2</li>
+<li>ASSEMBLER_PET_V112779_REC (1979-11-27, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V112779_pet.prg" rel="nofollow">7426 bytes</a>); for BASIC 2</li>
+<li>ASSEMBLER_PET_V121579_REC (1979-12-15, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V121579_BASIC4_pet.prg" rel="nofollow">7546 bytes</a> for BASIC 4; and with <code>BASIC4=0</code>: 1979-12-15, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V121579_BASIC2_pet.prg" rel="nofollow">7546 bytes</a> for BASIC 2)</li>
+<li>ASSEMBLER_PET_V090580_A_REC (1980-09-05, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V090580_a_pet.prg" rel="nofollow">7858 bytes</a>)</li>
+<li>ASSEMBLER_PET_V090580_B_REC (1980-09-05, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V090580_b1_pet.prg" rel="nofollow">7938 bytes</a>; and with <code>LINES=$40</code>: 1980-09-05, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V090580_b2_pet.prg" rel="nofollow">7822 bytes</a>)</li>
+<li>ASSEMBLER_PET_V102780_REC (1980-10-27, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V102780_pet.prg" rel="nofollow">8049 bytes</a>)</li>
+<li>ASSEMBLER_PET_V26MAR82RR_REC (1982-03-26, <a href="https://www.pagetable.com/docs/cbmasm/resident_assembler_V26MAR82RR_pet.prg" rel="nofollow">7982 bytes</a>); hacked V090580_B, non-mainline</li>
+</ul>
+<h3><a id="user-content-assembler_c64_rec" aria-hidden="true" href="#assembler_c64_rec"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ASSEMBLER_C64_REC</h3>
+<p>The C64 Macro Assembler (a version of the Commodore Resident Assembler). Reconstructed from ASSEMBLER_TED to build a binary that is identical with the V080282 version, modulo the leftover garage in the original binary between $081A and $0990, which is filled with $AA.</p>
+<h3><a id="user-content-assembler_ted" aria-hidden="true" href="#assembler_ted"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ASSEMBLER_TED</h3>
+<p>A version of the Commodore Resident Assembler for the TED series (Plus/4, C16 and C116; 1984). Extracted from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/plus4/ted_kernal_basic_src.tar.gz" rel="nofollow">ted_kernal_basic_src.tar.gz</a>.</p>
+<h3><a id="user-content-assembler_c128" aria-hidden="true" href="#assembler_c128"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ASSEMBLER_C128</h3>
+<p>The final version of the Commodore Resident Assembler, for the C128 (V022086; 1986).</p>
+<h3><a id="user-content-hcd65_35" aria-hidden="true" href="#hcd65_35"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>HCD65_3.5</h3>
+<p>The release version of the C128 HCD65 assembler. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c128/index.html" rel="nofollow">c128_dev_pack.tar.gz</a></p>
+<h3><a id="user-content-hcd65_65ce02_" aria-hidden="true" href="#hcd65_65ce02_"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>HCD65_65CE02_*</h3>
+<p>The internal updated version of the C128 HCD65 assembler with 65CE02/4510 support. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c128/index.html" rel="nofollow">c128_dev_pack.tar.gz</a></p>
+<p>The 0.1 version was reconstructed from an LST file.</p>
+<h3><a id="user-content-loader_pet" aria-hidden="true" href="#loader_pet"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>LOADER_PET</h3>
+<p>The PET OBJ Loader, version V121379. Extracted from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/plus4/ted_kernal_basic_src.tar.gz" rel="nofollow">ted_kernal_basic_src.tar.gz</a> and converted to uppercase and LST-style indenting. File loload.4 added.</p>
+<h3><a id="user-content-loader_c64" aria-hidden="true" href="#loader_c64"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>LOADER_C64</h3>
+<p>The OBJ Loader of the C64 Macro Assembler, version V072882. Extracted from <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">c64_kernal_bas_src.tar.gz</a> and converted to uppercase and LST-style indenting.</p>
+<h3><a id="user-content-loader_c128-loader_c65-loader_c65_rs232" aria-hidden="true" href="#loader_c128-loader_c65-loader_c65_rs232"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>LOADER_C128, LOADER_C65, LOADER_C65_RS232</h3>
+<p>The OBJ Loader of the HCD65 assembler.</p>
+<ul>
+<li>LOADER_C128, LOADER_C65: for C128 and C65 (disk). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c128/index.html" rel="nofollow">c128_dev_pack.tar.gz</a></li>
+<li>LOADER_C65_RS232: for C65 (RS-232). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a></li>
+</ul>
+<h3><a id="user-content-edt_c128" aria-hidden="true" href="#edt_c128"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>EDT_C128</h3>
+<p>The editor for the HCD65 assembler for the C128 (1986). Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c128/index.html" rel="nofollow">c128_dev_pack.tar.gz</a></p>
+<h3><a id="user-content-monitor_kim" aria-hidden="true" href="#monitor_kim"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>MONITOR_KIM</h3>
+<p>The KIM-1 &#34;monitor&#34; ROM (1975), i.e. 6530-002 and 6530-003. From the <a href="http://retro.hansotten.nl/uploads/6502docs/usrman.htm" rel="nofollow">Hans Otten reconstructed source from the KIM-1 users manual</a>.</p>
+<h3><a id="user-content-monitor_aim65" aria-hidden="true" href="#monitor_aim65"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>MONITOR_AIM65</h3>
+<p>The AIM-65 &#34;monitor&#34; ROM (1978), i.e. R3222 and R3223-11. From the <a href="http://retro.hansotten.nl/uploads/files/aimmon_tasm.zip" rel="nofollow">reconstructed source</a> from the <a href="http://retro.hansotten.nl/uploads/files/aim65_monitor.pdf" rel="nofollow">monitor listing printout</a>. Corrected and fixed up to match the LST.</p>
+<h3><a id="user-content-kimath" aria-hidden="true" href="#kimath"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KIMATH</h3>
+<p>The KIM-1 &#34;KIMATH&#34; math package (1976). Generated from the <a href="http://retro.hansotten.nl/uploads/files/kimath.ZIP" rel="nofollow">original LST printout</a>, and the .asm reconstruction by C. Bond from the same package.</p>
+<h3><a id="user-content-tim" aria-hidden="true" href="#tim"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TIM</h3>
+<p>The TIM (Terminal Interface Monitor) ROM (6530-004). Reconstructed from the <a href="http://archive.6502.org/books/mos_tim_terminal_interface_monitor_manual_mar_1976.pdf" rel="nofollow">manual</a> by Martin Hoffmann-Vetter.</p>
+<h2><a id="user-content-fig" aria-hidden="true" href="#fig"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>FIG</h2>
+<p>fig-FORTH for 6502, Rel 1.1 (1980) for various platforms. Converted from the <a href="https://ksquiggle.neocities.org/ff6502.htm" rel="nofollow">LST</a>.</p>
+<p>This is not MOS/Commodore source code, but it was developed with some version of the Resident Assembler.</p>
+<h2><a id="user-content-kickman" aria-hidden="true" href="#kickman"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>KICKMAN</h2>
+<p>The game &#34;Kickman&#34; (1982) for the Ultimax. Reconstructed from the <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">BSO-format source</a>.</p>
+<h2><a id="user-content-omega" aria-hidden="true" href="#omega"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>OMEGA</h2>
+<p>The game &#34;Omega Race&#34; (1982) for the Ultimax. Reconstructed from the <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">BSO-format source</a>.</p>
+<h2><a id="user-content-wizard" aria-hidden="true" href="#wizard"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>WIZARD</h2>
+<p>The game &#34;Wizard of Wor&#34; (1982) for the Ultimax. Reconstructed from the <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c64/c64_kernal_bas_src.tar.gz" rel="nofollow">BSO-format source</a>.</p>
+<h2><a id="user-content-a2232" aria-hidden="true" href="#a2232"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>A2232</h2>
+<p>The 65CE02 source of the firmware of the Amiga A2232 7-port serial card.</p>
+<ul>
+<li><code>old.src</code>: 1988 version. Source: <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a></li>
+<li><code>a2232_6502.src</code>: Final version (1991).</li>
+</ul>
+<h2><a id="user-content-6502asm" aria-hidden="true" href="#6502asm"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>6502ASM</h2>
+<p>The &#34;6502ASM&#34; cross-assembler, V1.0 (1989-08-23) for VAX and MS-DOS. Reconstructed from the V1.0 LIS/LST files in <a href="http://www.zimmers.net/anonftp/pub/cbm/src/c65/c65_src.tar.gz" rel="nofollow">c65_src.tar.gz</a> and  the B0.0 C files in 4502-asm-for-pc.img from Steve Gray&#39;s <a href="http://6502.org/users/sjgray/dj/" rel="nofollow">Dennis Jarvis Page</a>.</p>
+
+<p>This repository is maintained by Michael Steil, <a href="mailto:mist64@mac.com">mist64@mac.com</a></p>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 19:23:48 +0000</pubDate>
+      <source>https://github.com/mist64/cbmsrc</source>
+    </item>
+    <item>
+      <title>A Limitlessly Scalable Transaction System</title>
+      <link>https://arxiv.org/abs/2108.05236</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___arxiv_org_abs_2108_05236/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+          
+          <p>arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.</p>
+          <p>Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.</p>
+          <p>Have an idea for a project that will add value for arXiv&#39;s community? <a href="https://labs.arxiv.org/"><strong>Learn more about arXivLabs</strong></a> and <a href="https://arxiv.org/about/people/developers"><strong>how to get involved</strong></a>.</p>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 19:29:46 +0000</pubDate>
+      <source>https://arxiv.org/abs/2108.05236</source>
+    </item>
+    <item>
+      <title>Open Compute Project: An Interview with Intel&#39;s Rebecca Weekly</title>
+      <link>https://www.anandtech.com/show/16872/open-compute-project-an-interview-with-intels-rebecca-weekly</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_anandtech_com_show_16872_open-compute-project-an-interview-with-intels-rebecca-weekly/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+            <p>We all know that we put processors into servers, servers into racks, racks into data centers, and then they &#39;do stuff&#39;. Whether that&#39;s a hyperscaler managing internal infrastructure, offering outside services, businesses processing workflows, high-performance machines working on the latest weather or nuclear simulations, social media companies scaling out their services to billions of users, or smaller startups needing scalable resources for their new monetizable idea, there&#39;s always a data center and enterprise backbone.</p>
+
+<p>The need for lots of computing resources comes with a number of fundamental issues, the chief among which is likely going to be standardization. Without a consistent size, depth, or definition to the size of a server, a deployment can easily end up as a hodge-podge of malformed hardware with no discernable high-level design methodology. While the silicon vendors or the OEM partners building the systems could have their own way of doing things, without a collaborative effort to define standards, we would still be in the 1970s or 1980s where systems end up unique for one particular customer. On top of this, there is an important overriding drive in the 21st century to ensure that enterprise deployments are power efficient as well.</p>
+
+<p>When Facebook was scaling its technologies and pivoting to completely public use in the late 2010s, it started an internal project around data efficiency and scalability. The goal was to end up with a solution that provided scalable resources, efficient compute, and enabled cost savings. In 2011, combined with Intel and Rackspace, the Open Compute Project was launched to enable a set of open standards that could benefit all major industry enterprise players. OCP is also a fluid organization, providing its community a structure that is designed to enable close collaboration on these evolving standards, pushing for &#39;commodity hardware that is more efficient, flexible and scalable, throwing off the shackles of proprietary one-size-fits-all gear&#39;. OCP also has a certified partner program, allowing external customers to be part of the ecosystem that covers data center facilities, hardware, networking, open firmware, power, security, storage, telecommunications, and future technologies.</p>
+
+<p><a href="https://images.anandtech.com/doci/16872/OCP1.jpg"></a></p>
+
+<p>While the initial founders included Intel and Facebook, other companies involved include ASUS, Arm, IBM, Google, Microsoft, Dell, HPE, NVIDIA, Cisco, Lenovo, and Alibaba. An example of how to think about OCP is that an OCP Rack is 21 inches wide, rather than a standard 19 inches, allowing for more airflow, but the racks are also taller, accommodating more units.  Parts of the rack use dedicated high voltage power unit shelves that supply power to the rest of the servers in the rack, rather than relying on each system to have its own power supply. This also allows each server to fit more, such as a 2U six-blade design, or a 30 drive 2U design for storage that allows the drives to sit flat, rather than vertical. The OAM form factor for high-power graphics accelerators comes from the words (OCP Accelerator Module), coming out of the group. Two years ago we reported on Facebook&#39;s Zion Unified Training Platform, built to OCP specifications, using Intel&#39;s Cooper Lake processors.</p>
+
+<table>
+	<tbody>
+		<tr>
+			<td><a href="https://images.anandtech.com/doci/16872/RWeek50.jpg"></a></td>
+			<td><a href="https://images.anandtech.com/doci/15268/IJC.jpg"></a></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>In this interview today we have Rebecca Weekly, who not only sits as the VP and GM of Intel&#39;s Hyperscale and Strategy Execution, but is also an Intel Senior Principal Engineer. However, today we are speaking to her in her role as Chairperson and President of the Board of the Open Compute Project, being promoted on July 1st of 2021. When the press relations team sent around the news that Rebecca was taking the role, I reached out and asked if we could interview to get a deeper insight into OCP.</p>
+
+
+
+<p><b>Ian Cutress: You’ve been elected as chairperson of the Open Compute Project - how long have you been involved with OCP? And what does your position as chairperson entail exactly?</b></p>
+
+<p>Rebecca Weekly: Great question! I have been on the board of OCP since September 2020. I started (for lack of a better term) shadowing the previous person in the role for Intel back in July, but I took the position in September. But I&#39;ve been involved in projects with OCP for a long time! </p>
+
+<p>At Intel I work with hyperscale customers, and three of those hyperscale cloud providers are on the board of OCP. I’ve worked with many OCP projects, whether it&#39;s Mount Olympus, which was donated [to OCP] in conjunction with Microsoft, or any of Yosemite v1/v2/v3, which were donated from the Facebook partnership.  Those projects have been things we&#39;ve been working on forever. With those systems we have firmware support packages, things like OpenBMC. I mean, there are so many projects from a management (and modular design) point of view that revolve around my day job - to work with customers to make sure that they have the kind of modular compute systems that are vanity-free and are ready to go in the ecosystem. </p>
+
+<p>It has always has been a part of my day job since I came to Intel six years ago. It felt very natural [to be a part of OCP]. But the board is very different! It&#39;s a different way to think. When you come in, you look at the open-source ecosystem and your contribution strategy to that open source ecosystem - from a specific company, you think about the base components that have to be able to work together, and how we enable that while keeping our special sauce unique, right? That&#39;s our job at OCP. That&#39;s our responsibility to our various stakeholders. When you&#39;re sitting on a board, you&#39;re thinking about the future of that industry and the community you serve - what needs to happen in that industry given the big trends that are happening.</p>
+
+<p>It has been a whirlwind - first of all, just being on a board with Andy Bechtolsheim (who I look up to) is great. Everybody who I have the opportunity to serve with, such as Mark [Roenigk, Facebook], Partha [Ranganathan, Google], Zaid [Kahn, Microsoft], and Jim [Hawkins, Rackspace] - they&#39;re all phenomenal humans, who really think about both the future of the industry and the communities they serve, and they wear those hats with a lot of grace. I’m finding that opportunity to see what I am supposed to do for my day job - what am I supposed to do for Intel, but also then what I am supposed to do for this community. It’s about making sure that all can be synergistic, but recognizing the task. I&#39;m here in this capacity - That&#39;s the hat I&#39;m wearing and that&#39;s what I got to do.</p>
+
+<p><a href="https://images.anandtech.com/doci/16872/OCP2.jpg"></a></p>
+
+<p><b>IC: At times they must conflict? If different parts of the board want to do different things than what Intel wants, it’s about the industry going in a given direction? </b></p>
+
+<p>RW: Something I did very early on was that I listed out all the different working groups at OCP. I was totally explicit with my partners on the board which groups Intel plans to ignore - as in, it&#39;s not our job to contribute in specific areas. We think we have a lot of special sauce for our key areas, and we&#39;re there to participate, and hopefully we will help ensure that everyone’s key contributions are involved. Anything we can contribute from the sense of experience though, we’ve got experience there, we’ve done that, perhaps don’t go down that path!</p>
+
+<p>But in general, from the Intel side of things, we&#39;re observing most areas versus others where we&#39;re trying to lead and where we think it&#39;s critical to the future [of Intel]. So I went through OCP’s working groups, took note of all the projects, like what the status was, and how it really worked. Because there are so many different parts of Intel that do contributions to OCP, from tools, to software, firmware, BIOS, and everything that&#39;s happening on the system side for systems components, whether it&#39;s a network add-in card, or something that&#39;s happening at the switch silicon space, versus what&#39;s happening on a motherboard. So there are lots of different areas where people can contribute, and we’re trying to get everyone on the same page, with truth and transparency. [We always ask] where are we at - and then share that. So that if a topic came up, I have to say ‘I can&#39;t really talk about that, it&#39;s not something I&#39;m either empowered to talk about, or it&#39;s just not something that we’re going to contribute to&#39;. I can speak as myself, as chairperson of the board, but not in my capacity as working for Intel.</p>
+
+
+
+<p><b>IC: OCP is the Open Compute Project, and it is very focused on the enterprise hyperscale industry. It&#39;s not going to be for people considering their home system or home networks! But how would you define OCP to people who have never heard about it before?</b></p>
+
+<p>RW: Sure! OCP, as you said, is the Open Compute Project, and it&#39;s really a community at first and foremost. It&#39;s a community, and it&#39;s ‘by engineers, for engineers’, which is probably why I love it so much! It started in 2011, and fundamentally it was about efficient server, storage, data centers, and hardware designs. It&#39;s one of the few communities I know of, or in fact the only community I know of, that doesn&#39;t just focus on a single element, such as thermal or electrical protocol layers for interconnect in some capacity. For those we have JEDEC and PCI-SIG. [OCP] is about systems, about implementations. </p>
+
+<p>[For the others], it&#39;s great to talk to Hardware Root of Trust in isolation, but if you want everybody who&#39;s participating in your supply chain to have an implementation of a Root of Trust that is consistent, you got to go somewhere and force an implementation spec for it as well as a compliance body in some sense to make sure that happens. So OCP is really the only community I know of that does that work. </p>
+
+<p>If you think back to 2011, you still had SGI, you still had all these crazy pseudo companies doing MIPS, which was part of SGI at the time. But they were doing specific individual implementations of very fancy systems - do you remember walking through the data centers with all the LEDs, and they were just so perfect? At the time companies were manufacturing their own screws as if that was important!</p>
+
+<p><b>IC: They were focusing on bespoke designs per customer?</b></p>
+
+<p>RW: Exactly. Then this community got together and said ‘we don&#39;t care if it&#39;s plywood, it does not matter’ - because conceptually - they cared about vanity-free hardware with consistency. [The community asks itself] ‘how do we drive convergence on vanity-free components to increase supply, to decrease cost, to improve PUE*?. The community asked about everything in the domain space that was really important for the data center to take off. </p>
+
+<p>It is, to your point, very hyperscaler led. But actually, if you look at the contributions of the marketplace that people adopt, 58% of adoptions from OCP marketplace are telcos and network operators. The community has changed so much over the last 10 years, and there&#39;s a lot of change that will continue to happen. I think, as you know, we&#39;re becoming more heterogeneous especially as data is more disaggregated, and everything that we&#39;re dealing with just as a community means there are changes afoot.</p>
+
+<p><em>*PUE = Power Usage Effectiveness, a measure of how much energy input into a data center is used in the servers. The best PUE values are 1.06 or lower, meaning for every 106 W going in, 100 W is being used. An average PUE is 1.4-2.0, bad PUE is 2.5+.</em></p>
+
+<p><b>IC: I&#39;ve noticed that over the timespan that OCP has existed, it shifts based on need. The biggest thing that&#39;s currently in the market right now is AI, and the move to make solutions that are more AI-focused for everybody to use. To your point, the shift towards 5G deployments and telcos, that seems to be a really big focus right now?</b></p>
+
+<p>RW: In that sense, there are some interesting things happening with network anomaly detection, and more of a software perspective for using AI, obviously. But in OCP, we have OAM, or OCP Accelerator Module [which is a unified form factor for high-powered compute cards]. As part of OCP, we think about the form factors we can help create so that people can choose to, for example, take a Cerebras chip, or take a different AI accelerator or whatever, you know the newest, latest, and greatest, and will be and be able to take advantage of the system&#39;s footprint and validation footprint that&#39;s already in the ecosystem.</p>
+
+<p>IC: I’ve noticed Intel has acquired a few AI companies recently, and they&#39;ve all gone towards that sort of OAM interface!</p>
+
+<p>RW: Yup!</p>
+
+<p><a href="https://images.anandtech.com/doci/16872/OCP4.jpg"></a></p>
+
+<p><b>IC: So if we look at the companies listed in OCP, we&#39;ve got ASUS, ARM, IBM, Google, Microsoft, Dell, HPE, NVIDIA, Intel, Cisco, Lenovo, Alibaba. That&#39;s a lot of the industry, and you said you work with three out of seven hyperscalers in your role at Intel. Is OCP in the situation of growing its membership, or is it at a healthy level, or are there other people that need to be involved that currently aren&#39;t? </b></p>
+
+<p>RW: The OCP Foundation right now has around 250 corporate members - it started as six. So there is definitely a huge number of growing participants. There are over 5,000 engineers, 16,000 participants, and there are 29 active projects across the world. We move as the domain spaces keep shifting and growing. So obviously we have security and operations specifically for security, there are advanced cooling projects, areas in connectivity solutions, testing, validation, enabling. There is so much, for example, there have been so many great papers recently written from OCP members about the complexity of test and validation, or consistency as we have more heterogeneity in systems. </p>
+
+<p>One of the awesome and amazing projects that has been a focus in the last year is sustainability, and looking at sustainable practices, because there is zero consistency on reporting emissions as it pertains to ICT equipment. There are also zero standards around reporting, no sort of best practices for operations. [At the base level], it’s different to how your laptop works, such as going into suspend mode and whatever, which has standards - it is really different than if you&#39;re trying to operate a public cloud infrastructure. For that, you have to have a certain commitment from an SLA perspective [for your customers] for speeding up latency, but you&#39;re actually not fully utilized most of the time. It means you operate with an ‘always-on’ mindset, but [the task is to] not burn power if unnecessary. I’m a total hippie so I get really excited at the prospect of us bringing that community together! </p>
+
+<p>But also, there are companies out there making all sorts of claims. There&#39;s nothing standard to compare it against - their claim is ‘as measured by’ a hired company with a methodology that has not been validated [or standardized]. Governments haven&#39;t necessarily stepped up in this domain space, either. But I think this is a domain space where open source communities really can make a difference - at least they can start, and then others can take notice.</p>
+
+<p><a href="https://images.anandtech.com/doci/16872/OCP3.jpg"></a></p>
+
+<p><b>IC: One of the recent groups that I think most of our audience is probably interested in is the Open Domain Specific Architecture, sort of an ‘Open Chiplet Marketplace’. Because Intel is moving into that, and Intel’s competitors are moving in that direction, and even when I spoke about AI chips, some of these designs are essentially chiplets in a big infrastructure. This marketplace was announced around two years ago - do you have any insight into what&#39;s going on with the sort of chiplet standards now, with OCP?</b></p>
+
+<p>RW: So much, and not nearly enough! But you know, I think that you made an excellent point which is that everybody is getting into this domain space. Whether it&#39;s 2D or 3D, there are a lot of interesting things happening with 3D technologies and 2D technology. I think it&#39;s fair to say we have probably three, or at least definitely two, main things that are occurring. </p>
+
+<p>ODSA itself as a working group has been working to create sort of a test chip mentality, where we can actually give effectively a reference implementation of two different 2D stacking technologies with two different fabs on either side of the wire. That&#39;s one OCP project, and it&#39;s really about trying to create [combined products]. Whether it&#39;s a Bunch Of Wires is used [that’s a technical term, BoW], or an Advanced Interface Bus (AIB) is used, there are lots of things in this domain space. </p>
+
+<p>We&#39;re all evaluating these technologies based on throughput, but also based on really simple things, like the right to license and utilize. These are things that just require communities to come together, have the debate, and have the discussion. So that&#39;s really where that team is focused and that project group is focused. </p>
+
+<p>When I look at what&#39;s happening in the ecosystem, there were some really interesting conversations that happened in November of last year, at the Virtual OCP Summit. They started talking about this concept of an Open Chiplet Marketplace. This is kind of a brainchild out of Google, where companies are coming together and bringing people together to talk not just about the thermal or the electrical, but how and when we actually produce these things, as well as the software layer, creating consistency, and how do we create a security model, [especially] when chiplets are made anywhere? [We ask whether] we have some aspects of composability and manageability, those sorts of things. </p>
+
+<p>So, you probably remember when NVIDIA cards started coming to the public cloud. It was a nightmare. You couldn&#39;t chop them up for virtual machines, and if something went wrong in the device, all the visibility went from the virtual machine. So the vendor who&#39;s providing it as hardware vendors, we never really thought about the world where customers manage the hardware. But issues like this still happen! I&#39;ve been focusing on this area for six years at Intel.</p>
+
+<p>But we&#39;re coming up on the 15 year anniversary of AWS. Even now, we’re still trying to understand fundamentally what it takes to operate a public cloud set of hardware. It&#39;s very different. </p>
+
+<p>With chiplets, there is so much of the domain space of the actual interconnect in the marketplace, and how that could function to have consistent software and composability. I think there&#39;s a ton to go figure out in terms of validation, ensuring it works, and creating it at scale. I don&#39;t know where it will go - I mean, I&#39;m so excited to see where it goes. This is like my typical day you know - there are some parts of my world where I know the goal is to get to a place where you just have the robots and they&#39;re composing the CPU, or XPU, with all these pre-validated chiplets. Suddenly, boom! You run a couple of burn-in tests on it, and you now have a whole new XPU at scale that is exactly what the end-user needed! Will we get there? It&#39;s decades away, but I think that&#39;s what those kinds of technologies start getting us towards.</p>
+
+<p>IC: I think it&#39;s really important that when we start moving the chiplet/tile architectures, if you&#39;re buying a third-party chip, you want to verify that it&#39;s actually doing what it says, and it has a defined secure supply chain. Because at some point there&#39;s going to be, as you say, robots designing these chips. You have got to make sure the robots are making it in a very secure way, such that you can validate start to finish, and the results you get out or right. But that sounds like the right path through! </p>
+
+<p>RW: Just getting these things to do 2D stacking together from two different foundries on two different sides of the wire, to do a different and unique use case is a start. I think that getting there would never happen if people don&#39;t come together.</p>
+
+<p><a href="https://images.anandtech.com/doci/16872/OCP7.png"></a></p>
+
+<p><b>IC: So in OCP, the O stands for Open. But to become part of the OCP, you have to pay to be a member. But all the meetings for everything seem to be online, so anybody can watch them, and they’re all listed on the OCP website. So what exactly does ‘Open’ mean? </b></p>
+
+<p>RW: It&#39;s a good question. To me, ‘Open’ is about open hardware, right? It&#39;s about creating specifications that anybody can pick up, whether it&#39;s Quanta, Foxconn, Wiwynn - anybody can pick up and produce. [Open hardware is] helping ensure that there&#39;s more consistency from the modularity of the computer itself. But even with ‘at scale’ operations, we have to think about management and security solutions in that domain space. So to me, Open is about the specifications that are contributed, in comparison to the participation. </p>
+
+<p>Now the Foundation does have to pay for and administer the working groups, and ensures that those happen. Wearing my OCP hat, I would say it&#39;s a pretty nominal fee for what it does in the community! We also have summits and all our different collaborative events. But again, that monetary part isn&#39;t specifically about the community it serves which is driving open technology and solutions. I mean anybody can get involved and anybody can learn from it - I think the [cost] opportunity is to become a voting member of the community, and be elected to be part of the various working groups or incubation committees. Those things require membership. That membership really is about contributing financially but also contributing with your time - members actually have to make contributions [as part of the fee]. It’s done in order to ensure that you are, in fact, listened to, but also committed to driving these contributions.</p>
+
+<p>IC: It sounds like you can&#39;t really be a passive member in that sense - you definitely have to be involved.</p>
+
+<p>RW: Involved somewhere! There are definitely particular working groups that may not be interesting to you, but the expectation is that it&#39;s a very active community. When I joined the board, I still remember Mark Roenigk, the previous chairperson, telling me that we are a working board, and the expectation is you&#39;re going to get things done. He told me here&#39;s how to set up a support network, to be able to do this for this long - and I took notes, I cannot do it on my own, there&#39;s no way.</p>
+
+<p><a href="https://images.anandtech.com/doci/16872/OCP5.jpg"></a></p>
+
+<p><b>IC: So with respect to what I think most of our readers might interact with OCP is the standard sort of OCP server rack design. I think you mentioned Olympus earlier, this sort of drive to having more efficient servers, helping with cooling and density. The specifications of an OpenRack OCP server right now, I think version three, are wider than a standard server, and the racks are slightly taller. This is completely different to how most of the time we look at enterprise systems! So why hasn&#39;t the industry moved to what OCP suggests, and why has it kind of stayed in its lane? As I say this, as you&#39;re somebody who works for Intel, and Intel&#39;s partners sell a lot of those regular systems!</b></p>
+
+<p>RW: So OpenRack started that design form factor, as the 21 inches instead of the 19, for a very specific kind of single socket, but super dense design. It&#39;s a phenomenal design, and OpenRack continues in the ecosystem. But it&#39;s not the only OCP-certified rack size. So if you look at Mount Olympus, it was a 19-inch form factor and a standard server configuration. You&#39;ll see both, and companies like Google make contributions that are 19-inch as well. So the OpenRack form factor is a compliant standard, but it&#39;s not necessarily true that every contribution in the marketplace has to adhere to that original OCP form factor. It was originally about Facebook creating a very unique, very low PUE, high dense design. Facebook was one of the OCP Founding members, and I love what they did there. </p>
+
+<p>There are a lot of different people in OCP, and the Open 19 standard started because people were confused why Facebook did this weird 21-inch size thing. There are all sorts of conversations about it. OCP then decided to embrace 19-inch too. So you know I think It&#39;s been an interesting journey because so much of the original designs were contributions from hyperscalers, and in partnership for their specific environment. But then as the community has grown into Telcos, into more enterprises, and as the board membership has changed, such as with Rackspace, people are thinking about it differently. So there&#39;s more of an expansion in the form factors that are available and that will evolve as the industry evolves.</p>
+
+
+
+<p><b>IC: Does OCP actively search out for technologies it feels that it should incorporate into some of its open standard designs? Or do you rely on the companies with those technologies to become part of OCP?</b></p>
+
+<p>RW: It&#39;s a great question. When I came on to the board, I had a very similar question - ‘so how does this work? I know what we do, I know what we think about, and it&#39;s a pretty proactive process from our lens. But how does new membership work? How do new initiatives work?’. So as a board actually, we sat down and spent days and days together (virtually, because it was during the pandemic), to come up with answers to where the industry is headed. We asked ourselves and our members what do we see as the future initiatives of the world - computation is becoming increasingly heterogeneous, data is increasingly disaggregated, and sustainability is incredibly underreported. We kind of tried to analyze both the pain points - our various lenses on the industry, as well as the changes in opportunity. We then reported to each other.</p>
+
+<p>Out of that process, we came up with the OCP 2.0 framework, which we&#39;re in the process of rolling out. To meet the market of today, that&#39;s traditional OCP. It’s what we&#39;ve always done, with modularity at scale operations, increasing sustainability, and it&#39;s a top pillar of meeting the market today. But I think we&#39;re already late, frankly.</p>
+
+<p>Then in the integrated solution space, if you think about how much money and time various vendors spend just to certify different solutions, such as SAP certifications or ensuring that vSphere runs correctly in all different configurations - it’s a huge amount of time for the industry. OCP 2.0 is about how we can do that better, faster, and stronger.</p>
+
+<p>Then the other aspect of it is, again, understanding the future. The future will be more heterogeneous, more disaggregated, and all these different technologies need to be in place. To take one example - optics needs to be developed, not just from a network switch perspective which is well covered, but at a level of silicon and integrated photonics for node-level integration. When does copper (the established solution) lose? There is a point at which we&#39;re going to have to make those changes, and it&#39;s going to be chiplet integration. We ask how we going to make sure the modules for optics can go into advanced cooling systems - light has different behavior, so how do we make sure that we&#39;re building something that actually will work? </p>
+
+<p>You know, in all those different environments, optics was a big area of focus for Intel, and we&#39;re seeding future innovation as well as open silicon initiatives. Understanding all the different dynamics that are happening in the industry, whether it&#39;s our IDM 2.0, whether it&#39;s key acquisitions that have happened to meet the ecosystem, or general consolidation, fewer foundries available across the world, or all the different AI chiplets that you&#39;ve mentioned earlier - these domains are requiring more and more partnership at all the different layers. At Intel we focus on a lot of layers, but not all! Then we produce a product, someone else produces a product, and we all use standards like PCIe or OAM to work together. I mean the new CXL standard is about having a fundamental understanding of the TLB on a device that is not my own!</p>
+
+<p>So, I mentioned optics with cooling, but cooling anywhere - it’s about how we think about cooling at the edge in these tiny colocation facilities, versus cooling in a more hyperscale situation. If we go back to the beginning - HPC invented this stuff. There were fish tank designs, and cold plates, and all sorts of cool things that came together. OCP is about how we make sure that every single one of those things is not a new research project that takes two and a half years, but can become a commodity way we think about it. I don&#39;t know about you, but I grew up loving Fry&#39;s Electronics, and I still remember that old, gaming system with an immersion cooling solution that was really kind of a cold plate solution, where it went through the front, and it was so cool, and it lit up, and I just thought it was the coolest thing I&#39;ve ever seen. We need something like a server equivalent, maybe without the lights (<em>Ian: RGB?</em>), but it needs to be easy for us to take advantage of those technologies, because fundamentally that will make our overall power footprint in this industry more efficient and effective for serving the incredible demand that exists. So that&#39;s feeding future innovation, that&#39;s what we want to do. We have a lot of aspirations, you know, we had to get it done.</p>
+
+<p><b>IC: I was going to talk about the Future Technologies Initiative, but I think you&#39;ve basically covered it. Fantastic!</b></p>
+
+<p>RW: What&#39;s interesting about that one is that that was a community-led initiative - the Future Technology Symposium started with the community, and then the board made it official. Now we&#39;ve done a good mapping between what was already in the Future Technologies Initiative workstreams, because that started in late 2019, and what the board decided [should be other features under that umbrella]. But Future Technologies is interesting because they are more about service models, like organizing the cloud service model, or an AI hardware model, and a software code design mode. It’s about recognizing the domain space of heterogeneous compute exists, because in the future you will no longer be able to run a generic general-purpose computational solution that isn’t deeply aware of the software running on top. It also has to meet the needs of AI right? We also have Software Defined memory, and I already hinted about CXL and view of what&#39;s going to happen there in terms of device models. It’s a completely different device model than anything that we sort of grew up with on assumptions for IO. </p>
+
+<p>The industry is just, you know, it&#39;s amazing. I mean that&#39;s why I&#39;m at it!</p>
+
+<p><em>Many thanks to Rebecca and her team for their time.</em></p>
+
+
+
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 11:43:43 +0000</pubDate>
+      <source>https://www.anandtech.com/show/16872/open-compute-project-an-interview-with-intels-rebecca-weekly</source>
+    </item>
   </channel>
 </rss>
