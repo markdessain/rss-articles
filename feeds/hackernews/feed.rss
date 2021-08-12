@@ -12331,5 +12331,225 @@ for(delta in c(5, 10, 15, 20)) { # this is warming added on
       <pubDate>Thu, 12 Aug 2021 16:40:35 +0000</pubDate>
       <source>https://www.economist.com/what-if/2021/07/03/what-if-a-deadly-heat-wave-hit-india</source>
     </item>
+    <item>
+      <title>Commodore 64 BASIC and KERNAL on Atari 8-bit hardware</title>
+      <link>https://github.com/unbibium/atari64</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-target="readme-toc.content">
+          <article itemprop="text">
+<p>This is the Commodre 64 KERNAL, modified to run on the Atari 8-bit
+line of computers.
+They&#39;re practically the same machine; why didn&#39;t someone try
+this 30 years ago?</p>
+
+<p>You will need bash, dasm, and Python 3.</p>
+<p>You can get dasm at <a href="https://github.com/dasm-assembler/dasm/">https://github.com/dasm-assembler/dasm/</a></p>
+<p>Run <code>./build.sh</code> and it should do everything.</p>
+
+<ul>
+<li><code>rom.a000</code> an 8K BASIC ROM</li>
+<li><code>rom.d800</code> a 10K ROM containing PETSCII font and OS</li>
+<li><code>atari64.xex</code> an executable that you can load into an 800XL.
+It will copy itself behind the ROM and run from RAM.
+I patched the <code>RAMTAS</code> section so it doesn&#39;t think the BASIC
+area is free for BASIC programs.</li>
+</ul>
+
+<p>To run it in the emulator as if you&#39;d taken an Atari 800&#39;s ROMs and
+swapped them out with these:</p>
+<ul>
+<li><code>atari800 -config atari64.cfg</code>
+You can extrapolate this to decide how to run it on real hardware.</li>
+</ul>
+<p>The <code>atari64.xex</code> should run from any DOS or boot loader.</p>
+
+<p>The keyboard, the PETSCII screen editor, and BASIC work.</p>
+<p>Use the BREAK key to stop a running BASIC program.  you&#39;ll note
+it doesn&#39;t work while an <code>INPUT</code> statement is running.
+I&#39;ll get the RESET button working real soon.</p>
+<p>The Atari logo key will type the pi character.</p>
+<p>Shift-Atari logo will switch between uppercase-graphics and
+lowercase-uppercase character set.</p>
+<p>Hold the OPTION, SELECT, or START key to type the graphics
+characters you&#39;d ordinarily type with the Commodore logo key.</p>
+<p>If a lot of text is scrolling by, you can hold the OPTION key
+to slow down the scrolling, like you would hold down CTRL on
+a real C64.</p>
+<p>Known issues:</p>
+<ul>
+<li>if the C64 OS is in RAM, RESET reboots the original Atari OS.
+Supposedly the old Translator disk got around this somehow.</li>
+<li>no way yet to save or load BASIC programs</li>
+<li>there&#39;s no I/O at all actually</li>
+<li>PETSCII color will never work.</li>
+</ul>
+
+<p>Recently the 8-Bit Guy did a video about the Apple 1 computer, and
+how you can simulate an Apple 1 with a Commodore 64 program that just
+reproduces the terminal I/O and runs the programs natively.  It got
+me thinking, why couldn&#39;t I do the same thing with two other machines?
+The Atari 800XL and Commodore 64 have such similar memory maps and
+ROM switching capabilities that it seemed my best bet was to try to
+compile the CBM KERNAL on the Atari 800XL and see how much I could
+get to work.</p>
+<p>i wonder if I&#39;ve hit the wall or if some mad genius will figure out
+how to wire a real Datasette in there and run actual PET programs.</p>
+
+<p>I used mist64&#39;s <code>cbmsrc</code> project as a starting point.  The first
+thing I had to do was reformat the C64 KERNAL and BASIC&#39;s source
+code so that it would compile in DASM.  I wrote a python script
+for that, but still had to manually add segment definitions and
+such, so that it would compile neatly.</p>
+<p>Next, I had to make sure I could actually run these ROMs at all
+on an Atari emulator.  The 8K BASIC ROM was straightforward enough,
+and the original Atari 800 used 10K of ROM.  I used the extra 2K
+for the chargen ROM, which only needs half the space because it
+doesn&#39;t include the reverse characters.  I worked out how to
+configure atari800 to run it -- if I got a black screen, I&#39;d
+press F8 and look around in the monitor to make sure everything
+was there.</p>
+<p>Next I rewrote the code that set up the screen and I/O.  I&#39;d
+add declarations to <code>kernal/declare</code> as I went.  I hard-coded
+an ANTIC display list in ROM to point to where the C64 usually
+draws the screen at $0400.  I&#39;d rewrite the screen initialization
+code to set up ANTIC and GTIA to point to that display list.
+Once I got that working, I found it was already displaying the
+C64 BASIC V2 splash screen.  The cursor wasn&#39;t blinking, and
+of course the keyboard didn&#39;t work, but I could feed PETSCII
+characters into the keyboard buffer through the monitor, and
+I tested a few BASIC commands that way.</p>
+<p>Getting the cursor to blink was my next task.  I looked at all
+the Atari documentation I could find to figure out how the
+vertical blank interrupt worked.  I was setting the right
+flags, but nothing worked, until I realized that the vertical
+blank is an NMI in the Atari.  On the Commodore it&#39;s an IRQ.
+So I switched the addresses at $FFFA and $FFFE, and that got
+me much closer.</p>
+<p>I rewrote the keyboard scan routine to handle the Atari
+keyboard, and removed most of the color code from the screen
+editor.</p>
+<p>I also had to modify BASIC&#39;s <code>RND(0)</code> function to draw from the POKEY
+instead of the CIA chips.  The lack of a CIA/POKEY equivalent on the
+DCPU-16 is probably why I had to use <code>RND(1)</code> in my demo video
+instead.</p>
+<p>Currently, there&#39;s no I/O outside of the screen and keyboard
+whatsoever.  It&#39;ll take more expertise than I have to figure out
+any possible way of saving and loading programs.  Even describing
+the obstacles is a bit out of my league at this point.</p>
+<p>I might tear out all the rs232 code to make room for other people
+to attempt stuff, even though the 800XL has a larger ROM space to
+work in already.  I&#39;ll leave the tape code in just because I have
+a hunch that isn&#39;t a total lost cause yet, but it&#39;s only a hunch.</p>
+
+<ul>
+<li>CBM source code: <a href="https://github.com/mist64/cbmsrc">https://github.com/mist64/cbmsrc</a></li>
+</ul>
+</article>
+        </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 17:35:01 +0000</pubDate>
+      <source>https://github.com/unbibium/atari64</source>
+    </item>
+    <item>
+      <title>Demonstrating the Fundamentals of Quantum Error Correction</title>
+      <link>https://ai.googleblog.com/2021/08/demonstrating-fundamentals-of-quantum.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___ai_googleblog_com_2021_08_demonstrating-fundamentals-of-quantum_html/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<p><span itemprop="datePublished">
+Wednesday, August 11, 2021
+</span>
+</p>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 04:11:54 +0000</pubDate>
+      <source>https://ai.googleblog.com/2021/08/demonstrating-fundamentals-of-quantum.html</source>
+    </item>
+    <item>
+      <title>Internet of Snitches</title>
+      <link>https://puri.sm/posts/internet-of-snitches/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___puri_sm_posts_internet-of-snitches_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><div><p><strong>Imagine an Internet of Snitches</strong>, each scanning whatever data they have access to for evidence of crime. Beyond the OS itself, individual phone apps could start looking for contraband. Personal computers would follow their lead. Home network file servers could pore through photos, videos and file backups for CSAM and maybe even evidence of copyright infringement. Home routers could scan any unencrypted network traffic. Your voice assistant could use machine learning to decide when yelling in a household crosses the line into abuse. Your printer could analyze the documents and photos you send it.</p><p>It’s not much of a surprise to most people that their devices, especially their phones, are snitching on them to the hardware vendor (or app developer). Some people <i>are</i> surprised to discover just how much. I already wrote a post <a href="https://puri.sm/posts/snitching-on-phones-that-snitch-on-you/">Snitching on Phones That Snitch on You</a> that focused on the amount of data an idle Android and iOS device are sending to Google and Apple respectively, described how we avoid those problems on the Librem 5, and even explained how to use OpenSnitch to track any attempts by a malicious app to snitch on you.</p><p>So we know most devices and proprietary apps track people to some degree (<a href="https://puri.sm/posts/data-double-dipping-when-companies-mine-paying-customers/">even for paying customers</a>), and that the problem has <a href="https://puri.sm/posts/locked-in-a-remote-control-car/">extended to cars</a>. While many people don’t like the idea of this, they also shrug it off, not just because they don’t feel empowered to do much about it, but also because their data is “only” being used for marketing purposes. Someone is profiting off of the data, sure, but their data isn’t being used <em>against</em> them.</p><p>Yet we are starting to see how your data <em>can</em> be used against you. <a href="https://www.wired.com/2017/02/police-get-location-data-without-warrant-end/">Police routinely get location data from data brokers</a> to track suspects without having to get a warrant. Even private groups have paid data brokers to dig up dirt on people, leading to a <a href="https://arstechnica.com/tech-policy/2021/07/catholic-priest-quits-after-anonymized-data-revealed-alleged-use-of-grindr/">Catholic priest’s resignation</a> after location data revealed he used the Grindr app and frequented gay bars.</p><p>So companies capture and sell our data, and the police and private groups sometimes buy that data to look for crimes. But up to this point, the “snitching” that devices did on you was indirect–it would send data to vendors or app developers to sell to brokers, but the only time that vendors might search your data and alert the authorities is when searching files stored on their own servers that you have shared. Up to now, actually scanning for potential contraband on a person’s device was a line companies wouldn’t cross.</p><p>This past week, however, Apple crossed that line. Apple announced in their new <a href="https://www.apple.com/child-safety/">child safety initiative</a> that they will scan all customers’ iPhone photos for CSAM (Child Sexual Abuse Material) before they are backed up to iCloud. Plenty of other groups have already weighed in on the risks and privacy implications of this particular move for iPhones and the EFF in particular has <a href="https://www.eff.org/deeplinks/2021/08/apples-plan-think-different-about-encryption-opens-backdoor-your-private-life">explained the issues well</a>, so I won’t cover any of that here. What I will discuss, instead, are the broader implications of <a href="https://en.wikipedia.org/wiki/Crossing_the_Rubicon">crossing the Rubicon</a> into client-side scanning of devices for potential evidence of crimes.</p><p>Apple has focused a lot of its marketing lately around privacy because it’s an area of weakness for its major competitors like Google and Facebook. As part of the child safety announcement, Apple described complicated cryptographic measures they will put in place for this client-side scanner so that human beings at Apple will only look at your photos if they have a strong belief they are CSAM. In response to some of the backlash, and concerns over this technology expanding under government pressure, they have also promised that they would not add extra hashes to their CSAM database even if the government demanded it.</p><p>While there are reasons to be skeptical of Apple’s claims, for the purposes of this article let’s assume that Apple’s client-side scanner does only what it says it does, how it says it does it, and it will never expand into other areas. Even if this is the case, Apple’s move now <strong>legitimizes client-side scanning</strong>. After all, if Apple can do it, a company that markets itself as caring about privacy, it must be OK from a privacy perspective for other companies to follow suit with their own client-side scanners.</p><p>We are surrounded by computers. Today most people have devices in their homes, cars, and pockets full of sensors that can track their location, listen to their voice, store their personal files, and have an always-on connection to the Internet either via WiFi or cellular networks. This “Internet of Things” has promised people convenience, yet we know that convenience has already come at the cost of personal privacy.</p><p>Up to this point, the Internet of Things has “only” captured our data and shipped it off to the vendor for profit. It’s likely many hardware and software vendors will follow Apple’s lead to implement client-side scanning of their own. Like with Apple it will probably start with scanning for evidence of child sexual abuse, but might expand into terrorism, sedition, or similar categories of crime. Also, most vendors have less of an incentive to protect their customers’ privacy and often have a perverse incentive to violate it.</p><p>As the scope of scan-worthy crimes expands, so do Internet of Snitches capabilities. Streaming media services would be motivated to search for DMCA violations on your devices. Your car could report when you parked illegally or disobeyed the speed limit (<a href="https://www.autoblog.com/2021/08/03/infrastructure-bill-cars-drunk-driving-detection-kids-in-back-seat/">there are already proposals</a> to mandate new cars scan you for impairment or for children left in the car). Your smart irrigation system could detect whenever you watered your lawn in violation of water conservation orders. Your home security system or smart doorbell could expand what <a href="https://www.eff.org/deeplinks/2019/08/five-concerns-about-amazon-rings-deals-police">data sharing</a> it <a href="https://www.eff.org/deeplinks/2019/08/five-concerns-about-amazon-rings-deals-police">already does</a> with law enforcement.</p><p>Some people are OK with Apple’s child safety scanning, and some people are willing to give up most of their freedoms in general if it means that it could possibly stop a criminal. We already see that privacy trade-off taking place with Ring doorbells in many neighborhoods. Some people will believe the assurances they get that these technologies are accurate, well designed, and only trigger on real evidence of horrendous crime.</p><p><strong>Now imagine an Internet of Snitches doing it badly</strong>. It’s easy if you try. Some vendors already do a bad job of keeping customer data private and will continue that track record, so you can expect public leaks of databases that have flagged suspected criminals. Other vendors will write bad machine learning algorithms (<a href="https://www.technologyreview.com/2019/01/21/137783/algorithms-criminal-justice-ai/">or biased ones</a>) leading to false positives and ruined lives.</p><p>Still other vendors won’t be able to resist government demands to expand the scope of their scans, especially if they are threatened with no longer doing business in that country. The hard part is getting customers to accept client-side scanning in the first place. With that out of the way and the technology in place, expanding what it scans for bit by bit will be much easier.</p><p>Some propose government regulation to limit the ability of companies to do client-side scanning, and others <a href="https://appleprivacyletter.com/">signed a petition</a> to ask Apple to stop. The fundamental problem, though, is that people no longer have control (and arguably no longer have true ownership) over devices they buy. Vendors can implement whatever policies they want, even client-side scanning against a customer’s will, and the customer can’t stop it.</p><p>You should have control over your own computers. <a href="https://puri.sm/posts/your-phone-is-your-castle/">Your phone should be your castle</a>. True control means controlling your hardware <em>and</em> software. It means picking hardware that doesn’t depend on absolute trust in a vendor for its security, but <a href="https://puri.sm/posts/with-purism-products-you-are-in-control/">gives you control</a> over your own security so you don’t have to ask the vendor’s permission to use the computer how you wish. It means using a <a href="https://pureos.net/">free operating system</a> that lets you install whatever software you want and remove any software you don’t. Finally, it means running free software that you or anyone in the community can modify (or change back) if a developer ever makes it work against your interests.</p><p>Computers will only become more important and integral in our society, and collectively we get to choose the rules that govern them. It’s not too late to reject technology that’s not on your side. Invest in technology that gives you back the control and ownership you should have always had.</p></div></div></div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 17:19:03 +0000</pubDate>
+      <source>https://puri.sm/posts/internet-of-snitches/</source>
+    </item>
+    <item>
+      <title>Wikipedia Has a Language Problem. Here’s How to Fix It</title>
+      <link>https://undark.org/2021/08/12/wikipedia-has-a-language-problem-heres-how-to-fix-it/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___undark_org_2021_08_12_wikipedia-has-a-language-problem-heres-how-to-fix-it_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+			<div>
+				<div itemprop="articleBody">
+					
+					<p><span>W</span><span>ikipedia doesn’t exactly</span> enjoy a reputation as the most reliable source on the internet. But a report released in June by the Wikimedia Foundation, which operates Wikipedia, suggests that the digital encyclopedia’s misinformation woes may run even deeper than many of its English-speaking users realize.
+</p>
+<p>
+  In the report’s summary, the foundation <a href="https://meta.wikimedia.org/wiki/Croatian_Wikipedia_Disinformation_Assessment-2021">acknowledged that</a> a small network of volunteer administrators of the Croatian-language version of Wikipedia have been abusing their powers and distorting articles “in a way that matched the narratives of political organizations and groups that can broadly be defined as the Croatian radical right.” For almost a decade, the rogue administrators have been altering pages to whitewash crimes committed by Croatia’s Nazi-allied Ustasha regime during World War II and to promote a fascist worldview. For example, it was <a href="https://balkaninsight.com/2018/03/26/how-croatian-wikipedia-made-a-concentration-camp-disappear-03-23-2018/">reported</a> in 2018 that Auschwitz — which English Wikipedia unambiguously deems a concentration camp — was referred to on Croatian Wikipedia as a “collection camp,” a term that carries fewer negative connotations. The Jasenovac concentration camp, known as Croatia’s Auschwitz, was also referred to as a collection camp.
+</p>
+
+<p>
+  Croatian Wikipedia users have been calling attention to similar discrepancies since at least 2013, but the Wikimedia Foundation began taking action only last year. That the disinformation campaign went unchecked for so long speaks to a fundamental weakness of Wikipedia’s crowdsourced approach to quality control: It works only if the crowd is large, diverse, and independent enough to reliably weed out assertions that run counter to fact.
+</p>
+<p>
+  By and large, the English version of Wikipedia meets these criteria. As of August 2021, it has <a href="https://en.wikipedia.org/wiki/Wikipedia_community">more than 120,000 editors</a> who, thanks to the language’s status as a lingua franca, come from a diversity of geographic and cultural backgrounds. English Wikipedia is considered by many researchers to be <a href="https://www.nature.com/articles/438900a">almost</a>, but still <a href="https://www.emerald.com/insight/content/doi/10.1108/00907320810851998/full/html">not quite as accurate</a> as traditional encyclopedias. But Wikipedia exists in more than 300 languages, <a href="https://en.wikipedia.org/wiki/Wikipedia:Wikipedia_Signpost/2020-04-26/In_focus">half of which</a> have fewer than ten active contributors. These non-English versions of Wikipedia can be especially vulnerable to being manipulated by ideologically motivated networks.
+</p>
+<p>
+  I saw this for myself earlier this year, when I investigated <a href="https://slate.com/technology/2021/03/japanese-wikipedia-misinformation-non-english-editions.html">disinformation</a> on the Japanese edition of Wikipedia. Although the Japanese edition is second in popularity only to the English Wikipedia, it receives <a href="https://www.pewresearch.org/fact-tank/2016/01/14/wikipedia-at-15/?utm_content=buffer0c869&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">fewer than one sixth</a> as many <a href="https://en.wikipedia.org/wiki/Languages_used_on_the_Internet">page views</a> and is run by only a few dozen administrators. (The English-language site has nearly 1,100 administrators.) I discovered that on the Japanese Wikipedia, similarly to the Croatian version, politically motivated users were abusing their power and whitewashing war crimes committed by the Japanese military during World War II.
+</p>
+<p>
+For instance, in 2010 the title of the page “The Nanjing Massacre” was changed to “The Nanjing Incident,” an edit that downplayed the atrocity. (Since then, the term “Nanjing Incident” has become mainstream in Japan.) When I spoke with Wikimedia Foundation representatives about this historical revisionism, they told me that while they’d had periodic contact with the Japanese Wikipedia community over the years, they weren’t aware of the problems I’d raised in <a href="https://slate.com/technology/2021/03/japanese-wikipedia-misinformation-non-english-editions.html">an article</a> I wrote for Slate. In one email, a representative wrote that with more than 300 different languages on Wikipedia, it can be difficult to discover these issues.</p>
+		<div>
+		    <div>
+                                    <p></p><p>Two different terms for the World War II crimes committed in Nanjing, shown in English and Japanese.</p>
+			</div>
+		</div>
+		
+<p>The fact is, many non-English editions of Wikipedia — particularly those with small, homogenous editing communities — <em>need</em> to be monitored to safeguard the quality and accuracy of their articles. But the Wikimedia Foundation has provided little support on that front, and not for lack of funds. The Daily Dot <a href="https://www.dailydot.com/debug/wikipedia-endownemnt-fundraising/">reported</a> this year that the foundation’s total funds have risen to $300 million. Instead, the foundation noted in an email, because Wikipedia’s model is to uphold the editorial independence of each community, it “does not often get involved in issues related to the creation and maintenance of content on the site.” (While the foundation now says that their trust and safety team is working with a native Japanese speaker to evaluate the issues with Japanese Wikipedia, when I spoke to them in March they told me that Japanese Wikipedia wasn’t a priority.)</p>
+<p>
+  If the Wikimedia Foundation can’t ensure the quality of all of its various language versions, perhaps they should make just one Wikipedia.
+</p>
+<p>
+  The idea came to me recently while I watched <a href="https://www.aljazeera.com/program/talk-to-al-jazeera/2021/1/30/katherine-maher-technology-could-be-used-for-great-harm">an interview </a>with the foundation’s former CEO Katherine Maher, speaking about Wikipedia’s efforts to fight misinformation. During the interview, Maher seemed to imply that for any given topic, there is just one page that’s viewed by “absolutely everyone across the globe.” But that’s not correct. Different language versions of the same page can vary substantially from one language to the next.
+</p>
+<p>
+  But what if we <em>could</em> ensure that everyone across the globe saw the same page? What if we could create one universal Wikipedia — one shared, authoritative volume of pages that users from around the world could all read and edit in the language of their choice?
+</p>
+<p>
+  This would be a technological feat, but probably not an impossible one. Machine translation has been quickly improving in recent years and has become a part of everyday life in many non-English-speaking countries. Some Japanese users, rather than read the Japanese version of Wikipedia, choose to translate the English Wikipedia using Google Translate because they know the English version will be more comprehensive and less biased. As translation technology continues to improve, it’s possible to imagine people from all over the world will want to do the same. 
+</p>
+<p>
+  Maher has <a href="https://www.youtube.com/watch?v=ZoXH1BQftUc">previously stated</a> that “higher trafficked articles tend to be the highest quality” — that the more relevant a piece of information is to the largest number of people, the higher the quality of its Wikipedia entry. It’s reasonable to expect, then, that if Wikipedia were to merge its various language editions into one global encyclopedia, each entry would see increased traffic and, as a result, improved quality.
+</p>
+<div>
+		<div>
+			<p><strong>What if we could create one universal Wikipedia — one shared, authoritative volume of pages that users from around the world could all read and edit in the language of their choice?</strong></p>
+		</div>
+
+		</div>
+<p>
+In a prepared emailed statement, the Wikimedia Foundation said that a global Wikipedia would change Wikipedia’s current model significantly and pose many challenges. It also said, “with this option, it is also likely that language communities that are bigger and more established will dominate the narrative.”
+</p>
+<p>
+  But the Wikimedia Foundation has already launched one project aimed at consolidating information from around the globe: Wikidata, a collaborative, multilingual, and machine-readable database. The various language-editions of Wikipedia all pull information from the same version of Wikidata, creating consistency of content across the platform. But Mark Graham, a professor at the Oxford Internet Institute, has <a href="https://www.theatlantic.com/technology/archive/2012/04/the-problem-with-wikidata/255564/">expressed concerns</a> about the project. He cautioned that a universal database might disregard the opinions of marginalized groups, and he predicted that “worldviews of the dominant cultures in the Wikipedia community will win out.”
+</p>
+<p>
+  It’s a valid concern. But in many ways, the current Wikipedia already feels colonial. The site — operated by a foundation whose board of trustees are mostly American and European — has dominated the global internet ecosystem ever since Google began putting it at the top of search engine results.
+</p>
+<p>
+  Although Wikipedia may have managed, belatedly, to remove abusive editors from its Japanese and Croatian sites, the same thing could happen again; the problem is built into the system.
+</p>
+<p>
+  Creating a global Wikipedia would be challenging, but it would bring further transparency, accuracy, and accountability to a resource that has become one of the world’s go-to repositories of information. If the Wikimedia Foundation is to achieve its stated mission to “help everyone share in the sum of all knowledge,” they might first need to create the sum of all Wikipedias.
+</p>
+<hr/>
+<p>
+  <em>Yumiko Sato (<a href="http://www.twitter.com/YumikoSatoMTBC">@YumikoSatoMTBC</a>) is an author, music therapist, and UX designer. </em></p>
+
+									</div>
+			</div>
+		</div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 16:52:16 +0000</pubDate>
+      <source>https://undark.org/2021/08/12/wikipedia-has-a-language-problem-heres-how-to-fix-it/</source>
+    </item>
   </channel>
 </rss>
