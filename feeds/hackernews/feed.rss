@@ -22950,5 +22950,36 @@ or preferably to the <a href="https://github.com/samhocevar/wincompose/issues">G
       <pubDate>Fri, 13 Aug 2021 16:55:01 +0000</pubDate>
       <source>https://apnews.com/article/entertainment-joe-biden-business-health-coronavirus-pandemic-986f0ff0f97af020de3b4eb3d76b23cd</source>
     </item>
+    <item>
+      <title>Modern SQL</title>
+      <link>https://winand.at/sql-slides-for-developers</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___winand_at_sql-slides-for-developers/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="content"><p>From the basics of indexing to the latest additions to the SQL language—these are the topics Markus Winand talks about at conferences.</p><h2 id="modern-sql">Modern SQL</h2><h2 id="no-offset">Pagination Done the Right Way</h2><h2 id="match_recognize">Row Pattern Matching in SQL:2016</h2><h2>Epidemic Plague: Superficial SQL Indexing</h2><h2>Standard SQL features where PostgreSQL beats its competitors</h2><h2>Transactions – What they are for and how they work</h2></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 15:57:37 +0000</pubDate>
+      <source>https://winand.at/sql-slides-for-developers</source>
+    </item>
+    <item>
+      <title>FOSS app removed from the Play Store for linking to the project&#39;s website</title>
+      <link>https://github.com/language-transfer/lt-app/pull/44</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div disabled="" sortable="">
+<div>
+          <p>Google has removed Language Transfer from the Google Play Store.</p>
+<h3>Some history</h3>
+<p>When we first published, the app was rejected because we had a link to Language Transfer&#39;s Patreon:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/1474671/129395596-599879df-a888-4ca5-aa9a-1b27166879d9.png"></a></p>
+<p>Since this was a way of soliciting funds (for our <em>free, open-source project</em>) that didn&#39;t give Google a 15% cut, it wasn&#39;t allowed. This sucked, because Language Transfer is run entirely on donations (which pay Mihalis&#39;s rent), and now our main distribution mechanism (the mobile app) wasn&#39;t even allowed to fundraise. The app doesn&#39;t provide any special features to people who donate; it&#39;s just a way to help support the project. Google makes an exception for tax-exempt nonprofits, but Language Transfer is a small project run by one guy. If we want to let people donate, Google wants a cut.</p>
+<p>To appease Google, we swapped out those links for links to the <a href="https://www.languagetransfer.org/" rel="nofollow">Language Transfer website</a> so that users could learn more about the project themselves. Google accepted this version of the app to the Play Store, and (about a year later) it&#39;s now on around 50,000 devices.</p>
+<h3>This morning</h3>
+<p>Today, Google pulled the app from the Play Store (with no notice, as is their way) with this series of screenshots attached to the rejection:</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/1474671/129396299-a0028470-5543-4cc0-8d22-0f0ca975a14e.png"></a></p>
+<p>That&#39;s right; someone at Google reviewed this app, visited the LT website, scrolled to the very bottom of the page, and clicked through twice to find a way to contribute funds to the project. Our app <strong>isn&#39;t allowed to link</strong> to the homepage of the project&#39;s own website unless we completely remove our users&#39; ability to discover a way to give us money. This isn&#39;t a change, by the way; this link was on the website when Google first approved the app.</p>
+<p>I&#39;m hoping this PR does the trick, but we&#39;re still linking the GitHub page (which seems, yknow, reasonable, for an open-source app) and the Facebook page (again, doesn&#39;t everyone do this?), and of course it will be possible to find ways to donate through either of those links. We&#39;ll just have to hope that this is good enough for Google.</p>
+      </div>
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 18:28:46 +0000</pubDate>
+      <source>https://github.com/language-transfer/lt-app/pull/44</source>
+    </item>
   </channel>
 </rss>
