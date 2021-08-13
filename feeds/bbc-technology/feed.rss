@@ -3,8 +3,8 @@
     <title>BBC News - Technology</title>
     <link>https://www.bbc.co.uk/news/</link>
     <description>BBC News - Technology</description>
-    <pubDate>Fri, 13 Aug 2021 11:02:40 +0000</pubDate>
-    <lastBuildDate>Fri, 13 Aug 2021 11:02:40 +0000</lastBuildDate>
+    <pubDate>Fri, 13 Aug 2021 12:17:25 +0000</pubDate>
+    <lastBuildDate>Fri, 13 Aug 2021 12:17:25 +0000</lastBuildDate>
     <image>
       <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
       <title>BBC News - Technology</title>
@@ -737,6 +737,16 @@
       <guid>https://www.bbc.co.uk/news/uk-scotland-58180367</guid>
       <pubDate>Thu, 12 Aug 2021 05:10:50 +0000</pubDate>
       <source>https://www.bbc.co.uk/news/uk-scotland-58180367</source>
+    </item>
+    <item>
+      <title>The $8bn EV company you’ve probably never heard of</title>
+      <link>https://www.bbc.co.uk/news/business-58174043</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/bbc-technology/https___www_bbc_co_uk_news_business-58174043/image.jpg" /> 
+<div id="readability-page-1" class="page"><div aria-live="polite"><div><p>Arrival is probably the most valuable electric vehicle company you&#39;ve never heard of. Based in the UK and listed on the US Nasdaq stockmarket, it is worth $8bn (£5.7bn). But it isn&#39;t making cars, it is focusing on commercial vehicles - vans, buses and taxis. </p><p>Instead of setting up huge factories to build as many vehicles as quickly as possible and ship them around the world, Arrival plans to set up small, so-called micro-factories to build products close to where they&#39;ll be sold.</p><p><i>Reporting by Theo Leggett and video editing by Peter Page</i></p></div></div></div>]]></content:encoded>
+      <guid>https://www.bbc.co.uk/news/business-58174043</guid>
+      <pubDate>Thu, 12 Aug 2021 23:41:59 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/business-58174043</source>
     </item>
   </channel>
 </rss>

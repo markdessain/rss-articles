@@ -19069,5 +19069,417 @@ Transclusion expansion time report (%,ms,calls,template)
       <pubDate>Fri, 13 Aug 2021 09:10:25 +0000</pubDate>
       <source>https://voxeu.org/article/labour-market-reallocation-wake-covid-19</source>
     </item>
+    <item>
+      <title>Machine Learning – A First Course for Engineers and Scientists</title>
+      <link>http://smlbook.org/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><section id="main_content">
+          <p>When we developed the course <a href="http://www.it.uu.se/edu/course/homepage/sml/">Statistical Machine Learning</a> for engineering students at Uppsala University, we found no appropriate textbook, so we ended up writing our own. It will be published by <a href="https://www.cambridge.org/">Cambridge University Press</a> in 2021.</p>
+
+<p>Andreas Lindholm,
+<a href="https://www.it.uu.se/katalog/nikwa778/">Niklas Wahlström</a>,
+<a href="https://liu.se/medarbetare/freli29">Fredrik Lindsten</a>, and
+<a href="http://user.it.uu.se/~thosc112/">Thomas B. Schön</a></p>
+
+<p>A draft of the book is available below. <strong>We will keep a PDF of the book freely available also after its publication.</strong></p>
+
+<p><a href="http://smlbook.org/book/sml-book-draft-latest.pdf"><strong>Latest draft of the book</strong></a> (<a href="https://github.com/uu-sml/sml-book-page/commits/master/book">older versions &gt;&gt;</a>)</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><strong>Introduction</strong>
+    <ul>
+      <li>The machine learning problem</li>
+      <li>Machine learning concepts via examples</li>
+      <li>About this book</li>
+    </ul>
+  </li>
+  <li><strong>Supervised machine learning: a first approach</strong>
+    <ul>
+      <li>Supervised machine learning</li>
+      <li>A distance-based method: k-NN</li>
+      <li>A rule-based method: Decision trees</li>
+    </ul>
+  </li>
+  <li><strong>Basic parametric models for regression and classification</strong>
+    <ul>
+      <li>Linear regression</li>
+      <li>Classification and logistic regression</li>
+      <li>Polynomial regression and regularization</li>
+      <li>Generalized linear models</li>
+    </ul>
+  </li>
+  <li><strong>Understanding, evaluating and improving the performance</strong>
+    <ul>
+      <li>Expected new data error: performance in production</li>
+      <li>Estimating the expected new data error</li>
+      <li>The training error–generalization gap decomposition</li>
+      <li>The bias-variance decomposition</li>
+      <li>Additional tools for evaluating binary classifiers</li>
+    </ul>
+  </li>
+  <li><strong>Learning parametric models</strong>
+    <ul>
+      <li>Principles pf parametric modelling</li>
+      <li>Loss functions and likelihood-based models</li>
+      <li>Regularization</li>
+      <li>Parameter optimization</li>
+      <li>Optimization with large datasets</li>
+      <li>Hyperparameter optimization</li>
+    </ul>
+  </li>
+  <li><strong>Neural networks and deep learning</strong>
+    <ul>
+      <li>The neural network model</li>
+      <li>Training a neural network</li>
+      <li>Convolutional neural networks</li>
+      <li>Dropout</li>
+    </ul>
+  </li>
+  <li><strong>Ensemble methods: Bagging and boosting</strong>
+    <ul>
+      <li>Bagging</li>
+      <li>Random forests</li>
+      <li>Boosting and AdaBoost</li>
+      <li>Gradient boosting</li>
+    </ul>
+  </li>
+  <li><strong>Nonlinear input transformations and kernels</strong>
+    <ul>
+      <li>Creating features by nonlinear input transformations</li>
+      <li>Kernel ridge regdression</li>
+      <li>Support vector regression</li>
+      <li>Kernel theory</li>
+      <li>Support vector classification</li>
+    </ul>
+  </li>
+  <li><strong>The Bayesian approach and Gaussian processes</strong>
+    <ul>
+      <li>The Bayesian idea</li>
+      <li>Bayesian linear regression</li>
+      <li>The Gaussian process <a href="http://smlbook.org/GP/index.html"><strong>Online material: Gaussian process visualization</strong></a></li>
+      <li>Practial aspects of the Gaussian process</li>
+      <li>Other Bayesian methods in machine learning</li>
+    </ul>
+  </li>
+  <li><strong>Generative models and learning from unlabeled data</strong>
+    <ul>
+      <li>The Gaussian mixture model and discriminant analysis</li>
+      <li>Cluster analysis</li>
+      <li>Deep generative models</li>
+      <li>Representation learning and dimensionality reduction</li>
+    </ul>
+  </li>
+  <li><strong>User aspects of machine learning</strong>
+    <ul>
+      <li>Defining the machine learning problem</li>
+      <li>Improving a machine learning model</li>
+      <li>What if we cannot collect more data?</li>
+      <li>Practical data issues</li>
+      <li>Can I trust my machine learning model?</li>
+    </ul>
+  </li>
+  <li><strong>Ethics in machine learning</strong> (by <a href="https://katalog.uu.se/empinfo/?id=N7-525">David Sumpter</a>)
+    <ul>
+      <li>Fairness and error functions</li>
+      <li>Misleading claims about performance</li>
+      <li>Limitations of training data</li>
+    </ul>
+  </li>
+</ol>
+
+<p><strong>If you want to cite the book,</strong> you can cite it as</p>
+
+<figure><pre><code data-lang="tex">@book<span>{</span>smlbook,
+   author = <span>{</span>Lindholm, Andreas and Wahlstr<span>\&#34;</span>om, Niklas and Lindsten, Fredrik and Sch<span>\&#34;</span>on, Thomas B.<span>}</span>,
+   year = 2021,
+   title = <span>{</span>Machine Learning - A First Course for Engineers and Scientists<span>}</span>,
+   URL=<span>{</span>https://smlbook.org<span>}</span>,
+<span>}</span></code></pre></figure>
+
+<h2 id="exercise-material">Exercise material</h2>
+
+<p>Will eventually be added to this page. Meanwhile you may have a look at the material for our <a href="http://www.it.uu.se/edu/course/homepage/sml/">course at Uppsala University</a>.</p>
+
+<h2 id="report-mistakes-and-give-feedback"><a href="https://github.com/uu-sml/sml-book-page/issues">Report mistakes and give feedback</a></h2>
+<p>(A free GitHub account is required)</p>
+
+        </section></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 08:39:56 +0000</pubDate>
+      <source>http://smlbook.org/</source>
+    </item>
+    <item>
+      <title>Pythonic Monotonic</title>
+      <link>https://nedbatchelder.com/blog/202108/pythonic_monotonic.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><article id="e20210812T190307"><header><p><a href="https://nedbatchelder.com/blog/archive/date0812.html">Thursday 12</a> <a href="https://nedbatchelder.com/blog/archive/year2021.html#month202108">August 2021</a></p></header><p>In a recent conversation, someone shared some code from a book about
+technical job interviews. They wanted to know if I agreed that the code was
+“Pythonic.”</p><p>The problem was to find the runs of increasing and decreasing values in a
+list, and to produce a sequence of the runs, but to reverse the decreasing runs,
+so that they are also increasing.  This was the “Pythonic” code:</p><blockquote><code><span>import</span> <span>itertools</span></code></blockquote><p>My first response was that I don’t like this code, because I had to <b>read
+it with my eyebrows</b>.  That is, I furrow my brow, and read slowly, and scowl
+at the code as I puzzle through it. This code is dense and tricky.</p><p>Is it Pythonic? I guess in the sense that it uses a number of Python-specific
+constructs and tools, yes.  But not in the sense of Python code being clear and
+straightforward. It uses Python thoroughly, but misses the spirit.</p><p>I tried my hand at my own solution.  It came out like this:</p><blockquote><code><span>def</span> <span>mono_runs_simpler</span><span>(</span><span>seq</span><span>):</span></code></blockquote><p>This code also uses some unusual Python techniques, but is clearer to me. I’m
+not sure everyone would agree it is clearer. Maybe you have an even better way
+to do it.</p><p>Aside from the question of which code is better, I also didn’t like that this
+code was presented as a good solution for a job interview.  Studying code like
+this to learn intricate tricks of Python is not a good way to get a job.  Or, it
+might be a good way to get a job, but I don’t like that it might work.  Job
+interviews should be about much deeper concerns than whether you know
+little-visited corners of the Python standard library.</p></article>
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 10:20:50 +0000</pubDate>
+      <source>https://nedbatchelder.com/blog/202108/pythonic_monotonic.html</source>
+    </item>
+    <item>
+      <title>Do not do in code what can be done in infrastructure (2017)</title>
+      <link>https://rogerjohansson.blog/2017/05/19/do-not-do-in-code-what-can-be-done-in-infrastructure/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="page">
+	<p><a href="#content">Skip to content</a></p><header id="masthead" role="banner">
+		
+	<p><a href="https://rogerjohansson.blog/" rel="home"><img width="240" height="240" src="https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png" alt="Roger Johansson Blog" srcset="https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png 240w, https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png?w=150&amp;h=150 150w" sizes="(max-width: 240px) 100vw, 240px" data-attachment-id="6339" data-permalink="https://rogerjohansson.blog/cropped-logo-png/" data-orig-file="https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png" data-orig-size="240,240" data-comments-opened="1" data-image-meta="{&#34;aperture&#34;:&#34;0&#34;,&#34;credit&#34;:&#34;&#34;,&#34;camera&#34;:&#34;&#34;,&#34;caption&#34;:&#34;&#34;,&#34;created_timestamp&#34;:&#34;0&#34;,&#34;copyright&#34;:&#34;&#34;,&#34;focal_length&#34;:&#34;0&#34;,&#34;iso&#34;:&#34;0&#34;,&#34;shutter_speed&#34;:&#34;0&#34;,&#34;title&#34;:&#34;&#34;,&#34;orientation&#34;:&#34;0&#34;}" data-image-title="cropped-logo.png" data-image-description="&lt;p&gt;https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png&lt;/p&gt;
+" data-image-caption="" data-medium-file="https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png?w=240" data-large-file="https://rogeralsing.files.wordpress.com/2017/05/cropped-logo.png?w=240"/></a></p>
+
+<!-- .site-branding -->
+		
+	</header><!-- #masthead -->
+
+	<div id="content">
+
+	<section id="primary">
+		<main id="main" role="main">
+
+			
+<article id="post-5165">
+
+	
+
+	
+	<div>
+		<p>Or subtitle: <em>Maybe distributed programming is no longer a programming problem?</em> (For the obvious impaired: This is meant to be more thought provoking than an actual truth)</p>
+<p>Over the last decade we have seen the emergence of cloud computing, multi core, and micro service architectures.</p>
+<p>Due to this there have been a trend for new languages and frameworks for distributed programming.</p>
+<p>The issue for such tools is that they are all programming concerns, <strong>you have to write code to leverage their power.<br/>
+</strong></p>
+<p>One of the major benefits of languages like Erlang or the actor model in general is it’s somewhat unique fault tolerance and supervision support.</p>
+<p>Given the introduction of containers, cluster orchestrators and the mindset of <em>“cattle not pets”</em>, we can now employ the same or similar ideas on an infrastructural level.</p>
+<p>Other infrastructure like Traefik, LinkerD, Envoy makes it possible to do call retries, circuit breakers, rate limiting for service calls,</p>
+<p><strong>The infrastructural approach is of-course a more blunt, less fine-grained alternative than the actor model or similar tools which gives you complete control.</strong></p>
+<p>I am not saying that you should stop using such tools as they are extremely powerful.</p>
+	</div><!-- .entry-content -->
+
+	<!-- .entry-footer -->
+
+		<!-- .entry-auhtor -->
+
+</article><!-- #post-${ID} -->
+
+<!-- #comments -->
+
+		</main><!-- #main -->
+	</section><!-- #primary -->
+
+
+	</div><!-- #content -->
+
+	<!-- #colophon -->
+
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 10:42:54 +0000</pubDate>
+      <source>https://rogerjohansson.blog/2017/05/19/do-not-do-in-code-what-can-be-done-in-infrastructure/</source>
+    </item>
+    <item>
+      <title>A handy guide to cognitive biases</title>
+      <link>https://en.shortcogs.com/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___en_shortcogs_com_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="site-root"><div id="masterPage"><main id="PAGES_CONTAINER" tabindex="-1"><div id="SITE_PAGES"><div id="fzbwv"><div><div id="Containerfzbwv"><div data-mesh-id="ContainerfzbwvinlineContent" data-testid="inline-content"><div data-mesh-id="ContainerfzbwvinlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-kip35nyw" title=""><div data-testid="linkElement"><wix-image id="img_comp-kip35nyw" data-image-info="{&#34;containerId&#34;:&#34;comp-kip35nyw&#34;,&#34;displayMode&#34;:&#34;fill&#34;,&#34;imageData&#34;:{&#34;width&#34;:556,&#34;height&#34;:673,&#34;uri&#34;:&#34;2a9c5e_57ecb1a14b1c4cad8d405420f5b0a521~mv2.png&#34;,&#34;name&#34;:&#34;shorcuts seul CLOE_enlarged@0.1x.png&#34;,&#34;displayMode&#34;:&#34;fill&#34;}}" data-bg-effect-name="" data-is-svg="false" data-is-svg-mask="false" data-image-zoomed="" data-has-ssr-src="true"></wix-image></div></div><div id="comp-kh6nzxiu" title=""><div data-testid="linkElement"><wix-image id="img_comp-kh6nzxiu" data-image-info="{&#34;containerId&#34;:&#34;comp-kh6nzxiu&#34;,&#34;displayMode&#34;:&#34;fill&#34;,&#34;imageData&#34;:{&#34;width&#34;:2000,&#34;height&#34;:779,&#34;uri&#34;:&#34;2a9c5e_60c47a357b4f46c69e26c5e7edcec2f2~mv2.png&#34;,&#34;name&#34;:&#34;Shortcuts_dimensions.png&#34;,&#34;displayMode&#34;:&#34;fill&#34;}}" data-bg-effect-name="" data-is-svg="false" data-is-svg-mask="false" data-image-zoomed="" data-has-ssr-src="true"></wix-image></div></div><section id="comp-kh6nht80"><div data-testid="columns"><div id="comp-kh6nht9h5"><div data-mesh-id="comp-kh6nht9h5inlineContent" data-testid="inline-content"><div data-mesh-id="comp-kh6nht9h5inlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-kgs9rxio" data-testid="richTextElement">
+
+
+
+<p>Cognitive biases refer to the identifiable and indexable errors that are found in our judgment in a predictable and systematic way. These errors occur when people have to interpret and manage information from the world around them. No one is completely immune and certain contexts and factors are particularly conducive to this phenomenon.</p>
+
+<p><span>​</span></p>
+
+<p><span><a href="https://en.shortcogs.com" target="_self">Learn more</a></span></p></div></div></div></div></div></section><section id="comp-kh6puwb6"><div data-testid="columns"><div id="comp-kh6puwc8"><div data-mesh-id="comp-kh6puwc8inlineContent" data-testid="inline-content"><div data-mesh-id="comp-kh6puwc8inlineContent-gridContainer" data-testid="mesh-container-content"><p id="comp-kh6qbgzw" data-testid="richTextElement"><h4><span>Explore cognitive biases</span></h4></p><p><span>Browse biases in alphabetical order</span></p><p><span>Browse biases</span></p></div></div></div></div></section><section id="comp-kh6pihdl"></section><section id="comp-kh6pnwor"><div data-testid="columns"><div id="comp-kh6pnwrg"><div data-mesh-id="comp-kh6pnwrginlineContent" data-testid="inline-content"><div data-mesh-id="comp-kh6pnwrginlineContent-gridContainer" data-testid="mesh-container-content"><div id="comp-kh6rrjkf"><div data-mesh-id="comp-kh6rrjkfinlineContent" data-testid="inline-content"><div data-mesh-id="comp-kh6rrjkfinlineContent-gridContainer" data-testid="mesh-container-content"><p id="comp-kh6rrjnf4" data-testid="richTextElement"><h2><span><span><span>Representativeness heuristic</span></span></span></h2></p></div></div></div><div id="comp-kh6sgni0"><div data-mesh-id="comp-kh6sgni0inlineContent" data-testid="inline-content"><div data-mesh-id="comp-kh6sgni0inlineContent-gridContainer" data-testid="mesh-container-content"><p id="comp-kh6sgnte" data-testid="richTextElement"><h2><span><span><span>Need for cognitive closure</span></span></span></h2></p></div></div></div><div id="comp-kh6rw9bl"><div data-mesh-id="comp-kh6rw9blinlineContent" data-testid="inline-content"><div data-mesh-id="comp-kh6rw9blinlineContent-gridContainer" data-testid="mesh-container-content"><p id="comp-kh6rw9fh1" data-testid="richTextElement"><h2><span><span><span>Need for cognitive consonance</span></span></span></h2></p></div></div></div></div></div></div></div></section></div></div></div></div></div></div></main></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 11:12:13 +0000</pubDate>
+      <source>https://en.shortcogs.com/</source>
+    </item>
+    <item>
+      <title>What if Planet 9 is a Primordial Black Hole? A 1:1 black hole figure</title>
+      <link>https://arxiv.org/abs/1909.11090</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___arxiv_org_abs_1909_11090/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="content-inner">
+  <div id="abs">
+    
+    
+    
+      
+    
+  
+    <p><a href="https://arxiv.org/pdf/1909.11090">Download PDF</a></p><blockquote>
+      <span>Abstract:</span>  We highlight that the anomalous orbits of Trans-Neptunian Objects (TNOs) and
+an excess in microlensing events in the 5-year OGLE dataset can be
+simultaneously explained by a new population of astrophysical bodies with mass
+several times that of Earth ($M_\oplus$). We take these objects to be
+primordial black holes (PBHs) and point out the orbits of TNOs would be altered
+if one of these PBHs was captured by the Solar System, inline with the Planet 9
+hypothesis. Capture of a free floating planet is a leading explanation for the
+origin of Planet 9 and we show that the probability of capturing a PBH instead
+is comparable. The observational constraints on a PBH in the outer Solar System
+significantly differ from the case of a new ninth planet. This scenario could
+be confirmed through annihilation signals from the dark matter microhalo around
+the PBH.
+
+    </blockquote>
+
+    <!--CONTEXT-->
+    
+  </div>
+</div><div>
+      <h2>Submission history</h2><p> From: James Unwin [<a href="https://arxiv.org/show-email/ad7dbde3/1909.11090">view email</a>]
+      </p></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 09:35:23 +0000</pubDate>
+      <source>https://arxiv.org/abs/1909.11090</source>
+    </item>
+    <item>
+      <title>Show HN: Judo - Build Native App Experiences with No Code</title>
+      <link>https://www.judo.app/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_judo_app_/image.jpg" /> 
+<div id="readability-page-1" class="page">
+    <a href="#content">Skip to content</a>
+  
+
+  <section>
+    
+    
+    
+    
+    
+    <section>
+      <div>
+        <div>
+          <p>Trusted by Leading Global Brands</p>
+          
+        </div>
+        <hr/>
+      </div>
+    </section>
+                            <section>
+            <div>
+              <div>
+                <div>
+                      <h2>
+                    <span>Enabling<svg viewBox="0 0 163 70" xml:space="preserve" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M102.962 11.0962C147.554 13.6311 162 20.6021 162 37.0791C162 67.4981 -5.8063 87.1437 1.21431 44.0501C8.75112 -2.21212 116.779 -6.01445 160.116 8.56141" stroke="#4261FE" vector-effect="non-scaling-stroke" preserveAspectRatio="none" stroke-width="2"></path>
+          </svg>
+        </span>
+                          Customer Engagement In-App        </h2>
+<p>Marketing teams can integrate native in-app content as part of customer engagement without requiring app updates or developer resources</p>
+  <p><a href="https://try.judo.app/book-a-demo">Book a Demo</a></p>
+                                  </div>
+              </div>
+            </div></section>
+                                              <section>
+              
+              </section>
+                                                  <section>
+                
+                </section>
+                                                      <section>
+                  <div>
+                    <div>
+                      
+                      <p>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+                                                      <section>
+                  
+                    </section>
+                                                                <section>
+    <div>
+      <div>
+        <div>
+          <h2>Learn More</h2>
+          <p>Schedule time with a product specialist to learn about how brands use Judo to build and deploy mobile in app experiences.</p>
+          <p><a href="https://try.judo.app/book-a-demo">Book a Demo</a>
+        </p></div>
+      </div>
+    </div>
+  </section>
+              <!--TESTIMONIALS-->
+              <section>
+                <div>
+                  <p>
+                  </p><div>
+                    
+                    <div>
+                      <div>
+                                                  <div>
+                            <h3>We’ve worked hard to optimize the Bucks app to enhance the mobile experience for fans at Fiserv Forum, at home, and also internationally. The Judo platform has helped us build new digital inventory for partners and fans. It also makes creating and executing campaigns quick and easy. </h3>
+                            <p>
+                                                            Abby English, Digital Sponsorship &amp; Activation Manager, Milwaukee Bucks</p>
+                            </div>
+                                                    </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                
+</section>
+
+
+
+
+
+
+
+
+</div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 10:31:44 +0000</pubDate>
+      <source>https://www.judo.app/</source>
+    </item>
+    <item>
+      <title>GiveCampus (YC S15) hiring senior engineers (US) who care about education</title>
+      <link>https://jobs.lever.co/givecampus/44af3199-546a-404a-95fd-a097ef37e915</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___jobs_lever_co_givecampus_44af3199-546a-404a-95fd-a097ef37e915/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><p><span>At GiveCampus, our mission is to help advance the quality, the affordability, and the accessibility of education. We’ve become the world’s leading social fundraising and engagement platform for non-profit educational institutions, and we’re trusted by nearly 1,000 colleges, universities, and K-12 schools. We’re profitable and continuing to expand our team to support our aggressive growth trajectory, and we’re looking to hire exceptional, motivated, diverse candidates.</span></p><p>We are looking for a brilliant and energetic Senior Software Engineer to join GiveCampus and help us take the platform to the next level. You will be a key member of our team, making technical decisions that will shape the company’s future. You will hit the ground running with our stack and who loves to brainstorm, write code, create new features, and have a big impact.  We are headquartered in Washington, DC, and are hiring both in-office and remote (US).</p></div><div><div><h3>Responsibilities will include:</h3><ul><ul><li>Working on the full stack, from UI elements to database performance.</li><li>Building new features from start to finish and back end to front end, including architecture design, coding, testing, and supporting in production.</li><li>Tackling a wide variety of technical issues throughout our stack and contributing to all parts of the code base.</li></ul></ul></div></div><div><div><h3>Key attributes that may assist in your success</h3><ul><ul><li>Functional, real world programming experience (vs. theoretical).</li><li>Experience with MVC frameworks such as Rails, Django, Pyramid, etc.</li><li>The ability to hold your own on the front end and the back end.</li><li>SQL database experience (PostgreSQL, MySQL, SQLite).</li><li>Experience with deployments to Heroku, AWS, or similar.</li><li>Experience balancing swift and long-term code maintainability.</li></ul></ul></div></div><div><div><h3>Helpful - but not required, skills:</h3><ul><ul><li>Deep expertise with Ruby/Ruby on Rails.</li><li>Experience with Postgres database administration.</li><li>Shipped code that has supported tens of thousands of users, including enterprise/business customers.</li><li>Operations experience and how it pertains to site reliability/speed.</li><li>Familiarity with networking, caching, database, and how to triage issues.</li><li>Experience working on a fundraising/crowdfunding platform.</li><li>Experience working on a fintech or payments technology product.</li><li>A good eye for intuitive, user-friendly front end design.</li></ul></ul></div></div><div><p><span>If we&#39;ve piqued your interest, please apply below! We’re always looking to hire amazing people, so even if none of our listed positions are connecting with you right now, send us a note anyway; we&#39;d love to hear from you and stay in touch.</span></p><p><i>GiveCampus is an Equal Opportunity Employer and strongly encourages applications from people of color, persons with disabilities, the LGBTQIA+ community, and individuals regardless of age, gender, religion, educational level, marital or veteran status.</i></p><p><i>At GiveCampus, we pledge to foster an environment of support, inclusivity, and learning both on the job and throughout the application process. We recognize that candidates may not possess every qualification noted in a job posting, and strongly encourage you to apply if you meet the majority of the criteria.</i></p></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 12:00:43 +0000</pubDate>
+      <source>https://jobs.lever.co/givecampus/44af3199-546a-404a-95fd-a097ef37e915</source>
+    </item>
+    <item>
+      <title>Show HN: Nomad Visa – Working remotely? Explore your visa options</title>
+      <link>https://nomadvisa.io/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><div><section id="/" data-v-d537055e=""><main data-v-d537055e=""><div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Tourist Visa 🛫</p> <p data-v-d537055e="">
+Browse Tourist Visas specifically for your origin. Travel many countries or stay up to 6 Months.
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Digital Nomad Visa 🎒</p> <p data-v-d537055e="">
+Browse special Visas for Digital Nomads if you want to explore a country without a rush.
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Working Holiday Visa 🌴</p> <p data-v-d537055e="">
+Explore well-known and established Working Holiday Visas for your Digital Nomad Journey.
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Startup Visa 🦄</p> <p data-v-d537055e="">
+Planning to start a unicorn company in a foreign country? Click below to explore your possibilities.
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Golden Visa 🏠</p> <p data-v-d537055e="">
+Settle down in a foreign country? Check your residency possibilities via Golden Visas and more.
+</p></div>  </div></div></div></div></div></div></div> <div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Country View 🌍</p> <p data-v-d537055e="">
+Get an overview over all countries and explore their visa possibilities.
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Work Hours Overlap ⏱️</p> <p data-v-d537055e="">
+Check how many work-hours are overlapping with your remote team or local team from your hometown.
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Coronavirus 🦠</p> <p data-v-d537055e="">
+What are the numbers by country and how many people have been vaccined 💉?
+</p></div>  </div></div><div data-v-d537055e=""><div data-v-d537055e=""><div data-v-d537055e=""><p data-v-d537055e="">Nomad Tools 🛠️</p> <p data-v-d537055e="">
+These resources have already proven useful for many digital nomads, perpetual travelers and remote workers.
+</p></div>  </div></div></div></div></div></div></div></div></main></section> </div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 10:30:10 +0000</pubDate>
+      <source>https://nomadvisa.io/</source>
+    </item>
   </channel>
 </rss>
