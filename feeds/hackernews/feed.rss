@@ -19481,5 +19481,349 @@ These resources have already proven useful for many digital nomads, perpetual tr
       <pubDate>Fri, 13 Aug 2021 10:30:10 +0000</pubDate>
       <source>https://nomadvisa.io/</source>
     </item>
+    <item>
+      <title>Launch HN: Iona Mind (YC S21) – App-based cognitive behavioural therapy</title>
+      <link>https://news.ycombinator.com/item?id=28168336</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><td colspan="2"></td><td>Hi HN, we’re Iona Mind. We provide app-based mental health support, with a focus on Cognitive Behavioural Therapy (CBT).<p>Mental healthcare is difficult for many people to access, whether because of cost, stigma or waiting times. According to a recent pre-covid study in England [1] 18% of people are experiencing a mental health issue, yet only 5% actually access help through an employer’s assistance plan (if one even exists) [2] . The majority suffer in silence. In addition to the human cost, there are significant economic costs. In the United States, Mental health issues cost employers thousands of dollars per employee per year in medical costs and lost productivity [3].</p><p>At our previous company, we lost a colleague to suicide. Since then we’ve been on a mission to bring evidence-based mental healthcare to as many people as possible. We were surprised to find that Cognitive Behavioural Therapy is backed by over 30 years of research, and over 250 meta-analyses [4], yet remains difficult for people to access. CBT has been shown to be effective for a wide range of mental health conditions, even when administered digitally [5] or in books (so called bibliotherapy) [6]. While we do not believe that self or app administered CBT can replace the human touch, it does provide a convenient, affordable, always accessible and stigma-free way for many users to access support, when they may not have been able or ready to seek it in person. In the UK, the NHS presents a progressive “stepped model” of mental healthcare, depending upon severity from step 1 to step 4. We see apps playing a part in step 1, step 1a and possibly step 2 of this model [7].</p><p>While there are a number of CBT apps available, we wanted to base ours around Low-Intensity Cognitive Behavioural Therapy, a relatively new variant which has been used extensively in England to treat people with mild to moderate conditions at scale. In low-intensity CBT, the patient more or less treats themselves by doing exercises, and the therapist supports the process. This approach to CBT is especially suited to delivery through a digital form. Our clinical director, Professor Paul Farrand, was the architect of using Low-Intensity Cognitive Behavioural therapy at scale in the UK’s National Health Service (NHS), and the author of one of the first international textbooks on the subject [8].</p><p>Our app presents the user with a chatbot which guides them through CBT techniques and exercises. We went for a chat-style UI to make the software more engaging—it’s a challenge to make an app of this kind be more than just a “content board”. Our chatbot engine is graph-based. At some nodes in the graph, classifiers applied to the user’s free text entry determine the path through this graph, along with the user’s state and past inputs. We want the paths within the app to be predictable and ensure that the chatbot doesn’t do anything unexpected. We’d seen more freeform generative seq2seq style chatbots produce potentially dangerous output at times in other apps and wanted to avoid this. Also, CBT has been shown to often work better when “therapist drift” is minimized—this is where the therapist drifts away from the prescribed structure of the exercises in CBT [9]. A graph-based conversation is a good way to keep things on track.</p><p>We offer the app as an employee wellness benefit to organizations. Since only 5% of employees tend to use the Employee Assistance Programme (EAP) at their employer, the app offers a way to support the “missing middle” for whom mindfulness/meditation apps are not sufficient, but who aren’t ready to access their employer’s EAP. We offer use of the app completely anonymously if the user wishes. It’s in the Apple App Store at <a href="https://apps.apple.com/gb/app/iona-anxiety-mood-support/id1491343580" rel="nofollow">https://apps.apple.com/gb/app/iona-anxiety-mood-support/id14...</a> and Google Play at <a href="https://play.google.com/store/apps/details?id=com.iona.mental.health" rel="nofollow">https://play.google.com/store/apps/details?id=com.iona.menta...</a>.</p><p>We’d be really interested to hear from the community about any ideas or experiences you&#39;ve had when it comes to delivering mental health support digitally. We appreciate this is a sensitive topic so if you’d rather email us we’d love to hear from you at hello@ionamind.com</p><p>[1] <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/556596/apms-2014-full-rpt.pdf" rel="nofollow">https://assets.publishing.service.gov.uk/government/uploads/...</a> 
+[2] <a href="https://www.eapa.org.uk/wp-content/uploads/2014/02/UK-EAPA-Reseach-Report-The-evolution-of-employee-assistance-FINAL.pdf" rel="nofollow">https://www.eapa.org.uk/wp-content/uploads/2014/02/UK-EAPA-R...</a>
+[3]  <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1924724/" rel="nofollow">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1924724/</a> indicates major depressive disorder alone costs $4426 per ill worker per annum
+[4] <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3584580/" rel="nofollow">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3584580/</a>
+[5] There are a wealth of papers on so-called “iCBT” or internet delivered Cognitive Behaviour Therapy, covering both fully digital and human-in-the-loop variations. The approach dates back to the days when iCBT was actually just static content delivered on CD-ROM. I attach a couple below <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5421393/" rel="nofollow">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5421393/</a>
+<a href="https://pubmed.ncbi.nlm.nih.gov/23419552/" rel="nofollow">https://pubmed.ncbi.nlm.nih.gov/23419552/</a>
+[6] <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5788928/" rel="nofollow">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5788928/</a>
+[7] <a href="http://www.swscn.org.uk/wp/wp-content/uploads/2015/03/non-guidance-commissioning-stepped-care-for-people-with-common-mental-health-disorders-pdf.pdf" rel="nofollow">http://www.swscn.org.uk/wp/wp-content/uploads/2015/03/non-gu...</a>
+[8] <a href="https://us.sagepub.com/en-us/nam/low-intensity-cbt-skills-and-interventions/book265983" rel="nofollow">https://us.sagepub.com/en-us/nam/low-intensity-cbt-skills-an...</a>
+[9] <a href="https://pubmed.ncbi.nlm.nih.gov/26752326/" rel="nofollow">https://pubmed.ncbi.nlm.nih.gov/26752326/</a>
+<a href="https://pubmed.ncbi.nlm.nih.gov/19036354/" rel="nofollow">https://pubmed.ncbi.nlm.nih.gov/19036354/</a>
+<a href="https://www.vgct.nl/stream/vr-keynote-9.15-waller.pdf" rel="nofollow">https://www.vgct.nl/stream/vr-keynote-9.15-waller.pdf</a></p></td></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:03:10 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28168336</source>
+    </item>
+    <item>
+      <title>Illinois Is the First State to Have High Schools Teach News Literacy</title>
+      <link>https://www.npr.org/2021/08/12/1026993142/illinois-is-the-first-state-to-have-high-schools-teach-news-literacy</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><p><b data-is-speakable="">Illinois Is The First State To Have High Schools Teach News Literacy</b>   <b data-is-speakable="">Illinois will require news literacy courses at every high school. The hope is that the classes will provide the next generation with tools to maneuver the internet&#39;s misinformation minefield.</b>
+</p><div id="wrapper">
+         <section id="main-section"><article><a id="mainContent"></a>
+
+
+<!-- END CLASS="STORYTITLE" -->
+
+
+<!-- END CLASS="STORY-TOOLS" -->
+<div id="story-meta">
+      <div>
+            <p><time datetime="2021-08-12T05:03:00-04:00">
+            <span>August 12, 2021</span><span>5:03 AM ET</span>
+    </time>
+</p>      
+      
+<!-- END CLASS="PROGRAM-BLOCK" -->
+   </div>
+   
+<!-- END CLASS="STORY-META__ONE" -->
+   <div>
+            
+      <p> <b>From</b><a href="https://www.northernpublicradio.org/?utm_source=npr.org&amp;utm_medium=referral&amp;utm_campaign=click%2Bstation&amp;utm_term=local-story" data-metrics="{&#34;action&#34;:&#34;Click Org Association&#34;,&#34;category&#34;:&#34;Story Metadata&#34;}"></a></p>
+      
+<!-- END CLASS="STATION" -->
+   </div>
+   
+<!-- END CLASS="STORY-META__TWO" -->
+</div>
+
+<!-- END ID="STORY-META" CLASS="STORY-META HAS-BYLINE HAS-ORG" -->
+<div id="primaryaudio">
+      <article id="res1026993143" aria-label="audio-module"><div>
+      <h4>Illinois Is The First State To Have High Schools Teach News Literacy</h4>
+   
+
+   
+    
+</div>
+</article>
+</div>
+<p>Illinois will require news literacy courses at every high school. The hope is that the classes will provide the next generation with tools to maneuver the internet&#39;s misinformation minefield.</p>
+<div aria-label="Transcript">
+    <p>DEBBIE ELLIOTT, HOST: </p>
+    <p> Between the contentious 2020 presidential election and the pandemic, the past few years have been a perfect storm for misinformation on the internet. Illinois is leading the charge to fight that. It&#39;s the first state to require high schools to teach news literacy classes. Peter Medlin of member station WNIJ reports.</p>
+    <p>PETER MEDLIN, BYLINE: Here&#39;s an example of one startling experiment. Researchers showed an anonymous Facebook video to more than 3,000 American high schoolers. The video circulated before the 2016 presidential election and claimed to show people ballot stuffing during that year&#39;s primaries. They asked students a simple question. Is this strong evidence of voter fraud in the U.S.?</p>
+    <p>JOEL BREAKSTONE: Out of those more than 3,000 students, three figured out that, actually, the video came from Russia.</p>
+    <p>MEDLIN: That&#39;s Joel Breakstone, who heads the Stanford History Education Group, which conducted the study.</p>
+    <p>BREAKSTONE: There&#39;s a widespread misconception that because young people are adept at using digital devices, that they are also skilled at making sense of the information that those devices provide.</p>
+    <p>MEDLIN: Under the new curriculum, Illinois students will analyze news content across platforms. Breakstone&#39;s groups spent the last year working with ninth-graders at a suburban Chicago high school, integrating news literacy into subjects like geography and biology. It found that what helped students distinguish misinformation the most is something called lateral reading. That can be as simple as opening a new tab and leaving the post to find more about the source of information. It appears to be effective. Students reportedly got a lot better at spotting questionable sources. But this effort takes time and practice. Students say they often didn&#39;t see why, for example, a company writing about climate change receiving funding from the fossil fuel industry could skew the story. Many assume that if a social media influencer has tons of followers, it means they&#39;re trustworthy.</p>
+    <p>Students like this Naperville, Ill., freshman practiced by finding popular social media posts about nutrition and recording themselves fact-checking, like this.</p>
+    <p>UNIDENTIFIED STUDENT: OK, so I found this post on Instagram. So as you can see right here, it says that she is a dietitian. And there&#39;s also another place right here that even shows, like, she has a diploma in clinical nutrition.</p>
+    <p>MEDLIN: For this to work, teachers also have to be media savvy. Students say they often struggle because the strategies teachers provide for evaluating sources can be outdated. Peter Adams heads the News Literacy Project, which trains teachers, provides lesson plans and sometimes brings them into newsrooms to show the reporting process. Adams says many teachers worry about being perceived as partisan.</p>
+    <p>PETER ADAMS: We really encourage folks to redirect that into looking at standards and practices and really comparing coverage.</p>
+    <p>MEDLIN: And teachers have to create a classroom experience where students feel comfortable talking about political issues, all while knowing how and when to push back on baseless conspiracy theories. Teacher Allie Niese has had to fight back on misinformation about the January 6 attack on the Capitol that students brought to her government class in Chicago.</p>
+    <p>ALLIE NIESE: We are not here to deny them the ability to engage in dialogues and discourse where they disagree, but there&#39;s a difference when the issues that we are bringing to the table and talking about are issues, are important.</p>
+    <p>MEDLIN: Niese likes to give examples of what journalism can do, citing history and the disclosure of things like the Pentagon Papers.</p>
+    <p>The Illinois law will go into effect with the 2022-&#39;23 school year. And at this point, 14 other states have some media literacy standards already on the books.</p>
+    <p>For NPR News, I&#39;m Peter Medlin.</p>
+
+    <p>Copyright © 2021 NPR.  All rights reserved.  Visit our website <a href="https://www.npr.org/about-npr/179876898/terms-of-use">terms of use</a> and <a href="https://www.npr.org/about-npr/179881519/rights-and-permissions-information">permissions</a> pages at <a href="https://www.npr.org">www.npr.org</a> for further information.</p>
+
+    <p>NPR transcripts are created on a rush deadline by <a href="http://www.verb8tm.com/">Verb8tm, Inc.</a>, an NPR contractor, and produced using a proprietary transcription process developed with NPR. This text may not be in its final form and may be updated or revised in the future. Accuracy and availability may vary. The authoritative record of NPR’s programming is the audio record.</p>
+</div>
+
+<!-- END CLASS="SHARE-TOOLS SHARE-TOOLS--SECONDARY" ARIA-LABEL="SHARE TOOLS" -->
+
+
+<!-- END ID="NEWSLETTER-ACQUISITION-CALLOUT-DATA" DATA-NEWSLETTER="{"NEWSLETTERID":"ED","TITLE":"EDUCATION","MARKETINGHEADER":"SIGN UP FOR THE NPR ED NEWSLETTER","FREQUENCY":"EVERY WEEK","SHORTDESCRIPTION":"GET SHAREABLE INSIGHTS, INNOVATIVE IDEAS AND THE LATEST EDUCATION NEWS, SENT WEEKLY.","STICKYDESCRIPTION":"FOR INSIGHTS, IDEAS AND THE LATEST EDUCATION NEWS, SIGN UP FOR THE WEEKLY NPR ED NEWSLETTER.","CONTENTIMAGE":"HTTPS:\/\/MEDIA.NPR.ORG\/ASSETS\/IMG\/2018\/08\/03\/NEWSLETTERS\/EDUCATION.PNG","STATICMARKUPDIR":"\/BUCKETS\/BLOGS\/ED\/SUBNAV.HTML","BRANDINGDIR":"\/BRANDING\/SECTIONS\/EDUCATION\/","BRANDINGLINK":"HTTPS:\/\/WWW.NPR.ORG\/SECTIONS\/EDUCATION\/","ORGANIZATIONID":528,"RECAPTCHASITEKEY":"6LFD6CYUAAAAAIBEUEKWZ9KCJF4UYLFTU7NWNAEK"}" -->
+
+
+<!-- END ID="STATION-DATA" DATA-STATION="{"ID":"528","NAME":"WNIJ NORTHERN PUBLIC RADIO","ABBR":"NOPR","DONATIONURL":"HTTPS:\/\/NPR.NIU.EDU\/ALLEG\/WEBMODULE\/DONATE.ASPX?P=NATIONAL&PAGETYPE=PLG&CHECK=YTZQYIOROY0JCXFZE1BMY23L5BYDDGQ6PVAL6UEF65G%3D&UTM_SOURCE=NPR.ORG&UTM_MEDIUM=REFERRAL&UTM_CONTENT=DONATE&UTM_CAMPAIGN=STATIONSTORY","HOMEPAGEURL":"HTTPS:\/\/WWW.NORTHERNPUBLICRADIO.ORG\/?UTM_SOURCE=NPR.ORG&UTM_MEDIUM=REFERRAL&UTM_CONTENT=WEBSITE&UTM_CAMPAIGN=STATIONSTORY"}" -->
+
+
+<!-- END ID="CALLOUT-END-OF-STORY-MOUNT" -->
+
+<!-- END ID="END-OF-STORY-RECOMMENDATIONS-MOUNT" CLASS="RECOMMENDED-STORIES" ARIA-LABEL="RECOMMENDED STORIES" -->
+</article>
+</section>   
+   
+<!-- END ID="MAIN-SIDEBAR" -->
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 12:16:19 +0000</pubDate>
+      <source>https://www.npr.org/2021/08/12/1026993142/illinois-is-the-first-state-to-have-high-schools-teach-news-literacy</source>
+    </item>
+    <item>
+      <title>Big Tech Is Coming to Small-Town America, but at What Cost?</title>
+      <link>https://time.com/6085525/big-tech-data-centers/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div id="article-body" data-tracking-zone="body">
+            <div>
+                  <p><span>N</span>ed McNally is a tech nerd who fixes computers for family and friends. So he couldn’t believe his luck when a recruiter this year asked if he’d leave his job at an electrical-supply warehouse to work at a massive Google server farm in Council Bluffs, Iowa, across the river from where he lives in Omaha. </p>                  <p>McNally, who had been watching the Google facility grow since it opened in 2007, eagerly accepted. As more data and applications were stored on the cloud, the company kept adding buildings to house servers and other equipment to keep up with demand, expanding in 2013 and again in 2019. He’d be earning the same wage that he’d made at the warehouse, but McNally was excited to join one of America’s most valuable and innovative companies. </p>                  
+                    
+                  
+                    
+                  <div>
+                    <div>
+                      <div data-src="https://api.time.com/wp-content/uploads/2021/08/Google_Data_Center_Coucil_Bluffs_Iowa_4.jpg" data-crop="" data-alt="Ned McNally, 27, at home in Omaha, Neb. on July 28, 2021." data-title="Ned McNally, 27, at home in Omaha, Neb. on July 28, 2021." data-shop-image="false" data-width="700" data-height="1049">
+                      
+                      
+                      
+                      <div>
+                          <div>
+                              <p>Ned McNally, 27, at home in Omaha, Neb. on July 28, 2021.</p>
+                              <p>Kathryn Gamble for TIME</p>
+                          </div>
+                      </div>
+                      
+                      
+                      </div>  </div>
+                  </div>                    <figure role="presentation">
+                      <blockquote>
+                        <p><strong>&#34;Even if they do a perfect job and do everything right, they&#39;re going to get laid off soon.&#34;</strong></p>
+                      </blockquote>
+                    </figure>
+                  <p>But the company that recruited McNally was not Google; it was Modis Engineering, a contractor that employs thousands of the people at Google facilities across the country. And the job was not permanent. Like almost all Modis workers, McNally was hired on a three-month contract renewable for only two years, after which he’d be unemployed and ineligible to reapply to Modis for six months. That didn’t deter McNally, who hoped that if he worked hard enough and proved himself a capable employee, Google would hire him permanently. Only after accepting the Modis job, he says, did he learn that Google hadn’t hired anyone as a full-time Google employee at that location in more than two years.</p>                  <p>“It’s demoralizing for most people,” says McNally, 27, who has a partially completed computer-science degree. “Even if they do a perfect job and do everything right, they’re going to get laid off soon.”</p>                  <p><strong>Read more:</strong> <em><a href="https://time.com/5870826/amazon-coronavirus-jeff-bezos-congress/">Many Companies Won’t Survive the Pandemic. Amazon Will Emerge Stronger Than Ever</a></em></p>                  <p>Google is one of the most valuable companies in America, worth nearly $2 trillion dollars—roughly double what it was worth in 2019. On Tuesday it reported <a href="https://time.com/6085674/big-tech-apple-microsoft-facebook-amazon-google-earnings/">record profits</a> of $18.5 billion; Apple said it made $21.7 billion in the quarter and Microsoft earned $16.5 billion, up 47% from the same period last year. But few big tech companies that are building and hiring across America bring that wealth with them when they set up in new communities. Instead, they hire armies of low-paid contractors, many of whom are not guaranteed a job from one month to the next; some of the contracting companies have a history of alleged mistreatment of workers. Nor do local governments share in the companies’ wealth; instead, the tech giants negotiate deals—the details protected by non-disclosure agreements—that exempt them from paying taxes that would fund schools, roads and fire departments. </p>                  <hr/>                  <h3>More from TIME</h3>                    
+                  <hr/>                  <p>Tech may dominate the economy, but as these companies grow while others struggle to recover from pandemic shutdowns, they’re wielding their power in ways detrimental to the communities welcoming them. “Firms utilizing their economic wherewithal as a potential carrot or stick—that’s a powerful tool,” says Davin Raiha, an economics professor at Notre Dame who studies how firms exert political influence. <b> </b></p>                  
+                    
+                  
+                    
+                  <div>
+                    <div>
+                      <div data-src="https://api.time.com/wp-content/uploads/2021/08/Google_Data_Center_Coucil_Bluffs_Iowa_2.jpg" data-crop="" data-alt="The entrance to the Google data center in Council Bluffs, Iowa on July 29, 2021." data-title="The entrance to the Google data center in Council Bluffs, Iowa on July 29, 2021." data-shop-image="false" data-width="1000" data-height="667">
+                      
+                      
+                      
+                      <div>
+                          <div>
+                              <p>The entrance to the Google data center in Council Bluffs, Iowa on July 29, 2021.</p>
+                              <p>Kathryn Gamble for TIME</p>
+                          </div>
+                      </div>
+                      
+                      
+                      </div>  </div>
+                  </div>                  <h2>Why Big Tech Keeps Getting Bigger</h2>                  <p>Every time you send an email or store a photo or save something on the cloud, it’s likely you’re depending on a data center like the one in Council Bluffs. Such centers house the computer equipment that keeps the Internet running. And with more products like refrigerators and cars becoming wi-fi-enabled, demand for data centers continues to grow. Even as malls empty and more and more businesses go online, one type of building remains a sure bet to keep popping up across the U.S.: data centers.</p>                  <p>Globally, by the end of 2020, there were nearly 600 “hyperscale” data centers, where a single company runs thousands of servers and rents out cloud space to customers. That’s more than double the number from 2015. Amazon, Google and Microsoft account for more than half of those hyperscale centers, making data centers one more field dominated by America’s richest and biggest companies. President Biden recently took aim at these behemoths, releasing an <a href="https://www.whitehouse.gov/briefing-room/statements-releases/2021/07/09/fact-sheet-executive-order-on-promoting-competition-in-the-american-economy/" target="_blank">executive order on July 9</a> aimed at promoting competition in the U.S. economy. </p>                  <p>But as more of our lives are spent online, big tech gets bigger. Google in March said it was <a href="https://blog.google/inside-google/company-announcements/investing-america-2021/" target="_blank">“investing in America</a>” with a plan to spend $7 billion across 19 states to build more data centers and offices. Microsoft said in April that it plans to build<a href="https://www.channelasia.tech/article/687817/microsoft-plans-build-up-100-new-data-centres-each-year/" target="_blank"> 50 to 100 data centers</a> <i>each year</i> for the foreseeable future. Amazon recently <a href="https://www.datacenterknowledge.com/amazon/another-huge-northern-virginia-aws-data-center-campus-greenlighted" target="_blank">got approval </a>to build 1.75 million square feet of data-center space in Northern Virginia, beyond the 50 data centers it already operates there. Facebook said this year it would spend billions to expand data centers in <a href="https://www.facebook.com/AltoonaDataCenter/posts/3971043009652922" target="_blank">Iowa</a>, Georgia and Utah; i<a href="https://www.datacenterdynamics.com/en/news/facebook-announces-10th-and-11th-data-centers-prineville-campus-oregon-amid-renewable-energy-fight/" target="_blank">n March</a> it said it was adding an 11th building to its largest data-center facility in rural Prineville, Ore.</p>                  <div>
+                    <div>
+                      <div data-src="https://api.time.com/wp-content/uploads/2021/08/GettyImages-487334793.jpg" data-crop="" data-alt="Filters that are part of a cooling system line a room inside the Facebook data center in Prineville, Oregon, in 2014." data-title="Filters that are part of a cooling system line a room inside the Facebook data center in Prineville, Oregon, in 2014." data-shop-image="false" data-width="800" data-height="373">
+                      
+                      
+                      
+                      <div>
+                          <div>
+                              <p>Filters that are part of a cooling system line a room inside the Facebook data center in Prineville, Oregon, in 2014.</p>
+                              <p>Meg Roussos—Bloomberg/Getty Images</p>
+                          </div>
+                      </div>
+                      
+                      
+                      </div>  </div>
+                  </div>                  <p>“We were just so hungry—this was our shot,” says Eric Klann, the city engineer of Prineville, where Facebook opened a massive data-center complex in a region once dependent on timber. The Crook County unemployment rate was nearing 20% when Klann was going into negotiations with Facebook in 2009. “I saw that, and said, ‘Let’s roll the dice. We’ve got to do something,’” he said.</p>                                    <p>Facebook has spent more than $2 billion expanding its operations in Prineville, but because of the tax incentives it negotiated with local officials, the company paid a total of just $119,403.42 in taxes to Crook County last year, according to the County Assessor’s <a href="https://co.crook.or.us/sites/default/files/fileattachments/assessor/page/6641/2020-21_tax_summary.pdf" target="_blank">list of top taxpayers</a>. That’s less than half the taxes paid by Brasada Ranch, a local resort. And according to the Oregon Bureau of Labor and Industries, the data center has been the subject of numerous labor complaints. Its security contractor in Prineville, G4S Secure Solutions, last year <a href="https://www.wweek.com/news/2020/11/17/facebook-security-contractor-settles-five-discrimination-claims-for-595000/" target="_blank">agreed to pay</a> $595,000 to settle five racial discrimination cases; the workers had complained that supervisors referred to them as the “Mexican mafia” and reassigned workers with Hispanic last names from the day shift to the night shift, according to their<a href="https://www.oregon.gov/boli/about/Documents/Redacted%20CRD%20Complaints%20for%20Case%20Nos.%2056-19%2C%2062-19%2C%2064-19%2C%2065-19%2C%2071-19.pdf" target="_blank"> complaints</a> with the Bureau of Labor and Industries.(G4S said in a statement that it resolved the matters with the Bureau of Labor and Industries and that it “continues to deny any liability.” It added that “none of the complainants experienced any adverse employment actions.”) </p>                  <p>This is the underside of an economy dominated by big tech companies, whose size guarantees them leverage. The value of the five biggest (Amazon, Facebook, Alphabet, Apple and Microsoft) has soared during the pandemic, accelerating in recent days after strong earnings reports; in total, they are currently worth nearly $9 trillion, nearly 25% of the value of the S&amp;P 500. They are among the few deep-pocketed businesses still spending billions to build new facilities across America—which means they’re able to treat workers and policymakers in ways few other companies dare.</p>                  <h2>A Different Kind of Tech Workplace</h2>                  <p><strong>This is not the tech workplace of free laundry</strong> and foosball—certainly not if you believe the complaints from workers. In Oregon, G4S Secure Solutions has been the subject of more than two dozen labor complaints since 2016, according to data obtained by TIME from Oregon’s Bureau of Labor and Industries through a Freedom of Information Act. Many of these complaints revolve around allegations that the company is not paying people on time. The sheer number is telling, even if some of them were not substantiated. </p>                  
+                    
+                  
+                    
+                  <p>“This looks like the third complaint on this issue within 12 months (apart from additional sick leave issues),” a compliance manager at the state Bureau of Labor and Industries wrote in 2016 to colleagues about G4S. “Let’s go ahead and set this up for investigation, please.” Workers then filed claims against G4S alleging unpaid wages in 2017, 2018 and 2019.</p>                  <p>A woman who worked as a security guard for G4S at Amazon data centers in Oregon filed a complaint in 2018 alleging a history of sexual harassment from a supervisor. Another G4S contractor in Prineville filed a complaint in 2018 saying he was fired for “insubordination” after taking leave when his wife died; the computer system showed him as having skipped work, he alleged, even though he’d been informed the leave was approved. A G4S worker who was placed at a Google data center in North Carolina filed a lawsuit in 2017, alleging that the company required her to do work before and after her shift but did not pay her for it.</p>                  <p><strong>Read more:</strong> <a href="https://time.com/6082457/hourly-workers-demand-pay-benefits/"><em>Hourly Workers Are Demanding Better Pay and Benefits—and Getting Them</em></a></p>                  <p>Some workers end up bouncing around between different contractors at data centers, trying to find a good job. Eric Sellers, 41, got a job with G4S at Google’s data center in Iowa in 2015. From the start, “It was a horrible experience,” he says. Sellers says supervisors bullied and mocked him for not knowing his way around the facility. He got to know Google employees as they went through his metal detector, and after four years, he found a different job at the same data center—this time with Modis, the company that hired McNally in Council Bluffs. Sellers loves the type of work he does for Modis, and says he’s finally found a job he wants to do for the rest of his career, but he hit his two-year limit in early July. He wants to get hired by Google, but he says the company has outsourced more, rather than fewer, jobs to Modis during the time he’s been there. Sellers and other Modis employees told me they do the exact same work as Google employees, contractors are only distinguishable because their badges are a different color. </p>                  
+                    
+                  
+                    
+                  <p>The short-term nature of the Modis jobs has created other problems too. “People were hurting their back and shoulders and not reporting it because most of the people doing this kind of work are contractors; they are very vulnerable to losing their job if they complain,” says Shannon Wait, a former Modis contractor at Google’s data center in Berkeley County, South Carolina. Wait filed a complaint with the National Labor Relations Board in February, alleging she was suspended after talking about her contractor status on Facebook. (As a response to Wait’s complaint, Google reinstated her and agreed to post a notice informing workers that they have the right to discuss wages with other employees, and that they have the right to form a union.)</p>                    <figure role="presentation">
+                      <blockquote>
+                        <p><strong>&#34;The drive in these big tech companies is to get the workers off their books and have someone managing, hiring and firing them.&#34;</strong></p>
+                      </blockquote>
+                    </figure>
+                  <p>But, as Sellers says, tech companies are indeed moving many positions to contract jobs, says Jenna Burrell, a professor at the University of California, Berkeley, who studied the data centers in Oregon. “There’s a tension around labor,” she says. “The drive in these big tech companies is to get the workers off their books and have someone managing, hiring and firing them.”</p>                  <p>​There were 373,300 workers in data processing, hosting, and related services in June, up 52% from a decade ago, according to the Bureau of Labor Statistics. This does not count security contractors, janitorial staff, or food services providers at the data centers.</p>                  <div>
+                    <div>
+                      <div data-src="https://api.time.com/wp-content/uploads/2021/08/GettyImages-1232711950.jpg" data-crop="" data-alt="A view of the Facebook data center under construction in Eagle Mountain, Utah, on May 5, 2021." data-title="A view of the Facebook data center under construction in Eagle Mountain, Utah, on May 5, 2021." data-shop-image="false" data-width="800" data-height="331">
+                      
+                      
+                      
+                      <div>
+                          <div>
+                              <p>A view of the Facebook data center under construction in Eagle Mountain, Utah, on May 5, 2021.</p>
+                              <p>George Frey—Getty Images</p>
+                          </div>
+                      </div>
+                      
+                      
+                      </div>  </div>
+                  </div>                  <p>Facebook said in a statement to TIME that it does not comment on legal matters related to its vendors, but added that Facebook “is committed to racial equity and to providing a safe and open working environment for everyone.” Google said in a statement that it was “proud that our data centers spur economic development in communities and create new career opportunities for thousands of people.” It contracts with businesses around the world, it says, “where we don’t have appropriate in-house expertise or resources,” and that the vendors who work for those businesses “account for the overwhelming majority of our extended workforce.<strong>”</strong> G4S attempts to pay all of its employees correctly, but that given the size of its business, “payroll errors can inadvertently occur,” said Sabrina Rios, vice president of communications, in a statement. “We work with those employees to quickly correct their wages and provide retroactive pay.”</p>                  
+                    
+                  
+                    
+                  <p>Modis’ parent company, Adecco, declined to comment.</p>                  <h2>Big Tech—and Big Tax Breaks</h2>                  <p><strong>If tech companies take a hands-off approach</strong> to supervising data-center workers, they’re extremely aggressive when it comes to extracting concessions from elected officials. </p>                  <p>In November, officials in Berkeley County quietly approved amendments to an existing tax incentive agreement that allowed Google to spend $500 million to expand its data center there, despite local concerns about the <a href="https://www.live5news.com/2019/10/11/google-gets-approval-triple-its-use-groundwater-lowcountry-aquifer/" target="_blank">amount of groundwater</a> the facility consumes. There were no press releases heralding the agreement—probably because Google will be paying lower taxes starting in 2022, even though the expansion will significantly increase the value of its property. </p>                  <p>The company had persuaded Berkeley County to give it special tax credits in 2018, threatening to go elsewhere without them, says a source who was not authorized to speak publicly on the deal because of a nondisclosure agreement. The deal included a 100% credit for personal property investment, according to the document TIME obtained through a Freedom of Information Act request. The county didn’t worry about the credit because Google categorized very little equipment as personal property, the source said. At the time, Google was paying Berkeley County about $14.5 million a year, which helped fund schools and police.</p>                  <p>But in the fall of 2020, Google told the county it would be reclassifying much of its property as “personal,” cutting its annual tax payment to the county to $6 million. Google also said the county owed it money. </p>                  <p>The county had little room to push back; its tax revenues would drop if Google left the area. (Google says it assessed its properties after the Tax Cut and Jobs Act of 2017 and found there had been a “misclassification of property” in Berkeley County that would have required the county to give the company a “significant refund.” It agreed to forgo the refund and keep taxes stable for two years.)</p>                  <p>So officials signed an agreement that has Google paying around $11 million a year starting in 2022, and then paying less each year after that. Council members told me that they had no choice but to accept the terms.</p>                  <p>“We didn’t want to throw the baby out with the bathwater, regardless of how dirty it might be,” says Caldwell Pinckney, a Berkeley County councilman.</p>                  
+                    
+                  
+                    
+                    <figure role="presentation">
+                      <blockquote>
+                        <p><strong>&#34;I sometimes wonder if they&#39;re preying on desperation, going to places that are struggling.&#34;</strong></p>
+                      </blockquote>
+                    </figure>
+                  <p>Berkeley County’s situation isn’t unique. In fact, states and counties are tripping over one another to offer multimillion dollar incentives to tech giants. In an economy where manufacturing and mining jobs have been replaced by low-paid service jobs, local officials can have a big win by attracting a marquee name like Google. </p>                  <p>“I’ve spent way too much of my life watching city councils say, ‘We need a big tech company to show that we’re future-focused,’” says Sebastian Moss, the editor of Data Center Dynamics, which tracks the industry. Towns will give away <a href="https://www.datacenterdynamics.com/en/news/facebooks-eagle-mountain-utah-data-center-is-now-live/" target="_blank">tax breaks worth hundreds of millions of dollars</a>, his reporting has found, and then express gratitude toward tech companies that have donated a few thousand computers—worth a fraction of the tax breaks—to their cash-strapped school systems. “I sometimes wonder if they’re preying on desperation, going to places that are struggling.” </p>                  <p>Communities give up more than tax breaks when they welcome tech companies. Data centers use huge amounts of water to cool computer equipment, yet they’re being built in the <a href="https://www.nbcnews.com/tech/internet/drought-stricken-communities-push-back-against-data-centers-n1271344" target="_blank">drought-stricken American West</a>. Google’s Berkeley County data center is on the lush Carolina coast, but the company has upset<a href="https://www.postandcourier.com/news/sc-approves-google-permit-to-pull-549-million-gallons-annually-from-groundwater-aquifer/article_e0186a18-eb80-11e9-adfa-678150bb0c22.html" target="_blank"> local </a>utilities who say it is using groundwater that should be used for drinking. And though tech companies pay more than many other jobs in some economically depressed areas, the jobs are often temporary and come without benefits, and they’re nowhere close to what tech employees make in Silicon Valley.</p>                  <p><strong>Read more: </strong><a href="https://time.com/5953802/amazon-wins-union-vote/"><em>‘You Can’t Escape the Gravitational Pull of Jeff Bezos.’ How Amazon Won the Preliminary Union Vote in Alabama</em></a></p>                  <p>Still, <a href="https://ctmirror.org/2021/03/01/senate-sends-data-center-incentives-and-town-aid-pledge-bills-to-lamonts-desk/" target="_blank">Connecticut</a> and<a href="https://www.wxyz.com/news/michigan-legislature-oks-more-tax-breaks-for-data-center" target="_blank"> Michigan</a> recently passed bills waiving certain taxes for data centers. Virginia passed a bill in March that sweetened the tax breaks for companies setting up data centers in distressed communities; they now need to invest only $70 million, down from $150 million, and create 10 jobs, down from 25. A group of counties in Southwest Virginia agreed to establish the <a href="https://heraldcourier.com/news/regional-agreement-opens-door-for-new-data-centers/article_e69a4abe-6902-5ea7-9838-aacaeb304b6e.html" target="_blank">state’s lowest tax rate</a>, $0.24 per $100 of assessed value, to lure more data centers, even though an analysis found this would create only about 59 permanent jobs. </p>                  
+                    
+                  
+                    
+                  <p>By 2019, Facebook, Google, Microsoft and Apple had received $130 million in tax incentives for data centers in Iowa, according to the <a href="https://www.desmoinesregister.com/story/news/2019/07/18/iowa-apple-google-facebook-tech-tactics-information-data-centers-millions-tax-breaks-incentives/1583428001/" target="_blank">Des Moines </a><i>Register.</i> And an agreement between Amazon and Umatilla County, Oregon, exempts Amazon from paying property taxes for 15 years, as long as it creates at least 10 full-time jobs on the site.. </p>                  <p>“When you’re giving one of the biggest global companies tax breaks, you’re putting the burden back on our small businesses and homeowners,” says Ric Sherman, board president of Umatilla County Fire District. He says the money the county is losing to tax incentives could have gone to replace equipment and add critical staff. “We’re losing millions of dollars over 15 years of exemptions.”</p>                  <div>
+                    <div>
+                      <div data-src="https://api.time.com/wp-content/uploads/2021/08/Google_Data_Center_Coucil_Bluffs_Iowa_3.jpg" data-crop="" data-alt="A Google data center in Council Bluffs, Iowa on July 29, 2021." data-title="A Google data center in Council Bluffs, Iowa on July 29, 2021." data-shop-image="false" data-width="1000" data-height="667">
+                      
+                      
+                      
+                      <div>
+                          <div>
+                              <p>A Google data center in Council Bluffs, Iowa on July 29, 2021.</p>
+                              <p>Kathryn Gamble for TIME</p>
+                          </div>
+                      </div>
+                      
+                      
+                      </div>  </div>
+                  </div>                  <p><strong>There are a few places where local officials</strong> and workers are starting to realize that tech doesn’t always bring a good deal. But most of these places are not in the United States. Singapore halted <a href="https://www.datacenterdynamics.com/en/news/singapore-government-and-facebook-back-s17m-project-for-sustainable-tropical-data-centers/" target="_blank">data center construction</a> in 2018, according to Moss, and there’s a moratorium on new data-center development in the <a href="https://www.datacenterdynamics.com/en/news/dutch-province-of-flevoland-enforces-temporary-data-center-moratorium/" target="_blank">Dutch province of Flevoland,</a> and Amsterdam recently began enforcing strict criteria for efficiency and sustainability in its centers. China has many restrictions on data centers governing how energy-efficient they must be. (Many new data centers are becoming more energy-efficient, but since tech companies pay for the power they use, there’s little incentive for local governments to speed up that process.)</p>                  <p>But efforts to slow tech expansion in the U.S. have not been as successful. Although Michigan lawmakers objected to huge tax incentives given to a data center there, the legislature <a href="https://www.wxyz.com/news/michigan-legislature-oks-more-tax-breaks-for-data-center" target="_blank">narrowly approved</a> more tax breaks last year. A vocal vice mayor in drought-stricken Mesa, Ariz., could not persuade the local council to vote down an $800 million data-center development out of concern for its water usage. She was the sole “no” vote.</p>                  <p>In many places where tech giants are setting up shop as other businesses shut down, locals don’t have many options. Eric Sellers, the former G4S and Modis worker in Iowa, says he wants to keep working at the Google data center, even though his Modis time limit is up. There are limited opportunities to do the work he enjoys in Council Bluffs, he says—he had a good job at a Frito-Lay plant, but <a href="https://globegazette.com/business/frito-lay-will-close-council-bluffs-plant/article_a33c2485-7ac6-537c-9cb9-9852bb64cd14.html" target="_blank">PepsiCo closed it</a> more than a decade ago. Then he worked in printing, another dying industry. But with Google, he’s found the type of work he loves to do, at a company that is thriving. </p>                  
+                    
+                  
+                    
+                  <p>He knows the data center isn’t going anywhere, so he applied for a job with two other contractors there: Johnson Controls, and Insight Global. Neither worked out, so he’s planning on doing what other Modis workers do: apply for unemployment, wait six months, and then apply once again for a short-term job at the data center. “My plan is to keep working there till I’m 80 years old,” he says, “whether they hire me or not.” </p>                                                        <div data-newsletter-type="newsletter-callout">
+                        <div>
+                          <div>
+                            <div>
+                              <h3><span>Get The Brief.</span> Sign up to receive the top stories you need to know right now.</h3>
+                              <p>
+                            </p></div>
+                              </div>
+                          <p>
+                          </p>
+                          <div>
+                            <h2>
+                              Thank you!
+                            </h2><p>
+                            For your security, we&#39;ve sent a confirmation email to the address you entered. Click the link to confirm your subscription and begin receiving our newsletters. If you don&#39;t get the confirmation within 10 minutes, please check your spam folder.
+                          </p></div>
+                        </div>  </div>
+                  <p><strong>Contact us</strong> at <a href="mailto:letters@time.com?subject=(READER FEEDBACK) Big Tech Is Coming to Small-Town America, But There&#39;s a Catch&amp;body=https%3A%2F%2Ftime.com%2F6085525%2Fbig-tech-data-centers%2F" target="_self" rel="noopener noreferrer">letters@time.com</a>.</p>              
+            </div>
+          </div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 12:43:09 +0000</pubDate>
+      <source>https://time.com/6085525/big-tech-data-centers/</source>
+    </item>
+    <item>
+      <title>The Perl Foundation faces more departures</title>
+      <link>https://www.theregister.com/2021/08/13/perl_resignations/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_theregister_com_2021_08_13_perl_resignations_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="body">
+<p>The <a target="_blank" href="https://www.theregister.com/2021/08/09/perl_cat_hiatus/">bloodletting within the Perl community</a> has continued in the wake of Community Affairs Team chair Samantha McVey&#39;s resignation.</p>
+<p>The <a target="_blank" href="https://news.perlfoundation.org/post/introducing-tpf-community-affairs-team">CAT</a> was established in March last year to maintain &#34;a community led set of rules&#34; with moderators who would respond to unhappy punters complaining about &#34;incidents at events or otherwise&#34; - but was controversially put on &#34;hiatus&#34; nearly two weeks ago.</p>
+<p>Curtis &#34;Ovid&#34; Poe, who had over a decade as a director of The Perl Foundation (TPF) under his belt, threw in the towel earlier this week, as did Elizabeth Mattijsen, a member of TPF&#39;s Grant Committee.</p>
+<blockquote>
+
+<p>It&#39;s the online version of road rage. I know people who, at conferences, are absolutely lovely people ... face-to-face. But they&#39;re raging assholes online</p>
+</blockquote>
+<p>Poe, who had been <a target="_blank" rel="nofollow" href="https://ovid.github.io/blog/resigning-from-the-perl-foundation.html">pondering a departure for a few months</a>, found the furore over the Community Affairs Team (CAT) the final straw. The to-ing and fro-ing between CAT, Perl Board and the Perl community &#34;…pushed me over the edge,&#34; he said.</p>
+<p>Poe also said that the CAT incident wasn&#39;t his only reason for departure. &#34;It&#39;s time,&#34; he said, but: &#34;It pains me that the CAT mess overshadows everything else.&#34;</p>
+
+    
+
+<p>The mess Poe was referring to includes much back and forth in the community as CAT was put on hiatus and its transparency reports into members&#39; issues were abruptly yanked, although the board-approved sanctions it applied have remained in place. These sanctions <a target="_blank" href="https://www.theregister.com/2021/05/07/perl_permaban/">included</a> a year-long ban from Perl events over &#34;unacceptable&#34; behaviour for developer Matt Trout. The ban itself was downgraded from an earlier, lifelong ban. A formal charter and code of conduct will be required before something like the CAT can make a return.</p>
+
+        
+
+
+        
+
+<p>Opting to abstain from the vote on the Board&#39;s final decision, Poe stated that he believed the Board&#39;s actions were wrong. Sure, it had authority over events but should it have applied sanctions? &#34;No, but only because the rules were not clear at the time of the offending behavior.&#34;</p>
+<p>Also in the background is the departure in April this year of a key Perl Core developer known as Sawyer X <a target="_blank" href="https://www.theregister.com/2021/04/13/perl_dev_quits/">who quit the three-person Perl Steering Committee</a>, or Council, and the Perl Core group because of what he described as &#34;community hostility&#34;. The next day, Perl programmer Leon Timmermans <a target="_blank" href="https://dev.to/leontimmermans/a-year-of-strife-16o9">wrote a</a> missive calling for an overhaul in governance after a tough 12 months of pandemic titled: &#34;A year of strife in Perl.&#34;</p>
+<h3>
+  <span>Perl heavyweight</span>
+</h3>
+<p>The impact of Poe&#39;s departure cannot be underestimated. The author of <i><a target="_blank" href="https://www.goodreads.com/book/show/13837737-beginning-perl">Beginning Perl</a></i> and <i><a target="_blank" href="https://www.goodreads.com/book/show/86380.Perl_Hacks?from_search=true&amp;from_srp=true&amp;qid=obkvAPe3OA&amp;rank=1">Perl Hacks</a></i>, he has been a user of the language for around 20 years (having done his time in COBOL) and joined The Perl Foundation board of directors in 2009. The fact that the controversy of the last few months became a factor should give those involved some pause for thought.</p>
+<p>&#34;It&#39;s the online version of road rage,&#34; Poe told <i>The Register</i>, &#34;I know people who, at conferences, are absolutely lovely people ... face-to-face. But they&#39;re raging assholes online.</p>
+
+        
+
+<p>&#34;I don&#39;t know if it&#39;s because they&#39;re out of punching range or because they forget that there are people behind the words they&#39;re reading.</p>
+<p>&#34;This toxicity is amplified by social media,&#34; he went on, &#34;and more and more people using social media to communicate rather than gathering at a pub and having a nice chat. It&#39;s very painful to watch and makes me sad to see people I respect suddenly pull out pitchforks, acting as if those with whom they disagree must somehow be monsters to be overcome.&#34;</p>
+<p>Poe is not alone. There have been departures from all sides of the debate. As well as noting problems with grant requests by the board, Mattijsen <a target="_blank" rel="nofollow" href="https://mobile.twitter.com/liztormato/status/1423973294559137795">announced her resignation</a> from TPF&#39;s Grant Committee over the weekend, citing the CAT review as the final straw. She <a target="_blank" rel="nofollow" href="https://mobile.twitter.com/liztormato/status/1424039877507698699">also highlighted</a> what she perceived as toxicity in the community.</p>
+
+        
+
+<p>&#34;I&#39;m fresh out of ideas with regards to handling the toxicity in the Perl community,&#34; Mattijsen told <i>The Register</i>, &#34;I&#39;m doing my best to make sure that the Raku community will *not* allow individuals to create a toxic atmosphere without being challenged for what is now decades.&#34;</p>
+<p>SUSE engineer Sebastian Riedel <a target="_blank" rel="nofollow" href="https://twitter.com/kraih/status/1408525949218570240">also departed</a> in recent months.</p>
+<p>It all seems like, as Trout (the subject of many a Perl thread) himself <a target="_blank" rel="nofollow" href="https://mobile.twitter.com/shadowcat_mst/status/1424890865160495107">put it</a>, &#34;a colossal and unnecessary waste of human capital.&#34;</p>
+<p>While churn can be a healthy thing in long-lived projects, Perl certainly seems to be having more than its fair share as the community argues with itself on how its future and present should look.</p>
+<p>&#34;The Perl Community has ignored toxic behavior for far too long,&#34; said Poe.</p>
+<p>The problem is how to deal with it without alienating members or triggering further departures.</p>
+<p><i>The Register</i> asked The Perl Foundation for comment, but has yet to receive a response. ®</p>
+                    
+                                            </div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 12:48:57 +0000</pubDate>
+      <source>https://www.theregister.com/2021/08/13/perl_resignations/</source>
+    </item>
+    <item>
+      <title>The most vaccine-hesitant group of all? PhDs – The Post</title>
+      <link>https://unherd.com/thepost/the-most-vaccine-hesitant-education-group-of-all-phds/?=frpo</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___unherd_com_thepost_the-most-vaccine-hesitant-education-group-of-all-phds_?=frpo/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+								    	<div data-aos="flip-right" data-aos-duration="800">
+									    	<p></p><p>Chart</p><p>07:00</p>
+									    	
+									    	<h5>A new study found that the most educated are the least likely to get jabbed</h5>
+<p>by <span>UnHerd</span></p>
+									    																	<p></p><p>The percentage of each education group that is somewhat vaccine hesitant. Source: Carnegie Mellon University</p>
+						
+						
+				    	<p><span>There has been much debate over how to get the unvaccinated to get their jabs — </span><a href="https://twitter.com/JustinWolfers/status/1424915885823774728?s=20"><span>shame them</span></a><span>, <a href="https://www.thetimes.co.uk/article/uber-rides-and-pizza-bribes-for-under-30s-to-have-their-covid-jab-jt5vn7bfx" target="_blank" rel="noopener">bribe them </a></span><a href="https://www.nationalreview.com/2021/07/convincing-the-skeptics/"><span>persuade them</span></a><span>, or </span><a href="https://foreignpolicy.com/2020/04/02/landon-spradlin-coronavirus-pandemic-death-punchline/"><span>treat them</span></a><span> as victims of mis- and disinformation campaigns — but who, exactly, are these people?</span></p>
+<p><span>Most of the coverage would have you believe that the surge in cases is primarily down to less educated, ‘</span><a href="https://www.ft.com/content/39ff87ce-57b7-4007-9504-7eb2c7bc911f"><span>brainwashed</span></a><span>’ Trump supporters who don’t want to take the vaccine. This may be partially true: the areas in which the delta variant is surging coincide with the sections of red America in which vaccination rates are lowest.</span></p>
+<p><span>But according to a <a href="https://www.medrxiv.org/content/10.1101/2021.07.20.21260795v1.full.pdf">new paper</a> by researchers from </span><a href="https://www.cmu.edu/"><span>Carnegie Mellon University</span></a><span> and the </span><a href="https://www.pitt.edu/"><span>University of Pittsburgh</span></a><span>, this does not paint the full picture. The researchers analysed more than 5 million survey responses by a range of different demographic details, and classed those people who would “probably” or “definitely” <em>not</em> choose to get vaccinated as “vaccine hesitant.”<br/>
+</span></p>
+<p><span>In some respects the findings are as predicted — for example the paper finds that there is a strong correlation between counties with higher Trump support in the 2020 presidential election and higher hesitancy in the period January 2021 — May 2021. </span></p>
+<p><span>But more surprising is the breakdown in vaccine hesitancy by level of education. It finds that the association between hesitancy and education level follows a U-shaped curve with the highest hesitancy among those least and most educated. People with a master’s degree had the least hesitancy, and the highest hesitancy was among those holding a Ph.D. </span></p>
+<p><span>What’s more, the paper found that in the first five months of 2021, the largest decrease in hesitancy was among the least educated — those with a high school education or less. Meanwhile, hesitancy held constant in the most educated group; by May, those with Ph.Ds were the most hesitant group. </span></p>
+<p><span>So not only are the most educated people most sceptical of taking the Covid vaccine, they are also the least likely the change their minds about it… </span></p>
+
+						
+
+		
+
+</div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:03:27 +0000</pubDate>
+      <source>https://unherd.com/thepost/the-most-vaccine-hesitant-education-group-of-all-phds/?=frpo</source>
+    </item>
   </channel>
 </rss>
