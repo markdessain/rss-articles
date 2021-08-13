@@ -17827,5 +17827,711 @@ _ZTI3Bar:
       <pubDate>Fri, 13 Aug 2021 03:40:11 +0000</pubDate>
       <source>https://themarkup.org/ask-the-markup/2021/08/12/how-private-is-my-vpn</source>
     </item>
+    <item>
+      <title>Nvidia Reveals Its CEO Was Computer Generated in Keynote Speech</title>
+      <link>https://www.vice.com/en/article/88nbpa/nvidia-reveals-its-ceo-was-computer-generated-in-keynote-speech</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div data-component="BodyComponentRenderer"><p><span data-component="TextBlock"><p>Graphics processor companyNvidia, maker of the <a href="https://www.vice.com/en/article/xg8jyq/nvidias-3080-video-cards-ps5-sold-out">currently almost impossible to purchase</a> 3080 GPU, showcased its prowess at computer animation by sneaking a virtual replica of its CEO into a keynote speech.. </p></span><span data-component="TextBlock"><p>On Wednesday, Nvidia <a href="https://blogs.nvidia.com/blog/2021/08/11/omniverse-making-of-gtc/?ncid=so-yout-405983#cid=sigg21_so-yout_en-us" target="_blank">revealed in a blog post</a> that its CEO Jensen Huang did not do <a href="http://youtube.com/watch?v=eAn_oiZwUXA&amp;t" target="_blank">the keynote presentation</a> at the company&#39;s GTC conference in April. At least part of it was actually led by a virtual replica of Huang, created by digitizing Huang with a truck full of DSLR cameras, and then animating him with the help of an AI, according to the company. Huang&#39;s kitchen, which has become Nvidia&#39;s venue for speaking to customers and investors since the beginning of the pandemic, was also entirely computer generated. It&#39;s not clear exactly which part of the keynote speech features CGI Huang (which is what makes the replica so impressive), but if you jump to <a href="https://www.youtube.com/watch?v=eAn_oiZwUXA&amp;t=3742s&amp;ab_channel=NVIDIA" target="_blank">this part</a> of the presentation you can see Huang magically disappear and his kitchen explode into multiple different 3D models.</p></span><span></span><span data-component="TextBlock"><p>&#34;To create a virtual Jensen, teams did a full face and body scan to create a 3D model, then trained an AI to mimic his gestures and expressions and applied some AI magic to make his clone realistic,&#34; Nvidia wrote in the blog post. &#34;Digital Jensen was then brought into a replica of his kitchen that was deconstructed to reveal the holodeck within Omniverse, surprising the audience and making them question how much of the keynote was real, or rendered.&#34;</p></span><span data-component="TextBlock"><p>After this article was published, Nvidia updated its blog post, clarifying that “only 14 seconds of the hour and 48 minute presentation” were animated. </p></span></p><p><span data-component="TextBlock"><p>The company also published a video on Wednesday talking about how they made the GTC keynote, which included a section on the making of virtual Huang and his virtual kitchen.</p></span><span data-component="TextBlock"><p><a href="https://www.nvidia.com/en-us/omniverse/" target="_blank">Omniverse</a> is a platform that incorporates various tools for engineers to create animations, <a href="https://venturebeat.com/2020/10/05/nvidia-announces-open-beta-for-omniverse-as-a-metaverse-for-engineers/" target="_blank">which the company calls</a> a &#34;metaverse&#34; for engineers. </p></span><span data-component="TextBlock"><p><em>This story was updated with new information added by Nvidia to its blog post.</em></p></span></p></div><div><div><div><p><h3>ORIGINAL REPORTING ON EVERYTHING THAT MATTERS IN YOUR INBOX.</h3></p><p>By signing up to the VICE newsletter you agree to receive electronic communications from VICE that may sometimes include advertisements or sponsored content.</p></div></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 06:56:47 +0000</pubDate>
+      <source>https://www.vice.com/en/article/88nbpa/nvidia-reveals-its-ceo-was-computer-generated-in-keynote-speech</source>
+    </item>
+    <item>
+      <title>Show HN: C programming language extension: Cedro pre-processor</title>
+      <link>https://sentido-labs.com/en/library/cedro/202106171400/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page">
+    <section>
+      
+      <p><em>Cedro</em> is a C language extension that works as a pre-processor with four features:</p>
+      <ol>
+        <li>The <a href="#backstitch-operator"><em>backstitch</em> <code>@</code> operator</a>.</li>
+        <li><a href="#deferred-resource-release"><em>Deferred</em> resource release</a>.</li>
+        <li><a href="#block-macros"><em>Block macros</em></a>.</li>
+        <li><a href="#binary-include"><em>Binary inclusion</em></a>.</li>
+      </ol>
+      <p>To activate it, the source file must contain this line:
+        <code>#pragma Cedro 1.0</code></p>
+      <code>Usage: cedro [options] file.c [file2.c … ]
+  The result goes to stdout, can be used without an intermediate file like this:
+ cedro file.c | cc -x c - -o file
+  It is what the cedrocc program does:
+ cedrocc -o file file.c
+  With cedrocc, the following options are the defaults:
+    --discard-comments --insert-line-directives
+
+  --apply-macros     Applies the macros: backstitch, defer, etc. (default)
+  --escape-ucn       Escapes non-ASCII in identifiers as UCN.
+  --no-apply-macros  Does not apply the macros.
+  --no-escape-ucn    Does not escape non-ASCII in identifiers. (default)
+  --discard-comments    Discards the comments.
+  --discard-space       Discards all whitespace.
+  --no-discard-comments Does not discard comments.   (default)
+  --no-discard-space    Does not discard whitespace. (default)
+  --insert-line-directives    Inserts #line directives.
+  --no-insert-line-directives Does not insert #line directives. (default)
+
+  --print-markers    Prints the markers.
+  --no-print-markers Does not print the markers. (default)
+  --enable-core-dump    Enables core dump on crash.
+  --no-enable-core-dump Does not enable core dump on crash. (default)
+  --benchmark        Runs a performance benchmark.
+  --version          Shows version: 1.0
+                     The corresponding “pragma” is: #pragma Cedro 1.0</code>
+      <p>The option <code>--escape-ucn</code> encodes Unicode® characters
+        outside of the ASCII range, when they appear as part of an identifier,
+        as C99 universal character names
+        (“C99 standard”, page 65, “<a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf#65">6.4.3 Universal character names</a>”),
+        which can be useful for older compilers without UTF-8 support such as
+        <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=67224#c32">GCC before version 10</a>.</p>
+      <p>For API documentation, see <a href="https://sentido-labs.com/en/library/cedro/202106171400/api/index.html">doc/api/index.html</a>
+        after running <code>make doc</code> that requires having
+        <a href="https://www.doxygen.nl/index.html">Doxygen</a> installed.</p>
+      <p>The second executable, <code>cedrocc</code>, allows using Cedro as if it was part of the C compiler.</p>
+      <code>Usage: cedrocc [options] &lt;file.c&gt; [ file2.o … ]
+  Runs Cedro on the first file name that ends with “.c”,
+  and compiles the result with “cc -x c -” plus the other arguments.
+    cedrocc -o fichero fichero.c
+    cedro fichero.c | cc -x c - -o fichero
+  You can specify the compiler, e.g. gcc:
+    CEDRO_CC=&#39;gcc -x c -&#39; cedrocc …
+  For debugging, this writes the code that would be piped into cc,
+  into stdout instead:
+    CEDRO_CC=&#39;&#39; cedrocc …</code>
+      <p>There is a third executable, <code>cedro-new</code>, that produces a program draft in a similar way to <code>cargo new</code> in Rust. <code>cedro new …</code> will actually run <code>cedro-new …</code>. The content is produced from the template in the <code>template/</code> directory, that gets included in the <code>cedro-new</code> executable at compilation.</p>
+      <code>Usage: cedro-new [options] &lt;name&gt;
+  Creates a directory named &lt;name&gt;/ with the template.
+  -h, --help        Shows this message.
+  -i, --interactive Asks for the names for command and project.
+                    Otherwise, they will be derived from the directory name.</code>
+    </section>
+
+    <section id="backstitch-operator">
+      <h2><a href="https://en.wikipedia.org/wiki/Backstitch">Backstitch</a> operator: @ <a href="#backstitch-operator">#backstitch-operator</a></h2>
+      <p>Threads a value through a sequence of function calls,
+        as first parameter for each of them.</p>
+      <p>It is an explicit version of what other programming languages
+        do to implement member functions, and the result is a usual pattern
+        in C libraries.</p>
+      <table>
+        <tbody><tr>
+          <td><code>object @ f(a), g(b);</code></td>
+          <td><code>f(object, a);
+g(object, b);</code></td>
+        </tr><tr>
+          <td><code>&amp;object @ f(a), g(b);</code></td>
+          <td><code>f(&amp;object, a);
+g(&amp;object, b);</code></td>
+        </tr><tr>
+          <td><code>object.field @ f(a), g(b);</code></td>
+          <td><code>f(object.field, a);
+g(object.field, b);</code></td>
+        </tr><tr>
+          <td><code>int x = (object @ f(a), g(b));</code></td>
+          <td><code>int x = (f(object, a), g(object, b));</code>
+            <p>This is the C <a href="https://en.wikipedia.org/wiki/Comma_operator">comma operator</a>, it’s the same as</p>
+            <code>f(object, a); int x = g(object, b);</code></td>
+        </tr><tr>
+          <td><code>object @prefix_... f(a), g(b);</code></td>
+          <td><code>prefix_f(object, a);
+prefix_g(object, b);</code></td>
+        </tr><tr>
+          <td><code>object @..._suffix f(a), g(b);</code></td>
+          <td><code>f_suffix(object, a);
+g_suffix(object, b);</code></td>
+        </tr><tr>
+          <td>
+<code>graphics_context @<a href="https://github.com/memononen/nanovg">nvg</a>...
+    BeginPath(),
+    Rect(100,100, 120,30),
+    Circle(120,120, 5),
+    PathWinding(NVG_HOLE),
+    FillColor(nvgRGBA(255,192,0,255)),
+    Fill();</code>
+          </td><td>
+</td>
+        </tr>
+      </tbody></table>
+
+      <p>For each comma-separated segment,
+      if it starts with any of the tokens
+      “<code>[</code>”,
+      “<code>++</code>”, “<code>--</code>”, “<code>.</code>”, “<code>-&gt;</code>”,
+      “<code>=</code>”, “<code>+=</code>”, “<code>-=</code>”, “<code>*=</code>”, “<code>/=</code>”, “<code>%=</code>”, “<code>&lt;&lt;=</code>”, “<code>&gt;&gt;=</code>”, “<code>&amp;=</code>”, “<code>^=</code>”, “<code>|=</code>”,
+      or there is nothing that looks like a function call,
+      the insertion point is the beginning of the segment:</p>
+
+      <table>
+        <tbody><tr>
+          <td><code>number_array @ [3]=44, [2]=11;</code></td>
+          <td><code>number_array[3]=44; number_array[2]=11;</code></td>
+        </tr>
+        <tr>
+          <td><code>*number_array++ = @ 1, 2;</code></td>
+          <td><code>*number_array++ = 1; *number_array++ = 2;</code></td>
+        </tr>
+        <tr>
+          <td><code>figure_center_point @ .x=44, .y=11;</code></td>
+          <td><code>figure_center_point.x=44; figure_center_point.y=11;</code></td>
+        </tr>
+      </tbody></table>
+
+      <p>The object part can be left empty, which is useful for things like
+        adding prefixes or suffixes to enumerations:</p>
+
+      <table>
+        <tbody><tr>
+          <td>
+<code>typedef enum {
+    @TOKEN_... SPACE, WORD, NUMBER
+} TokenType;</code>
+          </td>
+          <td>
+<code>typedef enum {
+    TOKEN_SPACE, TOKEN_WORD, TOKEN_NUMBER
+} TokenType;</code>
+          </td>
+        </tr>
+      </tbody></table>
+
+      <p>Note: the <code>@</code> symbol is not recognized
+        when written as <code>\u0040</code>,
+        but it gets converted to <code>@</code> in the output.
+        This can be used to escape it when chaining Cedro with another
+        pre-processor that uses it.</p>
+
+      
+      <p>Looking for prior implementations of this idea I’ve found
+        <a href="https://github.com/eudoxia0/magma">magma</a> (2014),
+        where it is called
+        <a href="https://github.com/eudoxia0/magma#doto"><code>doto</code></a>.
+        It is a macro for the
+        <a href="https://github.com/eudoxia0/cmacro">cmacro</a>
+        pre-processor
+        which has the inconvenient of needing the Common Lisp
+        <a href="http://www.sbcl.org/">SBCL</a> compiler.</p>
+      <p>Functional languages often have a similar operator although
+        it threads the <em>result</em> of the first function
+        as first parameter of the next one etc.
+        instead of the same value for all functions.
+        For instance, the equivalent of <code>f₃(f₂(f₁(x)))</code>:</p>
+      <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Thompson_shell">Shell</a>: <a href="http://doc.cat-v.org/unix/pipes/"><code>|</code></a> (pipe) operator, <code>echo x | f₁ | f₂ | f₃</code></li>
+        <li><a href="https://www.haskell.org/">Haskell</a>: <a href="https://downloads.haskell.org/~ghc/latest/docs/html/libraries/base-4.15.0.0/Data-Function.html#v:-38-"><code>&amp;</code></a> (reverse application) operator, <code>x &amp; f₁ &amp; f₂ &amp; f₃</code></li>
+        <li><a href="https://elixir-lang.org/">Elixir</a>: <a href="https://hexdocs.pm/elixir/Kernel.html#%7C%3E/2"><code>|&gt;</code></a> (pipe) operator, <code>x |&gt; f₁ |&gt; f₂ |&gt; f₃</code>
+        </li><li><a href="https://clojure.org/guides/threading_macros">Clojure</a>: <a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/-%3E"><code>-&gt;</code></a> (threading) macro, <code>(-&gt; x f₁ f₂ f₃)</code></li>
+      </ul>
+      <p>Ada 2005 introduced a feature called
+        <a href="https://www.adaic.org/resources/add_content/standards/05rat/html/Rat-2-3.html">prefixed-view notation</a>
+        that is more similar to C++
+        as the exact function being called can not be determined without
+        knowing which methods are implemented for the object type.</p>
+    </section>
+
+    <section id="deferred-resource-release">
+      <h2>Deferred resource release: <a href="#deferred-resource-release">#deferred-resource-release</a></h2>
+      <p>Moves the clean-up code for a variable to the end of its scope
+        including the exit points
+        <code>break</code>, <code>continue</code>, <code>goto</code>,
+        <code>return</code>.</p>
+      <p>In C, resources must be released back to the system explicitly
+        once they are no longer needed, which usualy happens quite far
+        from the place where they were allocated.
+        As time passes and changes accumulate in the program,
+        it’s easy to forget releasing them in all cases
+        or to attempt releasing a resource twice.</p>
+      <p>Other programming languages have mechanisms for automatic
+        resource release:
+        C++ for instance, uses functions called <em>destructors</em>
+        that get run <strong>implicitly</strong>
+        when exiting a variable’s scope.</p>
+      <p>The programming language Go introduced an <strong>explicit</strong> notation called
+        «<a href="https://blog.golang.org/defer-panic-and-recover"><em>defer</em></a>»
+        that fits better the style of C.
+        The first difference is that in Go,
+        all releases happen when exiting the function,
+        while with Cedro the releases happen when exiting each block,
+        like the destructors in C++ do.</p>
+      <p>There are more differences, such as for instance that in Go it
+        can be used to modify the return value of the function,
+        and that Cedro does not even try to handle
+        <code><a href="https://en.cppreference.com/w/c/program/longjmp">longjmp()</a></code>,
+        <code><a href="https://en.cppreference.com/w/c/program/exit">exit()</a></code>,
+        <code><a href="https://en.cppreference.com/w/c/thread/thrd_exit">thrd_exit()</a></code> etc.
+        because it could only apply the deferred actions in the current function, not in any function that called this one. See “<i><a href="https://gustedt.wordpress.com/2020/12/14/a-defer-mechanism-for-c/">A defer mechanism for C</a></i>” (<a href="https://hal.inria.fr/hal-03090771/document">published academic paper as PDF</a> in the <a href="http://www.sigapp.org/sac/sac2021/program.html">SAC’21</a> conference) for a compiler-level implementation that does handle <code>longjmp()</code> and stack unwinding.</p>
+      <p>In Cedro, the release function is marked with the
+      <a href="https://en.cppreference.com/w/c/language/storage_duration">C keyword <b><code>auto</code></b></a>
+      which is not needed in standard C code because it is the default.
+      If you want to use Cedro with standard C code that already uses <code>auto</code>,
+      you can first replace it with <code>signed</code> as
+      <a href="https://stackoverflow.com/a/60890064/291462">it has the same effect</a>.</p>
+      <p>In this example, there is a <code>text</code> store and a <code>file</code> that must be released back to the system:</p>
+      <table>
+        <tbody><tr>
+          <td>
+<code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;errno.h&gt;
+
+<b>#pragma Cedro 1.0</b>
+
+int repeat_letter(char letter, size_t count,
+                  char* file_name)
+{
+    char* text = malloc(count + 1);
+    if (!text) return ENOMEM;
+    <b>auto free(text);</b>
+    for (size_t i = 0; i &lt; count; ++i) {
+        text[i] = letter;
+    }
+    text[count] = 0;
+    if (file_name) {
+        FILE* file = fopen(file_name, &#34;w&#34;);
+        if (!file) return errno;
+        <b>auto fclose(file);</b>
+        fwrite(text, sizeof(char), count, file);
+        fputc(&#39;\n&#39;, file);
+    }
+    printf(&#34;Repeated %lu times: %s\n&#34;,
+           count, text);
+    return 0;
+}
+
+int main(void)
+{
+    return repeat_letter(&#39;A&#39;, 6, &#34;aaaaaa.txt&#34;);
+}</code></td><td>
+</td>
+        </tr>
+      </tbody></table>
+
+      <p>Compiling it with GCC or clang,
+        on the left running explicitly the compiler,
+        and on the right using <code>cedrocc</code>
+        which has the same effect:</p>
+      <table>
+        <tbody><tr>
+<td><code>$ cedro repeat.c | cc -o repeat -x c -
+$ ./repeat 
+Repeated 6 times: AAAAAA
+$ cat aaaaaa.txt
+AAAAAA
+$ valgrind --leak-check=yes ./repeat
+…
+==8795== HEAP SUMMARY:
+==8795==     in use at exit: 0 bytes in 0 blocks
+==8795==   total heap usage: 4 allocs, 4 frees,
+                             5,599 bytes allocated
+==8795==
+==8795== All heap blocks were freed -- no leaks are possible</code>
+</td><td>
+<code>$ cedrocc -o repeat repeat.c
+$ ./repeat
+Repeated 6 times: AAAAAA
+$ cat aaaaaa.txt
+AAAAAA
+$ valgrind --leak-check=yes ./repeat
+…
+==8795== HEAP SUMMARY:
+==8795==     in use at exit: 0 bytes in 0 blocks
+==8795==   total heap usage: 4 allocs, 4 frees,
+                             5,599 bytes allocated
+==8795==
+==8795== All heap blocks were freed -- no leaks are possible</code>
+</td>
+        </tr>
+      </tbody></table>
+
+      <p>In this example adapted from
+        <a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2542.pdf#40">“Proposal for C2x, WG14 ​n2542, Defer Mechanism for C” p. 40</a>,
+        the released resources are spin locks:
+        <em>(the difference of course is that in this case the <code>spin_unlock()</code> calls do not run after the panic)</em></p>
+      <table>
+        <tbody><tr>
+          <td>
+            <code>/* Adapted from example in n2542.pdf#40 */
+
+<b>#pragma Cedro 1.0</b>
+
+int f1(void) {
+  puts(&#34;g called&#34;);
+  if (bad1()) { return 1; }
+  spin_lock(&amp;lock1);
+  <b>auto spin_unlock(&amp;lock1);</b>
+  if (bad2()) { return 1; }
+  spin_lock(&amp;lock2);
+  <b>auto spin_unlock(&amp;lock2);</b>
+  if (bad()) { return 1; }
+
+  /* Access data protected by the spinlock then force a panic */
+  completed += 1;
+  unforced(completed);
+
+  return 0;
+}</code>
+          </td>
+          <td>
+            <code>/* Adapted from example in n2542.pdf#40 */
+
+int f1(void) {
+  puts(&#34;g called&#34;);
+  if (bad1()) { return 1; }
+  spin_lock(&amp;lock1);
+  if (bad2()) { <b>spin_unlock(&amp;lock1);</b> return 1; }
+  spin_lock(&amp;lock2);
+  if (bad()) { <b>spin_unlock(&amp;lock2); spin_unlock(&amp;lock1);</b> return 1; }
+
+  /* Access data protected by the spinlock then force a panic */
+  completed += 1;
+  unforced(completed);
+
+  <b>spin_unlock(&amp;lock2);</b>
+  <b>spin_unlock(&amp;lock1);</b>
+
+  return 0;
+}
+</code>
+          </td>
+        </tr>
+      </tbody></table>
+
+      <p>Andrew Kelley compared resource management between C and his
+        <a href="https://ziglang.org/">Zig programming language</a>
+        in a 2019 presentation titled
+        <a href="https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s">“The Road to Zig 1.0&#34; at 29:21″</a>,
+        and here I’ve re-created his C example using Cedro to produce
+        the function as he showed it, except that Cedro does not know
+        that the final <code>for</code> loop never ends so it adds
+        unnecessary resource release code after it.</p>
+      <table>
+        <tbody><tr>
+          <td>
+            <code>// Example retrofitted from C example by Andrew Kelley:
+// <a href="https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s">https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s</a>
+
+#pragma Cedro 1.0
+
+int main(int argc, char **argv) {
+    struct SoundIo *soundio = soundio_create();
+    if (!soundio) {
+        fprintf(stderr, &#34;out of memory\n&#34;);
+        return 1;
+    }
+    <b>auto soundio_destroy(soundio);</b>
+    int err;
+    if ((err = soundio_connect(soundio))) {
+        fprintf(stderr, &#34;unable to connect: %s\n&#34;, soundio_strerror(err));
+        return 1;
+    }
+    soundio_flush_events(soundio);
+    int default_output_index = soundio_default_output_device_index(soundio);
+    if (default_output_index &lt; 0) {
+        fprintf(stderr, &#34;No output device\n&#34;);
+        return 1;
+    }
+    struct SoundIoDevice *device = soundio_get_output_device(soundio, default_output_index);
+    if (!device) {
+        fprintf(stderr, &#34;out of memory\n&#34;);
+        return 1;
+    }
+    <b>auto soundio_device_unref(device);</b>
+    struct SoundIoOutStream *outstream = soundio_outstream_create(device);
+    if (!outstream) {
+        fprintf(stderr, &#34;out of memory\n&#34;);
+        return 1;
+    }
+    <b>auto soundio_outstream_destroy(outstream);</b>
+    outstream-&gt;format = SoundIoFormatFloat32NE;
+    outstream-&gt;write_callback = write_callback;
+    if ((err = soundio_outstream_open(outstream))) {
+        fprintf(stderr, &#34;unable to open device: %s&#34; &#34;\n&#34;, soundio_strerror(err));
+        return 1;
+    }
+    if ((err = soundio_outstream_start(outstream))) {
+        fprintf(stderr, &#34;unable to start device: %s\n&#34;, soundio_strerror(err));
+        return 1;
+    }
+    for (;;) soundio_wait_events(soundio);
+}</code>
+          </td><td>
+            <code>// Example retrofitted from C example by Andrew Kelley:
+// <a href="https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s">https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s</a>
+
+int main(int argc, char **argv) {
+    struct SoundIo *soundio = soundio_create();
+    if (!soundio) {
+        fprintf(stderr, &#34;out of memory\n&#34;);
+        return 1;
+    }
+    int err;
+    if ((err = soundio_connect(soundio))) {
+        fprintf(stderr, &#34;unable to connect: %s\n&#34;, soundio_strerror(err));
+        <b>soundio_destroy(soundio);</b>
+        return 1;
+    }
+    soundio_flush_events(soundio);
+    int default_output_index = soundio_default_output_device_index(soundio);
+    if (default_output_index &lt; 0) {
+        fprintf(stderr, &#34;No output device\n&#34;);
+        <b>soundio_destroy(soundio);</b>
+        return 1;
+    }
+    struct SoundIoDevice *device = soundio_get_output_device(soundio, default_output_index);
+    if (!device) {
+        fprintf(stderr, &#34;out of memory\n&#34;);
+        <b>soundio_destroy(soundio);</b>
+        return 1;
+    }
+    struct SoundIoOutStream *outstream = soundio_outstream_create(device);
+    if (!outstream) {
+        fprintf(stderr, &#34;out of memory\n&#34;);
+        <b>soundio_device_unref(device);</b>
+        <b>soundio_destroy(soundio);</b>
+        return 1;
+    }
+    outstream-&gt;format = SoundIoFormatFloat32NE;
+    outstream-&gt;write_callback = write_callback;
+    if ((err = soundio_outstream_open(outstream))) {
+        fprintf(stderr, &#34;unable to open device: %s&#34; &#34;\n&#34;, soundio_strerror(err));
+        <b>soundio_outstream_destroy(outstream);</b>
+        <b>soundio_device_unref(device);</b>
+        <b>soundio_destroy(soundio);</b>
+        return 1;
+    }
+    if ((err = soundio_outstream_start(outstream))) {
+        fprintf(stderr, &#34;unable to start device: %s\n&#34;, soundio_strerror(err));
+        <b>soundio_outstream_destroy(outstream);</b>
+        <b>soundio_device_unref(device);</b>
+        <b>soundio_destroy(soundio);</b>
+        return 1;
+    }
+    for (;;) soundio_wait_events(soundio);
+    <b>soundio_outstream_destroy(outstream);</b>
+    <b>soundio_device_unref(device);</b>
+    <b>soundio_destroy(soundio);</b>
+}</code>
+          </td>
+        </tr>
+      </tbody></table>
+      <p>However, his Zig example had the unfair advantage of
+        returning error values instead of printing error messages
+        which takes more space.
+        The following is a C function that
+        matches the Zig version more closely:</p>
+      <table>
+        <tbody><tr>
+          <td>
+            <code>// Example retrofitted from Zig example by Andrew Kelley:
+// <a href="https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s">https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s</a>
+
+#pragma Cedro 1.0
+
+int main(int argc, char **argv) {
+    struct SoundIo *soundio = soundio_create();
+    if (!soundio) { return SoundIoErrorNoMem; }
+    <b>auto soundio_destroy(soundio);</b>
+
+    int err;
+    if ((err = soundio_connect(soundio))) return err;
+
+    soundio_flush_events(soundio);
+
+    const int default_output_index = soundio_default_output_device_index(soundio);
+    if (default_output_index &lt; 0) return SoundIoErrorNoSuchDevice;
+
+    const struct SoundIoDevice *device = soundio_get_output_device(soundio, default_output_index);
+    if (!device) return SoundIoErrorNoMem;
+    <b>auto soundio_device_unref(device);</b>
+
+    const struct SoundIoOutStream *outstream = soundio_outstream_create(device);
+    if (!outstream) return SoundIoErrorNoMem;
+    <b>auto soundio_outstream_destroy(outstream);</b>
+
+    outstream-&gt;format = SoundIoFormatFloat32NE;
+    outstream-&gt;write_callback = write_callback;
+
+    if ((err = soundio_outstream_open(outstream))) return err;
+    if ((err = soundio_outstream_start(outstream))) return err;
+
+    while (true) soundio_wait_events(soundio);
+}</code>
+          </td>
+          <td>
+            <code>// Example retrofitted from Zig example by Andrew Kelley:
+// <a href="https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s">https://www.youtube.com/watch?v=Gv2I7qTux7g&amp;t=1761s</a>
+
+int main(int argc, char **argv) {
+    struct SoundIo *soundio = soundio_create();
+    if (!soundio) { return SoundIoErrorNoMem; }
+
+    int err;
+    if ((err = soundio_connect(soundio))) {
+        <b>soundio_destroy(soundio);</b>
+        return err;
+    }
+
+    soundio_flush_events(soundio);
+
+    const int default_output_index = soundio_default_output_device_index(soundio);
+    if (default_output_index &lt; 0) {
+        <b>soundio_destroy(soundio);</b>
+        return SoundIoErrorNoSuchDevice;
+    }
+
+    const struct SoundIoDevice *device = soundio_get_output_device(soundio, default_output_index);
+    if (!device) {
+        <b>soundio_destroy(soundio);</b>
+        return SoundIoErrorNoMem;
+    }
+
+    const struct SoundIoOutStream *outstream = soundio_outstream_create(device);
+    if (!outstream) {
+        <b>soundio_device_unref(device);</b>
+        <b>soundio_destroy(soundio);</b>
+        return SoundIoErrorNoMem;
+    }
+
+    outstream-&gt;format = SoundIoFormatFloat32NE;
+    outstream-&gt;write_callback = write_callback;
+
+    if ((err = soundio_outstream_open(outstream))) {
+        <b>soundio_outstream_destroy(outstream);</b>
+        <b>soundio_device_unref(device);</b>
+        <b>soundio_destroy(soundio);</b>
+        return err;
+    }
+    if ((err = soundio_outstream_start(outstream))) {
+        <b>soundio_outstream_destroy(outstream);</b>
+        <b>soundio_device_unref(device);</b>
+        <b>soundio_destroy(soundio);</b>
+        return err;
+    }
+
+    while (true) soundio_wait_events(soundio);
+    <b>soundio_outstream_destroy(outstream);</b>
+    <b>soundio_device_unref(device);</b>
+    <b>soundio_destroy(soundio);</b>
+}</code>
+          </td>
+        </tr>
+      </tbody></table>
+      <p>The Cedro version is much closer,
+        but his point still stands because the plain C version
+        needs a lot of repeated code and is more fragile.
+        And of course Zig has
+        <a href="https://ziglang.org/learn/overview/">many other great features</a>.</p>
+
+      
+      <p>Apart from the already mentioned
+        «<a href="#a-defer-mechanism-for-c"><em>A defer mechanism for C</em></a>»,
+        there are macros that use a <code>for</code> loop as
+        <code>for (<em>allocation and initialization</em>; <em>condition</em>; <em>release</em>) { <em>actions</em> }</code>
+        [<a href="#note-defer-1" name="node-defer-1-ref">1</a>]
+        or other techniques
+        [<a href="#note-defer-2" name="node-defer-2-ref">2</a>].</p>
+      
+      
+      <p>Compilers like GCC and clang have non-standard features to do this
+        like the <a href="https://echorand.me/site/notes/articles/c_cleanup/cleanup_attribute_c.html"><code>__cleanup__</code> variable attribute</a>.</p>
+      <p>Cedro does not have the limitation of the deferred code having to be a function: it can be a code block, with or without conditionals, which allows for instance to emulate <a href="https://ziglang.org/learn/overview/#manual-memory-management">Zig’s <code>errdefer</code></a> by performing different actions in case of error:</p>
+      <table>
+        <tbody><tr>
+          <td>
+            <code>char* allocate_block(size_t n, char** err_p)
+{
+    char* result = malloc(n);
+    <b>auto if (*err_p) {
+        free(result);
+        result = NULL;
+    }</b>
+
+    if (n &gt; 10) {
+        *err_p = &#34;n is too big&#34;;
+    }
+
+    return result;
+}</code>
+          </td><td>
+            <code>char* allocate_block(size_t n, char** err_p)
+{
+    char* result = malloc(n);
+
+    if (n &gt; 10) {
+        *err_p = &#34;n is too big&#34;;
+    }
+
+    <b>if (*err_p) {
+        free(result);
+        result = NULL;
+    }</b>
+
+    return result;
+}</code>
+          </td>
+        </tr>
+      </tbody></table>
+    </section>
+
+    <section id="block-macros">
+      <h2>Block macros: <a href="#block-macros">#block-macros</a></h2>
+      <p>Formats a multi-line macro into a single line.</p>
+      <p>C macros must be written all in one line,
+        but some times you need to split them in several pseudo-lines
+        and it gets tedious and error-prone
+        to maintain all the newline escapes (“<code>\</code>”).</p>
+      <p>By adding braces (“<code>{</code>” or “<code>}</code>”)
+        right after <code>#define</code>
+        we can have <em>Cedro</em> do that for us:</p>
+<code>#define { macro(A, B, C)
+f_##A(B, C); /// Specialized version of f() for type A.
+#define }</code>
+<code>#define macro(A, B, C)                                                        \
+f_##A(B, C); /** Specialized version of f() for type A. */                    \
+/* End #define */</code>
+      <p>Preprocessor directives are still not allowed
+        inside macros, so you can not use
+        <code>#if</code>, <code>#include</code>, etc.</p>
+      <p>Note: the directive must start exactly with
+        “<code>#define {</code>” or “<code>#define }</code>”,
+        with no more or less space between
+        “<code>#define</code>” and the brace
+        “<code>{</code>” or “<code>}</code>”.</p>
+    </section>
+
+    <section id="binary-include">
+      <h2>Binary inclusion: <a href="#binary-include">#binary-include</a></h2>
+      <p>Inserts a file as a byte array.</p>
+      <code>#include &lt;stdint.h&gt;
+const uint8_t image
+#include {images/cedro-32x32.png}
+;</code>
+      <code>#include &lt;stdint.h&gt;
+const uint8_t image
+[1480] = { /* cedro-32x32.png */
+0x89,0x50,0x4E,0x47,0x0D,0x0A,0x1A,…
+0x00,0x00,0x00,0x20,0x00,0x00,0x00,…
+⋮
+};</code>
+      <p>The file name is relative to the including C file.</p>
+      <p>Note: the directive must start exactly with “<code>#include {</code>”,
+        with no more or less space between
+        “<code>#include</code>” and the brace “<code>{</code>”.</p>
+      
+      <p>This feature is an old idea
+        and there are several implementations, for instance
+        <a href="https://github.com/ConorOG/xxd">xxd</a>
+        (as <code>xxd -i</code>, <a href="http://manpages.ubuntu.com/manpages/bionic/man1/xxd.1.html">man page</a>)
+        which I used many years ago and has it since 1994.</p>
+      <p>More recently,
+        the <a href="https://doc.rust-lang.org/std/macro.include_bytes.html"><code>include_bytes!()</code></a> macro
+        has been very useful to me in my Rust programs.</p>
+    </section>
+
+    
+  
+
+</div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 06:36:18 +0000</pubDate>
+      <source>https://sentido-labs.com/en/library/cedro/202106171400/</source>
+    </item>
   </channel>
 </rss>
