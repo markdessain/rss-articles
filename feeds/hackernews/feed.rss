@@ -21676,5 +21676,1131 @@ or preferably to the <a href="https://github.com/samhocevar/wincompose/issues">G
       <pubDate>Fri, 13 Aug 2021 15:06:38 +0000</pubDate>
       <source>https://www.reuters.com/world/asia-pacific/afghan-women-bankers-forced-roles-taliban-takes-control-2021-08-13/</source>
     </item>
+    <item>
+      <title>Hackers detail vulnerabilities at agtech giants John Deere, Case New Holland</title>
+      <link>https://www.vice.com/en/article/z3xkdy/hackers-uncover-weaknesses-in-agriculture-giants-systems</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><div><picture><source media="(min-width: 1000px)" srcset="https://video-images.vice.com/articles/611571d619c3ad0093db8417/lede/1628795501939-gettyimages-1231549327.jpeg?crop=1xw:0.9903169014084507xh;center,center&amp;resize=20:*"/><source media="(min-width: 700px)" srcset="https://video-images.vice.com/articles/611571d619c3ad0093db8417/lede/1628795501939-gettyimages-1231549327.jpeg?crop=1xw:0.9903169014084507xh;center,center&amp;resize=20:*"/><source media="(min-width: 0px)" srcset="https://video-images.vice.com/articles/611571d619c3ad0093db8417/lede/1628795501939-gettyimages-1231549327.jpeg?crop=1xw:0.9903169014084507xh;center,center&amp;resize=20:*"/></picture></div><p>Image:  Philipp Schulze/picture alliance via Getty Images</p></div><div data-component="BodyComponentRenderer"><p><span data-component="TextBlock"><p>Security researchers found multiple vulnerabilities in the systems of John Deere and Case New Holland, two of the country&#39;s largest agriculture tech companies, according to a <a href="https://www.youtube.com/watch?v=zpouLO-GXLo" target="_blank"><span>presentation at the Def Con hacking conference</span></a>. In the wrong hands, they warn that these weaknesses could put consumers and the global food supply chain at risk.</p></span><span data-component="TextBlock"><p>Led by a hacker known as Sick Codes, a group of researchers conducted a “good faith” audit of John Deere and Case New Holland and found what they described as a &#34;tractor load of vulnerabilities,&#34; they said in the talk. Both companies produce high-tech machinery used in mass agriculture. The hackers warned that a cyber attack on the users of agricultural businesses such as these could severely compromise crop yield and trade secrets. During the talk, Sick Codes went through a series of vulnerabilities his group found, culminating in vulnerabilities he described as allowing them &#34;to upload files to any user, log in as any user, destroy any farm, run any farm off the road, upload whatever we want, download whatever we want, destroy any data, log in to any third party accounts. We could literally do whatever the heck we wanted with anything we wanted on the John Deere operation center, period. And that&#39;s when we pretty much stopped because we pretty much had rope on the whole organization.&#34;</p></span></p><p><span data-component="TextBlock"><p>John Deere claimed in a statement that &#34;none of the claims—including those identified at DEF CON—have enabled access to customer accounts, agronomic data, dealer accounts, or sensitive personal information. Further, contrary to claims made at DEF CON, none of the issues identified by the security researchers would have affected machines in use.  John Deere considers the security of our systems and the data within them a top priority and we work tirelessly to identify and address any misconfigurations as quickly as possible. Deere also recognizes the important role our products play in food security and within the global food supply chain.&#34;</p></span><span data-component="TextBlock"><p>Deere also said that it has increased its spending on security &#34;by about 750% in the past seven years.&#34;</p></span><span></span><span data-component="TextBlock"><p>“If nobody does what we did for free, then the bad guys will come in and do it for money,” Sick Codes recently told Motherboard over the phone. </p></span><span data-component="TextBlock"><p>The presentation detailed how weaknesses in operating systems could give an attacker remote access to download or upload files onto farming equipment like tractors. </p></span><span data-component="TextBlock"><p>&#34;If you were able to access farms, you would be able to do things like overspray chemicals onto the field,&#34; they said in their presentation. &#34;You could permanently denial of service to that farm just by simply over spraying one season, by literally loading up the fertile ground with too many chemicals.&#34;</p></span><span data-component="TextBlock"><p>Case New Holland already allows clients remote access to some of their machinery from hundreds of miles away using just their user information, according to <a href="https://www.caseih.com/northamerica/en-us/products/tractors/afs-connect-magnum-series/" target="_blank"><span>their website</span></a>.</p></span><span data-component="TextBlock"><p><a href="https://sick.codes/being-root-on-two-agriculture-companies-in-good-faith-maxing-out-the-john-deere-operations-center-worldwide-and-case-industrial-in-brazil/" target="_blank"><span>Their research</span></a> found that Case’s JavaMelody server could be compromised, revealing highly sensitive data including locations, IP addresses, session ID and full names. Using this, an attacker can replicate the session and impersonate users in order to log into their system. </p></span><span data-component="TextBlock"><p>According to their research, the hackers also got access to John Deere’s administrative Pega credentials, which they described as being a master key to access “mission critical” data. They also discovered a weakness in the system’s username enumeration that could allow an unauthenticated remote attacker to access personal user information such as user ID numbers, full names and addresses. </p></span><span></span><span data-component="TextBlock"><p>There were vulnerabilities in the company’s machine book, which is used to reserve demonstration units for trade shows or conferences. They could book units, change or cancel appointments once they had access. They were also able to pull every single demo unit that was ever provided and the email addresses used to book them.</p></span><span data-component="TextBlock"><p>The researchers also said they obtained the original decryption password and signing certificate for the company’s Okta, which is a single sign-on platform that workforces use to allow employees access to all of the company’s software. Sick Codes said an attacker could have used it to log in as any user, upload or delete any data they want, delete accounts and more. </p></span><span data-component="TextBlock"><p>Tech companies have seen a large increase in ransomware attacks over the past year, and the agriculture industry is learning that they are just as at risk. </p></span><span data-component="TextBlock"><p>America has already seen the effects of the massive cyber attack that shut down operations at the <a href="https://www.vice.com/en/article/m7eb7a/cyber-attack-sabotages-worlds-largest-meat-processor"><span>world’s largest meat processing company, JBS</span></a>, this past June. The company paid an $11 million ransom to REvil, the ransomware gang behind the attack. </p></span><span data-component="TextBlock"><p>John Deere recently partnered with <a href="https://www.deere.com/en/our-company/news-and-announcements/newsroom/hackerone-program/" target="_blank"><span>HackerOne</span></a>, a security platform in which businesses can have their systems examined for weaknesses by cybersecurity researchers. Sick Codes was invited to join the program after contacting them regarding bugs he found in April, but soon withdrew from the program after he realized he would need to sign an NDA. </p></span><span></span><span data-component="TextBlock"><p>Screenshots included in the presentation showed a conversation between hacker Wabafet and the John Deere Twitter account in which the company stated they “encourage the ethical hacker community to report any possible vulnerability that is identified in our assets.” In the message, John Deere stipulated that they do not offer bug bounties but do grant safe harbor so that researchers can investigate and report weaknesses without risk of retaliation.</p></span><span data-component="TextBlock"><p>“They need fresh blood in the company because the way that they&#39;re dealing with this is bizarre,” Sick Codes told Motherboard over the phone. “They feel like they&#39;ve got a really anti-research, vulnerability disclosure… You would actually put yourself at risk submitting research to them because of the way that their thing’s set up.”</p></span><span data-component="TextBlock"><p>Sick Codes said that none of the hackers have heard back from Case or John Deere since the presentation. Screenshots provided by the hacker confirm that he informed John Deere’s chief information security officer, James Johnson, of their plans to present their research and shared the presentation files with him ahead of time. </p></span><span data-component="TextBlock"><p>Motherboard previously spoke to Sick Codes in April when they <a href="https://www.vice.com/en/article/4avy8j/bugs-allowed-hackers-to-dox-all-john-deere-owners"><span>uncovered two bugs</span></a> that could have allowed hackers to access consumer information. At the time, Sick Codes, Kevin Kenney and Willie Cade managed to gain access to personal identifying information of owners of Deere equipment, including the machine VIN and the owner’s name and physical address. At the time, the company told Motherboard that no personal information was actually at risk by these bugs. </p></span><span data-component="TextBlock"><p>Case New Holland did not respond to a request for comment. According to Sick Codes’s website, all of the vulnerabilities they shared have since been patched. </p></span></p></div><div><div><div><p><h3>ORIGINAL REPORTING ON EVERYTHING THAT MATTERS IN YOUR INBOX.</h3></p><p>By signing up to the VICE newsletter you agree to receive electronic communications from VICE that may sometimes include advertisements or sponsored content.</p></div></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 15:48:07 +0000</pubDate>
+      <source>https://www.vice.com/en/article/z3xkdy/hackers-uncover-weaknesses-in-agriculture-giants-systems</source>
+    </item>
+    <item>
+      <title>Typing with Pleasure (2015)</title>
+      <link>https://pavelfatin.com/typing-with-pleasure/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+				<p>
+
+<span></span>In this article I examine human- and machine aspects of typing latency (“typing lag”) and present experimental data on latency of popular text / code editors. The article is inspired by my work on implementing <a href="https://blog.jetbrains.com/idea/2015/08/experimental-zero-latency-typing-in-intellij-idea-15-eap/">“zero-latency typing”</a> in IntelliJ IDEA.</p>
+<p><a href="https://en.wikipedia.org/wiki/Latency_(engineering)">Latency</a> recently became a hot topic in computer world — now we have low-latency keyboards, 144 Hz monitors, special technologies to reduce latency (like <a href="https://en.wikipedia.org/wiki/FreeSync">FreeSync</a> or <a href="https://en.wikipedia.org/wiki/G-Sync">G-Sync</a>), dedicated <a href="http://forums.blurbusters.com">communities</a> and whatnot… Sure, a part of the buzz is marketing, however the truth is that low latency became both feasible and desirable.</p>
+<p>Apparently, gamers are the first who gain form those advancements. In some areas, like <a href="https://en.wikipedia.org/wiki/Virtual_reality">virtual reality</a> latency turned out to be a crucial factor, where even a single millisecond <a href="http://oculusrift-blog.com/john-carmacks-message-of-latency/682/">matters</a>. But what about programmers? Do we need “typing with pleasure” to “develop with pleasure”? Let’s find out.</p>
+<p><em>The article is also (independently) translated into <a href="https://habrahabr.ru/post/305158/">Russian</a>.</em></p>
+<p><em>See also: <a href="https://pavelfatin.com/scrolling-with-pleasure/" title="Technology of smooth / high-precision scrolling on modern computers">Scrolling with pleasure</a>.</em></p>
+<p><strong>Contents:</strong></p>
+<ol>
+<li><a href="https://pavelfatin.com/typing-with-pleasure/#human-side">Human side</a></li>
+<li><a href="https://pavelfatin.com/typing-with-pleasure/#machine-side">Machine side</a></li>
+<li><a href="https://pavelfatin.com/typing-with-pleasure/#editor-benchmarks">Editor benchmarks</a></li>
+<li><a href="https://pavelfatin.com/typing-with-pleasure/#summary">Summary</a></li>
+<li><a href="https://pavelfatin.com/typing-with-pleasure/#links">Links</a></li>
+</ol>
+<h3 id="human-side">1. Human side</h3>
+<p>Typing latency is a delay between the keystroke and corresponding screen update. Sounds simple, but make no mistake, its impact on typing process is rather complex, because typing is an amazing feat of our body and nervous system (at least, from engineering standpoint).</p>
+<p>Let’s start with the basics — why bother with latency at all? We are not in such a hurry, so we can just type what we need and examine the result later. A few seconds doesn’t make a difference, right? Not actually…</p>
+<h4 id="feedback">1.1 Feedback</h4>
+<p>One does not “simply type” what he or she desires, we need <a href="https://en.wikipedia.org/wiki/Feedback">feedback</a> to perform that task, so that our senses form a so called <a href="http://www.controleng.com/single-article/open-vs-closed-loop-control/f8d8023a15738d0fcfe78d6a2d71dd60.html">closed control loop</a> with our motions. Visual image is not only a result of typing, it’s an <em>inherent part</em> of the process.</p>
+<p>The more feedback we receive during typing, the better. In principle, we can type with our eyes closed. We can continue typing even if we plug up our ears, relying only on tactile sensations from our fingers. However, if we block this last channel of feedback, typing becomes impossible. Because visual modality is <a href="https://en.wikipedia.org/wiki/Multisensory_integration#Visual_dominance">dominant</a> (vision tends to bias information from other senses), and it’s the only way to gain reliable data on typing errors, visual feedback is very important.</p>
+<p>Less latency results in “shorter” feedback loop, so we can type more easily, with greater speed and accuracy. So far so good, but what is the reasonable bound? After all, human <a href="https://en.wikipedia.org/wiki/Mental_chronometry">reaction time</a> is ridiculously slow — “round trip” from senses to consciousness to muscles takes about 200 ms! Sure, it’s trainable and varies between individuals, but some comparatively small latency, like 100 ms looks like a safe bet, isn’t it? Not at all…</p>
+<h4 id="motor-skill">1.2 Motor skill</h4>
+<p>Remember your first attempts to use computer keyboard? Most probably, it took you minutes to press a proper key and then verify the result on screen, this process demanded all your conscious attention. However, as months and years went by, things improved up to the point where your typing became super-fast and semi-automatic — you don’t need to think about specific keys anymore, you probably don’t even need to look at the keyboard at all (<a href="https://en.wikipedia.org/wiki/Touch_typing">touch typing</a>). So, practice makes the difference. Such a process is called <a href="https://en.wikipedia.org/wiki/Motor_skill">motor skill</a> acquisition (or <a href="https://en.wikipedia.org/wiki/Motor_learning">motor learning</a>). When learning reaches <a href="https://en.wikipedia.org/wiki/Motor_skill#Stages_of_motor_learning">autonomous phase</a> the task can be completed “automatically” without us having to pay any attention to performing it.</p>
+<p>Formally speaking, typing is a process of <a href="https://en.wikipedia.org/wiki/Motor_control">motor control</a> exercised by human <a href="https://en.wikipedia.org/wiki/Motor_system">motor system</a>. Because typing is a <a href="https://en.wikipedia.org/wiki/Fine_motor_skill">fine motor skill</a> (it coordinates small muscle movements), it’s highly <a href="https://en.wikipedia.org/wiki/Motor_control#Open_loop_control">feedback-dependent</a>. However, the feedback is handled below the threshold of our conscious perception, so we don’t necessarily need to be aware of latency to be severely affected by it. Human response time is only relevant for error correction.</p>
+<p>But even semi-automatic processes are limited by <a href="http://users.df.uba.ar/acha/Lab1/time_delay.pdf">vision delay</a><sup> (pdf)</sup>, and any feedback is only good if we can use it. Human <a href="https://en.wikipedia.org/wiki/Visual_system">visual system</a> needs about 40 ms to process its input. Again, this number depends on many factors, varies between individuals and can be improved by training. Yet, latency as small as 20 ms should be surely enough, right? Not entirely…</p>
+<h4 id="internal-model">1.3 Internal model</h4>
+<p>First, let’s make it clear that any “external” delay is added <em>on top</em> of the vision delay, not “masked” by it, so any delay matters. But then we can argue that something like 20 ms is <em>comparatively</em> small anyway. Well…  human motor system have some clever tricks to react faster.</p>
+<p>To counteract input delays in sensory organs and nervous system, motor control relies on a special neural process, known as <a href="https://en.wikipedia.org/wiki/Internal_model_%28motor_control%29">internal model</a>. This process can <em>simulate</em> response of controlled system before receiving feedback data — by relying on a <a href="https://en.wikipedia.org/wiki/Internal_model_(motor_control)#Forward_models">forward model</a> of the process.  A supplementary <a href="https://en.wikipedia.org/wiki/Internal_model_(motor_control)#Inverse_models">inverse model</a> is used to predict response of controlled system basing on actual feedback.</p>
+<p>The latency doesn’t influence feedback loop directly, but rather affects the internal model of typing process. Forward- and inverse models are <a href="https://en.wikipedia.org/wiki/Internal_model_(motor_control)#Combined_forward_and_inverse_models">used in combination</a>, with some internal feedback loops, producing <a href="https://en.wikipedia.org/wiki/Nonlinear_system">nonlinear system</a>. Thus, even small delays in feedback data might result in much bigger disturbances in typing.</p>
+<p>Apart from the internal model, there exists another process that is adversely affected by the visual latency, namely <a href="https://en.wikipedia.org/wiki/Multisensory_integration">multisensory integration</a>.</p>
+<h4 id="multisensory-integration">1.4 Multisensory integration</h4>
+<p>Visual image is not the only kind of feedback during keyboard typing: we can also hear key clicks, feel pressure on our fingers, know location of our hands and fingers (so called <a href="https://en.wikipedia.org/wiki/Proprioception">proprioception</a>).</p>
+<p>Each of these sensations is processed separately and nervous system is responsible for whether to integrate or segregate certain groups of signals. This task is known as <a href="https://en.wikipedia.org/wiki/Binding_problem">binding problem</a>, and it’s already a challenge by itself (check those <a href="https://en.wikipedia.org/wiki/Multisensory_integration#Multisensory_illusions">multisensory illusions</a>, for example). When brain receives stimuli from most sensory modalities immediately, but visual image is provided with some additional delay, it complicates things even further.</p>
+<p>Nervous system can to some extent <a href="http://prism.bham.ac.uk/pdf_files/Miall_Jackson_EBR_2006.pdf">adapt</a><sup> (pdf)</sup> to constant visual feedback delays (though never perfectly), but any irregularities in delay durations (so called <a href="https://en.wikipedia.org/wiki/Jitter">jitter</a>) pose additional problem because of their inherent unpredictability.</p>
+<p>There are a few illustrative examples from other areas where delayed feedback might be worse than no feedback at all, up to the point where primary activity becomes impossible: when you play on MIDI keyboard through computer, 20-30 ms of <a href="https://en.wikipedia.org/wiki/Latency_%28audio%29">audio latency</a> is enough to disrupt your performance (one <a href="http://lsbaudio.com/publications/AES_Latency.pdf">paper</a><sup> (pdf)</sup> claims that even ~1 ms audio latency can matter); another good example is so-called <a href="http://arxiv.org/vc/arxiv/papers/1202/1202.6106v1.pdf">SpeechJammer</a><sup> (pdf)</sup> which uses ~200 ms feedback delay to temporarily disrupt people’s ability to speak.</p>
+<h4 id="effects">1.5 Effects</h4>
+<p>Let’s summarize the key points so far:</p>
+<ul>
+<li>Typing is a complex, semi-automatic process that takes years to master.</li>
+<li>In principle, typing can be affected by milliseconds delays in visual feedback.</li>
+<li>One does not necessarily need to perceive latency consciously to be affected by it.</li>
+<li>Perceptiveness and tolerance of latency vary greatly between individuals.</li>
+</ul>
+<p>How exactly can latency affect typing? Here are a few possible effects:</p>
+<ul>
+<li>Typing becomes slower.</li>
+<li>More errors occur, more corrections needed.</li>
+<li>Eye strain increases (as visual system is overloaded).</li>
+<li>Muscle strain increases (as movement control is fuzzy).</li>
+<li>Process demands more conscious attention.</li>
+</ul>
+<p>The exact effect of latency depends on various factors, like particular delay distribution, your hardware (keyboard, monitor), editor content (text / code), primary activity (insertion / editing), typing method (ordinary / touch typing), specifics of your visual- and motor systems, personal preferences, etc.</p>
+<p>To get a feel of how latency, in general, manifests itself, I recommend you to check a <a href="https://www.youtube.com/watch?v=vOvQCPLkPt4">great video</a> from Microsoft Research that demonstrates that (though in a slightly different context) and shows that even 1 ms matters. As for the personal side — please keep in mind, that human perception <em>really</em> differs — we should remember <a href="https://en.wikipedia.org/wiki/The_dress">The dress</a> and assume that other people might perceive / be affected by the typing latency in a completely different way than we do.</p>
+<p>Needless to say, the possible impact of latency is hardly pleasant. The good news is that it works both ways, so by reducing the visual latency we can potentially improve a lot of things (it’s not only about typing speed per se).</p>
+<p>The findings are generally agree with available research data. If you want to go deeper into the subject, you may check some books and scholarly articles that contain data on the effects of latency and the role of visual feedback in typing, for example:</p>
+<ul>
+<li><a href="https://books.google.com/books/about/Cognitive_Aspects_of_Skilled_Typewriting.html?id=ifxTAAAAMAAJ&amp;redir_esc=y">Cognitive aspects of skilled typewriting</a></li>
+<li><a href="http://www.psy.vanderbilt.edu/faculty/logan/SnyderLoganYamaguchi2015.pdf">The role of visual feedback from the screen and hands in skilled typewriting</a><sup> (pdf)</sup></li>
+</ul>
+<p>One thing especially worth quoting (<a href="https://books.google.com/books/about/Handbook_of_Human_Computer_Interaction.html?id=WuQbERgXR10C&amp;redir_esc=y">source</a>):</p>
+<blockquote><p>
+  Delay of visual feedback on a computer display have important effects on typist behavior and satisfaction.
+</p></blockquote>
+<p>Let’s now focus on the machine side of latency, to find out how we can make the improvement possible.</p>
+<h3 id="machine-side">2. Machine side</h3>
+<p>What happens between the moment you press a key and a character appears on the screen? It turns out, many, many things, and all of them take some time. Can we simply buy a top-of-the-line computer to ensure smooth typing? This helps, but only to some degree, because many parts of the process are not CPU / GPU bound. Take the both <a href="https://en.wikipedia.org/wiki/Red_pill_and_blue_pill">pills</a>, and I will show you how deep the rabbit hole goes (because even what follows is only a part of the whole truth).</p>
+<p>The typing latency can be subdivided into the following components:</p>
+<ul>
+<li>Input latency (keyboard).</li>
+<li>Processing latency (software).</li>
+<li>Output latency (monitor).</li>
+</ul>
+<p>Let’s take a closer look at each part.</p>
+<h4 id="input-latency">2.1 Input latency</h4>
+<p>First, let’s examine how typical, non-gaming, USB keyboards handle our typing. Those kind of keyboards are most widely used nowadays both for desktop computers and in laptops.</p>
+<p><strong>Keyboard scan</strong></p>
+<p>Typical keyboard contains more than 100 keys, which is quite a lot. To minimize the number of wires and <a href="https://en.wikipedia.org/wiki/Computer_keyboard#Control_processor">control processor</a> inputs, key switches are usually connected in a <a href="https://en.wikipedia.org/wiki/Keyboard_matrix_circuit">matrix circuit</a>, so that rows and columns of wires cross. That’s how it’s possible to reduce the number of wires and inputs from <code>x * y</code>  to <code>x + y</code> (for example, to 22 instead of 121). The drawback of such an approach is that control processor cannot read state of all the keys simultaneously — it has to <a href="https://en.wikipedia.org/wiki/File:FunctionalCircuitDiagramOfKeyboardNumPadScanningProcedure-small.gif">scan</a> switches repeatedly, with some constant frequency, which results in some latency. Typical matrix scan rate is 1000 Hz, so maximum scan-related latency is 1 ms (average delay is 0.5 ms).</p>
+<p><strong>Contact bounce</strong></p>
+<p>Regardless of <a href="https://en.wikipedia.org/wiki/Keyboard_technology#Types">keyboard type</a>, key switches are mechanically imperfect and are subject to <a href="https://en.wikipedia.org/wiki/Switch#Contact_bounce">contact bounce</a> — instead of a clean transition, the switch rapidly bounces between on and off states several times before settling. Bounce time depends on switch technology, for example, for <a href="http://cherrycorp.com/product/mx-series/">Cherry MX</a> switches bounce time is claimed to be less that 5 ms. Though exact probability distribution is unknown, basing on related <a href="http://www.ganssle.com/debouncing.htm">empirical data</a>, we can assume that average bounce time is about 1.5 ms.</p>
+<p><strong>Debouncing</strong></p>
+<p>Because <a href="https://en.wikipedia.org/wiki/Sampling_%28signal_processing%29">sampling</a> rate is fast enough to misinterpret contact bounce as keystrokes, keyboard control processor perform so-called <a href="https://en.wikipedia.org/wiki/Keyboard_technology#Debouncing">debouncing</a> of the signals by aggregating them across time to produce reliable output. Such a filtering introduces additional delay, which varies depending on microcontroller firmware. As manufacturers generally don’t disclose their firmware internals, let’s consider typical <a href="https://google.com/#q=debouncing+algorithms">debouncing algorithms</a> and assume that filtering adds ~7 ms delay, so that maximum total “debounce time” is about 12 ms, and average total debounce time is ~8.5 ms.</p>
+<p><strong>USB poll</strong></p>
+<p>As <a href="https://en.wikipedia.org/wiki/USB">USB</a> is a host-driven bus, keyboard has to wait for a host request before sending the data about registered keystroke (keyboard control processor places accumulated events in an output buffer). Though USB devices request desired polling rate on initialization (up to 1000 Hz), operating systems usually force 125 Hz polling frequency for low-speed / full-speed (USB1.x) devices, so maximum polling-related delay is 8 ms (average is 4 ms). Keep in mind, that it’s often possible to <a href="https://blog.codinghorror.com/mouse-dpi-and-usb-polling-rate/">override</a> the polling rate manually.</p>
+<p><strong>USB transmission</strong></p>
+<p>It also takes some time to actually perform data transmission. For low-speed / full-speed devices the shortest transaction time is 1 ms. For high speed devices (USB2) this time is much shorter – about 0.001 ms (by the way, there exists a great article on <a href="https://pavelfatin.com/typing-with-pleasure/doc.utwente.nl/56344/1/Korver03adequacy.pdf">adequacy of USB for real-time systems</a><sup> (pdf)</sup>). To minimize data transfer times, it’s recommended to avoid connecting high-bandwidth USB devices (like storage devices, audio cards, webcams) to the same USB controller / hub where your keyboard is connected.</p>
+<p>Let’s summarize the latency numbers for the <em>typical</em> keyboard:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Matrix scan</td>
+<td>0</td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>Debouncing</td>
+<td>7</td>
+<td>12</td>
+<td>8.5</td>
+</tr>
+<tr>
+<td>USB poll</td>
+<td>0</td>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr>
+<td>USB transmission</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>8</strong></td>
+<td><strong>22</strong></td>
+<td><strong>14</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The findings are generally agree with some <a href="http://forums.blurbusters.com/viewtopic.php?f=10&amp;p=13479#p13473">experimental attempts</a> to measure keyboard lag.</p>
+<p>Can we do better? Sure, a piece of cake! Professional keyboards employ:</p>
+<ul>
+<li>switches with low bounce time (some are even <a href="https://www.reddit.com/r/MechanicalKeyboards/comments/2n9c07/actual_inside_look_of_the_optical_switches_on_the/">optical</a>),</li>
+<li>high frequency matrix scan,</li>
+<li>adaptive debouncing algorithms,</li>
+<li>customizable firmwares,</li>
+<li>USB2 for fast polling and low transaction delays.</li>
+</ul>
+<p>All that can substantially reduce both maximum and average keyboard latencies. For example, when I bought <a href="https://www.kinesis-ergo.com/shop/advantage-for-pc-mac/">Kinesis Advantage</a> keyboard, I immediately noticed the difference with my previous “ordinary” keyboard.</p>
+<p>Gaming keyboards advanced even further — if you want an uncompromising solution, you may consider something like Cherry’s <a href="http://www.cherry.de/cid/RealKey_Technology.htm">RealKey technology</a> that reads key switches via <a href="https://en.wikipedia.org/wiki/Analog_signal">analog</a> inputs (instead of digital ones) and offers close to zero latency (by the way, <a href="https://twitter.com/pavelfatin/status/888003619869609984">I put this keyboard to a test</a> and it feels amazing!).</p>
+<h4 id="processing-latency">2.2 Processing latency</h4>
+<p>Processing latency is a delay between receiving the keyboard input and generating an image of the typed character in a video frame. Put simply, it’s a delay inside computer itself.</p>
+<p>Keep in mind that processing latency differs from performance as such  — it’s theoretically possible to have a system that generates 300 FPS, yet exhibits 5 second “lag” behind the input. Particularly, batching and buffering is often an attempt to attain higher performance at the expense of latency.</p>
+<p>While conceptually there are many distinct sources of processing latency, in practice, they are so tightly coupled with editor application that all the parts are usually measured together (see the next chapter for experimental data).</p>
+<p><strong>Operating system</strong></p>
+<p>After USB <a href="https://en.wikipedia.org/wiki/Host_adapter">host</a> (computer’s USB “port”) receives the data from keyboard, it generates a hardware <a href="https://en.wikipedia.org/wiki/Interrupt">interrupt</a> so that software driver in operating system can read  the received data via <a href="https://en.wikipedia.org/wiki/Host_controller_interface_(USB,_Firewire)">host controller interface</a> (usually over <a href="https://en.wikipedia.org/wiki/Conventional_PCI">PCI</a> or <a href="https://en.wikipedia.org/wiki/PCI_Express">PCIe</a>). After that, the data is processed by <a href="https://en.wikipedia.org/wiki/Human_interface_device">Human Interface Device</a> (HID) subsystem in the OS which eventually results in placing a “key pressed” event (like <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646280%28v=vs.85%29.aspx">WM_KEYDOWN</a>) in operating system’s <a href="https://en.wikipedia.org/wiki/Message_queue">message queue</a>. Then the event is dispatched by <a href="https://en.wikipedia.org/wiki/Event_loop">event loop</a> to active application window.</p>
+<p>All these actions require some time, yet this time is negligible for our purpose (keyboard typing). What’s important is that major operating systems (namely, Windows, Mac OS, and Linux-based OSes) are not <a href="https://en.wikipedia.org/wiki/Real-time_operating_system">real-time</a> ones, so there’s no guarantee of latency. Both hardware processes (network I/O, storage I/O, etc.) and software <a href="https://en.wikipedia.org/wiki/Computer_multitasking">multitasking</a> can increase processing times unpredictably (and unrestrictedly).</p>
+<p>By the way, because GUI applications can impose tight restrictions on system latency, there were many successful attempts to <a href="http://www.makeuseof.com/tag/increase-linux-systems-responsiveness-ulatencyd/">optimize Linux kernel scheduling</a> specifically for “desktop” use-case (particularly, via <a href="https://packages.debian.org/jessie/ulatencyd">ulatencyd</a>).</p>
+<p>Another OS-related source of possible processing delays are programs that add system-wide keyboard <a href="https://en.wikipedia.org/wiki/Hooking">hooks</a> and process the events synchronously. For example, <a href="http://www.workrave.org/">Workrave</a> can noticeable increase the typing latency.</p>
+<p>For simplicity, let’s assume that our computer is not under significant load during typing, so those kind of delays are below 1 ms.</p>
+<p><strong>Virtual machine</strong></p>
+<p>If text editor / IDE works on top of <a href="https://en.wikipedia.org/wiki/Virtual_machine#Process_virtual_machines">process virtual machine</a> (like <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a> for Java or <a href="https://en.wikipedia.org/wiki/Common_Language_Runtime">CLR</a> for .NET Framework), additional delays might occur because those runtime environments are also not <a href="https://en.wikipedia.org/wiki/Real-time_computing">real-time</a> systems (with the exception of specialized implementations, like <a href="https://en.wikipedia.org/wiki/Real_time_Java">Real time Java</a>).</p>
+<p>Performance is usually not a problem per se, but when <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation">just-in time-compiler</a> or <a href="https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29">garbage collector</a> kicks in, some “lags” can be expected. <a href="https://en.wikipedia.org/wiki/JavaScript_engine">JavaScript engines</a> and <a href="https://en.wikipedia.org/wiki/Emacs_Lisp">Emacs Lisp</a> interpreter also exhibit those kind of delays.</p>
+<p>Mainstream VMs have greatly matured over the years, nevertheless some prior <a href="http://www.azulsystems.com/press-2014/azul-systems-launches-readynow-solving-javas-warm-up-problem">warm-up</a> might still be required to guarantee stable latency.</p>
+<p><strong>Editor</strong></p>
+<p>This part is the most noticeable one, and rightly so. Editor application can give rise to the major part of typing latency. Unlike hardware-induced latencies, maximum delay time within editor is practically unlimited (we might easily stumble on 1-2 s lags).</p>
+<p>Because editor is mostly <a href="https://en.wikipedia.org/wiki/CPU-bound">CPU bound</a>, we can usually improve editor latency by using a more powerful machine (good <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a> also helps). But the reliance on raw power is fragile — it’s often not there when you need it the most (for instance, when you’re running a development server or processing some data in the background). Also keep in mind, that even top-of-the-line laptop can be much more sluggish in <a href="https://en.wikipedia.org/wiki/Power_management">power saving</a> mode (on battery), so this approach is effective only to a certain extent. Besides, it’s quite expensive, you know…</p>
+<p>There’s a better way — in principle, we don’t need a supercomputer for smooth typing — all we need to do is to implement editor application with that goal in mind. Typing in editor is a relatively simple process, so even <a href="https://en.wikipedia.org/wiki/Intel_80286">286</a> PCs were able to provide a rather fluid typing experience. It’s perfectly possible to achieve close to zero typing latency even in a complex contemporary IDE, which is exactly what <a href="https://blog.jetbrains.com/idea/2015/08/experimental-zero-latency-typing-in-intellij-idea-15-eap/">zero-latency typing</a> mode in IntelliJ IDEA is aiming for. See my article on <a href="https://pavelfatin.com/low-latency-painting-in-awt-and-swing">low-latency painting in AWT and Swing</a> for technical details (despite the focus on Java platform, the key ideas can be extended to most modern operation systems and GUI frameworks).</p>
+<p>Different editors / IDEs vary greatly in their typing latencies. Next chapter contains a great wealth of empirical information on that topic.</p>
+<p><strong>Rendering pipeline</strong></p>
+<p>CPU and GPU run in parallel and communicate through a <a href="https://www.chromium.org/developers/design-documents/gpu-command-buffer">command buffer</a>, supplemented by an additional buffer in video driver. Most rendering commands are assumed to be asynchronous, so it’s perfectly legitimate for rendering to not even have started when drawing method returns. Drawing commands are placed in video driver’s buffer, then batched and pushed to GPU’s command buffer later (in an attempt to achieve higher frame rate at the expense of latency). Depending on hardware / OS / API / video driver combo, the resulting delay might vary from non-existent to rather substantial.</p>
+<p>Typical desktop applications works on top of GUI frameworks, so they are isolated from underlaying <a href="https://en.wikipedia.org/wiki/Graphics_pipeline">rendering pipeline</a> and thus, from rendering synchronization. That’s usually OK, because many desktop applications are latency-insensitive. However, some activities are highly sensitive to delays (like typing in IDE), so editors can explicitly “flush” rendering pipeline to force actual drawing and improve visual latency. For example, see how <a href="https://www.opengl.org/wiki/Synchronization">synchronization in OpenGL</a> works. You may also check the <a href="https://pavelfatin.com/low-latency-painting-in-awt-and-swing/#pipeline-flush">pipeline flush</a> demo.</p>
+<p><strong>Double buffering</strong></p>
+<p>To conceal intermediate drawing and present rendered image at once many applications resort to so called <a href="https://en.wikipedia.org/wiki/Multiple_buffering#Double_buffering_in_computer_graphics">double buffering</a> — the drawing is initially performed in an off-screen “back buffer” and when all drawing operations are complete, the updated image region is transferred to the <a href="https://en.wikipedia.org/wiki/Framebuffer">framebuffer</a> via <a href="https://en.wikipedia.org/wiki/Bit_blit">bit blit</a> or <a href="https://en.wikipedia.org/wiki/Multiple_buffering#Page_flipping">page flip</a>. Many GUI frameworks (for example, <a href="https://en.wikipedia.org/wiki/Swing_%28Java%29">Swing</a>) force double buffering by default.</p>
+<p>Needless to say, this additional step leads to additional delay. As Java’s <a href="https://docs.oracle.com/javase/tutorial/extra/fullscreen/doublebuf.html">documentation</a> says “If your performance metric is simply the speed at which double-buffering or page-flipping occurs versus direct rendering, you may be disappointed. You may find that your numbers for direct rendering far exceed those for double-buffering and that those numbers far exceed those for page-flipping”.</p>
+<p>Sometimes double buffering is absolute necessity, at other times it’s not actually required, so editors should use double buffering wisely to avoid redundant visual latency. Check the <a href="https://pavelfatin.com/low-latency-painting-in-awt-and-swing/#buffering-overhead">buffering overhead</a> demo for more info.</p>
+<p><strong>Window manager</strong></p>
+<p>Today applications rarely run in full-screen mode, most <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop environments</a> display each program in a separate window. This task is performed by so called <a href="https://en.wikipedia.org/wiki/Window_manager">window managers</a>, which can be divided into several classes, depending on how windows are drawn and updated.</p>
+<p><a href="https://en.wikipedia.org/wiki/Stacking_window_manager">Stacking window managers</a> orchestrate drawing of overlapped windows in such a way, that background windows are painted first. While this approach has some drawbacks (window content has to be restored explicitly), it introduces no additional delays because applications draw directly in the framebuffer. Examples of stacking window managers: Classic theme in Windows, <a href="https://en.wikipedia.org/wiki/Openbox">Openbox</a> in Linux.</p>
+<p><a href="https://en.wikipedia.org/wiki/Compositing_window_manager">Compositing window managers</a> substitute the framebuffer with a dedicated off-screen buffer for each window, and then display all the windows together when (and how) they see fit. This separation inevitable leads to some latency increase. Examples of compositing managers: <a href="https://en.wikipedia.org/wiki/Windows_Aero">Aero</a> in Windows, <a href="https://en.wikipedia.org/wiki/Compiz">Compiz</a> in Linux.</p>
+<p>Corresponding empirical data is available in the next chapter.</p>
+<p><strong>V-Sync</strong></p>
+<p><a href="https://en.wikipedia.org/wiki/Screen_tearing#V-sync">Vertical synchronization</a> or (V-Sync) is a method of avoiding <a href="https://en.wikipedia.org/wiki/Screen_tearing">screen tearing</a> — a condition when a display shows information from multiple frames in a single screen draw. The resulting artifacts are mostly noticeable in horizontally-moving visuals with sharp vertical edges (i. e. not during typing).</p>
+<p>V-Sync boils down to waiting for a new frame in generated video signal before transferring back buffer to framebuffer (so, V-Sync implies double buffering). Thus, we might expect additional delay before <em>framebuffer</em> update when vertical synchronization is turned on. Maximum delay is ~17 ms, average delay is ~8 ms (for 60 Hz refresh rate). Interestingly, this delay interplays with screen refresh, so average <em>total</em> delay is increased only by ~4 ms, because a part of the delay is unavoidable (depends on character vertical position). The maximum increase of total latency is still ~17 ms.</p>
+<p>Desktop environments usually don’t allow to explicitly choose whether V-Sync is enabled. In Windows, V-Sync is enabled in Aero, but disabled in Classic theme. In Linux V-Sync seems to be disabled both with stacking- and compositing window managers.</p>
+<p>In a sense, V-Sync forces GPU to adapt to monitor refresh rate, which is a legacy from CRT era. Today we have much better solutions (see below).</p>
+<p>Let’s summarize the latency numbers for a <em>typical</em> computer (we assume that it’s not under significant I/O or computational load and uses stacking window manager without V-Sync):</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operating system</td>
+<td>0</td>
+<td>∞</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Virtual machine</td>
+<td>0</td>
+<td>∞</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Editor</td>
+<td>0</td>
+<td>∞</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Rendering pipeline</td>
+<td>0</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Double buffering</td>
+<td>0</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Window manager</td>
+<td>0</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>V-Sync</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>0</strong></td>
+<td><strong>∞</strong></td>
+<td><strong>?</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Those delays are much less predictable than hardware-induced delays and they are highly-sensitive to computer configuration. In principle, the total processing latency can be as low as 0-1 ms, and as high as 10 s. That’s why theoretical musings are not enough and we need some hard numbers — see the next chapter for comprehensive empirical data.</p>
+<p>How can we improve the processing latency? Here are a few ways:</p>
+<ul>
+<li>Low-latency editor / IDE.</li>
+<li>Powerful computer hardware (CPU, GPU).</li>
+<li>Stacking window manager (Classic Windows theme, Openbox, etc).</li>
+<li>No V-Sync.</li>
+</ul>
+<p>Apparently, editor application is a single thing that matters the most.</p>
+<h4 id="output-latency">2.3 Output latency</h4>
+<p>Let’s take a look at how typical, non-gaming <a href="https://en.wikipedia.org/wiki/Computer_monitor#Liquid_crystal_display">LCD monitor</a> displays generated picture.</p>
+<p><strong>Screen refresh</strong></p>
+<p>Computer screen picture is stored in the <a href="https://en.wikipedia.org/wiki/Framebuffer#RAM_on_the_video_card">frame buffer</a> inside graphics card memory (or inside <a href="https://en.wikipedia.org/wiki/Shared_graphics_memory">shared graphics memory</a>). Monitor cannot access the frame buffer directly, instead of this, <a href="https://en.wikipedia.org/wiki/Video_display_controller#Modern_solutions">video display controller</a> generates video signal that is transmitted over a video interface (like VGA, DVI, HDMI, DisplayPort, etc.) so that monitor can continuously update its internal image buffer. This transmission is performed at a fixed frequency, known as <a href="https://en.wikipedia.org/wiki/Refresh_rate">refresh rate</a>, which is equal to 60 Hz for ordinary LCD monitors. Thus, we can expect maximum refresh-related latency about 17 ms, and average latency ~8 ms (because we need to display only the newly typed character, we can ignore the time it takes to transmit the full frame).</p>
+<p><strong>Display lag</strong></p>
+<p>Unlike <a href="https://en.wikipedia.org/wiki/Computer_monitor#Cathode_ray_tube">CRT monitors</a>, which have to render incoming image immediately (because their only “memory” is <a href="https://en.wikipedia.org/wiki/Cathode_ray_tube#Phosphor_persistence">phosphor persistence</a>), LCD monitor contains its own buffer to hold the picture. In principle, this makes possible to delay showing of incoming image in order to resize, deinterlace or somehow “enhance” it (or just to receive a full frame before updating the pixels). The resulting delay is known as <a href="https://en.wikipedia.org/wiki/Display_lag">display lag</a> (or “monitor input lag”). The phenomenon received much publicity recently, yet it’s still a rather controversial topic. Measurements of display lag are often incorrect, because it’s hard to separate true display lag from pixel response time (check an amazing Prad’s <a href="http://www.prad.de/en/monitore/specials/inputlag/inputlag.html">report on input lag</a> to see how to do it <em>properly</em>).  While worst-case latency can be as high as 2-3 frames (up to 50 ms for 60 Hz refresh rate), display lag is mostly present in HDTVs, not computer monitors, so we can assume that this latency is close to zero for typical monitors. Nonetheless, it’s a good idea to turn off all “image enhancers” in your monitor (surprisingly, <a href="http://www.bit-tech.net/hardware/monitors/2009/02/06/the-dark-side-of-overdrive/">including overdrive</a>).</p>
+<p><strong>Pixel response</strong></p>
+<p><a href="https://en.wikipedia.org/wiki/Liquid-crystal_display">LCD</a> pixels cannot react to controlling voltage changes immediately.The amount of time a pixel in a display takes to change is called <a href="https://en.wikipedia.org/wiki/Response_time_%28technology%29#Display_technologies">pixel response time</a>. This time depends mostly on LCD matrix technology (TN, IPS, VA, etc.). LCD monitors have come a long way in reducing pixel response time, so modern <a href="https://en.wikipedia.org/wiki/Thin-film-transistor_liquid-crystal_display#Twisted_nematic_.28TN.29">TN</a> monitors (most widely used nowadays) exhibit average response times only about 4 ms.</p>
+<p>Let’s summarize the latency numbers for the <em>typical</em> computer monitor:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Screen refresh</td>
+<td>0</td>
+<td>17</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Display lag</td>
+<td>0</td>
+<td>?</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Pixel response</td>
+<td>?</td>
+<td>?</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>?</strong></td>
+<td><strong>?</strong></td>
+<td><strong>12</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Can we improve the output latency? Here are a few sure methods:</p>
+<ul>
+<li>Gaming monitor that guarantees low display lag and provides faster pixel response.</li>
+<li>Monitor with 144 Hz refresh rate (3.5 ms refresh-related latency).</li>
+<li>Graphics card &amp; monitor combo that supports <a href="http://www.vesa.org/news/vesa-adds-adaptive-sync-to-popular-displayport-video-standard/">Adaptive-Sync</a>, <a href="https://en.wikipedia.org/wiki/FreeSync">FreeSync</a> or <a href="https://en.wikipedia.org/wiki/G-Sync">G-Sync</a> with dynamic refresh rates (up to 240 Hz) and synchronous updates.</li>
+</ul>
+<p>Those measures can reduce total output latency to about 1-2 ms.</p>
+<h4 id="total-latency">2.4 Total latency</h4>
+<p>Let’s summarize <em>average</em> delays in all the components of typing latency:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Typical, ms</th>
+<th>Ideal, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td>14</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Processing</td>
+<td>?</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>12</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>?</strong></td>
+<td><strong>3</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Typical setup consists of a usual, non-gaming keyboard and an ordinary LCD monitor. Ideal configuration presumes a low-latency keyboard and a low-latency (gaming) monitor.</p>
+<p>Both input and output components of the latency are precisely determined by periodical hardware processes that can be estimated with high accuracy. Those delays are independent of CPU / GPU performance, and have predictable upper bounds. Typical average latency of keyboard and monitor combined is about 26 ms, which is not much by itself, but when it adds up to  processing delay it can make editor latency more noticeable. Even the I/O latency itself is already above the human perception threshold.</p>
+<p>Unlike I/O latencies, processing latency is primarily caused by CPU / GPU computations, thus it depends on hardware and the maximum delay is practically unlimited. It’s impossible to predict processing latency, so we need to perform appropriate benchmarks to acquire the data. Theoretically, ideal processing latency can be close to 0-1 ms.</p>
+<p>While every part of the chain matters, editor is the weakest link that can give rise to the major part of typing latency.</p>
+<h3 id="editor-benchmarks">3. Editor benchmarks</h3>
+<p>To measure processing delays experimentally I created <a href="https://pavelfatin.com/typometer">Typometer</a> — a tool to determine and analyze visual latency of text editors (<a href="https://github.com/pavelfatin/typometer">sources</a>).</p>
+<p>Typometer works by generating OS input events and using screen capture to measure the delay between a keystroke and a corresponding screen update. Hence, the measurement encompasses all the constituents of processing latency (i. e. OS queue, VM, editor, GPU pipeline, buffering, window manager and possible V-Sync). That is the right thing to do, because all those components are inherently intertwined with the editor, and in principle, editor application has influence on all the parts.</p>
+<h4 id="configuration">3.1 Configuration</h4>
+<p>Here are the details on hardware / software configuration I used for testing:</p>
+<p><strong>Hardware:</strong></p>
+<ul>
+<li>CPU: Intel Core i5 <a href="http://ark.intel.com/products/64903">3427U</a>, 1.8 / 2.8GHz, 3M cache</li>
+<li>Graphics: Intel <a href="https://en.wikipedia.org/wiki/Intel_HD_and_Iris_Graphics#Ivy_Bridge">HD 4000</a> (driver v10.18.10.3958)</li>
+<li>Memory: 4GB DDR3</li>
+<li>Screen: 1920 x 1080, 32 bit, 59.94Hz</li>
+</ul>
+<p><strong>Software:</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Windows_7">Microsoft Windows 7</a> HP x64 SP1 6.1.7601</li>
+<li><a href="http://lubuntu.net/">Lubuntu Linux</a> 15.10 Desktop amd64</li>
+<li><a href="https://www.virtualbox.org/">VirtualBox</a> 5.0.10 on Windows (default settings, full-screen)</li>
+</ul>
+<p><strong>Editors:</strong></p>
+<ul>
+<li><a href="https://atom.io/">Atom</a> 1.1</li>
+<li><a href="https://eclipse.org/">Eclipse</a> 4.5.1</li>
+<li><a href="https://www.gnu.org/software/emacs/">Emacs</a> 24.5.1</li>
+<li><a href="https://wiki.gnome.org/Apps/Gedit">Gedit</a> 3.10.4</li>
+<li><a href="http://www.vim.org/">GVim</a> 7.4.712</li>
+<li><a href="https://www.jetbrains.com/idea/">IntelliJ Idea</a> CE 15.0</li>
+<li><a href="https://netbeans.org/">Netbeans</a> 8.1</li>
+<li><a href="https://notepad-plus-plus.org/">Notepad++</a> 6.8.4</li>
+<li><a href="https://www.sublimetext.com/">Sublime Text</a> 3083</li>
+</ul>
+<p>Note that as I run benchmarks on the same hardware and all editor versions match, the results are directly comparable. Because results might vary depending on exact configuration, I used a rather typical setup for the benchmarking (the machine is neither too slow, nor too powerful) to make results more representative.</p>
+<p>Only those editors that provide at least syntax highlighting were selected. Undoubtedly, Notepad is <em>the most</em> responsive editor, but it’s just not fare to compare it with any practically useful editor.</p>
+<p>Additionally, I excluded cases where editor runs in a <a href="https://en.wikipedia.org/wiki/Terminal_emulator">terminal emulator</a>, because terminal emulator itself can significantly influence the typing latency. By the way, modern OSes don’t support real <a href="https://en.wikipedia.org/wiki/Text_mode">text mode</a> anymore — both <a href="https://en.wikipedia.org/wiki/Win32_console">Windows console</a> and <a href="https://en.wikipedia.org/wiki/Virtual_console">Linux virtual console</a> (via Alt+Fn) are simulated on top of the graphical framebuffer.</p>
+<p>The analysis was performed in <a href="https://www.r-project.org/">R</a>. The charts were rendered via <a href="http://ggplot2.org/">ggplot2</a>.</p>
+<h4 id="methodology">3.2 Methodology</h4>
+<p>All the editors / IDEs were run with default settings, application windows were maximized.</p>
+<p>Editor content was either an empty text file, or an XML file (namely, <a href="https://maven.apache.org/xsd/maven-4.0.0.xsd">Maven schema</a>). XML is chosen because it can be highlighted by all the editors and it doesn’t depend on other project files.</p>
+<p>I used the following parameters in Typometer:</p>
+<ul>
+<li>Character count: 200</li>
+<li>Delay: 150 ms</li>
+<li>Access: native</li>
+<li>Mode: synchronous</li>
+</ul>
+<p>The 150 ms delay is selected because that is an average time interval between key presses during my own relatively fast typing (minimum interval is about 40 ms). The exact number doesn’t matter much, since in synchronous mode Typometer waits for typed character to appear before making a pause and typing the next one.</p>
+<p>I used Classic theme in Windows because, as I pointed out earlier, Aero’s compositing increases drawing latency and enforces V-Sync (and tests confirmed that Aero theme indeed makes all the editors less responsive). Here’s a comparison of GVim (one of the fastest editor overall) benchmarks in Classic theme and in Aero (time series with auxiliary lines at 16.68 and 33.37):</p>
+<p></p>
+<p>As we can see, Aero introduces at least one frame delay (~16.7 ms for 60 Hz refresh rate) and leads to time discretization. That conceals intrinsic editor performance and disrupts the benchmarking process. As I pointed out earlier, V-Sync-induced delays in video signal is slightly less than delays in framebuffer, but the average difference is only about 4 ms and the maximum added delay is still ~17 ms (for 60 Hz). As the effect is rather material, people <a href="https://google.com/#q=reaction+test+windows+aero">often uncover</a> the added delay “with naked eye” in human reaction time tests.</p>
+<p>The graph also demonstrates that Typometer attains a very good accuracy in measuring the latency — the lower values lay so close to theoretical 16.68335, that it looks almost as mathematical precision.</p>
+<p>As for Linux, Lubuntu was preferred to Ubuntu for the same reason — Compiz adds additional delay to application drawing. Here’s the graph (with median lines):</p>
+<p></p>
+<p>The average introduced delay is about 8 ms, which is better than the Aero’s number, and there’s no synchronization-induced discretization (however there’s an increased jitter). As V-Sync is not used, delays in video signal are on a par with the delays in framebuffer. It’s preferable to use a stacking window manager (like Openbox) to achieve a better measuring accuracy.</p>
+<p>Given that measured delays of fastest applications (like Notepad) is below 1 ms <em>and</em> stable, it seems safe to assume that the measuring tool provides enough precision and accuracy. Because the relationship between framebuffer and output video signal is deterministic, the results can be considered representative.</p>
+<p>Despite the abundance of different observed behaviors, it’s possible to distinguish the following typical time series:</p>
+<p></p>
+<p>Simple editors usually exhibit very stable delay times, though the average delay might be relatively high.</p>
+<p>Complex editors (and editors that run on top of virtual machine / interpreter) in addition to higher average latency often tend to show higher variability of the delay (jitter).</p>
+<p>In-between behavior is also common, when periods of stable delay are periodically interrupted by occasional spikes. Sometimes values show a trend that reveals linear dependency of editor algorithms on character horizontal position.</p>
+<h4 id="windows">3.3 Windows</h4>
+<p>As an introduction to analyzing latency, I recommend you to check a great talk on <a href="https://news.ycombinator.com/item?id=10485804">how not to measure latency</a>, which explains why average values are better measure of latency than median values and why maximum values are very important.</p>
+<p><strong>Text file</strong></p>
+<p>Let’s start with a summary table (sorted by average latency). SD stands for <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> which is used as a measure of <a href="https://en.wikipedia.org/wiki/Jitter">jitter</a>. Keep in mind that it’s an “ideal” setup — a single empty file with no highlighting. Any other configuration possible would exhibit higher delays, by definition.</p>
+<p>Editor latency in Windows (text file):</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+<th>SD, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GVim</td>
+<td>0.2</td>
+<td>1.2</td>
+<td>0.9</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>IDEA (zero-latency)</td>
+<td>0.1</td>
+<td>21.2</td>
+<td>2.9</td>
+<td>2.7</td>
+</tr>
+<tr>
+<td>Notepad++</td>
+<td>0.1</td>
+<td>5.9</td>
+<td>4.3</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>Emacs</td>
+<td>4.2</td>
+<td>19.2</td>
+<td>5.3</td>
+<td>1.1</td>
+</tr>
+<tr>
+<td>Sublime Text</td>
+<td>6.2</td>
+<td>35.2</td>
+<td>8.2</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Eclipse</td>
+<td>0.1</td>
+<td>20.8</td>
+<td>10.1</td>
+<td>1.6</td>
+</tr>
+<tr>
+<td>Netbeans</td>
+<td>7.3</td>
+<td>31.6</td>
+<td>11.8</td>
+<td>3.9</td>
+</tr>
+<tr>
+<td>IDEA</td>
+<td>0.1</td>
+<td>83.7</td>
+<td>24.7</td>
+<td>12.0</td>
+</tr>
+<tr>
+<td>Atom</td>
+<td>29.2</td>
+<td>85.5</td>
+<td>49.4</td>
+<td>7.2</td>
+</tr>
+</tbody>
+</table>
+<p>The summary table gives us only an approximate estimate of delay <a href="https://en.wikipedia.org/wiki/Frequency_distribution">distribution</a> so it’s good to complement the table by a corresponding fine-grained chart. Traditional <a href="https://en.wikipedia.org/wiki/Histogram">histograms</a> are not very suitable for comparing multiple sets of data. <a href="https://en.wikipedia.org/wiki/Box_plot">Box plots</a> are too rough. <a href="https://en.wikipedia.org/wiki/Violin_plot">Violin plots</a> are better, but they looks quite strange for non-statisticians.</p>
+<p>There’s a better way, which is also more good-looking — we can plot values on horizontal axis with some added random vertical shift to reveal distribution (<a href="http://zevross.com/blog/2014/05/05/unhide-hidden-data-using-jitter-in-the-r-package-ggplot2/">more info</a> on the approach). The resulting chart is both simple and descriptive, and it’s easy to compare the subsets:</p>
+<p></p>
+<p>Apparently, editors are not created equal (at least, from the standpoint of latency).</p>
+<p>First, the average latency varies greatly — simpler editors tend to exhibit lower average latencies. GVim is a winner, yet IDEA with zero-latency mode enabled is at GVim’s heels. All JVM-based editors (including IDEA in default mode) are at the bottom, which is fairly predictable, surrendering the last place only to Atom, because Chrome runtime turned out to be even more sluggish.</p>
+<p>Another noticeable difference is in jitter — “lightweight” editors demonstrate very stable delays, while complex editors, on the contrary, have a much wider delay spacing. IDEA in default mode shows the biggest spread of delays with high maximum value.</p>
+<p>Here’s a histogram that demonstrates detailed effect of zero-latency mode in IntelliJ IDEA:</p>
+<p></p>
+<p>Zero-latency mode does a good job in both reducing the average delay and in eliminating the jitter (though not completely).</p>
+<p><strong>XML file</strong></p>
+<p>OK, the previous setup is too “synthetic”, after all, to edit empty files without any highlighting we have Notepad. Other editor are used for something more tangible. Let’s type in the relatively large XML file to see how the numbers will change:</p>
+<p></p>
+<p>Wow! The difference is quite sensible, and also curious. Some editors are like <a href="https://www.youtube.com/watch?v=4r7wHMg5Yjg">Honey Badger</a> — they “just don’t care”, namely GVim and IDEA in zero-latency mode. In most editors the delay is uniformly increased. Average delay in IDEA is slightly <em>decreased</em> (which is somewhat strange), yet the maximum delay is increased. The most impact is made on Emacs whose latency is skyrocketed.</p>
+<p><strong>Power-saving</strong></p>
+<p>Now we’re going to unplug our power cord and work on battery, in power saving mode.</p>
+<p>Editor latency in Windows (XML file, power-saving):</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+<th>SD, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GVim</td>
+<td>0.6</td>
+<td>2.9</td>
+<td>1.4</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>IDEA (zero-latency)</td>
+<td>1.5</td>
+<td>58.7</td>
+<td>4.3</td>
+<td>7.4</td>
+</tr>
+<tr>
+<td>Notepad++</td>
+<td>4.8</td>
+<td>26.1</td>
+<td>9.8</td>
+<td>1.3</td>
+</tr>
+<tr>
+<td>Sublime Text</td>
+<td>10.4</td>
+<td>19.3</td>
+<td>12.6</td>
+<td>0.7</td>
+</tr>
+<tr>
+<td>Eclipse</td>
+<td>13.9</td>
+<td>60.4</td>
+<td>19.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>IDEA</td>
+<td>13.6</td>
+<td>239.3</td>
+<td>45.5</td>
+<td>39.6</td>
+</tr>
+<tr>
+<td>Emacs</td>
+<td>46.1</td>
+<td>77.4</td>
+<td>50.5</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>Netbeans</td>
+<td>11.9</td>
+<td>138.1</td>
+<td>59.0</td>
+<td>21.2</td>
+</tr>
+<tr>
+<td>Atom</td>
+<td>48.9</td>
+<td>104.0</td>
+<td>60.4</td>
+<td>7.0</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s examine how this affected the latencies in more detail:</p>
+<p></p>
+<p>Most editors are not affected that much, but there are a few notable exceptions: IDEA and Netbeans. IDEA’s maximum delay is soared to ~240 ms, which is obviously above the threshold of “noticeable”.</p>
+<p>Here’s how zero-latency mode does its job in those conditions:</p>
+<p></p>
+<p>Again, while it cannot eliminate the jitter completely, the effect is significant.</p>
+<h4 id="linux">3.4 Linux</h4>
+<p>Let’s continue our observations in Linux, skipping the “synthetic” text part for simplicity.</p>
+<p>Editor latency in Linux (XML file):</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+<th>SD, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDEA (zero-latency)</td>
+<td>0.8</td>
+<td>3.9</td>
+<td>1.7</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>GVim</td>
+<td>1.7</td>
+<td>8.4</td>
+<td>4.5</td>
+<td>1.4</td>
+</tr>
+<tr>
+<td>Gedit</td>
+<td>5.0</td>
+<td>24.2</td>
+<td>12.4</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Emacs</td>
+<td>7.5</td>
+<td>46.3</td>
+<td>20.3</td>
+<td>4.1</td>
+</tr>
+<tr>
+<td>Sublime Text</td>
+<td>9.4</td>
+<td>35.4</td>
+<td>23.1</td>
+<td>5.2</td>
+</tr>
+<tr>
+<td>Netbeans</td>
+<td>8.4</td>
+<td>92.7</td>
+<td>24.5</td>
+<td>12.9</td>
+</tr>
+<tr>
+<td>Atom</td>
+<td>16.0</td>
+<td>59.6</td>
+<td>32.5</td>
+<td>8.4</td>
+</tr>
+<tr>
+<td>Eclipse</td>
+<td>23.6</td>
+<td>87.1</td>
+<td>46.5</td>
+<td>14.0</td>
+</tr>
+<tr>
+<td>IDEA</td>
+<td>10.1</td>
+<td>198.0</td>
+<td>69.2</td>
+<td>27.1</td>
+</tr>
+</tbody>
+</table>
+<p>Complement chart with detailed delay distributions:</p>
+<p></p>
+<p>Comparison with the previous results in Windows:</p>
+<p></p>
+<p>The common trait is that jitter in Linux is noticeable higher for most editors (with the exception of zero-latency mode in IDEA, where jitter is actually reduced).</p>
+<p>Emacs and Atom gains from Linux — their average latency is significantly lower.</p>
+<p>GVim, Sublime Text, Eclipse and IDEA (in default mode), on the contrary, exhibit much more latency in Linux. IDEA is most affected — its maximum delay reaches ~200 ms even in usual power mode. Eclipse responsiveness is also severely impacted.</p>
+<p>IDEA’s  zero-latency typing is sure winner in Linux (it outperforms even GVim).</p>
+<p></p>
+<p>Zero-latency mode in Linux demonstrates low- and exceptionally stable latency.</p>
+<h4 id="virtualbox">3.5 VirtualBox</h4>
+<p>Now let’s suppose, for example, that we use Windows primarily for gaming and do our work in Linux virtual machine (sure, why not?). How editor latencies will change in such a use case? Let’s see.</p>
+<p>Editor latency in Linux (VirtualBox, XML file):</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+<th>SD, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDEA (zero-latency)</td>
+<td>4.2</td>
+<td>29.7</td>
+<td>12.4</td>
+<td>4.9</td>
+</tr>
+<tr>
+<td>GVim</td>
+<td>6.0</td>
+<td>26.0</td>
+<td>18.3</td>
+<td>4.1</td>
+</tr>
+<tr>
+<td>Gedit</td>
+<td>19.5</td>
+<td>47.6</td>
+<td>30.1</td>
+<td>4.8</td>
+</tr>
+<tr>
+<td>Emacs</td>
+<td>27.6</td>
+<td>68.3</td>
+<td>33.8</td>
+<td>7.4</td>
+</tr>
+<tr>
+<td>Sublime Text</td>
+<td>31.5</td>
+<td>58.2</td>
+<td>46.1</td>
+<td>5.2</td>
+</tr>
+<tr>
+<td>Netbeans</td>
+<td>12.6</td>
+<td>159.9</td>
+<td>46.7</td>
+<td>19.5</td>
+</tr>
+<tr>
+<td>Atom</td>
+<td>29.1</td>
+<td>89.4</td>
+<td>62.6</td>
+<td>10.2</td>
+</tr>
+<tr>
+<td>Eclipse</td>
+<td>45.3</td>
+<td>131.4</td>
+<td>79.4</td>
+<td>13.7</td>
+</tr>
+<tr>
+<td>IDEA</td>
+<td>29.2</td>
+<td>347.8</td>
+<td>87.5</td>
+<td>42.0</td>
+</tr>
+</tbody>
+</table>
+<p>Here’s a comparison with the previous “native” results:</p>
+<p></p>
+<p>Apart from delay discretization (caused either by V-Sync or by other kind of discrete buffer synchronization), we can observe steady latency increase for all the editors. Distributions are not altered much, which is easily explicable (underlying algorithms are not altered by visualization). IDEA’s maximum delay accrued to ~350 ms.</p>
+<p><strong>Power-saving</strong></p>
+<p>To make the picture complete let’s switch to battery. Power saving mode together with VirtualBox is probably the toughest combination when it comes to editor latency.</p>
+<p>Editor latency in Linux (VirtualBox, XML file, power-saving):</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Min, ms</th>
+<th>Max, ms</th>
+<th>Average, ms</th>
+<th>SD, ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDEA (zero-latency)</td>
+<td>4.3</td>
+<td>69.6</td>
+<td>11.9</td>
+<td>8.9</td>
+</tr>
+<tr>
+<td>GVim</td>
+<td>5.0</td>
+<td>35.8</td>
+<td>19.0</td>
+<td>3.8</td>
+</tr>
+<tr>
+<td>Gedit</td>
+<td>13.4</td>
+<td>49.3</td>
+<td>23.9</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Emacs</td>
+<td>19.6</td>
+<td>79.5</td>
+<td>44.7</td>
+<td>6.9</td>
+</tr>
+<tr>
+<td>Sublime Text</td>
+<td>38.1</td>
+<td>65.0</td>
+<td>52.1</td>
+<td>7.3</td>
+</tr>
+<tr>
+<td>Atom</td>
+<td>70.2</td>
+<td>152.2</td>
+<td>90.0</td>
+<td>13.7</td>
+</tr>
+<tr>
+<td>Netbeans</td>
+<td>35.7</td>
+<td>344.7</td>
+<td>119.1</td>
+<td>43.3</td>
+</tr>
+<tr>
+<td>Eclipse</td>
+<td>99.3</td>
+<td>269.6</td>
+<td>133.6</td>
+<td>36.2</td>
+</tr>
+<tr>
+<td>IDEA</td>
+<td>119.4</td>
+<td>544.6</td>
+<td>198.8</td>
+<td>63.1</td>
+</tr>
+</tbody>
+</table>
+<p>Yeah, those delays are just ridiculous! The maximum delay is now more than half a second!</p>
+<p>For illustrative purposes, let’s compare the data with the results from ideal conditions:</p>
+<p></p>
+<p>Apparently, configuration plays an important role in resulting editor latency. However, editors are affected differently — performance of some editors can be severely degraded, while other editors are not affected that much.</p>
+<p>The best resilience is demonstrated by IntelliJ IDEA with zero-latency mode enabled. Let’s see how it performs in the toughest setup:</p>
+<p></p>
+<p>Interestingly, in zero-latency mode IntelliJ IDEA outperforms all the other editors (and also terminal-based editors, by the way).</p>
+<h3 id="summary">4. Summary</h3>
+<p>Obviously, <em>what</em> you type is much more important than <em>how</em> you type it. Nevertheless, low-latency visual feedback can often make the process more efficient and more enjoyable.</p>
+<ul>
+<li>Use a responsive editor (makes the most difference).</li>
+<li>Use a low-latency keyboard, if possible.</li>
+<li>Choose programs that add global keyboard hooks wisely.</li>
+<li>Turn off unnecessary “image enhancers” in you monitor.</li>
+<li>Enable stacking window manager in your OS (e.g. in Windows <a href="https://web.archive.org/web/20161021060058/http://www.softwareaudioconsole.com/Tweaking_Windows_7.htm">7</a>, <a href="http://www.rlauncher.com/wiki/index.php?title=Input_Lag_Checklist#Disable_Desktop_Composition_in_Windows_8_and_8.1">8</a>).</li>
+</ul>
+<p>Type with pleasure!</p>
+<h3 id="links">5. Links</h3>
+<p>See also:</p>
+<ul>
+<li><a href="https://pavelfatin.com/typometer/">Typometer</a> — Tool to measure and analyze visual latency of text / code editors.</li>
+<li><a href="https://pavelfatin.com/low-latency-painting-in-awt-and-swing/">Low-latency painting in AWT and Swing</a> — In-depth analysis of delay sources in AWT / Swing architectures, methods to significantly reduce the drawing latency.</li>
+<li><a href="https://pavelfatin.com/scrolling-with-pleasure/">Scrolling with pleasure</a> — Technology of smooth / high-precision scrolling on modern computers.</li>
+</ul>
+<p>Interesting feedback:</p>
+<ul>
+<li><a href="https://news.ycombinator.com/item?id=10787812">Comments on Hacker News</a></li>
+<li>Comments on Reddit:</li>
+<li><a href="https://lobste.rs/s/75t9eg">Comments on Lobsters</a></li>
+<li><a href="http://ergoemacs.org/emacs/blog_past_2015-12_2015-12.html">Xah Emacs blog post</a></li>
+<li><a href="http://www.4coder.net/4coder//low-latency-problem">4coder blog post</a></li>
+<li><a href="https://github.com//haskell/haskell-mode/issues/1177">Related issue in haskell-mode for Emacs</a></li>
+<li><a href="https://dev.eclipse.org/mhonarc/lists/ide-dev/msg01148.html">Discussion in Eclipse’s ide-dev mailing list</a></li>
+<li><a href="https://blogs.msdn.microsoft.com/visualstudio/2016/11/10/extensibility-in-visual-studio-15-increasing-reliability-and-performance/">Post in Microsoft Visual Studio blog</a></li>
+<li><a href="https://blog.jetbrains.com/idea/2015/08/experimental-zero-latency-typing-in-intellij-idea-15-eap/#comments">Comments on IntelliJ IDEA’s zero-latency mode</a></li>
+<li><a href="https://news.ycombinator.com/item?id=11308064">Atom-related discussion on Hacker News</a></li>
+<li><a href="https://www.reddit.com/r/programming/comments/5lmr1k/sublime_text_vs_visual_studio_code_vs_atom/">Another Atom-related discussion on Reddit</a></li>
+<li><a href="https://twitter.com/search?f=tweets&amp;q=pavelfatin.com%2Ftyping">A lot of feedback on Twitter</a></li>
+</ul>
+<p>Special thanks go to <a href="https://twitter.com/ID_AA_Carmack">John Carmack</a> and <a href="https://twitter.com/migueldeicaza">Miguel de Icaza</a> for tweeting the article.</p>
+
+								<p>Tags: <a href="https://pavelfatin.com/tag/benchmark/" rel="tag">benchmark</a>, <a href="https://pavelfatin.com/tag/delay/" rel="tag">delay</a>, <a href="https://pavelfatin.com/tag/editor/" rel="tag">editor</a>, <a href="https://pavelfatin.com/tag/effect/" rel="tag">effect</a>, <a href="https://pavelfatin.com/tag/feedback/" rel="tag">feedback</a>, <a href="https://pavelfatin.com/tag/ide/" rel="tag">ide</a>, <a href="https://pavelfatin.com/tag/keyboard/" rel="tag">keyboard</a>, <a href="https://pavelfatin.com/tag/lag/" rel="tag">lag</a>, <a href="https://pavelfatin.com/tag/latency/" rel="tag">latency</a>, <a href="https://pavelfatin.com/tag/monitor/" rel="tag">monitor</a>, <a href="https://pavelfatin.com/tag/typing/" rel="tag">typing</a>, <a href="https://pavelfatin.com/tag/visual/" rel="tag">visual</a>, <a href="https://pavelfatin.com/tag/zero-latency/" rel="tag">zero-latency</a></p>
+				<p>
+					<small>
+						This entry was posted
+												on Sunday, December 20th, 2015 at 3:33 pm						and is filed under <a href="https://pavelfatin.com/category/programming/" rel="category tag">Programming</a>.
+						You can follow any responses to this entry through the <a href="https://pavelfatin.com/typing-with-pleasure/feed/">RSS 2.0</a> feed.
+
+													You can <a href="#respond">leave a response</a>, or <a href="https://pavelfatin.com/typing-with-pleasure/trackback/" rel="trackback">trackback</a> from your own site.
+
+						
+					</small>
+				</p>
+
+			</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 11:33:36 +0000</pubDate>
+      <source>https://pavelfatin.com/typing-with-pleasure/</source>
+    </item>
+    <item>
+      <title>Masking Emotions: Face Masks Impair How We Read Emotions</title>
+      <link>https://www.frontiersin.org/articles/10.3389/fpsyg.2021.669432/full</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_frontiersin_org_articles_10_3389_fpsyg_2021_669432_full/image.jpg" /> 
+<div id="readability-page-1" class="page"><div> <h2>Introduction</h2>
+<p>Understanding emotions is crucial for social interaction. Specifically, interpreting other people’s facial configurations is fundamental during social development when children learn to interact with others (<a href="#ref18">Denham et al., 2014</a>). The first ability to discriminate facial configurations associated with emotional states develops early in infancy. Children within the first months of life begin to understand positive and negative emotions (<a href="#ref62">Walker-Andrews, 1997</a>; <a href="#ref26">Grossmann, 2010</a>). For example, at 4 months of age, infants begin to discriminate facial movements associated with anger and happiness emotions (<a href="#ref2">Barrera and Maurer, 1981</a>). At a few months, infants can discriminate facial movements expressing surprise from those associated with happiness and sadness, and they can discriminate between different emotion intensities (i.e., mild vs. intense happy facial configuration; see <a href="#ref15">de Haan and Nelson, 1997</a> for a review of studies). Within the first year of life, infants start to engage in social referencing, i.e., they use the adult caregiver’s facial movements to adjust their social behavior (<a href="#ref33">Hertenstein and Campos, 2004</a>). Within the second year of life, children develop more abstract concepts of emotion, like understanding the congruence of other people’s facial movements and actions (<a href="#ref30">Hepach and Westermann, 2013</a>).</p>
+<p>While essential emotion processing is evident in infants, early childhood is considered a critical period for the development of understanding emotions and emotion processing (<a href="#ref19">Denham et al., 2003</a>). Continuous developmental changes do indeed occur from infancy to adulthood, as the individual’s social environment gradually grows in its capacity and complexity (<a href="#ref32">Herba and Phillips, 2004</a>; <a href="#ref60">Tonks et al., 2007</a>; <a href="#ref3">Barrett et al., 2019</a>). Developmental studies of emotion processing in the preschool years have shown that children’s explicit recognition of emotional states emerges along with their development. Happiness is recognized earliest and most accurately, followed by sadness or anger, and then by surprise or fear (<a href="#ref8">Camras and Allison, 1985</a>). Around 4–15 years old children’s accuracy in recognizing sad facial configurations improves with age at a slower rate compared to facial movements expressing happiness, fear, and disgust (<a href="#ref31">Herba et al., 2006</a>). Higher misidentification for sad faces still has been observed in 10-year-old compared to adults (<a href="#ref22">Gao and Maurer, 2009</a>). Children under 11 years make more errors in emotional labeling states expressed by facial configurations than children in early adolescence (<a href="#ref60">Tonks et al., 2007</a>). Moreover, the ability to infer emotions from eye movements and speech, does not stabilize until middle childhood and adolescence (<a href="#ref31">Herba et al., 2006</a>). Finally, research studying the neural substrates associated with observation of different facial movements supports previous results showing that the processes of emotional reasoning are not adult-like until early adolescence (<a href="#ref4">Batty and Taylor, 2006</a>). Thus, these results suggest that the development of emotion reasoning and, in particular, the inference of emotional states from face observation, continues to develop from preschool to middle childhood and adolescence (<a href="#ref31">Herba et al., 2006</a>). With increasing age, emotion inference from facial stereotypes is probably more rapid due to increased efficiency in decoding faces (<a href="#ref13">Chung and Thomson, 1995</a>; <a href="#ref16">De Sonneville et al., 2002</a>).</p>
+<p>Since, as we have seen, the most immediate way to read other people’s emotions is through observation of facial movements, an interesting question is how the ability to recognize facial configurations changes when a part of the face is covered. Currently, due to the COVID-19 emergency, we are all facing a natural reduction of accessibility to facial information during interactions. Other people’s faces have to be processed with masks, which obscure the visual information from the mouth and the lower part of the face. Here, we hypothesize that recognition of facial configurations associated with specific emotions should be affected by the mask’s presence. We also hypothesize that this effect should be stronger for younger children for whom the developmental trend for inferring emotions from facial movements is still an ongoing process. Thus, we studied if face reading is more challenging when the mouth is not visible, while wearing a face mask. This issue was recently addressed in the context of the COVID-19 pandemic by <a href="#ref21">Freud et al. (2020)</a>, who evaluated how the face masks change the ways in which faces are perceived on a large sample of adults. They provided evidence of a quantitative decrease of face processing abilities in the presence of a face mask and an indication of qualitative changes in face processing (i.e., the process of face features becomes less holistic).</p>
+<p>Moreover, a recent study (<a href="#ref56">Ruba and Pollak, 2020</a>) investigated the implications of mask-wearing on inferring emotions from facial configurations using a sample of children aged between 7 and 13 years old. They revealed that children could make above-chance inferences about emotions even when parts of the faces were covered, concluding that masks are unlikely to produce serious impairments of children’s social interactions. Here, we expanded this topic (i) by involving preschoolers aged between 3 and 5 years old, children aged between 6 and 8 years old, and adults and (ii) by including also facial configurations associated with a neutral state and with different intensities of emotions. We expected facial obstruction to be significantly more compromising for younger children who are still developing their emotional reasoning and social interaction skills. Indeed, exposition to faces in infancy and early childhood is essential in developing abilities that are strongly involved in emotional reasoning. For instance, short-term and long-term visual memory influence how children reason about their and others’ emotions. Children develop a bias in labeling facial configurations, such as angry or happy, based on familiarity, i.e., the frequency at which they have been exposed to similar facial configurations in their environment. In this vein, they tend to label faces as happy in the first years of life, since they are less exposed to angry or sad faces, while children with a history of abuse more frequently tend to label faces as angry (<a href="#ref43">Malatesta et al., 1989</a>; <a href="#ref53">Pollak and Kistler, 2002</a>).</p>
+<p>The current crisis presented us with a unique occasion to study how face reading changes during development in children and within adults, while both are forced to interact with people wearing face masks. To this end, different age groups’ abilities to make inferences from facial configurations were studied in the context generated by the COVID-19 emergency. We performed our experiments at the beginning of the crisis (within 2 weeks after Italy’s first lockdown phase) when children and adults were exposed to masks for the first time and had to deal with the ability to identify facial movements with the presence of a mask. This condition was a new experience for all the participants, which guaranteed that the performance was not affected by experience or previous exposition.</p> <h2>Materials and Methods</h2>
+<p>A group of 119 participants was recruited from the general population: 31 toddlers from 3 to 5 years of age (i.e., preschool age, mean ± SD: 4.3 ± 0.7 years old), 49 children from 6 to 8 years of age (i.e., school age, 6.8 ± 0.8 years old), and 39 adults from 18 to 30 years of age (27.4 ± 2.1 years old). Subjects were native Italian speakers. The ethics committee approved the research protocol of the local health service (Comitato Etico, ASL3 Genovese, Italy) and informed consent was obtained before submitting the questionnaire.</p>
+<p>Different methods exist to assess the development of emotion reasoning, i.e., the ability to use expressive behavior and contextual information to make inferences and predictions about other people’s emotional states and actions (<a href="#ref56">Ruba and Pollak, 2020</a>), including non-behavioral (functional and structural MRI and electroencephalography) and behavioral approaches (<a href="#ref47">Paiva-Silva et al., 2016</a>). The latter is the most widespread, and typically consists of static (images) or dynamic (brief videos) human face stimuli. Such tests have been widely used in different domains to assess level of impairment in recognition of facial movements in the presence of psychiatric (<a href="#ref54">Rocca et al., 2009</a>) or movement (<a href="#ref1">Argaud et al., 2018</a>) disorders, autism (<a href="#ref64">Wieckowski et al., 2020</a>), and developmental disabilities (<a href="#ref55">Rojahn et al., 1995</a>). It is essential to carefully select the task characteristics since they have been proven to influence performance (<a href="#ref29">Hayes et al., 2020</a>). Typically, most research in the field relied on paradigms that require labeling of static facial configurations, which are often stereotypes, i.e., posed configurations not authentically expressing the targeted emotion. <a href="#ref56">Ruba and Pollak (2020)</a> documented the limitations of such methods for measuring emotions in that they: (1) focus on the face only, ignoring the impact of contextual information in making emotion judgments, (2) use static and posed configurations that may not generalize to how we infer emotions in everyday life, and (3) examine a limited range of emotions. Being aware of the meaning and constraints of such a paradigm, in the present study, we chose a standardized verbal-response test based on selecting an emotion’s label (forced-choice) to describe static pictures of human facial configurations. Such choice was taken to ensure repeatability of the task and to make the administration of the test easy for the subjects <i>via</i> smartphone to overcome the difficulties related to social distancing rules. To partially overcome the intrinsic limits of such test and capture a wider variation in facial movements expressing emotions, we considered facial configurations expressing two levels of intensity associated with the same emotion. All participants completed an internet-based questionnaire shown on a smartphone that required them to identify facial emotions on static pictures with and without facial masks. To control for face mask exposure, the test was performed between 5 and 15 days after the first lockdown ended in Italy (May 2020). The task was structured in sequential blocks, showing firstly a set of pictures with facial masks, followed by a block of mask-free images. A total of 40 adult face pictures were presented in randomized order including four repetitions of four facial emotions (happiness, sadness, fear, and anger) with two levels of intensity (mild, extreme), and a neutral facial expression that was presented for eight times to each participant. Both the original and modified pictures were obtained from the ER-40 color emotional stimuli database (<a href="#ref27">Gur et al., 2002</a>; <a href="#ref51">Pinkham et al., 2008</a>), developed for the validated ER-40 test for facial emotion recognition (<a href="#ref39">Kohler et al., 2004</a>; <a href="#ref9">Carter et al., 2009</a>). For the set of images containing masks, pictures from the original database were modified <i>ad hoc</i> by a web designer who created and added realistic face masks. Participants were asked to identify the facial emotion by choosing five possible randomized options: happy, sad, fearful, angry, and neutral. Toddlers were guided in the task by a caregiver (typically a parent). Although, we could not ensure complete control over test administration, caregivers were provided with specific written instructions about their role. The caregiver had to read the question to the child, while showing the current image, read the response options, and select the child’s choice. Caregivers were carefully instructed not to influence, in any way, the answers of the child. No time limits were imposed to provide an answer.</p>
+<p>For data analysis, performance was calculated as a percentage of correct responses with and without the mask. From this, the impairment due to the mask’s presence was calculated as the difference between the percentage of correct responses with and without the masks. First of all, <i>t</i>-tests were conducted to statistically compare the performance in each condition (Mask, NoMask) and age group (i.e., Toddlers, Children, and Adults) to chance level responding (i.e., 20%). Results were corrected for multiple comparisons using Bonferroni correction. Subsequently, performance was analyzed with a two-way ANOVA considering conditions (i.e., Mask, NoMask) as within-subject factor and groups (i.e., Toddlers, Children, and Adults) as between-subject factor. To investigate possible differences associated with intensities of emotions or neutral expressions, the intensity of emotions (i.e., Low, High) and presence of emotional content (i.e., Emotion, Neutral) were also separately considered as independent variables in the ANOVA on performance. Besides this, one-way ANOVA with impairment as dependent variable and group (i.e., Toddlers, Children, and Adults) as a between-subject factor was also performed. <i>Post hoc t</i>-tests were carried out applying Bonferroni correction to results.</p> <h2>Results</h2>
+<p>The main insight of the present research is that face masks’ use influences emotion inference from faces for all ages and especially for toddlers.</p>
+<p>The ability of inferring emotions from facial configurations was, for all participants, significantly above-chance level both without (for toddlers: t<sub>30</sub> = 21.83, <i>p</i> &lt; 0.001; for children: t<sub>48</sub> = 35.68, <i>p</i> &lt; 0.001; for adults: t<sub>38</sub> = 71.63, <i>p</i> &lt; 0.001) and with (for toddlers: t<sub>30</sub> = 8.29, <i>p</i> &lt; 0.001; for children: t<sub>48</sub> = 25.96, <i>p</i> &lt; 0.001; for adults: t<sub>38</sub> = 40.1, <i>p</i> &lt; 0.001) face masks. However, the two-way ANOVA with performance as dependent variable and condition (i.e., Mask, NoMask) and group (i.e., Toddlers, Children, and Adults) as independent variables revealed a main effect of condition (F<sub>1,116</sub> = 48.7, <i>p</i> &lt; 0.001, ges = 0.4), a main effect of group (F<sub>1,116</sub> = 190.2, <i>p</i> &lt; 0.001, ges = 0.2), and a significant interaction between them (F<sub>2,116</sub> = 29, <i>p</i> &lt; 0.001, ges = 0.1). Thus, for all groups, the percentage of correct responses is significantly reduced for the images with face masks compared to the images without face masks (for toddlers: t<sub>30</sub> = 11.94, <i>p</i> &lt; 0.001; for children: t<sub>48</sub> = 4.61, <i>p</i> &lt; 0.001; for adults: t<sub>38</sub> = 8.1, <i>p</i> &lt; 0.001; see <a href="#fig1">Figure 1A</a>). Moreover, in line with the literature (<a href="#ref12">Chronaki et al., 2015</a>), <i>post hoc t</i>-tests replicated the developmental trend showing that toddlers and children are significantly weaker at labeling emotions without masks compared to adults (<a href="#fig1">Figure 1A</a>; for toddlers vs. adults: t<sub>40.2</sub> = 7.1, <i>p</i> &lt; 0.001; for children vs. adults: t<sub>78.9</sub> = 8.8, <i>p</i> &lt; 0.001). However, although toddlers and children have similar performances when no mask is worn (t<sub>54</sub> = −0.88, <i>p</i> = 0.9), the performance of toddlers is more affected by the use of a mask than the performance of both older children (t<sub>49</sub> = −5.52, <i>p</i> &lt; 0.001) and adults (t<sub>42.2</sub> = 9,02, <i>p</i> &lt; 0.001). Also, older children show a lower performance in labeling emotions on images with face masks compared to adults (t<sub>85.2</sub> = 4.9, <i>p</i> &lt; 0.001).</p>
+  <div><p><a href="https://www.frontiersin.org/files/Articles/669432/fpsyg-12-669432-HTML/image_m/fpsyg-12-669432-g001.jpg" name="figure1" target="_blank"></a></p><p><strong>Figure 1</strong>. <strong>(A)</strong> Percentage of correct responses without and with the masks in toddlers, children, and adults. <strong>(B)</strong> Percentage of impairment due to masks in toddlers, children, and adults. Impairment is calculated as the difference between the percentage of correct responses without and with the masks. The SEM is reported. The stars indicate a significant difference between the groups (<i>p</i> &lt; 0.001).</p></div>  
+<p>Responses from toddlers, children, and adults for two exemplar emotions (i.e., happiness and sadness) are reported in <a href="#fig2">Figure 2</a>. The percentage of impairment due to the presence of masks across all groups is displayed in <a href="#fig1">Figure 1B</a>. As shown, participants, and especially toddlers, confuse the correct emotion with other emotions more frequently when the mask is present. The one-way ANOVA confirms this result of impairment due to masks’ presence (F<sub>1,116</sub> = 28.96, <i>p</i> &lt; 0.001, ges = 0.3). The negative effect of the mask is more significant for toddlers aged between 3 and 5 years old compared to older children (t<sub>60.1</sub> = 6.89, <i>p</i> &lt; 0.001) and adults (t<sub>54.4</sub> = −5.4, <i>p</i> &lt; 0.001). Interestingly, no difference is observed between the older children and adults (t<sub>85.9</sub> = −2.1, <i>p</i> = 0.1).</p>
+  <div><p><a href="https://www.frontiersin.org/files/Articles/669432/fpsyg-12-669432-HTML/image_m/fpsyg-12-669432-g002.jpg" name="figure2" target="_blank"></a></p><p><strong>Figure 2</strong>. Responses given by toddlers, children, and adults for two exemplar emotions with and without mask: happiness (left) and sadness (right). Percentage of the answer is reported for “Sad” (red), “Happy” (cyan), “Fearful” (blue), “Angry” (green), and “Neutral” (violet). Face images have been obtained from the ER-40 color emotional stimuli public database (<a href="#ref27">Gur et al., 2002</a>; <a href="#ref51">Pinkham et al., 2008</a>).</p></div>  
+<p>Since no interaction between condition (i.e., Mask, NoMask), group (i.e., Toddlers, Children, and Adults) and either intensity (i.e., Low, High; F<sub>2,116</sub> = 2.06, <i>p</i> = 0.1, ges = 0.005) or presence of emotional content (i.e., Emotion, Neutral; F<sub>2,116</sub> = 1.86, <i>p</i> = 0.1, ges = 0.004) was found, the data presented in the previous analyses were merged for these dimensions. Response distribution among different emotions for the different age groups, with and without masks, is represented in <a href="#fig3">Figure 3</a>, which reports the matrices of confusion. Both with and without masks, toddlers and children confuse the correct expression with other expressions more than adults. For all groups, the confusion increases with masks, and this is especially true for toddlers.</p>
+  <div><p><a href="https://www.frontiersin.org/files/Articles/669432/fpsyg-12-669432-HTML/image_m/fpsyg-12-669432-g003.jpg" name="figure3" target="_blank"></a></p><p><strong>Figure 3</strong>. Confusion matrices for emotion inference from facial configurations with (left) and without (right) face masks for the three age groups. On the <i>x</i>-axis, presented stimuli. On the <i>y</i>-axis, emotion perceived by participants. The proportion of responses is reported as a color map. Face images have been obtained from the ER-40 color emotional stimuli public database (<a href="#ref27">Gur et al., 2002</a>; <a href="#ref51">Pinkham et al., 2008</a>).</p></div>   <h2>Discussion</h2>
+<h3>Emotion Inference Without Masks</h3>
+<p>Identification of emotions and, particularly, of facial movements is fundamental for our ability to interact with others and adjust one’s social behavior accordingly (<a href="#ref48">Philippot and Feldman, 1990</a>; <a href="#ref61">Vicari et al., 2000</a>; <a href="#ref3">Barrett et al., 2019</a>). A consistent body of research mostly focused on preschool-aged children, reported that an inference of emotional expressions gleaned from facial configurations improves during development (<a href="#ref46">Odom and Lemond, 1972</a>; <a href="#ref48">Philippot and Feldman, 1990</a>; <a href="#ref25">Gross and Ballif, 1991</a>; <a href="#ref6">Boyatzis et al., 1993</a>). Changes between children and adults have been described from a neurophysiological perspective (<a href="#ref59">Thomas et al., 2001</a>) and have been related to the development of higher cognitive skills associated with increased efficiency of the pre-frontal neural structures. In line with the literature (<a href="#ref12">Chronaki et al., 2015</a>), we confirmed that toddlers and children are significantly less reliable than adults at labeling emotions from facial configurations without masks, even though their performance is always above chance level.</p>
+<h3>Emotion Inference With and Without Face Masks During the Development Stage</h3>
+<p>This research’s central insight is that there are developmental differences across toddlers, older children, and adults, when inferring emotions from facial configurations and when face masks partially cover faces. Indeed, face masks affect emotion understanding for all ages, but the effect is especially pronounced for toddlers. Although still above chance level, we observed that toddlers’ performance is more influenced by a mask than older children and adults’ performance. All participants, independent of age, and despite variation of facial expression and intensity of emotion, faced more difficulties recognizing emotions with face masks. However, in line with a previous study on the topic (<a href="#ref56">Ruba and Pollak, 2020</a>), children and adults showed a high performance even for images with face masks (i.e., percentage of correct responses higher than 60%). This result suggests that it was still quite easy for them to infer emotions of others with face masks present. On the contrary, the mask’s presence was significantly more impactful for toddlers, causing a higher drop in their performance. This difference could be explained by different age-related developmental stages of face processing associated with emotion reasoning, which is very much still ongoing in early childhood.</p>
+<h3>The Use of Facial and Situational Cues to Infer Emotions During the Development Stage</h3>
+<p>Speaking about the effect that masks can have in real life, we should consider that facial movements and situational cues are crucial when interacting with others. It has been shown that younger children rely on facial expressions to infer information on another’s emotional state to a greater extent than situational cues (<a href="#ref36">Hoffner and Badzinski, 1989</a>). Indeed, the child’s ability to rely on situational cues only increases with age. Around 3–5 years old toddlers focus almost exclusively on facial expressions, whereas children rely on situational cues by 8 or 9 years of age. This evidence could explain the lower performance we observed in younger children when the mask is present. Likely, while adults and older children can use other contextual cues to infer the social content (<a href="#ref42">Leitzke and Pollak, 2016</a>), this may be more difficult for toddlers. Supporting the hypothesis of age-related differences in emotion reasoning, with increasing age, children become more insightful into their own emotional lives and demonstrate an increased understanding of others’ mixed emotions (<a href="#ref7">Campbell et al., 1995</a>; <a href="#ref37">Izard and Harris, 1995</a>; <a href="#ref63">Want et al., 2003</a>). Furthermore, it is known that emotion perception in infancy makes use of social referencing, i.e., infants exploit the caregiver’s facial movements to infer emotional information and direct their behavior in social contexts (<a href="#ref57">Saarni et al., 2007</a>).</p>
+<p>These findings, taken together, could explain our observation that toddlers are more affected by the mask’s use, suggesting the importance of facial cues for the early development of emotion reasoning and, likely, social skills. The problem might be overcome in older children, who present more advanced competences in combining facial expressions with situational cues and can therefore extract richer information useful to interact with others, even in the presence of face masks.</p>
+<h3>Use of Masks and Social Exposure Reduction</h3>
+<p>Sensitivity to facial emotion movements is fundamental to children’s emotional processing and social competence. For instance, some recent works showed evidence that our categories for emotions are not fixed and they strongly depend on the types and frequencies of facial movements to which we are exposed (<a href="#ref52">Plate et al., 2019</a>). Therefore, in a critical period regarding the development of emotional categories, young children are likely to be affected by exposure to face masks being worn. It has also been shown that children can better understand facial emotional cues from positive interpersonal relationships over time (<a href="#ref17">Denham, 1998</a>). Also, psychosocial deprivation during critical developmental periods leads to short‐ and long-term consequences, including perturbations at molecular and neuronal levels, as well as psychological and behavioral impairments (<a href="#ref45">Nelson et al., 2019</a>).</p>
+<p>It is not clear whether the changes in face configurations’ exposure due to masks’ use might affect the development of emotions’ inference and the development of social interactions’ capabilities in toddlers whose growth was developing at the time of the COVID-19. However, such questions have already received attention at a social and institutional level. In the document drafted by WHO and UNICEF to provide a guide to decision-makers and authorities in public and professional settings on the use of masks for children in the context of the COVID-19 pandemic (<a href="#ref65">World Health Organization, 2020</a>), it is generally the use of masks is generally discouraged when dealing with children up to 5 years old, given that at that age, they achieve significant developmental milestones (<a href="#ref14">Coppola, 2014</a>). For older children, it is advised to carefully weigh the benefits of wearing masks against potential harm, including social and communication concerns. The same considerations hold about adopting a risk-based approach in evaluating the potential impact of mask wearing in social and school settings on children’s learning and psychosocial development. Our study contributes to collect essential information about these aspects scientifically, contributing to defining indicators that help monitoring and evaluating the impact of and exposure to masks’ use on children, with specific attention to emotional reasoning and related developmental factors. Indeed, even though young children are generally exempted from masks’ use, they are still exposed to face masks in different everyday social and educational settings.</p>
+<p>Future longitudinal works are necessary to investigate if the social challenge these children are experiencing will impact their future ability to interact with others. Research should also include more informative and generalizable methods to assess emotion reasoning beyond labeling facial configurations. This exploration will be even more important if the use of masks is extended over time. Notably, we performed our experiments at the beginning of the crisis (within 2 weeks after the first lockdown phase). In this period, the face perception with masks was a new experience for all the participants, and the performance was not affected by experience or previous exposition. We plan to replicate this study, i.e., after 1 year of exposition with face-masks. It is indeed possible that toddlers, children, and adults have improved the ability to recognize emotions from facial expressions with masks (e.g., through eyes) due to experience. It would also be interesting to adopt a multimodal approach to test abilities of emotion inference, such as exploring how visual and audio expression information are combined when the mask is used at different ages. It has been shown that vocal and visual information can cooperate to detect expression with face masks during development stages (<a href="#ref11">Chladkova et al., 2021</a>). If a cross-modal association between vocal expressions and eye cues can be used, then it is possible that the vocal cue can be used to train face processing when the mask is present.</p>
+<h3>Emotion Reasoning and Disorders</h3>
+<p>Understanding the effect of long-term reduced facial expression exposure due to face masks being worn might be more critical for children with different impairments and disorders. It has been shown that abnormalities in processing certain emotions may correspond to particular disorders’ symptoms (<a href="#ref49">Phillips et al., 2003a</a>,<a href="#ref50">b</a>). Deficits in emotional reasoning and the ability to infer emotional content from facial configurations have been well demonstrated in children with autism (<a href="#ref34">Hobson et al., 1988</a>, <a href="#ref35">1989</a>; <a href="#ref10">Celani et al., 1999</a>; <a href="#ref20">Dyck et al., 2001</a>). Moreover, abnormalities in recognition of emotional expressions are associated with psychiatric disorders both in children and adults (<a href="#ref24">Green et al., 2000</a>; <a href="#ref5">Blair, 2003</a>; <a href="#ref50">Phillips et al., 2003b</a>). Also, children with anxiety or depression process emotional information differently than non-anxious or non-depressed children (<a href="#ref40">Ladouceur et al., 2005</a>). Adults (<a href="#ref44">Mogg et al., 2004</a>) and children (<a href="#ref28">Hadwin et al., 2009</a>) with anxiety demonstrate an early processing bias toward anger/threatening expressions, whereas adults with depression take more time before biasing toward expressions of sadness (<a href="#ref23">Gotlib et al., 2004</a>). A greater understanding of the typical development of emotion inference and neural systems associated with this acquisition would facilitate earlier identification and appropriate therapeutic interventions for emerging patterns of aberrant emotional behaviors. Previous studies have already evidenced that visual impairments, specifically age-related macular degeneration, negatively influence social involvement because of a reduced capability to perceive faces (<a href="#ref41">Lane et al., 2018</a>). In the context of the COVID-19 pandemic, it is crucial to understand whether wearing masks can lead to a similar outcome and which categories of people are more at risk in the long term. Particular attention should be devoted to children with disabilities, for whom interacting with people wearing face masks could exacerbate learning and social barriers. For them, the use of adapted transparent masks should at least be explored as an alternative (<a href="#ref58">Sheik-Ali et al., 2021</a>).</p> <h2>Conclusion</h2>
+<p>To conclude, here, we showed that mask use influences our ability to infer facial expressions at any age. Furthermore, we showed that the human capacity to read emotions from facial configurations when a face mask is present becomes particularly reduced in toddlers. We suggested that this is related to different age-related developmental stages of face processing associated with emotional reasoning. Such observation poses the question whether a privation of facial visual features, as the one we are experiencing due to the COVID-19 pandemic, might alter or delay the development of social skills associated with face perception in early childhood. Designing devices for personal protection that allows visibility of the lower part of the face may be crucial in all environments important for developing social and interaction skills in children, such as in education or rehabilitation, especially for those suffering from sensory or cognitive deficits. Knowledge from the current study can inform emotion-centered interventions and prevention programs that aim to foster socio-emotional processes linked to emotional understanding (<a href="#ref38">Izard et al., 2008</a>).</p> <h2>Data Availability Statement</h2>
+<p>The raw data supporting the conclusions of this article will be made available by the corresponding author on reasonable request. The program code generated during the current study is available from the corresponding author on reasonable request.</p> <h2>Ethics Statement</h2>
+<p>The studies involving human participants were reviewed and approved by Comitato Etico, ASL3 Genovese, Italy. Informed consent was obtained from all individual participants included in the study. For minors, written informed consent to participate in this study was provided by the participants’ legal guardian/next of kin.</p> <h2>Author Contributions</h2>
+<p>MG and LS contributed to conception and design of the study. MG, LS, and MA collected the data and organized the database. MA performed the statistical analysis. MG wrote the first draft of the manuscript. All authors contributed to the manuscript revision, read, and approved the submitted version.</p> <h2>Conflict of Interest</h2>
+<p>The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.</p> <h2>References</h2>
+<div>
+<p><a name="ref1" id="ref1"></a>Argaud, S., Verin, M., Sauleau, P., and Grandjean, D. (2018). Facial emotion recognition in Parkinson’s disease: a review and new hypotheses. <i>Mov. Disord.</i> 33, 554–567. doi: 10.1002/mds.27305 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/29473661" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1002/mds.27305" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+Argaud&amp;author=M.+Verin&amp;author=P.+Sauleau&amp;author=D.+Grandjean&amp;publication_year=2018&amp;title=Facial+emotion+recognition+in+Parkinson’s+disease:+a+review+and+new+hypotheses&amp;journal=Mov.+Disord.&amp;volume=33&amp;pages=554-567" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref3" id="ref3"></a>Barrett, L. F., Adolphs, R., Marsella, S., Martinez, A. M., and Pollak, S. D. (2019). Emotional expressions reconsidered: challenges to inferring emotion from human facial movements. <i>Psychol. Sci. Public Interest</i> 20, 1–68. doi: 10.1177/1529100619832930 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/31313636" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1177/1529100619832930" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=L.+F.+Barrett&amp;author=R.+Adolphs&amp;author=S.+Marsella&amp;author=A.+M.+Martinez&amp;author=S.+D.+Pollak&amp;publication_year=2019&amp;title=Emotional+expressions+reconsidered:+challenges+to+inferring+emotion+from+human+facial+movements&amp;journal=Psychol.+Sci.+Public+Interest&amp;volume=20&amp;pages=1-68" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref5" id="ref5"></a>Blair, R. (2003). Facial expressions, their communicatory functions and neuro–cognitive substrates. <i>Philos. Trans. R Soc. Lond. B Biol. Sci.</i> 358, 561–572. doi: 10.1098/rstb.2002.1220 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/12689381" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1098/rstb.2002.1220" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=R.+Blair&amp;publication_year=2003&amp;title=Facial+expressions+their+communicatory+functions+and+neuro–cognitive+substrates&amp;journal=Philos.+Trans.+R+Soc.+Lond.+B+Biol.+Sci.&amp;volume=358&amp;pages=561-572" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref7" id="ref7"></a>Campbell, R., Walker, J., and Baron-Cohen, S. (1995). The development of differential use of inner and outer face features in familiar face identification. <i>J. Exp. Child Psychol.</i> 59, 196–210. doi: 10.1006/jecp.1995.1009</p>
+<p><a href="https://doi.org/10.1006/jecp.1995.1009" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=R.+Campbell&amp;author=J.+Walker&amp;author=S.+Baron-Cohen&amp;publication_year=1995&amp;title=The+development+of+differential+use+of+inner+and+outer+face+features+in+familiar+face+identification&amp;journal=J.+Exp.+Child+Psychol.&amp;volume=59&amp;pages=196-210" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref8" id="ref8"></a>Camras, L. A., and Allison, K. (1985). Children’s understanding of emotional facial expressions and verbal labels. <i>J. Nonverbal Behav.</i> 9, 84–94. doi: 10.1007/BF00987140</p>
+<p><a href="https://doi.org/10.1007/BF00987140" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=L.+A.+Camras&amp;author=K.+Allison&amp;publication_year=1985&amp;title=Children’s+understanding+of+emotional+facial+expressions+and+verbal+labels&amp;journal=J.+Nonverbal+Behav.&amp;volume=9&amp;pages=84-94" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref9" id="ref9"></a>Carter, C. S., Barch, D. M., Gur, R., Gur, R., Pinkham, A., and Ochsner, K. (2009). CNTRICS final task selection: social cognitive and affective neuroscience-based measures. <i>Schizophr. Bull.</i> 35, 153–162. doi: 10.1093/schbul/sbn157 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/19011231" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1093/schbul/sbn157" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+S.+Carter&amp;author=D.+M.+Barch&amp;author=R.+Gur&amp;author=R.+Gur&amp;author=A.+Pinkham&amp;author=K.+Ochsner&amp;publication_year=2009&amp;title=CNTRICS+final+task+selection:+social+cognitive+and+affective+neuroscience-based+measures&amp;journal=Schizophr.+Bull.&amp;volume=35&amp;pages=153-162" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref10" id="ref10"></a>Celani, G., Battacchi, M. W., and Arcidiacono, L. (1999). The understanding of the emotional meaning of facial expressions in people with autism. <i>J. Autism Dev. Disord.</i> 29, 57–66. doi: 10.1023/A:1025970600181 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/10097995" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1023/A:1025970600181" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=G.+Celani&amp;author=M.+W.+Battacchi&amp;author=L.+Arcidiacono&amp;publication_year=1999&amp;title=The+understanding+of+the+emotional+meaning+of+facial+expressions+in+people+with+autism&amp;journal=J.+Autism+Dev.+Disord.&amp;volume=29&amp;pages=57-66" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref11" id="ref11"></a>Chladkova, K., Podlipsky, V. J., Nudga, N., and Simackova, S. (2021). The McGurk effect in the time of pandemic: age-dependent adaptation to an environmental loss of visual speech cues. <i>Psychon. Bull. Rev.</i> doi: 10.3758/s13423-020-01852-2 [Epub ahead of print]</p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/33443708" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.3758/s13423-020-01852-2" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=K.+Chladkova&amp;author=V.+J.+Podlipsky&amp;author=N.+Nudga&amp;author=S.+Simackova&amp;publication_year=2021&amp;title=The+McGurk+effect+in+the+time+of+pandemic:+age-dependent+adaptation+to+an+environmental+loss+of+visual+speech+cues&amp;journal=Psychon.+Bull.+Rev.&amp;" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref12" id="ref12"></a>Chronaki, G., Hadwin, J. A., Garner, M., Maurage, P., and Sonuga-Barke, E. J. (2015). The development of emotion recognition from facial expressions and non-linguistic vocalizations during childhood. <i>Br. J. Dev. Psychol.</i> 33, 218–236. doi: 10.1111/bjdp.12075 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/25492258" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/bjdp.12075" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=G.+Chronaki&amp;author=J.+A.+Hadwin&amp;author=M.+Garner&amp;author=P.+Maurage&amp;author=E.+J.+Sonuga-Barke&amp;publication_year=2015&amp;title=The+development+of+emotion+recognition+from+facial+expressions+and+non-linguistic+vocalizations+during+childhood&amp;journal=Br.+J.+Dev.+Psychol.&amp;volume=33&amp;pages=218-236" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref14" id="ref14"></a>Coppola, C. P. (2014). <i>Developmental Milestones Pediatric Surgery</i>. Cham: Springer, 459–461.</p>
+<p><a href="http://scholar.google.com/scholar_lookup?author=C.+P.+Coppola&amp;publication_year=2014&amp;journal=Developmental+Milestones+Pediatric+Surgery&amp;pages=459-461" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref15" id="ref15"></a>de Haan, M., and Nelson, C. A. (1997). Recognition of the mother’s face by six-month-old infants: a neurobehavioral study. <i>Child Dev.</i> 68, 187–210. doi: 10.1111/j.1467-8624.1997.tb01935.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/9179998" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.1467-8624.1997.tb01935.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=M.+de+Haan&amp;author=C.+A.+Nelson&amp;publication_year=1997&amp;title=Recognition+of+the+mother’s+face+by+six-month-old+infants:+a+neurobehavioral+study&amp;journal=Child+Dev.&amp;volume=68&amp;pages=187-210" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref16" id="ref16"></a>De Sonneville, L. M., Verschoor, C. A., Njiokiktjien, C., Op het Veld, V., Toorenaar, N., and Vranken, M. (2002). Facial identity and facial emotions: speed, accuracy, and processing strategies in children and adults. <i>J. Clin. Exp. Neuropsychol.</i> 24, 200–213. doi: 10.1076/jcen.24.2.200.989 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/11992203" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1076/jcen.24.2.200.989" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=L.+M.+De+Sonneville&amp;author=C.+A.+Verschoor&amp;author=C.+Njiokiktjien&amp;author=V.+Op+het+Veld&amp;author=N.+Toorenaar&amp;author=M.+Vranken&amp;publication_year=2002&amp;title=Facial+identity+and+facial+emotions:+speed+accuracy+and+processing+strategies+in+children+and+adults&amp;journal=J.+Clin.+Exp.+Neuropsychol.&amp;volume=24&amp;pages=200-213" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref17" id="ref17"></a>Denham, S. A. (1998). <i>Emotional Development in Young Children</i>. New York, NY: Guilford Press.</p>
+<p><a href="http://scholar.google.com/scholar_lookup?author=S.+A.+Denham&amp;publication_year=1998&amp;journal=Emotional+Development+in+Young+Children&amp;" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref18" id="ref18"></a>Denham, S. A., Bassett, H. H., Zinsser, K., and Wyatt, T. M. (2014). How preschoolers’ social–emotional learning predicts their early school success: developing theory-promoting, competency-based assessments. <i>Infant Child Dev.</i> 23, 426–454. doi: 10.1002/icd.1840</p>
+<p><a href="https://doi.org/10.1002/icd.1840" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+A.+Denham&amp;author=H.+H.+Bassett&amp;author=K.+Zinsser&amp;author=T.+M.+Wyatt&amp;publication_year=2014&amp;title=How+preschoolers’+social–emotional+learning+predicts+their+early+school+success:+developing+theory-promoting+competency-based+assessments&amp;journal=Infant+Child+Dev.&amp;volume=23&amp;pages=426-454" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref19" id="ref19"></a>Denham, S. A., Blair, K. A., DeMulder, E., Levitas, J., Sawyer, K., Auerbach-Major, S., et al. (2003). Preschool emotional competence: pathway to social competence? <i>Child Dev.</i> 74, 238–256. doi: 10.1111/1467-8624.00533 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/12625448" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/1467-8624.00533" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+A.+Denham&amp;author=K.+A.+Blair&amp;author=E.+DeMulder&amp;author=J.+Levitas&amp;author=K.+Sawyer&amp;author=S.+Auerbach-Major&amp;publication_year=2003&amp;title=Preschool+emotional+competence:+pathway+to+social+competence?&amp;journal=Child+Dev.&amp;volume=74&amp;pages=238-256" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref20" id="ref20"></a>Dyck, M. J., Ferguson, K., and Shochet, I. M. (2001). Do autism spectrum disorders differ from each other and from non-spectrum disorders on emotion recognition tests? <i>Eur. Child Adolesc. Psychiatry</i> 10, 105–116. doi: 10.1007/s007870170033 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/11469282" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1007/s007870170033" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=M.+J.+Dyck&amp;author=K.+Ferguson&amp;author=I.+M.+Shochet&amp;publication_year=2001&amp;title=Do+autism+spectrum+disorders+differ+from+each+other+and+from+non-spectrum+disorders+on+emotion+recognition+tests?&amp;journal=Eur.+Child+Adolesc.+Psychiatry&amp;volume=10&amp;pages=105-116" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref21" id="ref21"></a>Freud, E., Stajduhar, A., Rosenbaum, R. S., Avidan, G., and Ganel, T. (2020). The COVID-19 pandemic masks the way people perceive faces. <i>Sci. Rep.</i> 10:22344. doi: 10.1038/s41598-020-78986-9 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/33349645" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1038/s41598-020-78986-9" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=E.+Freud&amp;author=A.+Stajduhar&amp;author=R.+S.+Rosenbaum&amp;author=G.+Avidan&amp;author=T.+Ganel&amp;publication_year=2020&amp;title=The+COVID-19+pandemic+masks+the+way+people+perceive+faces&amp;journal=Sci.+Rep.&amp;volume=10&amp;pages=22344" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref22" id="ref22"></a>Gao, X., and Maurer, D. (2009). Influence of intensity on children’s sensitivity to happy, sad, and fearful facial expressions. <i>J. Exp. Child Psychol.</i> 102, 503–521. doi: 10.1016/j.jecp.2008.11.002 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/19124135" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/j.jecp.2008.11.002" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=X.+Gao&amp;author=D.+Maurer&amp;publication_year=2009&amp;title=Influence+of+intensity+on+children’s+sensitivity+to+happy+sad+and+fearful+facial+expressions&amp;journal=J.+Exp.+Child+Psychol.&amp;volume=102&amp;pages=503-521" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref23" id="ref23"></a>Gotlib, I. H., Krasnoperova, E., Yue, D. N., and Joormann, J. (2004). Attentional biases for negative interpersonal stimuli in clinical depression. <i>J. Abnorm. Psychol.</i> 113, 121–135. doi: 10.1037/0021-843X.113.1.121 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/14992665" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1037/0021-843X.113.1.121" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=I.+H.+Gotlib&amp;author=E.+Krasnoperova&amp;author=D.+N.+Yue&amp;author=J.+Joormann&amp;publication_year=2004&amp;title=Attentional+biases+for+negative+interpersonal+stimuli+in+clinical+depression&amp;journal=J.+Abnorm.+Psychol.&amp;volume=113&amp;pages=121-135" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref24" id="ref24"></a>Green, M. F., Kern, R. S., Robertson, M. J., Sergi, M. J., and Kee, K. S. (2000). “Relevance of neurocognitive deficits for functional outcome in schizophrenia,” in <i>Cognition in Schizophrenia</i>. eds. T. Sharma and P. Harvey (Oxford, England: Oxford University Press), 178–192.</p>
+<p><a href="http://scholar.google.com/scholar_lookup?author=M.+F.+Green&amp;author=R.+S.+Kern&amp;author=M.+J.+Robertson&amp;author=M.+J.+Sergi&amp;author=K.+S.+Kee&amp;publication_year=2000&amp;title=Relevance+of+neurocognitive+deficits+for+functional+outcome+in+schizophrenia&amp;journal=Cognition+in+Schizophrenia&amp;pages=178-192" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref25" id="ref25"></a>Gross, A. L., and Ballif, B. (1991). Children’s understanding of emotion from facial expressions and situations: a review. <i>Dev. Rev.</i> 11, 368–398. doi: 10.1016/0273-2297(91)90019-K</p>
+<p><a href="https://doi.org/10.1016/0273-2297(91)90019-K" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=A.+L.+Gross&amp;author=B.+Ballif&amp;publication_year=1991&amp;title=Children’s+understanding+of+emotion+from+facial+expressions+and+situations:+a+review&amp;journal=Dev.+Rev.&amp;volume=11&amp;pages=368-398" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref27" id="ref27"></a>Gur, R. C., Sara, R., Hagendoorn, M., Marom, O., Hughett, P., Macy, L., et al. (2002). A method for obtaining 3-dimensional facial expressions and its standardization for use in neurocognitive studies. <i>J. Neurosci. Methods</i> 115, 137–143. doi: 10.1016/S0165-0270(02)00006-7 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/11992665" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/S0165-0270(02)00006-7" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=R.+C.+Gur&amp;author=R.+Sara&amp;author=M.+Hagendoorn&amp;author=O.+Marom&amp;author=P.+Hughett&amp;author=L.+Macy&amp;publication_year=2002&amp;title=A+method+for+obtaining+3-dimensional+facial+expressions+and+its+standardization+for+use+in+neurocognitive+studies&amp;journal=J.+Neurosci.+Methods&amp;volume=115&amp;pages=137-143" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref28" id="ref28"></a>Hadwin, J. A., Donnelly, N., Richards, A., French, C. C., and Patel, U. (2009). Childhood anxiety and attention to emotion faces in a modified stroop task. <i>Br. J. Dev. Psychol.</i> 27, 487–494. doi: 10.1348/026151008X315503 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/19998543" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1348/026151008X315503" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=J.+A.+Hadwin&amp;author=N.+Donnelly&amp;author=A.+Richards&amp;author=C.+C.+French&amp;author=U.+Patel&amp;publication_year=2009&amp;title=Childhood+anxiety+and+attention+to+emotion+faces+in+a+modified+stroop+task&amp;journal=Br.+J.+Dev.+Psychol.&amp;volume=27&amp;pages=487-494" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref29" id="ref29"></a>Hayes, G. S., McLennan, S. N., Henry, J. D., Phillips, L. H., Terrett, G., Rendell, P. G., et al. (2020). Task characteristics influence facial emotion recognition age-effects: a meta-analytic review. <i>Psychol. Aging</i> 35, 295–315. doi: 10.1037/pag0000441 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/31999152" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1037/pag0000441" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=G.+S.+Hayes&amp;author=S.+N.+McLennan&amp;author=J.+D.+Henry&amp;author=L.+H.+Phillips&amp;author=G.+Terrett&amp;author=P.+G.+Rendell&amp;publication_year=2020&amp;title=Task+characteristics+influence+facial+emotion+recognition+age-effects:+a+meta-analytic+review&amp;journal=Psychol.+Aging&amp;volume=35&amp;pages=295-315" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref30" id="ref30"></a>Hepach, R., and Westermann, G. (2013). Infants’ sensitivity to the congruence of others’ emotions and actions. <i>J. Exp. Child Psychol.</i> 115, 16–29. doi: 10.1016/j.jecp.2012.12.013 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/23454359" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/j.jecp.2012.12.013" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=R.+Hepach&amp;author=G.+Westermann&amp;publication_year=2013&amp;title=Infants’+sensitivity+to+the+congruence+of+others’+emotions+and+actions&amp;journal=J.+Exp.+Child+Psychol.&amp;volume=115&amp;pages=16-29" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref31" id="ref31"></a>Herba, C. M., Landau, S., Russell, T., Ecker, C., and Phillips, M. L. (2006). The development of emotion-processing in children: effects of age, emotion, and intensity. <i>J. Child Psychol. Psychiatry</i> 47, 1098–1106. doi: 10.1111/j.1469-7610.2006.01652.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/17076748" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.1469-7610.2006.01652.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+M.+Herba&amp;author=S.+Landau&amp;author=T.+Russell&amp;author=C.+Ecker&amp;author=M.+L.+Phillips&amp;publication_year=2006&amp;title=The+development+of+emotion-processing+in+children:+effects+of+age+emotion+and+intensity&amp;journal=J.+Child+Psychol.+Psychiatry&amp;volume=47&amp;pages=1098-1106" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref32" id="ref32"></a>Herba, C., and Phillips, M. (2004). Annotation: development of facial expression recognition from childhood to adolescence: behavioural and neurological perspectives. <i>J. Child Psychol. Psychiatry</i> 45, 1185–1198. doi: 10.1111/j.1469-7610.2004.00316.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/15335339" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.1469-7610.2004.00316.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+Herba&amp;author=M.+Phillips&amp;publication_year=2004&amp;title=Annotation:+development+of+facial+expression+recognition+from+childhood+to+adolescence:+behavioural+and+neurological+perspectives&amp;journal=J.+Child+Psychol.+Psychiatry&amp;volume=45&amp;pages=1185-1198" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref33" id="ref33"></a>Hertenstein, M. J., and Campos, J. J. (2004). The retention effects of an adult’s emotional displays on infant behavior. <i>Child Dev.</i> 75, 595–613. doi: 10.1111/j.1467-8624.2004.00695.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/15056208" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.1467-8624.2004.00695.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=M.+J.+Hertenstein&amp;author=J.+J.+Campos&amp;publication_year=2004&amp;title=The+retention+effects+of+an+adult’s+emotional+displays+on+infant+behavior&amp;journal=Child+Dev.&amp;volume=75&amp;pages=595-613" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref35" id="ref35"></a>Hobson, R., Ouston, J., and Lee, A. (1989). Naming emotion in faces and voices: abilities and disabilities in autism and mental retardation. <i>Br. J. Dev. Psychol.</i> 7, 237–250. doi: 10.1111/j.2044-835X.1989.tb00803.x</p>
+<p><a href="https://doi.org/10.1111/j.2044-835X.1989.tb00803.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=R.+Hobson&amp;author=J.+Ouston&amp;author=A.+Lee&amp;publication_year=1989&amp;title=Naming+emotion+in+faces+and+voices:+abilities+and+disabilities+in+autism+and+mental+retardation&amp;journal=Br.+J.+Dev.+Psychol.&amp;volume=7&amp;pages=237-250" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref37" id="ref37"></a>Izard, C. E., and Harris, P. (1995). “Emotional development and developmental psychopathology,” in <i>Wiley Series on Personality Processes. Developmental Psychopathology, Vol. 1: Theory and Methods</i>. eds. D. Cicchetti and D. J. Cohen (New York: John Wiley &amp; Sons), 467–503.</p>
+<p><a href="http://scholar.google.com/scholar_lookup?author=C.+E.+Izard&amp;author=P.+Harris&amp;publication_year=1995&amp;title=Emotional+development+and+developmental+psychopathology&amp;journal=Wiley+Series+on+Personality+Processes.+Developmental+Psychopathology+Vol.+1:+Theory+and+Methods&amp;pages=467-503" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref38" id="ref38"></a>Izard, C., Stark, K., Trentacosta, C., and Schultz, D. (2008). Beyond emotion regulation: emotion utilization and adaptive functioning. <i>Child Dev. Perspect.</i> 2, 156–163. doi: 10.1111/j.1750-8606.2008.00058.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/19956781" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.1750-8606.2008.00058.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+Izard&amp;author=K.+Stark&amp;author=C.+Trentacosta&amp;author=D.+Schultz&amp;publication_year=2008&amp;title=Beyond+emotion+regulation:+emotion+utilization+and+adaptive+functioning&amp;journal=Child+Dev.+Perspect.&amp;volume=2&amp;pages=156-163" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref39" id="ref39"></a>Kohler, C. G., Turner, T. H., Gur, R. E., and Gur, R. C. (2004). Recognition of facial emotions in neuropsychiatric disorders. <i>CNS Spectr.</i> 9, 267–274. doi: 10.1017/s1092852900009202 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/15048051" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1017/s1092852900009202" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+G.+Kohler&amp;author=T.+H.+Turner&amp;author=R.+E.+Gur&amp;author=R.+C.+Gur&amp;publication_year=2004&amp;title=Recognition+of+facial+emotions+in+neuropsychiatric+disorders&amp;journal=CNS+Spectr.&amp;volume=9&amp;pages=267-274" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref40" id="ref40"></a>Ladouceur, C. D., Dahl, R. E., Williamson, D. E., Birmaher, B., Ryan, N. D., and Casey, B. J. (2005). Altered emotional processing in pediatric anxiety, depression, and comorbid anxiety-depression. <i>J. Abnorm. Child Psychol.</i> 33, 165–177. doi: 10.1007/s10802-005-1825-z </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/15839495" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1007/s10802-005-1825-z" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+D.+Ladouceur&amp;author=R.+E.+Dahl&amp;author=D.+E.+Williamson&amp;author=B.+Birmaher&amp;author=N.+D.+Ryan&amp;author=B.+J.+Casey&amp;publication_year=2005&amp;title=Altered+emotional+processing+in+pediatric+anxiety+depression+and+comorbid+anxiety-depression&amp;journal=J.+Abnorm.+Child+Psychol.&amp;volume=33&amp;pages=165-177" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref41" id="ref41"></a>Lane, J., Rohan, E. M. F., Sabeti, F., Essex, R. W., Maddess, T., Dawel, A., et al. (2018). Impacts of impaired face perception on social interactions and quality of life in age-related macular degeneration: a qualitative study and new community resources. <i>PLoS One</i> 13:e0209218. doi: 10.1371/journal.pone.0209218 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/30596660" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1371/journal.pone.0209218" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=J.+Lane&amp;author=E.+M.+F.+Rohan&amp;author=F.+Sabeti&amp;author=R.+W.+Essex&amp;author=T.+Maddess&amp;author=A.+Dawel&amp;publication_year=2018&amp;title=Impacts+of+impaired+face+perception+on+social+interactions+and+quality+of+life+in+age-related+macular+degeneration:+a+qualitative+study+and+new+community+resources&amp;journal=PLoS+One&amp;volume=13&amp;pages=e0209218" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref43" id="ref43"></a>Malatesta, C. Z., Culver, C., Tesman, J. R., and Shepard, B. (1989). The development of emotion expression during the first two years of life. <i>Monogr. Soc. Res. Child Dev.</i> 54, 1–104.</p>
+<p><a href="http://scholar.google.com/scholar_lookup?author=C.+Z.+Malatesta&amp;author=C.+Culver&amp;author=J.+R.+Tesman&amp;author=B.+Shepard&amp;publication_year=1989&amp;title=The+development+of+emotion+expression+during+the+first+two+years+of+life&amp;journal=Monogr.+Soc.+Res.+Child+Dev.&amp;volume=54&amp;pages=1-104" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref44" id="ref44"></a>Mogg, K., Philippot, P., and Bradley, B. P. (2004). Selective attention to angry faces in clinical social phobia. <i>J. Abnorm. Psychol.</i> 113, 160–165. doi: 10.1037/0021-843X.113.1.160 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/14992669" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1037/0021-843X.113.1.160" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=K.+Mogg&amp;author=P.+Philippot&amp;author=B.+P.+Bradley&amp;publication_year=2004&amp;title=Selective+attention+to+angry+faces+in+clinical+social+phobia&amp;journal=J.+Abnorm.+Psychol.&amp;volume=113&amp;pages=160-165" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref45" id="ref45"></a>Nelson, C. A., Zeanah, C. H., and Fox, N. A. (2019). How early experience shapes human development: the case of psychosocial deprivation. <i>Neural Plast.</i> 2019:1676285. doi: 10.1155/2019/1676285 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/30774652" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1155/2019/1676285" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+A.+Nelson&amp;author=C.+H.+Zeanah&amp;author=N.+A.+Fox&amp;publication_year=2019&amp;title=How+early+experience+shapes+human+development:+the+case+of+psychosocial+deprivation&amp;journal=Neural+Plast.&amp;volume=2019&amp;pages=1676285" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref47" id="ref47"></a>Paiva-Silva, A. I. D., Pontes, M. K., Aguiar, J. S. R., and de Souza, W. C. (2016). How do we evaluate facial emotion recognition? <i>Psychol. Neurosci.</i> 9, 153–175. doi: 10.1037/pne0000047</p>
+<p><a href="https://doi.org/10.1037/pne0000047" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=A.+I.+D.+Paiva-Silva&amp;author=M.+K.+Pontes&amp;author=J.+S.+R.+Aguiar&amp;author=W.+C.+de+Souza&amp;publication_year=2016&amp;title=How+do+we+evaluate+facial+emotion+recognition?&amp;journal=Psychol.+Neurosci.&amp;volume=9&amp;pages=153-175" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref48" id="ref48"></a>Philippot, P., and Feldman, R. S. (1990). Age and social competence in preschoolers’ decoding of facial expression. <i>Br. J. Soc. Psychol.</i> 29, 43–54. doi: 10.1111/j.2044-8309.1990.tb00885.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/2322782" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.2044-8309.1990.tb00885.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=P.+Philippot&amp;author=R.+S.+Feldman&amp;publication_year=1990&amp;title=Age+and+social+competence+in+preschoolers’+decoding+of+facial+expression&amp;journal=Br.+J.+Soc.+Psychol.&amp;volume=29&amp;pages=43-54" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref49" id="ref49"></a>Phillips, M. L., Drevets, W. C., Rauch, S. L., and Lane, R. (2003a). Neurobiology of emotion perception I: the neural basis of normal emotion perception. <i>Biol. Psychiatry</i> 54, 504–514. doi: 10.1016/s0006-3223(03)00168-9 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/12946879" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/s0006-3223(03)00168-9" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=M.+L.+Phillips&amp;author=W.+C.+Drevets&amp;author=S.+L.+Rauch&amp;author=R.+Lane&amp;publication_year=2003a&amp;title=Neurobiology+of+emotion+perception+I:+the+neural+basis+of+normal+emotion+perception&amp;journal=Biol.+Psychiatry&amp;volume=54&amp;pages=504-514" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref50" id="ref50"></a>Phillips, M. L., Drevets, W. C., Rauch, S. L., and Lane, R. (2003b). Neurobiology of emotion perception II: implications for major psychiatric disorders. <i>Biol. Psychiatry</i> 54, 515–528. doi: 10.1016/s0006-3223(03)00171-9 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/12946880" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/s0006-3223(03)00171-9" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=M.+L.+Phillips&amp;author=W.+C.+Drevets&amp;author=S.+L.+Rauch&amp;author=R.+Lane&amp;publication_year=2003b&amp;title=Neurobiology+of+emotion+perception+II:+implications+for+major+psychiatric+disorders&amp;journal=Biol.+Psychiatry&amp;volume=54&amp;pages=515-528" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref51" id="ref51"></a>Pinkham, A. E., Sasson, N. J., Calkins, M. E., Richard, J., Hughett, P., Gur, R. E., et al. (2008). The other-race effect in face processing among African American and Caucasian individuals with schizophrenia. <i>Am. J. Psychiatry</i> 165, 639–645. doi: 10.1176/appi.ajp.2007.07101604 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/18347000" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1176/appi.ajp.2007.07101604" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=A.+E.+Pinkham&amp;author=N.+J.+Sasson&amp;author=M.+E.+Calkins&amp;author=J.+Richard&amp;author=P.+Hughett&amp;author=R.+E.+Gur&amp;publication_year=2008&amp;title=The+other-race+effect+in+face+processing+among+African+American+and+Caucasian+individuals+with+schizophrenia&amp;journal=Am.+J.+Psychiatry&amp;volume=165&amp;pages=639-645" target="_blank">Google Scholar</a></p></div>
+
+<div>
+<p><a name="ref53" id="ref53"></a>Pollak, S. D., and Kistler, D. J. (2002). Early experience is associated with the development of categorical representations for facial expressions of emotion. <i>Proc. Natl. Acad. Sci. U. S. A.</i> 99, 9072–9076. doi: 10.1073/pnas.142165999 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/12072570" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1073/pnas.142165999" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+D.+Pollak&amp;author=D.+J.+Kistler&amp;publication_year=2002&amp;title=Early+experience+is+associated+with+the+development+of+categorical+representations+for+facial+expressions+of+emotion&amp;journal=Proc.+Natl.+Acad.+Sci.+U.+S.+A.&amp;volume=99&amp;pages=9072-9076" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref54" id="ref54"></a>Rocca, C. C., Heuvel, E., Caetano, S. C., and Lafer, B. (2009). Facial emotion recognition in bipolar disorder: a critical review. <i>Braz. J. Psychiatry</i> 31, 171–180. doi: 10.1590/s1516-44462009000200015 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/19578691" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1590/s1516-44462009000200015" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=C.+C.+Rocca&amp;author=E.+Heuvel&amp;author=S.+C.+Caetano&amp;author=B.+Lafer&amp;publication_year=2009&amp;title=Facial+emotion+recognition+in+bipolar+disorder:+a+critical+review&amp;journal=Braz.+J.+Psychiatry&amp;volume=31&amp;pages=171-180" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref55" id="ref55"></a>Rojahn, J., Lederer, M., and Tasse, M. J. (1995). Facial emotion recognition by persons with mental retardation: a review of the experimental literature. <i>Res. Dev. Disabil.</i> 16, 393–414. doi: 10.1016/0891-4222(95)00019-J </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/8532918" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/0891-4222(95)00019-J" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=J.+Rojahn&amp;author=M.+Lederer&amp;author=M.+J.+Tasse&amp;publication_year=1995&amp;title=Facial+emotion+recognition+by+persons+with+mental+retardation:+a+review+of+the+experimental+literature&amp;journal=Res.+Dev.+Disabil.&amp;volume=16&amp;pages=393-414" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref56" id="ref56"></a>Ruba, A. L., and Pollak, S. D. (2020). Children’s emotion inferences from masked faces: implications for social interactions during COVID-19. <i>PLoS One</i> 15:e0243708. doi: 10.1371/journal.pone.0243708 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/33362251" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1371/journal.pone.0243708" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=A.+L.+Ruba&amp;author=S.+D.+Pollak&amp;publication_year=2020&amp;title=Children’s+emotion+inferences+from+masked+faces:+implications+for+social+interactions+during+COVID-19&amp;journal=PLoS+One&amp;volume=15&amp;pages=e0243708" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref57" id="ref57"></a>Saarni, C., Campos, J. J., Camras, L. A., and Witherington, D. (2007). “Emotional development: action, communication, and understanding,” in <i>Handbook of Child Psychology</i>. Vol. 1. eds. N. Eisenberg, W. Damon, and R. M. Lerner (John Wiley &amp; Sons, Inc.), 226–229.</p>
+<p><a href="http://scholar.google.com/scholar_lookup?author=C.+Saarni&amp;author=J.+J.+Campos&amp;author=L.+A.+Camras&amp;author=D.+Witherington&amp;publication_year=2007&amp;title=Emotional+development:+action+communication+and+understanding&amp;journal=Handbook+of+Child+Psychology&amp;volume=Vol.+1&amp;pages=226-229" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref58" id="ref58"></a>Sheik-Ali, S., Sheik-Ali, S., and Sheik-Ali, A. (2021). Hearing impairment and introduction of mandatory face masks. <i>Ear Nose Throat J.</i> doi: 10.1177/0145561321992514 [Epub ahead of print]</p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/33617292" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1177/0145561321992514" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+Sheik-Ali&amp;author=S.+Sheik-Ali&amp;author=A.+Sheik-Ali&amp;publication_year=2021&amp;title=Hearing+impairment+and+introduction+of+mandatory+face+masks&amp;journal=Ear+Nose+Throat+J.&amp;" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref59" id="ref59"></a>Thomas, K. M., Drevets, W. C., Whalen, P. J., Eccard, C. H., Dahl, R. E., Ryan, N. D., et al. (2001). Amygdala response to facial expressions in children and adults. <i>Biol. Psychiatry</i> 49, 309–316. doi: 10.1016/S0006-3223(00)01066-0 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/11239901" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1016/S0006-3223(00)01066-0" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=K.+M.+Thomas&amp;author=W.+C.+Drevets&amp;author=P.+J.+Whalen&amp;author=C.+H.+Eccard&amp;author=R.+E.+Dahl&amp;author=N.+D.+Ryan&amp;publication_year=2001&amp;title=Amygdala+response+to+facial+expressions+in+children+and+adults&amp;journal=Biol.+Psychiatry&amp;volume=49&amp;pages=309-316" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref60" id="ref60"></a>Tonks, J., Williams, W. H., Frampton, I., Yates, P., and Slater, A. (2007). Assessing emotion recognition in 9-15-years olds: preliminary analysis of abilities in reading emotion from faces, voices and eyes. <i>Brain Inj.</i> 21, 623–629. doi: 10.1080/02699050701426865 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/17577713" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1080/02699050701426865" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=J.+Tonks&amp;author=W.+H.+Williams&amp;author=I.+Frampton&amp;author=P.+Yates&amp;author=A.+Slater&amp;publication_year=2007&amp;title=Assessing+emotion+recognition+in+9-15-years+olds:+preliminary+analysis+of+abilities+in+reading+emotion+from+faces+voices+and+eyes&amp;journal=Brain+Inj.&amp;volume=21&amp;pages=623-629" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref61" id="ref61"></a>Vicari, S., Reilly, J. S., Pasqualetti, P., Vizzotto, A., and Caltagirone, C. (2000). Recognition of facial expressions of emotions in school-age children: the intersection of perceptual and semantic categories. <i>Acta Paediatr.</i> 89, 836–845. doi: 10.1111/j.1651-2227.2000.tb00392.x </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/10943968" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1111/j.1651-2227.2000.tb00392.x" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+Vicari&amp;author=J.+S.+Reilly&amp;author=P.+Pasqualetti&amp;author=A.+Vizzotto&amp;author=C.+Caltagirone&amp;publication_year=2000&amp;title=Recognition+of+facial+expressions+of+emotions+in+school-age+children:+the+intersection+of+perceptual+and+semantic+categories&amp;journal=Acta+Paediatr.&amp;volume=89&amp;pages=836-845" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref62" id="ref62"></a>Walker-Andrews, A. S. (1997). Infants’ perception of expressive behaviors: differentiation of multimodal information. <i>Psychol. Bull.</i> 121, 437–456. doi: 10.1037/0033-2909.121.3.437 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/9136644" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1037/0033-2909.121.3.437" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=A.+S.+Walker-Andrews&amp;publication_year=1997&amp;title=Infants’+perception+of+expressive+behaviors:+differentiation+of+multimodal+information&amp;journal=Psychol.+Bull.&amp;volume=121&amp;pages=437-456" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref63" id="ref63"></a>Want, S. C., Pascalis, O., Coleman, M., and Blades, M. (2003). Recognizing people from the inner or outer parts of their faces: developmental data concerning “unfamiliar” faces. <i>Br. J. Dev. Psychol.</i> 21, 125–135. doi: 10.1348/026151003321164663</p>
+<p><a href="https://doi.org/10.1348/026151003321164663" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=S.+C.+Want&amp;author=O.+Pascalis&amp;author=M.+Coleman&amp;author=M.+Blades&amp;publication_year=2003&amp;title=Recognizing+people+from+the+inner+or+outer+parts+of+their+faces:+developmental+data+concerning+“unfamiliar”+faces&amp;journal=Br.+J.+Dev.+Psychol.&amp;volume=21&amp;pages=125-135" target="_blank">Google Scholar</a></p></div>
+<div>
+<p><a name="ref64" id="ref64"></a>Wieckowski, A. T., Flynn, L. T., Richey, J. A., Gracanin, D., and White, S. W. (2020). Measuring change in facial emotion recognition in individuals with autism spectrum disorder: a systematic review. <i>Autism</i> 24, 1607–1628. doi: 10.1177/1362361320925334 </p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/32551983" target="_blank">PubMed Abstract</a> | <a href="https://doi.org/10.1177/1362361320925334" target="_blank">CrossRef Full Text</a> | <a href="http://scholar.google.com/scholar_lookup?author=A.+T.+Wieckowski&amp;author=L.+T.+Flynn&amp;author=J.+A.+Richey&amp;author=D.+Gracanin&amp;author=S.+W.+White&amp;publication_year=2020&amp;title=Measuring+change+in+facial+emotion+recognition+in+individuals+with+autism+spectrum+disorder:+a+systematic+review&amp;journal=Autism&amp;volume=24&amp;pages=1607-1628" target="_blank">Google Scholar</a></p></div>
+ </div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 16:16:14 +0000</pubDate>
+      <source>https://www.frontiersin.org/articles/10.3389/fpsyg.2021.669432/full</source>
+    </item>
+    <item>
+      <title>Dover (YC S19) just raised $20m and is hiring for all roles</title>
+      <link>https://dover.com/careers</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___dover_com_careers/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div><div><h2>What we offer</h2><div><div><div><h4>Development</h4><ul role="list"><li>Competitive salary and meaningful equity</li><li>Support for personal and professional development outside of work</li><li>Opportunities to grow within the company</li><li>401k</li></ul></div></div><div><div><h4>Wellness</h4><ul role="list"><li>Comprehensive health and dental benefits covered 100%</li><li>Reimbursements for physical and mental wellness</li><li>Daily lunch</li></ul></div></div><div><div><h4>Flexibility</h4><ul role="list"><li>All the tools you need to do your best work, including laptop, monitor, desk, chair, and more</li><li>Flexible work schedule</li><li>Unlimited PTO plus mandatory 2 week vacation</li></ul></div></div></div><p>Dover is hiring remotely across the US and US-friendly timezones.<br/></p></div></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 17:01:14 +0000</pubDate>
+      <source>https://dover.com/careers</source>
+    </item>
+    <item>
+      <title>July 2021 was the warmest July on record for the globe</title>
+      <link>https://www.ncei.noaa.gov/news/global-climate-202107</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_ncei_noaa_gov_news_global-climate-202107/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><div property="schema:text"><p><span><span><span><span><span><span>The global temperature for July 2021 was the highest for July in the 142-year NOAA record, which dates back to 1880. The year-to-date (January-July) global surface temperature tied as the sixth highest on record. According to </span></span></span></span></span></span><a href="https://www.ncdc.noaa.gov/sotc/global/202107/supplemental/page-2" rel="nofollow"><span><span><span><span><span><u><span><span>NCEI’s Global Annual Temperature Rankings Outlook</span></span></u></span></span></span></span></span></a><span><span><span><span><span><span>, it is very likely that the year 2021 will rank among the 10 warmest years on record.</span></span></span></span></span></span></p><p><span><span><span><span><span><span>This <span>monthly summary</span>, developed by scientists at NOAA’s </span></span></span></span></span></span><a href="https://www.ncei.noaa.gov/" rel="nofollow"><span><span><span><span><span><u><span><span>National Centers for Environmental Information</span></span></u></span></span></span></span></span></a><span><span><span><span><span><span>, is part of the suite of climate services NOAA provides to government, business, academia and the public to support informed decision-making.</span></span></span></span></span></span></p><h2><span><span><span><strong><span><span>Monthly Global Temperature</span></span></strong></span></span></span></h2><p><span><span><span><span><span><span>The </span></span></span></span></span></span><a href="https://www.ncdc.noaa.gov/cag/global/time-series/globe/land_ocean/1/7/1880-2021" rel="nofollow"><span><span><span><span><span><u><span><span>July 2021 global surface temperature</span></span></u></span></span></span></span></span></a><span><span><span><span><span><span> was 1.67°F (0.93°C) above the 20th-century average of 60.4°F (15.8°C) — the highest for July in the 142-year record. This value was only 0.02°F (0.01°C) higher than the previous record set in 2016, and tied in 2019 and 2020. The seven warmest Julys have all occurred since 2015. July 2021 marked the 45th consecutive July and the 439th consecutive month with temperatures, at least nominally, above the 20th-century average.</span></span></span></span></span></span></p><p><span><span><span><span><span><span>Climatologically, July is the warmest month of the year. With July 2021 the warmest July on record, at least nominally, this resulted in the warmest month on record for the globe.</span></span></span></span></span></span></p><p><span><span><span><span><span><span>The </span></span></span></span></span></span><a href="https://www.ncdc.noaa.gov/cag/global/time-series/globe/land/1/7/1880-2021" rel="nofollow"><span><span><span><span><span><u><span><span>global land-only surface temperature for July 2021</span></span></u></span></span></span></span></span></a><span><span><span><span><span><span> was 2.52°F (1.40°C) above average and the highest July for the land-only surface temperature on record, surpassing the previous record set in 2020 by 0.31°F (0.17°C). The warmth across the global land surfaces was mainly driven by the very warm Northern Hemisphere land, which also had its highest July temperature at 2.77°F (1.54°C) above average.</span></span></span></span></span></span></p><p><span><span><span><span><span><span>During the month, temperatures were much warmer than average across parts of North America, Europe, northern and southern South America, northern Africa, the southern half of Asia, Oceania and parts of the western and northern Pacific, the Atlantic and Indian Oceans. Temperatures were cooler than average across parts of northeastern Canada, the south-central and southeastern contiguous U.S., southern Africa, northern Russia and the southeastern Pacific Ocean.</span></span></span></span></span></span></p><p><span><span><span><span><span><span>Regionally, Asia had its warmest July on record, besting the previous record set in 2010. Europe had its second-warmest July (tied with 2010) on record, trailing behind the record warm July set in 2018. Meanwhile, North America, South America, Africa and Oceania had a top-10 warm July on record.</span></span></span></span></span></span></p><h2><span><span><span><strong><span><span>July Tropical Cyclones</span></span></strong></span></span></span></h2><p><span><span><span><span><span><span>In the Atlantic basin, one named storm formed during July 2021. Hurricane Elsa, which formed on July 1, was the earliest-forming fifth named storm in the Atlantic basin. The Eastern North and Western Pacific basins each had three named storms. Overall, the global tropical cyclone activity from January-July was above-normal for named storms.</span></span></span></span></span></span></p><h2><span><span><span><strong><span><span>July Sea Ice </span></span></strong></span></span></span></h2><figure role="group"><div data-embed-button="media" data-entity-embed-display="view_mode:media.wide_full_width_image_no_crop" data-entity-type="media" data-entity-uuid="c136e401-8ac2-4bae-9a92-6a0a7da3421d" data-langcode="en"></div><figcaption>July 2021 Arctic (left) and Antarctic (right) sea ice extent maps</figcaption></figure><p><span><span><span><span><span><span>The July 2021 Arctic sea ice extent was 687,000 square miles below the 1981-2010 average and was the fourth-smallest July sea ice extent in the 43-year record, according to an analysis by the </span></span></span></span></span></span><a href="https://nsidc.org/" rel="nofollow"><span><span><span><span><span><u><span><span>National Snow and Ice Data Center</span></span></u></span></span></span></span></span></a><span><span><span><span><span><span> (NSIDC) using data from NOAA and NASA. Only Julys of 2012, 2019 and 2020 had a smaller sea ice extent in July. The 10 smallest July sea ice extents for the Arctic have occurred since 2007.</span></span></span></span></span></span></p><p><span><span><span><span><span><span>The Antarctic sea ice extent during July 2021 was above average. The July Antarctic sea ice extent was 6.32 million square miles — the largest July sea ice extent since 2015 and the eighth highest in the 43-year record. </span></span></span></span></span></span></p><p><span><span><span><span><span><span><span>For a more complete summary of climate conditions and events, see our </span></span></span></span></span></span></span><a href="https://www.ncdc.noaa.gov/sotc/global/202107" rel="nofollow"><span><span><span><span><span><span><u><span><span>July 2021 Global Climate Report</span></span></u></span></span></span></span></span></span></a><span><span><span><span><span><span><span>.</span></span></span></span></span></span></span></p></div></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 16:38:56 +0000</pubDate>
+      <source>https://www.ncei.noaa.gov/news/global-climate-202107</source>
+    </item>
   </channel>
 </rss>
