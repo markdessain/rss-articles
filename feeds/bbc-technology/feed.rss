@@ -3,8 +3,8 @@
     <title>BBC News - Technology</title>
     <link>https://www.bbc.co.uk/news/</link>
     <description>BBC News - Technology</description>
-    <pubDate>Fri, 13 Aug 2021 08:11:07 +0000</pubDate>
-    <lastBuildDate>Fri, 13 Aug 2021 08:11:07 +0000</lastBuildDate>
+    <pubDate>Fri, 13 Aug 2021 09:09:39 +0000</pubDate>
+    <lastBuildDate>Fri, 13 Aug 2021 09:09:39 +0000</lastBuildDate>
     <image>
       <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
       <title>BBC News - Technology</title>
@@ -727,6 +727,16 @@
       <guid>https://www.bbc.co.uk/news/world-asia-58196575</guid>
       <pubDate>Fri, 13 Aug 2021 04:14:39 +0000</pubDate>
       <source>https://www.bbc.co.uk/news/world-asia-58196575</source>
+    </item>
+    <item>
+      <title>Green aviation: Electric powered plane trialled over Orkney</title>
+      <link>https://www.bbc.co.uk/news/uk-scotland-58180367</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/bbc-technology/https___www_bbc_co_uk_news_uk-scotland-58180367/image.jpg" /> 
+<div id="readability-page-1" class="page"><div aria-live="polite"><div><p>Scotland&#39;s first hybrid-electric plane has taken to the skies at a new test centre in Orkney.</p><p>US-based aviation company Ampaire has replaced one of the piston engines in their retrofitted Cessna aircraft with a compact electric motor.</p><p>Ampaire believes hybrid technology could pave the way to flying inter-island and short haul routes with greener technologies.</p><p>After initial test flights in Hawaii, the aircraft was shipped to Scotland for its first flight across open water. A 90-minute rapid charge of the plane&#39;s battery can provide around an hour of flight.</p></div></div></div>]]></content:encoded>
+      <guid>https://www.bbc.co.uk/news/uk-scotland-58180367</guid>
+      <pubDate>Thu, 12 Aug 2021 05:10:50 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/uk-scotland-58180367</source>
     </item>
   </channel>
 </rss>
