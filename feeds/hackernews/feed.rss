@@ -19825,5 +19825,590 @@ These resources have already proven useful for many digital nomads, perpetual tr
       <pubDate>Fri, 13 Aug 2021 13:03:27 +0000</pubDate>
       <source>https://unherd.com/thepost/the-most-vaccine-hesitant-education-group-of-all-phds/?=frpo</source>
     </item>
+    <item>
+      <title>Launch HN: FirstIgnite (YC S21) – Matching scientists with relevant businesses</title>
+      <link>https://news.ycombinator.com/item?id=28168813</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div><td colspan="2"></td><td>Hi, HN! I’m Cody Pawlowski and my co-founder is Chase Bonhag and we’re FirstIgnite (https://firstignite.com/). We help researchers at universities connect with companies interested in funding or licensing their research.<p>Currently, a vast majority of all research goes uncommercialized. This includes everything from new cancer therapies to energy storage improvements and other solutions to universal problems. By connecting research to relevant companies, we increase the probability that research will be commercialized.</p><p>We met while I was running a natural language processing startup at the University of Illinois at Urbana-Champaign. Chase was working at Illinois Ventures, the venture capital arm of the university. U of I conducted over $900M a year worth of research, much of which was going uncommercialized.  Because university research portfolios are massive, diverse, and highly complex, it&#39;s nearly impossible to figure out which companies to partner with for which research. We realized that we could apply NLP to the problem because it was written in scientific text via patents and publications!</p><p>We started by taking unpaid pilots from universities in fall of 2019. Seven schools gave us two pieces of research to match to industry. For 6 of the schools, we completely failed and were unable to connect any of their research to companies. But for one school, we managed to connect both of their technologies to 5 companies each. We learned that patent databases had company interest and activity in text format that matched well to research publications.  We also learned that matching to patents was not quite enough, but if we also looked at the competitors of those holding patents we were able to identify a large enough top-of-funnel to find success on almost any topic.  We built our initial product and process around that approach.</p><p>Researchers upload scientific documents describing their research and receive tailored lists of companies interested in that research. Using natural language processing and graph theory, our software analyzes the texts and matches their research to industry activity consisting of nearly 3 billion relationships stored across public and proprietary data.  We’ve had success mainly leveraging USPTO full-text and competitive intelligence data, with plans to bring in European patents, SBIR, clinical trials, job postings, corporate filings, press releases, social media, and any other text that hints at what a corporation is interested in.</p><p>What’s unusual is that we’re the only solution that allows you to upload a piece of research and receive a tailored list of companies and leads to contact.  We call this active marketing—helping researchers get in touch with those who are most likely to move their research forward—as opposed to a passive marketing approach, where researchers upload their technologies in hopes of companies reaching out to them (of course, they usually don’t). Our approach results in an average of 5 meetings with companies per scientific document vs our competitors&#39; passive approach which is lucky to result in 1 meeting.  We currently make money by selling software and service subscriptions to universities.</p><p>Some examples: Professor Chou at the Children&#39;s Hospital of Philadelphia uses our tool to identify companies working on cancer therapies and connect with them about potential research partnerships.  Carnegie Mellon University uses our software to market &#34;moonshot&#34; research topics to companies to identify future funding partners. UC Davis uses our tool to identify companies interested in licensing their intellectual property.</p><p>We’re really excited to share FirstIgnite with this community.  We’re open to all thoughts and ideas, we’d love to learn about experiences you’ve had working on research projects, things you know about university research or corporate R&amp;D, or anything else that can help us.  Thank you!</p></td></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:51:41 +0000</pubDate>
+      <source>https://news.ycombinator.com/item?id=28168813</source>
+    </item>
+    <item>
+      <title>Interactive Linear Algebra (2019)</title>
+      <link>http://textbooks.math.gatech.edu/ila/index.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+
+<p>Dan Margalit, Joseph Rabinoff</p>
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:03:22 +0000</pubDate>
+      <source>http://textbooks.math.gatech.edu/ila/index.html</source>
+    </item>
+    <item>
+      <title>Combatting online racist abuse: an update following the Euros</title>
+      <link>https://blog.twitter.com/en_gb/topics/company/2020/combatting-online-racist-abuse-an-update-following-the-euros</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___blog_twitter_com_en_gb_topics_company_2020_combatting-online-racist-abuse-an-update-following-the-euros/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>In February this year, we <a href="https://blog.twitter.com/en_gb/topics/company/2020/no-room-for-racist-behaviour-on-twitter-">outlined</a> the steps we have been taking to combat racist abuse on Twitter. We condemn racism in all its forms - our aim is to become the world’s most diverse, inclusive, and accessible tech company, and lead the industry in stopping such abhorrent views being seen on our platform. We were appalled by those who targeted players from the England football team with racist abuse following the Euro 2020 Final. Having completed an initial review of our data related to Euros 2020, we wanted to share an update publicly and transparently. Our aim is to contribute to the shared understanding of these behaviours online and provide an overview of some of the steps we put in place since our initial blogpost was published in February. </p> 
+<p><b>Action we took to protect the Euro 2020 conversation</b></p> 
+<p>In advance of the Euro 2020 Tournament, alongside our wider work with the football authorities, we put in place specific plans to quickly identify and remove racist, abusive Tweets targeting the England team and wider Euros conversation. </p> 
+<p>Following the appalling abuse targeting members of the England team on the night of the Final, our automated tools, which had been in place throughout Euro 2020, kicked in immediately to identify and remove 1622 Tweets during the Final and in the 24 hours that followed. </p> 
+<p>While our automated tools are now able to detect a majority of the abusive Tweets we remove, we also continue to take action from reports. New vectors of abuse are ever-emerging, which means our system is having to adapt on an ongoing basis. Therefore, to supplement our efforts, trusted partners are able to report any further Tweets directly to our front-line enforcement teams. In total, over 90% of the Tweets we removed for abuse over this period were detected proactively.</p> 
+<p>We continued to remove violative content as it was posted on the platform in the days that followed. By 14th July, 1,961 Tweets had been removed proactively following the Final, with a total of 126 removed from reports. </p> 
+<p><b>99% of the accounts suspended were not anonymous</b></p> 
+<p>Following the Tournament, we undertook our own analysis of the Tweets removed and accounts suspended. This is to ensure we have a comprehensive understanding of the behaviour we encountered and the users involved, and that the steps we take going forwards can be as effective as possible. While that work is continuing, we wanted to share some initial findings.</p> 
+<p>Given the international nature of the Euro 2020 Final, it was no surprise to see that the Tweets we removed came from all over the world. However, while many have quite rightly highlighted the global nature of the conversation, it is also important to acknowledge that <u>the UK was - by far - the largest country of origin for the abusive Tweets we removed on the night of the Final and in the days that followed.</u> </p> 
+<p>We also wanted to better understand the users we had permanently suspended over the course of the tournament. While we have always welcomed the opportunity to hear ideas from partners on what will help, including from within the football community, our data suggests <u>that ID verification would have been unlikely to prevent the abuse from happening - as the accounts we suspended themselves were not anonymous.</u> Of the permanently suspended accounts from the Tournament, 99% of account owners were identifiable.</p> 
+<p>We also continue our work on reducing the visibility of this kind of content, ensuring fewer people see it. Indeed, <u>only 2% of the Tweets we removed following the Final generated more than 1000 Impressions</u> (Impressions are the number of views a Tweet receives before being removed). This highlights the importance for us of focusing even further on finding ways to make sure these Tweets are seen by as few people as possible - or prevent them from being sent in the first place.  </p> 
+<p>Racist behaviour does not reflect the vast majority of people who use Twitter to participate in vibrant conversations about football in the UK. Critically, <u>the word “proud” was used more often on the day following the Final than on any other day this year</u>, as people expressed their support for the England team.</p>
+
+<p>This Tweet is unavailable</p>
+
+</div><div><p><b>Steps we have taken since our update in February</b></p> 
+<p>We have been taking a number of wider steps since our last update in February to combat racist abuse targeting the football community:</p> 
+<ul> 
+ <li>We heard directly the concerns shared by players and their representatives over several meetings, and have continued to participate in Kick It Out’s Football Online Hate Working Group. We have shared regular updates with the football community on the trends we’re seeing and data on the action we have taken.</li> 
+ <li>We have further improved our proactive tools to identify racist abuse, such that we have been able to swiftly identify more Tweets than ever before targeting the UK football community.</li> 
+</ul> 
+<p>Indeed, for the period 19th February (when we published this blogpost) to 1st June,<u> we removed just under 13,000 Tweets - of which 95% were identified proactively using technology.</u></p> 
+<p><b>Our continued commitment to curbing this societal issue</b></p> 
+<p>Our aim is always that Twitter be used as a vehicle for every person to communicate safely - be it in highlighting injustice, or giving a voice to those communities who have been historically under-represented. There is no place for racist abuse on Twitter, and we are determined to do all we can to stop these abhorrent views and behaviours from being seen on our platform</p> 
+<p>We can do better. And we fully acknowledge our responsibility to ensure the service is safe - not just for the football community, but for all users. With that in mind:</p> 
+<ul> 
+ <li>We will shortly be trialling the development of a new product feature that temporarily autoblocks accounts using harmful language, such that they’re stopped from being able to interact with your account.</li> 
+ <li>We are also continuing to roll out our replies prompts, which encourage people to revise their replies to Tweets when it looks like the language they use could be harmful. We found that, if prompted, 34% of people revised their initial reply or decided not to send their reply at all and, after being prompted once, people composed on average 11% fewer potentially harmful replies in the future. </li> 
+</ul> 
+<p>However, we also have to be honest that the progress we will be able to make alone would be magnified by greater interventions across the board. As long as racism exists offline, we will continue to see people try and bring these views online - it is a scourge technology cannot solve alone. Everyone has a role to play - including the government and the football authorities - and ​​we will continue to call for a collective approach to combat this deep societal issue.</p> 
+
+
+<p>This Tweet is unavailable</p>
+
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:05:38 +0000</pubDate>
+      <source>https://blog.twitter.com/en_gb/topics/company/2020/combatting-online-racist-abuse-an-update-following-the-euros</source>
+    </item>
+    <item>
+      <title>Facebook bullies AlgorithmWatch – Instagram monitoring project</title>
+      <link>https://algorithmwatch.org/en/instagram-research-shut-down-by-facebook/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___algorithmwatch_org_en_instagram-research-shut-down-by-facebook_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+<p>On 3 March 2020, AlgorithmWatch launched a project to monitor Instagram’s newsfeed algorithm. Volunteers could install a browser add-on that scraped their Instagram newsfeeds. Data was sent to a database we used to study how Instagram prioritizes pictures and videos in a user’s timeline.</p>
+
+
+
+<p>Over the last 14 months, about 1,500 volunteers installed the add-on. With their data, we were able to show that Instagram likely <a rel="noreferrer noopener" href="https://algorithmwatch.org/en/story/instagram-algorithm-nudity/" target="_blank">encouraged</a> content creators to post pictures that fit specific representations of their body, and that politicians were likely to <a rel="noreferrer noopener" href="https://algorithmwatch.org/en/instagram-algorithm-politicians/" target="_blank">reach a larger audience</a> if they abstained from using text in their publications (Facebook denied both claims). Although we could not conduct a precise audit of Instagram’s algorithm, this research is among the most advanced studies ever conducted on the platform. The project was supported by the European Data Journalism Network and by the Dutch foundation SIDN. It was done in partnership with <a rel="noreferrer noopener" href="https://www.mediapart.fr/journal/international/150620/sur-instagram-la-prime-secrete-la-nudite-se-deshabiller-pour-gagner-de-l-audience" target="_blank">Mediapart</a> in France, <a rel="noreferrer noopener" href="https://web.archive.org/web/20210303082809/https:/nos.nl/artikel/2371016-het-algoritme-van-instagram-verslaan-best-lastig-voor-een-politicus.html" target="_blank">NOS</a>, <a rel="noreferrer noopener" href="https://www.groene.nl/artikel/de-poppetjes-zijn-op-instagram-belangrijker-dan-de-inhoud" target="_blank">Groene Amsterdammer</a> and <a rel="noreferrer noopener" href="https://pointer.kro-ncrv.nl/politieke-campagnes-met-veel-selfies-worden-beloond-door-het-instagram-algoritme" target="_blank">Pointer</a> in the Netherlands, <a rel="noreferrer noopener" href="https://www.sueddeutsche.de/wahlfilter" target="_blank">Süddeutsche Zeitung</a> in Germany and was covered by dozens of news outlets over the world.</p>
+
+
+
+<p>We asked Facebook for comments on our findings prior to publication. The company did not answer our questions but told us on 28 May 2020 that our “research [was] flawed in a number of ways”. On 2 March 2021, they claimed that they &#34;found a number of issues with [our] methodology&#34;. They did not list the flaws and issues in question, but we assumed that they carried out a thorough review of our methods and tools prior to issuing such strong statements.</p>
+
+
+
+<h2 id="Weaponizing-the-Terms-of-Service">Weaponizing the Terms of Service</h2>
+
+
+
+<p>This is why we were very surprised when, in early May 2021, Facebook asked us for a meeting. Our project, said Facebook, breached their Terms of Service, which prohibit the automated collection of data. They would have to “mov[e] to more formal engagement” if we did not “resolve” the issue on their terms – a thinly veiled threat.</p>
+
+
+
+<p>Section 3.2.3 of their Terms indeed states that one “may not access or collect data from [Facebook’s products] using automated means”. However, we only collected data related to content that Facebook displayed to the volunteers who installed the add-on. In other words, users of the plug-in where only accessing <em>their own feed</em>, and sharing it with us for research purposes.</p>
+
+
+
+<p>Facebook also claimed that our system violated the GDPR because some of the collected data stemmed from users who never agreed to the project, whose pictures were shown in the timeline of our volunteers. However, <a href="https://github.com/algorithmwatch/tami-tools/blob/main/backend/data_donors/serializers.py#L88-L89" target="_blank" rel="noreferrer noopener">a cursory look at the source code</a>, which we open-sourced, show that such data was deleted immediately when arriving at our server.</p>
+
+
+
+<p>We designed our add-on with great care so that Facebook cannot identify and prosecute our volunteers. However, Facebook’s reaction shows that any organization that attempts to shed light on one of their algorithms is under constant threat of being sued. Given that Facebook’s Terms of Service can be updated at their discretion (with 30 days’ notice), the company could forbid any ongoing analysis that aims at increasing transparency, simply by changing its Terms.</p>
+
+
+
+<p>On 13 July, we took the decision to terminate the project and delete any collected data (media partners still have fully anonymized versions of the data). Ultimately, an organization the size of AlgorithmWatch cannot risk going to court against a company valued at one trillion dollars.</p>
+
+
+
+<h2 id="Speaking-out">Speaking out</h2>
+
+
+
+<p>We decided to come public with this story after Facebook <a href="https://techcrunch.com/2021/08/04/facebook-ad-observatory-nyu-researchers/" target="_blank" rel="noreferrer noopener">shut down</a> the accounts of researchers working on the Ad Observatory at New York University (NYU). They built a browser add-on that collects data about advertisements on the platform. Their set-up is used by many researchers, including some from the <a href="https://www.viralityproject.org/" target="_blank" rel="noreferrer noopener">Virality Project</a>, which measures misinformation on Covid vaccines.</p>
+
+
+
+<p>Facebook <a href="https://about.fb.com/news/2021/08/research-cannot-be-the-justification-for-compromising-peoples-privacy/" target="_blank" rel="noreferrer noopener">claimed</a> that they offered to provide researchers with the data needed, and that the browser add-on compromised user privacy, citing an order by the Federal Trade Commission (FTC), the US consumer protection agency. However, the FTC called this claim “inaccurate” in a strongly-worded <a href="https://www.ftc.gov/news-events/blogs/consumer-blog/2021/08/letter-acting-director-bureau-consumer-protection-samuel" target="_blank" rel="noreferrer noopener">statement</a> released just a day after it was revealed that Facebook blocked the Ad Observatory. The FTC said it supports NYU’s project and encourages Facebook to exempt good-faith researchers from monolithic and self-serving interpretations of privacy law.</p>
+
+
+
+<p>This is not the first time that Facebook aggressively goes against organizations that try to empower users to be more autonomous in their use of social media. In August 2020, it <a href="https://www.eff.org/files/2020/11/20/eff_letter_to_facebook_re_friendly.pdf" target="_blank" rel="noreferrer noopener">threatened</a> Friendly, a mobile app that lets users decide on how to sort their newsfeed. In April 2021, it <a href="https://www.reddit.com/r/androidapps/comments/mkruz4/what_happened_to_facebook_wrappers_swipe_and/" target="_blank" rel="noreferrer noopener">forced</a> several apps that allowed users to access Facebook on their terms out of the Play Store. There are probably more cases of bullying that we do not know about. We hope that by coming forward, more organizations will speak up about their experiences.</p>
+
+
+
+<h2 id="Ensuring-actual-transparency">Ensuring actual transparency</h2>
+
+
+
+<p>While Facebook’s new interest in user privacy might surprise some (after all, its founder said that it was not a “<a href="https://www.theguardian.com/technology/2010/jan/11/facebook-privacy" target="_blank" rel="noreferrer noopener">social norm</a>” anymore), its claims of wanting to help researchers and civil society organizations could fool lawmakers into taking them at face value.</p>
+
+
+
+<p>Researchers cannot rely on data provided by Facebook because the company cannot be trusted. The company failed to act on its own commitments at least four times since the beginning of the year, according to <em>The Markup</em>, a non-profit news organization that runs its own monitoring effort called <a href="https://themarkup.org/series/citizen-browser" target="_blank" rel="noreferrer noopener">Citizen Browser</a>. In January for instance, in the wake of the Trumpist insurgency in the US, the company promised that it would stop making recommendations to join political groups. It <a href="https://themarkup.org/citizen-browser/2021/06/24/after-repeatedly-promising-not-to-facebook-keeps-recommending-political-groups-to-its-users" target="_blank" rel="noreferrer noopener">turned out that</a>, six months later, it still did.</p>
+
+
+
+<p>Even Facebook’s Ad Library, one of the company’s flagship transparency projects, suffered “bugs” that harmed its credibility. In December 2019, a few days before the United Kingdom’s general election, almost half of the British advertisements stored in the Library <a href="https://www.politico.eu/article/facebook-political-ads-general-election-united-kingdom/" target="_blank" rel="noreferrer noopener">disappeared</a>.</p>
+
+
+
+<p>There is no reason to believe that Facebook would provide usable data, were researchers to replace their independently collected data with the company’s. AlgorithmWatch also rebuked Facebook’s claim that data access cannot be granted in a privacy-preserving way in a <a rel="noreferrer noopener" href="https://algorithmwatch.org/en/governing-platforms-ivir-study-june-2020/" target="_blank">study</a> published in June 2020. Intermediary institutions could be established with the mandate to enable such data access frameworks for public interest research, as we argued in our <a rel="noreferrer noopener" href="https://algorithmwatch.org/en/submission-digital-services-act-dsa/" target="_blank">response</a> to the European Commission’s Digital Services Act in September 2020. Currently AlgorithmWatch together with some partners is investigating Youtube&#39;s recommendation algorithm with the <a href="https://dataskop.net/overview-in-english/" data-type="URL" data-id="https://dataskop.net/overview-in-english/" target="_blank" rel="noreferrer noopener">data donation project DataSkop.</a></p>
+
+
+
+<h2 id="Urgent-need">Urgent need</h2>
+
+
+
+<p>Shedding light on Instagram’s algorithms is urgently needed. In early May, Colombian users <a href="https://www.pulzo.com/tecnologia/instagram-elimina-historias-e-imagenes-sobre-protestas-colombia-PP1049295" target="_blank" rel="noreferrer noopener">noticed</a> that the content they posted in relation to ongoing protests in the country tended to disappear. The same <a href="https://www.middleeasteye.net/news/sheikh-jarrah-israel-palestine-activists-social-media-deleted-content-concerns" target="_blank" rel="noreferrer noopener">happened</a> in Palestine and Israel where findings hint at systematic efforts to remove certain types of Palestinian content. Instagram <a href="https://mobile.twitter.com/InstagramComms/status/1390818110664593409/photo/1" target="_blank" rel="noreferrer noopener">said</a> the “issue” had been fixed a few days later and that they have never intended to silence protesters. However, subsequent reporting by BuzzFeed News <a href="https://www.buzzfeednews.com/article/ryanmac/instagram-facebook-censored-al-aqsa-mosque" target="_blank" rel="noreferrer noopener">showed</a> that more was at play and that moderation teams could arbitrarily silence communities (in this case, Facebook considered the Al Aqsa mosque to be a terrorist organization). Instagram <a href="https://www.instagram.com/p/CSIOjxcJ8Vv/" target="_blank" rel="noreferrer noopener">revealed</a> last week that content about ‘political issues&#39; was de-prioritized in its &#39;Reels’ feature (a TikTok-like video format), but the definition of what is political is <a href="https://www.facebook.com/business/help/214754279118974?id=288762101909005" target="_blank" rel="noreferrer noopener">flimsy</a>.</p>
+
+
+
+<p>Users have reported other instances of disappearing posts and shadowbans (when user content is not deleted, but not shown to others). Without independent public interest research and rigorous controls from regulators, it is impossible to know whether Instagram’s algorithms favors specific political opinions over others. Previous reporting in the United States <a href="https://www.buzzfeednews.com/article/ryanmac/mark-zuckerberg-joel-kaplan-facebook-alex-jones" target="_blank" rel="noreferrer noopener">showed</a> that Facebook took some product decisions in order to protect alt-right figures.</p>
+
+
+
+<p>Large platforms play an oversized, and largely unknown, role in society, from identity-building to voting choices. Only by working towards more transparency can we ensure, as a society, that there is an evidence-based debate on the role and impact of large platforms – which is a necessary step towards holding them accountable. Only if we understand how our public sphere is influenced by their algorithmic choices, can we take measures towards ensuring they do not undermine individuals’ autonomy, freedom, and the collective good.</p>
+
+
+
+<p><strong>European lawmakers have the chance, with the Digital Services Act, to ensure that public interest researchers, including academia, journalists, and civil society organizations, have access to the data we need from large platforms. <a rel="noreferrer noopener" href="https://algorithmwatch.org/en/defend-public-interest-research-on-platforms/" data-type="URL" data-id="https://algorithmwatch.org/en/defend-public-interest-research-on-platforms/" target="_blank">Read and sign on to our demands on how they could do just that.</a></strong></p>
+
+
+
+<figure><a href="https://algorithmwatch.org/en/defend-public-interest-research-on-platforms/"></a></figure>
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:26:10 +0000</pubDate>
+      <source>https://algorithmwatch.org/en/instagram-research-shut-down-by-facebook/</source>
+    </item>
+    <item>
+      <title>ADE Detected in the Vaccinated (Preprint)</title>
+      <link>https://pubmed.ncbi.nlm.nih.gov/34384810/</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___pubmed_ncbi_nlm_nih_gov_34384810_/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="article-details">
+  
+  
+
+  
+
+  
+
+
+
+  
+
+
+<header id="heading">
+  
+    
+      <div id="full-view-heading">
+        
+          <div>
+            
+
+            
+  
+    <div>
+      
+<p><span>. </span><span>2021 Aug 9;S0163-4453(21)00392-3.</span>
+
+    </p></div>
+  
+  
+    
+      <p><span>
+        doi: 10.1016/j.jinf.2021.08.010.
+      </span>
+    
+    
+      <span>
+        Online ahead of print.
+      </span>
+    
+    
+    
+  
+
+
+          </p></div>
+          
+
+
+
+          
+
+          
+
+        
+        
+          <p>
+  
+
+  
+    Affiliations
+  
+
+  
+    
+  
+</p>
+        
+        
+          <div id="expanded-authors" aria-hidden="true">
+            
+
+
+  
+    <div id="full-view-expanded-authors">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <div>
+          <h3>
+            Affiliation
+          </h3>
+          <ul>
+            
+              <li data-affiliation-id="affiliation-1"><sup>1</sup> INSERM UMR_S 1072, 13015 Marseille, France; Aix-Marseille Université, 13015 Marseille, France.</li>
+            
+          </ul>
+        </div>
+      
+
+      
+
+      
+    </div>
+  
+
+
+          </div>
+        
+        
+  
+    <ul id="full-view-identifiers">
+      
+        <li>
+          <span>
+  <span>
+    
+      PMID:
+    
+  </span>
+
+  
+    <strong title="PubMed ID">34384810</strong>
+  
+
+  
+</span>
+
+        </li>
+      
+        <li>
+          <span>
+  <span>
+    
+      DOI:
+    
+  </span>
+
+  
+    <a target="_blank" rel="noopener" ref="linksrc=article_id_link&amp;article_id=10.1016/j.jinf.2021.08.010&amp;id_type=DOI" href="https://doi.org/10.1016/j.jinf.2021.08.010" data-ga-category="full_text" data-ga-action="DOI">
+      10.1016/j.jinf.2021.08.010
+    </a>
+  
+
+  
+</span>
+
+        </li>
+      
+    </ul>
+  
+
+
+        
+        
+      </div>
+      <div id="short-view-heading">
+        
+
+        
+
+
+
+        
+
+        <p><span>
+    
+      
+        <span><span>Nouara Yahi</span><span> et al.</span></span>
+      
+    
+  </span>
+  
+    
+      <span>
+        J Infect<span>.</span>
+      </span>
+      
+        <span>
+          <time datetime="2021">2021</time><span>.</span>
+        </span>
+      
+    
+  
+</p>
+
+        
+        
+        <div id="full-article-details" aria-hidden="true">
+          
+            <div>
+              
+  
+    <div>
+      
+<p><span>. </span><span>2021 Aug 9;S0163-4453(21)00392-3.</span>
+
+    </p></div>
+  
+  
+    
+      <p><span>
+        doi: 10.1016/j.jinf.2021.08.010.
+      </span>
+    
+    
+      <span>
+        Online ahead of print.
+      </span>
+    
+    
+    
+  
+
+
+            </p></div>
+          
+
+          
+          
+          
+            
+
+
+  
+    <div id="short-view-expanded-authors">
+      
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <div>
+          <h3>
+            Affiliation
+          </h3>
+          <ul>
+            
+              <li data-affiliation-id="affiliation-1"><sup>1</sup> INSERM UMR_S 1072, 13015 Marseille, France; Aix-Marseille Université, 13015 Marseille, France.</li>
+            
+          </ul>
+        </div>
+      
+
+      
+
+      
+    </div>
+  
+
+
+          
+          
+  
+    <ul id="short-view-identifiers">
+      
+        <li>
+          <span>
+  <span>
+    
+      PMID:
+    
+  </span>
+
+  
+    <strong title="PubMed ID">34384810</strong>
+  
+
+  
+</span>
+
+        </li>
+      
+        <li>
+          <span>
+  <span>
+    
+      DOI:
+    
+  </span>
+
+  
+    <a target="_blank" rel="noopener" ref="linksrc=article_id_link&amp;article_id=10.1016/j.jinf.2021.08.010&amp;id_type=DOI" href="https://doi.org/10.1016/j.jinf.2021.08.010" data-ga-category="full_text" data-ga-action="DOI">
+      10.1016/j.jinf.2021.08.010
+    </a>
+  
+
+  
+</span>
+
+        </li>
+      
+    </ul>
+  
+
+
+          
+        </div>
+      </div>
+    
+  
+</header>
+
+  
+
+
+
+  
+
+  
+
+
+
+  <div id="abstract">
+    
+      <h2>
+        Abstract
+        
+      </h2>
+      
+        
+          
+            <p>
+      
+      Antibody dependent enhancement (ADE) of infection is a safety concern for vaccine strategies. In a recent publication, Li et al. (Cell 184 :1-17, 2021) have reported that infection-enhancing antibodies directed against the N-terminal domain (NTD) of the SARS-CoV-2 spike protein facilitate virus infection in vitro, but not in vivo. However, this study was performed with the original Wuhan/D614G strain. Since the Covid-19 pandemic is now dominated with Delta variants, we analyzed the interaction of facilitating antibodies with the NTD of these variants. Using molecular modelling approaches, we show that enhancing antibodies have a higher affinity for Delta variants than for Wuhan/D614G NTDs. We show that enhancing antibodies reinforce the binding of the spike trimer to the host cell membrane by clamping the NTD to lipid raft microdomains. This stabilizing mechanism may facilitate the conformational change that induces the demasking of the receptor binding domain. As the NTD is also targeted by neutralizing antibodies, our data suggest that the balance between neutralizing and facilitating antibodies in vaccinated individuals is in favor of neutralization for the original Wuhan/D614G strain. However, in the case of the Delta variant, neutralizing antibodies have a decreased affinity for the spike protein, whereas facilitating antibodies display a strikingly increased affinity. Thus, ADE may be a concern for people receiving vaccines based on the original Wuhan strain spike sequence (either mRNA or viral vectors). Under these circumstances, second generation vaccines with spike protein formulations lacking structurally-conserved ADE-related epitopes should be considered.
+    </p>
+          
+        
+      
+
+      
+    
+
+    
+
+    
+
+  </div>
+
+
+  
+  
+
+
+  <p id="copyright">
+    Copyright © 2021. Published by Elsevier Ltd.
+  </p>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  
+
+
+
+  
+
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:49:09 +0000</pubDate>
+      <source>https://pubmed.ncbi.nlm.nih.gov/34384810/</source>
+    </item>
+    <item>
+      <title>The age of the à la carte internet</title>
+      <link>https://www.axios.com/internet-subscription-paywall-streaming-d4b7e708-14f4-4677-813b-a8dbcbe3c7ae.html</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_axios_com_internet-subscription-paywall-streaming-d4b7e708-14f4-4677-813b-a8dbcbe3c7ae_html/image.jpg" /> 
+<div id="readability-page-1" class="page"><div><p>Media that were once free or easily accessible — including news websites, podcasts, TV shows and games — rushed to get behind paywalls during the pandemic.</p><p><strong>Why it matters: </strong>This accelerating trend is carving the internet into many niche audiences, Balkanizing our collective media diets. </p><ul><li>Just as cable introduced a paid layer to television in the 1980s, the internet&#39;s paid layer is taking shape 40 years later. </li></ul><p><strong>Driving the news: </strong>New data from Piano, a company that specializes in publisher subscriptions, finds that news publisher paywalls took off in 202o and have seen sustained gains since. </p><ul><li>According to Piano SVP Michael Silberman, the rate at which users saw a paid offer or were asked to pay for content on a news website doubled during COVID.</li><li>Publicly reported subscription numbers confirm that trend. For the first time last year, newspapers made more money from subscriptions than from advertising, according to Pew Research Center.</li></ul><p><strong>The big picture: </strong>Users are running into paywalls across a range of media, discovering they must now pay for content that was once free.</p><ul><li>In addition to news sites, readers must also pay to read individual writers who are leaving established news organizations for independent writing platforms like Substack, Ghost and Twitter&#39;s Revue. </li><li>A cable subscription will no longer get you access to most of your favorite shows — you’ll need to shell out for a smattering of different streaming services.</li><ul><li>Since March 2020, the number of consumers who said they are willing to pay for five or more streaming services increased from 9% to 16%, according to data from Magid&#39;s latest Video Entertainment Study. Fewer people said they were willing to spend money on just one service.</li></ul></ul><p>Even podcasts, traditionally the most open and freely available media via RSS feeds, are moving behind paywalls.</p><ul><li>Apple and Spotify both added subscription podcast features this year, competing with Wondery, which was recently purchased by Amazon, and Luminary. </li><li>Spotify has spent hundreds of millions of dollars paying for exclusive rights to a number of podcasts, including Alex Cooper&#39;s &#34;Call Her Daddy,&#34; Dax Shepard&#39;s &#34;Armchair Expert,&#34; and &#34;The Joe Rogan Experience.&#34;</li></ul><p><strong>Cloud gaming, </strong>the adult entertainment platform <a data-vars-link-text="OnlyFans" data-vars-click-url="https://www.axios.com/tippng-creators-twitter-facebook-clubhouse-2ec28b94-e3e9-4948-8262-2c3b8a2b2bb5.html" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://www.axios.com/tippng-creators-twitter-facebook-clubhouse-2ec28b94-e3e9-4948-8262-2c3b8a2b2bb5.html" target="_self">OnlyFans</a>, even <a data-vars-link-text="car features" data-vars-click-url="https://www.axios.com/auto-tech-subscription-tesla-bmw-6d1e2fd4-7335-4d58-b136-ed83a1888a35.html" data-vars-event-category="story" data-vars-sub-category="story" data-vars-item="in_content_link" href="https://www.axios.com/auto-tech-subscription-tesla-bmw-6d1e2fd4-7335-4d58-b136-ed83a1888a35.html" target="_self">car features</a> like heated seats — all are relying on a subscription model.</p><p><strong>Be smart: </strong>There&#39;s no clear consensus among experts about whether this fragmentation is a net good or bad for society. </p><ul><li>&#34;It is in some cases making some content less accessible, but I think there&#39;s still a huge amount of free content that&#39;s accessible. So is society being adversely affected by this? I think the resounding answer is no,&#34; said Jessica Lessin, CEO and founder of The Information, a high-end subscription news service. </li><li>&#34;Without subscription models, huge swaths of important public information simply wouldn’t be produced.&#34;</li></ul><p><strong>Others argue polarization</strong> will accelerate as like-minded consumers pay to read their favorite writers and it will be harder for content to escape that ecosystem. </p><ul><li>&#34;It&#39;s clear that mainstream quality media — whose audiences lean liberal — are definitely moving more and more toward paywalls especially at the national level,&#34; says Rodney Benson, chair of NYU&#39;s Department of Media, Culture, and Communication.</li></ul><p><strong>Yes, but:</strong> All things free remain hugely popular online. Many paywalled products offer some free portions. And online advertising, which supports free services, shows no sign of stopping its growth. </p><p><strong>The bottom line: </strong>The creation of the internet&#39;s paid layer may never crowd out free alternatives, but it threatens to leave society with even fewer shared reference points.</p></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 12:19:06 +0000</pubDate>
+      <source>https://www.axios.com/internet-subscription-paywall-streaming-d4b7e708-14f4-4677-813b-a8dbcbe3c7ae.html</source>
+    </item>
+    <item>
+      <title>Innovative hand cranked washing machine ships</title>
+      <link>https://www.bbc.co.uk/news/uk-england-somerset-58083385</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_bbc_co_uk_news_uk-england-somerset-58083385/image.jpg" /> 
+<div id="readability-page-1" class="page"><article><header></header><div data-component="image-block"><figure><figcaption><span>image caption</span>Navjot Sawhney set up the Washing Machine Project in 2018</figcaption></figure></div><div data-component="text-block"><p><b>The first batch of 30 hand-cranked washing machines, invented by a student for those living in poverty, has been sent to a camp in northern Iraq.</b></p></div><div data-component="text-block"><p>Former University of Bath student, Navjot Sawhney, set up the Washing Machine Project in 2018 after being inspired by a salad spinner.</p></div><div data-component="text-block"><p>Since then volunteers and businesses have given their time for free to help make the low-cost machines.</p></div><div data-component="text-block"><p>Mr Sawhney said he was &#34;so proud&#34; of what had been achieved.</p></div><div data-component="text-block"><p>He said up to 70% of the world&#39;s population do not have access to electric washing machines. </p></div><div data-component="text-block"><p>Working with humanitarian charity Care International he is now aiming to deliver 7,500 of his manual washer and dryers to those most in need in 10 countries including Lebanon, Kenya and India over the next three years.</p></div><div data-component="text-block"><p>Mr Sawhney came up with the idea after quitting his engineering job in Wiltshire to volunteer in India, where he saw the struggle of his next-door neighbour - a woman called Divya.  </p></div><div data-component="text-block"><p>&#34;It was through the frustration of seeing her daily struggles, hand washing her and her family&#39;s clothes, that I promised her a manual washing machine,&#34; he said.</p></div><div data-component="image-block"><figure><figcaption><span>image caption</span>The manual washer and dryer is designed to be &#34;robust, simple to use and easily repairable&#34;</figcaption></figure></div><div data-component="text-block"><p>Named the Divya, in her honour, the &#34;robust, simple to use and easily repairable&#34; machine has been tested in countries around the world.</p></div><div data-component="text-block"><p>Mr Sawhney said the reaction has been &#34;phenomenal&#34;.</p></div><div data-component="text-block"><p>&#34;Hand washing clothes is very time consuming, and nobody likes hand washing their clothes, so as a problem everybody understands it,&#34; he said.</p></div><div data-component="text-block"><p>&#34;We&#39;ve been so lucky. We&#39;ve had universities, companies and people who just want to give up their time, and that&#39;s such a humbling thought for me.&#34;</p></div><div data-component="image-block"><figure><figcaption><span>image caption</span>Matthew Mews said his company wanted to help make life easier for those living in poverty</figcaption></figure></div><div data-component="text-block"><p>Among those helping out is a Bristol design and fabrication firm, Huxlo, which makes all of the PVC and wooden parts.</p></div><div data-component="text-block"><p>&#34;We gave up our time to make this happen, because it&#39;s a really worthwhile project,&#34; said Matthew Mews, from Huxlo.</p></div><div data-component="text-block"><p>&#34;It&#39;s super rewarding to see this go from just a sketch to an actual product going out and helping people.&#34;</p></div><div data-component="text-block"><p>The University of Bath, where Mr Sawhney studied, has also helped turn his designs into reality.</p></div><div data-component="text-block"><p>&#34;We&#39;ve been able to throw some ideas back to him [Mr Sawhney] and very quickly come up with some solutions,&#34; said university technician Owen Rutter.</p></div><div data-component="image-block"><figure><figcaption><span>image caption</span>Owen Rutter, a technician at the University of Bath, said they have been &#34;on call&#34; to help with the project</figcaption></figure></div><div data-component="text-block"><p>Mr Sawhney, said he will be heading to Iraq at the beginning of September to help distribute the machines.</p></div><div data-component="text-block"><div><p><i>Follow BBC West on </i><a href="https://www.facebook.com/pointswest">Facebook</a><i>, </i><a href="https://twitter.com/bbcbristol">Twitter</a><i> and </i><a href="https://www.instagram.com/bbcwest">Instagram</a><i>. Send your story ideas to: </i><a href="mailto:bristol@bbc.co.uk">bristol@bbc.co.uk </a></p></div></div><section data-component="tag-list"></section><section data-component="see-alsos"><ul role="list" spacing="responsive"><li></li><li></li><li></li></ul></section><section data-component="related-internet-links"><ul role="list" spacing="responsive"><li></li><li></li></ul><p>The BBC is not responsible for the content of external sites.</p></section></article></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 13:17:06 +0000</pubDate>
+      <source>https://www.bbc.co.uk/news/uk-england-somerset-58083385</source>
+    </item>
   </channel>
 </rss>
