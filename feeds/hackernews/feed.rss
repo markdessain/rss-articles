@@ -18533,5 +18533,484 @@ const uint8_t image
       <pubDate>Fri, 13 Aug 2021 06:36:18 +0000</pubDate>
       <source>https://sentido-labs.com/en/library/cedro/202106171400/</source>
     </item>
+    <item>
+      <title>Jackson structured programming</title>
+      <link>https://en.wikipedia.org/wiki/Jackson_structured_programming</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___en_wikipedia_org_wiki_Jackson_structured_programming/image.jpg" /> 
+<div id="readability-page-1" class="page"><div id="mw-content-text" lang="en" dir="ltr"><div><div><div><p><a href="https://en.wikipedia.org/wiki/File:JSP_RLE_output1.png"></a></p><div><p>Example of a JSP diagram.</p></div></div></div>
+<p><b>Jackson structured programming</b> (<b>JSP</b>) is a method for <a href="https://en.wikipedia.org/wiki/Structured_programming" title="Structured programming">structured programming</a> developed by British software consultant <a href="https://en.wikipedia.org/wiki/Michael_A._Jackson" title="Michael A. Jackson">Michael A. Jackson</a> and described in his 1975 book <i>Principles of Program Design</i>.<sup id="cite_ref-PoPD_1-0"><a href="#cite_note-PoPD-1">[1]</a></sup>  The technique of JSP is to analyze the data structures of the files that a program must read as input and produce as output, and then produce a program design based on those data structures, so that the program control structure handles those data structures in a natural and intuitive way.
+</p><p>JSP describes structures (of both data and programs) using three basic structures – sequence, iteration, and selection (or alternatives).  These structures are diagrammed as (in effect) a visual representation of a <a href="https://en.wikipedia.org/wiki/Regular_expression" title="Regular expression">regular expression</a>.
+</p>
+
+
+<h2><span id="Introduction">Introduction</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=1" title="Edit section: Introduction">edit</a><span>]</span></span></h2>
+<p><a href="https://en.wikipedia.org/wiki/Michael_A._Jackson" title="Michael A. Jackson">Michael A. Jackson</a> originally developed JSP in the 1970s. He documented the system in his 1975 book <i>Principles of Program Design</i>.<sup id="cite_ref-PoPD_1-1"><a href="#cite_note-PoPD-1">[1]</a></sup> In a 2001 conference talk,<sup id="cite_ref-perspective_2-0"><a href="#cite_note-perspective-2">[2]</a></sup> he provided a retrospective analysis of the original driving forces behind the method, and related it to subsequent software engineering developments. Jackson&#39;s aim was to make <a href="https://en.wikipedia.org/wiki/COBOL" title="COBOL">COBOL</a> batch file processing programs easier to modify and maintain, but the method can be used to design programs for any <a href="https://en.wikipedia.org/wiki/Programming_language" title="Programming language">programming language</a> that has structured control constructs— sequence, iteration, and selection (&#34;if/then/else&#34;).
+</p><p>Jackson Structured Programming was similar to <a href="https://en.wikipedia.org/wiki/Warnier/Orr_Diagrams" title="Warnier/Orr Diagrams">Warnier/Orr structured programming</a><sup id="cite_ref-3"><a href="#cite_note-3">[3]</a></sup><sup id="cite_ref-4"><a href="#cite_note-4">[4]</a></sup> although JSP considered both input and output data structures while the Warnier/Orr method focused almost exclusively on the structure of the output stream.
+</p>
+<h2><span id="Motivation_for_the_method">Motivation for the method</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=2" title="Edit section: Motivation for the method">edit</a><span>]</span></span></h2>
+<p>At the time that JSP was developed, most programs were batch COBOL programs that processed sequential files stored on tape.  A typical program read through its input file as a sequence of records, so that all programs had the same structure— a single main loop that processed all of the records in the file, one at a time.  Jackson asserted that this program structure was almost always wrong, and encouraged programmers to look for more complex data structures.  In Chapter 3 of <i>Principles of Program Design</i><sup id="cite_ref-PoPD_1-2"><a href="#cite_note-PoPD-1">[1]</a></sup> Jackson presents two versions of a program, one designed using JSP, the other using the traditional single-loop structure.  Here is his example, translated from COBOL into Java.  The purpose of these two programs is to recognize groups of repeated records (lines) in a sorted file, and to produce an output file listing each record and the number of times that it occurs in the file.
+</p><p>Here is the traditional, single-loop version of the program.
+</p>
+<div dir="ltr"><pre><span></span><span>String</span> <span>line</span><span>;</span>
+<span>int</span> <span>count</span> <span>=</span> <span>0</span><span>;</span>
+<span>String</span> <span>firstLineOfGroup</span> <span>=</span> <span>null</span><span>;</span>
+
+<span>// begin single main loop</span>
+<span>while</span> <span>((</span><span>line</span> <span>=</span> <span>in</span><span>.</span><span>readLine</span><span>())</span> <span>!=</span> <span>null</span><span>)</span> <span>{</span>
+    <span>if</span> <span>(</span><span>firstLineOfGroup</span> <span>==</span> <span>null</span> <span>||</span> <span>!</span><span>line</span><span>.</span><span>equals</span><span>(</span><span>firstLineOfGroup</span><span>))</span> <span>{</span>
+        <span>if</span> <span>(</span><span>firstLineOfGroup</span> <span>!=</span> <span>null</span><span>)</span> <span>{</span>
+            <span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>firstLineOfGroup</span> <span>+</span> <span>&#34; &#34;</span> <span>+</span> <span>count</span><span>);</span>
+        <span>}</span>
+        <span>count</span> <span>=</span> <span>0</span><span>;</span>
+        <span>firstLineOfGroup</span> <span>=</span> <span>line</span><span>;</span>
+    <span>}</span>
+    <span>count</span><span>++</span><span>;</span>
+<span>}</span>
+<span>if</span> <span>(</span><span>firstLineOfGroup</span> <span>!=</span> <span>null</span><span>)</span> <span>{</span>
+    <span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>firstLineOfGroup</span> <span>+</span> <span>&#34; &#34;</span> <span>+</span> <span>count</span><span>);</span>
+<span>}</span>
+</pre></div>
+<p>Here is a JSP-style version of the same program.  Note that (unlike the traditional program) it has two loops, one nested inside the other.  The outer loop processes groups of repeating records, while the inner loop processes the individual records in a group.
+</p>
+<div dir="ltr"><pre><span></span><span>String</span> <span>line</span><span>;</span>
+<span>int</span> <span>numberOfLinesInGroup</span><span>;</span>
+
+<span>line</span> <span>=</span> <span>in</span><span>.</span><span>readLine</span><span>();</span>
+<span>// begin outer loop: process 1 group</span>
+<span>while</span> <span>(</span><span>line</span> <span>!=</span> <span>null</span><span>)</span> <span>{</span>  
+    <span>numberOfLinesInGroup</span> <span>=</span> <span>0</span><span>;</span>
+    <span>String</span> <span>firstLineOfGroup</span> <span>=</span> <span>line</span><span>;</span>
+
+    <span>// begin inner loop: process 1 record in the group</span>
+    <span>while</span> <span>(</span><span>line</span> <span>!=</span> <span>null</span> <span>&amp;&amp;</span> <span>line</span><span>.</span><span>equals</span><span>(</span><span>firstLineOfGroup</span><span>))</span> <span>{</span>
+        <span>numberOfLinesInGroup</span><span>++</span><span>;</span>
+        <span>line</span> <span>=</span> <span>in</span><span>.</span><span>readLine</span><span>();</span>
+    <span>}</span>
+    <span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>firstLineOfGroup</span> <span>+</span> <span>&#34; &#34;</span> <span>+</span> <span>numberOfLinesInGroup</span><span>);</span>
+<span>}</span>
+</pre></div>
+<p>Jackson criticises the traditional single-loop version for failing to process the structure of the input file (repeating groups of records containing repeating individual records) in a natural way.  One sign of its unnatural design is that, in order to work properly, it is forced to include special code for handling the first and last record of the file.
+</p>
+<h2><span id="The_basic_method">The basic method</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=3" title="Edit section: The basic method">edit</a><span>]</span></span></h2>
+<p>JSP uses semi-formal steps to capture the existing structure of a program&#39;s inputs and outputs in the structure of the program itself.
+</p><p>The intent is to create programs which are easy to modify over their lifetime.  Jackson&#39;s major insight was that requirement changes are usually minor tweaks to the existing structures.  For a program constructed using JSP, the inputs, the outputs, and the internal structures of the program all match, so small changes to the inputs and outputs should translate into small changes to the program.
+</p><p>JSP structures programs in terms of four component types:
+</p>
+<ul><li>fundamental operations</li>
+<li>sequences</li>
+<li>iterations</li>
+<li>selections</li></ul>
+<p>The method begins by describing a program&#39;s inputs in terms of the four fundamental component types.  It then goes on to describe the program&#39;s outputs in the same way.  Each input and output is modelled as a separate <a href="https://en.wikipedia.org/wiki/Data_structure_diagram" title="Data structure diagram">Data Structure Diagram</a> (DSD).  To make JSP work for compute-intensive applications, such as digital signal processing (DSP) it is also necessary to draw algorithm structure diagrams, which focus on internal data structures rather than input and output ones.
+</p><p>The input and output structures are then unified or merged into a final program structure, known as a Program Structure Diagram (PSD).  This step may involve the addition of a small amount of high level control structure to marry up the inputs and outputs.  Some programs process all the input before doing any output, whilst others  read in one record, write one record and iterate.  Such approaches have to be captured in the PSD.
+</p><p>The PSD, which is language neutral, is then implemented in a programming language.  JSP is geared towards programming at the level of control structures, so the implemented designs use just primitive operations, sequences, iterations and selections.  JSP is not used to structure programs at the level of classes and objects, although it can helpfully structure <a href="https://en.wikipedia.org/wiki/Control_flow" title="Control flow">control flow</a> within a class&#39;s methods.
+</p><p>JSP uses a diagramming notation to describe the structure of inputs, outputs and programs, with diagram elements for each of the fundamental component types.
+</p><p>A simple operation is drawn as a box.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:Element_Jackson.png" title="A box labeled &#39;A&#39;"></a></center>
+<p>A sequence of operations is represented by boxes connected with lines.  In the example below, A is a sequence consisting of operations B, C and D.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_Sequence.png" title="A box labeled &#39;A&#39; connected to three boxes below it labeled &#39;B&#39;, &#39;C&#39; and &#39;D&#39;"></a></center>
+<p>An iteration is again represented with joined boxes.  In addition the iterated operation has a star in the top right corner of its box.  In the example below, A is an iteration iteration of zero or more invocations of operation B.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_Iteration.png" title="A box labeled &#39;A&#39; connected to a box labeled &#39;B&#39; below it with a star in the top right corner"></a></center>
+<p>Selection is similar to a sequence, but with a circle drawn in the top right hand corner of each optional operation.  In the example, A is a selection of one and only one of operations B, C or D.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_Selection.png" title="A box labeled &#39;A&#39; connected to three boxes below it labeled &#39;B&#39;, &#39;C&#39; and &#39;D&#39; each with a circle in the top right hand corner"></a></center><p>Note that it in the above diagrams, it is element A that is the sequence or iteration, not the elements B, C or D (which in the above diagrams are all elementary).  Jackson gives the &#39;Look-down rule&#39; to determine what an element is, i.e. look at the elements below an element to find out what it is.
+</p><h2><span id="A_worked_example">A worked example</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=4" title="Edit section: A worked example">edit</a><span>]</span></span></h2>
+<p>As an example, here is how a JSP programmer would design and code a <a href="https://en.wikipedia.org/wiki/Run-length_encoding" title="Run-length encoding">run length encoder</a>.  A run length encoder is a program whose input is a stream of bytes which can be viewed as occurring in <i>runs</i>, where a run consists of one or more occurrences of bytes of the same value. The output of the program is a stream of byte pairs, where each byte pair is a compressed description of a run.  In each pair, the first byte is the value of the repeated byte in a run and the second byte is a number indicating the number of times that that value was repeated in the run.  For example, a run of eight occurrences of the letter &#34;A&#34; in the input stream (&#34;AAAAAAAA&#34;) would produce &#34;A8&#34; as a byte pair in the output stream. Run length encoders are often used for crudely compressing bitmaps.
+</p><p>With JSP, the first step is to describe the data structure(s) of a program&#39;s input stream(s).  The program has only one input stream, consisting of zero or more <i>runs</i> of the same byte value.   Here is the JSP data structure diagram for the input stream.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_RLE_input.png"></a></center>
+<p>The second step is to describe the output data structure, which in this case consists of zero or more iterations of byte pairs.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_RLE_output1.png"></a></center>
+<p>The next step is to describe the correspondences between the components of the input and output structures.
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_RLE_correspondence.png"></a></center>
+<p>The next step is to use the correspondences between the two data structures to create a program structure that is capable of processing the input data structure and producing the output data structure.  (Sometimes this isn&#39;t possible.  See the discussion of <i>structure clashes</i>, below.)
+</p>
+<center><a href="https://en.wikipedia.org/wiki/File:JSP_RLE_program.png"></a></center>
+<p>Once the program structure is finished, the programmer creates a list of the computational operations that the program must perform, and the program structure diagram is fleshed out by hanging those operations off of the appropriate structural components.  
+</p>
+<ol><li>read a byte</li>
+<li>remember byte</li>
+<li>set counter to zero</li>
+<li>increment counter</li>
+<li>output remembered byte</li>
+<li>output counter</li></ol>
+<p>Also, at this stage conditions on iterations (loops) and selections (if-then-else or case statements) are listed and added to the program structure diagram.
+</p>
+<ol><li>while there are more bytes</li>
+<li>while there are more bytes and this byte is the same as the run&#39;s first byte and the count will still fit in a byte</li></ol>
+<p>Once the diagram is finished, it can be translated into whatever programming language is being used.  Here is a translation into C.
+</p>
+<div dir="ltr"><pre><span></span><span>#include</span> <span>&lt;stdio.h&gt;</span><span></span>
+<span>#include</span> <span>&lt;stdlib.h&gt;</span><span></span>
+
+<span>int</span> <span>main</span><span>(</span><span>int</span> <span>argc</span><span>,</span> <span>char</span> <span>*</span><span>argv</span><span>[])</span>
+<span>{</span>
+    <span>int</span> <span>c</span><span>;</span>
+    <span>int</span> <span>first_byte</span><span>;</span>
+    <span>int</span> <span>count</span><span>;</span>
+
+    <span>c</span> <span>=</span> <span>getchar</span><span>();</span>   <span>/* get first byte */</span>
+    <span>while</span> <span>(</span><span>c</span> <span>!=</span> <span>EOF</span><span>)</span> <span>{</span>
+        <span>/* process the first byte in the run */</span>
+        <span>first_byte</span> <span>=</span> <span>c</span><span>;</span>
+        <span>count</span> <span>=</span> <span>1</span><span>;</span>
+        <span>c</span> <span>=</span> <span>getchar</span><span>();</span>   <span>/* get next byte */</span>
+
+        <span>/* process the succeeding bytes in the run */</span>
+        <span>while</span> <span>(</span><span>c</span> <span>!=</span> <span>EOF</span> <span>&amp;&amp;</span> <span>c</span> <span>==</span> <span>first_byte</span> <span>&amp;&amp;</span> <span>count</span> <span>&lt;</span> <span>255</span><span>)</span> <span>{</span>
+            <span>/* process one byte of the same value */</span>
+            <span>count</span><span>++</span><span>;</span>
+            <span>c</span> <span>=</span> <span>getchar</span><span>();</span>   <span>/* get next byte */</span>
+        <span>}</span>
+
+        <span>putchar</span><span>(</span><span>first_byte</span><span>);</span>
+        <span>putchar</span><span>(</span><span>count</span><span>);</span>
+    <span>}</span>
+    <span>return</span> <span>EXIT_SUCCESS</span><span>;</span>
+<span>}</span>
+</pre></div>
+<h2><span id="Techniques_for_handling_difficult_design_problems">Techniques for handling difficult design problems</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=5" title="Edit section: Techniques for handling difficult design problems">edit</a><span>]</span></span></h2>
+<p>In <i>Principles of Program Design</i> Jackson recognized situations that posed specific kinds of design problems, and provided techniques for handling them.
+</p><p>One of these situations is a case in which a program processes two input files, rather than one. In 1975, one of the standard &#34;wicked problems&#34; was how to design a transaction-processing program.  In such a program, a sequential file of update records is run against a sequential master file, producing an updated master file as output.  (For example, at night a bank would run a batch program that would update the balances in its customers&#39; accounts based on records of the deposits and withdrawals that they had made that day.)  <i>Principles of Program Design</i> provided a standard solution for that problem, along with an explanation of the logic behind the design.
+</p><p>Another kind of problem involved what Jackson called &#34;recognition difficulties&#34; and today we would call parsing problems.  The basic JSP design technique was supplemented by POSIT and QUIT operations to allow the design of what we would now call a backtracking parser.
+</p><p>JSP also recognized three situations that are called &#34;structure clashes&#34;— a boundary clash, an ordering clash, and an interleaving clash— and provided techniques for dealing with them.  In structure clash situations the input and output data structures are so incompatible that it is not possible to produce the output file from the input file.  It is necessary, in effect, to write two programs— the first processes the input stream, breaks it down into smaller chunks, and writes those chunks to an intermediate file. The second program reads the intermediate file and produces the desired output.
+</p>
+<h2><span id="JSP_and_object-oriented_design">JSP and object-oriented design</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=6" title="Edit section: JSP and object-oriented design">edit</a><span>]</span></span></h2>
+<p>JSP was developed long before object-oriented technologies became available.  It and its successor method <a href="https://en.wikipedia.org/wiki/Jackson_system_development" title="Jackson system development">JSD</a> do not treat what now would be called &#34;objects&#34; as collections of more or less independent methods.  Instead, following the work of <a href="https://en.wikipedia.org/wiki/C_A_R_Hoare" title="C A R Hoare">C A R Hoare</a>, JSP and JSD describe software objects as <a href="https://en.wikipedia.org/wiki/Coroutine" title="Coroutine">co-routines</a>.<sup id="cite_ref-5"><a href="#cite_note-5">[5]</a></sup><sup id="cite_ref-6"><a href="#cite_note-6">[6]</a></sup>
+</p>
+<h2><span id="See_also">See also</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=7" title="Edit section: See also">edit</a><span>]</span></span></h2>
+<ul><li><a href="https://en.wikipedia.org/wiki/Jackson_system_development" title="Jackson system development">Jackson system development</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Warnier/Orr_diagram" title="Warnier/Orr diagram">Warnier Structured Programming</a></li></ul>
+<h2><span id="References">References</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=8" title="Edit section: References">edit</a><span>]</span></span></h2>
+<div>
+<ol>
+<li id="cite_note-PoPD-1"><span>^ <a href="#cite_ref-PoPD_1-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-PoPD_1-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-PoPD_1-2"><sup><i><b>c</b></i></sup></a></span> <span><cite id="CITEREFJackson1975">Jackson, MA (1975), <i>Principles of Program Design</i>, Academic</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Principles+of+Program+Design&amp;rft.pub=Academic&amp;rft.date=1975&amp;rft.aulast=Jackson&amp;rft.aufirst=MA&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AJackson+structured+programming"></span>.</span>
+</li>
+<li id="cite_note-perspective-2"><span><b><a href="#cite_ref-perspective_2-0">^</a></b></span> <span><cite id="CITEREFJackson2001">Jackson, MA (2001), <a rel="nofollow" href="http://mcs.open.ac.uk/mj665/JSPPers1.pdf"><i>JSP in Perspective</i></a> <span>(PDF)</span>, sd&amp;m Pioneers’ Conference, Bonn, June 2001<span>, retrieved <span>2017-01-26</span></span></cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=JSP+in+Perspective&amp;rft.place=sd%26m+Pioneers%E2%80%99+Conference%2C+Bonn%2C+June+2001&amp;rft.date=2001&amp;rft.aulast=Jackson&amp;rft.aufirst=MA&amp;rft_id=http%3A%2F%2Fmcs.open.ac.uk%2Fmj665%2FJSPPers1.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AJackson+structured+programming"></span><span>CS1 maint: location (<a href="https://en.wikipedia.org/wiki/Category:CS1_maint:_location" title="Category:CS1 maint: location">link</a>)</span></span>
+</li>
+<li id="cite_note-3"><span><b><a href="#cite_ref-3">^</a></b></span> <span><cite id="CITEREFWarnier1974">Warnier, JD (1974), <i>Logical Construction of Programs</i>, NY: Van Nostrand Reinhold</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Logical+Construction+of+Programs&amp;rft.place=NY&amp;rft.pub=Van+Nostrand+Reinhold&amp;rft.date=1974&amp;rft.aulast=Warnier&amp;rft.aufirst=JD&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AJackson+structured+programming"></span></span>
+</li>
+<li id="cite_note-4"><span><b><a href="#cite_ref-4">^</a></b></span> <span><cite id="CITEREFOrr1980">Orr, KT (1980), &#34;Structured programming in the 1980s&#34;, <i>Proceedings of the ACM 1980 Annual Conference</i>, New York, NY: ACM Press, pp. 323–26, <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1145%2F800176.809987">10.1145/800176.809987</a>, <a href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)">ISBN</a> <a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0897910286" title="Special:BookSources/978-0897910286"><bdi>978-0897910286</bdi></a></cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=Structured+programming+in+the+1980s&amp;rft.btitle=Proceedings+of+the+ACM+1980+Annual+Conference&amp;rft.place=New+York%2C+NY&amp;rft.pages=323-26&amp;rft.pub=ACM+Press&amp;rft.date=1980&amp;rft_id=info%3Adoi%2F10.1145%2F800176.809987&amp;rft.isbn=978-0897910286&amp;rft.aulast=Orr&amp;rft.aufirst=KT&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AJackson+structured+programming"></span></span>
+</li>
+<li id="cite_note-5"><span><b><a href="#cite_ref-5">^</a></b></span> <span><cite id="CITEREFWieringa1998">Wieringa, R (Dec 1998), &#34;A survey of structured and object-oriented software specification methods and techniques&#34;, <i>Comput Surv</i>, <b>30</b> (4): 459–527, <a href="https://en.wikipedia.org/wiki/CiteSeerX_(identifier)" title="CiteSeerX (identifier)">CiteSeerX</a> <span title="Freely accessible"><a rel="nofollow" href="https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.107.5410">10.1.1.107.5410</a></span>, <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1145%2F299917.299919">10.1145/299917.299919</a></cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Comput+Surv&amp;rft.atitle=A+survey+of+structured+and+object-oriented+software+specification+methods+and+techniques&amp;rft.volume=30&amp;rft.issue=4&amp;rft.pages=459-527&amp;rft.date=1998-12&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.107.5410%23id-name%3DCiteSeerX&amp;rft_id=info%3Adoi%2F10.1145%2F299917.299919&amp;rft.aulast=Wieringa&amp;rft.aufirst=R&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AJackson+structured+programming"></span>.</span>
+</li>
+<li id="cite_note-6"><span><b><a href="#cite_ref-6">^</a></b></span> <span><cite id="CITEREFHenderson-SellersEdwards1990"><a href="https://en.wikipedia.org/wiki/Brian_Henderson-Sellers" title="Brian Henderson-Sellers">Henderson-Sellers, Brian</a>; Edwards, JM (Sep 1990), &#34;The object-oriented systems life cycle&#34;, <i>Communications of the ACM</i>, <b>33</b> (9): 142–59, <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)">doi</a>:<a rel="nofollow" href="https://doi.org/10.1145%2F83880.84529">10.1145/83880.84529</a></cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Communications+of+the+ACM&amp;rft.atitle=The+object-oriented+systems+life+cycle&amp;rft.volume=33&amp;rft.issue=9&amp;rft.pages=142-59&amp;rft.date=1990-09&amp;rft_id=info%3Adoi%2F10.1145%2F83880.84529&amp;rft.aulast=Henderson-Sellers&amp;rft.aufirst=Brian&amp;rft.au=Edwards%2C+JM&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AJackson+structured+programming"></span>.</span>
+</li>
+</ol></div>
+<h2><span id="External_links">External links</span><span><span>[</span><a href="https://en.wikipedia.org/w/index.php?title=Jackson_structured_programming&amp;action=edit&amp;section=9" title="Edit section: External links">edit</a><span>]</span></span></h2>
+
+<ul><li><a rel="nofollow" href="http://www.sabretech.co.uk/pages/thought.html">A free graphical JSP Editor written in JAVA</a></li>
+<li><a rel="nofollow" href="https://www.his.se/en/about-us/staff/henrik.engstrom/jsp-editor/">A JSP editor</a></li>
+<li><a rel="nofollow" href="http://www.jacksonworkbench.co.uk/stevefergspages/jackson_methods/index.html">A brief history of the Jackson methods</a></li>
+<li><a rel="nofollow" href="http://www.jacksonworkbench.co.uk/">Jackson Workbench site</a></li></ul>
+<!-- 
+NewPP limit report
+Parsed by mw2370
+Cached time: 20210813095324
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: [vary‐revision‐sha1]
+CPU time usage: 0.213 seconds
+Real time usage: 0.270 seconds
+Preprocessor visited node count: 510/1000000
+Post‐expand include size: 12540/2097152 bytes
+Template argument size: 581/2097152 bytes
+Highest expansion depth: 13/40
+Expensive parser function count: 0/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 27617/5000000 bytes
+Lua time usage: 0.101/10.000 seconds
+Lua memory usage: 3572197/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  203.179      1 -total
+ 77.06%  156.567      1 Template:Reflist
+ 57.30%  116.417      6 Template:Citation
+ 22.90%   46.532      1 Template:Commons_category
+ 21.63%   43.957      1 Template:Sister_project
+ 20.08%   40.807      1 Template:Side_box
+  4.20%    8.525      1 Template:Replace
+  1.07%    2.174      1 Template:Main_other
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:70973-0!canonical and timestamp 20210813095341 and revision id 1038566412. Serialized with JSON.
+ -->
+</div>
+</div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 11:26:56 +0000</pubDate>
+      <source>https://en.wikipedia.org/wiki/Jackson_structured_programming</source>
+    </item>
+    <item>
+      <title>The Secretive, Semi-Illicit World of WhatsApp Mango Importing</title>
+      <link>https://www.eater.com/22618349/pakistani-mangoes-chaunsa-anwar-ratol-buy-usa-whatsapp-shipping-supply-chain</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___www_eater_com_22618349_pakistani-mangoes-chaunsa-anwar-ratol-buy-usa-whatsapp-shipping-supply-chain/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+  
+    <a href="https://www.eater.com/">
+      
+  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="1.4 177.2 280.1 75.9" enable-background="new 1.4 177.2 280.1 75.9" xml:space="preserve">
+<g>
+	<path fill="#D61507" d="M1.4,206.3v14.3v9.1c0,12.9,10.5,23.4,23.4,23.4h23.4v-15.9H24.9c-4.2,0-7.6-3.4-7.6-7.6v-9.1h26.3v-14.3
+		H17.3v-13.2h31v-15.9H1.4V206.3z"></path>
+	<path fill="#D61507" d="M174.2,206.3v14.3v9.1c0,12.9,10.5,23.4,23.4,23.4h23.4v-15.9h-23.4c-4.2,0-7.6-3.4-7.6-7.6v-9.1h26.3
+		v-14.3h-26.3v-13.2h31v-15.9h-46.9V206.3L174.2,206.3z"></path>
+	<polygon fill="#D61507" points="115.4,193.1 133.5,193.1 133.5,253.1 149.4,253.1 149.4,193.1 167.5,193.1 167.5,177.2 
+		115.4,177.2 	"></polygon>
+	<path fill="#D61507" d="M56.7,200.6v52.5h15.9v-22.9l20.3-5.1v28h15.9v-75.9H80.1C67.2,177.2,56.7,187.7,56.7,200.6 M92.9,210.8
+		L72.6,216v-15.3c0-4.2,3.4-7.6,7.6-7.6h12.8L92.9,210.8L92.9,210.8z"></path>
+	<path fill="#D61507" d="M281.5,202.6c0-3.3-0.6-6.6-1.9-9.7c-1.2-3-3-5.7-5.3-8c-2.2-2.3-4.9-4.2-7.9-5.5c-3.2-1.4-6.5-2.1-10-2.1
+		h-26.9v75.7h15.8v-25.2h10.9c0.8,0,1.6,0,2.4-0.1l8.6,25.3h14.3l-10.2-30.2C277.5,218.3,281.5,210.9,281.5,202.6 M256.3,212h-10.9
+		v-18.8h11l0.6,0.1c4.9,0.4,8.7,4.5,8.7,9.3C265.7,207.8,261.5,212,256.3,212"></path>
+</g>
+</svg>
+
+
+      
+    </a>
+  
+  
+    <div>
+      <figure>
+  <span>
+    
+    <span data-original="https://cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg">
+      
+        <picture data-cid="site/picture_element-1628848356_4018_354340" data-cdata="{&#34;image_id&#34;:69715197,&#34;ratio&#34;:&#34;*&#34;}">
+  
+
+
+  <source srcset="https://cdn.vox-cdn.com/thumbor/uEkUTcLXDaaAHlxllCNKVcFEHgg=/0x0:3000x1800/320x180/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 320w, https://cdn.vox-cdn.com/thumbor/gEDpvEAueezPucHqVEj7nnDb-Hc=/0x0:3000x1800/570x321/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 570w, https://cdn.vox-cdn.com/thumbor/h0x3RaCxr9CdyXP8ddmt1Ujj_3o=/0x0:3000x1800/820x461/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 820w, https://cdn.vox-cdn.com/thumbor/Inh9D0iDO5RL37GJONRv3GJQ2pA=/0x0:3000x1800/1070x602/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 1070w, https://cdn.vox-cdn.com/thumbor/1Gb5LnpqcogXezzRN5pG4AgFqcM=/0x0:3000x1800/1320x743/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 1320w, https://cdn.vox-cdn.com/thumbor/_pwxM5uj7s9BbZ-4PZED9FbNpuo=/0x0:3000x1800/1570x883/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 1570w, https://cdn.vox-cdn.com/thumbor/Tf3XQZr2V32vm6EK3VgQTfkCy44=/0x0:3000x1800/1820x1024/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 1820w, https://cdn.vox-cdn.com/thumbor/iPmfn-F2PW9SmiguWacqSFTHUZ4=/0x0:3000x1800/2070x1164/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 2070w, https://cdn.vox-cdn.com/thumbor/xUNLDE-qt1AP02ktVc2o3lCL9Rw=/0x0:3000x1800/2320x1305/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 2320w, https://cdn.vox-cdn.com/thumbor/IQGqAPH_RMPZtpy6HDYXey6qXxM=/0x0:3000x1800/2570x1446/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 2570w, https://cdn.vox-cdn.com/thumbor/bNUcZLXVvEExt75NlnJuNX7zuBY=/0x0:3000x1800/2820x1586/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 2820w, https://cdn.vox-cdn.com/thumbor/SirmpPd9ZhN2eta6KUnr3udECgk=/0x0:3000x1800/3070x1727/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 3070w, https://cdn.vox-cdn.com/thumbor/eJqNbpwDwumPLErdXhrAz3_U45Y=/0x0:3000x1800/3320x1868/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 3320w, https://cdn.vox-cdn.com/thumbor/3x021gXRNTvuTxtqNT6nz0ycr-0=/0x0:3000x1800/3570x2008/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 3570w, https://cdn.vox-cdn.com/thumbor/Zo4NjRXPQLkjS_Qa9umI5Nssgck=/0x0:3000x1800/3820x2149/filters:focal(1260x660:1740x1140):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69715197/Mango1_IsipXin_F.0.jpg 3820w" sizes="100vw" type="image/webp"/>
+
+
+
+
+</picture>
+
+      
+    </span>
+    
+  </span>
+  
+    <span>
+      
+      
+        <cite>Isip Xin</cite>
+      
+    </span>
+  
+</figure>
+
+    </div>
+  
+  <div>
+    
+
+
+    
+    
+
+    <p>Customs restrictions, high transport costs, and a short shelf life have made the world’s greatest mangoes — grown in Pakistan — difficult to come by in the U.S.</p>
+
+    <p><span>
+    
+      by
+      
+      
+      <span>
+        
+        <time data-ui="timestamp" datetime="2021-08-12T14:00:00">
+          Aug 12, 2021, 10:00am EDT
+        </time>
+      </span>
+      
+      
+      
+        <p>
+          Illustrations by Isip Xin
+        </p>
+      
+    
+    
+  </span>
+  <span>
+    <a data-entry-admin="22382390" data-cid="tools/entry_admin_button-1628848356_2208_354341" data-cdata="{&#34;id&#34;:22382390}"></a>
+
+  </span>
+</p>
+
+
+  </div>
+</div><div>
+  <main id="content" tabindex="-1">
+    
+    
+
+
+    
+
+      
+
+
+
+    
+
+
+
+
+
+<div>
+  <p id="ldjMJv"><strong>It was almost midnight</strong> when I pulled up to the drop site in a borrowed car, the rear seats pushed down to make room for the product. My cousin knew a Pakistani guy who had acquired the best stuff money could buy, rare varietals that were spoken of in hushed, reverent tones at parties. But the dealer had a strange system: You had to message him on WhatsApp, order in bulk a week ahead of time, and send someone to pick up the product from an airport cargo bay. My cousin had explained this to me, his voice conspiratorial, during a summer visit to my hometown in Michigan. I knew if I hung around, he would share the goods. But then his driver pulled out at the last minute. I wasn’t about to miss my chance, so I volunteered to grab the stuff myself.</p>
+<p id="zhBrAq">That’s how I ended up driving two hours each way to and from the Detroit airport to pick up 12 boxes of irradiation-treated mangoes from Karachi, Pakistan. When I arrived at the airport, I pulled off on a side road I’d never been on before. The cargo facility’s waiting area was small, with only one attendant. I showed him my phone; a green WhatsApp message displayed the information for the package. “You’re here for the mangoes?” he asked. </p>
+<p id="NMIGDH">Apparently this wasn’t a first for him. I pulled the car around and watched a massive garage door open to reveal my prize: a stack of mango boxes on a dolly cart, this batch with a going price of about $8 per fruit. After dropping off most of the load at my cousin’s house, I took my cut, a private stash of two boxes. The next day, my family gorged. The mangoes were unlike anything I’d eaten in America before — they were fragrant not just in smell, but also in taste. Powerfully sweet. Bursting with juice. I tried to take the time to savor them, but there was no point; they’d go bad within days. So, decadence it was. </p>
+
+<p id="PyVuaC">It was 2018, and that order of mangoes was the fulfillment of a lifelong dream. For years I had been asking members of my community why we couldn’t find Pakistani mangoes in America. Although the Pakistani mango has been approved for import to the U.S. since 2010, supply chain and logistics challenges have limited it to a scant national presence, even in the specialty groceries where you might expect to find them. As such, the vast majority of the Pakistani American diaspora are unable to procure their homeland’s national fruit easily. We’re not even guaranteed to find them on trips to Pakistan, where mango season lasts roughly from April to September: Some of <a href="https://www.farmfreshshop.com/availability/">the most prized varieties are available for only a few weeks at a time</a>, and the heat makes summer a challenging time to visit.</p>
+<p id="t2fifV">But for a group of internet-savvy immigrants and their children, a new option has emerged over the past few years: Middlemen and logistics experts acquire the mangoes from farms in Pakistan and sell them over WhatsApp at a premium, often only a few days after harvest. In my 33 years as a red-blooded Pakistani American, I have eaten mangoes from my parents’ home country fewer than 10 times on U.S. soil, each time within the past three years. In every single case, the mangoes were sourced off WhatsApp. Erratic weather conditions and complications from the pandemic have <a href="https://www.reuters.com/article/pakistan-mangoes-climate-change-idINL8N2DG212">challenged</a> Pakistani mango exports, but the industry persists: A viral <a href="https://www.linkedin.com/posts/rohitramachandran_health-regulations-prevent-us-from-carrying-activity-6803364627330736129%E2%80%94KyF/">photo</a> this May showed a plane flying to Kuwait with no human passengers due to travel restrictions; mangoes filled the seats and luggage bins. Pakistani mangoes began arriving in the U.S. in May, and on June 7 I picked up my first batch (ordered off a website) from a middleman in New Jersey.</p>
+<p id="L1Ox7x">On that night in 2018, I knew I had stumbled on something unique. So I started digging into the workings of the WhatsApp mango trade in an effort to learn more about the story behind it. And I’m still digging through its many layers: the bureaucratic headaches, the customers determined to get their mangoes no matter how onerous the inconvenience, and the surprising amount of engineering that goes into this decentralized economy. And yet all the effort that goes into maintaining the WhatsApp trade still far outstrips knowledge of it: Desis of all backgrounds still ask me, “How can I get Pakistani mangoes in America?” </p>
+<p id="xSxrWp">The best option, still, is ordering them off WhatsApp and picking up at least eight boxes from your local Southwest Airlines cargo bay. But why, more than a decade after the mangoes were allowed to be imported here, is it so hard to find them? Over the past three years, I’ve spoken to the customers, middlemen, and scientists so hungry for the fruit that they’ve managed to create an American fruit subculture unlike any other.</p>
+<hr id="h23D8Q"/>
+<p id="2NpCkc"><strong>Mangoes are among the most beloved</strong> fruits on the planet and inspire feverish devotion — especially on the Indian subcontinent, where they’ve been <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5397511/">cultivated</a> for thousands of years. Here, their popularity is only growing: Americans nearly <a href="https://www.statista.com/statistics/577951/world-mango-production/">doubled</a> their mango consumption between 2000 and 2018. </p>
+<p id="uYIMai">As a generally tropical, hot-weather fruit, mangoes require copious sun; they suffer if they’re exposed to frost or freezing <a href="https://aggie-horticulture.tamu.edu/syllabi/423/MangoFlorida.pdf">temperatures</a>. This isn’t quite so true of the varieties sold in the U.S., where one of the most common is known as the Tommy Atkins. Like Red Delicious apples, mangoes in America are meant to thrive in supermarket fruit aisles. They don’t take ill easily, have a nice shape and color, and boast a great shelf life — a crucial attribute, given that the U.S. is the <a href="https://www.tridge.com/intelligences/mango/import">second largest importer</a> of mangoes in the world, with the majority sourced from <a href="https://www.mango.org/wp-content/uploads/2019/03/3_Year_Trend_16_18_Eng.pdf">Mexico</a>.</p>
+<p id="dD59tF">Growing up in Michigan, I ate plenty of these giant red and green Atkins monstrosities after my mother started finding them in the local Meijer’s. She would compare them to the ones she ate growing up, always unfavorably. I thought this was impossible: Mangoes were definitely the best fruit I’d ever had, even these American supermarket ones.</p>
+<p id="pAlKXa">But, as I learned after I tasted the mangoes I’d procured through WhatsApp, I was wrong. Whereas the supermarket mangoes I grew up eating are fibrous and weirdly crisp and have little discernible fragrance, Pakistan’s Anwar Ratol and Chaunsa mangoes — the kind I picked up from the Detroit airport’s cargo bay — smell strongly of flowers and have a custardlike creaminess that drips with sticky-sweet juice. A popular method of consumption involves rolling the small, yellow-green fruit around, slicing off the top, and sucking out the liquefied pale-yellow or ochre flesh, like you’re drinking a juice box from nature. These mangoes, Pakistanis contend, are among the best varieties in the world. </p>
+<div>  <figure>
+  <span>
+    
+    <span data-original="https://cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg">
+      
+        <picture data-cid="site/picture_element-1628848356_5839_354344" data-cdata="{&#34;asset_id&#34;:22774212,&#34;ratio&#34;:&#34;*&#34;}">
+  
+
+
+  <source srcset="https://cdn.vox-cdn.com/thumbor/Z6k5TncQK8cI7xKBz4_wojfpims=/0x0:3000x1800/320x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 320w, https://cdn.vox-cdn.com/thumbor/aO6-vF_v5fq6oBo8IlsSHKihQWk=/0x0:3000x1800/520x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 520w, https://cdn.vox-cdn.com/thumbor/FZ_YbJ3SAAdU-r0dn3HCSKQNaFM=/0x0:3000x1800/720x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 720w, https://cdn.vox-cdn.com/thumbor/JOtWWOjYQghzorvzDRPdgcE4RLI=/0x0:3000x1800/920x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 920w, https://cdn.vox-cdn.com/thumbor/fqZu1sPzSJOFyVdpm_Tj0YPU4P4=/0x0:3000x1800/1120x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 1120w, https://cdn.vox-cdn.com/thumbor/ANXFZdQtvbT1mox8EDVdPNsJGk4=/0x0:3000x1800/1320x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 1320w, https://cdn.vox-cdn.com/thumbor/MKnSdBWEg8vYwvugVOxnFhctUZU=/0x0:3000x1800/1520x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 1520w, https://cdn.vox-cdn.com/thumbor/9cKEPXjo-tr4LsRP5mzbiTTtXKM=/0x0:3000x1800/1720x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 1720w, https://cdn.vox-cdn.com/thumbor/LVSkG287SBPlWRkWFdrwy4gYA6I=/0x0:3000x1800/1920x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774212/Mango2_IsipXin_F.jpg 1920w" sizes="100vw" type="image/webp"/>
+
+
+
+
+</picture>
+
+      
+    </span>
+    
+  </span>
+  
+</figure>
+
+</div>
+<p id="7JSb30">This year, the Chaunsas in particular were sugary bombs of caramel, citrus, and grassy flavors, with a hint of rose that lingered on the tongue. My father, honestly not a big food lover, was praising God upon eating them. If the Mexican mangoes were a night out at a dinky jazz club, the Pakistani ones were a full-on Beyoncé concert, capable of changing your whole life. </p>
+<p id="dpN0aC">It’s no surprise, then, that mangoes play a huge role in South Asian culture, to the extent that there’s some resistance to their overuse in literature. In 2010, <em>Granta</em> published a satirical piece titled “<a href="https://granta.com/how-to-write-about-pakistan/">How to Write About Pakistan”</a> by Pakistani writers including Mohammed Hanif, the author of <em>A Case of Exploding Mangoes.</em> The first rule of writing on Pakistan? “Must have mangoes.” Literary critique aside, there is no denying the mango’s historical importance. If you go back to pre-independence, the vibrant subcontinental poetry tradition has mountains of flowery verse dedicated to the fruit. The poet <a href="https://en.wikipedia.org/wiki/Ghalib">Mirza Ghalib</a>’s love for mangoes was legendary, but an especially modern and lusty-sounding sample of dialogue comes from Amir Khusrau, a poet from the 13th and 14th centuries who wrote, “He visits my town once a year.  He fills my mouth with kisses and nectar. I spend all my money on him. <em>Who, girl, your man? </em>No, a mango.”</p>
+<p id="S6R9km">Damn.</p>
+<p id="1uXtGs">According to the most <a href="http://nmb-database.com/cropreports2/reportoptions.php?type=commerce">recent figures</a> we have pre-pandemic, about a half million tons of mangoes were imported into the United States in 2019. And yet only about 100 tons of them came from Pakistan, according to the USDA’s Animal and Plant Health Inspection Service (APHIS), the agency responsible for protecting American animal and plant health and welfare. It’s not for lack of product: Pakistan is the world’s <a href="https://www.worldatlas.com/articles/the-top-mango-producing-countries-in-the-world.html">sixth-largest</a> mango exporter by volume. </p>
+
+<p id="saNYZL">Pakistan’s government and its exporters are hoping to increase the fruit’s U.S. presence, first by using the diaspora as their customer base. One obstacle to this goal is the nature of the fruit itself: Pakistani varieties, such as the esteemed Anwar Ratol, are notoriously delicate and have a short growing season of just a few weeks. The mango “is a very challenging fruit to grow,” Dr. Khalid Akbar Khan Daha, the head of a third-generation fruit-growing family in the cities of Multan and Rahim Yar Khan, told me on the phone from Lahore. “Compared to the kinnow [a type of citrus hybrid], which we also grow, we have to give everything possible to the mango tree to give better yield. We have to work all year round, and it’s very labor intensive, from growing to ripening to harvesting.”</p>
+<p id="h66dZH">The result is a product so precious that people have <a href="https://help.cbp.gov/s/article/Article-3619?language=en_US">risked hefty fines</a> for acquiring it outside regulated channels.<em>“</em>There is kind of this whole illicit feel to getting Pakistani mangoes in the States,” the Aams Dealer, a New Jersey-based attorney who operates under a pseudonym as a Pakistani mango middleman, told me. He used to smuggle the mangoes across the Canadian border for personal pleasure, he continued. “I (would) put a few mangoes in my suitcase, hide them under my dirty socks.” Eventually, through contacts on WhatsApp, he was able to purchase and eventually distribute mangoes out of his house.</p>
+<p id="v9qHh1">My cousin, Dr. Sarosh Anwar, also used to travel to Canada to eat mangoes. Sarosh — or Roshi Bhai, as I call him — was the one who sent me to the airport for that first, seemingly shady mango pickup. A cardiologist, he had spent almost 15 years trying and failing to find Pakistani mangoes in the U.S. after coming here in 1990. He and the Aams Dealer represent the type of Pakistani American who might pay a premium for mangoes off WhatsApp — internet-savvy, absolutely food-obsessed, and willing to spend precious time and money to acquire a taste of the fruit. Roshi Bhai’s typical order is about the minimum, 8 to 12 boxes, but a big reason he buys the fruit is to share in the joy of it. On special occasions like birthday parties, he says he’s spent roughly $900 for an order. </p>
+<p id="tzLroO">Occasionally you can find the mangoes at ethnic stores: Owners in Southeast Michigan, Sugarland in Texas, and along Brooklyn’s Coney Island Avenue confirmed that they have received them over the years, albeit inconsistently. The supply, some shop owners told me, is often further compromised by not only poor seasons and crops but also the likelihood that the mangoes, having traveled such a great distance, would be past ripeness upon their arrival. Manzour Shah, the former owner of Seven Days Grocery in Brooklyn, said he sold about 300 boxes to his ethnically diverse clientele in 2019. (The store changed ownership in April.) Since the advent of WhatsApp, he said, he’d started advertising them there. “I say, ‘how do you like my babies?’” Shah told me, practically twirling his mustache as he described sending customers photos of his mangoes. </p>
+<hr id="8LpL1n"/>
+<p id="x76ljY"><strong>The reason Pakistani mangoes</strong> have never been widely available in the United States goes beyond mere red tape: Fruit importing involves a surprising amount of diplomacy and technology. Before exporting a fruit, a nation must receive authorization from the U.S. Department of Agriculture. “Countries typically request market access, and that begins the authorization process,” an APHIS representative explained in an email. “We analyze the plant pest risk and necessary measures to mitigate that risk and then move forward with the authorization. Imports aren’t allowed entry until that process is done.” In other words, any foreign produce that arrives legally on our shores does so only after years of discussion and development between the government of origin and the USDA. And since the 2000s, “the demand for imported fruits has increased dramatically,” says Ronald F. Eustice, an irradiation expert who last consulted in Pakistan in 2020. So over the past two decades, the USDA has published numerous approval processes on a case-by-case basis, “depending on applications and depending on need,” Eustice explains.</p>
+<p id="4fvYK5">The mango is, in many ways, a symbol of political dialogue in South Asia. How Pakistani mangoes finally won approval for import into the U.S. in 2010 is a story of <a href="https://blog.meridian.org/mccd/mango-diplomacy-how-the-king-of-fruit-eases-tensions-in-india-and-pakistan/">“mango diplomacy”</a> during the Obama era, when Secretary of State Hillary Clinton was looking for a win to improve trade and diplomatic relations with Pakistan. “I have personally vouched for Pakistani mangoes, which are delicious, and I’m looking forward to seeing Americans be able to enjoy those in the coming months,” she <a href="https://www.sandiegouniontribune.com/sdut-clinton-adds-to-curious-history-of-mango-diplomacy-2010jul24-story.html">said</a> during a 2010 visit to Islamabad.</p>
+<p id="XanJH4">Eight years earlier, the United States had approved irradiation as a treatment for imported fruits. This came about shortly after irradiated ground beef became commercially available here in 2000; the fruit sector had taken notice of beef irradiation and began looking into the process for its own products, says Eustice. In 2007, Indian mangoes were among the first major irradiated fruits to be approved and imported, but they had to be treated in India beforehand. In 2010, APHIS <a href="https://www.regulations.gov/document/APHIS-2010-0065-0023">published </a>a set of phytosanitary (plant health) regulations and Pakistani mangoes were approved for import. Subsequent <a href="https://epermits.aphis.usda.gov/manual/index.cfm?action=cirReportP&amp;PERMITTED_ID=10596053">guidelines</a> stated that the Pakistani mangoes must be treated with a fungicidal dip and receive a minimum dose of ionizing radiation to deter the entry of agricultural pests into the U.S. A year later, the first Pakistani mangoes to hit U.S. shores were irradiated in Iowa before finally being consumed at a diplomatic <a href="https://www.chicagotribune.com/dining/ct-xpm-2011-07-30-chi-pakistani-mangoes-they-arrive-in-chicago-20110730-story.html">event</a> in Chicago hosted by Husain Haqqani, then the U.S. ambassador to Pakistan. </p>
+
+<p id="u0jgm9">The irradiation beam guidelines pose a challenge to mango sellers from countries where it is a requirement for import. Mangoes are vulnerable to disease and pests; as such, all imports need to be treated using one of a few methods. The simplest way to treat a mango is by a hot water bath method, which involves submerging the fruit in water of 46℃ (115℉) for a length of time depending on the mango variety. However, the National Mango Board, a trade and research organization, <a href="https://www.mango.org/wp-content/uploads/2017/10/Alternatives_to_Hot_Water_Treatment_Executive_Summary.pdf">claims </a>that this method, which is popular in Latin America, can affect the quality of the fruit; after all, you’re halfway to boiling it. But most mangoes from Asia, including those from India and Pakistan, have a strict irradiation requirement. Sixty-one percent of Pakistani mangoes irradiated in the U.S. are treated with electron beam irradiation; the other 39 percent receive gamma irradiation.</p>
+<p id="B06AVw">So a Pakistani farmer who wishes to export mangoes to the United States must partner with a facility that does irradiation in the United States. Currently there are no irradiation facilities in Pakistan approved by the USDA to treat mangoes for export to the U.S. This ends up creating a logistical nightmare that effectively prevents most mango importers from selling in America. The irradiation requirement, Daha told me, is “the only problem that is hindering our export to the USA.” It’s also the reason why some people still find that driving to Canada, where irradiation isn’t required for imported fruit, is a better choice than trying to navigate the headache of getting mangoes in the United States.</p>
+<p id="jAKUuN">The irradiation process is not the only thing that has to go right for exporters aiming to bring mangoes into the United States. APHIS has to approve the pallets and boxes used for shipping the mangoes, as well as the treatment they undergo before shipping. Currently there are no direct flights to America from Pakistan, so the mangoes need to secure passage on a flight with minimal wait time in a hub city like Dubai before arriving at a U.S. international airport, where they make their way to an irradiation facility under quarantine conditions. And that’s all within the time frame of a few days before the fruit goes bad. </p>
+<p id="kmmtVV">Many export companies have tried and failed to solve the logistics puzzle of picking, irradiating, and shipping mangoes thousands of miles before they rot. In a 2012 <a href="https://www.pri.org/stories/2012-03-29/mango-diplomacy-pakistan-hits-road-blocks">interview</a>, a businessman named Abid Butt detailed his own doomed attempt, saying he imported almost three tons of mangoes the first season that imports were allowed, only to go so deep into debt that he immediately exited the business. (Butt declined a request for comment.) The internet is littered with the ghosts of other would-be mango entrepreneurs — King Mangoes; Sultan Mangos; <a href="https://www.wsj.com/articles/SB10001424053111903480904576512921052614918">pksweetmangoes.com</a> — with defunct websites, bouncing email addresses, and unanswered Facebook messages. Talk to people in the business and you will hear tales of woe: One importer lined up a farm in Pakistan, found an irradiation facility in the U.S., and booked a flight, only to have customs mishandle the shipment. She lost much of the fruit and plenty of money. Even for exporters who do secure space on a plane, there’s still a high risk that the delicate mangoes will overripen during the long journey, even within a mere four days of travel after harvest. </p>
+<p id="Q1UUsX">MangoZZ.com, a Chicago-based business founded by Jai Sharma in 2007 (the same year APHIS approved Indian mangoes for import), is the rare importer to have succeeded on a large scale: In a typical (non-pandemic) year it imports about 22 tons of mangoes grown around the world, shipping them directly to customers and shops in places like California and Chicago. Although its focus is on Indian mangoes, the company also sells Pakistani varieties when they’re available. </p>
+<div>  <figure>
+  <span>
+    
+    <span data-original="https://cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg">
+      
+        <picture data-cid="site/picture_element-1628848356_604_354345" data-cdata="{&#34;asset_id&#34;:22774482,&#34;ratio&#34;:&#34;*&#34;}">
+  
+
+
+  <source srcset="https://cdn.vox-cdn.com/thumbor/9H7Bhzaysgfs9e2I2eF45NnON7Q=/0x0:3000x1800/320x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 320w, https://cdn.vox-cdn.com/thumbor/45zrg6uNCiXtyoLQZuaFB2-95z4=/0x0:3000x1800/520x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 520w, https://cdn.vox-cdn.com/thumbor/Pjpu1SDGJs1qvQnL94laZW22aec=/0x0:3000x1800/720x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 720w, https://cdn.vox-cdn.com/thumbor/HFZZqAh4ST3M3P0ql_I8PEqWrOM=/0x0:3000x1800/920x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 920w, https://cdn.vox-cdn.com/thumbor/Y85wnkfPDw6ilMDCxH2l1XUDZSo=/0x0:3000x1800/1120x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 1120w, https://cdn.vox-cdn.com/thumbor/hJY-6ppiSu4qC-r_zYH4eY4ywlg=/0x0:3000x1800/1320x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 1320w, https://cdn.vox-cdn.com/thumbor/iN90TVAG8IPYvRcaZ8xAU42Qz0o=/0x0:3000x1800/1520x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 1520w, https://cdn.vox-cdn.com/thumbor/8ljMphsU0m1RsdKU47XzO_V0SzA=/0x0:3000x1800/1720x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 1720w, https://cdn.vox-cdn.com/thumbor/envO5WMHWKobdY3qhSIEWma3gv4=/0x0:3000x1800/1920x0/filters:focal(0x0:3000x1800):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/22774482/Mango3_IsipXin_F.jpg 1920w" sizes="100vw" type="image/webp"/>
+
+
+
+
+</picture>
+
+      
+    </span>
+    
+  </span>
+  
+</figure>
+
+</div>
+<p id="pz7ruN">But when it comes to selling Pakistani mangoes directly to consumers through WhatsApp, there’s evidently only one importer still standing: <a href="https://www.farmfreshshop.com/">Farm Fresh</a>, a Houston-based e-commerce enterprise that arrived on the scene in 2014 and claims to be “the first importer/distributor of Pakistani mangoes in the United States.” Still, for all of its success, the company has also struggled with American regulations.</p>
+<p id="WOQk6W">“The issue is logistics, number one,” FarmFresh founder Zulfikar Momin said of the obstacles faced by mango importers. Momin is the man behind every mango I’ve eaten in America. A 30-plus-year veteran of the “logistics business,” as he calls it, he began exploring mango importing in 2014. Today he operates between Texas and Pakistan. By the time I spoke to him last year, I had a good idea of the journey mangoes take to get here, but I had him walk me through the whole process, from preparing the fruit on the farm for travel, to booking cargo on flights from Pakistan, to arranging for trucks to take the mangoes to an irradiation facility upon arrival, and then, eventually, putting the mangoes back onto a Southwest Airlines cargo flight that would bring them to customers within a few days of harvest. His company’s success in bringing Pakistani mangoes to the U.S., Momin explained, is tied to the ability to successfully control many of the variables that make importing these fruits such a challenge. And also, I’d argue, its ability to coordinate stateside mango distribution through various WhatsApp communities. </p>
+<p id="Xn4Dlk">If U.S. regulations pose nearly insurmountable roadblocks to Pakistani mango importers, then WhatsApp has proven to be something of a mango superhighway. While the messaging app is popular worldwide — over <a href="https://blog.whatsapp.com/new-ways-to-reach-a-business-on-whatsapp">50 million</a> people use WhatsApp Business, its commerce-focused arm — it’s “a lifeline” for Pakistanis in particular, the food writer Zainab Shah told me. Pakistan’s burgeoning mango industry is a microcosm that spotlights the app’s broader role as an incredibly important place for the global Pakistani community to do all sorts of business. The diaspora is a source of commerce and communication for the homeland, and WhatsApp, with its free international calls and secure messaging, is the primary form of communication. Last year the platform began rolling out a wider variety of ways to do business, such as <a href="https://blog.whatsapp.com/new-ways-to-reach-a-business-on-whatsapp">adding </a>catalogs, QR codes, and shopping <a href="https://blog.whatsapp.com/making-it-easier-to-shop-on-whatsapp-with-carts">carts</a>.</p>
+
+<p id="owMA4C">Shah had never ordered mangoes off WhatsApp but said she’d be comfortable doing so; she’s already ordered clothes, cookies, jewelry, and more by messaging merchants in her hometown of Lahore. I can also attest to WhatsApp’s efficiency: While reporting this story, I would shoot quick WhatsApp messages to Momin asking him to clarify details of the mango import/export trade and receive voice memos in reply, explaining what I needed to know.  </p>
+<p id="oTmhpk">After I initially connected with Momin, he introduced me to several regional WhatsApp groups that extended his chain of middlemen. Mosques in Connecticut, aunties in California, and engineers in New Jersey would all coordinate bulk orders from Farm Fresh. This year, a minimum order of Chaunsas started at $144 for four 4.4-pound boxes. The groups would then distribute hundreds of boxes of mangoes to people who wanted them, often for no profit. In 2018, one of my own cousins coordinated the distribution of over $3,000 worth of mangoes to her community from her home in New Jersey.</p>
+<p id="x8wDrf">There are also middlemen like the Aams Dealer, who buys from a supplier and then distributes the fruit to his local community at minimal profit. “These fancy cars would pull up in my driveway,” he said, describing a typical deal. “People would come, ring the bell, I’d hand them their box of mangoes, and they’d drive off. I’m sure my neighbors probably thought, ‘This guy’s running some drug ring out of here.’” What started as a small hobby has since grown to unanticipated proportions: When a physician friend posted about the Aams Dealer’s little business on a WhatsApp group of about 400 or 500 Pakistani physicians, the middleman found himself booking mangoes for a clientele that went far beyond his friends and family. One customer ordered an Uber to the Aams Dealer’s house and instructed him to put the mangoes in the trunk of the car, which was headed back to Long Island without a human passenger. A $150 Uber ride for four $25 boxes of mangoes? “This guy was willing to do it,” the Aams Dealer told me. “I said, ‘Wow. People <em>really </em>want to get their Pakistani mangoes.’”</p>
+<hr id="ufUUw7"/>
+<p id="hi7QRc"><strong>To better understand the journey</strong> that Pakistani mangoes take upon entering this country, I decided to start at Texas A&amp;M AgriLife, the facility where the mangoes I picked up at the Detroit airport in 2018 and 2019 were irradiated, according to the label on the box. A trip to Texas, I figured, could help me find out how the mangoes were really getting to me. After some emails, Texas A&amp;M University invited me to visit its facility in College Station. So in late 2019 I flew out there to talk to the scientists and middlemen who had made it possible for me to experience my first taste of heaven on U.S. soil.</p>
+<p id="kiFkBV">Dr. Suresh Pillai is a professor of microbiology at Texas A&amp;M and the director of its National Center for Electron Beam Research. Pillai takes a lot of pride in his work: During my visit, he rocked a maroon polo emblazoned with the name of his workplace as he gave me a quick, excited tour of the e-beam facility that processes the mangoes I’d been eating.</p>
+
+<p id="L6dpEm">The facility treats many foods, including ground beef and other fruit products. It also communicates directly with the farmers in Pakistan, helping to ensure that their mango packaging meets the parameters for “an APHIS-approved pest-proof <a href="http://embassyofpakistanusa.org/wp-content/uploads/2017/05/trade-policy.pdf">box </a>with all openings in the packages covered” by mesh material, per guidelines. Once the boxes have been approved and an APHIS permit obtained, exporters can send their mangoes to be treated in an American irradiation facility like Texas A&amp;M’s. “Those companies have really done their homework in terms of understanding post-harvest handling of the fruits so that when they come here, they are treated within 30 hours of harvest from Pakistan,” Pillai told me. “They are very high-end products.”</p>
+<p id="mdgt3H">Pillai speculated that Texas A&amp;M treated about a quarter million pounds of Pakistani mangoes in 2019. That number fell in 2020 due to the pandemic, and mango shipments were treated by Gateway America, a gamma irradiation facility in Mississippi used by companies like Farm Fresh. (Gateway America did not respond to a request for comment.)</p>
+<p id="Arq6wC">One of the challenges of importing mangoes to America is that there is currently no operational USDA-approved irradiation facility in Pakistan. Even if there were one, Pakistan would need to pay an on-site USDA rep to certify the irradiation for each batch. So the mangoes are treated in the U.S. instead, and must travel from the port of entry to an irradiation facility under strict quarantine conditions. Since U.S. airports lack irradiation facilities, APHIS allows the mangoes to be sent “unopened under quarantine conditions” from airports to irradiation sites, which in addition to Texas and Mississippi <a href="https://www.aphis.usda.gov/import_export/plants/manuals/ports/downloads/aphis-certified-irradiation-facilities.pdf">exist</a> in Iowa and Hawaii.</p>
+<p id="VyxBFY">Normally, under non-pandemic conditions, exporters buy Pakistani mangoes from farms, pack them in preapproved boxes, and send them on to an APHIS control center, which verifies that the paperwork and packaging meets its standards. Then the mangoes are put in a sealed container and sent to an irradiation facility, where they’re irradiated and held in storage. Finally, the middleman finds a way to get the mangoes to customers before they rot.</p>
+<p id="vCHJHd">By contrast, Mexican mangoes are just trucked over the border in appropriate packaging, and some loads even bypass the irradiation process. But it’s not irradiation that makes Pakistani mangoes expensive; a significant number of Mexican mangoes are also irradiated. The difference is that the Mexican mangoes ride on trucks while the Pakistani ones fly. And it’s that cost of transportation, in the view of many of the scientists and middlemen I spoke to, that accounts for the higher price. Mexican mangoes cost about $1.50 at Whole Foods, while Pakistani mangoes can go for over $7 each.</p>
+<p id="0t3e3e">In the Middle East, Momin’s primary market, easier logistics means the company can sell its mangoes for about 50 cents a pound, which is even less than the cost of a Mexican mango in the U.S. By comparison, international air transportation expenses alone account for over $14 per box of Pakistani mangoes. To compensate for the high price, “the top quality of mangoes that we harvest go to the U.S. market,” Momin said. “I treat these mangoes like Prada and Gucci. I don’t treat them like Tommy Hilfiger and Calvin Klein.”</p>
+<hr id="paCSz5"/>
+<p id="CCV5hP"><strong>After my tour of Texas A&amp;M,</strong> I followed my mangoes to their next stop: Desi Sabzi Mandi, a grocery in Sugar Land, just outside Houston. Located in the center of an Indo-Pak strip mall, the Sabzi Mandi (literally, “vegetable market”) is owned by Aamir Baweja, the person who sent me the first mangoes I ate while reporting this story. If you live in the Houston area, you can purchase mangoes directly from Baweja. But when I interviewed him at his store, Baweja, speaking in Urdu, told me that in partnership with Farm Fresh, he had developed “a whole nationwide group of customers” that orders through his WhatsApp account. “We wanted to make arrangements so that the customers in the rest of the country who were Pakistanis or who love Pakistani mangoes could also get them quickly,” Baweja said. </p>
+<p id="3GLeQZ">Before the WhatsApp trade really took off around <a href="https://tribune.com.pk/story/1414398/mango-exporters-going-online-access-us-dubai-markets">2017</a>, Baweja tried shipping the mangoes through the post office, but that was a bust, with some fruit going bad in transit. The WhatsApp direct-to-airport-cargo-bay method reduced the number of complaints. Still, despite the large volume of mangoes that Farm Fresh distributes to the U.S., their exorbitant cost and the necessity of ordering them in bulk means that people need to team up to find other ways to make distribution more efficient. The owners of desi stores in hotspots like Brooklyn and Chicago make arrangements with trucks that deliver their boxes to them, and hope they can sell the mangoes immediately, before they go bad. Individual consumers, meanwhile, have had to become logisticians themselves, since not many people can eat $300 of mangoes alone. In the course of my reporting, I’ve spoken with and been invited to join religious, cultural, and national WhatsApp groups that coordinate regional mango delivery.</p>
+
+<p id="G9eJoH">But the challenges continue. Ever since the Pakistani mango import business started in the U.S. in the early 2010s, it has faced quality control issues. While the vast majority of customers I’ve spoken to have praised the taste of the mangoes, a handful have said that even if the flavor is good, the physical quality of the mango on arrival still isn’t up to standard. When I myself have received mangoes from Farm Fresh, they’ve varied from perfectly ripe to soft with brown spots inside. (Even the overripe ones are salvageable: I turn them into milkshakes or ice cream.) “Overall, it is not easy work ... in any respect,” Baweja told me. “Mangoes are a very delicate fruit and have a very short shelf life, and so it is difficult to take care of them properly.” </p>
+<p id="TmDo9z">The main proposal to cut down on distribution time is to irradiate the mangoes in Pakistan so the mangoes can go directly to consumers as soon as they arrive here, rather than traveling by land from a U.S. airport to the closest irradiation facility, as they do now. Lahore does actually have a USDA-approved irradiation <a href="https://pk.usembassy.gov/usaid-introducing-innovative-technologies-for-the-development-of-pakistans-agriculture-sector/">facility</a> intended for use by exports to the U.S.; it was inaugurated in 2019 with support from U.S.-Pakistan Partnerships for Agricultural Market Development (AMD), a USAID initiative that has since been discontinued. But as of yet, the facility does not appear to be operational, due to agricultural <a href="https://www.dawn.com/news/1272875">disputes</a> between the federal and state governments in Pakistan. Earlier this year, the <em>Express Tribune</em> <a href="https://tribune.com.pk/story/2291037/traders-lament-low-mango-exports-to-us">reported </a>that the exporters “had failed to take full benefit” of the U.S. market and that the Lahore facility was “virtually dormant.”</p>
+<p id="xckyCt">For all of its failures to get the Lahore irradiation facility up and running, the Pakistani government has signaled some interest in increasing exports; last year, officials held a meeting to explore new international markets. Amid discussion about greater investment in the agricultural sector, an industry delegate explained the numerous challenges of mango cultivation, <a href="https://tribune.com.pk/story/2251828/mango-diplomacy-pakistan-explore-new-markets">including</a> “climate changes, scarcity of water, lack of research and development, primitive agriculture practices, inadequate cold storage facilities, and transportation issues.” The COVID-19 pandemic, locust attacks, and canceled flights have also led to many export issues;  as a result, the price of mangoes and the cost of shipping them increased. And with higher shipping costs, Farm Fresh’s mangoes cost more per box this year.</p>
+<hr id="bQicPk"/>
+<p id="eQIfQN"><strong>In the three years</strong> since I found myself at the Detroit airport with my cousin’s WhatsApp-ordered shipment, I have become so deeply intertwined with this story that I’m now a character in it. It started last summer, when I tweeted out Aamir Baweja’s selling information: All of a sudden I was a source, a mango hype-man. People around the country ordered as I waited nervously, thinking strangely of Humean concepts of causation. Had I experienced a mango miracle, or could my WhatsApp experience actually be replicated nationwide?</p>
+<p id="GczLRd">I shouldn’t have worried. “I ate about 24 mangoes in a week. It kind of reset my expectations on what Pakistani mangoes are,” said Qasim Ijaz, a WhatsApp mango customer. “They’re smaller than what I remember from growing up, but the taste doesn’t lie.” Soon people were posting pictures of their mango boxes, creating another round of word-of-mouth buzz that spread the gospel of the Chaunsa. </p>
+<p id="LSHrrW">That July, the cookbook author and chef Samin Nosrat mentioned her love for the people of the “Secret WhatsApp mango economy” on <em>Home Cooking</em>, her podcast with the musician Hrishikesh Hirway, possibly generating a new set of customers<em>. </em>I was fielding DM requests on everything from refrigeration to checking ripeness to whether they could really trust this guy. I was added to a WhatsApp group of people who had ordered from Momin and soon found myself debating the efficacy of the middleman system, alternative methods for ordering, and reporting on the quality of each week’s batch. </p>
+<p id="HuubRH">If the 2021 import season proved anything, it’s that consumers are hungry for mangoes — no matter how much they bemoan the exorbitant price they have to pay for them. They will pay, and their willingness to do so is reflective of the level of obsession seen at every link in the Pakistani mango export chain. The people who do this are obsessed with food, and with Pakistan, and they want to share their obsession with everyone, and for this business to succeed. Baweja, Momin, and the Aams Dealer insist they’re hobbyists: it’s less about the business, they claim, than love of the fruit. </p>
+<p id="ruiaFh">I have learned to love an imperfect mango. Having been raised in the U.S., I always expected fruit to come to me looking and tasting pristine despite the struggle it undergoes to make it to me. But looking at the Chaunsa, I have a much deeper appreciation for its odyssey. </p>
+<p id="l8cFnW">What’s the future of the Pakistani mango in America? There’s a lot I don’t know, but if the fruit can be irradiated in Pakistan, it’s possible you’ll eventually see it in your local market. Hobbyists have looked for alternatives by attempting to grow grafted Pakistani seedlings in U.S. soil. So far their efforts haven’t been commercially viable; they also haven’t been helped by the fact that Florida’s mango market is <a href="https://www.themangofactory.com/mango-history/#:~:text=Because%20mangos%20need%20a%20tropical,for%20the%20last%2030%20years.">struggling</a>. But even if imports do make it to your local market, there’s still a branding problem: Pakistan is seen as an inherently dangerous place, not a source of luxury products.</p>
+<p id="EFM1XW">What I do know is that if Chaunsas start appearing at your local market, it will be for reasons other than the passion of the customer as it is now. If they are grown domestically in Florida, they will be transformed<em> </em>by the fact of their location, and get a new breed name — much like the Tommy Atkins, which originated in India. It’s kind of like immigration: Once someone of Pakistani descent like myself is born here and adapts to the local environment, that person is not necessarily Pakistani anymore, or necessarily fully American. I’m kind of both. And so too will be the Chaunsa, if it becomes part of the American market. </p>
+<p id="an3KFJ">In the meantime, next season, order your mangoes off WhatsApp with a healthy dose of skepticism. You may just have the most mind-blowing mango experience of your life. Or you might find yourself at a cargo bay with the wrong package. Who knows? That’s part of the adventure.</p>
+<p id="7BeDQs"><small><em>The reporting for this piece was originally for </em></small><a href="https://www.americastestkitchen.com/podcasts/proof"><small><em>America’s Test Kitchen’s </em></small><small>Proof</small><small><em> podcast</em></small></a><small><em>, and can be heard in “</em></small><a href="https://podcasts.apple.com/us/podcast/underground-aams-trade-part-1/id1438546054?i=1000460040851"><small><em>Underground Aams Trade Part 1</em></small></a><small><em>” and “</em></small><a href="https://podcasts.apple.com/ca/podcast/underground-aams-trade-part-2/id1438546054?i=1000460787158"><small><em>Underground Aams Trade Part 2</em></small></a><small><em>.”</em></small></p>
+<p id="rvXcSy"><a href="https://twitter.com/radbrowndads"><small><em>Ahmed Ali Akbar</em></small></a><small><em> is a mango lover, food writer, and audio journalist. He covers American Muslims as the host of the </em></small><a href="https://www.seesomethingpodcast.com/"><small>See Something Say Something</small><small><em> podcast</em></small></a><small><em>. </em></small></p>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  </main>
+  
+
+</div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 08:10:51 +0000</pubDate>
+      <source>https://www.eater.com/22618349/pakistani-mangoes-chaunsa-anwar-ratol-buy-usa-whatsapp-shipping-supply-chain</source>
+    </item>
+    <item>
+      <title>The difference between a=a+b and a+=b in Python</title>
+      <link>https://pub.towardsai.net/the-difference-between-a-a-b-and-a-b-in-python-a7338d96e408</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___pub_towardsai_net_the-difference-between-a-a-b-and-a-b-in-python-a7338d96e408/image.jpg" /> 
+<div id="readability-page-1" class="page"><section><div><div><p id="767a">Let’s look at an example below using a list. When you try to concatenate two lists <strong>mylist_1 </strong>and <strong>mylist_2 </strong>using the <strong>+</strong> operator, it creates a <strong>new object</strong> and assigns <strong>mylist_1 </strong>to the new object.</p><p id="61a8">As you can see <strong>mylist_1 </strong>and <strong>mylist_2 </strong>are pointing to two different memory locations. And the result of the concatenation is also pointing to a different memory location.</p><pre><span id="f134">&gt;&gt;&gt; mylist_1 = [1, 2, 3]</span><span id="f5a0">&gt;&gt;&gt; mylist_1 = mylist_1 + mylist_2</span></pre><p id="5631">Now, look at the same example but using <strong>in-place concatenation operator</strong> <strong>+=</strong>. As you can see, the <strong>+=</strong> operator didn’t create a new object. The <strong>mylist_1 </strong>is pointing to the same memory location before and after the concatenation. We can say that <strong>mylist_1 </strong>is mutated.</p><pre><span id="6d39">&gt;&gt;&gt; mylist_1 = [1, 2, 3]</span><span id="265d">&gt;&gt;&gt; mylist_1 += mylist_2</span></pre><p id="5172">However, for immutable objects such as int, floats, string, etc. it doesn’t matter. As seen from the below example, the memory location of <strong>num1 </strong>is different before and after the concatenation in both scenarios.</p><pre><span id="77ad">&gt;&gt;&gt; num1 = 10</span><span id="cff2">&gt;&gt;&gt; num1 = num1 + num2</span><span id="6f93">&gt;&gt;&gt; num1 += num2</span></pre><p id="887b"><strong>The difference between both the concatenation operators is that the + creates a new list and the += modifies an existing list in place.</strong></p><p id="f717">The repetition operators also behave similarly to the concatenation operators we just went through. Refer to the example below. The memory location of <strong>mylist1 </strong>is different before and after the repetition (*) operator.</p><pre><span id="2a6e">&gt;&gt;&gt; mylist1 = [1,2]</span><span id="ed02">&gt;&gt;&gt; mylist1 = mylist1 * 3</span></pre><p id="aedc">Now, let’s look at the same example using the <strong>*=</strong> operator. As you can see, the memory location of mylist1 is the same before and after the concatenation operation. So, <strong>mylist1 </strong>is mutated with the *= operator.</p><pre><span id="46f1">&gt;&gt;&gt; mylist1 = [1,2]</span><span id="6073">&gt;&gt;&gt; mylist1 *= 3</span></pre><p id="ee84">The in-place repetition operator also doesn&#39;t make difference for an immutable object because we can’t modify an immutable object.</p><p id="44ac"><strong>The difference between both the repetition operators is that the * creates a new list and the *= modifies an existing list in place.</strong></p><p id="7d3b">The main benefit of using in-place concatenation (+=) or in-place repetition (*=) is that it is faster than normal concatenation or repetition operation. Because the in-place operation mutates the object and Python doesn’t have to create a new object which saves some time.</p><h2 id="e612"><strong>Concatenation speed comparison</strong></h2><p id="1865">As seen from the below example, += is marginally faster than the + operator. The + operator took 2.42 seconds whereas the += operator took 2.29 seconds.</p><p id="13e0"><strong>+ operator</strong></p><pre><span id="69bf">&gt;&gt;&gt; code = &#34;&#34;&#34;</span></pre><p id="209d"><strong>+= operator</strong></p><pre><span id="b786">&gt;&gt;&gt; code = &#34;&#34;&#34;</span></pre><h2 id="b88a"><strong>Repetition speed comparison</strong></h2><p id="ea8c">As seen from the below example, *<strong>=</strong> is marginally faster than the *operator. The * operator took</p><p id="6869"><strong>*operator</strong></p><pre><span id="8bb6">&gt;&gt;&gt; code = &#34;&#34;&#34;</span><span id="29b8">&gt;&gt;&gt; import timeit</span></pre><p id="1632"><strong>*= operator</strong></p><pre><span id="03db">&gt;&gt;&gt; code = &#34;&#34;&#34;</span><span id="8a8e">&gt;&gt;&gt; import timeit</span></pre><p id="92c1">In this article, you have understood an important difference between <code><strong>+ and +=</strong></code> and <code>* and *=</code> operators. Both * and + operator create a new list whereas t <code>+= and *=</code> modifies an existing list in place.</p><p id="4091"><em>Originally published at </em><a href="https://pythonsimplified.com/know-the-difference-between-add-vs-inplace/" rel="noopener"><strong><em>pythonsimplified</em></strong></a><strong><em> </em></strong><em>on June 22, 2021.</em></p><ul><li id="894e"><a href="https://pythonsimplified.com/difference-between-sort-and-sorted-in-python/" rel="noopener">The difference between sort() and sorted() in Python</a></li><li id="c9d9"><a href="https://pythonsimplified.com/the-most-controversial-python-walrus-operator/" rel="noopener">The Most Controversial Python’s Walrus Operator</a></li><li id="dabf"><a rel="noopener" href="https://pub.towardsai.net/the-difference-between-a-a-b-and-a-b-in-python-a7338d96e408">Difference between a=a+b and a+=b in Python</a></li><li id="fc1e"><a href="https://pythonsimplified.com/understanding-indexing-and-slicing-in-python/" rel="noopener">Understanding Indexing and Slicing in Python</a></li><li id="a8cb"><a href="https://pythonsimplified.com/python-list-vs-tuple/" rel="noopener">Python List Vs Tuple</a></li></ul></div></div></section></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 06:09:50 +0000</pubDate>
+      <source>https://pub.towardsai.net/the-difference-between-a-a-b-and-a-b-in-python-a7338d96e408</source>
+    </item>
   </channel>
 </rss>
