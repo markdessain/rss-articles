@@ -17393,5 +17393,439 @@ _ZTI3Bar:
       <pubDate>Thu, 12 Aug 2021 03:37:56 +0000</pubDate>
       <source>https://www.neh.gov/article/suburban-dwelling</source>
     </item>
+    <item>
+      <title>Geometric Deep Learning Course: Grids, Groups, Graphs, Geodesics, and Gauges</title>
+      <link>https://geometricdeeplearning.com/lectures/</link>
+      <description></description>
+      <content:encoded><![CDATA[<div id="readability-page-1" class="page"><div>
+      <div>
+        <article>
+  
+
+  <section>
+    <p>As part of the <a href="https://aimsammi.org/">African Master’s in Machine Intelligence</a> (AMMI 2021), we have delivered a course on Geometric Deep Learing (<strong>GDL100</strong>), which closely follows the contents of our <a href="https://arxiv.org/abs/2104.13478">GDL proto-book</a>. We make all materials and artefacts from this course publicly available, as companion material for our proto-book, as well as a way to dive deeper into some of the contents for future iterations of the book.</p>
+
+<p><a href="https://www.youtube.com/playlist?list=PLn2-dEmQeTfQ8YVuHBOvAhUlnIPYxkeu3"><strong>All lecture recordings</strong></a></p>
+
+
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Tutorial 1</strong>: <em>Graph Neural Networks</em></td>
+      <td>Pim de Haan, Nikola Jovanović</td>
+      <td><a href="https://www.youtube.com/watch?v=d5UZB5fi57k">Recording</a></td>
+      <td><a href="https://colab.research.google.com/drive/1aA--IgJSdPh7J_MIJgs2r0D0VCbGpNTp">Colab</a></td>
+    </tr>
+    <tr>
+      <td><strong>Tutorial 2</strong>: <em>Group Equivariant Neural Networks</em></td>
+      <td>Gabriele Cesa</td>
+      <td><a href="https://youtu.be/iFfBYPAqkH8">Recording</a></td>
+      <td><a href="https://colab.research.google.com/drive/1DfUuk-NZtW5d0toMnL752dYEMSVuNWgM?usp=sharing">Colab</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Seminar 1</strong>: <em>Geometric Deep Learning and Reinforcement Learning</em></td>
+      <td>Elise van der Pol</td>
+      <td><a href="https://youtu.be/03MbWVlbefM">Recording</a></td>
+      <td><a href="https://www.dropbox.com/s/akd7lam38wf61rd/AMMI%20Seminar%201%20-%20Geometric%20Deep%20Learning%20and%20Reinforcement%20Learning.pdf?dl=0">Slides</a></td>
+    </tr>
+    <tr>
+      <td><strong>Seminar 2</strong>: <em>Natural Graph Networks</em></td>
+      <td>Pim de Haan</td>
+      <td><a href="https://youtu.be/2odKzu5fwVI">Recording</a></td>
+      <td>Slides (<em>coming soon</em>!)</td>
+    </tr>
+    <tr>
+      <td><strong>Seminar 3</strong>: <em>General E(2)-Equivariant Steerable CNNs</em></td>
+      <td>Gabriele Cesa</td>
+      <td><a href="https://youtu.be/eGDD2MYUbw8">Recording</a></td>
+      <td>Slides (<em>coming soon</em>!)</td>
+    </tr>
+    <tr>
+      <td><strong>Seminar 4</strong>: <em>Weisfeiler and Lehman go Topological: Message Passing Simplicial Networks</em></td>
+      <td>Fabrizio Frasca</td>
+      <td>Recording (<em>coming soon</em>!)</td>
+      <td><a href="https://www.dropbox.com/s/sai0wgh46zwd1b3/AMMI%20Seminar%204%20-%20Message%20Passing%20Simplicial%20Networks.pdf?dl=0">Slides</a></td>
+    </tr>
+  </tbody>
+</table>
+
+  </section>
+</article>
+
+      </div>
+
+      
+
+
+
+
+    </div></div>]]></content:encoded>
+      <pubDate>Thu, 12 Aug 2021 19:43:12 +0000</pubDate>
+      <source>https://geometricdeeplearning.com/lectures/</source>
+    </item>
+    <item>
+      <title>Raycast (YC W20) Is Hiring to Make Developers More Productive (Remote, UTC ± 3h)</title>
+      <link>https://raycast.com/jobs</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___raycast_com_jobs/image.jpg" /> 
+<div id="readability-page-1" class="page"><div data-server-rendered="true" id="app"><main><div data-v-52892cf0=""><p data-v-52892cf0="">We&#39;re looking for passionate people to join us on our mission to revolutionize how developers experience productivity tools.</p></div><div><p>As builders, we optimize for output. For this, we use tools that let us achieve more with less effort. A great tool sits on the sideline, waits to be used and then gets the job done. Afterwards, it gets out of the way again. Today&#39;s workplaces are the opposite: Collaboration harms productivity, notifications scream for attention and websites are clumsy.</p><p>We aim to calm this mess by providing a simple user interface that reduces tools to their core functionality. Raycast is designed to keep their users focused. It optimizes for the shortest path from intent to action. The ephemeral app is accessible from anywhere on a Mac and fully keyboard-driven.</p><p>Many highly-rewarding productivity tools are custom to the setup of individuals or teams. To support such setups, we’re providing the toolkit for developers to automate their every-day tasks. On top, we&#39;re establishing a community to shape an ecosystem of productivity tools.</p><p>Join our fully distributed team to change how developers control, build and share their productivity tools.</p><h2 id="open-positions"><a href="#open-positions" aria-hidden="true"><span></span></a>Open positions</h2><p>We&#39;re currently looking for the following positions:</p><p>If you resonate with our mission but there isn’t an open position for you, you can also send us an email at <a href="mailto:jobs@raycast.com" target="_blank" rel="nofollow noopener noreferrer">jobs@raycast.com</a> with any information you’d think is relevant.</p><h2 id="what-we-offer"><a href="#what-we-offer" aria-hidden="true"><span></span></a>What we offer</h2><ul><li><strong>We&#39;re at the beginning of our next chapter.</strong> You will join us at the <a href="https://raycast.com/blog/hello-world/">right time</a> to have major impact on the future of the company. We released Raycast 1.0, established a friendly community and are jumping head first into building a platform for productivity tools.</li><li><strong>We&#39;re backed by great investors.</strong> We&#39;re backed by <a href="https://www.accel.com/noteworthy/giving-developers-superpowers-our-investment-in-raycast" target="_blank" rel="nofollow noopener noreferrer">Accel</a>, Y Combinator, Chapter One and angels such as Charlie Cheever (Co-Founder of Expo &amp; Quora), Calvin French-Owen (Co-Founder of Segment), Zach Holman (Early GitHub engineer) and more.</li><li><strong>We&#39;re individual contributors at heart.</strong> We value full ownership and responsibility, choose quality over quantity and put our users first. We&#39;re motivated by shipping truly great software.</li><li><strong>We&#39;ll treat you well.</strong> Get a competitive salary, equity and health insurance. Plus, we provide a monthly health benefit for a gym, pay for your coworking space, give you a MacBook Pro with 5K display and accessories and provide 25 days of paid-time off (PTO) plus all national holidays.</li></ul><h2 id="application-process"><a href="#application-process" aria-hidden="true"><span></span></a>Application process</h2><p>During our interview process, we want to make sure that both sides get a good understanding of what it feels to work together day-to-day. Our process contains a few steps:</p><ol><li><strong>Send us an engaging email.</strong> Tell us why you want to join Raycast and why you generally care about the problem we&#39;re solving. Make your first impression count. Share with us what excites you and how you envision your role at Raycast.</li><li><strong>An intro call with the founders.</strong> Both parties get to know each other. You learn more about Raycast and can ask us any question. From our side, we want to understand what motivated you to apply.</li><li><strong>Test task.</strong> We give you an assignment that is similar to tasks you would do on a daily basis as part of the team. We’ll create a shared Slack channel to communicate so you will get a sense of what it’s like to collaborate with the team.</li><li><strong>Another video call to present your task.</strong> Time to show your work in a short video call with some of us. Expect some role-specific questions to better understand how you tick.</li></ol><p>After the last step, we get back to you with a decision. In rare cases, we might ask you for another call.</p></div></main></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 07:00:14 +0000</pubDate>
+      <source>https://raycast.com/jobs</source>
+    </item>
+    <item>
+      <title>How Private is my VPN?</title>
+      <link>https://themarkup.org/ask-the-markup/2021/08/12/how-private-is-my-vpn</link>
+      <description></description>
+      <content:encoded><![CDATA[<img src="https://rss.markdessain.com/feeds/hackernews/https___themarkup_org_ask-the-markup_2021_08_12_how-private-is-my-vpn/image.jpg" /> 
+<div id="readability-page-1" class="page"><div>
+        
+        <p>For the last seven years, Shannon Morse has been making videos on security and privacy tips on YouTube. That includes reviews of Virtual Private Networks, or VPNs—software that encrypts your network traffic so that internet service providers or people on the same Wi-Fi network as you can’t spy on your activity.</p>
+
+
+
+<p>VPNs are frequently marketed as a tool to protect privacy because they can hide your IP addresses and other signals that tell a website who you are, like your internet service provider or your approximate location. Businesses have VPNs to make sure remote staffers are securely connected to their internal network, activists use them to hide from government espionage, and the average person might use it to watch TV shows only available in other countries.  </p>
+
+
+
+  
+
+
+
+<p>Morse said she uses VPNs like ProtonVPN to help keep her online activities private because of her public persona. </p>
+
+
+
+<p>“Especially because I’m a content creator, it’s so important to me to uphold my own security and privacy standards,” she said. “A VPN helps secure and helps privatize some of what I do on the web.”</p>
+
+
+
+<p>But while VPNs say they do not log people’s activity—meaning their browsing, who they call, which TV shows they watch—that does not mean they’re not siphoning data from their users and even their prospective customers. </p>
+
+
+
+<p>To get a sense of exactly what sorts of information VPNs are grabbing, The Markup examined the privacy policies of 14 popular VPN companies. We also ran their websites through Blacklight, our tool for detecting third-party trackers. And we searched through our Citizen Browser data for VPN Facebook advertisements to see not only how VPNs are marketing themselves on Facebook but also how they’re making use of that platform’s personal-data-driven advertising machine.</p>
+
+
+<div role="complementary">
+  <div>
+    <h3>10 of 14</h3>
+    <p>VPN websites The Markup examined contained trackers.</p>
+  </div>
+  
+</div>
+
+
+<p>Overall, we found a fair bit of hypocrisy: While the VPNs’ homepages and blog posts highlight their privacy benefits, some of their privacy policies tell a different story.</p>
+
+
+
+<p>Surfshark’s homepage, for instance, boasts that it can “protect your privacy with the fastest VPN,” while its privacy policy notes that the company collects user devices’ advertising identifiers for marketing purposes.</p>
+
+
+
+<p>“We do collect aggregated data for marketing purposes as it is crucial in making business decisions for customer acquisition and competing in an extremely competitive VPN industry,” Dom Dimas, a spokesperson for the company said.</p>
+
+
+
+<p>Not all VPNs we examined tracked users or visitors to their websites, but many did. </p>
+
+
+
+<p>Eight apps collected data from VPN users, and 10 out of 14 VPN websites contained trackers. As for how that data played into Facebook’s advertising machine, we’ll get to that in a minute. First, the results. </p>
+
+
+<div>
+	<p><a href="#what-data-are-vpns-scooping-up-about-their-users">↩ link</a></p><h2 id="what-data-are-vpns-scooping-up-about-their-users"><strong>What Data Are VPNs Scooping Up About Their Users? </strong></h2>
+</div>
+
+
+<p>We selected 14 VPNs that were among the most frequently recommended VPNs from websites like <a href="https://www.security.org/vpn/best/" target="_blank">Security.org</a>, <a href="https://www.nytimes.com/wirecutter/reviews/best-vpn-service/" target="_blank">Wirecutter</a>, and <a href="https://www.pcmag.com/picks/the-best-vpn-services" target="_blank">PCMag</a>. We also included VPNs known to run ads on Facebook, discovered through <a href="https://themarkup.org/citizen-browser">our Citizen Browser project</a>. </p>
+
+
+
+<div>
+  
+  <div>
+    <table>
+        
+          <tbody><tr><th>
+              <span>VPN
+                
+              </span>
+            </th><th>
+              <span>
+                
+              </span>
+            </th><th>
+              <span>Ad Trackers
+                
+              </span>
+            </th><th>
+              <span>Third-Party Trackers
+                
+              </span>
+            </th><th>
+              <span>Facebook Pixel
+                
+              </span>
+            </th><th>
+              <span>Google Analytics
+                
+              </span>
+            </th><th>
+              <span>Tracking in Privacy Policy
+                
+              </span>
+            </th></tr>
+        
+      
+        
+          <tr data-row="1"><td>StrongVPN</td><td></td><td>5</td><td>3</td><td>Y</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="2"><td>IPVanish</td><td></td><td>6</td><td>5</td><td>Y</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="3"><td>ExpressVPN</td><td></td><td>6</td><td>3</td><td>Y</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="4"><td>ClearVPN</td><td></td><td>8</td><td>2</td><td>Y</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="5"><td>ProtonVPN</td><td></td><td>0</td><td>0</td><td>N</td><td>N</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="6"><td>Mullvad</td><td></td><td>0</td><td>0</td><td>N</td><td>N</td><td>N</td></tr>
+        
+      
+        
+          <tr data-row="7"><td>IVPN</td><td></td><td>0</td><td>0</td><td>N</td><td>N</td><td>N</td></tr>
+        
+      
+        
+          <tr data-row="8"><td>Windscribe</td><td></td><td>0</td><td>0</td><td>N</td><td>N</td><td>N</td></tr>
+        
+      
+        
+          <tr data-row="9"><td>Private Internet Access</td><td></td><td>1</td><td>0</td><td>N</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="10"><td>Cyber Ghost</td><td></td><td>1</td><td>0</td><td>N</td><td>N</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="11"><td>TunnelBear</td><td></td><td>3</td><td>3</td><td>N</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="12"><td>SurfShark</td><td></td><td>4</td><td>2</td><td>N</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="13"><td>NordVPN</td><td></td><td>7</td><td>4</td><td>N</td><td>Y</td><td>Y</td></tr>
+        
+      
+        
+          <tr data-row="14"><td>VPNBook</td><td></td><td>9</td><td>17</td><td>N</td><td>Y</td><td>Y</td></tr>
+        
+      </tbody></table></div><p>Source: The Markup</p></div>
+
+
+<p>Again, none of these VPN’s say they collect any sort of logs of user activity. But many of their privacy policies do allow for other sorts of data collection. </p>
+
+
+
+<p>CyberGhost VPN, for example, promotes “absolute privacy on all devices” with its service, but <a href="https://www.cyberghostvpn.com/en_US/privacypolicy" target="_blank">its privacy policy</a> notes that it can collect specific “non-personal” information on devices, including their advertising ID, battery levels, gyro-sensor data (the sensor used to automatically rotate a phone screen), and mobile service provider.</p>
+
+
+
+<p>CyberGhost didn’t respond to requests for comment.</p>
+
+
+
+<p>NordVPN, meanwhile, <a href="https://my.nordaccount.com/legal/privacy-policy/nordvpn/" target="_blank">says it uses</a> its customers’ user IDs and device IDs for marketing purposes. </p>
+
+
+
+<p>Tyler Miller, a spokesperson for the company, said that user IDs are only collected to figure out where purchases came from (for example, if the app download came because of a specific ad) and that customers are notified when that data is collected. </p>
+
+
+
+<p>“While we accept and understand our strategy’s criticism, millions of people would be less safe and less private without it,” Miller said in an email.</p>
+
+
+
+<p>ExpressVPN’s <a href="https://www.expressvpn.com/privacy-policy" target="_blank">privacy policy discloses</a> that it also collects device IDs to track where users learned about and signed up for its mobile app. ClearVPN also says in its privacy policy that it collects device IDs. </p>
+
+
+
+<p>Julia Petryk, a spokesperson for MacPaw, ClearVPN’s parent company, said the company was transparent with its tracking through a disclosure on its website and a mandatory review of its privacy policy through the app. </p>
+
+
+
+  
+
+
+
+<p>“As you have noted, users’ device IDs might be used with their consent, which is exclusively non-personal data,” Petryk said. </p>
+
+
+
+<p>While the company’s privacy policy notes that a device ID is collected with user permission, it’s mandatory to give permission if you want to use the VPN. </p>
+
+
+
+<p>And while technically “non-personal data,” a device ID, for example, can be matched with granular details that can be used to identify an individual and, in some cases, even reconstruct a person’s movements and behaviors. </p>
+
+
+
+<p>“One of the biggest points where you lose some control is when a device ID gets linked to a real identity,” Paul-Olivier Dehaye, a board member at PersonalData.io, a nonprofit focused on making data rights actionable, said. “It’s the entry key to a whole ecosystem of tracking.” </p>
+
+
+
+<p>Take a recent example that attracted a lot of media attention: A Catholic priest, using the hookup app Grindr, was tracked and outed as gay by The Pillar, a Catholic publication. </p>
+
+
+
+<p>The outlet said <a href="https://www.washingtonpost.com/religion/catholic-priest-grindr-pillar/2021/07/24/b2772f02-ecb6-11eb-8950-d73b3e93ff7f_story.html" target="_blank">it obtained commercially available location data</a> that was anonymized but contained his phone’s device ID. Even though the priest’s name wasn’t on any of the data, his device ID was linked to him because it was in locations where he worked and lived.</p>
+
+
+
+<p>Ultimately, it’s important to note that VPN privacy policies are built on trust, as these companies have the capability to collect a ton of information and it’s not always obvious what they’re doing with it.</p>
+
+
+
+<figure><blockquote><p>One way to demonstrate trustworthiness is by not tracking data that’s unnecessary.</p><cite>Mallory Knodel, Center for Democracy and Technology</cite></blockquote></figure><p>In 2017, the <a href="https://cdt.org/wp-content/uploads/2017/08/FTC-CDT-VPN-complaint-8-7-17.pdf" target="_blank">Center for Democracy and Technology (CDT) filed a complaint</a> with the Federal Trade Commission about Hotspot Shield Free VPN accusing the service of deceptive practices by advertising complete privacy yet sharing data, including device identifiers, with third-party advertising networks, redirecting traffic, and employing insecure data security practices.</p>
+
+
+
+<p>“The FTC reached out for additional information from us after the CDT complaint, and we provided such information. The FTC did not take any action,” Howard Clabo, chief communications officer for HotSpot Shield Free VPN’s parent company, Aura, said in an email.</p>
+
+
+
+<p>While collecting data for marketing purposes is a common industry practice, VPNs risk hurting their reputation through this tactic, Mallory Knodel, the CDT’s chief technology officer, said. </p>
+
+
+
+<p>“We need a healthy ecosystem of trustworthy VPNs, and one way to demonstrate trustworthiness is by not tracking data that’s unnecessary,” Knodel said.</p>
+
+
+<div>
+	<p><a href="#how-do-vpn-websites-track-people">↩ link</a></p><h2 id="how-do-vpn-websites-track-people"><strong>How Do VPN Websites Track People?</strong></h2>
+</div>
+
+
+<p>The internet is littered with digital trackers. A <a href="https://themarkup.org/blacklight/2020/09/22/blacklight-tracking-advertisers-digital-privacy-sensitive-websites">previous Markup investigation</a> using the Blacklight scanning tool found 87 percent of the 80,000 most popular websites contained third-party cookies or tracking network requests. </p>
+
+
+
+<p>Websites routinely use such trackers to see who’s visiting their sites, gain insight into the demographics of their customer base, and then target advertising appropriately. </p>
+
+
+
+<p>And while VPNs may peddle privacy products, that doesn’t mean they don’t use these data-collecting techniques. </p>
+
+
+
+<p>We found trackers on VPN websites and apps belonging to marketing companies like AppsFlyer as well as Facebook and Google.</p>
+
+
+
+<p>NordVPN, ClearVPN, and VPNBook had more than the average we found in our earlier investigation of seven ad trackers and three third-party trackers on their websites. VPNBook had nine ad trackers and 17 third-party trackers on its website.</p>
+
+
+
+<p>“This free VPN service is supported by advertisement on our website and generous donations made by our supporters,” the <a href="https://www.vpnbook.com/contact" target="_blank">company says in the FAQ on its</a> site. VPNBook didn’t respond to requests for comment. </p>
+
+
+
+<figure><blockquote><p>It’s the exact opposite of what they are going to a VPN for.</p><cite>Paul-Olivier Dehaye, PersonalData.io</cite></blockquote></figure><p>NordVPN’s website uses <a href="https://my.nordaccount.com/legal/cookie-policy/" target="_blank">trackers</a> to combine browser and unique user IDs for targeted advertising. NordVPN’s website also uses cookies to identify LinkedIn users for marketing on that platform. </p>
+
+
+
+<p>StrongVPN, IPVanish, ExpressVPN, and ClearVPN have Facebook pixels that tell the advertising giant if you’ve visited their websites.</p>
+
+
+
+<p>Usman Choudhary, a chief product officer for the VIPRE Group, which operates both IPVanish and StrongVPN, said VIPRE uses trackers on its website to “understand more about visitors to our sites and to serve advertisements to encourage their return,” but noted that the data is anonymous. </p>
+
+
+
+<p>Only four VPN websites had no trackers of any kind, and only three of those VPN apps didn’t track its users in any way. The Markup’s analysis found that the VPNs Mullvad, IVPN, Windscribe, and ProtonVPN had no trackers on their websites. Other than ProtonVPN, whose app uses customers’ email addresses for advertising, their apps don’t collect any data for marketing, either. </p>
+
+
+
+<p>“There are people who make a lot of effort to avoid using Facebook and Google services. It’s completely opposite to their expectation if the moment they show up to a website to buy a tool, they’re already tracked and that information is revealed to those companies,” PersonalData.io’s Dehaye said. “It’s the exact opposite of what they are going to a VPN for.” </p>
+
+
+<div>
+	<p><a href="#how-does-all-this-data-get-used">↩ link</a></p><h2 id="how-does-all-this-data-get-used"><strong>How Does All This Data Get Used?</strong></h2>
+</div>
+
+
+<p>We don’t exactly know—the anatomy of the data-fueled online advertising system is complex and not exactly transparent. Does a VPN user’s phone’s gyro-sensor data somehow translate into money in some obscure corner of the data-verse? </p>
+
+
+
+<p>But some tracking, at least, is a little more straightforward: Companies commonly use information they collect on their users and site visitors for marketing purposes. And our Citizen Browser data gave us a tiny window into how one VPN company—ExpressVPN—scooped up data on its app users and website visitors and then used that data to target them with Facebook ads. </p>
+
+
+
+<p>Our Citizen Browser project is a nationwide panel of Facebook users who share their news feed data with us. That data includes the ads that appear on their timelines, along with information Facebook provides them with on why they were targeted for the ads. (For any Facebook user, that information appears if you click “Why am I seeing this ad?” in the dropdown menu on the upper right side of an ad.)</p>
+
+
+
+<p>Our panelist data turned up multiple ads purchased by ExpressVPN, and the targeting information on the ads showed that ExpressVPN used Facebook’s “<a href="https://www.facebook.com/business/help/341425252616329?id=2469097953376494" target="_blank">custom audience</a>” feature to target some of its ads. Custom audiences are specific lists of people the advertiser has identified whom it wants to reach with its ads. </p>
+
+
+
+  
+
+
+
+<p>A Citizen Browser panelist saw an ExpressVPN ad for a 49 percent discount on May 20. The ad, our data shows, targeted a custom audience of people who had used the VPN’s app in the past. Five panelists also saw ads from ExpressVPN in April that were targeted to people who had visited the VPN’s website. </p>
+
+
+
+<p>The advertising tactics conflict with ExpressVPN’s own blog posts, which called targeted ads on Facebook “creepy” and “invasive” in a <a href="https://archive.is/X3qg9" target="_blank">blog post last updated on May 31</a>—just 11 days after our panelist saw its ad targeted to app users. </p>
+
+
+
+<p>“ExpressVPN uses third-party tools to show advertisements on third-party websites to potential new customers who have visited our website,” Harold Li, a vice president for the company, said in an email.</p>
+
+
+
+<p>Other companies have forgone such advertising tactics. </p>
+
+
+
+<p>IVPN’s chief marketing officer, Viktor Vecsei, said the company stopped using third-party trackers for advertising on Facebook and Google in 2019 because of privacy concerns. He noted that it had hurt his company’s growth but was worth the privacy protections.</p>
+
+
+
+<p>“Keeping these boundaries [means] we will never be a market leading VPN provider and promoting our service is an uphill battle,” Vecsei said. “Even so, we cannot consider financing the corporate surveillance reality and brush it off as a necessary trade-off.”</p>
+
+
+
+<p>As for Morse, the YouTube content creator, she said she was surprised at the extent of VPNs’ tracking of users. </p>
+
+
+
+<p>“I’m upset about it because I do expect privacy from a virtual private network. I mean that’s the reason we’re using it,” Morse said. “You expect to have that privacy as a part of their promise to you.”</p></div></div>]]></content:encoded>
+      <pubDate>Fri, 13 Aug 2021 03:40:11 +0000</pubDate>
+      <source>https://themarkup.org/ask-the-markup/2021/08/12/how-private-is-my-vpn</source>
+    </item>
   </channel>
 </rss>
